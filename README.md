@@ -42,6 +42,8 @@ Last updated: 2026-10-01.
 
 - **A5 locked benchmark and baselines [M]** (`compiler/benchmark.py`, `compiler/baselines.py`). `data/benchmark/a5-v1.jsonl`: 4,396 decisions (test 2,231 plus OOD 2,165), read-only, sha256 `f385e40b5f7a5e0b...` in `results/raw/a5-benchmark-a5-v1.sha256`, with every pre-registered variant (shuffle including NONE, NONE first/middle/last, +3/+6/+10 distractors, state hashes at 12k/16k/24k/32k). Baselines in `results/raw/a5-baselines-a5-v1.json`, accuracy = agreement with the trajectory action: random 0.125, first 0.148 (0.000 when NONE is first), last item 0.150, longest text 0.257, **TF-IDF on candidate text only 0.398**. Coverage of true actions by a state-only generator: 31.7% (test), 31.8% (OOD). **The state-blind TF-IDF model reaches 0.398, over 3x random: shortcut signal in the candidates.** It is stronger on uncovered decisions (0.433, the true action is the one candidate not drawn from the pool) than on covered ones (0.323, still 2.6x random; longest-text falls to 0.097). So the primary head metric is accuracy on **covered** decisions, per evidence tier, against the best baseline there (TF-IDF 0.323), with uncovered decisions reported separately; end-to-end is covered accuracy times coverage. Head claims need a paired-bootstrap interval that excludes zero against the best baseline.
 
+- **Step 1 of the A6/A7 plan [M]:** baselines now save per-decision predictions (`results/raw/a5-baselines-a5-v1-perdecision.json`, 1.8 MB) for paired bootstrap; the rerun reproduces the earlier TF-IDF figure exactly (0.3983). The `laya-typed` baseline over all eight axes is run by `compiler/typed_baseline.py` (state rebuilt tail-first at 2,400 characters or the smallest budget whose core fits; any remaining explicit cut is counted); results in `results/raw/a5-typed-baseline-a5-v1.json`.
+
 ## Not done
 
 Teacher outputs attached to the records (stage 2, in laya-audit), the locked benchmark and baselines (A5, A6), any hidden-state capture, training, calibration on our data, and any evaluation on a real LLM. **Nothing is known yet about how well the head works on real states.**
@@ -57,6 +59,7 @@ A4.0 is done: 20 SWE-rebench-openhands rows read (`A4_LEAKAGE_RULES.md` v1 and `
 ## Open decisions for the user
 
 Delete the leftover partial downloads in the Laya and 120B caches (about 335 MB)? Allow about 300 SWE-rebench rows via the datasets server (about 83 MB [E]; the full 1.94 GB needs a yes)? Commit the new files (`A4_LEAKAGE_RULES*.md`, baselines, schema changes) and push? Which second backbone after heretic (`Qwen/Qwen3.5-4B` is in the local cache, not opened)?
+
 
 
 

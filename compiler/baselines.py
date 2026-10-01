@@ -99,17 +99,28 @@ def policies(tf):
             "tfidf_candidate_only": lambda tx: int(tf.scores(tx).argmax())}
 
 
-def evaluate(bench, pol, axis):
-    agg = collections.defaultdict(lambda: [0.0, 0])
+def evaluate(bench, pol, axis, lookup=None):
+    """Returns (aggregates, per-decision list aligned with bench). Per-decision entry: the predicted index, the expected accuracy for random,
+    or None if the variant is absent. lookup {(decision_id, axis): predicted index} replaces pol for models that were run elsewhere."""
+    agg, per = collections.defaultdict(lambda: [0.0, 0]), []
     for r in bench:
         x = {"texts": r["texts"], "label_index": r["label_index"]} if axis == "normal" else r["variants"][axis]
         if x is None:
+            per.append(None)
             continue
-        hit = (1.0 / len(x["texts"])) if pol is None else float(pol(x["texts"]) == x["label_index"])   # None = random, expected value
+        if lookup is not None:
+            p = lookup.get((r["decision_id"], axis))
+            hit = float(p == x["label_index"])
+        elif pol is None:
+            p, hit = None, 1.0 / len(x["texts"])   # random: the expected value
+        else:
+            p = pol(x["texts"])
+            hit = float(p == x["label_index"])
+        per.append(p if p is not None else round(hit, 6))
         for key in ("all", f"split:{r['split']}", f"tier:{r['tier']}", f"covered:{r['candidate_coverage']}"):
             agg[key][0] += hit
             agg[key][1] += 1
-    return {k: {"accuracy": round(v[0] / v[1], 4), "n": v[1]} for k, v in sorted(agg.items())}
+    return {k: {"accuracy": round(v[0] / v[1], 4), "n": v[1]} for k, v in sorted(agg.items())}, per
 
 
 def main(records, bench_path, name):
@@ -122,14 +133,16 @@ def main(records, bench_path, name):
     tf = TfIdf(train)
     cal_acc = tf.fit(train, val)
     pols = {"random": None, **policies(tf)}
-    res = {}
+    res, perdec = {}, {}
     for pname, pol in pols.items():
-        res[pname] = {ax: evaluate(bench, pol, ax) for ax in AXES}
+        got = {ax: evaluate(bench, pol, ax) for ax in AXES}
+        res[pname] = {ax: v[0] for ax, v in got.items()}
+        perdec[pname] = {ax: v[1] for ax, v in got.items()}
     cov = {s: round(sum(r["candidate_coverage"] for r in bench if r["split"] == s) / sum(1 for r in bench if r["split"] == s), 4) for s in ("test", "ood")}
     e2e = {p: {s: round(res[p]["normal"].get(f"covered:True", {"accuracy": 0})["accuracy"] * cov[s], 4) for s in ("test", "ood")} for p in pols}
     out = {"benchmark": str(bench_path), "decisions": len(bench), "tfidf_cal_accuracy": round(cal_acc, 4), "coverage": cov,
            "end_to_end_note": "accuracy on covered decisions x coverage; an uncovered decision cannot be solved from a state-only candidate set. Uses the pooled covered accuracy for both splits: see per-split keys for exact figures.",
-           "end_to_end_pooled": e2e, "results": res}
+           "end_to_end_pooled": e2e, "decision_ids": [r["decision_id"] for r in bench], "per_decision": perdec, "results": res}
     with open(ROOT / "results" / "raw" / f"a5-baselines-{name}.json", "x", encoding="utf-8") as f:
         json.dump(out, f, indent=1)
     print(f"TF-IDF cal accuracy {cal_acc:.3f} | coverage {cov}")
