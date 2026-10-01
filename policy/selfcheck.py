@@ -100,6 +100,16 @@ for name, t in (("scores out of range", TeacherOutput("d", "CODE_RELEVANCE", "la
 print("PASS  TeacherOutput forms are mutually exclusive and each is validated by its own rules")
 print("PASS  TeacherOutput enforces lanes, distributions and the not-applicable rule")
 
+# roles: a baseline is validated against the baseline table and is never a training target
+from state.schema import usable_as_target
+base = TeacherOutput("d", "ACTION", "laya-typed", "r", role="BASELINE", candidate_ids=["a", "b"], probabilities=[.4, .6], selected_candidate="b")
+assert not base.problems() and not usable_as_target(base)
+assert TeacherOutput("d", "ACTION", "laya-typed", "r", candidate_ids=["a"], probabilities=[1.0], selected_candidate="a").problems(), "laya-typed accepted as a TEACHER"
+assert TeacherOutput("d", "ACTION", "laya-conductor", "r", role="BASELINE", applicable=False).problems(), "unknown baseline accepted"
+assert TeacherOutput("d", "ACTION", "laya-typed", "r", role="ORACLE").problems()
+assert usable_as_target(ok_t) and not usable_as_target(TeacherOutput("d", "COMPLETION", "laya-stop-completion-judge", "r", applicable=False))
+print("PASS  roles: baselines have their own table and are never training targets")
+
 # state hash: key order irrelevant, content relevant
 s1, s2 = State(task="t", compiler={"a": 1, "b": 2}), State(task="t", compiler={"b": 2, "a": 1})
 assert s1.state_hash() == s2.state_hash() and s1.state_hash() != State(task="t2", compiler={"a": 1, "b": 2}).state_hash()
@@ -115,4 +125,5 @@ for name, st in (("failing test", State(tests=[{"name": "t", "status": "fail"}])
     assert not may_stop(st).allowed, f"may_stop allowed: {name}"
 print("PASS  completion invariants block a stop on failing tests, no tests, compiler errors, pending work, unmet criteria")
 print("ALL CHECKS PASSED")
+
 

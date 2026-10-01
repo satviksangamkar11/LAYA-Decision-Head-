@@ -1,4 +1,4 @@
-# jev-airllm: a decision head for local LLMs
+﻿# jev-airllm: a decision head for local LLMs
 
 Goal: one internal decision head (a Laya/Jeeves-style pointer head) that reads the hidden states of a **local, frozen
 language model** and picks among candidate actions with calibrated probabilities. It is **backbone-agnostic**: the
@@ -19,7 +19,7 @@ Last updated: 2026-10-01.
 | `state/schema.py` | A1: candidate, state and teacher-output contracts. NONE enforced, 2 to 16 options, no outcome without execution, head metadata excludes the candidate source. `TeacherOutput` has two exclusive forms (DISTRIBUTION, INDEPENDENT_SCORES) and a lane registry. |
 | `policy/hard_rules.py` | A2: deterministic hard policy and completion invariants. Pattern lists, so they catch what they list; extend, never loosen. |
 | `policy/selfcheck.py` | 8 table-driven checks (`uv run python -m policy.selfcheck`): 23 unsafe candidates blocked, 8 safe allowed, lanes name real kinds, teacher forms validated. |
-| `teachers/laya_teachers.py`, `teachers/selfcheck.py` | A3, three of five teachers: the judge (COMPLETION), the conductor (CONTINUE, ESCALATE effort) and laya-code (CODE_RELEVANCE: independent per-chunk scores, no softmax, truncation explicit and recorded). Offline, sha256-pinned, out-of-lane returns `applicable=False`. 18 checks pass on the real checkpoints; run with `laya-audit/.venv/Scripts/python.exe -m teachers.selfcheck` from the project root. **A3 is not closed: laya-typed and cortex-1 are open.** |
+| `teachers/laya_teachers.py`, `teachers/selfcheck.py` | A3, three of five teachers: the judge (COMPLETION), the conductor (CONTINUE, ESCALATE effort) and laya-code (CODE_RELEVANCE: independent per-chunk scores, no softmax, truncation explicit and recorded). Offline, sha256-pinned, out-of-lane returns `applicable=False`. 18 checks pass on the real checkpoints; run with `laya-audit/.venv/Scripts/python.exe -m teachers.selfcheck` from the project root. **A3 is closed:** teachers are the judge, the conductor and laya-code; `teachers/baselines.py` holds `laya-typed` as a BASELINE adapter (never a training target, enforced by `usable_as_target`); cortex-1 is rejected. |
 | `tools/` | `verify_hf_download.py`, `eval_laya_typed_decisions.py`, `_manifest.py`. Outputs are create-only. |
 | `configs/models.yaml` | Pinned revisions and sha256 for the models we hold. |
 | `results/raw/` | Row-level evidence: G0 CUDA pass, download verifications, Laya evaluations. |
@@ -38,16 +38,17 @@ Last updated: 2026-10-01.
 
 ## Not done
 
-Teachers laya-typed and cortex-1; the dataset compiler (A4); the locked benchmark and baselines (A5, A6); any hidden-state capture; training; calibration on our data; any evaluation on a real LLM. **Nothing is known yet about how well the head works on real states.**
+The dataset compiler (A4.1 to A4.7), the locked benchmark and baselines (A5, A6), any hidden-state capture, training, calibration on our data, and any evaluation on a real LLM. **Nothing is known yet about how well the head works on real states.**
 
 ## Order (user, 2026-10-01)
 
 Track A first, no model touched: A3 (finish the teachers) then A4 (compiler) then A5 (locked benchmark) then A6 (baselines). Then Track B on heretic: capture at a depth chosen by a sweep, closed-form heads for fixed-layout decisions, then the pointer head for variable candidate lists.
 
-## Next (agreed)
+## Next
 
-A4.0: read about 20 SWE-rebench-openhands rows read-only, write the deterministic extraction rules and the credit/strength rules, commit them, then build the compiler. Targets: ACTION (primary), NEXT_ACTION_TYPE (sanity arm), COMPLETION (real and weak labels kept separate). No fabricated negatives, no fake evidence-sufficiency labels, no silent state truncation, compile and teacher-attach as separate stages across the two environments.
+A4.0 is done: 20 SWE-rebench-openhands rows read (`A4_LEAKAGE_RULES.md` v1 and `A4_LEAKAGE_RULES_v1_1.md`, both frozen by hash in `results/raw/`). Next is the compiler: state builder (events before `t` only, tail-first, raises on overflow), action normalisation, tier assignment, candidate generator, leakage checks, then teacher-attach as a separate stage in `laya-audit`. Targets: ACTION (primary), NEXT_ACTION_TYPE (sanity arm), COMPLETION (real and weak labels apart).
 
 ## Open decisions for the user
 
-Delete the leftover partial downloads in the Laya and 120B caches (about 335 MB)? Allow a few hundred SWE-rebench rows via the datasets server (a full 1.94 GB download needs a yes)? Which second backbone after heretic (`Qwen/Qwen3.5-4B` is in the local cache, not opened)?
+Delete the leftover partial downloads in the Laya and 120B caches (about 335 MB)? Allow about 300 SWE-rebench rows via the datasets server (about 83 MB [E]; the full 1.94 GB needs a yes)? Commit the new files (`A4_LEAKAGE_RULES*.md`, baselines, schema changes) and push? Which second backbone after heretic (`Qwen/Qwen3.5-4B` is in the local cache, not opened)?
+

@@ -48,3 +48,6 @@ sarvam-jev/
 *.parquet
 *.incomplete
 .cache/
+
+# raw downloaded datasets
+data/

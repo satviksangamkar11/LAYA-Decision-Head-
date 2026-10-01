@@ -3,8 +3,9 @@
 Uses the real checkpoints on the GPU, offline, pinned by sha256. The six routing cases are the examples printed on the conductor's
 model card [author-reported]; the judge and continue cases are my own sanity cases. None of this is a quality measurement.
 """
+from teachers.baselines import LayaTypedBaseline
 from teachers.laya_teachers import CodeRelevanceTeacher, ConductorTeacher, JudgeTeacher
-from state.schema import NONE_ID
+from state.schema import NONE_ID, Candidate, none_candidate, usable_as_target
 
 cond, judge, code = ConductorTeacher(), JudgeTeacher(), CodeRelevanceTeacher()
 
@@ -63,4 +64,16 @@ check("scores are not normalised across chunks", abs(sum(many.scores) - 1.0) > 1
 check("truncation is explicit and recorded", many.meta["truncated_items"] == ["long"] and one.meta["truncated_items"] == [] and many.meta["state_tokens"] == 128)
 check("laya-code record carries revision, calibration label, latency, raw hash",
       many.model_revision == code.revision and many.calibration_revision == "shipped" and many.latency_ms > 0 and len(many.raw_ref) == 16)
+# laya-typed baseline adapter: same candidates + NONE as the head, role BASELINE, never a training target
+typed = LayaTypedBaseline()
+cands = [Candidate("read_parser", "Open src/parser.py and read the failing function"), Candidate("run_tests", "Run pytest tests/test_parser.py -q"),
+         Candidate("edit_now", "Edit src/parser.py immediately without reading the traceback"), none_candidate()]
+b = typed.decide("b1", "ACTION", "Issue: parse() raises on empty input. The test tests/test_parser.py::test_empty fails with IndexError.", cands)
+check("laya-typed baseline: valid DISTRIBUTION over all candidates including NONE", not b.problems() and b.candidate_ids == [c.candidate_id for c in cands]
+      and b.role == "BASELINE" and b.meta["n_options"] == 4 and not b.meta["state_cut"])
+check("a baseline record is never usable as a training target; a teacher record is", not usable_as_target(b) and usable_as_target(ann))
+check("laya-typed baseline out of its list returns applicable=False, still role BASELINE",
+      (lambda o: not o.applicable and o.role == "BASELINE" and not o.problems())(typed.decide("b2", "CODE_RELEVANCE")))
+long_state = "word " * 2000
+check("long state is cut explicitly and recorded", typed.decide("b3", "ACTION", long_state, cands).meta["state_cut"] is True)
 print("ALL CHECKS PASSED")

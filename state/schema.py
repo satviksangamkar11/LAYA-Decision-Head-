@@ -64,6 +64,9 @@ LANES = {"laya-typed": (), "laya-conductor": ("CONTINUE", "ESCALATE"),
          "laya-stop-completion-judge": ("COMPLETION",), "laya-code": ("CODE_RELEVANCE",), "cortex-1": ()}
 # Empty lane = no trusted teacher role. laya-typed is a baseline only (accuracy falls 0.740 to 0.532 as distractor options are added;
 # measured on typed-decisions, not on coding). cortex-1 is rejected: fixed templates, label-bearing metadata in its training states.
+# Baselines run under the same benchmark interface but are NEVER training targets (usable_as_target is False for them).
+BASELINES = {"laya-typed": ("ACTION", "RECOVERY", "CONTINUE", "COMPLETION")}
+ROLES = ("TEACHER", "BASELINE")
 FORMS = ("DISTRIBUTION", "INDEPENDENT_SCORES")
 
 
@@ -79,7 +82,8 @@ class TeacherOutput:
     teacher_name: str
     model_revision: str
     applicable: bool = True
-    form: str = "DISTRIBUTION"                 # exactly one of FORMS; the fields of the other form must stay empty
+    role: str = "TEACHER"                      # "BASELINE" outputs are for comparison only
+    form: str = "DISTRIBUTION"                # exactly one of FORMS; the fields of the other form must stay empty
     candidate_ids: list = field(default_factory=list)   # DISTRIBUTION: candidate_id -> probability, sums to 1
     probabilities: list | None = None
     selected_candidate: str | None = None
@@ -95,10 +99,13 @@ class TeacherOutput:
 
     def problems(self):
         p = []
-        if self.teacher_name not in LANES:
-            p.append(f"unknown teacher {self.teacher_name!r}")
-        elif self.applicable and self.decision_type not in LANES[self.teacher_name]:
-            p.append(f"{self.teacher_name} is not in its lane for {self.decision_type}")
+        if self.role not in ROLES:
+            return [f"unknown role {self.role!r}"]
+        table = LANES if self.role == "TEACHER" else BASELINES
+        if self.teacher_name not in table:
+            p.append(f"unknown {self.role.lower()} {self.teacher_name!r}")
+        elif self.applicable and self.decision_type not in table[self.teacher_name]:
+            p.append(f"{self.teacher_name} is not in its {self.role.lower()} lane for {self.decision_type}")
         if self.form not in FORMS:
             return p + [f"unknown form {self.form!r}"]
         if not self.applicable:
@@ -124,6 +131,11 @@ class TeacherOutput:
             elif min(self.scores) < 0 or max(self.scores) > 1:
                 p.append("scores must be in [0, 1]")
         return p
+
+
+def usable_as_target(out):
+    """Only a valid, applicable TEACHER record may enter a training target. Baselines never do."""
+    return out.role == "TEACHER" and out.applicable and not out.problems()
 
 
 def none_candidate():
