@@ -27,3 +27,24 @@ tmp/
 *.pt
 *.gguf
 *.parquet
+
+# Heavy and local-only (user decision 2026-10-01: no models, no heavy files)
+models/
+gpt-oss-120b/
+gpt-oss-20b-heretic/
+autojev/
+laya-audit/
+hf/
+python/
+pip-cache/
+uv-cache/
+tmp/
+reference/
+sarvam-jev/
+*.exe
+*.safetensors
+*.bin
+*.gguf
+*.parquet
+*.incomplete
+.cache/
