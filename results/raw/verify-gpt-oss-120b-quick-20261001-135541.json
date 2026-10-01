@@ -1,0 +1,17 @@
+{
+ "repo": "openai/gpt-oss-120b",
+ "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+ "mode": "quick",
+ "missing": [
+  "model-00003-of-00014.safetensors",
+  "model-00013-of-00014.safetensors"
+ ],
+ "wrong_size": [],
+ "incomplete_parts": [],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 24,
+ "verdict": "INCOMPLETE: missing"
+}

@@ -1,0 +1,16 @@
+{
+ "repo": "tampajohn/laya-stop-completion-judge",
+ "revision": "c1931d4ffbb90c3584ef936b5d8eae7bbe8c82da",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [
+  "xGOKKLRSlIhH692hSVvI1-gpoa8=.37e2a430572519f050c60a055af6b85c9bcb2bcd6456f75502cf489d1a845445.2549e8f6.incomplete"
+ ],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 11,
+ "verdict": "INCOMPLETE: incomplete_parts"
+}

@@ -1,0 +1,44 @@
+# Pinned model registry (runbook phase 1, gate RB0). One entry per weight we use.
+# revision = an exact Hub commit, never "main". weights_sha256 = the Hub's LFS hash, compared with the file on disk by
+# tools/verify_hf_download.py (results/raw/verify-*.json). Paths are relative to the project root.
+# Every verify run still reports "INCOMPLETE: incomplete_parts" because of stale partial downloads left in each
+# .cache/huggingface/download folder by earlier failed attempts (nothing else is flagged). Deleting them needs a yes.
+
+models:
+  - id: gpt-oss-120b
+    repo: openai/gpt-oss-120b
+    revision: b5c939de8f754692c1647ca79fbf85e8c1e70f8a
+    path: gpt-oss-120b
+    license: Apache-2.0
+    size_bytes: 65248815744                 # model.safetensors.index.json total_size
+    role: reasoner and hidden-state source, frozen
+    verified: "2026-10-01 deep: 15/15 shards, sizes, safetensors headers, index tensors, sha256 (results/raw/verify-gpt-oss-120b-deep-20261001-154039.json)"
+
+  - id: laya-typed
+    repo: convaiinnovations/laya-typed-decisions
+    revision: 1a793eb568e6718f15941d08f85432581df534e3
+    path: models/laya-typed-decisions
+    license: Apache-2.0
+    weights_sha256: 4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e
+    role: generic typed-decision teacher. A specialist for four synthetic workflows; near chance elsewhere
+    verified: "2026-10-01 sha256 (results/raw/verify-laya-typed-decisions-deep-20261001-145512.json); offline load pinned by sha256; 2,000 test decisions 0.771 vs 0.766 published (results/raw/laya-eval-laya-typed-decisions-20261001-153708.jsonl)"
+
+  - id: laya-conductor
+    repo: mvilacad/laya-conductor
+    revision: 04116e6808345ee4aa9477afa5e405cd48ab8421
+    path: models/laya-conductor
+    license: Apache-2.0
+    weights_sha256: 3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e
+    skipped: "checkpoint_latest/ (a rolling duplicate; its model.safetensors has the same sha256 as the root file)"
+    role: reasoning-effort routing and continue-or-stopped, CONTINUE and effort decisions only
+    verified: "2026-10-01 sha256 (results/raw/verify-laya-conductor-deep-20261001-153908.json, --exclude checkpoint_latest/); offline load pinned by sha256; temperatures match the card; 6/6 printed routing examples land on the same tier"
+
+  - id: laya-stop-completion-judge
+    repo: tampajohn/laya-stop-completion-judge
+    revision: c1931d4ffbb90c3584ef936b5d8eae7bbe8c82da
+    path: models/laya-stop-completion-judge
+    license: Apache-2.0
+    weights_sha256: 37e2a430572519f050c60a055af6b85c9bcb2bcd6456f75502cf489d1a845445
+    size_bytes: 1685197088                  # fp32
+    role: completion decisions (did the turn finish), COMPLETION only. Use the shipped state_pack.py
+    verified: "2026-10-01 sha256 (results/raw/verify-laya-stop-completion-judge-deep-20261001-154447.json); offline load pinned by sha256. Smoke test with the shipped state_pack.py: two announced-next-step cases 0.75 and 0.74, a direct answer 0.05, a short reports-results case 0.46, an explicit handback 0.70 (its card warns it over-fires on handbacks). Its config is the typed-decisions config copied over: choice:2 temperature 1.906 is typed-decisions', not fitted for this judge"

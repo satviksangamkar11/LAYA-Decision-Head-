@@ -1,0 +1,66 @@
+{
+ "repo": "tindang/laya-code",
+ "revision": "f3d6bd2344e4750dd917f95d40ceacfa81bb81db",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1519,
+   "sha256": null
+  },
+  {
+   "name": "LICENSE",
+   "size": 11357,
+   "sha256": null
+  },
+  {
+   "name": "MANIFEST.sha256",
+   "size": 607,
+   "sha256": null
+  },
+  {
+   "name": "NOTICE",
+   "size": 936,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 9197,
+   "sha256": null
+  },
+  {
+   "name": "encoder/config.json",
+   "size": 2083,
+   "sha256": null
+  },
+  {
+   "name": "model.safetensors",
+   "size": 842609210,
+   "sha256": "1cc1a3716fcd0121a1aafab184d844b6df9b54a8237c883d05780e101cbae5f8"
+  },
+  {
+   "name": "rl_agent_api.py",
+   "size": 4732,
+   "sha256": null
+  },
+  {
+   "name": "rl_agent_config.json",
+   "size": 1405,
+   "sha256": null
+  },
+  {
+   "name": "rl_common.py",
+   "size": 19139,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer_config.json",
+   "size": 308,
+   "sha256": null
+  }
+ ]
+}

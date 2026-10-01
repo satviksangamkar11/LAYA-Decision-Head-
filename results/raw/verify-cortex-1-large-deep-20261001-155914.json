@@ -1,0 +1,14 @@
+{
+ "repo": "mukti-sys/cortex-1-large",
+ "revision": "3fe2c0b1f997a82339dd13598759abee96495b6d",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 10,
+ "verdict": "COMPLETE AND VERIFIED"
+}

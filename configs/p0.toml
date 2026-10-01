@@ -1,0 +1,36 @@
+# Phase 0 decisions. Changing any value needs explicit user approval.
+
+[budget]
+spend_limit_inr = 0          # no cloud, no paid APIs, no rentals
+network_downloads = "free, but each download over 1 GB needs approval"
+
+[model]
+primary = "openai/gpt-oss-120b"        # native MXFP4 experts, BF16 elsewhere, Apache 2.0
+proxy = "openai/gpt-oss-20b"           # same architecture, used to build and prove everything
+stretch = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"   # only after system is closed, on request
+on_gate_failure = "stop and ask"       # never swap models silently
+
+[jev]
+implementation = "OpenJev / SemIf (TheoLeeCJ/openjev, MIT), adapted via sarvam-jev"
+reader_candidates = ["gpt-oss itself", "AutoJev-27B BF16", "small SemIf model"]
+reader_chosen_at = "G4 (measured)"
+hosted_typesafe_jev = false
+
+[gold]
+route = "local"              # forced by zero spend
+reference = "transformers native modeling_gpt_oss (different code path from our loader)"
+order = "real-weight 2-layer slice on GPU, then full-model samples"
+
+[throughput]
+accepted = "assumed: batch / overnight, not interactive"
+status = "UNCONFIRMED - revisit at G5 with measured seconds per token"
+
+[storage]
+models_dir = "D:\\local model\\models"   # gitignored; set env JEV_MODELS_DIR to this
+# D: is a 181 GB partition, C: 291 GB, same NVMe. Steady state ~58-70 GB (120b + 20b proxy),
+# +54 GB only if AutoJev is the reader.
+
+[env]
+torch_index = "https://download.pytorch.org/whl/cu126"
+torch_target = "2.14.0+cu126"
+status = "index configured in pyproject.toml; torch dependency line and install NOT done yet"

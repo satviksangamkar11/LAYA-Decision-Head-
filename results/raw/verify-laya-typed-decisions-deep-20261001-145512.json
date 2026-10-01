@@ -1,0 +1,16 @@
+{
+ "repo": "convaiinnovations/laya-typed-decisions",
+ "revision": "1a793eb568e6718f15941d08f85432581df534e3",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [
+  "xGOKKLRSlIhH692hSVvI1-gpoa8=.4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e.103341fc.incomplete"
+ ],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 7,
+ "verdict": "INCOMPLETE: incomplete_parts"
+}

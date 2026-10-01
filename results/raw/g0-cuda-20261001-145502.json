@@ -1,0 +1,15 @@
+{
+ "gate": "G0",
+ "time": "2026-10-01 14:55:07",
+ "torch": "2.14.0+cu126",
+ "torch_cuda_build": "12.6",
+ "cuda_available": true,
+ "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "capability": [
+  8,
+  6
+ ],
+ "total_memory_bytes": 6441926656,
+ "bf16_matmul_ok": true,
+ "verdict": "PASS"
+}

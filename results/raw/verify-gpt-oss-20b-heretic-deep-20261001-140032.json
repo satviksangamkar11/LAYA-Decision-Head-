@@ -1,0 +1,25 @@
+{
+ "repo": "p-e-w/gpt-oss-20b-heretic",
+ "revision": "40a07b3c6d681a949db1ace3185050b5a0893093",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [
+  "-FqrZZ9xFsMdHzzrhYGv4rf7zYQ=.7656dd58153a2eb488df017f02660d7b01ce9ed001f35f9c8215c28eed1fd51d.1296dc60.incomplete",
+  "-FqrZZ9xFsMdHzzrhYGv4rf7zYQ=.7656dd58153a2eb488df017f02660d7b01ce9ed001f35f9c8215c28eed1fd51d.a39f3869.incomplete",
+  "40dGrjlKyxdmpKjk-97To6ZlClg=.19753c706d8c4996ad5eeaa271b4ce4fe3b6bca18d2de6f8f5a5f924dc5f9bd1.b23998ea.incomplete",
+  "40dGrjlKyxdmpKjk-97To6ZlClg=.19753c706d8c4996ad5eeaa271b4ce4fe3b6bca18d2de6f8f5a5f924dc5f9bd1.e8061d17.incomplete",
+  "UZV6EydrdFXcgvC-VQGG8yg3h9I=.fbfb5ded842a2f5edc694495f80938da0712f692570a08719105e703ba5bfb36.9960913a.incomplete",
+  "UZV6EydrdFXcgvC-VQGG8yg3h9I=.fbfb5ded842a2f5edc694495f80938da0712f692570a08719105e703ba5bfb36.f88eb1c7.incomplete",
+  "_rpzUhTkYXMRzx1YZhMdbHmD_T8=.6f1787a6326808fd666345276177c7a8757aade229d45bba890cc83f859def3f.337da70a.incomplete",
+  "_rpzUhTkYXMRzx1YZhMdbHmD_T8=.6f1787a6326808fd666345276177c7a8757aade229d45bba890cc83f859def3f.6225fec8.incomplete",
+  "pCSygD-fZXfXjpb3HvS9YcXPzGk=.39a6844ad0c03b1bb8ec25af318b13978a90f3e166064af1941cf777afcf07b9.12de3e5a.incomplete",
+  "pCSygD-fZXfXjpb3HvS9YcXPzGk=.39a6844ad0c03b1bb8ec25af318b13978a90f3e166064af1941cf777afcf07b9.a3bd9fa6.incomplete"
+ ],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 18,
+ "verdict": "INCOMPLETE: incomplete_parts"
+}

@@ -1,0 +1,96 @@
+{
+ "repo": "p-e-w/gpt-oss-20b-heretic",
+ "revision": "40a07b3c6d681a949db1ace3185050b5a0893093",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1570,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 8037,
+   "sha256": null
+  },
+  {
+   "name": "chat_template.jinja",
+   "size": 16738,
+   "sha256": null
+  },
+  {
+   "name": "config.json",
+   "size": 1612,
+   "sha256": null
+  },
+  {
+   "name": "generation_config.json",
+   "size": 172,
+   "sha256": null
+  },
+  {
+   "name": "model-00001-of-00009.safetensors",
+   "size": 4504304664,
+   "sha256": "dc729189133161b61e287dd7bdec06afc2b7f77ed1820ca53eda0553fa742230"
+  },
+  {
+   "name": "model-00002-of-00009.safetensors",
+   "size": 4939127656,
+   "sha256": "6bb5664500acc5de241a073fcfb190b82055aec43c70340596e8d59ab3ebfbbb"
+  },
+  {
+   "name": "model-00003-of-00009.safetensors",
+   "size": 4939127656,
+   "sha256": "fbfb5ded842a2f5edc694495f80938da0712f692570a08719105e703ba5bfb36"
+  },
+  {
+   "name": "model-00004-of-00009.safetensors",
+   "size": 4939127680,
+   "sha256": "01f2fb39560160526487b54a858e1d1aec0e5ea4ace85ac9ad9166f2ec6e2b84"
+  },
+  {
+   "name": "model-00005-of-00009.safetensors",
+   "size": 4939127704,
+   "sha256": "39a6844ad0c03b1bb8ec25af318b13978a90f3e166064af1941cf777afcf07b9"
+  },
+  {
+   "name": "model-00006-of-00009.safetensors",
+   "size": 4939127704,
+   "sha256": "623640c40cbcf517f1e410374f3dd3eb7a643f6bf42f345e430e908ef80e9dce"
+  },
+  {
+   "name": "model-00007-of-00009.safetensors",
+   "size": 4939127704,
+   "sha256": "19753c706d8c4996ad5eeaa271b4ce4fe3b6bca18d2de6f8f5a5f924dc5f9bd1"
+  },
+  {
+   "name": "model-00008-of-00009.safetensors",
+   "size": 4939127704,
+   "sha256": "7656dd58153a2eb488df017f02660d7b01ce9ed001f35f9c8215c28eed1fd51d"
+  },
+  {
+   "name": "model-00009-of-00009.safetensors",
+   "size": 2751362856,
+   "sha256": "6f1787a6326808fd666345276177c7a8757aade229d45bba890cc83f859def3f"
+  },
+  {
+   "name": "model.safetensors.index.json",
+   "size": 33635,
+   "sha256": null
+  },
+  {
+   "name": "special_tokens_map.json",
+   "size": 440,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer.json",
+   "size": 27868174,
+   "sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+  },
+  {
+   "name": "tokenizer_config.json",
+   "size": 4200,
+   "sha256": null
+  }
+ ]
+}

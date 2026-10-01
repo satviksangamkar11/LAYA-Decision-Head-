@@ -1,0 +1,17 @@
+{
+ "repo": "openai/gpt-oss-120b",
+ "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [
+  "LYDRbilAGtHhnqBNw5RnUwUk03o=.47aee9e7b9d5bedb215042c01ccededd9bd9c30b0dddea862dc2506b9d6c74de.6746559e.incomplete",
+  "c59Sgq7vlbtqH2ml1xcnUINsyRM=.bcbcb74b043e071d1e05471d500d74dcf661175e00878ed302ccdf1801a75aef.4e9c5469.incomplete"
+ ],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 26,
+ "verdict": "INCOMPLETE: incomplete_parts"
+}

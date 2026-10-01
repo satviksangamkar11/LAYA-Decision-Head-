@@ -1,0 +1,41 @@
+{
+ "repo": "convaiinnovations/laya-typed-decisions",
+ "revision": "1a793eb568e6718f15941d08f85432581df534e3",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1519,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 6343,
+   "sha256": null
+  },
+  {
+   "name": "encoder/config.json",
+   "size": 2084,
+   "sha256": null
+  },
+  {
+   "name": "model.safetensors",
+   "size": 842609220,
+   "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e"
+  },
+  {
+   "name": "rl_agent_config.json",
+   "size": 847,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer_config.json",
+   "size": 337,
+   "sha256": null
+  }
+ ]
+}

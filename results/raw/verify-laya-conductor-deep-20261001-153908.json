@@ -1,0 +1,16 @@
+{
+ "repo": "mvilacad/laya-conductor",
+ "revision": "04116e6808345ee4aa9477afa5e405cd48ab8421",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [
+  "xGOKKLRSlIhH692hSVvI1-gpoa8=.3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e.ab4845f0.incomplete"
+ ],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 8,
+ "verdict": "INCOMPLETE: incomplete_parts"
+}

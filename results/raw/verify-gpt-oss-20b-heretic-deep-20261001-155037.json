@@ -1,0 +1,14 @@
+{
+ "repo": "p-e-w/gpt-oss-20b-heretic",
+ "revision": "40a07b3c6d681a949db1ace3185050b5a0893093",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 18,
+ "verdict": "COMPLETE AND VERIFIED"
+}

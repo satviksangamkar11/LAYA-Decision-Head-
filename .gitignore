@@ -1,0 +1,29 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+models/
+
+# Heavy or external: models, caches, environments, the Laya clone (re-clone NandhaKishorM/laya at 6d942c9)
+models/
+gpt-oss-120b/
+gpt-oss-20b-heretic/
+autojev/
+laya-audit/
+hf/
+python/
+pip-cache/
+uv-cache/
+tmp/
+*.exe
+*.safetensors
+*.bin
+*.pt
+*.gguf
+*.parquet

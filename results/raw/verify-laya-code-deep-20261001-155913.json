@@ -1,0 +1,14 @@
+{
+ "repo": "tindang/laya-code",
+ "revision": "f3d6bd2344e4750dd917f95d40ceacfa81bb81db",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 12,
+ "verdict": "COMPLETE AND VERIFIED"
+}

@@ -1,0 +1,61 @@
+{
+ "repo": "tampajohn/laya-stop-completion-judge",
+ "revision": "c1931d4ffbb90c3584ef936b5d8eae7bbe8c82da",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1519,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 6199,
+   "sha256": null
+  },
+  {
+   "name": "encoder/config.json",
+   "size": 2084,
+   "sha256": null
+  },
+  {
+   "name": "metrics.json",
+   "size": 11511,
+   "sha256": null
+  },
+  {
+   "name": "model.safetensors",
+   "size": 1685197088,
+   "sha256": "37e2a430572519f050c60a055af6b85c9bcb2bcd6456f75502cf489d1a845445"
+  },
+  {
+   "name": "rl_agent_api.py",
+   "size": 4732,
+   "sha256": null
+  },
+  {
+   "name": "rl_agent_config.json",
+   "size": 847,
+   "sha256": null
+  },
+  {
+   "name": "rl_common.py",
+   "size": 19139,
+   "sha256": null
+  },
+  {
+   "name": "state_pack.py",
+   "size": 4033,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer_config.json",
+   "size": 337,
+   "sha256": null
+  }
+ ]
+}

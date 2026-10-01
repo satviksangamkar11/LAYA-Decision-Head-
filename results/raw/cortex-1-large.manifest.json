@@ -1,0 +1,56 @@
+{
+ "repo": "mukti-sys/cortex-1-large",
+ "revision": "3fe2c0b1f997a82339dd13598759abee96495b6d",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1580,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 6568,
+   "sha256": null
+  },
+  {
+   "name": "assets/cortex_banner.jpg",
+   "size": 123024,
+   "sha256": "88f9a6cf25ab1f38152d36aca76f20e23785e2c830d0d986cdccf57f2aa1229b"
+  },
+  {
+   "name": "assets/cortex_logo.jpg",
+   "size": 72494,
+   "sha256": null
+  },
+  {
+   "name": "calibration_temperatures.json",
+   "size": 90,
+   "sha256": null
+  },
+  {
+   "name": "config.json",
+   "size": 235,
+   "sha256": null
+  },
+  {
+   "name": "model.safetensors",
+   "size": 842609420,
+   "sha256": "642b18fa439bd74d3b77e67604f9bac5166475507470f00f41f5f73836d39391"
+  },
+  {
+   "name": "rl_agent_config.json",
+   "size": 270,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer_config.json",
+   "size": 397,
+   "sha256": null
+  }
+ ]
+}

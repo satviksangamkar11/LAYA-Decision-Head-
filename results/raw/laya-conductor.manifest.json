@@ -1,0 +1,66 @@
+{
+ "repo": "mvilacad/laya-conductor",
+ "revision": "04116e6808345ee4aa9477afa5e405cd48ab8421",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1519,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 6157,
+   "sha256": null
+  },
+  {
+   "name": "checkpoint_latest/encoder/config.json",
+   "size": 2084,
+   "sha256": null
+  },
+  {
+   "name": "checkpoint_latest/model.safetensors",
+   "size": 842609220,
+   "sha256": "3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e"
+  },
+  {
+   "name": "checkpoint_latest/tokenizer/tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "checkpoint_latest/tokenizer/tokenizer_config.json",
+   "size": 379,
+   "sha256": null
+  },
+  {
+   "name": "conductor_finetune_colab.ipynb",
+   "size": 21619,
+   "sha256": null
+  },
+  {
+   "name": "encoder/config.json",
+   "size": 2084,
+   "sha256": null
+  },
+  {
+   "name": "model.safetensors",
+   "size": 842609220,
+   "sha256": "3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e"
+  },
+  {
+   "name": "rl_agent_config.json",
+   "size": 570,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer.json",
+   "size": 3583228,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer/tokenizer_config.json",
+   "size": 379,
+   "sha256": null
+  }
+ ]
+}
