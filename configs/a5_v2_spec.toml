@@ -1,0 +1,36 @@
+# A5-v2 SPECIFICATION - immutable once the first v2 audit result is seen. Changes = a_v2_spec_v2.toml with a written reason.
+# Registered 2026-10-02 BEFORE the sampler was written. It references (does not duplicate) thresholds.toml [a5_v2_rules], [benchmark_integrity_gate],
+# [a5_v2_pool_feasibility]. A5-v1 is FROZEN: DIAGNOSTIC_ONLY / INTEGRITY_GATE_FAILED (results/raw/pool-audit-A5v1-*.json, integrity-gate-A5v1-*.json).
+[spec]
+version = 1
+sampler_version = "a5v2-odds-1"
+benchmark_version = "A5-v2"
+primary_population = "covered decisions (the true action is in the pool)"
+strata = ["repeat (history frequency >= 1)", "first_time (history frequency = 0: first view/edit of a file already in the state)"]   # never merged
+uncovered = "diagnostic only"
+# Data firewall (enforced in code by compiler/firewall.py): TRAIN allowed for sampler development; CAL exactly once at the end (marker file);
+# TEST and OOD forbidden at every step of this spec.
+dev_splits = ["train"]
+candidate_count_rule = "k distractors = min(2 + int(state_hash[:16], 16) % 12, pool size - 1), as in A5-v1; plus the mandatory NONE option; NONE is excluded from all audits"
+candidate_order = "shuffled by an RNG seeded from (state_hash, sampler_version); independent of every candidate feature"
+reproducibility = "every row is reproducible from (benchmark_version, decision_id, sampler_version, seed, pool_hash)"
+# Sampler: classifier-odds adversarial negative sampling, per stratum. A logistic model on pool-entry features (true vs not-true) is fitted on the
+# training folds; distractors are drawn without replacement by Gumbel-top-k with weight = odds^alpha. Sets for each train decision are generated OUT OF FOLD
+# (model fitted on the other folds; folds are by trajectory).
+alpha = 1.0
+cv_folds = 5
+cv_seed = 7
+hash_dims = 64                 # hashed candidate-text token features given to the sampler's odds model
+logit_steps = 300
+logit_l2 = 1.0e-3
+# Features of a pool entry: rank/pool_size, min(rank,40)/40, min(freq,6)/6, kind one-hot (8), length/200, lexical overlap with the last 4 events,
+#   safety exec, safety write, text equals one of the last 3 actions, hashed token bag (hash_dims).
+# Audit attackers (different family from the sampler): A = the 8-feature listwise MLP of tools/pool_audit.py; B = a stronger listwise MLP over ALL features
+#   plus set size. Both are trained and scored with trajectory-grouped CV (attacker_seed) on the generated sets.
+attacker_seed = 11
+attacker_hidden_A = 32
+attacker_hidden_B = 64
+attacker_steps = 400
+# PASS (train CV stage) iff, overall AND within each stratum: attacker A and B accuracy <= random_expected + 0.10 ([benchmark_integrity_gate]),
+#   and no feature's within-decision AUC is outside 0.5 +/- auc_tolerance ([a5_v2_rules]). Retention and exclusion reasons are reported, never hidden.
+# Known limit: balanced distractors can be equally valid actions, so the benchmark measures agreement with the agent's real action; its ceiling is below 100%.

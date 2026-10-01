@@ -1,0 +1,29 @@
+{
+ "tag": "A5v1",
+ "train_covered_rows": 3907,
+ "cal_covered_rows": 816,
+ "within_decision_auc": {
+  "pool_rank": 0.2116,
+  "history_frequency": 0.762,
+  "action_kind": 0.5171,
+  "in_pool_novelty": 0.5,
+  "text_length": 0.4549,
+  "lexical_overlap_state_tail": 0.6726,
+  "safety_exec": 0.547,
+  "safety_write": 0.4436
+ },
+ "auc_tolerance": 0.05,
+ "auc_violations": [
+  "pool_rank",
+  "history_frequency",
+  "lexical_overlap_state_tail",
+  "safety_write"
+ ],
+ "adversarial": {
+  "train_acc": 0.6591,
+  "cal_covered_acc": 0.663,
+  "random_expected_cal": 0.1486,
+  "limit": 0.2486
+ },
+ "verdict": "FAIL"
+}

@@ -1,0 +1,20 @@
+# PILOT CAPTURE MANIFEST v1 - registered 2026-10-01 BEFORE sampling. Edits after sampling are forbidden; add v2 with a reason.
+[pilot]
+version = 1
+seed = 20261001
+universe = "frozen train + cal splits of data/decisions/action-swerebench-sample-v2.jsonl (split manifest unchanged)"
+excluded = ["test", "ood"]          # locked; the sampler asserts none of them can be selected
+n_total = 1000
+target = { train = 600, cal = 400 } # targets, not requirements: shortages are recorded, never backfilled by leakage or synthetic rebalancing
+sampling = "without replacement, seeded"
+max_per_trajectory = { train = 5, cal = 10 }   # cal 10 because cap 5 supplies at most 210 of 400 (feasibility report, 2026-10-01)
+max_per_repo = 25
+cal_is_pilot_only = true            # these cal rows may inform depth/representation choices; they are NOT the final reported calibration
+depths = [12, 18, 24, 30, 36]
+targets = ["ACTION (pointer head, primary)", "next_action_kind (Tier-1 fixed-layout sanity arm, not a balanced multi-task set)"]
+# Floors, filled rarest-first, then the remainder proportional to the pool. Counts are over train+cal together.
+floor_tier_NEGATIVE = 60
+floor_tier_STRONG = 150
+floor_covered = 400                 # covered decisions (true action in the candidate pool); pool share is about 32%
+floor_per_next_action_kind = 40     # applies to every kind with enough eligible rows
+a5 = "unchanged until a trained head is evaluated on the locked benchmark"

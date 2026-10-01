@@ -1,0 +1,43 @@
+{
+ "gate": "capture_qwen3_4b",
+ "thresholds": "configs/thresholds.toml [capture_qwen3_4b] v1",
+ "A": {
+  "config": "A: 1x8192",
+  "tokens_per_pass": 8192,
+  "pass_seconds": [
+   8.05,
+   8.143,
+   8.014
+  ],
+  "tok_s_median": 1017.6,
+  "h2d_share": 0.084,
+  "depth_tok_s": {
+   "12": 3015.6,
+   "18": 2024.6,
+   "24": 1524.2,
+   "30": 1220.1,
+   "36": 1018.3
+  }
+ },
+ "B": {
+  "config": "B: 2x4096",
+  "tokens_per_pass": 8192,
+  "pass_seconds": [
+   7.154,
+   7.257,
+   7.605
+  ],
+  "tok_s_median": 1128.9,
+  "h2d_share": 0.094,
+  "depth_tok_s": {
+   "12": 3388.3,
+   "18": 2267.2,
+   "24": 1706.5,
+   "30": 1365.0,
+   "36": 1129.7
+  }
+ },
+ "peak_vram_gib": 0.8,
+ "peak_working_set_gib": 8.47,
+ "verdict": "GO"
+}

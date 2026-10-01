@@ -1,0 +1,24 @@
+{
+ "dataset": "nebius/SWE-rebench-openhands-trajectories",
+ "total_rows": 67074,
+ "chunks": 44,
+ "per_chunk": 25,
+ "offset_shift": 1013,
+ "target": 560,
+ "dropped": {
+  "old_repo": 438,
+  "old_instance_or_trajectory": 0,
+  "duplicate_in_fresh": 0
+ },
+ "kept": 562,
+ "fdev_rows": 118,
+ "locked_rows": 444,
+ "fdev_repos": 87,
+ "locked_repos": 324,
+ "fdev_trajectory_ids_sha256": "712857502fd6d9919e9dfd0ae1117d57419450042510d3f13cde73e7e9be4f26",
+ "locked_trajectory_ids_sha256": "09bab5110126cd59fb20b31fcc895a03f1ca761db7902e96d7e88ee15aca7fd6",
+ "locked_file_sha256": "b5ac8b3a7f6dfd129ae39ce07739a30ebbbe17a625e3a6e0a5412d16f59bb527",
+ "split_rule": "sha256(repo)[:8] as int mod 5 == 0 -> F-dev; else locked",
+ "existing_repos_excluded": 230,
+ "disjoint_from_existing_splits": true
+}

@@ -1,0 +1,60 @@
+{
+ "overlap_full_state": {
+  "all": 0.1347,
+  "split:train": 0.1567,
+  "covered:False": 0.0772,
+  "train+covered:False": 0.0996,
+  "covered:True": 0.2027,
+  "train+covered:True": 0.2036,
+  "split:cal": 0.1,
+  "cal+covered:True": 0.2,
+  "cal+covered:False": 0.0538,
+  "all_n": 980,
+  "split:train_n": 600,
+  "covered:False_n": 531,
+  "train+covered:False_n": 271,
+  "covered:True_n": 449,
+  "train+covered:True_n": 329,
+  "split:cal_n": 380,
+  "cal+covered:True_n": 120,
+  "cal+covered:False_n": 260
+ },
+ "overlap_last_4000_chars": {
+  "all": 0.3194,
+  "split:train": 0.3183,
+  "covered:False": 0.275,
+  "train+covered:False": 0.2731,
+  "covered:True": 0.3719,
+  "train+covered:True": 0.3556,
+  "split:cal": 0.3211,
+  "cal+covered:True": 0.4167,
+  "cal+covered:False": 0.2769,
+  "all_n": 980,
+  "split:train_n": 600,
+  "covered:False_n": 531,
+  "train+covered:False_n": 271,
+  "covered:True_n": 449,
+  "train+covered:True_n": 329,
+  "split:cal_n": 380,
+  "cal+covered:True_n": 120,
+  "cal+covered:False_n": 260
+ },
+ "reference_on_pilot_cal": {
+  "pointer_head": {
+   "all": 0.6158,
+   "covered": 0.6667
+  },
+  "option_only_linear": {
+   "all": 0.8211,
+   "covered": 0.775
+  },
+  "tfidf_full_train": {
+   "all": 0.3842,
+   "covered": 0.3083
+  },
+  "tfidf_matched": {
+   "all": 0.2895,
+   "covered": 0.3333
+  }
+ }
+}

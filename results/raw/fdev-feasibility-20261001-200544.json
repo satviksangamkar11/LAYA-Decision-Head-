@@ -1,0 +1,133 @@
+{
+ "frozen_odds_sha256": "20d5d2b8d62aedfebf5ef57d920644e6564b619a3c659abe4265d0a80a8969a2",
+ "reproduction_of_registered_audit_examples": {
+  "chatcmpl-6ed5fce25f4c56f176b7356ea167c605:26": true,
+  "chatcmpl-6ed5fce25f4c56f176b7356ea167c605:36": true
+ },
+ "old": {
+  "all_train_decisions": 11941,
+  "covered_usable": 3907,
+  "covered_share": 0.3272,
+  "repeat_share": 0.8426
+ },
+ "fdev": {
+  "decisions": 7446,
+  "covered": 2454,
+  "usable": 2454,
+  "covered_share": 0.3296,
+  "repeat_share": 0.8329,
+  "trajectories": 118,
+  "exclusions": {
+   "uncovered (diagnostic only)": 4992
+  },
+  "strata": {
+   "first_time": 410,
+   "repeat": 2044
+  }
+ },
+ "retention": 1.0,
+ "attackers_trained_on_old_scored_on_fdev": {
+  "v2_A": {
+   "overall": {
+    "acc": 0.4046,
+    "random": 0.1499,
+    "n": 2454
+   },
+   "repeat": {
+    "acc": 0.3909,
+    "random": 0.1481,
+    "n": 2044
+   },
+   "first_time": {
+    "acc": 0.4732,
+    "random": 0.1588,
+    "n": 410
+   }
+  },
+  "v1_A": {
+   "overall": {
+    "acc": 0.6015,
+    "random": 0.1499,
+    "n": 2454
+   },
+   "repeat": {
+    "acc": 0.6424,
+    "random": 0.1481,
+    "n": 2044
+   },
+   "first_time": {
+    "acc": 0.3976,
+    "random": 0.1588,
+    "n": 410
+   }
+  },
+  "v2_B": {
+   "overall": {
+    "acc": 0.324,
+    "random": 0.1499,
+    "n": 2454
+   },
+   "repeat": {
+    "acc": 0.2808,
+    "random": 0.1481,
+    "n": 2044
+   },
+   "first_time": {
+    "acc": 0.539,
+    "random": 0.1588,
+    "n": 410
+   }
+  },
+  "v1_B": {
+   "overall": {
+    "acc": 0.5069,
+    "random": 0.1499,
+    "n": 2454
+   },
+   "repeat": {
+    "acc": 0.5034,
+    "random": 0.1481,
+    "n": 2044
+   },
+   "first_time": {
+    "acc": 0.5244,
+    "random": 0.1588,
+    "n": 410
+   }
+  }
+ },
+ "old_grouped_cv_reference": {
+  "v2_A": 0.4431,
+  "v2_B": 0.3443,
+  "v1_A": 0.6517,
+  "v1_B": 0.5237
+ },
+ "fdev_v2_within_decision_auc": {
+  "pool_rank_norm": 0.343,
+  "pool_rank_cap": 0.3298,
+  "history_frequency": 0.6445,
+  "kind_view": 0.4916,
+  "kind_edit": 0.4764,
+  "kind_run_tests": 0.4962,
+  "kind_explore": 0.4621,
+  "kind_run_other": 0.531,
+  "kind_think": 0.5214,
+  "kind_plan": 0.51,
+  "kind_finish": 0.5113,
+  "text_length": 0.5091,
+  "lexical_overlap_tail": 0.5812,
+  "safety_exec": 0.5273,
+  "safety_write": 0.4764,
+  "in_last3_actions": 0.6127
+ },
+ "criteria": {
+  "enough_covered": true,
+  "retention": true,
+  "covered_share": true,
+  "repeat_share": true,
+  "attacker_A_transfer": true,
+  "attacker_B_transfer": true,
+  "audit_reproduced": true
+ },
+ "verdict": "SAMPLER USABLE ON FRESH DATA"
+}

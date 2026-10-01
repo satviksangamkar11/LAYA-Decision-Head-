@@ -1,0 +1,294 @@
+{
+ "spec": {
+  "version": 1,
+  "sampler_version": "a5v2-odds-1",
+  "benchmark_version": "A5-v2",
+  "primary_population": "covered decisions (the true action is in the pool)",
+  "strata": [
+   "repeat (history frequency >= 1)",
+   "first_time (history frequency = 0: first view/edit of a file already in the state)"
+  ],
+  "uncovered": "diagnostic only",
+  "dev_splits": [
+   "train"
+  ],
+  "candidate_count_rule": "k distractors = min(2 + int(state_hash[:16], 16) % 12, pool size - 1), as in A5-v1; plus the mandatory NONE option; NONE is excluded from all audits",
+  "candidate_order": "shuffled by an RNG seeded from (state_hash, sampler_version); independent of every candidate feature",
+  "reproducibility": "every row is reproducible from (benchmark_version, decision_id, sampler_version, seed, pool_hash)",
+  "alpha": 1.0,
+  "cv_folds": 5,
+  "cv_seed": 7,
+  "hash_dims": 64,
+  "logit_steps": 300,
+  "logit_l2": 0.001,
+  "attacker_seed": 11,
+  "attacker_hidden_A": 32,
+  "attacker_hidden_B": 64,
+  "attacker_steps": 400
+ },
+ "covered_train_decisions": 3907,
+ "exclusions": {
+  "uncovered (diagnostic only)": 8034
+ },
+ "strata": {
+  "first_time": 615,
+  "repeat": 3292
+ },
+ "retention": {
+  "considered_covered": 3907,
+  "usable_v2": 3907,
+  "retention": 1.0
+ },
+ "A5_v1_sets_same_audit": {
+  "set_size_mean": 8.32,
+  "true_position_uniform_check": {
+   "2": 591,
+   "0": 572,
+   "1": 567
+  },
+  "attacker_A_8_features": {
+   "overall": {
+    "acc": 0.6517,
+    "random": 0.1492,
+    "n": 3907
+   },
+   "repeat": {
+    "acc": 0.6853,
+    "random": 0.1461,
+    "n": 3292
+   },
+   "first_time": {
+    "acc": 0.4715,
+    "random": 0.1655,
+    "n": 615
+   }
+  },
+  "attacker_B_all_features_plus_hashed_tokens": {
+   "overall": {
+    "acc": 0.5237,
+    "random": 0.1492,
+    "n": 3907
+   },
+   "repeat": {
+    "acc": 0.4994,
+    "random": 0.1461,
+    "n": 3292
+   },
+   "first_time": {
+    "acc": 0.6537,
+    "random": 0.1655,
+    "n": 615
+   }
+  },
+  "auc": {
+   "overall": {
+    "pool_rank_norm": 0.2198,
+    "pool_rank_cap": 0.2116,
+    "history_frequency": 0.762,
+    "kind_view": 0.5458,
+    "kind_edit": 0.4436,
+    "kind_run_tests": 0.4963,
+    "kind_explore": 0.3999,
+    "kind_run_other": 0.5506,
+    "kind_think": 0.5437,
+    "kind_plan": 0.5112,
+    "kind_finish": 0.5088,
+    "text_length": 0.4549,
+    "lexical_overlap_tail": 0.6726,
+    "safety_exec": 0.547,
+    "safety_write": 0.4436,
+    "in_last3_actions": 0.6864
+   },
+   "repeat": {
+    "pool_rank_norm": 0.1333,
+    "pool_rank_cap": 0.1336,
+    "history_frequency": 0.8391,
+    "kind_view": 0.5524,
+    "kind_edit": 0.4556,
+    "kind_run_tests": 0.5038,
+    "kind_explore": 0.3931,
+    "kind_run_other": 0.5634,
+    "kind_think": 0.5342,
+    "kind_plan": 0.5094,
+    "kind_finish": 0.4882,
+    "text_length": 0.5032,
+    "lexical_overlap_tail": 0.7338,
+    "safety_exec": 0.5672,
+    "safety_write": 0.4556,
+    "in_last3_actions": 0.7231
+   },
+   "first_time": {
+    "pool_rank_norm": 0.7496,
+    "pool_rank_cap": 0.6893,
+    "history_frequency": 0.2903,
+    "kind_view": 0.5057,
+    "kind_edit": 0.3699,
+    "kind_run_tests": 0.4508,
+    "kind_explore": 0.4415,
+    "kind_run_other": 0.4726,
+    "kind_think": 0.6019,
+    "kind_plan": 0.5227,
+    "kind_finish": 0.6348,
+    "text_length": 0.1588,
+    "lexical_overlap_tail": 0.2979,
+    "safety_exec": 0.4235,
+    "safety_write": 0.3699,
+    "in_last3_actions": 0.462
+   }
+  },
+  "auc_violations_overall": [
+   "pool_rank_norm",
+   "pool_rank_cap",
+   "history_frequency",
+   "lexical_overlap_tail",
+   "safety_write",
+   "in_last3_actions"
+  ],
+  "verdict": "FAIL",
+  "label": "A5-v1 candidates, same attackers, grouped CV"
+ },
+ "A5_v2_sets": {
+  "set_size_mean": 8.32,
+  "true_position_uniform_check": {
+   "0": 602,
+   "2": 578,
+   "1": 562
+  },
+  "attacker_A_8_features": {
+   "overall": {
+    "acc": 0.4431,
+    "random": 0.1492,
+    "n": 3907
+   },
+   "repeat": {
+    "acc": 0.4332,
+    "random": 0.1461,
+    "n": 3292
+   },
+   "first_time": {
+    "acc": 0.4959,
+    "random": 0.1655,
+    "n": 615
+   }
+  },
+  "attacker_B_all_features_plus_hashed_tokens": {
+   "overall": {
+    "acc": 0.3443,
+    "random": 0.1492,
+    "n": 3907
+   },
+   "repeat": {
+    "acc": 0.3001,
+    "random": 0.1461,
+    "n": 3292
+   },
+   "first_time": {
+    "acc": 0.5805,
+    "random": 0.1655,
+    "n": 615
+   }
+  },
+  "auc": {
+   "overall": {
+    "pool_rank_norm": 0.3328,
+    "pool_rank_cap": 0.3203,
+    "history_frequency": 0.6623,
+    "kind_view": 0.5131,
+    "kind_edit": 0.4782,
+    "kind_run_tests": 0.4936,
+    "kind_explore": 0.4509,
+    "kind_run_other": 0.5247,
+    "kind_think": 0.5225,
+    "kind_plan": 0.5053,
+    "kind_finish": 0.5117,
+    "text_length": 0.4871,
+    "lexical_overlap_tail": 0.6093,
+    "safety_exec": 0.5183,
+    "safety_write": 0.4782,
+    "in_last3_actions": 0.6304
+   },
+   "repeat": {
+    "pool_rank_norm": 0.273,
+    "pool_rank_cap": 0.2732,
+    "history_frequency": 0.7122,
+    "kind_view": 0.5226,
+    "kind_edit": 0.4866,
+    "kind_run_tests": 0.4972,
+    "kind_explore": 0.448,
+    "kind_run_other": 0.5312,
+    "kind_think": 0.5129,
+    "kind_plan": 0.5058,
+    "kind_finish": 0.4957,
+    "text_length": 0.5302,
+    "lexical_overlap_tail": 0.653,
+    "safety_exec": 0.5284,
+    "safety_write": 0.4866,
+    "in_last3_actions": 0.6541
+   },
+   "first_time": {
+    "pool_rank_norm": 0.6993,
+    "pool_rank_cap": 0.6087,
+    "history_frequency": 0.3566,
+    "kind_view": 0.4547,
+    "kind_edit": 0.4266,
+    "kind_run_tests": 0.4715,
+    "kind_explore": 0.4685,
+    "kind_run_other": 0.4849,
+    "kind_think": 0.5817,
+    "kind_plan": 0.502,
+    "kind_finish": 0.6102,
+    "text_length": 0.2231,
+    "lexical_overlap_tail": 0.3414,
+    "safety_exec": 0.4564,
+    "safety_write": 0.4266,
+    "in_last3_actions": 0.4852
+   }
+  },
+  "auc_violations_overall": [
+   "pool_rank_norm",
+   "pool_rank_cap",
+   "history_frequency",
+   "lexical_overlap_tail",
+   "in_last3_actions"
+  ],
+  "verdict": "FAIL",
+  "label": "A5-v2 candidates (out-of-fold generation)"
+ },
+ "reproducibility_example": {
+  "chatcmpl-6ed5fce25f4c56f176b7356ea167c605:26": {
+   "order": [
+    8,
+    26,
+    0,
+    15,
+    3,
+    10,
+    11,
+    4,
+    1
+   ],
+   "true_pos": 2,
+   "seed": 3169985042,
+   "pool_hash": "2627c77da1c63c6a"
+  },
+  "chatcmpl-6ed5fce25f4c56f176b7356ea167c605:36": {
+   "order": [
+    15,
+    18,
+    10,
+    21,
+    0,
+    13,
+    17,
+    31,
+    4,
+    14,
+    24,
+    16
+   ],
+   "true_pos": 8,
+   "seed": 417011491,
+   "pool_hash": "e26d5b3e1905fab2"
+  }
+ }
+}

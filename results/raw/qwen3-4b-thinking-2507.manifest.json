@@ -1,0 +1,71 @@
+{
+ "repo": "Qwen/Qwen3-4B-Thinking-2507",
+ "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+ "files": [
+  {
+   "name": ".gitattributes",
+   "size": 1570,
+   "sha256": null
+  },
+  {
+   "name": "LICENSE",
+   "size": 11343,
+   "sha256": null
+  },
+  {
+   "name": "README.md",
+   "size": 10063,
+   "sha256": null
+  },
+  {
+   "name": "config.json",
+   "size": 727,
+   "sha256": null
+  },
+  {
+   "name": "generation_config.json",
+   "size": 239,
+   "sha256": null
+  },
+  {
+   "name": "merges.txt",
+   "size": 1671839,
+   "sha256": null
+  },
+  {
+   "name": "model-00001-of-00003.safetensors",
+   "size": 3957900840,
+   "sha256": "98178c1cddbca8ad76102afdbf76e4df79b64b82377ad4dca34c755cac00571a"
+  },
+  {
+   "name": "model-00002-of-00003.safetensors",
+   "size": 3987450520,
+   "sha256": "57b5bd1f667d420350f169342a90b50e5ffc2aa202ba1819da1af3367ff2261f"
+  },
+  {
+   "name": "model-00003-of-00003.safetensors",
+   "size": 99630640,
+   "sha256": "e3cccb84e8926f3f18c334465639939a68af310b0729938fccc2de66a9a31953"
+  },
+  {
+   "name": "model.safetensors.index.json",
+   "size": 32819,
+   "sha256": null
+  },
+  {
+   "name": "tokenizer.json",
+   "size": 11422654,
+   "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+  },
+  {
+   "name": "tokenizer_config.json",
+   "size": 10834,
+   "sha256": null
+  },
+  {
+   "name": "vocab.json",
+   "size": 2776833,
+   "sha256": null
+  }
+ ]
+}

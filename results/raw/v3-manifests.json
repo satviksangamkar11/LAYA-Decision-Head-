@@ -1,0 +1,59 @@
+{
+ "created": "2026-10-01T20:17:56.869304+00:00",
+ "spec": "configs/a5_v3_spec.toml [v3_manifests]",
+ "roles": {
+  "train": {
+   "n": 1986,
+   "trajectories": 185,
+   "strata": {
+    "repeat": 1618,
+    "first_time": 368
+   },
+   "skipped": {},
+   "per_trajectory": {
+    "6": 2,
+    "7": 1,
+    "8": 8,
+    "9": 1,
+    "10": 9,
+    "11": 164
+   },
+   "clusters_with_5": 185,
+   "sha256": "485fa8c85c3cd6e617a532d43a62d46983d706dfbf0ba454ad4388cd3ffe2e86"
+  },
+  "cal": {
+   "n": 569,
+   "trajectories": 42,
+   "strata": {
+    "repeat": 463,
+    "first_time": 106
+   },
+   "skipped": {},
+   "per_trajectory": {
+    "8": 1,
+    "9": 3,
+    "10": 3,
+    "11": 4,
+    "13": 2,
+    "14": 1,
+    "15": 28
+   },
+   "clusters_with_5": 42,
+   "sha256": "4b40bebcc34f279143332bdda385a49fa1cadf5b1ac107f9cdd9f83df724a77f"
+  },
+  "locked": {
+   "n": 2220,
+   "trajectories": 444,
+   "strata": {
+    "repeat": 1779,
+    "first_time": 441
+   },
+   "skipped": {},
+   "per_trajectory": {
+    "5": 444
+   },
+   "clusters_with_5": 444,
+   "sha256": "03f25ae53569c79b2704957178230ec161eff367059dbc0e084f15a5adc888f5"
+  }
+ }
+}

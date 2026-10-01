@@ -1,0 +1,39 @@
+{
+ "sample": "data/raw/swerebench-fresh-fdev.jsonl",
+ "sample_sha256": "925563c95a60854f3fd7e263d127e96df629801e216694a0fa0eae48c18a2a93",
+ "out": "D:\\local model\\data\\decisions\\fdev-v3.jsonl",
+ "out_sha256": "0001d6219914e1465e88a22b3bb96f4b3b6e2b3c869de1a00a89f180e9a28177",
+ "budget_chars": 32000,
+ "split_manifest_sha256": "68ba8848f0fee097bf823282493a251b5389bac1579775bd297c534024c0de9d",
+ "rules_sha256": {
+  "v1": "c06c740995144da75ae1f3138557fd6f5ccda54373078a3e9ccea920c665cbb5",
+  "v1_1": "70a740873a07c458b90797b2751695a373e3847721f9ff2473bbb55f2e2f645d"
+ },
+ "counts": {
+  "covered_by_state_only_generator": 2454,
+  "kind:edit": 1297,
+  "kind:explore": 1485,
+  "kind:finish": 110,
+  "kind:plan": 134,
+  "kind:run_other": 1401,
+  "kind:run_tests": 851,
+  "kind:think": 311,
+  "kind:view": 1857,
+  "records": 7446,
+  "split:cal": 788,
+  "split:ood": 1259,
+  "split:test": 393,
+  "split:train": 5006,
+  "stage:caps": 4079,
+  "stage:drop": 2380,
+  "stage:none": 987,
+  "target_checked": 3154,
+  "target_unseen": 790,
+  "tier:NEGATIVE": 92,
+  "tier:STRONG": 278,
+  "tier:UNKNOWN": 3836,
+  "tier:WEAK": 3240
+ },
+ "rows": 118,
+ "repos": 87
+}

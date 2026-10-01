@@ -1,0 +1,81 @@
+# A5-v3 SPECIFICATION - registered 2026-10-02 BEFORE any v3 data is fetched, captured or scored. Immutable once the first v3 result is seen.
+# FROZEN RECORD: A5-v1 = DIAGNOSTIC_ONLY / INTEGRITY_GATE_FAILED. A5-v2 (sampler a5v2-odds-1) = FAILED the registered gate on TRAIN grouped CV
+# (results/raw/a5v2-train-cv-audit-20261001-194503.json). Neither result is changed. v1/v2 thresholds were NOT loosened.
+[why_v3]
+text = "The v1/v2 integrity criteria asked whether candidate/history features can predict the agent's action. Some of that predictive power is legitimate behavioural information (agents repeat recent actions), so a gate demanding chance-level feature predictability is not attainable for covered decisions and cannot separate leakage from behaviour. A5-v3 does not claim features are uninformative. It measures whether the state adds value BEYOND them."
+[question]
+text = "Does the frozen-backbone state representation add decision value beyond what candidate and history features already predict, on identical candidate sets?"
+[arms]   # all scored on the SAME covered rows and the SAME candidate sets
+H0 = "feature-only: listwise MLP over candidate/history features (the a5_v2_sampler feature set, no state, no model). Two versions: H0_strong trained on all available train covered rows; H0_matched trained on exactly the head's training rows."
+H1 = "state-only head: Qwen query/option hidden states, no explicit history features."
+H2 = "state + features head: the same pointer head as H1 with the history features added as candidate inputs (so H2 can fall back to H0)."
+Y = "state-only kind baseline: predict next_action_kind from the query vector (closed-form head), then choose uniformly among candidates of that kind (expected accuracy computed exactly)."
+S = "state-free text baseline: candidate text encoded in a separate forward pass that never receives trajectory tokens; listwise linear scorer. Never substituted by option-only vectors (those attend to the state)."
+R = "random expected accuracy, and the history rules (most recent, most frequent)."
+[primary_claim]
+statistic = "H2 minus H0_matched accuracy on locked covered rows (both trained on exactly the same rows), trajectory-cluster bootstrap (2,000 resamples, seed 0)"
+success = "lower 95% bound > 0 AND point estimate >= min_effect"
+min_effect = 0.05                # registered now; also required: the interval half-width must be <= 0.04, else the result is reported as INCONCLUSIVE (underpowered), not as failure
+secondary = ["H2 minus H0_strong (strongest feature baseline, more training data)", "learning curve: H2 minus H0_matched at several matched training sizes", "H1 minus H0_matched", "H2 minus Y", "H2 minus S", "per stratum (repeat, first_time) and overall covered", "uncovered and overall are diagnostic only"]
+[firewall_and_data]
+fresh_locked_set = "A fresh repository-disjoint sample of SWE-rebench-openhands trajectories (not in the 300-row sample's train, cal, test or OOD splits). The old A5-v1 test/OOD rows are NOT used for v3."
+sizes_planned = "about 400 fresh locked trajectories (up to 5 covered decisions each); about 1,400 additional train covered decisions and about 600 cal decisions captured for head training and selection. Estimates, subject to the user's approval of the download and the GPU time (about 11 GPU hours, an estimate)."
+candidate_sets = "frozen sampler a5v2-odds-1, odds models fitted ONCE on all train covered rows and then frozen; pool captured in full once per decision; sets generated offline"
+roles = {train = "fit models and the H0 attacker", dev_selection = "choose model configuration by a registered rule", calibration = "fit temperature only, never used for selection", locked = "one final evaluation"}
+attacker_protocol = "H0 family, sizes and training procedure chosen on TRAIN grouped CV by a fixed rule, FROZEN, then scored once on CAL, then locked. The head and H0 face identical candidate sets."
+integrity_reporting = "feature AUCs and feature-only attacker accuracies are REPORTED for every arm and set, never gated; retention and exclusion reasons are reported."
+[limits]
+text = "Distractors may be equally valid actions, so accuracy measures agreement with the agent's real action; its ceiling is below 100%. The head is data-starved relative to H0_strong; H0_matched makes that explicit."
+
+[amendment_2026_10_02_b]
+note = "Nothing had been scored or fetched when this amendment was made. Previous file sha256 prefix: e467a6e48b0d9501."
+nesting = "H0 and H2 share ONE candidate/history branch (features plus hashed candidate-text tokens, state-free: candidate text is never encoded with trajectory tokens). H2 = that branch + the frozen Qwen state branch. Same head family, same training procedure, same rows. The only information H2 adds is the Qwen state."
+fresh_data_split = "fresh trajectories are split by repository: sha256(repo) mod 5 == 0 -> F-dev (CPU feasibility, sampler transfer check, attacker development); others -> F-locked, not opened beyond provenance (repo list) until the benchmark freeze"
+capture_depths = [18, 24, 30]    # forward pass stops at layer 30
+sizing_rule = "F-locked size = the smallest N_clusters in the grid with simulated power >= 0.80 for a true effect of 0.08 under the conservative scenario (discordance 0.5, between-cluster SD 0.20); if none up to 800, report infeasible. Registered before the simulation ran."
+no_gpu_until = "CPU feasibility on F-dev passes AND the power simulation fixes the sizes"
+
+[fdev_feasibility]
+note = "Registered before F-dev was compiled. Question: does the FROZEN sampler a5v2-odds-1 (odds models fitted ONCE on all old train covered rows, then frozen) behave like it did on the old population when applied to fresh trajectories? This is a transfer check, not the failed v2 integrity gate (v3 reports integrity, it does not gate on it). No sampler change is allowed after this result; a failure means a new sampler version, not a tweak."
+min_covered_fdev_decisions = 300
+retention_min = 0.90                 # share of covered F-dev decisions that receive a valid set (true action in the pool, pool size >= 3)
+covered_share_tolerance = 0.10       # F-dev covered share within +/- this of the old train value (3907 / 11941 = 0.327)
+repeat_share_tolerance = 0.10        # F-dev repeat share among covered within +/- this of the old train value (3292 / 3907 = 0.843)
+attacker_transfer_tolerance = 0.08   # feature-only attackers A and B, trained on the old train v2 sets, scored on F-dev v2 sets: accuracy within +/- this of the old grouped-CV values (A 0.443, B 0.344)
+usable = "all conditions hold"
+
+[amendment_2026_10_02_c]
+note = "Registered before any v3 head was trained or scored and before the v3 capture. Nothing below changes a v1 or v2 result."
+sampler_frozen = "compiler/a5v2.py plus data/a5v2/odds-a5v2-odds-1.pt (sha256 20d5d2b8d62aedfe...). F-dev transfer check passed (results/raw/fdev-feasibility-20261001-200544.json). The cal-once A5-v2 sampler evaluation is REPLACED by that F-dev check; CAL is used only to fit the temperature."
+H0 = "state-free branch: 16 dense candidate/history features + 64 hashed candidate-text tokens + Qwen STATE-FREE candidate embeddings (a separate forward pass of Next action: plus the candidate text, never any trajectory token; same depths 18/24/30, mean over the candidate span), each depth standardised and projected separately; a 2-layer MLP gives the H0 score."
+H2_primary = "H0 score FROZEN + a residual state branch (pointer interaction of the standardised query vector with the contextual candidate vectors, per-depth projections). The residual is trained on CROSS-FITTED H0 scores: H0 is fitted on 4 of 5 trajectory-grouped folds and scores the 5th; the residual trains on those out-of-fold scores; for test, H0 is refitted on all training rows and frozen."
+H2_secondary = "H0 and H2 trained from scratch with identical procedures and rows (plain with/without-state ablation)."
+depth_treatments = ["single depth 24 (neutral middle depth)", "equal-weight mean of the three per-depth scores (18, 24, 30)", "learned softmax mixture of the three per-depth scores"]
+projection_dims = [128, 256, 512]
+cells = "9 = projection_dims x depth_treatments; no more depths"
+fixed_training = "AdamW, lr 3e-4, weight decay 1e-2, dropout 0.10, gradient clip 1.0, batch 32, max 100 epochs, minimum 10, patience 8; listwise cross-entropy only"
+selection = "9 cells, ONE fixed seed (0), dev score = mean held-out NLL of the H2 system over trajectory-grouped 5-fold CV INSIDE TRAIN at the primary training size (CAL is NOT used for selection). Ties within 0.01 NLL go to the smaller projection, then to the simpler depth treatment (single depth, then mean, then learned)."
+final = "selected cell x 5 paired seeds (0..4). For each seed H0 and H2 share the seed. Per decision, delta_i = mean over seeds of (H2 correct minus H0 correct). Primary statistic = mean delta with the trajectory-cluster bootstrap (2,000 resamples, seed 0). The 5-seed logit ensemble of each arm is a secondary result."
+primary_training_size = 2000
+learning_curve_sizes = [600, 1000, 1400, 2000]   # counted in DECISIONS, nested trajectory-grouped subsets, identical rows for H0 and H2, selected cell, 5 paired seeds
+training_sets = "TRAIN decisions use 4 candidate sets each (set indices 0..3) from the frozen sampler family, generated OUT OF FOLD with the same fold odds models as the audit (set 0 equals the registered a5v2-odds-1 set; indices 1..3 use seed_of(state_hash, sampler_version, aug, index)). CAL and LOCKED use set 0 only."
+roles = {train = "fit H0 and the residual", dev = "grouped CV inside train (selection only)", calibration = "CAL rows, temperature only, applied identically to both arms", locked = "one final evaluation"}
+data_plan = "TRAIN about 2,000 covered decisions (cap 11 per trajectory), CAL up to 600 (cap 15), LOCKED up to 5 covered decisions per fresh locked trajectory; capture order CAL, TRAIN, LOCKED"
+
+[capture_v3]
+note = "Full-pool capture: for each decision the query vector and EVERY pool candidate plus the NONE option, depths 18/24/30, forward pass truncated after layer 30, lm_head never run. Gates are hard assertions that abort the run."
+depths = [18, 24, 30]
+storage = "float16 per vector; abort if any absolute value exceeds 60000 or any value is non-finite"
+span_check = "packed token ids at every candidate span equal that candidate suffix ids"
+independence_assertion = "every 50th decision and the first 3: recapture the pool in a reversed order split into two halves; every candidate vector at every depth must have cosine >= indep_cos_min (0.9999) against the full-pool capture, and the query vector too"
+plain_equivalence = "the first decision and every 200th: 5 random candidates re-run as separate prefix+suffix sequences; cosine >= plain_cos_min (0.999) at every depth"
+repeat_check = "the first decision and every 200th: identical recapture, maximum absolute difference == 0.0"
+pilot_cross_check = "smoke test: candidates present in both the pilot capture and the new capture agree with cosine >= 0.9999 at depths 18, 24, 30"
+text_embeddings = "state-free candidate embeddings for every unique pool text plus NONE; batched padded passes (right padding, causal, no mask needed); 20 random texts re-run alone must match with cosine >= 0.9999"
+locked_access = "the locked file is opened only by the compiler and by the capture runner, each time appending a line to results/raw/locked-access-log.jsonl; no performance quantity is computed on locked data before the final evaluation"
+
+[v3_manifests]
+note = "Decision selection is seeded and deterministic: covered usable decisions only, ordered by sha256(seed|decision_id), per-trajectory cap, any prefix of the order is a random sample."
+seed = 20261002
+caps = {train = 11, cal = 15, locked = 5}
+targets = {train = 2000, cal = 600}

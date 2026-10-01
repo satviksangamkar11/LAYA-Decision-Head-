@@ -1,0 +1,28 @@
+{
+ "cal_covered_n": 120,
+ "cal_n": 380,
+ "cal_covered": {
+  "first": 0.175,
+  "most_recent_in_pool": 0.4917,
+  "most_frequent_in_history": 0.55,
+  "frequent_then_recent": 0.4917,
+  "metadata_only": 0.2583,
+  "tfidf_candidate_text": 0.3333,
+  "random_expected": 0.1268
+ },
+ "cal_all": {
+  "first": 0.1184,
+  "most_recent_in_pool": 0.1553,
+  "most_frequent_in_history": 0.1737,
+  "frequent_then_recent": 0.1553,
+  "metadata_only": 0.2342,
+  "tfidf_candidate_text": 0.2895,
+  "random_expected": 0.1205
+ },
+ "strongest_non_head_on_cal_covered": {
+  "name": "most_frequent_in_history",
+  "acc": 0.55
+ },
+ "limit": 0.2268,
+ "verdict_A5_v1": "FAIL (diagnostic only)"
+}

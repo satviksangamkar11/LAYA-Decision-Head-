@@ -1,0 +1,27 @@
+{
+ "rows": [
+  {
+   "decision_id": "chatcmpl-74142ab3cc07527e342597a13078f456:64",
+   "pilot_candidates": 15,
+   "matched": 15,
+   "worst_candidate_cosine": 0.999945,
+   "worst_query_cosine": 1.0
+  },
+  {
+   "decision_id": "chatcmpl-048dcf38bd31a07c0e6b3696fe8a9852:174",
+   "pilot_candidates": 7,
+   "matched": 7,
+   "worst_candidate_cosine": 0.999977,
+   "worst_query_cosine": 1.0
+  },
+  {
+   "decision_id": "chatcmpl-1ece4a9d146dc489213aed9eed104b8c:74",
+   "pilot_candidates": 4,
+   "matched": 4,
+   "worst_candidate_cosine": 0.99998,
+   "worst_query_cosine": 1.0
+  }
+ ],
+ "threshold": 0.9999,
+ "passed": true
+}

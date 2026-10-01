@@ -1,0 +1,28 @@
+{
+ "A_reference": {
+  "acc": 0.6158,
+  "acc_covered": 0.65,
+  "nll": 1.2545
+ },
+ "C_state_shuffled_eval": {
+  "acc": 0.2342,
+  "acc_covered": 0.225,
+  "nll": 4.2855
+ },
+ "B_metadata_only": {
+  "acc": 0.2579,
+  "acc_covered": 0.2167,
+  "nll": 2.059
+ },
+ "E_query_zeroed": {
+  "acc": 0.2579,
+  "acc_covered": 0.2167,
+  "nll": 2.059
+ },
+ "D_label_shuffled_train": {
+  "acc": 0.1079,
+  "acc_covered": 0.15,
+  "nll": 2.5145
+ },
+ "random_expected_acc": 0.1205
+}

@@ -210,3 +210,15 @@ pass the same gate as everything else.
      and the agent fixes 5 seeded bugs in a toy repo, judged by protected tests, with and
      without the head.
   Nothing beyond it (PEFT, 70B, extra speedups) starts before then.
+
+## Benchmark increments (user, 2026-10-01)
+
+- After every **major step** (new backbone, capture change, head variant, loss or calibration change,
+  state-budget change, runtime change, agent change), rerun the same fixed benchmark and record the
+  delta against the previous step in `results/raw/increment-<step>-<time>.json` (create-only).
+- Fixed benchmark: the locked A5 set (`data/benchmark/a5-v1.jsonl`, hash in `results/raw/`) for the head,
+  plus the small protected-task set for the agent once it exists. Report accuracy on covered decisions
+  per tier, ECE, and the best baseline (TF-IDF 0.323 covered) side by side.
+- Keep a running ledger `results/increments.md`: step, what changed, benchmark before, after, delta,
+  and whether the gain exceeds the paired-bootstrap interval. A step that does not move the benchmark
+  is recorded as such, not dropped. The benchmark is never changed to make a step look better.

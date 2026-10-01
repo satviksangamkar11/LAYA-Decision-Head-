@@ -1,0 +1,187 @@
+# Pre-registered gate values. Committed BEFORE the run they govern. Never edit after seeing
+# results: add thresholds_v2.toml with a written reason instead.
+
+[g2_expert_read]
+version = 1
+registered = "2026-10-01"
+# One simulated decode token = 36 layers in sequence; per layer 4 distinct experts read in
+# parallel (gate_up blocks+scales, down blocks+scales = 4 reads each). Cold page cache
+# (every expert in a run is unique). Metric = median seconds per simulated token over
+# 12 tokens, best of the four modes (buffered/unbuffered x 1/4 threads).
+# These are my estimates of a workable decode budget, not the user's practicality threshold.
+go_p50_s_per_token       = 1.0   # <= 1.0 s: GO
+tune_p50_s_per_token     = 3.0   # 1.0 to 3.0 s: TUNE (RAM expert cache, I/O changes)
+# above 3.0 s: STOP AND ASK
+
+[equiv_qwen3_4b]
+version = 1
+registered = "2026-10-01"
+# Reference R = transformers native Qwen3 forward on CPU, BF16, eval(), pinned revision 768f209d9e,
+#   4 fixed sequences x 256 tokens (batch of 4).
+# Noise floor F = R(batch of 4) vs R(each sequence alone, batch 1): same code, different batch shape.
+# Ours O = same weights, forward with per-layer hooks that move each decoder layer (and lm_head) to
+#   the GPU for compute and back (the streaming mechanism), BF16.
+# Metrics per sequence over all positions: top-1 agreement, mean KL(R||x) in fp32, final-layer
+#   hidden cosine, min per-layer hidden cosine.
+# PASS iff for every sequence and each metric, O is no worse than max(2 * F, absolute cap):
+kl_abs_cap            = 5.0e-3   # mean KL
+top1_min              = 0.99     # top-1 agreement floor
+final_cos_min         = 0.999
+layer_cos_min         = 0.995
+floor_multiplier      = 2.0
+# Never loosen after seeing the result; add a v2 section with a written reason instead.
+
+[equiv_qwen3_4b_v2]
+version = 2
+registered = "2026-10-01"
+supersedes = "equiv_qwen3_4b v1, which stays recorded as FAIL (results/raw/equiv-qwen3-4b-20261001-145454.json)"
+reason = "v1 floor was exactly 0 (CPU batch-shape runs identical), so it reduced to absolute caps, and the 0.99 top-1 cap fails at near-ties (all disagreements at reference top-2 gap <= 0.125) while KL ~6e-4 and cosines >= 0.9998 passed. Top-1 is not a metric the head uses. Not tuned from a gap threshold."
+# T1 mechanism (truncated 12-layer model, so it fits the GPU):
+#   resident = native forward with the model on the GPU; streamed = same weights, per-layer hooks.
+#   PASS iff max_abs_diff(streamed, resident) over logits and every hidden state
+#           <= max_abs_diff(resident run 1, resident run 2)   (the measured self-variability floor)
+t1_layers = 12
+# T2 cross-device (full depth, same 4 sequences): CPU native reference vs GPU-streamed.
+#   Gated metrics: mean KL and cosines; thresholds identical to v1:
+t2_kl_abs_cap     = 5.0e-3
+t2_final_cos_min  = 0.999
+t2_layer_cos_min  = 0.995
+# top-1 agreement and gap diagnostics are reported, NOT gated.
+
+[capture_qwen3_4b]
+version = 1
+registered = "2026-10-01"
+# Workload: layer-streaming forward of the frozen base model (no lm_head, no KV, no decode), BF16,
+#   revision 768f209d9e, per-layer weights moved to the GPU and back via hooks (equivalence: [equiv_qwen3_4b_v2]).
+# Unit: forward tokens processed per second (not stored tokens: only a few vectors per decision are stored).
+# Config A (verdict): 1 sequence x 8,192 tokens per pass (about a 32,000-character compiled state).
+#   Real project text, not synthetic noise; token count matches the state budget, content does not matter for speed.
+# Config B (reported only): 2 sequences x 4,096 tokens per pass.
+# 1 warm-up pass, then 3 timed passes; verdict uses the median tokens/s of config A at full depth (36 layers).
+go_tok_s   = 1000.0   # >= GO
+stop_tok_s = 300.0    # <  STOP and ask; in between = TUNE (pinned memory / resident layers), thresholds unchanged
+# Depth sweep (reported, NOT part of the verdict): cumulative throughput if capture stopped at layer 12, 18, 24, 30, 36.
+sweep_layers = [12, 18, 24, 30, 36]
+# Also reported: peak VRAM, peak process working set, H2D weight-transfer time share.
+# The 1,000 tok/s figure rests on an assumed ~10 TFLOPs and is a hypothesis, not an established bound.
+
+[capture_one_record]
+version = 1
+registered = "2026-10-01"
+# Representation (recorded, not left implicit):
+#   depth d = residual stream after the d-th decoder layer, BEFORE the final norm (layer-hook output), d in depths
+#   query  = hidden state at the query position (last prefix token, the answer cue)
+#   option = mean over the option's exact suffix token span, accumulated in fp32
+#   backbone = frozen Qwen3-4B-Thinking-2507 rev 768f209d9e; lm_head is never run (hook counter must stay 0)
+depths = [12, 18, 24, 30, 36]
+# Gates on one real decision (capture-record-v1):
+#  1 repeatability: two identical packed captures, max abs difference over every saved vector == 0.0
+#  2 plain equivalence: packed capture vs a plain native forward of each separate [prefix + suffix_i] sequence;
+#    cosine >= plain_cos_min for the query vector and every option vector at every depth
+#  3 span correctness: packed input ids at [P+start, P+end) equal suffix_ids[i] for every option
+#  4 candidate independence: same decision re-presented in a shuffled order; per-candidate vectors at every depth
+#    have cosine >= indep_cos_min against the original order
+plain_cos_min = 0.999
+indep_cos_min = 0.9999
+
+[tier1_next_action_kind]
+version = 1
+registered = "2026-10-01"
+# Sanity arm, NOT the ACTION result and NOT an A5 measurement. A5 stays 0.323 until the Tier-2 head is evaluated on the locked benchmark.
+# Data: pilot capture (600 train / 380 cal as realised; no rebalancing). Test and OOD are never loaded.
+# Features: the query vector at each depth in [12, 18, 24, 30, 36]. Target: next_action_kind (8 classes).
+# Fit: decision_head.closed_form.fit on the 600 train rows only; its LDA/ridge choice, shrinkage and temperature come from its own 5-fold
+#   out-of-fold procedure inside train. Nothing is tuned on the cal rows.
+# Per depth we record: train out-of-fold accuracy and NLL, pilot-cal accuracy, NLL, ECE (15 bins) and balanced accuracy.
+# Depth selection (fixed now): lowest pilot-cal NLL; if two depths are within 0.01 NLL, the shallower wins. Every depth is reported.
+# Reference baseline: label-frequency prior fitted on train (accuracy and NLL on cal).
+# Sanity criterion: the selected depth beats the prior on cal accuracy with a 95% trajectory-cluster bootstrap interval
+#   (2,000 resamples, seed 0, clusters = trajectory id) that excludes 0. Reported either way; failure is a finding, not a retry.
+# The 380 cal rows are pilot-only: they may choose the depth and must stay out of the final calibration procedure.
+depth_nll_tie = 0.01
+bootstrap_resamples = 2000
+bootstrap_seed = 0
+
+[tier2_action_pointer]
+version = 1
+registered = "2026-10-02"
+# Pilot stage only: train on the 600 pilot-train rows, choose the configuration on the 380 pilot-cal rows. The locked benchmark (test/OOD) is NOT
+# loaded here; A5 stays 0.323 until the selected head is evaluated there. Pilot-cal has only 120 covered rows, so pilot numbers are indicative.
+# Head: pointer, no set-attention. q = Wq.standardise_q(hq), k_i = Wk.standardise_o(ho_i), Wq and Wk separate Linear(hidden -> D, no bias),
+#   dropout on the projections, score_i = q.k_i / sqrt(D) + meta_bias(meta_i) (12 metadata values, never `source`), NONE is an ordinary candidate.
+#   NO L2 normalisation (it would bound the logits by 1/sqrt(D) and flatten the softmax). Separate scalers for query and option vectors, fitted on train.
+#   Permutation invariance holds by construction and is tested; it is not an augmentation.
+# Loss: cross-entropy over the real candidates, unweighted (per-tier results are reported; no tier weights without evidence).
+# Optimiser: AdamW lr 3e-4, weight decay 1e-2, clip 1.0, batch 32, dropout 0.10, max 100 epochs, minimum 10, patience 8 on pilot-cal NLL (T=1).
+# Grid (fixed now): depth in [18, 24, 30] x D in [128, 512]; 5 seeds (0..4) per cell; ensemble = mean of the 5 logit sets.
+# Selection: lowest pilot-cal ensemble NLL at T=1; every cell within 0.01 NLL of the minimum is a tie, broken by smaller D, then shallower depth.
+# Calibration: ONE temperature for the selected cell, fitted on out-of-fold TRAIN predictions (5 folds x 5 seeds, fixed epochs = median best epoch of
+#   the cell). Pilot-cal never sees the temperature fit; it is a clean check of calibration.
+# Baselines on pilot-cal rows: random (expected 1/n), first candidate, TF-IDF fitted on the full train split (as A5), TF-IDF fitted on the same
+#   600 pilot-train rows (data-matched; epoch picked on pilot-cal as the head's is).
+# Reported: accuracy all / covered / per tier, NLL, ECE, with 95% trajectory-cluster bootstrap CIs for head minus each TF-IDF (2,000 resamples, seed 0).
+depths = [18, 24, 30]
+proj_dims = [128, 512]
+seeds = [0, 1, 2, 3, 4]
+lr = 3.0e-4
+weight_decay = 1.0e-2
+dropout = 0.10
+clip = 1.0
+batch = 32
+max_epochs = 100
+min_epochs = 10
+patience = 8
+nll_tie = 0.01
+folds = 5
+bootstrap_resamples = 2000
+bootstrap_seed = 0
+
+[benchmark_integrity_gate]
+version = 1
+registered = "2026-10-02"
+# NO head result on a benchmark version counts until that version passes this gate. Computed on the pilot train+cal rows only (never test or OOD).
+# Strongest-baseline rule: a learned head must beat the strongest non-head baseline on the exact same rows, not an older generic bar.
+# Non-head baselines (all computed per version): random (expected 1/n), first candidate, most-recent-in-pool, most-frequent-in-history,
+#   frequent-then-recent, metadata-only (listwise linear, fit on train rows, scored on cal rows), TF-IDF candidate text (fit on train rows, scored on cal rows).
+# Model-based diagnostics added once available (never gate-exempt): state-free option embedding, kind-predictor-then-pick, option-only, query-option head.
+# PASS iff, on cal COVERED rows, strongest non-head baseline accuracy <= random_expected + max_excess_over_random.
+# The 0.10 is a judgement fixed before the next benchmark version is built; it may not be raised after seeing that version.
+max_excess_over_random = 0.10
+# Status of A5-v1: FAILS (diagnostic only). Frozen; its 0.323 reference is kept as history and is never again treated as the bar.
+
+[a5_v2_rules]
+version = 1
+registered = "2026-10-02"
+# Frozen BEFORE the v2 sampler is written. Nothing here may be edited after the v2 audit result is seen; add v2 with a reason instead.
+# 1 Primary metric: covered rows only (true action is in the pool). 2 Uncovered rows: diagnostic only, never a claim.
+# 3 Audit data: train + cal splits of the compiled decisions only (about 14.5k decisions, no GPU). Test and OOD are never loaded.
+# 4 Iteration data: sampler changes are judged on TRAIN rows only (trajectory-grouped folds). Cal covered rows are evaluated ONCE, at the end.
+# 5 Candidate order: randomised by the state hash (position must not reveal the label); position uniformity is re-checked.
+# 6 Distractors: balanced at POPULATION level, not matched per decision. For each feature f in {pool_rank_bucket, history_frequency, action_kind,
+#   novelty (in pool), text_length, lexical_overlap_with_state_tail, metadata} the within-decision pairwise AUC of 'is true' must satisfy
+#   |AUC - 0.5| <= auc_tolerance on train covered rows.
+# 7 Adversarial gate: a listwise classifier over ALL those features together (train on train covered, score cal covered ONCE) must satisfy
+#   accuracy <= random_expected + max_excess_over_random (the already registered 0.10).
+# 8 Model-based diagnostics run later and are never gate-exempt: state-free candidate-text embedding (separate forward, never sees the trajectory),
+#   state-aware content-free baseline (predict action kind from the state, pick a candidate of that kind), option-only, query-option head.
+# 9 The [benchmark_integrity_gate] threshold (random + 0.10) is unchanged.
+# 10 No GPU capture until the v2 sampler passes this audit; then ONE full-pool capture and offline candidate-set generation.
+auc_tolerance = 0.05
+min_rows_for_feature_auc = 500
+
+[a5_v2_pool_feasibility]
+version = 1
+registered = "2026-10-02"
+# Question asked BEFORE any sampler is written: can the EXISTING distractor_pool support a v2 with feature-balanced distractors?
+# Measured on TRAIN covered rows only (compiled train split). No sampler, no cal, no test.
+# For each covered decision, a pool entry (other than the true action) is a MATCH at strictness level L if:
+#   L1: same history-frequency bucket {0, 1, 2, 3+} as the true action
+#   L2: L1 and same action kind
+#   L3: L2 and |pool_rank - true_rank| <= rank_window
+# A decision is FEASIBLE at level L if it has >= m_min matches.
+# Acceptance: v2 may be built from the existing pool iff, at the strictest level L3 or at L2 if L3 fails, the share of covered train decisions that are
+#   feasible is >= min_feasible_share, measured separately for repeat actions (frequency >= 1) and first-time views/edits of seen files (frequency 0).
+#   Otherwise the pool definition must be expanded BEFORE any capture.
+m_min = 3
+rank_window = 3
+min_feasible_share = 0.70

@@ -1,0 +1,91 @@
+{
+ "classes": [
+  "edit",
+  "explore",
+  "finish",
+  "plan",
+  "run_other",
+  "run_tests",
+  "think",
+  "view"
+ ],
+ "n_train": 600,
+ "n_cal": 380,
+ "prior": {
+  "acc": 0.2131578947368421,
+  "nll": 1.931659374203945,
+  "majority": "edit"
+ },
+ "depths": {
+  "12": {
+   "kind": "lda",
+   "param": 0.6,
+   "T": 7.389,
+   "train_oof_acc": 0.4433,
+   "train_oof_nll": 1.5744,
+   "train_fit_acc": 0.8683,
+   "cal_acc": 0.5,
+   "cal_nll": 1.4111,
+   "cal_ece": 0.1064,
+   "cal_balanced_acc": 0.4219
+  },
+  "18": {
+   "kind": "lda",
+   "param": 0.6,
+   "T": 7.389,
+   "train_oof_acc": 0.4383,
+   "train_oof_nll": 1.5357,
+   "train_fit_acc": 0.8867,
+   "cal_acc": 0.5263,
+   "cal_nll": 1.2724,
+   "cal_ece": 0.0962,
+   "cal_balanced_acc": 0.4695
+  },
+  "24": {
+   "kind": "lda",
+   "param": 0.6,
+   "T": 7.389,
+   "train_oof_acc": 0.485,
+   "train_oof_nll": 1.421,
+   "train_fit_acc": 0.8367,
+   "cal_acc": 0.5158,
+   "cal_nll": 1.2607,
+   "cal_ece": 0.0482,
+   "cal_balanced_acc": 0.534
+  },
+  "30": {
+   "kind": "lda",
+   "param": 0.6,
+   "T": 7.389,
+   "train_oof_acc": 0.49,
+   "train_oof_nll": 1.426,
+   "train_fit_acc": 0.8333,
+   "cal_acc": 0.5368,
+   "cal_nll": 1.2685,
+   "cal_ece": 0.1069,
+   "cal_balanced_acc": 0.4861
+  },
+  "36": {
+   "kind": "lda",
+   "param": 0.6,
+   "T": 7.389,
+   "train_oof_acc": 0.4817,
+   "train_oof_nll": 1.4883,
+   "train_fit_acc": 0.9167,
+   "cal_acc": 0.5395,
+   "cal_nll": 1.3021,
+   "cal_ece": 0.0561,
+   "cal_balanced_acc": 0.5377
+  }
+ },
+ "selected_depth": 24,
+ "sanity": {
+  "delta_acc_vs_prior": 0.3026,
+  "ci95": [
+   0.2326,
+   0.3684
+  ],
+  "clusters": 42,
+  "passes": true
+ }
+}

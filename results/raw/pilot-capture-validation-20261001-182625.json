@@ -1,0 +1,94 @@
+{
+ "files": 980,
+ "manifest_n": 980,
+ "unique_ids": 980,
+ "ids_equal_manifest": true,
+ "order_equals_manifest_order": true,
+ "skips": 0,
+ "log_records": 980,
+ "seconds": {
+  "mean": 10.96,
+  "median": 11.49,
+  "p95": 14.85,
+  "max": 28.62,
+  "total_hours": 2.98
+ },
+ "prefix_tokens": {
+  "mean": 7341,
+  "median": 7834.5,
+  "max": 11005
+ },
+ "throughput_tok_s_mean": 669.9,
+ "bad_counts": {
+  "depth_list": 0,
+  "shape": 0,
+  "nonfinite": 0,
+  "label": 0,
+  "mask": 0,
+  "schema": 0,
+  "tokenizer_rev": 0
+ },
+ "hidden_sizes": [
+  2560
+ ],
+ "query_norm_by_depth_mean": [
+  33.8,
+  41.4,
+  81.5,
+  219.0,
+  658.1
+ ],
+ "option_norm_by_depth_mean": [
+  27.4,
+  36.0,
+  65.2,
+  179.4,
+  470.0
+ ],
+ "loader": {
+  "rows": 980,
+  "hq": [
+   980,
+   2560
+  ],
+  "ho": [
+   980,
+   15,
+   2560
+  ],
+  "splits": {
+   "train": 600,
+   "cal": 380
+  }
+ },
+ "recapture": [
+  {
+   "decision_id": "chatcmpl-0238d00f7c6c5204eca2ee7f06e2d041:54",
+   "prompt_hash_equal": true,
+   "max_abs_query": 0.0,
+   "max_abs_options": 0.0
+  },
+  {
+   "decision_id": "chatcmpl-76c8b8297e48061c59897b7657364cca:18",
+   "prompt_hash_equal": true,
+   "max_abs_query": 0.0,
+   "max_abs_options": 0.0
+  },
+  {
+   "decision_id": "chatcmpl-ffd88a407fcd4275f30a7dd22998b391:80",
+   "prompt_hash_equal": true,
+   "max_abs_query": 0.0,
+   "max_abs_options": 0.0
+  }
+ ],
+ "lm_head_calls": 0,
+ "gates": {
+  "count": true,
+  "ids": true,
+  "skips": true,
+  "consistency": true,
+  "recapture_bit_identical": true,
+  "no_lm_head": true
+ },
+ "verdict": "PASS"
+}

@@ -1,0 +1,46 @@
+{
+ "rule": {
+  "version": 1,
+  "registered": "2026-10-02",
+  "m_min": 3,
+  "rank_window": 3,
+  "min_feasible_share": 0.7
+ },
+ "train_covered_rows": 3907,
+ "pool_size_mean": 45.4,
+ "pool_size_median": 45,
+ "by_type": {
+  "first_time(freq=0)": {
+   "n": 615,
+   "L1": {
+    "feasible_share": 1.0,
+    "no_match_share": 0.0
+   },
+   "L2": {
+    "feasible_share": 0.3236,
+    "no_match_share": 0.6683
+   },
+   "L3": {
+    "feasible_share": 0.0114,
+    "no_match_share": 0.6699
+   }
+  },
+  "repeat(freq>=1)": {
+   "n": 3292,
+   "L1": {
+    "feasible_share": 0.6774,
+    "no_match_share": 0.1124
+   },
+   "L2": {
+    "feasible_share": 0.2221,
+    "no_match_share": 0.4757
+   },
+   "L3": {
+    "feasible_share": 0.0298,
+    "no_match_share": 0.7366
+   }
+  }
+ },
+ "strictest_level_meeting_bar": "NONE",
+ "verdict": "POOL MUST BE EXPANDED BEFORE ANY CAPTURE"
+}

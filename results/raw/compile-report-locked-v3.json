@@ -1,0 +1,40 @@
+{
+ "sample": "data/locked_v3/fresh-locked.jsonl",
+ "sample_sha256": "b5ac8b3a7f6dfd129ae39ce07739a30ebbbe17a625e3a6e0a5412d16f59bb527",
+ "out": "D:\\local model\\data\\decisions\\locked-v3.jsonl",
+ "out_sha256": "5cbb5a9f345cf02c3ad34858afb34d02abeb5184810a63488fd9e61199fe46a8",
+ "budget_chars": 32000,
+ "split_manifest_sha256": "d9a92ddfd9c3905c53ff46c38f6a8cc0029ef375629c608138aeac6c0686ec34",
+ "rules_sha256": {
+  "v1": "c06c740995144da75ae1f3138557fd6f5ccda54373078a3e9ccea920c665cbb5",
+  "v1_1": "70a740873a07c458b90797b2751695a373e3847721f9ff2473bbb55f2e2f645d"
+ },
+ "counts": {
+  "covered_by_state_only_generator": 9366,
+  "kind:edit": 4550,
+  "kind:explore": 5793,
+  "kind:finish": 415,
+  "kind:plan": 506,
+  "kind:run_other": 5005,
+  "kind:run_tests": 3266,
+  "kind:think": 1176,
+  "kind:view": 7238,
+  "records": 27949,
+  "split:cal": 3581,
+  "split:ood": 2646,
+  "split:test": 3487,
+  "split:train": 18235,
+  "stage:caps": 14891,
+  "stage:core": 66,
+  "stage:drop": 8989,
+  "stage:none": 4003,
+  "target_checked": 11788,
+  "target_unseen": 2865,
+  "tier:NEGATIVE": 321,
+  "tier:STRONG": 1109,
+  "tier:UNKNOWN": 14038,
+  "tier:WEAK": 12481
+ },
+ "rows": 444,
+ "repos": 324
+}

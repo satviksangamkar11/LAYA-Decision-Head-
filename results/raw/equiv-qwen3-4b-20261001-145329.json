@@ -1,0 +1,101 @@
+{
+ "gate": "equiv_qwen3_4b",
+ "thresholds": "configs/thresholds.toml [equiv_qwen3_4b] v1",
+ "revision": "768f209d9e",
+ "peak_vram_gib": 1.2,
+ "rows": [
+  {
+   "seq": "README.md",
+   "floor": {
+    "kl": 0.0,
+    "top1": 1.0,
+    "final_cos": 1.0000004768371582,
+    "min_layer_cos": 1.0000004768371582,
+    "max_logit_abs": 0.0
+   },
+   "ours": {
+    "kl": 0.0005480750696733594,
+    "top1": 0.98828125,
+    "final_cos": 0.9999359846115112,
+    "min_layer_cos": 0.9998620748519897,
+    "max_logit_abs": 1.4375
+   },
+   "checks": {
+    "kl": true,
+    "top1": false,
+    "final_cos": true,
+    "layer_cos": true
+   }
+  },
+  {
+   "seq": "PLAN.md",
+   "floor": {
+    "kl": 0.0,
+    "top1": 1.0,
+    "final_cos": 1.0000004768371582,
+    "min_layer_cos": 1.0000001192092896,
+    "max_logit_abs": 0.0
+   },
+   "ours": {
+    "kl": 0.0006497299764305353,
+    "top1": 0.984375,
+    "final_cos": 0.9999210834503174,
+    "min_layer_cos": 0.9998555183410645,
+    "max_logit_abs": 1.6875
+   },
+   "checks": {
+    "kl": true,
+    "top1": false,
+    "final_cos": true,
+    "layer_cos": true
+   }
+  },
+  {
+   "seq": "compiler/state_builder.py",
+   "floor": {
+    "kl": 0.0,
+    "top1": 1.0,
+    "final_cos": 1.0000004768371582,
+    "min_layer_cos": 1.0000003576278687,
+    "max_logit_abs": 0.0
+   },
+   "ours": {
+    "kl": 0.0006573137943632901,
+    "top1": 0.9921875,
+    "final_cos": 0.9999585151672363,
+    "min_layer_cos": 0.999889075756073,
+    "max_logit_abs": 0.5
+   },
+   "checks": {
+    "kl": true,
+    "top1": true,
+    "final_cos": true,
+    "layer_cos": true
+   }
+  },
+  {
+   "seq": "DECISION_HEAD.md",
+   "floor": {
+    "kl": 0.0,
+    "top1": 1.0,
+    "final_cos": 1.0000004768371582,
+    "min_layer_cos": 1.0000003576278687,
+    "max_logit_abs": 0.0
+   },
+   "ours": {
+    "kl": 0.0006430668290704489,
+    "top1": 0.9609375,
+    "final_cos": 0.9999361038208008,
+    "min_layer_cos": 0.999882698059082,
+    "max_logit_abs": 1.15625
+   },
+   "checks": {
+    "kl": true,
+    "top1": false,
+    "final_cos": true,
+    "layer_cos": true
+   }
+  }
+ ],
+ "verdict": "FAIL"
+}

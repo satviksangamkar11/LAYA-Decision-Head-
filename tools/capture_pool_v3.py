@@ -1,0 +1,124 @@
+"""Resumable full-pool capture for A5-v3 (frozen Qwen3-4B-Thinking-2507, depths 18/24/30, forward pass truncated after layer 30, lm_head never run).
+Rules and hard gates: configs/a5_v3_spec.toml [capture_v3]; thresholds reused from thresholds.toml [capture_one_record]. A failed gate ABORTS the run.
+    PYTHONPATH=. .venv/Scripts/python.exe tools/capture_pool_v3.py ROLE [--limit K] [--ids id1,id2] [--outdir DIR]
+ROLE is cal, train or locked. One file per decision; existing files are skipped, so the run resumes where it stopped. The locked role logs every access."""
+import os
+os.environ.setdefault("ATEN_CPU_CAPABILITY", "avx2")
+import argparse, hashlib, json, random, time, tomllib
+from pathlib import Path
+import torch
+import torch.nn.functional as F
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from capture.capture import Capturer
+from capture.pool import SCHEMA, render_pool
+from capture.render import RenderOverflow
+from compiler import a5v2, state_builder
+from compiler.firewall import load_cal_calibration_only, load_dev, log_locked_access
+
+ap = argparse.ArgumentParser()
+ap.add_argument("role", choices=["cal", "train", "locked"])
+ap.add_argument("--limit", type=int, default=None)
+ap.add_argument("--ids", default=None, help="comma separated decision ids (smoke tests only)")
+ap.add_argument("--outdir", default="data/v3/capture")
+args = ap.parse_args()
+ROOT = Path(__file__).resolve().parents[1]
+spec = tomllib.load(open(ROOT / "configs/a5_v3_spec.toml", "rb"))["capture_v3"]
+one = tomllib.load(open(ROOT / "configs/thresholds.toml", "rb"))["capture_one_record"]
+D, PLAIN, INDEP = spec["depths"], one["plain_cos_min"], one["indep_cos_min"]
+P = r"D:\local model\models\qwen3-4b-thinking-2507"
+rev = json.load(open(ROOT / "results/raw/qwen3-4b-thinking-2507.manifest.json"))["revision"]
+man = json.load(open(ROOT / f"data/v3/manifest-{args.role}.json", encoding="utf-8"))
+ids = args.ids.split(",") if args.ids else man["decision_ids"]
+if args.limit:
+    ids = ids[:args.limit]
+want = set(ids)
+if args.role == "train":
+    recs = {r["decision_id"]: r for r in load_dev(ROOT / "data/decisions/action-swerebench-sample-v2.jsonl") if r["decision_id"] in want}
+    raw = a5v2.load_raw(ROOT / "data/raw/swerebench-sample-20261001.jsonl")
+elif args.role == "cal":
+    recs = {r["decision_id"]: r for r in load_cal_calibration_only(ROOT / "data/decisions/action-swerebench-sample-v2.jsonl") if r["decision_id"] in want}
+    raw = a5v2.load_raw(ROOT / "data/raw/swerebench-sample-20261001.jsonl")
+else:
+    log_locked_access(f"capture_pool_v3 locked role: pool capture of {len(ids)} manifest decisions; forward passes only, no accuracy computed")
+    recs = {}
+    for l in open(ROOT / "data/decisions/locked-v3.jsonl", encoding="utf-8"):
+        r = json.loads(l)
+        if r["decision_id"] in want:
+            recs[r["decision_id"]] = r
+    raw = a5v2.load_raw(ROOT / "data/locked_v3/fresh-locked.jsonl")
+assert set(ids) <= set(recs), "manifest ids missing from the decision records"
+outdir = ROOT / args.outdir / args.role
+outdir.mkdir(parents=True, exist_ok=True)
+tok = AutoTokenizer.from_pretrained(P)
+model = AutoModelForCausalLM.from_pretrained(P, dtype=torch.bfloat16).eval()
+model.model.layers = torch.nn.ModuleList(list(model.model.layers)[:max(D)])   # the forward pass stops after the deepest captured layer
+C = Capturer(model, D)
+log = open(ROOT / "data/v3" / f"capture-log-{args.role}.jsonl", "a", encoding="utf-8")
+
+
+def cos(a, b):
+    return F.cosine_similarity(a.double(), b.double(), dim=-1)
+
+
+def gate_independence(R, q, cands):
+    P1 = len(R["suffix_ids"])
+    perm = list(range(P1))[::-1]
+    for part in (perm[:P1 // 2], perm[P1 // 2:]):
+        cap2, _ = C.packed(dict(prefix_ids=R["prefix_ids"], query_pos=R["query_pos"], suffix_ids=[R["suffix_ids"][i] for i in part]))
+        for dj, d in enumerate(D):
+            c = cos(cap2[d][1], cands[part][:, dj])
+            assert c.min().item() >= INDEP, f"candidate independence broken at depth {d}: min cosine {c.min().item():.6f}"
+            assert cos(cap2[d][0], q[dj]).item() >= INDEP, f"query vector changed with the pool composition at depth {d}"
+
+
+def gate_plain(R, q, cands, did):
+    picks = random.Random(a5v2.seed_of(did, "plain")).sample(range(len(R["suffix_ids"])), 5)
+    for i in picks:
+        cp = C.plain(R, i)
+        for dj, d in enumerate(D):
+            assert cos(cp[d][1][0], cands[i, dj]).item() >= PLAIN, f"plain-forward equivalence failed at depth {d} candidate {i}"
+            assert cos(cp[d][0], q[dj]).item() >= PLAIN, f"plain-forward query mismatch at depth {d}"
+
+
+def gate_repeat(R, cap):
+    cap2, _ = C.packed(R)
+    for d in D:
+        assert (cap2[d][0] - cap[d][0]).abs().max().item() == 0.0 and (cap2[d][1] - cap[d][1]).abs().max().item() == 0.0, f"identical recapture differs at depth {d}"
+
+
+t_start, done = time.time(), 0
+for n, did in enumerate(ids):
+    f = outdir / ("%05d-%s.pt" % (n, hashlib.sha256(did.encode()).hexdigest()[:8]))
+    if f.exists():
+        continue
+    rec = recs[did]
+    tid, t = did.rsplit(":", 1)
+    ev = raw[tid]["trajectory"]
+    t0 = time.time()
+    try:
+        st = state_builder.build_state(ev, int(t), 32000)
+        assert st["state_hash"] == rec["state_hash"], "state rebuild differs from the compiled record"
+        R = render_pool(rec, ev, st, tok, rev)
+    except RenderOverflow as e:
+        log.write(json.dumps({"n": n, "decision_id": did, "skipped": str(e)}) + "\n"); log.flush()
+        continue
+    cap, (tid_ids, spans) = C.packed(R)
+    assert [tid_ids[0, a:b].tolist() for a, b in spans] == R["suffix_ids"], "span check failed"
+    q = torch.stack([cap[d][0] for d in D])
+    cands = torch.stack([cap[d][1] for d in D], 1)
+    assert torch.isfinite(q).all() and torch.isfinite(cands).all(), "non-finite hidden state"
+    assert max(q.abs().max().item(), cands.abs().max().item()) < 60000, "value outside the fp16 storage range"
+    gates = []
+    if n < 3 or n % 50 == 0:
+        gate_independence(R, q, cands); gates.append("independence")
+    if n == 0 or n % 200 == 0:
+        gate_plain(R, q, cands, did); gate_repeat(R, cap); gates += ["plain", "repeat"]
+    torch.save(dict(schema=SCHEMA, decision_id=did, role=args.role, texts=R["texts"], pool_hash=R["pool_hash"], prompt_hash=R["prompt_hash"], state_hash=R["state_hash"],
+                    depths=D, query=q.half(), cands=cands.half(), n_prefix_tokens=R["n_prefix_tokens"], pool_size=R["pool_size"], tokenizer_revision=rev), f)
+    done += 1
+    log.write(json.dumps({"n": n, "decision_id": did, "seconds": round(time.time() - t0, 2), "prefix_tokens": R["n_prefix_tokens"], "suffix_tokens": R["n_suffix_tokens"],
+                          "pool": R["pool_size"], "gates": gates}) + "\n"); log.flush()
+    if done % 20 == 0:
+        print(f"{args.role} {n + 1}/{len(ids)} captured={done} elapsed={(time.time() - t_start) / 60:.1f} min", flush=True)
+assert C.lm_calls == 0, "lm_head was run"
+print("DONE", args.role, "captured", done, "of", len(ids), "minutes", round((time.time() - t_start) / 60, 1), "lm_head_calls", C.lm_calls)

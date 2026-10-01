@@ -1,0 +1,14 @@
+{
+ "repo": "Qwen/Qwen3-4B-Thinking-2507",
+ "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+ "mode": "deep",
+ "missing": [],
+ "wrong_size": [],
+ "incomplete_parts": [],
+ "bad_header": [],
+ "index_missing_tensors": [],
+ "index_extra_tensors": [],
+ "bad_sha256": [],
+ "ok_files": 13,
+ "verdict": "COMPLETE AND VERIFIED"
+}
