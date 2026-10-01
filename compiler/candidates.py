@@ -10,7 +10,7 @@ import random
 import re
 
 from compiler.state_builder import build_state
-from state.schema import Candidate, with_none
+from state.schema import Candidate, none_candidate, with_none
 
 KINDS = ("view", "edit", "run_tests", "explore", "run_other", "think", "plan", "finish")
 TEST_RE = re.compile(r"\b(pytest|py\.test|tox|nosetests|unittest|npm (run )?test|yarn test|go test|cargo test|mvn test|make test)\b")
@@ -99,7 +99,7 @@ def distractor_pool(events, t):
     return pool
 
 
-def make_candidates(events, t, budget_chars=32000):
+def make_candidates(events, t, budget_chars=32000, extra=0, cap=True):
     """Candidate set for the ACTION decision at t, with the true action from events[t]. Returns None if the pool is too small to build >= 2 options."""
     true = first_call(events[t])
     if true is None:
@@ -111,14 +111,15 @@ def make_candidates(events, t, budget_chars=32000):
     full_pool = distractor_pool(events, t)
     covered = any(p[0] == ttext for p in full_pool)   # could a deployable, state-only generator have proposed the true action?
     pool = [p for p in full_pool if p[0] != ttext]
-    k = min(2 + seed % 12, len(pool))
-    if k < 1:
+    k = min(2 + seed % 12 + extra, len(pool))
+    if k < 1 or k < 2 + seed % 12 + extra and extra:   # a +extra variant exists only if the pool can supply every extra distractor
         return None
     chosen = rng.sample(pool, k)
     items = sorted(chosen + [(ttext, tkind, true[0], true[1])], key=lambda p: p[0])   # canonical order first: position must not reveal the label
     rng.shuffle(items)
     cands = [to_candidate(f"c{i}", x[0], x[1], x[2], x[3], x[0] == ttext) for i, x in enumerate(items)]
-    return {"candidates": with_none(cands), "label_index": next(i for i, x in enumerate(items) if x[0] == ttext), "true_kind": tkind,
+    return {"candidates": with_none(cands) if cap else cands + [none_candidate()], "label_index": next(i for i, x in enumerate(items) if x[0] == ttext), "true_kind": tkind,
             "k_distractors": k, "pool_size": len(pool), "candidate_coverage": covered, "state_hash": state["state_hash"],
             "manifest_hash": state["manifest_hash"], "cut_stage": state["manifest"]["stage"]}
+
 

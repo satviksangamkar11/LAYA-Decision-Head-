@@ -1,0 +1,1564 @@
+{
+ "benchmark": "data/benchmark/a5-v1.jsonl",
+ "decisions": 4396,
+ "tfidf_cal_accuracy": 0.3801,
+ "coverage": {
+  "test": 0.3165,
+  "ood": 0.3182
+ },
+ "end_to_end_note": "accuracy on covered decisions x coverage; an uncovered decision cannot be solved from a state-only candidate set. Uses the pooled covered accuracy for both splits: see per-split keys for exact figures.",
+ "end_to_end_pooled": {
+  "random": {
+   "test": 0.04,
+   "ood": 0.0402
+  },
+  "first": {
+   "test": 0.0497,
+   "ood": 0.05
+  },
+  "last_item": {
+   "test": 0.0531,
+   "ood": 0.0534
+  },
+  "longest_text": {
+   "test": 0.0306,
+   "ood": 0.0308
+  },
+  "tfidf_candidate_only": {
+   "test": 0.1023,
+   "ood": 0.1029
+  }
+ },
+ "results": {
+  "random": {
+   "normal": {
+    "all": {
+     "accuracy": 0.1246,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1238,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1263,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1244,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1248,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.121,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1285,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1246,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1243,
+     "n": 1639
+    }
+   },
+   "perm": {
+    "all": {
+     "accuracy": 0.1246,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1238,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1263,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1244,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1248,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.121,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1285,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1246,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1243,
+     "n": 1639
+    }
+   },
+   "none_first": {
+    "all": {
+     "accuracy": 0.1246,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1238,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1263,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1244,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1248,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.121,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1285,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1246,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1243,
+     "n": 1639
+    }
+   },
+   "none_middle": {
+    "all": {
+     "accuracy": 0.1246,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1238,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1263,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1244,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1248,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.121,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1285,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1246,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1243,
+     "n": 1639
+    }
+   },
+   "none_last": {
+    "all": {
+     "accuracy": 0.1246,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1238,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1263,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1244,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1248,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.121,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1285,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1246,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1243,
+     "n": 1639
+    }
+   },
+   "plus3": {
+    "all": {
+     "accuracy": 0.0869,
+     "n": 4290
+    },
+    "covered:False": {
+     "accuracy": 0.0866,
+     "n": 2943
+    },
+    "covered:True": {
+     "accuracy": 0.0875,
+     "n": 1347
+    },
+    "split:ood": {
+     "accuracy": 0.0868,
+     "n": 2113
+    },
+    "split:test": {
+     "accuracy": 0.087,
+     "n": 2177
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0849,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0896,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.087,
+     "n": 2494
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0866,
+     "n": 1593
+    }
+   },
+   "plus6": {
+    "all": {
+     "accuracy": 0.0679,
+     "n": 4271
+    },
+    "covered:False": {
+     "accuracy": 0.0677,
+     "n": 2932
+    },
+    "covered:True": {
+     "accuracy": 0.0683,
+     "n": 1339
+    },
+    "split:ood": {
+     "accuracy": 0.0678,
+     "n": 2108
+    },
+    "split:test": {
+     "accuracy": 0.068,
+     "n": 2163
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0664,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0696,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0679,
+     "n": 2483
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0677,
+     "n": 1585
+    }
+   },
+   "plus10": {
+    "all": {
+     "accuracy": 0.053,
+     "n": 4239
+    },
+    "covered:False": {
+     "accuracy": 0.0529,
+     "n": 2907
+    },
+    "covered:True": {
+     "accuracy": 0.0532,
+     "n": 1332
+    },
+    "split:ood": {
+     "accuracy": 0.0529,
+     "n": 2091
+    },
+    "split:test": {
+     "accuracy": 0.053,
+     "n": 2148
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0519,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0539,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.053,
+     "n": 2468
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0529,
+     "n": 1568
+    }
+   }
+  },
+  "first": {
+   "normal": {
+    "all": {
+     "accuracy": 0.1481,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.144,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.157,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1413,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1546,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1488,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1452,
+     "n": 1639
+    }
+   },
+   "perm": {
+    "all": {
+     "accuracy": 0.1237,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.12,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1319,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1215,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.126,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1013,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1241,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1275,
+     "n": 1639
+    }
+   },
+   "none_first": {
+    "all": {
+     "accuracy": 0.0,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.0,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.0,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.0,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0,
+     "n": 1639
+    }
+   },
+   "none_middle": {
+    "all": {
+     "accuracy": 0.1481,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.144,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.157,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1413,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1546,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1488,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1452,
+     "n": 1639
+    }
+   },
+   "none_last": {
+    "all": {
+     "accuracy": 0.1481,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.144,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.157,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1413,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1546,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1488,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1452,
+     "n": 1639
+    }
+   },
+   "plus3": {
+    "all": {
+     "accuracy": 0.1033,
+     "n": 4290
+    },
+    "covered:False": {
+     "accuracy": 0.1084,
+     "n": 2943
+    },
+    "covered:True": {
+     "accuracy": 0.0921,
+     "n": 1347
+    },
+    "split:ood": {
+     "accuracy": 0.1041,
+     "n": 2113
+    },
+    "split:test": {
+     "accuracy": 0.1024,
+     "n": 2177
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.1778,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1266,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0962,
+     "n": 2494
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1099,
+     "n": 1593
+    }
+   },
+   "plus6": {
+    "all": {
+     "accuracy": 0.067,
+     "n": 4271
+    },
+    "covered:False": {
+     "accuracy": 0.0662,
+     "n": 2932
+    },
+    "covered:True": {
+     "accuracy": 0.0687,
+     "n": 1339
+    },
+    "split:ood": {
+     "accuracy": 0.0664,
+     "n": 2108
+    },
+    "split:test": {
+     "accuracy": 0.0675,
+     "n": 2163
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0667,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0759,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0644,
+     "n": 2483
+    },
+    "tier:WEAK": {
+     "accuracy": 0.07,
+     "n": 1585
+    }
+   },
+   "plus10": {
+    "all": {
+     "accuracy": 0.0566,
+     "n": 4239
+    },
+    "covered:False": {
+     "accuracy": 0.0578,
+     "n": 2907
+    },
+    "covered:True": {
+     "accuracy": 0.0541,
+     "n": 1332
+    },
+    "split:ood": {
+     "accuracy": 0.056,
+     "n": 2091
+    },
+    "split:test": {
+     "accuracy": 0.0573,
+     "n": 2148
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.1333,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0443,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0616,
+     "n": 2468
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0478,
+     "n": 1568
+    }
+   }
+  },
+  "last_item": {
+   "normal": {
+    "all": {
+     "accuracy": 0.1501,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.142,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1677,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1543,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1461,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1504,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1483,
+     "n": 1639
+    }
+   },
+   "perm": {
+    "all": {
+     "accuracy": 0.1549,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.1613,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1412,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1607,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1493,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1835,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1574,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.147,
+     "n": 1639
+    }
+   },
+   "none_first": {
+    "all": {
+     "accuracy": 0.1501,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.142,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1677,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1543,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1461,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1504,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1483,
+     "n": 1639
+    }
+   },
+   "none_middle": {
+    "all": {
+     "accuracy": 0.1501,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.142,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1677,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1543,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1461,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1504,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1483,
+     "n": 1639
+    }
+   },
+   "none_last": {
+    "all": {
+     "accuracy": 0.1501,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.142,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.1677,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.1543,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.1461,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1519,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1504,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1483,
+     "n": 1639
+    }
+   },
+   "plus3": {
+    "all": {
+     "accuracy": 0.0965,
+     "n": 4290
+    },
+    "covered:False": {
+     "accuracy": 0.104,
+     "n": 2943
+    },
+    "covered:True": {
+     "accuracy": 0.0802,
+     "n": 1347
+    },
+    "split:ood": {
+     "accuracy": 0.0928,
+     "n": 2113
+    },
+    "split:test": {
+     "accuracy": 0.1001,
+     "n": 2177
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.1111,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0759,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0978,
+     "n": 2494
+    },
+    "tier:WEAK": {
+     "accuracy": 0.096,
+     "n": 1593
+    }
+   },
+   "plus6": {
+    "all": {
+     "accuracy": 0.0768,
+     "n": 4271
+    },
+    "covered:False": {
+     "accuracy": 0.0812,
+     "n": 2932
+    },
+    "covered:True": {
+     "accuracy": 0.0672,
+     "n": 1339
+    },
+    "split:ood": {
+     "accuracy": 0.0773,
+     "n": 2108
+    },
+    "split:test": {
+     "accuracy": 0.0763,
+     "n": 2163
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0667,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1013,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.0697,
+     "n": 2483
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0858,
+     "n": 1585
+    }
+   },
+   "plus10": {
+    "all": {
+     "accuracy": 0.0632,
+     "n": 4239
+    },
+    "covered:False": {
+     "accuracy": 0.0609,
+     "n": 2907
+    },
+    "covered:True": {
+     "accuracy": 0.0683,
+     "n": 1332
+    },
+    "split:ood": {
+     "accuracy": 0.0622,
+     "n": 2091
+    },
+    "split:test": {
+     "accuracy": 0.0642,
+     "n": 2148
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0667,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0633,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.06,
+     "n": 2468
+    },
+    "tier:WEAK": {
+     "accuracy": 0.0682,
+     "n": 1568
+    }
+   }
+  },
+  "longest_text": {
+   "normal": {
+    "all": {
+     "accuracy": 0.2573,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.3319,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0968,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.2587,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.2559,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0949,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2541,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2837,
+     "n": 1639
+    }
+   },
+   "perm": {
+    "all": {
+     "accuracy": 0.2575,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.3312,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0989,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.2582,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.2568,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0886,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2533,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2862,
+     "n": 1639
+    }
+   },
+   "none_first": {
+    "all": {
+     "accuracy": 0.2573,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.3319,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0968,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.2587,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.2559,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0949,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2541,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2837,
+     "n": 1639
+    }
+   },
+   "none_middle": {
+    "all": {
+     "accuracy": 0.2573,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.3319,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0968,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.2587,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.2559,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0949,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2541,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2837,
+     "n": 1639
+    }
+   },
+   "none_last": {
+    "all": {
+     "accuracy": 0.2573,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.3319,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.0968,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.2587,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.2559,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0444,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0949,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2541,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2837,
+     "n": 1639
+    }
+   },
+   "plus3": {
+    "all": {
+     "accuracy": 0.1991,
+     "n": 4290
+    },
+    "covered:False": {
+     "accuracy": 0.2613,
+     "n": 2943
+    },
+    "covered:True": {
+     "accuracy": 0.0631,
+     "n": 1347
+    },
+    "split:ood": {
+     "accuracy": 0.1959,
+     "n": 2113
+    },
+    "split:test": {
+     "accuracy": 0.2021,
+     "n": 2177
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.038,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2001,
+     "n": 2494
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2191,
+     "n": 1593
+    }
+   },
+   "plus6": {
+    "all": {
+     "accuracy": 0.1667,
+     "n": 4271
+    },
+    "covered:False": {
+     "accuracy": 0.2227,
+     "n": 2932
+    },
+    "covered:True": {
+     "accuracy": 0.0441,
+     "n": 1339
+    },
+    "split:ood": {
+     "accuracy": 0.1594,
+     "n": 2108
+    },
+    "split:test": {
+     "accuracy": 0.1738,
+     "n": 2163
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0253,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.1679,
+     "n": 2483
+    },
+    "tier:WEAK": {
+     "accuracy": 0.1836,
+     "n": 1585
+    }
+   },
+   "plus10": {
+    "all": {
+     "accuracy": 0.1382,
+     "n": 4239
+    },
+    "covered:False": {
+     "accuracy": 0.1889,
+     "n": 2907
+    },
+    "covered:True": {
+     "accuracy": 0.0278,
+     "n": 1332
+    },
+    "split:ood": {
+     "accuracy": 0.1306,
+     "n": 2091
+    },
+    "split:test": {
+     "accuracy": 0.1457,
+     "n": 2148
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.0,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.139,
+     "n": 2468
+    },
+    "tier:WEAK": {
+     "accuracy": 0.155,
+     "n": 1568
+    }
+   }
+  },
+  "tfidf_candidate_only": {
+   "normal": {
+    "all": {
+     "accuracy": 0.3983,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.4332,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.3233,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.3824,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.4137,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2222,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.2595,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.39,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.4295,
+     "n": 1639
+    }
+   },
+   "perm": {
+    "all": {
+     "accuracy": 0.3983,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.4332,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.3233,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.3838,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.4124,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2222,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.2595,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.3904,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.4289,
+     "n": 1639
+    }
+   },
+   "none_first": {
+    "all": {
+     "accuracy": 0.3983,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.4332,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.3233,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.3824,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.4137,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2222,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.2595,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.39,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.4295,
+     "n": 1639
+    }
+   },
+   "none_middle": {
+    "all": {
+     "accuracy": 0.3983,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.4332,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.3233,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.3824,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.4137,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2222,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.2595,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.39,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.4295,
+     "n": 1639
+    }
+   },
+   "none_last": {
+    "all": {
+     "accuracy": 0.3983,
+     "n": 4396
+    },
+    "covered:False": {
+     "accuracy": 0.4332,
+     "n": 3001
+    },
+    "covered:True": {
+     "accuracy": 0.3233,
+     "n": 1395
+    },
+    "split:ood": {
+     "accuracy": 0.3824,
+     "n": 2165
+    },
+    "split:test": {
+     "accuracy": 0.4137,
+     "n": 2231
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.2222,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.2595,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.39,
+     "n": 2554
+    },
+    "tier:WEAK": {
+     "accuracy": 0.4295,
+     "n": 1639
+    }
+   },
+   "plus3": {
+    "all": {
+     "accuracy": 0.3147,
+     "n": 4290
+    },
+    "covered:False": {
+     "accuracy": 0.3598,
+     "n": 2943
+    },
+    "covered:True": {
+     "accuracy": 0.216,
+     "n": 1347
+    },
+    "split:ood": {
+     "accuracy": 0.3062,
+     "n": 2113
+    },
+    "split:test": {
+     "accuracy": 0.3229,
+     "n": 2177
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.1333,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1582,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.3059,
+     "n": 2494
+    },
+    "tier:WEAK": {
+     "accuracy": 0.349,
+     "n": 1593
+    }
+   },
+   "plus6": {
+    "all": {
+     "accuracy": 0.2639,
+     "n": 4271
+    },
+    "covered:False": {
+     "accuracy": 0.3083,
+     "n": 2932
+    },
+    "covered:True": {
+     "accuracy": 0.1665,
+     "n": 1339
+    },
+    "split:ood": {
+     "accuracy": 0.2576,
+     "n": 2108
+    },
+    "split:test": {
+     "accuracy": 0.27,
+     "n": 2163
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0889,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1139,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.259,
+     "n": 2483
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2915,
+     "n": 1585
+    }
+   },
+   "plus10": {
+    "all": {
+     "accuracy": 0.2177,
+     "n": 4239
+    },
+    "covered:False": {
+     "accuracy": 0.2597,
+     "n": 2907
+    },
+    "covered:True": {
+     "accuracy": 0.1261,
+     "n": 1332
+    },
+    "split:ood": {
+     "accuracy": 0.2119,
+     "n": 2091
+    },
+    "split:test": {
+     "accuracy": 0.2235,
+     "n": 2148
+    },
+    "tier:NEGATIVE": {
+     "accuracy": 0.0667,
+     "n": 45
+    },
+    "tier:STRONG": {
+     "accuracy": 0.1076,
+     "n": 158
+    },
+    "tier:UNKNOWN": {
+     "accuracy": 0.2103,
+     "n": 2468
+    },
+    "tier:WEAK": {
+     "accuracy": 0.2449,
+     "n": 1568
+    }
+   }
+  }
+ }
+}
