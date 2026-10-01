@@ -1,0 +1,27 @@
+# Fixed before any compilation (user decision 2026-10-01). Changing a value needs a new versioned file with a written reason.
+[state]
+budget_chars = 32000          # about 8,000 tokens. Measured on 2,147 real decisions: no last-resort core trimming at this budget;
+                              # oldest-event dropping still needed for 32%. Capture cost per decision is about 4x the 2,000-token
+                              # figure used earlier: estimate (unmeasured).
+builder_version = "1"
+
+[candidates]
+min_distractors = 2
+max_distractors = 13          # plus the true action plus NONE stays under the 16-option cap
+seed_from = "state_hash"      # distractor count, selection and order depend on the state only, never on the label
+
+# Pre-registered before any benchmark or training run (2026-10-01).
+[tier_use]
+# Evidence strength is kept in the target; WEAK is never relabelled as correct. Numeric weights are fixed in configs/thresholds.toml before training.
+STRONG = "supervision weight, highest"
+WEAK = "supervision weight, lower; reported separately"
+UNKNOWN = "no positive credit"
+NEGATIVE = "explicit negative evidence about the chosen action only"
+
+[benchmark_axes]
+# A5 perturbations, each reported separately: normal; shuffled order including NONE; NONE first, middle, last; +3, +6, +10 distractors;
+# wording paraphrase. Reported next to candidate_coverage (the share of true actions a state-only generator could have proposed),
+# the candidate-only, TF-IDF, random, longest-text and position baselines.
+none_position = ["first", "middle", "last"]
+permute_including_none = true
+state_budget_ablation_chars = [12000, 16000, 24000, 32000]   # a pre-registered ablation; the budget is not tuned on accuracy

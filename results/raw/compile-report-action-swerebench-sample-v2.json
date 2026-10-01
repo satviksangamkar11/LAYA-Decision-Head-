@@ -1,0 +1,40 @@
+{
+ "sample": "data/raw/swerebench-sample-20261001.jsonl",
+ "sample_sha256": "28fc566cf35e88772e03408b063d025d29c89b77f54a26adbe428c7897453e18",
+ "out": "D:\\local model\\data\\decisions\\action-swerebench-sample-v2.jsonl",
+ "out_sha256": "d462d76b9bf6f252b357359b561e45eff9604681196ed64b001142d32ecf23af",
+ "budget_chars": 32000,
+ "split_manifest_sha256": "8fd197374c96ee61bf1d85eb561a917477a9d5c9270a2859b220caf37a32f248",
+ "rules_sha256": {
+  "v1": "c06c740995144da75ae1f3138557fd6f5ccda54373078a3e9ccea920c665cbb5",
+  "v1_1": "70a740873a07c458b90797b2751695a373e3847721f9ff2473bbb55f2e2f645d"
+ },
+ "counts": {
+  "covered_by_state_only_generator": 6118,
+  "kind:edit": 3087,
+  "kind:explore": 4080,
+  "kind:finish": 279,
+  "kind:plan": 260,
+  "kind:run_other": 3201,
+  "kind:run_tests": 2286,
+  "kind:think": 810,
+  "kind:view": 4891,
+  "records": 18894,
+  "split:cal": 2557,
+  "split:ood": 2165,
+  "split:test": 2231,
+  "split:train": 11941,
+  "stage:caps": 9747,
+  "stage:core": 2,
+  "stage:drop": 6168,
+  "stage:none": 2977,
+  "target_checked": 7978,
+  "target_unseen": 2049,
+  "tier:NEGATIVE": 243,
+  "tier:STRONG": 706,
+  "tier:UNKNOWN": 10807,
+  "tier:WEAK": 7138
+ },
+ "rows": 300,
+ "repos": 230
+}

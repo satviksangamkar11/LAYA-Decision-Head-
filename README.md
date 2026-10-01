@@ -36,9 +36,13 @@ Last updated: 2026-10-01.
 - **Datasets by recorded outcome [M]:** R2E-Gym SFT has no outcome flag; SWE-rebench-openhands (`resolved`, `exit_status`) and SWE-smith (`resolved`) do. No Docker here, so execution-based checks rely on recorded results.
 - **Machine [M]:** AVX-512 torch CPU kernels crash on this CPU (use `ATEN_CPU_CAPABILITY=avx2`); the Hub CLI exits 0 after a `MemoryError`, so downloads are size-checked; D: has about 33 GB free.
 
+- **State builder built and tested [M]** (`compiler/state_builder.py`, `compiler/selfcheck.py`, 17 checks pass): twin trajectories with different labels and futures give identical state, hash and cut manifest at three budgets; the label event and future never enter and `events[t:]` is never read (also true on 1,264 real decisions); episode fields, unknown roles and missing keys are rejected; cuts follow a fixed declared order with visible markers; overflow raises. Budget needs a decision: on 2,147 real decisions the share needing the last-resort core trimming (issue and latest events cut) is 33.5% at 8,000 chars, 3.8% at 12,000, 1.4% at 16,000 and 24,000, 0% at 32,000; oldest-event dropping is needed for 59% to 78% of decisions up to 16,000 chars. The budget is fixed before compilation, not tuned on results.
+
+- **Compiler stage 1 built and run on the 300-row pilot sample [M]** (`compiler/`: state builder, `candidates.py`, `tiers.py`, `split.py`, `run.py`; `configs/compile.toml` fixes the 32,000-character state budget; `uv run python -m compiler.selfcheck` all checks pass). Output `data/decisions/action-swerebench-sample-v1.jsonl` (not in git): 18,894 ACTION records, none skipped, 42 MB; splits by repository train 11,941 / cal 2,557 / test 2,231 / OOD 2,165 (142 / 32 / 29 / 27 repositories); tiers STRONG 706, WEAK 7,138, UNKNOWN 10,807, NEGATIVE 243; cut stage none 2,977, caps 9,747, drop 6,168, core 2. Reports and the split manifest hash are in `results/raw/` (`compile-report-*`, `split-manifest-*`). Known shortcuts to quantify in A5: the true action is the longest candidate text in 24.7% of decisions (chance about 14.9%), and 25.7% of view/edit labels name a file that never appears in the state. Position of the true action is uniform (chi-square 84.6, df 90). **Candidate coverage [M]: only 6,118 of 18,894 true actions (32.4%) are in the pool a state-only generator could propose** (the rest are novel files or commands), so A5 reports accuracy next to coverage. Tier use, the NONE-position axis (first, middle, last), shuffling that includes NONE, and the 12k/16k/24k/32k budget ablation are pre-registered in ``configs/compile.toml``.
+
 ## Not done
 
-The dataset compiler (A4.1 to A4.7), the locked benchmark and baselines (A5, A6), any hidden-state capture, training, calibration on our data, and any evaluation on a real LLM. **Nothing is known yet about how well the head works on real states.**
+Teacher outputs attached to the records (stage 2, in laya-audit), the locked benchmark and baselines (A5, A6), any hidden-state capture, training, calibration on our data, and any evaluation on a real LLM. **Nothing is known yet about how well the head works on real states.**
 
 ## Order (user, 2026-10-01)
 
@@ -51,4 +55,7 @@ A4.0 is done: 20 SWE-rebench-openhands rows read (`A4_LEAKAGE_RULES.md` v1 and `
 ## Open decisions for the user
 
 Delete the leftover partial downloads in the Laya and 120B caches (about 335 MB)? Allow about 300 SWE-rebench rows via the datasets server (about 83 MB [E]; the full 1.94 GB needs a yes)? Commit the new files (`A4_LEAKAGE_RULES*.md`, baselines, schema changes) and push? Which second backbone after heretic (`Qwen/Qwen3.5-4B` is in the local cache, not opened)?
+
+
+
 
