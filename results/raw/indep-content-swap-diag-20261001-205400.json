@@ -1,0 +1,63 @@
+{
+ "decision_id": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1:130",
+ "n_candidates": 50,
+ "rows": [
+  {
+   "candidate": 0,
+   "tokens": 20,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999991,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 1,
+   "tokens": 1,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 1.0,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 4,
+   "tokens": 22,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999968,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 6,
+   "tokens": 22,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999976,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 44,
+   "tokens": 17,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999956,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 11,
+   "tokens": 24,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999943,
+   "max_abs_diff_query": 0.0
+  },
+  {
+   "candidate": 49,
+   "tokens": 10,
+   "other_candidates_changed": 49,
+   "max_abs_diff_candidate": 0.0,
+   "min_cos_candidate": 0.9999999999999971,
+   "max_abs_diff_query": 0.0
+  }
+ ],
+ "all_identical": true
+}

@@ -185,3 +185,12 @@ registered = "2026-10-02"
 m_min = 3
 rank_window = 3
 min_feasible_share = 0.70
+
+
+[capture_v3_gates]
+version = 2
+registered = "2026-10-02"
+supersedes = "capture_one_record.indep_cos_min (0.9999, retired for the v3 capture; reason in configs/a5_v3_spec.toml [amendment_2026_10_02_d]). Previous thresholds.toml sha256 prefix: 9abcda43b1d4efd8"
+content_swap_max_abs_diff = 0.0      # Gate A: target candidate vector and query must be bit-identical when other candidates' content changes at identical shape
+content_swap_targets = 3             # random targets per gated decision, plus the NONE option
+shape_change_cos_min = 0.999         # Gate B: numerical sanity across shape changes (equal to plain_cos_min); not an independence proof

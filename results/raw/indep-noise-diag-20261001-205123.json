@@ -1,0 +1,230 @@
+{
+ "decision_id": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1:130",
+ "n_candidates": 50,
+ "prefix_tokens": 8635,
+ "depths": [
+  18,
+  24,
+  30
+ ],
+ "n_below_0_9999_full_vs_half": 2,
+ "n_below_0_9999_full_vs_reversed": 3,
+ "min_full_vs_half": [
+  0.999925,
+  0.999872,
+  0.999908
+ ],
+ "min_full_vs_reversed": [
+  0.999925,
+  0.999837,
+  0.999868
+ ],
+ "median_full_vs_half": [
+  0.999993,
+  0.999983,
+  0.999992
+ ],
+ "worst_candidates": [
+  {
+   "candidate": 0,
+   "tokens": 20,
+   "text": "bash: cd /workspace/PlasmaFAIR__sdf-xarray__unknown && git stash",
+   "full_vs_half": [
+    0.999948,
+    0.999872,
+    0.999908
+   ],
+   "full_vs_reversed_full": [
+    0.999976,
+    0.999889,
+    0.999868
+   ],
+   "full_vs_plain": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "half_vs_plain": [
+    0.999948,
+    0.999872,
+    0.999908
+   ]
+  },
+  {
+   "candidate": 1,
+   "tokens": 1,
+   "text": "think",
+   "full_vs_half": [
+    0.999925,
+    0.999885,
+    0.999932
+   ],
+   "full_vs_reversed_full": [
+    0.999925,
+    0.999885,
+    0.999932
+   ],
+   "full_vs_plain": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "half_vs_plain": [
+    0.999925,
+    0.999885,
+    0.999932
+   ]
+  },
+  {
+   "candidate": 4,
+   "tokens": 22,
+   "text": "bash: cd /workspace/PlasmaFAIR__sdf-xarray__unknown && python debug_na",
+   "full_vs_half": [
+    0.999977,
+    0.999912,
+    0.999955
+   ],
+   "full_vs_reversed_full": [
+    0.999961,
+    0.999837,
+    0.999902
+   ],
+   "full_vs_plain": [
+    0.999979,
+    0.999807,
+    0.999769
+   ],
+   "half_vs_plain": [
+    0.999976,
+    0.999882,
+    0.999862
+   ]
+  },
+  {
+   "candidate": 6,
+   "tokens": 22,
+   "text": "bash: cd /workspace/PlasmaFAIR__sdf-xarray__unknown && python test_fix",
+   "full_vs_half": [
+    0.999979,
+    0.999939,
+    0.99996
+   ],
+   "full_vs_reversed_full": [
+    0.99999,
+    0.999973,
+    0.999988
+   ],
+   "full_vs_plain": [
+    0.999967,
+    0.999891,
+    0.999903
+   ],
+   "half_vs_plain": [
+    0.999976,
+    0.999896,
+    0.999856
+   ]
+  },
+  {
+   "candidate": 44,
+   "tokens": 17,
+   "text": "str_replace PlasmaFAIR__sdf-xarray__unknown/tests/test_cython.py",
+   "full_vs_half": [
+    0.999979,
+    0.999944,
+    0.999946
+   ],
+   "full_vs_reversed_full": [
+    0.999979,
+    0.999944,
+    0.999946
+   ],
+   "full_vs_plain": [
+    0.999977,
+    0.999945,
+    0.999949
+   ],
+   "half_vs_plain": [
+    0.999996,
+    0.999993,
+    0.999996
+   ]
+  },
+  {
+   "candidate": 11,
+   "tokens": 24,
+   "text": "bash: cd /workspace/PlasmaFAIR__sdf-xarray__unknown && python reproduc",
+   "full_vs_half": [
+    0.999989,
+    0.999949,
+    0.999973
+   ],
+   "full_vs_reversed_full": [
+    0.999991,
+    0.999966,
+    0.999978
+   ],
+   "full_vs_plain": [
+    0.999979,
+    0.999898,
+    0.999881
+   ],
+   "half_vs_plain": [
+    0.999983,
+    0.999935,
+    0.999928
+   ]
+  },
+  {
+   "candidate": 48,
+   "tokens": 1,
+   "text": "finish",
+   "full_vs_half": [
+    0.999955,
+    0.999949,
+    0.999957
+   ],
+   "full_vs_reversed_full": [
+    0.999955,
+    0.999949,
+    0.999957
+   ],
+   "full_vs_plain": [
+    0.999955,
+    0.999949,
+    0.999957
+   ],
+   "half_vs_plain": [
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "candidate": 7,
+   "tokens": 23,
+   "text": "bash: cd /workspace/PlasmaFAIR__sdf-xarray__unknown && pip install -e ",
+   "full_vs_half": [
+    0.999991,
+    0.999956,
+    0.999958
+   ],
+   "full_vs_reversed_full": [
+    0.999996,
+    0.999983,
+    0.999979
+   ],
+   "full_vs_plain": [
+    0.999982,
+    0.999907,
+    0.999866
+   ],
+   "half_vs_plain": [
+    0.999978,
+    0.999905,
+    0.999885
+   ]
+  }
+ ],
+ "note": "plain = separate [prefix+suffix] forward; reversed = same pool, same sequence length, reversed candidate order"
+}

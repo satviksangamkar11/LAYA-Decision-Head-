@@ -20,6 +20,7 @@ from compiler.firewall import load_cal_calibration_only, load_dev, log_locked_ac
 ap = argparse.ArgumentParser()
 ap.add_argument("--limit_texts", type=int, default=None)
 ap.add_argument("--outdir", default="data/v3/textemb")
+ap.add_argument("--only_ids", default=None, help="comma separated decision ids (smoke tests only): embed just their pool texts")
 args = ap.parse_args()
 ROOT = Path(__file__).resolve().parents[1]
 D = tomllib.load(open(ROOT / "configs/a5_v3_spec.toml", "rb"))["capture_v3"]["depths"]
@@ -28,17 +29,23 @@ NEUTRAL, SHARD, MAX_TOK, MAX_SEQ = "Next action:", 2048, 6000, 256
 
 # ---- collect the unique texts of every pool in the three manifests ----
 raw_old = a5v2.load_raw(ROOT / "data/raw/swerebench-sample-20261001.jsonl")
-log_locked_access("capture_textemb_v3: rebuild locked candidate pools to collect candidate TEXTS; no outcomes")
-raw_locked = a5v2.load_raw(ROOT / "data/locked_v3/fresh-locked.jsonl")
+only = set(args.only_ids.split(",")) if args.only_ids else None
+raw_locked = None
 texts = {NONE_TEXT}
 per_role = {}
 for role in ("train", "cal", "locked"):
     ids = set(json.load(open(ROOT / f"data/v3/manifest-{role}.json", encoding="utf-8"))["decision_ids"])
+    if only is not None:
+        ids &= only
+        if not ids:
+            continue
     if role == "train":
         rows, raw = load_dev(ROOT / "data/decisions/action-swerebench-sample-v2.jsonl"), raw_old
     elif role == "cal":
         rows, raw = load_cal_calibration_only(ROOT / "data/decisions/action-swerebench-sample-v2.jsonl"), raw_old
     else:
+        log_locked_access("capture_textemb_v3: rebuild locked candidate pools to collect candidate TEXTS; no outcomes")
+        raw_locked = a5v2.load_raw(ROOT / "data/locked_v3/fresh-locked.jsonl")
         rows, raw = (json.loads(l) for l in open(ROOT / "data/decisions/locked-v3.jsonl", encoding="utf-8")), raw_locked
     n = 0
     for r in rows:

@@ -1,0 +1,101 @@
+{
+ "created": "2026-10-01T21:16:04.920961+00:00",
+ "passed": true,
+ "complete": true,
+ "pending": [],
+ "n_checks": 16,
+ "checks": [
+  {
+   "check": "A1 trainer modules have no path to the locked set",
+   "passed": true,
+   "detail": "no locked path/loader/log call, no evaluator import in v3_data, v3_model, v3_training, v3_selection"
+  },
+  {
+   "check": "A2 H0 is state-free by signature",
+   "passed": true,
+   "detail": "H0Net.forward(x, te, mask): no query / contextual-candidate argument"
+  },
+  {
+   "check": "B1 training set 0 equals the registered out-of-fold set (a5v2.oof_sets); sets are valid",
+   "passed": true,
+   "detail": "3907 decisions: set 0 identical to the registered sets; aug seeds = seed_of(state_hash, version, aug, i); 3907 decisions have at least one differing augmentation set"
+  },
+  {
+   "check": "C1 positive control: planted state signal beats H0 on held-out synthetic decisions",
+   "passed": true,
+   "detail": "H0 0.250 -> H2 1.000"
+  },
+  {
+   "check": "C2 negative control: no planted signal, the registered claim is NOT supported",
+   "passed": true,
+   "detail": "450 decisions: H2-H0 = +0.024, 95% CI [-0.018, +0.067] -> verdict INCONCLUSIVE (interval half-width above 0.04)"
+  },
+  {
+   "check": "C3 H0 receives no contextual vector; H2 does",
+   "passed": true,
+   "detail": "replacing every query and contextual candidate vector leaves H0 bit-identical and changes H2"
+  },
+  {
+   "check": "C4 H2 = frozen H0 score + residual; a fresh residual starts exactly at H0",
+   "passed": true,
+   "detail": "H2 logits == H0 logits + residual; zero-initialised key projection makes H2 start at H0"
+  },
+  {
+   "check": "C5 candidate order: a permutation only permutes the scores",
+   "passed": true,
+   "detail": "max |score(permuted) - permuted(score)| = 4.77e-07 for H0 and H2"
+  },
+  {
+   "check": "C6 same rows, sets, seed, schedule, scaler policy; OOF H0 scores used for the residual",
+   "passed": true,
+   "detail": "folds disjoint by trajectory; OOF scores differ from final-H0 scores (max diff 1.547); identical rows/shuffle/seed/schedule; one scaler fit"
+  },
+  {
+   "check": "C7 CAL and LOCKED rows cannot enter a gradient step",
+   "passed": true,
+   "detail": "train_loop refused role=cal and role=locked rows"
+  },
+  {
+   "check": "C8 training is reproducible for a fixed seed",
+   "passed": true,
+   "detail": "second fit with the same seed gives bit-identical H0 and residual weights"
+  },
+  {
+   "check": "C9 temperature, bootstrap, tie-break and nested subsets",
+   "passed": true,
+   "detail": "temperature 3.23; bootstrap/verdict rules; tie-break; nested subsets"
+  },
+  {
+   "check": "C10 NONE is captured but can never be scored",
+   "passed": true,
+   "detail": "a candidate set containing the NONE option is refused by make_batch (assemble also rejects NONE in the pool and any set index beyond the sampled pool)"
+  },
+  {
+   "check": "C11 early-stopping split is locked: 10%, trajectory-grouped, deterministic, TRAIN only, set 0",
+   "passed": true,
+   "detail": "6 validation trajectories of 60; order-independent; disjoint; 0.2 refused; non-TRAIN or non-set-0 validation refused"
+  },
+  {
+   "check": "D1 real CAL smoke captures: shapes, hashes, text alignment, finiteness (forward only, no training, no accuracy)",
+   "passed": true,
+   "detail": "3 decisions aligned and finite; state-free embeddings differ from the contextual vectors for 100.0% of candidate-depth pairs; a swapped candidate text is rejected"
+  },
+  {
+   "check": "D2 real TRAIN smoke captures: full pipeline (cross-fit, H0, residual) with the structural assertions on real tensors",
+   "passed": true,
+   "detail": "10 real TRAIN decisions: pipeline ran (3 H0 epochs, 3 residual epochs); blind-H0, state-using H2 and permutation checks hold on real tensors (no accuracy is read)"
+  }
+ ],
+ "trainer_sha256": {
+  "v3_data": "0d5e00aea6a75d2a1911499acec53ec99f729ec35dd15563ee2b1b8632cd0dc8",
+  "v3_model": "a3e5e874d69ce04cc2cc67e28f8fdc61eca951845cb24ddab670c4cce9b46e8b",
+  "v3_training": "a389bda34e9c0f2a77ee52be9f9bb0002f9bd14ee363f755ca2bf496ca8ca81e",
+  "v3_selection": "b91081bc103aba07f0a731ea96db20167e0daaf73997027c42800a0351547360",
+  "v3_evaluation": "b30350895f82954e4825593007df38bbdd5c92f1f95846b11c24c1879fa7dcca"
+ },
+ "interpretation_notes": [
+  "early stopping monitors NLL on an inner trajectory-grouped 10% split of the training rows (not in the spec)",
+  "the scored candidate sets exclude the NONE option (it is captured; the registered sampler never contains it)",
+  "H2_secondary (H0 and H2 trained from scratch together) is not implemented in this step"
+ ]
+}

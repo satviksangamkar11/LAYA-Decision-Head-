@@ -1,0 +1,29 @@
+{
+ "rev": "HEAD",
+ "rows": [
+  {
+   "compared": "old(HEAD) vs canonical",
+   "decisions": 3907,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "identical": true
+  },
+  {
+   "compared": "working copy vs canonical",
+   "decisions": 3907,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "identical": true
+  },
+  {
+   "compared": "old(HEAD) vs working copy",
+   "decisions": 3907,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "identical": true
+  }
+ ],
+ "frozen_artifact_sha256": "20d5d2b8d62aedfebf5ef57d920644e6564b619a3c659abe4265d0a80a8969a2",
+ "passed": true,
+ "fields_compared": "features X, true index, k, pool hash, stratum, state hash, ordered set, true position, seed"
+}

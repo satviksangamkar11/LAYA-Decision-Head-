@@ -1,5 +1,5 @@
 """Resumable full-pool capture for A5-v3 (frozen Qwen3-4B-Thinking-2507, depths 18/24/30, forward pass truncated after layer 30, lm_head never run).
-Rules and hard gates: configs/a5_v3_spec.toml [capture_v3]; thresholds reused from thresholds.toml [capture_one_record]. A failed gate ABORTS the run.
+Rules and hard gates: configs/a5_v3_spec.toml [capture_v3] as amended by [amendment_2026_10_02_d]; thresholds: thresholds.toml [capture_v3_gates] and [capture_one_record].plain_cos_min. A failed gate ABORTS the run.
     PYTHONPATH=. .venv/Scripts/python.exe tools/capture_pool_v3.py ROLE [--limit K] [--ids id1,id2] [--outdir DIR]
 ROLE is cal, train or locked. One file per decision; existing files are skipped, so the run resumes where it stopped. The locked role logs every access."""
 import os
@@ -23,8 +23,9 @@ ap.add_argument("--outdir", default="data/v3/capture")
 args = ap.parse_args()
 ROOT = Path(__file__).resolve().parents[1]
 spec = tomllib.load(open(ROOT / "configs/a5_v3_spec.toml", "rb"))["capture_v3"]
-one = tomllib.load(open(ROOT / "configs/thresholds.toml", "rb"))["capture_one_record"]
-D, PLAIN, INDEP = spec["depths"], one["plain_cos_min"], one["indep_cos_min"]
+TH = tomllib.load(open(ROOT / "configs/thresholds.toml", "rb"))
+one, G = TH["capture_one_record"], TH["capture_v3_gates"]          # gates v2: [amendment_2026_10_02_d] retired indep_cos_min
+D, PLAIN, SHAPE = spec["depths"], one["plain_cos_min"], G["shape_change_cos_min"]
 P = r"D:\local model\models\qwen3-4b-thinking-2507"
 rev = json.load(open(ROOT / "results/raw/qwen3-4b-thinking-2507.manifest.json"))["revision"]
 man = json.load(open(ROOT / f"data/v3/manifest-{args.role}.json", encoding="utf-8"))
@@ -53,22 +54,51 @@ tok = AutoTokenizer.from_pretrained(P)
 model = AutoModelForCausalLM.from_pretrained(P, dtype=torch.bfloat16).eval()
 model.model.layers = torch.nn.ModuleList(list(model.model.layers)[:max(D)])   # the forward pass stops after the deepest captured layer
 C = Capturer(model, D)
-log = open(ROOT / "data/v3" / f"capture-log-{args.role}.jsonl", "a", encoding="utf-8")
+log = open(ROOT / "data/v3" / f"capture-log-{args.role}{'' if args.outdir == 'data/v3/capture' else '-smoke'}.jsonl", "a", encoding="utf-8")
 
 
 def cos(a, b):
     return F.cosine_similarity(a.double(), b.double(), dim=-1)
 
 
-def gate_independence(R, q, cands):
+def gate_content_swap(R, q, cands, did):
+    """Gate A (proves independence): same sequence shape, other candidates' tokens replaced (deterministic shuffle, same lengths); the target candidate vector at every
+    depth and the query vector must be bit-identical. Targets: random candidates plus the NONE option."""
+    suf, n = R["suffix_ids"], len(R["suffix_ids"])
+    targets = sorted(set(random.Random(a5v2.seed_of(did, "swap")).sample(range(n), min(G["content_swap_targets"], n))) | {n - 1})
+    worst = 0.0
+    for i in targets:
+        flat = [t for j, s_ in enumerate(suf) if j != i for t in s_]
+        random.Random(a5v2.seed_of(did, "swapshuffle", i)).shuffle(flat)
+        new, o = [], 0
+        for j, s_ in enumerate(suf):
+            if j == i:
+                new.append(s_)
+            else:
+                new.append(flat[o:o + len(s_)])
+                o += len(s_)
+        assert [len(x) for x in new] == [len(x) for x in suf] and new[i] == suf[i], "content swap changed the shape"
+        cap2, _ = C.packed(dict(prefix_ids=R["prefix_ids"], query_pos=R["query_pos"], suffix_ids=new))
+        for dj, d in enumerate(D):
+            dc, dq = (cap2[d][1][i] - cands[i, dj]).abs().max().item(), (cap2[d][0] - q[dj]).abs().max().item()
+            worst = max(worst, dc, dq)
+            assert dc <= G["content_swap_max_abs_diff"] and dq <= G["content_swap_max_abs_diff"], f"content-swap independence broken at depth {d} target {i}: candidate diff {dc}, query diff {dq}"
+    return dict(targets=len(targets), max_abs_diff=worst)
+
+
+def gate_shape_change(R, q, cands):
+    """Gate B (numerical sanity, NOT an independence proof): half-pool recapture in reversed order, cosine >= shape_change_cos_min for every candidate and the query."""
     P1 = len(R["suffix_ids"])
     perm = list(range(P1))[::-1]
+    lo = 1.0
     for part in (perm[:P1 // 2], perm[P1 // 2:]):
         cap2, _ = C.packed(dict(prefix_ids=R["prefix_ids"], query_pos=R["query_pos"], suffix_ids=[R["suffix_ids"][i] for i in part]))
         for dj, d in enumerate(D):
             c = cos(cap2[d][1], cands[part][:, dj])
-            assert c.min().item() >= INDEP, f"candidate independence broken at depth {d}: min cosine {c.min().item():.6f}"
-            assert cos(cap2[d][0], q[dj]).item() >= INDEP, f"query vector changed with the pool composition at depth {d}"
+            lo = min(lo, c.min().item(), cos(cap2[d][0], q[dj]).item())
+            assert c.min().item() >= SHAPE, f"shape-change numerical drift above the registered bound at depth {d}: min cosine {c.min().item():.6f}"
+            assert cos(cap2[d][0], q[dj]).item() >= SHAPE, f"query vector drifted with the pool composition at depth {d}"
+    return dict(min_cosine=round(lo, 6))
 
 
 def gate_plain(R, q, cands, did):
@@ -108,16 +138,16 @@ for n, did in enumerate(ids):
     cands = torch.stack([cap[d][1] for d in D], 1)
     assert torch.isfinite(q).all() and torch.isfinite(cands).all(), "non-finite hidden state"
     assert max(q.abs().max().item(), cands.abs().max().item()) < 60000, "value outside the fp16 storage range"
-    gates = []
+    gates, detail = [], {}
     if n < 3 or n % 50 == 0:
-        gate_independence(R, q, cands); gates.append("independence")
+        detail["content_swap"] = gate_content_swap(R, q, cands, did); detail["shape_change"] = gate_shape_change(R, q, cands); gates += ["content_swap", "shape_change"]
     if n == 0 or n % 200 == 0:
         gate_plain(R, q, cands, did); gate_repeat(R, cap); gates += ["plain", "repeat"]
     torch.save(dict(schema=SCHEMA, decision_id=did, role=args.role, texts=R["texts"], pool_hash=R["pool_hash"], prompt_hash=R["prompt_hash"], state_hash=R["state_hash"],
                     depths=D, query=q.half(), cands=cands.half(), n_prefix_tokens=R["n_prefix_tokens"], pool_size=R["pool_size"], tokenizer_revision=rev), f)
     done += 1
     log.write(json.dumps({"n": n, "decision_id": did, "seconds": round(time.time() - t0, 2), "prefix_tokens": R["n_prefix_tokens"], "suffix_tokens": R["n_suffix_tokens"],
-                          "pool": R["pool_size"], "gates": gates}) + "\n"); log.flush()
+                          "pool": R["pool_size"], "gates": gates, "gate_detail": detail}) + "\n"); log.flush()
     if done % 20 == 0:
         print(f"{args.role} {n + 1}/{len(ids)} captured={done} elapsed={(time.time() - t_start) / 60:.1f} min", flush=True)
 assert C.lm_calls == 0, "lm_head was run"

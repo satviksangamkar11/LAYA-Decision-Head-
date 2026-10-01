@@ -63,7 +63,7 @@ def build_decision(r, ev):
     v1_texts = [c["text"] for c in r["candidates"] if c["id"] != "NONE"]
     v1 = [texts.index(x) for x in v1_texts if x in texts]
     return dict(did=r["decision_id"], tid=tid, stratum="repeat" if hist.get(ttext, 0) >= 1 else "first_time", X=X, ti=ti, k=k, sh=r["state_hash"],
-                pool_hash=hashlib.sha256("\n".join(texts).encode()).hexdigest()[:16], v1=v1), None
+                pool_hash=hashlib.sha256("\n".join(texts).encode()).hexdigest()[:16], v1=v1, texts=texts), None
 
 
 def fit_odds(rows):
@@ -90,10 +90,12 @@ def odds_fn(m):
     return lambda Xq: (((Xq - m["mu"]) / m["sd"]) @ m["w"].T + m["b"]).squeeze(-1)
 
 
-def generate(d, m):
-    """One candidate set for decision d from odds model m (Gumbel-top-k, weight odds^alpha). Deterministic in (state_hash, sampler_version)."""
+def generate(d, m, aug=None):
+    """One candidate set for decision d from odds model m (Gumbel-top-k, weight odds^alpha). Deterministic in (state_hash, sampler_version);
+    aug=None is the registered set 0, aug=i (1..3) the training augmentation sets seeded by (state_hash, sampler_version, "aug", i)."""
     odds = odds_fn(m)
-    gen = torch.Generator().manual_seed(seed_of(d["sh"], S["sampler_version"]))
+    sd = seed_of(d["sh"], S["sampler_version"]) if aug is None else seed_of(d["sh"], S["sampler_version"], "aug", aug)
+    gen = torch.Generator().manual_seed(sd)
     cand = [i for i in range(len(d["X"])) if i != d["ti"]]
     lg = S["alpha"] * odds(d["X"][cand])
     gum = -torch.log(-torch.log(torch.rand(len(cand), generator=gen).clamp(1e-9, 1 - 1e-9)))
@@ -101,7 +103,7 @@ def generate(d, m):
     order = [d["ti"]] + [cand[j] for j in top]
     perm = torch.randperm(len(order), generator=gen).tolist()
     order = [order[j] for j in perm]
-    return dict(order=order, true_pos=order.index(d["ti"]), seed=seed_of(d["sh"], S["sampler_version"]), pool_hash=d["pool_hash"])
+    return dict(order=order, true_pos=order.index(d["ti"]), seed=sd, pool_hash=d["pool_hash"])
 
 
 def v1_set(d):
@@ -187,11 +189,13 @@ def score_attacker(net, ds, sets, which):
     return out
 
 
-def auc_by_feature(ds, sets):
+def auc_by_feature(ds, sets, subset=None):
     res = {}
     for j, name in enumerate(DENSE):
         s = c = 0.0
         for d in ds:
+            if subset and d["stratum"] != subset:
+                continue
             st = sets[d["did"]]
             v = torch.stack([d["X"][i][j] for i in st["order"]])
             yv = v[st["true_pos"]]
