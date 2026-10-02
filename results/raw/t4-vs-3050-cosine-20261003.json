@@ -1,0 +1,23 @@
+{
+ "created": "2026-10-03",
+ "what": "Cross-device check of the Kaggle T4 fp16 resident capture (notebook v5) against the existing RTX 3050 bf16 capture, same 20 TRAIN decisions (manifest positions 0-19), plus the full v5 smoke summary",
+ "source": "smoke_results.tar.gz (28.2 MB, downloaded from Kaggle notebooke37bb78765 scriptVersionId 354709171, extracted to tmp/t4smoke); command: tools/t4_vs_3050_cosine.py tmp/t4smoke/out/smoke_gated/train; 3050 files data/v3/capture/train/00000..00019",
+ "v5_smoke_summary_read_from_kaggle_output": {
+  "gpus": 2, "all_hard_gates_passed": true, "files_gated_pass": 20, "files_speed_pass": 20, "exit_codes": [0, 0, 0, 0],
+  "ungated_decisions": 17, "sec_per_decision_mean": 7.655, "sec_per_decision_median": 8.9, "tokens_per_sec_mean": 1171.5, "peak_vram_gb": 7.49,
+  "max_gpu_temp_c": 81, "mean_util_pct": 82.08, "gpu_hours_for_4775_decisions": 10.154,
+  "verdict_by_registered_rule": "FEASIBLE but no gain over the 3050 (<=10 s): stay on the 3050"
+ },
+ "cosine_t4_fp16_vs_3050_bf16": {
+  "files": 20, "pool_hash_and_decision_id_match": true,
+  "per_depth_min_mean": {
+   "cands@18": [0.999767, 0.999972], "cands@24": [0.998911, 0.999934], "cands@30": [0.999119, 0.999958],
+   "query@18": [0.99988, 0.99992], "query@24": [0.999832, 0.999891], "query@30": [0.999882, 0.999926]
+  },
+  "option_vectors_below_0.999": "4 of 2859 (0.140 %), all in one file (00010-4db890fe.pt, 4 of its 249), worst 0.99891",
+  "reference_line": "0.999 is capture_one_record.plain_cos_min, shown for orientation only; NO cross-device threshold is registered (amendment (e) is pending), so this is a measurement, not a gate result"
+ },
+ "pass_A_vs_pass_B": "bit-identical in all 20 files (query and options), i.e. the gate cadence does not change the stored states",
+ "output_size_fix": "the Output tab of v5 lists no qwen3-4b folder (v4 output was 8.09 GB); exact size not read",
+ "caveats": ["20 decisions, 17 of them timed", "bf16 on the 3050 and fp16 on the T4 differ in rounding; neither is ground truth", "all roles must be captured on one device class and dtype (CLAUDE.md), so this check does not make mixing T4 and 3050 states acceptable"]
+}

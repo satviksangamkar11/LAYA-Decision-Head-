@@ -1,0 +1,15 @@
+{
+ "created": "2026-10-03",
+ "what": "Phase 1 Kaggle T4 smoke test, notebook version 5 (the same capture code as v4, notebook-only fixes: out/*/train glob, model in /kaggle/temp, nvidia-smi -f)",
+ "source": "screenshot of the Kaggle Logs tab sent by the user (rows 60-73 only); the head of the summary (files_*_pass, sec_per_decision_*) was cut off in that screenshot and is NOT recorded here; smoke_results.tar.gz not yet downloaded",
+ "seen": {
+  "max_gpu_temp_c": 81,
+  "mean_util_pct": 82.08,
+  "gpu_hours_for_4775_decisions": "10.x (digits cut off)",
+  "verdict_by_registered_rule": "FEASIBLE but no gain over the 3050 (<=10 s): stay on the 3050",
+  "run_wall_s": "about 1045 (last log row 1045.5 s)"
+ },
+ "inference": "The notebook's verdict code tests 'a gate failed or a pass did not finish' first, so reaching the <=10 s branch means gates_ok was true (both passes exit 0 and 20 .pt files in each of out/smoke_gated/train and out/smoke_speed/train). Inferred, not read.",
+ "fixes_confirmed_by_this_run": ["verdict no longer the false 'NO: a gate failed'", "gpu temperature and utilisation are recorded (were 0)"],
+ "not_yet_confirmed": ["output size reduced from 8 GB (needs the Output tab)", "cross-device cosine against the RTX 3050 files (needs smoke_results.tar.gz and tools/t4_vs_3050_cosine.py)"]
+}

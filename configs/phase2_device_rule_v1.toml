@@ -1,0 +1,18 @@
+# Phase 2 device decision, version 1 (2026-10-03). A NEW versioned file; it edits no threshold in thresholds.toml and does not change the Phase-1 rule (<= 5 s per decision per GPU),
+# whose registered verdict for the smoke test was "stay on the 3050" (results/raw/t4-smoke-v5-20261003.json).
+[decision]
+made_by = "user, in chat, 2026-10-03"
+what = "Capture the Phase-2 roles on Kaggle T4 x2 (fp16, resident weights, one worker per GPU) instead of the RTX 3050."
+reason = "Measured on the same 17 ungated decisions: T4 7.66 s vs RTX 3050 11.33 s per decision per GPU; two GPUs in parallel give about 3.4x the wall-clock throughput. The per-GPU 5 s rule was written against the 3050's 10.2 s cost-model figure; the user chose per-session throughput instead. The gates are NOT relaxed."
+
+[scope]
+roles_now = ["train", "cal"]            # 1,986 + 569 decisions, all recaptured on the T4 (CLAUDE.md: one device class and dtype for every role)
+roles_pending = ["locked"]               # needs its own written approval (upload of LOCKED raw data, read-once role); not in the Phase-2 notebook or bundle
+existing_3050_files = "kept as a fallback and for cross-device checks; NOT mixed into T4 training data"
+
+[gates]
+note = "Unchanged: thresholds.toml [capture_v3_gates] and [capture_one_record].plain_cos_min, cadence 50 / 200 (first 3 decisions gated). A failed gate aborts the worker and the notebook."
+device_assert = "every worker asserts torch.cuda.get_device_name(0) contains 'T4' (tools/capture_pool_v3_t4.py --require_device)"
+
+[still_unregistered]
+amendment_e = "cross-device and GPU-numerics clause (and 3-seed cell selection) must be registered BEFORE any head is trained; measured so far: T4 fp16 vs 3050 bf16 mean cosine >= 0.9999, worst vector 0.99891 (results/raw/t4-vs-3050-cosine-20261003.json)"

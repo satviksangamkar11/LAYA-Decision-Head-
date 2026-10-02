@@ -1,0 +1,173 @@
+{
+ "created": "2026-10-03",
+ "what": "Capture speed, Kaggle T4 (fp16 resident, notebook v5 pass B) vs RTX 3050 6GB (bf16 layer-streaming) on the same decisions",
+ "sources": [
+  "tmp/t4smoke/capture-log-train-smoke-w0of2.jsonl, -w1of2.jsonl (from smoke_results.tar.gz, scriptVersionId 354709171)",
+  "data/v3/capture-log-train.jsonl (first row per decision id; 807 unique when read)"
+ ],
+ "same_decisions": {
+  "n": 17,
+  "t4_mean_s": 7.66,
+  "t4_median_s": 8.9,
+  "t4_tok_per_s": 1172,
+  "rtx3050_mean_s": 11.33,
+  "rtx3050_median_s": 13.13,
+  "rtx3050_tok_per_s": 734,
+  "ratio_min": 1.387,
+  "ratio_max": 2.327,
+  "ratio_of_means": 1.48
+ },
+ "rtx3050_whole_train_run": {
+  "unique_decisions": 807,
+  "ungated": 788,
+  "mean_s": 12.18,
+  "tok_per_s": 699,
+  "mean_tokens": 8521
+ },
+ "projection_estimate_unmeasured": {
+  "decisions": 4775,
+  "rtx3050_h": 16.2,
+  "one_t4_h": 9.6,
+  "two_t4_h": 4.8,
+  "basis": "mean tokens 8521 per decision, T4 1172 tok/s, 3050 12.18 s mean"
+ },
+ "per_decision": [
+  {
+   "n": 3,
+   "decision_id": "chatcmpl-d5787f27dfec69e55d4231be3364800c:62",
+   "tokens": 7497,
+   "t4_s": 6.04,
+   "rtx3050_s": 9.6,
+   "ratio": 1.589
+  },
+  {
+   "n": 4,
+   "decision_id": "chatcmpl-d2b0b531e9703812230633860c70e4dc:58",
+   "tokens": 7540,
+   "t4_s": 6.56,
+   "rtx3050_s": 9.73,
+   "ratio": 1.483
+  },
+  {
+   "n": 5,
+   "decision_id": "chatcmpl-d2b0b531e9703812230633860c70e4dc:168",
+   "tokens": 10536,
+   "t4_s": 10.59,
+   "rtx3050_s": 15.44,
+   "ratio": 1.458
+  },
+  {
+   "n": 6,
+   "decision_id": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1:8",
+   "tokens": 2304,
+   "t4_s": 1.34,
+   "rtx3050_s": 2.8,
+   "ratio": 2.09
+  },
+  {
+   "n": 7,
+   "decision_id": "chatcmpl-3f61c243259480464ca466b6de31ea90:44",
+   "tokens": 9151,
+   "t4_s": 8.32,
+   "rtx3050_s": 12.62,
+   "ratio": 1.517
+  },
+  {
+   "n": 8,
+   "decision_id": "chatcmpl-8a8bf2161b8c32db37165f1fb73d9b2f:48",
+   "tokens": 9688,
+   "t4_s": 9.54,
+   "rtx3050_s": 13.67,
+   "ratio": 1.433
+  },
+  {
+   "n": 9,
+   "decision_id": "chatcmpl-19277e25b44b6d406aa97299e8322bd2:110",
+   "tokens": 9289,
+   "t4_s": 8.9,
+   "rtx3050_s": 13.13,
+   "ratio": 1.475
+  },
+  {
+   "n": 10,
+   "decision_id": "chatcmpl-507890a847797176af7ff8497bccccae:160",
+   "tokens": 9456,
+   "t4_s": 9.39,
+   "rtx3050_s": 13.41,
+   "ratio": 1.428
+  },
+  {
+   "n": 11,
+   "decision_id": "chatcmpl-744291cb571126e301302d54e3deabdf:52",
+   "tokens": 11642,
+   "t4_s": 12.85,
+   "rtx3050_s": 17.95,
+   "ratio": 1.397
+  },
+  {
+   "n": 12,
+   "decision_id": "chatcmpl-a75f1439045c53351bbe6e8a889865c5:98",
+   "tokens": 10286,
+   "t4_s": 10.93,
+   "rtx3050_s": 15.16,
+   "ratio": 1.387
+  },
+  {
+   "n": 13,
+   "decision_id": "chatcmpl-7e4454b951bce073c301cb0d31e66021:126",
+   "tokens": 9417,
+   "t4_s": 9.19,
+   "rtx3050_s": 13.29,
+   "ratio": 1.446
+  },
+  {
+   "n": 14,
+   "decision_id": "chatcmpl-16544f60d11af81c9940fe6d6c6cbd87:40",
+   "tokens": 7548,
+   "t4_s": 6.39,
+   "rtx3050_s": 9.78,
+   "ratio": 1.531
+  },
+  {
+   "n": 15,
+   "decision_id": "chatcmpl-41a62e06f6d95ceae1a0d863963b7485:60",
+   "tokens": 7717,
+   "t4_s": 6.66,
+   "rtx3050_s": 10.21,
+   "ratio": 1.533
+  },
+  {
+   "n": 16,
+   "decision_id": "chatcmpl-4ecb65c1d81971d80a6194348bf4a106:2",
+   "tokens": 1777,
+   "t4_s": 0.98,
+   "rtx3050_s": 2.28,
+   "ratio": 2.327
+  },
+  {
+   "n": 17,
+   "decision_id": "chatcmpl-a75f1439045c53351bbe6e8a889865c5:12",
+   "tokens": 3642,
+   "t4_s": 2.19,
+   "rtx3050_s": 4.17,
+   "ratio": 1.904
+  },
+  {
+   "n": 18,
+   "decision_id": "chatcmpl-c31fcff56c5669b601aed8760d0ff0c7:102",
+   "tokens": 10002,
+   "t4_s": 10.43,
+   "rtx3050_s": 15.02,
+   "ratio": 1.44
+  },
+  {
+   "n": 19,
+   "decision_id": "chatcmpl-422057122431a63def21941b3fad16d3:168",
+   "tokens": 9819,
+   "t4_s": 9.84,
+   "rtx3050_s": 14.41,
+   "ratio": 1.464
+  }
+ ],
+ "caveat": "17 timed T4 decisions; the 3050 may share the machine with other work (unverified); Kaggle T4 clocks throttled (81 C)"
+}

@@ -51,3 +51,10 @@ sarvam-jev/
 
 # raw downloaded datasets
 data/
+
+# Kaggle upload bundles (contain TRAIN data)
+kaggle_bundle/
+
+# downloaded Kaggle outputs (hashes are recorded in results/raw)
+smoke_results.tar.gz
+capture_*.tar

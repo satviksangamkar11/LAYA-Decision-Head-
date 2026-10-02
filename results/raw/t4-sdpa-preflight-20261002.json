@@ -1,0 +1,45 @@
+{
+ "created": "2026-10-02T16:59:13.322082+00:00",
+ "what": "Kaggle T4 SDPA pre-flight: why the plain-forward gate ran out of memory in fp16 resident capture",
+ "source": "Kaggle notebook log, notebooke37bb78765 version 4 (scriptVersionId 354704375), cell running tools/sdpa_preflight.py; transcribed by hand from the log page",
+ "environment": {
+  "gpu": "Tesla T4 (compute 7.5, 15360 MiB) x2",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "transformers": "5.17.0",
+  "dtype": "float16"
+ },
+ "shapes": "query [1,32,8650,128], key/value [1,8,8650,128]",
+ "probes": [
+  {
+   "id": "A",
+   "desc": "enable_gqa=True, is_causal, no mask (what transformers sdpa_attention_forward does when no mask is passed), default dispatch",
+   "result": "FAILED OutOfMemoryError: Tried to allocate 8.92 GiB"
+  },
+  {
+   "id": "A2",
+   "desc": "same with the memory-efficient kernel only",
+   "result": "FAILED RuntimeError: No available kernel"
+  },
+  {
+   "id": "B",
+   "desc": "key/value heads repeated (repeat_interleave), is_causal, no mask",
+   "result": "OK extra peak 68 MiB, 0.06 s"
+  },
+  {
+   "id": "C",
+   "desc": "key/value heads repeated, bool block mask (the packed capture path)",
+   "result": "OK extra peak 286 MiB, 0.14 s"
+  }
+ ],
+ "earlier_runs": {
+  "v1_v2_v3": "plain-forward gate OOM with 8.93 GiB (worker 0) and 8.57 GiB (worker 1); pass B worker 1 finished 10 decisions with peak VRAM 7.53 GB and 9.26 s mean per ungated decision (9 decisions, shorter ones)",
+  "note": "v2 and v3 notebook runs used a stale dataset version (Kaggle pins a dataset to the version it was attached at)"
+ },
+ "conclusion": "Root cause: transformers use_gqa_in_sdpa() returns True whenever no attention mask is passed; only the flash and math SDPA backends accept enable_gqa, a T4 (sm_75) has no flash kernel, so SDPA uses the math kernel and builds the full attention matrix. The packed path always passes a mask (repeat_kv, efficient kernel) and is unaffected. Fix: capture/capture_resident.py switches use_gqa_in_sdpa off on GPUs with compute capability < 8.",
+ "references": [
+  "https://github.com/huggingface/transformers/pull/45776 (same bug on a T4 with torch 2.10.0, not merged)",
+  "https://github.com/multimodal-art-projection/YuE/issues/209 (efficient backend rejects enable_gqa, math fallback adds about 7 GiB)"
+ ],
+ "not_reproducible_locally": "On torch 2.14 with flash disabled the RTX 3050 shows 66 MiB for both paths (tools/test_resident_capturer.py), so the effect is torch-version specific"
+}

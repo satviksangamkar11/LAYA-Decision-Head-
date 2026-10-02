@@ -1,0 +1,18 @@
+{
+ "created": "2026-10-02",
+ "what": "Phase 1 Kaggle T4 smoke test (20 TRAIN decisions, fp16, resident weights, 2 workers), notebook version 4 with the use_gqa_in_sdpa fix",
+ "source": "Kaggle notebook notebooke37bb78765 scriptVersionId 354704375, Logs and Output tabs read in the browser; values transcribed by hand from the log page, smoke_results.tar.gz NOT downloaded yet",
+ "environment": {"gpu": "Tesla T4 x2 (sm_75, 15360 MiB)", "torch": "2.10.0+cu128", "transformers": "5.17.0", "dtype": "float16", "model_revision": "768f209d9e", "bundle": "28 files, 20 TRAIN decisions, secret scan PASS, source commit cbc5e79a"},
+ "preflight": {"A enable_gqa causal": "OOM 8.92 GiB", "A2 efficient only": "No available kernel", "B kv repeated causal": "OK 68 MiB 0.06 s", "C kv repeated block mask": "OK 286 MiB 0.14 s"},
+ "passA_all_gates_every_decision": {"exit_codes": [0, 0], "wall_s": 603, "note": "a failed gate asserts and exits non-zero, so exit 0 on both workers means content_swap, shape_change, plain and repeat passed on every decision they ran on; first decision logged gates [content_swap, shape_change, plain, repeat], 94.97 s, 8635+900 tokens, peak VRAM 7.24 GB"},
+ "passB_registered_cadence": {"exit_codes": [0, 0], "wall_s": 111, "ungated_decisions": 17, "sec_per_decision_mean": 7.64, "sec_per_decision_median": 9.06, "tokens_per_sec_mean": 1189, "peak_vram_gb": 7.53},
+ "derived_estimate_unmeasured": {"gpu_hours_for_4775_decisions_per_gpu_sum": 10.1, "wall_hours_on_2_gpus": 5.07, "basis": "4775 x 7.64 s; assumes the 20-decision mean holds and no throttling change"},
+ "gpu_csv_observation": "GPU 0 reached 82 C with sm clocks 510-1110 MHz under 100 % utilisation (power 55-77 W): sustained clocks are well below boost",
+ "rule_application": "Registered rule (switch only at <= 5 s per decision per GPU with every gate passed; <= 10 s feasible but no gain): 7.64 s falls in the middle band. The notebook printed verdict 'NO: a gate failed or a pass did not finish'; that line is a notebook bug.",
+ "notebook_bugs_found": [
+  "summary counted *.pt in out/smoke_gated/*.pt but the runner writes out/<name>/train/*.pt, so files_gated_pass=files_speed_pass=0 and all_hard_gates_passed=false although every exit code was 0",
+  "gpu.csv was written through a shell redirect and never flushed, so max_gpu_temp_c and mean_util_pct were 0 in summary (the file itself is fine); changed to nvidia-smi -f",
+  "model snapshot was written to /kaggle/working/qwen3-4b, so about 8 GB went into the notebook output and saving it took minutes; moved to /kaggle/temp"
+ ],
+ "not_covered_by_this_smoke": ["cosine of T4 fp16 states against the existing RTX 3050 bf16 files (amendment e)", "fp16 vs bf16 check", "20-decision recapture spot-check of the CAL duplicates", "Kaggle GPU quota actually billed for a T4 x2 session"]
+}

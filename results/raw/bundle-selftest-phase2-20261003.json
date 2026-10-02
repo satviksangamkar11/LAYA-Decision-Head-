@@ -1,0 +1,32 @@
+{
+ "created": "2026-10-03",
+ "what": "Isolated self-test of kaggle_bundle/phase2 (tools/bundle_selftest.py, CPU, tokenizer only): every decision rebuilt from bundle files only",
+ "bundle": {
+  "decisions": 2555,
+  "train": 1986,
+  "cal": 569,
+  "trajectories": 227,
+  "size_mb": 64.5,
+  "secret_scan": "PASS with 3 audited public-repo false positives (sha256 allowlist)"
+ },
+ "train": {
+  "state_hash_ok": 1986,
+  "render_skipped": 0,
+  "compared_with_3050_files": 807,
+  "mismatches": 0
+ },
+ "cal": {
+  "state_hash_ok": 569,
+  "render_skipped": 0,
+  "compared_with_3050_files": 569,
+  "mismatches": 0
+ },
+ "compared_fields": [
+  "pool_hash",
+  "prompt_hash",
+  "state_hash",
+  "n_prefix_tokens",
+  "pool_size"
+ ],
+ "source": "tmp/bundle_selftest_phase2.out"
+}
