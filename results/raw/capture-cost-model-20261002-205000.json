@@ -1,0 +1,341 @@
+{
+ "created": "2026-10-02T15:20:00.141986+00:00",
+ "source": "data/v3/capture-log-cal.jsonl (measured on the RTX 3050)",
+ "measured": {
+  "decisions_logged": 614,
+  "tokens_mean": 8163.343648208469,
+  "tokens_median": 8533.5,
+  "tokens_p99": 10978.14,
+  "tokens_max": 11123,
+  "prefix_mean": 7267.9218241042345,
+  "suffix_mean": 895.4218241042345,
+  "pool_mean": 42.384364820846905,
+  "clean_ungated_n": 440,
+  "sec_per_decision_mean": 10.222272727272728,
+  "sec_per_decision_median": 10.57
+ },
+ "estimates_unmeasured": {
+  "flop_per_decision": 70549098406608.47,
+  "effective_tflops_rtx3050": 6.957402436664382,
+  "forwards_per_decision": 1.15,
+  "note": "FLOP model = 2*params*tokens + 0.6*full attention; 3050 effective TFLOPS is derived from it, not read from a profiler"
+ },
+ "gpus": {
+  "RTX 3090": {
+   "inr_per_hour": 36,
+   "bf16_peak_tflops_unverified": 71,
+   "tflops_per_inr": 1.97,
+   "mfu_25": {
+    "sec_per_forward": 3.975,
+    "stage2_capture_cal_train_locked": {
+     "hours": 6.06,
+     "inr_no_contingency": 218
+    },
+    "stage3_probe_1000": {
+     "hours": 1.27,
+     "inr_no_contingency": 46
+    },
+    "stage4_lora_10k": {
+     "hours": 113.06,
+     "inr_no_contingency": 4070
+    },
+    "stage4_lora_30k": {
+     "hours": 280.87,
+     "inr_no_contingency": 10111
+    }
+   },
+   "mfu_35": {
+    "sec_per_forward": 2.839,
+    "stage2_capture_cal_train_locked": {
+     "hours": 4.33,
+     "inr_no_contingency": 156
+    },
+    "stage3_probe_1000": {
+     "hours": 0.91,
+     "inr_no_contingency": 33
+    },
+    "stage4_lora_10k": {
+     "hours": 80.75,
+     "inr_no_contingency": 2907
+    },
+    "stage4_lora_30k": {
+     "hours": 200.62,
+     "inr_no_contingency": 7222
+    }
+   },
+   "mfu_45": {
+    "sec_per_forward": 2.208,
+    "stage2_capture_cal_train_locked": {
+     "hours": 3.37,
+     "inr_no_contingency": 121
+    },
+    "stage3_probe_1000": {
+     "hours": 0.71,
+     "inr_no_contingency": 25
+    },
+    "stage4_lora_10k": {
+     "hours": 62.81,
+     "inr_no_contingency": 2261
+    },
+    "stage4_lora_30k": {
+     "hours": 156.04,
+     "inr_no_contingency": 5617
+    }
+   }
+  },
+  "RTX 4090": {
+   "inr_per_hour": 69,
+   "bf16_peak_tflops_unverified": 165,
+   "tflops_per_inr": 2.39,
+   "mfu_25": {
+    "sec_per_forward": 1.71,
+    "stage2_capture_cal_train_locked": {
+     "hours": 2.61,
+     "inr_no_contingency": 180
+    },
+    "stage3_probe_1000": {
+     "hours": 0.55,
+     "inr_no_contingency": 38
+    },
+    "stage4_lora_10k": {
+     "hours": 48.65,
+     "inr_no_contingency": 3357
+    },
+    "stage4_lora_30k": {
+     "hours": 120.86,
+     "inr_no_contingency": 8339
+    }
+   },
+   "mfu_35": {
+    "sec_per_forward": 1.222,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.86,
+     "inr_no_contingency": 129
+    },
+    "stage3_probe_1000": {
+     "hours": 0.39,
+     "inr_no_contingency": 27
+    },
+    "stage4_lora_10k": {
+     "hours": 34.75,
+     "inr_no_contingency": 2398
+    },
+    "stage4_lora_30k": {
+     "hours": 86.33,
+     "inr_no_contingency": 5957
+    }
+   },
+   "mfu_45": {
+    "sec_per_forward": 0.95,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.45,
+     "inr_no_contingency": 100
+    },
+    "stage3_probe_1000": {
+     "hours": 0.3,
+     "inr_no_contingency": 21
+    },
+    "stage4_lora_10k": {
+     "hours": 27.03,
+     "inr_no_contingency": 1865
+    },
+    "stage4_lora_30k": {
+     "hours": 67.14,
+     "inr_no_contingency": 4633
+    }
+   }
+  },
+  "RTX A6000": {
+   "inr_per_hour": 73,
+   "bf16_peak_tflops_unverified": 155,
+   "tflops_per_inr": 2.12,
+   "mfu_25": {
+    "sec_per_forward": 1.821,
+    "stage2_capture_cal_train_locked": {
+     "hours": 2.78,
+     "inr_no_contingency": 203
+    },
+    "stage3_probe_1000": {
+     "hours": 0.58,
+     "inr_no_contingency": 42
+    },
+    "stage4_lora_10k": {
+     "hours": 51.79,
+     "inr_no_contingency": 3780
+    },
+    "stage4_lora_30k": {
+     "hours": 128.66,
+     "inr_no_contingency": 9392
+    }
+   },
+   "mfu_35": {
+    "sec_per_forward": 1.3,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.98,
+     "inr_no_contingency": 145
+    },
+    "stage3_probe_1000": {
+     "hours": 0.42,
+     "inr_no_contingency": 30
+    },
+    "stage4_lora_10k": {
+     "hours": 36.99,
+     "inr_no_contingency": 2700
+    },
+    "stage4_lora_30k": {
+     "hours": 91.9,
+     "inr_no_contingency": 6709
+    }
+   },
+   "mfu_45": {
+    "sec_per_forward": 1.011,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.54,
+     "inr_no_contingency": 113
+    },
+    "stage3_probe_1000": {
+     "hours": 0.32,
+     "inr_no_contingency": 24
+    },
+    "stage4_lora_10k": {
+     "hours": 28.77,
+     "inr_no_contingency": 2100
+    },
+    "stage4_lora_30k": {
+     "hours": 71.48,
+     "inr_no_contingency": 5218
+    }
+   }
+  },
+  "RTX PRO 5000": {
+   "inr_per_hour": 116,
+   "bf16_peak_tflops_unverified": 260,
+   "tflops_per_inr": 2.24,
+   "mfu_25": {
+    "sec_per_forward": 1.085,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.66,
+     "inr_no_contingency": 192
+    },
+    "stage3_probe_1000": {
+     "hours": 0.35,
+     "inr_no_contingency": 40
+    },
+    "stage4_lora_10k": {
+     "hours": 30.87,
+     "inr_no_contingency": 3581
+    },
+    "stage4_lora_30k": {
+     "hours": 76.7,
+     "inr_no_contingency": 8897
+    }
+   },
+   "mfu_35": {
+    "sec_per_forward": 0.775,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.18,
+     "inr_no_contingency": 137
+    },
+    "stage3_probe_1000": {
+     "hours": 0.25,
+     "inr_no_contingency": 29
+    },
+    "stage4_lora_10k": {
+     "hours": 22.05,
+     "inr_no_contingency": 2558
+    },
+    "stage4_lora_30k": {
+     "hours": 54.79,
+     "inr_no_contingency": 6355
+    }
+   },
+   "mfu_45": {
+    "sec_per_forward": 0.603,
+    "stage2_capture_cal_train_locked": {
+     "hours": 0.92,
+     "inr_no_contingency": 107
+    },
+    "stage3_probe_1000": {
+     "hours": 0.19,
+     "inr_no_contingency": 22
+    },
+    "stage4_lora_10k": {
+     "hours": 17.15,
+     "inr_no_contingency": 1990
+    },
+    "stage4_lora_30k": {
+     "hours": 42.61,
+     "inr_no_contingency": 4943
+    }
+   }
+  },
+  "RTX 6000 Ada": {
+   "inr_per_hour": 120,
+   "bf16_peak_tflops_unverified": 364,
+   "tflops_per_inr": 3.03,
+   "mfu_25": {
+    "sec_per_forward": 0.775,
+    "stage2_capture_cal_train_locked": {
+     "hours": 1.18,
+     "inr_no_contingency": 142
+    },
+    "stage3_probe_1000": {
+     "hours": 0.25,
+     "inr_no_contingency": 30
+    },
+    "stage4_lora_10k": {
+     "hours": 22.05,
+     "inr_no_contingency": 2646
+    },
+    "stage4_lora_30k": {
+     "hours": 54.79,
+     "inr_no_contingency": 6574
+    }
+   },
+   "mfu_35": {
+    "sec_per_forward": 0.554,
+    "stage2_capture_cal_train_locked": {
+     "hours": 0.84,
+     "inr_no_contingency": 101
+    },
+    "stage3_probe_1000": {
+     "hours": 0.18,
+     "inr_no_contingency": 21
+    },
+    "stage4_lora_10k": {
+     "hours": 15.75,
+     "inr_no_contingency": 1890
+    },
+    "stage4_lora_30k": {
+     "hours": 39.13,
+     "inr_no_contingency": 4696
+    }
+   },
+   "mfu_45": {
+    "sec_per_forward": 0.431,
+    "stage2_capture_cal_train_locked": {
+     "hours": 0.66,
+     "inr_no_contingency": 79
+    },
+    "stage3_probe_1000": {
+     "hours": 0.14,
+     "inr_no_contingency": 17
+    },
+    "stage4_lora_10k": {
+     "hours": 12.25,
+     "inr_no_contingency": 1470
+    },
+    "stage4_lora_30k": {
+     "hours": 30.44,
+     "inr_no_contingency": 3652
+    }
+   }
+  }
+ },
+ "assumptions": [
+  "prices pasted by the user from the AIC Cloud page, not checked against the page; GST not included",
+  "MFU 25/35/45% is an assumption; Phase 1 smoke measures the real value",
+  "stage-2 fixed extras (setup, smoke, text embeddings, head fits) are added by the plan, not here",
+  "unchanged streaming capture code adds weight-transfer time per forward; the plan assumes a resident-weights mode"
+ ]
+}

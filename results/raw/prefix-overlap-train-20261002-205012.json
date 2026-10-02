@@ -1,0 +1,188 @@
+{
+ "created": "2026-10-02T15:20:11.985942+00:00",
+ "role": "train only",
+ "pairs": 25,
+ "prefix_tokens_mean": 7513.8,
+ "common_tokens_mean": 2661.2,
+ "share_of_tokens": 0.35417498469482817,
+ "share_median": 0.15460038764108996,
+ "pairs_over_half": 9,
+ "rows": [
+  {
+   "trajectory": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1",
+   "t": 12,
+   "prefix_tokens": 3581,
+   "common_with_previous": 2041,
+   "previous_prefix_tokens": 2081
+  },
+  {
+   "trajectory": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1",
+   "t": 48,
+   "prefix_tokens": 7338,
+   "common_with_previous": 1144,
+   "previous_prefix_tokens": 3581
+  },
+  {
+   "trajectory": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1",
+   "t": 68,
+   "prefix_tokens": 8077,
+   "common_with_previous": 1080,
+   "previous_prefix_tokens": 7338
+  },
+  {
+   "trajectory": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1",
+   "t": 108,
+   "prefix_tokens": 8631,
+   "common_with_previous": 1002,
+   "previous_prefix_tokens": 8077
+  },
+  {
+   "trajectory": "chatcmpl-27dd0152801d38b5a37ff92d729c9fc1",
+   "t": 126,
+   "prefix_tokens": 8661,
+   "common_with_previous": 1005,
+   "previous_prefix_tokens": 8631
+  },
+  {
+   "trajectory": "chatcmpl-afad377a096949cf0db2b8f9273875a8",
+   "t": 72,
+   "prefix_tokens": 7022,
+   "common_with_previous": 6241,
+   "previous_prefix_tokens": 6906
+  },
+  {
+   "trajectory": "chatcmpl-afad377a096949cf0db2b8f9273875a8",
+   "t": 100,
+   "prefix_tokens": 7858,
+   "common_with_previous": 1192,
+   "previous_prefix_tokens": 7022
+  },
+  {
+   "trajectory": "chatcmpl-afad377a096949cf0db2b8f9273875a8",
+   "t": 124,
+   "prefix_tokens": 8043,
+   "common_with_previous": 1195,
+   "previous_prefix_tokens": 7858
+  },
+  {
+   "trajectory": "chatcmpl-afad377a096949cf0db2b8f9273875a8",
+   "t": 130,
+   "prefix_tokens": 8080,
+   "common_with_previous": 1195,
+   "previous_prefix_tokens": 8043
+  },
+  {
+   "trajectory": "chatcmpl-afad377a096949cf0db2b8f9273875a8",
+   "t": 166,
+   "prefix_tokens": 8013,
+   "common_with_previous": 1195,
+   "previous_prefix_tokens": 8080
+  },
+  {
+   "trajectory": "chatcmpl-7df98ea9cdbd0d9fe55a4ebcf5969144",
+   "t": 82,
+   "prefix_tokens": 8747,
+   "common_with_previous": 1017,
+   "previous_prefix_tokens": 1057
+  },
+  {
+   "trajectory": "chatcmpl-7df98ea9cdbd0d9fe55a4ebcf5969144",
+   "t": 102,
+   "prefix_tokens": 8585,
+   "common_with_previous": 1021,
+   "previous_prefix_tokens": 8747
+  },
+  {
+   "trajectory": "chatcmpl-7df98ea9cdbd0d9fe55a4ebcf5969144",
+   "t": 124,
+   "prefix_tokens": 8601,
+   "common_with_previous": 1021,
+   "previous_prefix_tokens": 8585
+  },
+  {
+   "trajectory": "chatcmpl-7df98ea9cdbd0d9fe55a4ebcf5969144",
+   "t": 128,
+   "prefix_tokens": 8937,
+   "common_with_previous": 1021,
+   "previous_prefix_tokens": 8601
+  },
+  {
+   "trajectory": "chatcmpl-7df98ea9cdbd0d9fe55a4ebcf5969144",
+   "t": 134,
+   "prefix_tokens": 8350,
+   "common_with_previous": 1022,
+   "previous_prefix_tokens": 8937
+  },
+  {
+   "trajectory": "chatcmpl-d5787f27dfec69e55d4231be3364800c",
+   "t": 56,
+   "prefix_tokens": 5923,
+   "common_with_previous": 1440,
+   "previous_prefix_tokens": 7881
+  },
+  {
+   "trajectory": "chatcmpl-d5787f27dfec69e55d4231be3364800c",
+   "t": 62,
+   "prefix_tokens": 6717,
+   "common_with_previous": 5752,
+   "previous_prefix_tokens": 5923
+  },
+  {
+   "trajectory": "chatcmpl-d5787f27dfec69e55d4231be3364800c",
+   "t": 68,
+   "prefix_tokens": 7054,
+   "common_with_previous": 6329,
+   "previous_prefix_tokens": 6717
+  },
+  {
+   "trajectory": "chatcmpl-d5787f27dfec69e55d4231be3364800c",
+   "t": 72,
+   "prefix_tokens": 7995,
+   "common_with_previous": 6842,
+   "previous_prefix_tokens": 7054
+  },
+  {
+   "trajectory": "chatcmpl-d5787f27dfec69e55d4231be3364800c",
+   "t": 80,
+   "prefix_tokens": 8771,
+   "common_with_previous": 1356,
+   "previous_prefix_tokens": 7995
+  },
+  {
+   "trajectory": "chatcmpl-d2b0b531e9703812230633860c70e4dc",
+   "t": 12,
+   "prefix_tokens": 4131,
+   "common_with_previous": 3070,
+   "previous_prefix_tokens": 3110
+  },
+  {
+   "trajectory": "chatcmpl-d2b0b531e9703812230633860c70e4dc",
+   "t": 58,
+   "prefix_tokens": 6557,
+   "common_with_previous": 1054,
+   "previous_prefix_tokens": 4131
+  },
+  {
+   "trajectory": "chatcmpl-d2b0b531e9703812230633860c70e4dc",
+   "t": 68,
+   "prefix_tokens": 6247,
+   "common_with_previous": 5475,
+   "previous_prefix_tokens": 6557
+  },
+  {
+   "trajectory": "chatcmpl-d2b0b531e9703812230633860c70e4dc",
+   "t": 74,
+   "prefix_tokens": 7554,
+   "common_with_previous": 6207,
+   "previous_prefix_tokens": 6247
+  },
+  {
+   "trajectory": "chatcmpl-d2b0b531e9703812230633860c70e4dc",
+   "t": 88,
+   "prefix_tokens": 8372,
+   "common_with_previous": 6613,
+   "previous_prefix_tokens": 7554
+  }
+ ],
+ "note": "first 25 consecutive pairs from TRAIN trajectories with at least 3 decisions, manifest order; a measurement of potential KV reuse, not a result about decision quality"
+}

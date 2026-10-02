@@ -23,12 +23,19 @@ the MXFP4 weights, the 6 GB streaming design and the expert loader stay as PLAN.
 Where the runbook and PLAN.md disagree on the decision layer, the runbook wins. Where either
 disagrees with this file, this file wins.
 
-## Current direction (user, 2026-10-01) — overrides the 120B-first wording below
+## Current direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
 
-The decision head is **backbone-agnostic: it must work for any local model**. The first backbone is
-`gpt-oss-20b-heretic`. **gpt-oss-120b is not touched** until the user says so. `gpt-oss-20b-heretic`
-is read-only and used only when the head's capture step needs it. No shortcuts. README.md,
+The decision head is **backbone-agnostic: it must work for any local model**. **Qwen models only for now; gpt-oss
+(120b and 20b-heretic) is parked and not touched** until the user says so. The experiment backbone is frozen
+`Qwen3-4B-Thinking-2507` (revision `768f209d9e`, `models/qwen3-4b-thinking-2507`). No shortcuts. README.md,
 DECISION_HEAD.md and PLAN.md are updated as work lands, with what is done and what is not.
+**The live plan is PLAN.md section 12** (phases 0-5, gates, stop rules, budget): outcome-labelled targets, Laya's
+proper-scoring loss and temperature, free GPU first (Kaggle, Colab), staged paid GPU only as fallback and for LoRA.
+
+**Compute policy (user, 2026-10-02):** renting a GPU is allowed in principle and free Kaggle/Colab come first.
+**No cap, provider or upload has been approved yet, so spend stays Rs 0 and nothing leaves this machine until the user
+approves them in writing.** Proposed cap: Rs 6,000 in two steps (PLAN.md 12.4). Do not use several accounts to get
+more free quota.
 
 ## Mission
 
@@ -64,8 +71,12 @@ pass the same gate as everything else.
 - Evidence order: hard safety and permissions > tool and schema invariants > protected
   tests / real execution > calibrated internal head > specialist advice > heuristics
   (runbook section 22.1).
-- **Total spend is zero.** No cloud, no paid APIs, no rentals. This overrides the runbook's
-  "use a sufficiently provisioned machine" for hidden-state extraction (see Known risks).
+- **Spend is zero until the user approves a cap in writing** (see Compute policy above). Then only within that
+  cap, staged, with the stop rules of PLAN.md 12.3. No paid APIs. This replaces the earlier absolute ban on
+  rentals and the runbook's "use a sufficiently provisioned machine" is allowed only through that approval.
+- **All roles (TRAIN, CAL, LOCKED) are captured on the same device class and dtype.** A new device (T4 fp16,
+  rented GPU) means recapturing CAL and passing the hard capture gates again. LOCKED is read once; a new head
+  after that read needs a fresh LOCKED-2.
 
 ## Never
 
@@ -109,7 +120,9 @@ pass the same gate as everything else.
 - Deleting or moving anything outside this project folder. Deleting model files or caches
   inside it also needs a yes.
 - Installing packages (use `uv add`, never ad hoc `pip install`).
-- Spending money.
+- Spending money (state provider, cap and hours first).
+- Uploading code or data to Kaggle, Colab or any rental (LOCKED raw data only when the LOCKED capture starts),
+  `git push`, `SWE-rebench-openhands` trajectories, `Qwen3-Reranker-4B` (about 8 GB).
 - Anything that sends code or data off this machine. The DeepSeek Harness must be wired only
   to the local gpt-oss runtime; any configuration that calls a hosted model needs a yes.
 
@@ -173,13 +186,20 @@ pass the same gate as everything else.
   `models/laya-stop-completion-judge`, each sha256-verified and loaded offline.
   `gpt-oss-20b-heretic` is BF16 (no MXFP4 blocks), so it cannot test the expert loader;
   `laya-audit/external-laya` is Laya v0.3.22 (commit 6d942c9). D: has 19.5 GB free.
+  Also on disk: `models/qwen3-4b-thinking-2507` (7.6 GB, the experiment backbone) and `models/laya-code`.
+  Capture commands need `PYTHONPATH=.` (e.g. `PYTHONPATH=. .venv/Scripts/python.exe tools/capture_pool_v3.py cal`).
+  Never start a second capture process on the same role while one runs.
 
 ## Known risks (all figures are estimate (unmeasured) until recorded in `results/`)
 
 - Runbook phase 15 assumes an 80 GB machine. Here, hidden states come from our own runtime.
   PLAN.md's ~470 tok/s prefill would make 10k states of 12k tokens (120M tokens) about 71
   hours. Size the dataset from the measured prefill rate (G5), not from the runbook. If the
-  head cannot be trained within that budget, stop and ask. Do not rent hardware.
+  head cannot be trained within that budget, stop and ask. Renting needs the approval above.
+- Qwen3-4B capture here, measured: 8,163 tokens and 10.2 s per decision on the RTX 3050, compute-bound
+  (`results/raw/capture-cost-model-20261002-205000.json`). The frozen state may add nothing over
+  candidate/history features for next-action imitation (0.663 vs 0.667, `pool-audit-A5v1-*.json`), so paid
+  steps sit behind stop rules.
 - The DeepSeek Harness (runbook phase 24) is a TypeScript project we have not read or run.
 - The runbook's cited Laya teachers all exist on the Hugging Face API (checked 2026-10-01,
   Apache-2.0). Their revisions are not yet pinned in `configs/models.yaml`.

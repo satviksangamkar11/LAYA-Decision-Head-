@@ -213,3 +213,23 @@ Rules for the code: no constant in `decision_head/` or `state/` may name a model
 **cortex-1-large** [M for probes, S for its code]. Loads and behaves identically to its model card's own code path (same probabilities through laya.Agent and `build_sequence`), so the loader is not the problem. Its contract is a catalog of about a dozen fixed question templates (`should_autopilot`, `risk_score`, `route_task`, `vulnerability_class`, ...). Its training data is hand-written: roughly a dozen high-risk and a dozen low-risk templates cycled with only a ticket reference and metadata line changed, and the training state includes a `metadata` field that holds the label (`risk_tier`, `cwe`, `bug_category`, `ml_root_cause`). Its own validation reports balanced accuracy, sensitivity and specificity of exactly 1.0. Probes: `should_autopilot` returned P(yes)=0.000 for 8 plausible task descriptions under 3 wordings (raw logits about [6.2, -4.0] regardless of input); `vulnerability_class` was right on 0 of 3 snippets at 4, 7 and 11 options; adding only a `risk_tier` metadata field moved P(yes) from 0.000 to 0.993 on a low-risk text; `route_task` changed its answer on 3 of 8 order shuffles. Role: rejected as a teacher. Its published coding results come from author-built sets with the same generators and are not trusted.
 
 Lane registry corrected: `laya-typed` and `cortex-1` now have empty lanes (no trusted teacher role). A3 teacher wrappers are therefore: judge, conductor and laya-code done; laya-typed as a baseline wrapper is open; cortex-1 gets no wrapper.
+
+## 13. Research survey for the plan (2026-10-02): papers, Laya weights, cheap training
+
+Tags: [A] author-reported, from abstracts and search results, not full reads and not reproduced; [M] measured here. Plan: PLAN.md section 12.
+
+**Laya (Apache-2.0).** Source github.com/NandhaKishorM/laya; HF `convaiinnovations/laya` (ModernBERT-large 421M, 512 tokens), `laya-multilingual` (mmBERT-base 322M), `laya-typed-decisions` (421M, 1,024 tokens);
+dataset `LocalLLaMA/typed-decisions`. Specialists: `mvilacad/laya-conductor`, `tampajohn/laya-stop-completion-judge`, laya-code (from pilotspace/laya-codex, top 8 of 28 layers, about 2.3 h on an M4 Pro [A]),
+`cklxx/laya-browser` (browser-agent head with a write-up, not downloaded). A "Gyra" checkpoint was not found. Training [A]: RLCD (soft cross-entropy against the teacher plus REINFORCE with a group-mean baseline and
+proper-scoring rewards), one temperature per type fitted afterwards; 4-5 h for 4 epochs over about 30k questions on free Kaggle 2xT4; the browser head about 2 h on one 16 GB GPU. Lessons [A]: candidates shown in full in the
+option list beat every data change; templated labels leak; confidence-gated escalation to a bigger LLM made results worse; `torch.compile` on variable shapes was 6x slower. Laya's window cannot read our 8k-token states, so it stays a baseline.
+
+**Papers and weights.** Hidden-state correctness: arXiv 2606.14530 (Qwen3-4B-Instruct-2507, AUC 0.881, 0.842 after removing prompt-length effects [A]); 2512.22245 (Brier-loss linear probes, cheap calibrated judges).
+Verifiers and critics: OpenHands critic 32B (HF OpenHands/openhands-critic-32b-exp-20250417: temporal-difference step labels from the final outcome plus a regression head); SWE-RM 2512.21919; R2E-Gym 2504.07164 (hybrid verifier, 51% vs 43.7/42.8 [A]);
+SWE-TRACE 2604.14820. Same decisions as ours: early terminal reward prediction 2609.31995 (stop/continue from prefixes), SWE-Router 2607.00053 (weak-to-strong escalation, releases trajectories).
+Data: nebius/SWE-rebench-openhands-trajectories (CC-BY-4.0, 67,074 trajectories, 1,823 repositories, 3,792 resolved issues, 32,161 successful trajectories [A]), SWE-Gym 2412.21139, SWE-smith 2504.21798, SWE-rebench 2505.20411 and V2 2602.23866.
+Baseline weights: Qwen/Qwen3-Reranker-4B (Apache-2.0, yes/no last-token logit).
+
+**Training faster or cheaper.** Cached heads on frozen states (already). LoRA on all layers including MLP, learning rate about 10x full fine-tuning (thinkingmachines.ai/blog/lora); Unsloth claims 2x speed and 70% less memory [A], compatibility with our packed block mask untested.
+Free GPU: Kaggle 30 GPU-h per week, 2xT4 bills double, 9-12 h sessions; T4 has no native bf16. Rejected for now: shared-prefix reuse (Tree Training 2511.00413, psRL 2608.25683, Hydragen 2402.05099) because only 35.4% of prompt tokens are shared between consecutive decisions
+[M, `results/raw/prefix-overlap-train-20261002-205012.json`], and FlexAttention (2412.05496) for at most 15-20% of FLOPs and changed numerics. Section 9's claim that LoRA is not available is superseded: LoRA on a rented 24-48 GB GPU is in the plan (Phase 4).

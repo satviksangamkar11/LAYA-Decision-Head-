@@ -5,6 +5,15 @@
 # .cache/huggingface/download folder by earlier failed attempts (nothing else is flagged). Deleting them needs a yes.
 
 models:
+  - id: qwen3-4b-thinking-2507
+    repo: Qwen/Qwen3-4B-Thinking-2507
+    revision: 768f209d9ea81521153ed38c47d515654e938aea
+    path: models/qwen3-4b-thinking-2507
+    license: Apache-2.0
+    size_bytes: 8044982000                  # three safetensors shards, about 7.6 GiB on disk
+    role: experiment backbone for the internal head, frozen (user, 2026-10-02: Qwen only for now)
+    verified: "shard sha256 in results/raw/qwen3-4b-thinking-2507.manifest.json; equivalence v2 PASS (results/raw/equiv-v2-qwen3-4b-20261001-145942.json)"
+
   - id: gpt-oss-120b
     repo: openai/gpt-oss-120b
     revision: b5c939de8f754692c1647ca79fbf85e8c1e70f8a

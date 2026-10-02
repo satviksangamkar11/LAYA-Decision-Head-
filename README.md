@@ -7,7 +7,27 @@ head takes the hidden size as a parameter and is fitted per model. **Current exp
 
 Rules: [CLAUDE.md](CLAUDE.md). Design record and survey: [DECISION_HEAD.md](DECISION_HEAD.md). Step list and closure path: [PLAN.md](PLAN.md) section 11.
 Tags: **[M]** measured here, **[A]** reported by an author and not reproduced, **[E]** estimate.
-Last updated: 2026-10-02 (after the fresh-data download).
+Last updated: 2026-10-02 (CAL capture done; research and plan update).
+
+## Current plan (2026-10-02, full detail in [PLAN.md](PLAN.md) section 12)
+
+Goal: the best internal Laya-style decision head on frozen `Qwen3-4B-Thinking-2507`, as cheaply and quickly as possible, with a stop rule before every paid step.
+Status: CAL captured (569/569, audited). TRAIN (1,986) and LOCKED (2,220) not captured. No head trained, so **nothing is known yet about head quality**; the pilot
+risk is that the frozen state adds nothing over candidate/history features for next-action imitation (0.663 vs 0.667 [M]).
+
+| Phase | What | Compute | Stop rule |
+|---|---|---|---|
+| 0 | resident-weights capture mode; amendment (e) (3-seed selection, GPU-numerics clause, TRAIN-CV screen); dataset metadata scan; Laya-style proper-scoring loss | local, free | scan or amendment fails |
+| 1 | 20-decision smoke with all hard gates, real speed, CAL duplicate spot-check, fp16 check | Kaggle T4 free, else rented Ada/4090 | any gate fails or cost over 2x model |
+| 2 | capture TRAIN, LOCKED, CAL recapture; registered H0 vs H2 test; one LOCKED read; baselines (Laya models, Qwen3-Reranker-4B) | Kaggle free or Ada | failure routes to Phase 3 |
+| 3 | outcome-label probe (SWE-rebench-openhands) on TRAIN grouped CV | free or Ada | lower bound not above 0: stop spending |
+| 4 | scale to about 10k outcome-labelled decisions; LoRA plus pointer head; fresh LOCKED-2 | LoRA on RTX 6000 Ada | ship LoRA only if it beats the frozen head |
+| 5 | three-arm SWE comparison with and without the head | needs Docker | not budgeted |
+
+Budget [E]: Rs 0 for Phases 1-3 if fp16 passes on Kaggle; LoRA about Rs 2,000-3,500; proposed cap Rs 6,000 in two steps (pending). **Pending approvals:** provider, cap and
+uploads; downloads over 1 GB (SWE-rebench-openhands, Qwen3-Reranker-4B); the private push; whether to lift the "no Laya fine-tuning" rule. Measured so far: 8,163 tokens and
+10.2 s per decision on the RTX 3050, compute-bound; consecutive decisions share only 35.4% of prompt tokens, so KV reuse is rejected (`results/raw/capture-cost-model-*.json`,
+`prefix-overlap-train-*.json`). Research survey, papers, Laya weights and repos: [DECISION_HEAD.md](DECISION_HEAD.md) section 13.
 
 ## Benchmark increments (one row per major step; full ledger: [results/increments.md](results/increments.md))
 
@@ -38,6 +58,8 @@ such. No head has been trained yet, so every row after the baselines shows no ch
 | 17 | v3 training design registered; decision manifests built; full-pool capture pipeline built and smoke-tested (not started) | H0 state-free branch vs primary H2 = frozen H0 + residual state branch on cross-fitted scores; 9 registered cells, selection inside TRAIN, 5 paired seeds at the end. Manifests: TRAIN 1,986 / CAL 569 / LOCKED 2,220 (5 per each of 444 trajectories). Smoke test: all hard capture gates pass (independence >= 0.9999 even at a 79-candidate pool); pilot cross-check worst cosine 0.999945 | 0.323 (historical) | none | `v3-manifests.json`, `v3-pilot-crosscheck-20261001-202311.json` |
 | 18 | Sampler unified; v3 trainer built and audited (13/14 checks, 1 pending); independence gate stopped the smoke capture (bf16 noise floor, candidates bit-identical when content changes at fixed shape) | No benchmark change. Gate threshold unchanged; amendment awaits the user. Long capture not started. See results/increments.md row 18. |
 | 19 | Independence gate amended (content-swap bit-identity + numerical sanity); NONE and early-stopping locks; trainer audit 16/16 | No benchmark change. Capture estimate now roughly 20-24 h (extrapolated from 10 smoke decisions). Awaiting the user's go for the full capture. See results/increments.md row 19. |
+| 20 | v3 CAL capture complete (569/569), audited twice | audit PASS twice, same hash 8717cd11...; Gate A max diff 0.0 (62 targets), Gate B min cosine 0.999906. Incident: two capture processes ran at once (42 ids logged twice); files unique and stable, duplicates' bit-identity unprovable (spot-check planned). | 0.323 (historical) | none | `capture-cal-checkpoint-20261002-020211.json`, `-125613.json`, `capture-interruptions.jsonl` |
+| 21 | Cost model and plan update | 8,163 tokens and 10.2 s per decision on the 3050 [M], compute-bound; prompt overlap between consecutive decisions 35.4% [M]; GPU costs are estimates. No benchmark change. | 0.323 (historical) | none | `capture-cost-model-20261002-205000.json`, `prefix-overlap-train-20261002-205012.json` |
 
 > **A5-v2 and A5-v3 (2026-10-02):** A5-v2 FAILED the registered gate and was not loosened. Some history/candidate predictability is legitimate behavioural information, so `configs/a5_v3_spec.toml` registers a new question: does the frozen state add value beyond a state-free candidate/history baseline trained on the same rows (primary claim H2 minus H0_matched, minimum effect +0.05, locked set of fresh repository-disjoint trajectories). Fresh data is downloaded and the locked part is closed (row 15). F-dev feasibility passed (row 16). Training design is registered (row 17). Next: the full-pool capture (about 14 to 15 GPU hours, an estimate).
 
@@ -104,13 +126,17 @@ Track A first, no model touched: A3 (finish the teachers) then A4 (compiler) the
 
 ## Next
 
+**Superseded by the current plan above (PLAN.md section 12): Phase 0 first.** The older list below is kept as history.
+
 1. Tier-1 closed-form head on `next_action_kind` at all five depths: fit on train only, pick depth on the 380 pilot calibration rows (pilot-only, not the final calibration), report against the baselines.
 2. Tier-2 set-attention pointer head on ACTION (about 34M parameters, frozen backbone, 600 train decisions: strong regularisation and early stopping), compared with TF-IDF 0.323 covered by a paired bootstrap on the locked benchmark. That needs the benchmark decisions captured too (up to about 15 GPU hours for 4,396).
 3. After each step, rerun the locked benchmark and add a row to the increments table above and to `results/increments.md`.
 
 ## Open decisions for the user
 
-Delete the 16.8 GB of dead `autojev/` partial downloads, the JDownloader installer (`GPT OSS 20 B.exe`) and the partial downloads in the model caches? Record the RB0 env manifest and experiment id now? Update `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` to the Qwen3-4B experiment backbone (they are frozen documents, so this needs your approval)? Add a pinned Qwen3-4B entry to `configs/models.yaml`? Commit the new files and push?
+**Plan approvals (2026-10-02):** (1) provider, cap (proposed Rs 6,000) and upload scope for Kaggle/Colab or a rental; (2) downloads over 1 GB: SWE-rebench-openhands, Qwen3-Reranker-4B; (3) lift the "no Laya fine-tuning" rule (only a free side track)? (4) questions for AIC: billing granularity, billing while stopped, disk, Docker, GST. CLAUDE.md, PLAN.md, `configs/p0.toml` and `configs/models.yaml` were updated for the Qwen3-4B backbone on 2026-10-02.
+
+Older items: delete the 16.8 GB of dead `autojev/` partial downloads, the JDownloader installer (`GPT OSS 20 B.exe`) and the partial downloads in the model caches? Record the RB0 env manifest and experiment id now? Update `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` to the Qwen3-4B experiment backbone (they are frozen documents, so this needs your approval)? Add a pinned Qwen3-4B entry to `configs/models.yaml`? Commit the new files and push?
 
 
 

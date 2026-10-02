@@ -2,6 +2,10 @@
 
 Rules are in [CLAUDE.md](CLAUDE.md). This file is the spec and the step list.
 
+> **Status (2026-10-02):** sections 1-10 are the historical gpt-oss runtime plan and stay as written (gpt-oss is parked: the user
+> wants Qwen models only for now). The live plan is **section 12** (internal head on frozen Qwen3-4B-Thinking-2507, free GPU first,
+> staged paid spend with stop rules). Section 11 is the decision-layer step list it builds on.
+
 ## 1. Objective and definition of done
 
 Best-quality local coding agent on this machine, at zero spend. Quality is the only
@@ -255,7 +259,8 @@ Teacher and judge lanes (each answers only its own question; outputs recalibrate
 | Decision | Head | Teacher / judge | Authority above it |
 |---|---|---|---|
 | ACTION, RECOVERY | primary | no trusted teacher: laya-typed is a baseline only, cortex-1 rejected (section 12 of DECISION_HEAD.md) | hard policy, execution |
-| CODE_RELEVANCE | primary | laya-code (independent per-chunk scores, not a distribution) | none |`n| EVIDENCE sufficiency | none | no checkpoint trained for it; evidence-gate and supersession not found; stays unlabelled | none |
+| CODE_RELEVANCE | primary | laya-code (independent per-chunk scores, not a distribution) | none |
+| EVIDENCE sufficiency | none | no checkpoint trained for it; evidence-gate and supersession not found; stays unlabelled | none |
 | CONTINUE, effort | primary | laya-conductor | completion invariants |
 | COMPLETION | primary | laya-stop-completion-judge (shipped state_pack) | tests and acceptance invariants |
 | PATCH | primary | none | compiler and tests |
@@ -285,5 +290,71 @@ can stop it: frozen-decoder ceiling, throughput of the streaming loop, no sandbo
 3. A5 locked benchmark and teacher baselines (random, first, prior, TF-IDF, each teacher).
 4. Only then touch heretic: capture at about 2/3 depth with a depth sweep; fit Tier-1 closed-form heads per fixed decision (minutes); train Tier-2 pointer head; compare Tier 2 against Tier 1 and the letter readout.
 5. Assembly, reusing laya-codex for retrieval.
+
+## 12. Current plan (2026-10-02): internal head on frozen Qwen3-4B-Thinking-2507, free GPU first
+
+Supersedes the heretic-first closure path and the capture-cost figures of section 11 for the experiment backbone. The runtime
+(sections 2-8) is untouched. Tags: **[M]** measured here (file in `results/raw/`), **[A]** author-reported, **[E]** estimate (unmeasured).
+Anything marked "pending" needs the user's written yes (CLAUDE.md, Ask first); it is NOT approved.
+
+### 12.1 Where we stand
+- **CAL captured [M]:** 569 of 569 decisions (42 trajectories), audit PASS twice, same hash (`capture-cal-checkpoint-20261002-020211.json`,
+  `-125613.json`). Incident: two capture processes ran at once, 42 decision ids logged twice (`results/raw/capture-interruptions.jsonl`). Files are
+  one per decision and stable; that the overwritten duplicates were bit-identical is not provable after the fact (spot-check planned in Phase 1).
+- **Not captured:** TRAIN 1,986 decisions (185 trajectories), LOCKED 2,220 (444 trajectories, unopened). Registered design: `configs/a5_v3_spec.toml`.
+- **Cost of one decision [M]:** 8,163 tokens on average (max 11,123), 10.2 s clean on the RTX 3050, about 70 TFLOP [E, FLOP model]. The 3050 is
+  compute-bound, not PCIe-bound (`results/raw/capture-cost-model-20261002-205000.json`). The capture streams layers through the GPU (`capture/capture.py`).
+- **Risk [M]:** eight trivial features reach 0.663 and the pilot pointer head 0.667 (`pool-audit-A5v1-20261001-184836.json`): the frozen state may add
+  nothing for next-action imitation. Every paid step therefore sits behind a stop rule.
+
+### 12.2 What the research changed (details and links: DECISION_HEAD.md section 13)
+1. **Targets:** train on real outcomes (patch resolved or not, stop or continue), with the final result spread back to each step (OpenHands critic
+   recipe), not on copying the agent's next action. Data: `nebius/SWE-rebench-openhands-trajectories` (CC-BY-4.0, 67,074 trajectories, 3,792 resolved issues [A]; metadata scan first, download pending).
+2. **Head loss:** Laya's proper-scoring loss (Brier or spherical) and a per-type post-hoc temperature, typed heads (choice for patch/action, yes/no for stop/complete).
+   Copy under Apache-2.0 with the notice. Laya itself is not fine-tuned (CLAUDE.md rule stands, question pending).
+3. **Baselines added:** laya-typed-decisions, laya-conductor, laya-stop-completion-judge, Qwen3-Reranker-4B (about 8 GB, download pending), a linear probe on the cached states.
+4. **Compute:** free GPU first (Kaggle 30 GPU-h per week, 2xT4 bills double; Colab free as overflow), RTX 6000 Ada rental only as fallback and for LoRA.
+5. **Rejected for now [M/E]:** shared-prefix KV reuse across decisions (only 35.4% of prompt tokens shared, median 15.5%, 9 of 25 pairs over 50%:
+   `prefix-overlap-train-20261002-205012.json`; a fix means a new state format and a new benchmark version) and FlexAttention (at most about 15-20% of FLOPs, changes numerics).
+
+### 12.3 Phases, gates and stop rules
+| Phase | Work | Compute | Gate / stop rule |
+|---|---|---|---|
+| 0 | Resident-weights mode in `capture/capture.py` and `tools/capture_textemb_v3.py`; **amendment (e)** registered before any head is trained: 3-seed cell selection, GPU-numerics clause (all roles on one device and dtype; CAL recaptured; cosine check against the 3050 files), go/no-go screen = TRAIN grouped CV (185 trajectories), not CAL (42 trajectories, about +-0.10 [E]); metadata scan of the trajectory dataset; head losses; private push of 7962925 as external timestamp (pending) | local, free | scan finds enough issues with both resolved and failed attempts; amendment committed |
+| 1 | Smoke: 20 decisions with every hard gate, real seconds per decision, 20-decision recapture spot-check of the CAL duplicates, fp16-vs-bf16 check | Kaggle T4 (free); else RTX 6000 Ada vs RTX 4090 benchmark (about Rs 150-400 [E]) | any hard gate fails, or measured cost above 2x the cost model: stop and re-plan |
+| 2 | Capture TRAIN, LOCKED, CAL recapture (about 4,775 decisions, 4-7 T4-hours [E] or about 0.8-2 h on the Ada); fit H0 and H2 on the 9-cell grid; **one** LOCKED read; baselines of 12.2 | Kaggle (free) or Ada | registered rule: lower 95% bound > 0, estimate >= 0.05, half-width <= 0.04, else INCONCLUSIVE. Failure routes to Phase 3; it does not end the project |
+| 3 | Outcome probe on about 500-1,000 outcome-labelled decisions: H2 vs H0 and a linear probe, TRAIN grouped CV | Kaggle or Ada, 1-2 h [E] | lower 95% bound not above 0: stop spending on the head, use external verifiers (Laya models, critic-style reranker) and report |
+| 4 | Capture about 10k outcome-labelled decisions; frozen scaled head; LoRA (all layers incl. MLP, rank 16, learning rate about 10x full fine-tuning) plus pointer head; fresh **LOCKED-2** | frozen head free; LoRA on the Ada, 18-29 h [E] | ship LoRA only if it beats the frozen head with a paired interval above 0 on LOCKED-2; else ship the frozen head |
+| 5 | Three-arm SWE comparison on 100-200 fresh tasks: base agent, plus external Laya models, plus internal head; head-triggered weak-to-strong escalation | needs Docker and generation capacity | not budgeted; quote after Phase 4 |
+
+### 12.4 Compute and budget (all [E] until Phase 1 measures them; cost model: `capture-cost-model-20261002-205000.json`)
+Prices are the user's paste of the AIC Cloud page (unverified, GST not included, add 18% if excluded). Peak speeds are published specs as recalled (unverified).
+
+| GPU | Rs/h | BF16 peak TFLOPS | s per forward (mid, 25-45% utilisation) | Stages 1-3 | Stages 1-4 (LoRA on 10k) |
+|---|---:|---:|---|---:|---:|
+| RTX 3090 | 36 | 71 | 2.8 (2.2-4.0) | 450-600 | 3,400-5,900 |
+| RTX 4090 | 69 | 165 | 1.2 (0.95-1.7) | 650-780 | 3,100-5,100 |
+| RTX A6000 | 73 | 155 | 1.3 (1.0-1.8) | 700-840 | 3,400-5,800 |
+| RTX PRO 5000 | 116 | about 260 | 0.77 (0.60-1.1) | 1,000-1,130 | 3,600-5,800 |
+| RTX 6000 Ada | 120 | 364 | 0.55 (0.43-0.77) | 980-1,080 | 2,900-4,500 |
+
+Rs, with 30% contingency. Best on paper: RTX 6000 Ada (fastest and cheapest per job); RTX 4090 is the safe fallback; the A6000 paper peak is probably overstated;
+the PRO 5000 is Blackwell and needs a CUDA 12.8+ torch build (ours is cu126). 24 GB of VRAM is enough (capture about 10 GB, LoRA about 14 GB at 11k tokens [E]);
+48 GB buys speed only. With the free-GPU path, Stages 1-3 cost Rs 0 if fp16 passes the gates; the paid part shrinks to LoRA, about Rs 2,000-3,500 [E].
+**Proposed cap Rs 6,000 in two steps (Rs 1,500 for Phases 1-3, the rest only if Phase 3 passes); Phase C (30k decisions, Rs 5,700-9,600 [E]) needs its own approval. Pending.**
+Free-tier limits: T4 has no native bf16 (capture in fp16 changes numerics, so every role is recaptured and re-gated); Kaggle sessions cap at 9-12 h (capture resumes per file);
+LoRA at scale does not fit the free quota (10k decisions x 2 epochs about 64 T4-hours [E]). Do not spread work over several accounts to get more quota.
+
+### 12.5 Rules for this plan
+- LOCKED is read once. A new head after that read needs a fresh LOCKED-2. Calibration data never feeds gradients.
+- All roles are captured on the same device class and dtype. A new device means CAL recapture and the hard gates (Gate A bit-identity, Gate B and plain cosine >= 0.999).
+- Amendment (e) is registered before any head is trained. Thresholds are never edited after results (new versioned file instead).
+- After each major step: rerun the fixed benchmark and add a row to `results/increments.md` (CLAUDE.md).
+- Uploads (code, TRAIN/CAL raw data, then LOCKED raw only when Phase 2 reaches the LOCKED capture), paid GPU, downloads over 1 GB and any push need a written yes first.
+
+### 12.6 Pending approvals
+(1) provider, cap and upload scope (Kaggle/Colab private dataset: code, model, TRAIN and CAL raw; no secrets); (2) downloads over 1 GB: SWE-rebench-openhands, Qwen3-Reranker-4B;
+(3) private push of commit 7962925; (4) whether to lift the "no Laya fine-tuning" rule (only a free Kaggle side track for a stronger baseline; Laya's 512-1,024 token window cannot read our 8k states);
+(5) questions for AIC before renting: billing granularity, billing while stopped, disk size and price, Docker, GST.
 
 

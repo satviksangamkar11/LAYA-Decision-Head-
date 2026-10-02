@@ -1,0 +1,22 @@
+{
+ "created": "2026-10-01T21:20:17.967368+00:00",
+ "code_commit": "796292514a70c400e06ccbcd6cd3a79ddd223f38",
+ "commit_note": "local commit made before the long capture; the working tree was clean at that commit",
+ "sha256": {
+  "tools/capture_pool_v3.py": "3350897a8dc87118e8d51b567d38cef54331164d50a05cb736fa083b732726ef",
+  "tools/capture_textemb_v3.py": "e7ca33ce1672c07e05afed14b389da9a51584f281cd6ec11c69abce6383408b4",
+  "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+  "capture/pool.py": "1b0d3e0be1df69de2d131de7de20d6e4818a8af3bf4a348043339bf84531d476",
+  "capture/render.py": "42ec29cac3ae51219ae843caa5728ef1f1d4500ec8d9de2b42ea04039f26a7b3",
+  "compiler/a5v2.py": "30267a7729ca1ea455d902efb257f49e95ed46c116543b978bd4bee4a922943c",
+  "compiler/firewall.py": "f55c3dc3dadbe6b8dcff4d70fa784f17e2ed19191f692b81a75254e77f0deffb",
+  "configs/a5_v3_spec.toml": "6cddc76b94b59e1d0d78c64a1f853ffd262cd06a4f66817b312c79a3ee2ea8ad",
+  "configs/thresholds.toml": "6b1b034ea67095399f19651a674a5e66e96396ec6b57376c9b2d18185142011b",
+  "data/v3/manifest-cal.json": "5c82eb13990919c069086b51a0575a1f4f4dcb2d2d3b8bebf3da8e143c912b49",
+  "data/v3/manifest-train.json": "0a23ffe28c007425f7435ff86490652e843dbc352ad6bb64672aa7ab082fef60",
+  "data/v3/manifest-locked.json": "c41c639c29413fe4337af036fc7806e6507788c90dd50da8871605dee781ed4c"
+ },
+ "order": "commit -> text embeddings (all roles) -> CAL (569) -> checkpoint audit -> TRAIN (1986) -> LOCKED (2220)",
+ "runtime_projection": "Projected runtime ~20-24 h based on the 10-decision smoke sample (about 16 s per ungated decision, 100-175 s per gated decision); NOT yet validated at scale.",
+ "rules": "No change to thresholds, sampler, candidate construction, architecture or capture gates during the run unless a hard failure exposes an implementation defect; on failure stop and record. LOCKED run is acquisition only: no outcomes inspected, no performance computed."
+}
