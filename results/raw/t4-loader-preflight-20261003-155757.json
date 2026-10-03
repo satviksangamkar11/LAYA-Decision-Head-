@@ -1,0 +1,35 @@
+{
+ "created": "2026-10-03T15:56:29",
+ "capture_dir": "data/v3/capture_t4",
+ "textemb_dir": "data/v3/textemb_t4/textemb_t4",
+ "cal": {
+  "manifest": 569,
+  "loaded": 569,
+  "missing": 0,
+  "sets_per_decision_min_max": [
+   1,
+   1
+  ],
+  "query_shape": [
+   3,
+   2560
+  ],
+  "all_finite": true,
+  "seconds": 9.6
+ },
+ "train": {
+  "manifest": 1986,
+  "loaded": 1986,
+  "missing": 0,
+  "sets_per_decision_min_max": [
+   4,
+   4
+  ],
+  "query_shape": [
+   3,
+   2560
+  ],
+  "all_finite": true,
+  "seconds": 87.7
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "created": "2026-10-03T15:55:37",
+ "device_sidecar": {
+  "device": "Tesla T4",
+  "dtype": "fp16",
+  "torch": "2.10.0+cu128",
+  "transformers": "5.17.0",
+  "model": "/kaggle/temp/qwen3-4b",
+  "depths": [
+   18,
+   24,
+   30
+  ],
+  "texts": 12602,
+  "texts_sha256": "d93a45ee4d97961a91147c6ff2eb23ca4181f46a70e40ab11ca4cbb473d2a4b1",
+  "gate": 0.9999,
+  "shard": 2048,
+  "max_tok": 6000,
+  "max_seq": 256
+ },
+ "shards": 7,
+ "texts_embedded": 12602,
+ "texts_expected": 12602,
+ "missing": 0,
+ "extra": 0,
+ "bad_vectors": 0,
+ "texts_sha256_matches_sidecar": true,
+ "shard_sha256": {
+  "shard-0000.pt": "e4a37dec54d8bf30f4ce984df961fc9476f8d9ccaecc537e627a7197e2caa1a5",
+  "shard-0001.pt": "a2744cd1d776a311ea725d1229d94caec062aedf3f16d8ed9c887b78967aaeca",
+  "shard-0002.pt": "afa5344523471ccee8769441e52e14c47d69f8ed4f6ba375f910ba0bb3a0698d",
+  "shard-0003.pt": "8ed61009fffa24f71f6ca547af76bc1ee264edf5688bab94d45dc2d64167b103",
+  "shard-0004.pt": "6982d0fbd86ea3ffb5e45fe8042f7fee96a9f9574427c208791f49a5d7363244",
+  "shard-0005.pt": "a4b440eddd1f9d816ff32417bd9a8231a56714c48970a0cb4f859f4808b16362",
+  "shard-0006.pt": "8a14e2d86f165d72363a51604d5c9b72867b5515f89ee7d60dae0423c669c43a"
+ },
+ "lock_ok": {
+  "torch": true,
+  "transformers": true,
+  "device": true,
+  "dtype": true
+ },
+ "vs_3050_bf16": {
+  "texts_compared": 12602,
+  "per_depth_min": [
+   0.999805,
+   0.999808,
+   0.999786
+  ],
+  "per_depth_mean": [
+   0.999988,
+   0.999989,
+   0.999993
+  ],
+  "below_0p999_per_depth": [
+   0,
+   0,
+   0
+  ],
+  "note": "informational; no cross-device threshold is registered"
+ }
+}

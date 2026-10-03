@@ -61,3 +61,5 @@ capture_*.tar
 
 capture_manifest*.json
 capture_manifest*.txt
+
+textemb_t4.tar

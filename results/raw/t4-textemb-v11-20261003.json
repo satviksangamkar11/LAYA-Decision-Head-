@@ -1,0 +1,46 @@
+{
+ "created": "2026-10-03",
+ "what": "State-free candidate-text embeddings of the 12,602 TRAIN+CAL pool texts recaptured on Kaggle T4 under the amendment (e) device lock (Path A)",
+ "source": "Kaggle Logs tab, read in the browser (machine-printed run summary); textemb_t4.tar (198,144,000 bytes) NOT yet downloaded or verified locally",
+ "dataset": "satviksangamkar54321/laya-textemb-trainval (22 files, 12,602 texts, no LOCKED data, no trajectories, no labels; texts_sha256 d93a45ee4d97961a91147c6ff2eb23ca4181f46a70e40ab11ca4cbb473d2a4b1)",
+ "attempts": [
+  {
+   "version": 8,
+   "run": 354869138,
+   "result": "SUCCESS but torch 2.11.0+cu128 on Python 3.13 (Kaggle's latest image) = NOT the locked torch 2.10.0+cu128; gate worst cosine 0.999999; kept as a comparison set only",
+   "wall_s": 279.8
+  },
+  {
+   "version": 9,
+   "run": 354871599,
+   "result": "FAILED after 28.5 s at the notebook's own torch assertion: 'Pin to original environment' was not honoured, kernel torch 2.11.0+cu128"
+  },
+  {
+   "version": 10,
+   "run": 354872561,
+   "result": "FAILED after 305.9 s: torch 2.10.0+cu128 installed for the worker, then ModuleNotFoundError: Could not import module 'Qwen3ForCausalLM' (pip warned torchvision 0.26.0+cu128 requires torch==2.11.0; cause inferred)",
+   "wall_s": 305.9
+  },
+  {
+   "version": 11,
+   "run": 354874361,
+   "result": "SUCCESS under the lock: worker torch 2.10.0+cu128, transformers 5.17.0 (preflight import of Qwen3ForCausalLM OK after uninstalling torchvision and torchaudio), 12,602 texts in 7 shards, worst batch-vs-alone gate cosine 0.999999 (>= 0.9999 on every shard), lm_head_calls 0, embedding 2.6 min on the T4, run wall 426.2 s",
+   "wall_s": 426.2
+  }
+ ],
+ "gate": {
+  "registered": "cosine >= 0.9999, checked on every shard",
+  "worst_cosine": 0.999999,
+  "shards": 7
+ },
+ "finding": "Kaggle's latest container image moved between sessions (Python 3.12 + torch 2.10.0 for the state capture; Python 3.13 + torch 2.11.0 later) and 'Pin to original environment' is not honoured for committed runs; the worker torch had to be installed explicitly. Python version is not in the e1 lock wording.",
+ "output": {
+  "tar_bytes": 198144000,
+  "output_size": "396.27 MB"
+ },
+ "not_yet_done": [
+  "download and local verification of the v11 shards (finite, shapes, texts equal the bundle list)",
+  "comparison v11 (torch 2.10) vs v8 (torch 2.11) and vs the 3050 bf16 embeddings for the same texts (informational)",
+  "LOCKED-pool texts (21,713) remain to be embedded after LOCKED approval"
+ ]
+}

@@ -10,9 +10,18 @@ CELLS = [("md", MD),
 import torch
 print(subprocess.run("nvidia-smi --query-gpu=name,memory.total,compute_cap --format=csv", shell=True, capture_output=True, text=True).stdout)
 assert all("T4" in torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count()))
-print("torch", torch.__version__)
+print("kernel torch", torch.__version__)
+# device lock (amendment e1): the WORKER process must run torch 2.10.0+cu128. Kaggle ignores 'Pin to original environment' for committed runs, so install it for the worker.
+if torch.__version__ != "2.10.0+cu128":
+    r = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "torch==2.10.0", "--index-url", "https://download.pytorch.org/whl/cu128", "--extra-index-url", "https://pypi.org/simple"], capture_output=True, text=True)
+    print(r.stdout[-500:], r.stderr[-900:])
+    r = subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "torchvision", "torchaudio"], capture_output=True, text=True); print(r.stdout[-300:], r.stderr[-300:])
+wt = subprocess.run([sys.executable, "-c", "import torch;print(torch.__version__)"], capture_output=True, text=True).stdout.strip()
+print("worker torch", wt); assert wt == "2.10.0+cu128", f"device lock (amendment e1): worker torch must be 2.10.0+cu128, got {wt}"
 r = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "transformers==5.17.0", "huggingface_hub"], capture_output=True, text=True); print(r.stdout[-300:], r.stderr[-400:])
-import transformers; assert transformers.__version__ == "5.17.0"; print("transformers", transformers.__version__)'''),
+import transformers; assert transformers.__version__ == "5.17.0"; print("transformers", transformers.__version__)
+chk = subprocess.run([sys.executable, "-c", "import torch, transformers; from transformers import Qwen3ForCausalLM, AutoTokenizer; print(torch.__version__, transformers.__version__)"], capture_output=True, text=True)
+print("worker preflight:", chk.stdout.strip(), chk.stderr[-1500:]); assert chk.returncode == 0 and chk.stdout.split()[0] == "2.10.0+cu128", "worker preflight failed (device lock e1)"'''),
 ("code", r'''hits = glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True); assert hits, "attach the private dataset"
 SRC = os.path.dirname(hits[0]); W = "/kaggle/temp/proj"; shutil.copytree(SRC, W, dirs_exist_ok=True)
 man = json.load(open(W + "/MANIFEST.json"))
@@ -39,7 +48,8 @@ try:
     while p.poll() is None:
         time.sleep(60)
         print(f"[textemb] {len(glob.glob(OUT + '/shard-*.pt'))} shards, {(time.time() - t0) / 60:.1f} min", flush=True)
-    print("exit", p.returncode, "\n" + "".join(open("/kaggle/working/textemb.out").readlines()[-8:]))
+    L = open("/kaggle/working/textemb.out").readlines()
+    print("exit", p.returncode, "\n" + "".join(L[:25] + [" ...\n"] + L[-25:]) if p.returncode else "\n" + "".join(L[-8:]))
     assert p.returncode == 0, "the embedding run failed (a failed gate aborts it); see the tail above"
 finally:
     if p.poll() is None: p.terminate()
@@ -48,6 +58,7 @@ finally:
     print(subprocess.run("ls -la /kaggle/working; du -sh /kaggle/working", shell=True, capture_output=True, text=True).stdout)'''),
 ("code", r'''import statistics
 dev = json.load(open(OUT + "/textemb-device.json"))
+assert dev["torch"] == "2.10.0+cu128" and dev["transformers"] == "5.17.0", dev
 shards = sorted(glob.glob(OUT + "/shard-*.pt")); n, ents = 0, []
 for f in shards:
     d = torch.load(f); n += len(d)
