@@ -7,9 +7,17 @@ head takes the hidden size as a parameter and is fitted per model. **Current exp
 
 Rules: [CLAUDE.md](CLAUDE.md). Design record and survey: [DECISION_HEAD.md](DECISION_HEAD.md). Step list and closure path: [PLAN.md](PLAN.md) section 11.
 Tags: **[M]** measured here, **[A]** reported by an author and not reproduced, **[E]** estimate.
-Last updated: 2026-10-02 (CAL capture done; research and plan update).
+Last updated: 2026-10-03 (direction change: outcome-labelled one-week plan, PLAN.md section 13).
 
-## Current plan (2026-10-02, full detail in [PLAN.md](PLAN.md) section 12)
+## Current plan (2026-10-03, full detail in [PLAN.md](PLAN.md) section 13)
+
+**Direction change 2026-10-03:** the A5-v3 imitation study and the LOCKED capture are scrapped. The head now trains on real outcomes (task resolved or not) with four targets
+(`done`, `value`, `next_move`, `pick`; `escalate` is a rule) from one forward pass per trajectory, and ships only if a three-arm agent test passes (Qwen alone, plus Laya sidecar,
+plus internal head; 20-30 seeded-bug tasks; numeric margin still to be set). The backbone stays frozen. Pending written approvals: the SWE-rebench-openhands download, lifting
+"no Laya fine-tuning", dropping the per-step paperwork, where the agent runs (Kaggle T4 or local 3050), the pass margin, deleting `autojev/`. Existing TRAIN and CAL state files are reused.
+Nothing is known yet about head quality. The 2026-10-02 plan below is kept as history.
+
+### Superseded: plan of 2026-10-02 (PLAN.md section 12)
 
 Goal: the best internal Laya-style decision head on frozen `Qwen3-4B-Thinking-2507`, as cheaply and quickly as possible, with a stop rule before every paid step.
 Status: CAL captured (569/569, audited). TRAIN (1,986) and LOCKED (2,220) not captured. No head trained, so **nothing is known yet about head quality**; the pilot
@@ -24,7 +32,7 @@ risk is that the frozen state adds nothing over candidate/history features for n
 | 4 | scale to about 10k outcome-labelled decisions; LoRA plus pointer head; fresh LOCKED-2 | LoRA on RTX 6000 Ada | ship LoRA only if it beats the frozen head |
 | 5 | three-arm SWE comparison with and without the head | needs Docker | not budgeted |
 
-**Status 2026-10-03:** Phase 2 capture is COMPLETE and VERIFIED on Kaggle T4 x2: TRAIN 1,986 and CAL 569 (7.19 s and 7.03 s per decision per GPU, 192 min wall), all files present and finite, Kaggle-manifest sha256 2,555 of 2,555 equal, smoke decisions 0-19 bit-identical across sessions, T4 vs 3050 states mean cosine >= 0.9999 (worst vector 0.998742; informational). Per the user's Path A, every role stays on the T4: the state-free text embeddings of the TRAIN+CAL pool texts (12,602) are being recaptured on the T4 (notebook v8, gate 0.9999 on every shard); LOCKED states and the LOCKED-pool texts wait for the user's written approval. **Amendment (e) is REGISTERED** (`configs/a5_v3_spec.toml` [amendment_2026_10_03_e], `configs/thresholds.toml` [amendment_e_thresholds]) before any head is trained. No head has been trained and LOCKED has not been touched. Next steps: PLAN.md 12.7. Head-only benchmarks and external references: `BENCHMARKS.md`.
+**Status 2026-10-03:** Phase 2 capture is COMPLETE and VERIFIED on Kaggle T4 x2: TRAIN 1,986 and CAL 569 (7.19 s and 7.03 s per decision per GPU, 192 min wall), all files present and finite, Kaggle-manifest sha256 2,555 of 2,555 equal, smoke decisions 0-19 bit-identical across sessions, T4 vs 3050 states mean cosine >= 0.9999 (worst vector 0.998742; informational). Per the user's Path A, every role stays on the T4: the state-free text embeddings of the TRAIN+CAL pool texts (12,602) are being recaptured on the T4 (notebook v8, gate 0.9999 on every shard); LOCKED states and the LOCKED-pool texts wait for the user's written approval. **Amendment (e) is REGISTERED** (`configs/a5_v3_spec.toml` [amendment_2026_10_03_e], `configs/thresholds.toml` [amendment_e_thresholds]) before any head is trained. The head selection and the pre-LOCKED screen are running on Kaggle T4 x2 (TRAIN only; timing measured: one cell takes 1,417 s and the run is CPU-bound, GPU utilisation 17%); no head result exists yet and LOCKED has not been evaluated. LOCKED preparation is done locally and nothing is uploaded: a label-stripped bundle passed its self-test, and a freeze-and-hash tool exists; the upload needs the user's written approval (amendment e10). Next steps: PLAN.md 12.7. Head-only benchmarks and external references: `BENCHMARKS.md`.
 Budget [E]: Rs 0 for Phases 1-3 if fp16 passes on Kaggle; LoRA about Rs 2,000-3,500; proposed cap Rs 6,000 in two steps (pending). **Pending approvals:** provider, cap and
 uploads; downloads over 1 GB (SWE-rebench-openhands, Qwen3-Reranker-4B); the private push; whether to lift the "no Laya fine-tuning" rule. Measured so far: 8,163 tokens and
 10.2 s per decision on the RTX 3050, compute-bound; consecutive decisions share only 35.4% of prompt tokens, so KV reuse is rejected (`results/raw/capture-cost-model-*.json`,
@@ -134,6 +142,8 @@ Track A first, no model touched: A3 (finish the teachers) then A4 (compiler) the
 3. After each step, rerun the locked benchmark and add a row to the increments table above and to `results/increments.md`.
 
 ## Open decisions for the user
+
+**Current (2026-10-03):** the six pending approvals in PLAN.md 13.6. The lists below are from earlier plans.
 
 **Plan approvals (2026-10-02):** (1) provider, cap (proposed Rs 6,000) and upload scope for Kaggle/Colab or a rental; (2) downloads over 1 GB: SWE-rebench-openhands, Qwen3-Reranker-4B; (3) lift the "no Laya fine-tuning" rule (only a free side track)? (4) questions for AIC: billing granularity, billing while stopped, disk, Docker, GST. CLAUDE.md, PLAN.md, `configs/p0.toml` and `configs/models.yaml` were updated for the Qwen3-4B backbone on 2026-10-02.
 

@@ -5,6 +5,8 @@ Runtime, GPU and capture-speed benchmarks are not in this file; they stay in `re
 **Tags:** **[M]** measured here, row-level file in `results/raw/`; **[A]** author-reported, not reproduced; **[E]** estimate. No threshold was edited after results (new versioned files instead); failed gates stay recorded as FAIL.
 
 ## 1. Headline: where the head stands
+**Update 2026-10-03:** the A5-v3 benchmark and its LOCKED set are scrapped (PLAN.md section 13). The head is now judged by a three-arm agent test (tasks solved, premature-stop rate) plus three shortcut checks; no number exists yet and this file's A5 rows are history.
+
 **No head has been scored on a locked benchmark.** The only head numbers are on the 980-decision pilot (section 3), and the integrity audits (section 4) show a no-model rule reaches the same level (0.663 vs 0.667). So **no head claim stands yet**. The bar to beat on the registered A5-v1 covered rows was TF-IDF 0.323; A5-v1 itself later FAILED the integrity gate and is diagnostic only.
 
 ## 2. A5-v1 decision benchmark: baselines (historical, diagnostic)
@@ -55,6 +57,8 @@ New question (registered before any scoring): does the frozen Qwen3-4B state add
 
 ## 6. Not yet measured for the head
 No head scored on LOCKED; no H0 / H2 comparison; no linear-probe or outcome-probe result (plan Phase 3); no head trained on Kaggle-T4 states; no baseline for Qwen3-Reranker-4B or the conductor / stop-completion judge on A5-v3 candidate sets; no abstain-gate comparison against plain confidence; no agent evaluation with and without the head.
+
+Head training cost on the Kaggle T4 [M] (`results/raw/head-v3-timing-kaggle-t4-20261003.json`): one cell (projection 256, mean, seed 0, 5-fold TRAIN CV) 1,417 s, 0.29 GB VRAM, GPU utilisation 17%, 1,226 fit rows/s: CPU-bound. This is a cost figure, not an accuracy figure; no head accuracy has been measured yet.
 
 ## 7. Gaps found while writing this file
 1. **Laya typed on the pilot rows (0.217 / 0.178):** appears in README with no row-level file located; re-run `tools/eval_laya_typed_decisions.py` or point to the file.

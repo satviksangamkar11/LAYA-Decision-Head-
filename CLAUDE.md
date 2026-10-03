@@ -23,7 +23,15 @@ the MXFP4 weights, the 6 GB streaming design and the expert loader stay as PLAN.
 Where the runbook and PLAN.md disagree on the decision layer, the runbook wins. Where either
 disagrees with this file, this file wins.
 
-## Current direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
+## Current direction (user, 2026-10-03) — overrides everything below where they differ
+
+**The live plan is PLAN.md section 13** (outcome-labelled one-week plan). A5-v3 imitation and the LOCKED capture are scrapped (never evaluate the 2,220-decision LOCKED set).
+Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the
+three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the SWE-rebench-openhands and frontier-trace downloads over 1 GB,
+lifting "no Laya fine-tuning", dropping per-step registration paperwork, deleting `autojev/`, the agent platform choice and the pass margin. Spend stays Rs 0.
+The 2026-10-02 direction below stays valid for backbone, Qwen-only and compute policy.
+
+## Earlier direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
 
 The decision head is **backbone-agnostic: it must work for any local model**. **Qwen models only for now; gpt-oss
 (120b and 20b-heretic) is parked and not touched** until the user says so. The experiment backbone is frozen
@@ -122,7 +130,7 @@ pass the same gate as everything else.
 - Installing packages (use `uv add`, never ad hoc `pip install`).
 - Spending money (state provider, cap and hours first).
 - Uploading code or data to Kaggle, Colab or any rental (LOCKED raw data only when the LOCKED capture starts),
-  `git push`, `SWE-rebench-openhands` trajectories, `Qwen3-Reranker-4B` (about 8 GB).
+  `git push`, `SWE-rebench-openhands` trajectories, the `greghavens` Fable 5 / GPT-5.6 Sol trace datasets (size unmeasured), `Qwen3-Reranker-4B` (about 8 GB).
 - Anything that sends code or data off this machine. The DeepSeek Harness must be wired only
   to the local gpt-oss runtime; any configuration that calls a hosted model needs a yes.
 

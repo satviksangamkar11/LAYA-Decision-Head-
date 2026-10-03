@@ -293,6 +293,8 @@ can stop it: frozen-decoder ceiling, throughput of the streaming loop, no sandbo
 
 ## 12. Current plan (2026-10-02): internal head on frozen Qwen3-4B-Thinking-2507, free GPU first
 
+**Update 2026-10-03: Phases 2-5 below and steps 5-12 of 12.7 are superseded by section 13 (outcome-labelled one-week plan). Kept as history.**
+
 Supersedes the heretic-first closure path and the capture-cost figures of section 11 for the experiment backbone. The runtime
 (sections 2-8) is untouched. Tags: **[M]** measured here (file in `results/raw/`), **[A]** author-reported, **[E]** estimate (unmeasured).
 Anything marked "pending" needs the user's written yes (CLAUDE.md, Ask first); it is NOT approved.
@@ -382,7 +384,7 @@ Not covered (cosine now measured, see above): cosine against the 3050 bf16 files
 2. **[PATH A, TRAIN+CAL TEXTS DONE 2026-10-03: notebook v11 under the e1 lock (worker torch 2.10.0+cu128, gate worst cosine 0.999999 on all 7 shards, `results/raw/t4-textemb-v11-20261003.json`); v8 (torch 2.11) kept for comparison; v9 and v10 failed and are recorded; downloaded and verified locally 2026-10-03: `results/raw/textemb-t4-verify-20261003-155540.json`, 12,602 of 12,602 texts, vs 3050 min cosine 0.9998] [earlier note: Kaggle notebook v8, dataset `laya-textemb-trainval`, 12,602 TRAIN+CAL pool texts; the 21,713 LOCKED-pool texts wait for LOCKED approval; the 3050 embeddings (34,315 texts, 14.4 min, TEXTEMB_OK) are kept for cross-checks only]** State-free text embeddings on the T4 (spec `[capture_v3] text_embeddings`; 34,315 unique texts, about 0.5 h [E]; 7 local bf16 shards of 32 MB exist from the 3050, completeness unverified and they would be recaptured under the one-device rule). Needs: port `tools/capture_textemb_v3.py` to the resident runner, second Kaggle run. **Confirm: yes/no.**
 3. **Download and verify** `capture_train.tar`, `capture_cal.tar`, `capture_manifest.json` (about 1.7 GB). **Needs a written yes (over 1 GB).** Checks: sha256 manifest, amendment e2 and e3, cosine vs the 3050 files on 1,376 decisions (e4).
 4. **DONE 2026-10-03: amendment (e) REGISTERED** in `configs/a5_v3_spec.toml` [amendment_2026_10_03_e] and `configs/thresholds.toml` [amendment_e_thresholds] before any head was trained: text-embedding gate 0.9999 (unchanged, every shard), pre-LOCKED screen point estimate >= 0.02 (go/no-go only, not success; the primary criterion 0.05 / lower bound > 0 / half-width <= 0.04 is unchanged), 3-seed selection, Path A device lock, cross-device comparisons report-only, Brier secondary arm, freeze-and-hash before LOCKED.
-5. **NEXT: train the head** (H0, H2 on the 9-cell grid, 3-seed selection, 5 paired seeds) on CPU or the 3050, locally; time unmeasured, one cell is timed first. **Confirm where.**
+5. **IN PROGRESS 2026-10-03, on Kaggle T4 x2 (user rule: nothing on the 3050): notebook `head_v3_t4`, TRAIN only.** Stages: GPU smoke, one timed cell, the 9-cell x 3-seed selection, the screen (step 6). Measured: one cell (256, mean, seed 0) 1,417 s, 0.29 GB VRAM, GPU 17% utilised (CPU-bound), 1,226 rows/s (`results/raw/head-v3-timing-kaggle-t4-20261003.json`); two parallel workers take about 46 min per (seed, projection) job (shared CPU cores), so selection is about 4 h and the screen about 1 h [E]. Failures on the way, all fixed and recorded: loader assumed tar files (Kaggle extracts them), and a GPU-only device bug in `ResidualNet.forward` (audit extended to 26 checks incl. a meta-device placement check). Not done: the 5-seed final fits, the CAL temperature, the freeze, the baselines. LOCKED preparation (local, nothing uploaded, no evaluation): label-stripped bundle + self-test PASS, text bundle, two generated notebooks, `tools/freeze_head_v3.py`; the secret-scan allowlist of 7 hashed values awaits the user's review.
 6. **Go/no-go screen** on TRAIN grouped CV (e7), then freeze and hash the head (e10).
 7. **LOCKED, one read:** 2,220 decisions, about 190 MB, about 2.4 h on T4 x2 [E]. Upload with labels stripped (render_pool reads only decision_id; to be proven by the self-test on the stripped file). **Needs the user's explicit written yes**, only after step 6.
 8. **Evaluate once**, report all baselines (e11), add `results/increments.md` and `BENCHMARKS.md` rows.
@@ -399,3 +401,73 @@ Parked (not started, need the user): LoRA / TPU (12.5c), gpt-oss, agent evaluati
 (5) questions for AIC before renting: billing granularity, billing while stopped, disk size and price, Docker, GST.
 
 
+
+## 13. Current plan (2026-10-03, one-week build): outcome-labelled head on frozen Qwen3-4B-Thinking-2507
+
+Source: `Laya-Style Decision Head One-Week Build Plan.md` (user, 2026-10-03). **Supersedes sections 12.3 Phases 2-5 and 12.7 steps 5-12.** Sections 2-8 (runtime)
+and 12.1-12.2 stay as history. Tags as in section 12. Nothing marked "pending" is approved. Spend stays Rs 0.
+
+### 13.1 Fixed rules
+- The backbone (Qwen3-4B-Thinking-2507) is never fine-tuned.
+- Labels come from real outcomes (task resolved or not), not from copying mined history.
+- `policy/hard_rules.py` and real tests always override the head.
+- Success: Qwen plus the head solves more tasks than Qwen alone and than Qwen plus the Laya sidecar, with a premature-stop rate that is not higher.
+  **Open:** "strictly lower" or "not higher" is worded both ways in the source plan; settle it together with the numeric margin.
+
+### 13.2 Scrapped and kept
+| Scrapped | Replaced by |
+|---|---|
+| A5-v3 imitation study; the 2,220-decision LOCKED capture (never opened; never to be opened) | Outcome labels (resolved or not) |
+| One isolated 32k-character state per decision | One forward pass per full trajectory, states read at every turn |
+| Candidate pools mined from history | Qwen's own 4 to 8 sampled proposals |
+| gpt-oss-120B / AirLLM / Jev-reader track; the 16.8 GB of `autojev/` leftovers | Deleted. **The deletion is NOT done: it needs the user's yes (CLAUDE.md, Ask first).** |
+| Per-step registration and amendment paperwork | Three shortcut checks: repo-disjoint split, state-blind baseline, shuffled-state control. **Dropping the paperwork is pending (13.6).** |
+
+Kept unchanged: `capture_resident.py` and the Kaggle notebook, `head.py` (34.5M params), `closed_form.py`, the three Laya teacher wrappers, `policy/hard_rules.py`,
+depth-24 capture, per-type temperature calibration. The existing TRAIN and CAL state files are reused.
+**Not yet reconciled:** the in-flight `head_v3_t4` Kaggle run, the LOCKED-prep artifacts (stripped bundle, two notebooks, `tools/freeze_head_v3.py`) and amendment (e)
+belong to the scrapped A5-v3 path. They stay as recorded history; whether to stop the run is the user's call.
+
+### 13.3 Targets (all from one pass per trajectory)
+| Target | Question | Exact training label |
+|---|---|---|
+| `done` | Is the task finished? | Yes only at the final step of a resolved trajectory. No at every earlier step and at the final "finish" of an unresolved one. |
+| `value` | Will this task eventually succeed? | Every step gets its trajectory's final outcome. |
+| `next_move` | Which of 9 move types comes next? | Frontier traces mainly; resolved open-model runs at lower weight. |
+| `pick` | Which of Qwen's 4 to 8 proposals is right, or NONE? | The frontier model's real action at that state. |
+| `escalate` (rule, not trained) | Should a stronger model take over? | Fires when `value` is low or falling and the Laya conductor rates the task hard. |
+
+`done` exists to stop mini-Jev's failure: confident, premature completion on multi-step tasks.
+
+### 13.4 Data sources
+| Source | Use | Status |
+|---|---|---|
+| `greghavens/fable-5-coding-and-debugging-traces`, `greghavens/gpt-5.6-sol-coding-and-debugging-traces` | Frontier `next_move` and `pick` labels | Usable (CC BY 4.0). Size unmeasured: a download over 1 GB needs a yes. |
+| `samatv256/jev-decisions-v1` | State, candidates, outcomes; Open-SWE eligible rows only | Usable (CC BY 4.0). 48,293 completion records are positive-only: it cannot teach stop versus continue alone (it lacks unresolved trajectories). |
+| `mvilacad/laya-conductor` | Starting weights for the Laya-coder sidecar | Usable (Apache-2.0) |
+| `nebius/SWE-rebench-openhands-trajectories` | Resolved / unresolved labels (67,074 trajectories) | **Pending: needs a written yes (over 1 GB).** |
+| SWE-Critix, R2E-Gym, SWE-Gym | Later pass/fail scale-up | Reported only, not checked |
+| `yixuanli97/finding-the-right-fit` | None | Rejected: analysis-only, non-commercial |
+| `MoreThought/*` Fable 5.1 dumps | None | Rejected: provenance cannot be verified |
+| Open-Jev, JevK5 | None | Rejected: they require fine-tuning the backbone |
+
+### 13.5 The decisive agent test (Days 5-7; the only gate to shipping)
+- Minimal bash agent loop; generation in vLLM on one T4, the head's forward pass in transformers on the other, same weights. 20 to 30 seeded-bug tasks in pure-Python repos with protected tests. No Docker.
+- Three arms: Qwen alone; Qwen plus the Laya-coder sidecar; Qwen plus the internal head. Scores: tasks solved and premature-stop rate.
+- Pass: the head solves more tasks than Qwen alone without a higher premature-stop rate, and matches or beats the sidecar. **The numeric margin is not set: fix it before the first run.**
+- Offline accuracy alone does not count (mini-Jev: 72.97% synthetic, 27.98% real trajectories).
+- Days 1-4: Tracks L, Q and P feed Day 4 head training. The source file's pipeline diagram did not export, so Days 1-3 are not recorded.
+- Risks [A unless noted]: a separate-GPU head costs a full extra prefill per decision (about 7 s per 8k-token state on a T4); near-zero cost needs hidden states read inside vLLM, unbuilt and unconfirmed.
+  The head is valid only at the capture precision (a quantized Qwen on the 3050 needs recapture or a cosine check). Laya's act/escalate head is dead on this repo's data (`act_probability` always 1.0); the conductor scored 0.340 vs a 0.318 baseline outside its lane.
+  The shipped Laya checkpoint is under-confident (one temperature: ECE 0.204 to 0.037, independent reproduction).
+  Unverified, do not rely on: "head-only 0.659 vs full fine-tune 0.896", the LayaStudio objective numbers, dataset counts for Open-SWE-Traces, SI2CA and JevK5.
+
+### 13.6 Pending approvals (written yes needed; none is given)
+1. Download `nebius/SWE-rebench-openhands-trajectories` (over 1 GB), and any frontier-trace download over 1 GB.
+2. Lift the "no Laya fine-tuning" rule (same as 12.6 item 4).
+3. Drop the per-step registration and amendment paperwork.
+4. Where the agent runs day to day: Kaggle T4 (fp16) or the local RTX 3050 6GB with a quantized Qwen.
+5. The numeric pass margin of the agent test (and the "strictly lower" versus "not higher" wording).
+6. Deleting the 16.8 GB `autojev/` leftovers and the other dead downloads (README "Older items").
+
+Items 12.6 (1), (3), (5) are unchanged: provider/cap/upload scope, private push of 7962925, questions for AIC.

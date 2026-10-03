@@ -7,6 +7,8 @@ Evidence tags: **[M]** measured here on this machine · **[S]** read in source c
 
 ## 0. Status
 
+**2026-10-03 direction change: sections 17-18 (A5-v3 path) are superseded by section 19; PLAN.md section 13 is the live plan.**
+
 | Item | State |
 |---|---|
 | `decision_head/head.py`, `selfcheck.py` | Built. 19 checks pass on **synthetic data only** (project venv, torch 2.14.0+cu126). Says nothing about gpt-oss quality. |
@@ -274,3 +276,19 @@ Training-cost range seen in the ecosystem: 6.5 min (1,600 examples, M4 Pro), abo
 - **One device class for every role (Path A):** state-free text embeddings are recaptured on the T4 (TRAIN+CAL pool texts, 12,602; gate cosine >= 0.9999 on every shard); the 34,315-text 3050 artifact (bf16, 14.4 min, TEXTEMB_OK) is kept for cross-checks only. LOCKED states and the 21,713 LOCKED-pool texts are captured on the T4 only after the user approves the LOCKED upload.
 - **Amendment (e)** registered before any head is trained: screen = TRAIN grouped CV of H2 minus H0_matched, 3 paired seeds, stop if the point estimate is below 0.02 (go/no-go only); primary LOCKED criterion unchanged (estimate >= 0.05, lower 95% bound > 0, half-width <= 0.04); Brier loss is a secondary arm; head and temperature are hashed and committed before LOCKED is touched.
 - **Head design in one line:** H0 = state-free MLP over 80 features and per-depth text embeddings; H2 = frozen H0 score + pointer residual over query and contextual candidate vectors, starting exactly at H0 (decision_head/v3_model.py).
+
+## 18. Head run on Kaggle T4, LOCKED preparation (2026-10-03)
+- **What is running:** `kaggle/head_v3_t4.ipynb` (private dataset `laya-head-train`, TRAIN rows only; captured states from the v7 capture output; text embeddings from the v11 output). Stages: smoke (80 decisions, 2 epochs, device check only), one timed cell, 9-cell x seeds {0,1,2} selection, pre-LOCKED screen. Every input is hash-verified on Kaggle before training; the worker asserts the rebuilt pool, folds and candidate sets equal the locally computed hashes.
+- **Measured [M]:** one cell takes 1,417 s on one T4 with 17% GPU utilisation and 0.29 GB VRAM, so the run is limited by CPU batch building, not by the GPU. A GPU-cached batch path would help the final fits but is NOT built: it would change the trainer, so it needs an audit proving bit-identical batches first.
+- **Bugs found on the way:** (1) the loader looked for tar files; Kaggle had extracted them. (2) `ResidualNet.forward` created the `single`/`mean` depth-weight vector without a device, which only fails on a GPU. The CPU audit could not see it; a meta-device check (E10) now does. Fix: `device=s.device, dtype=s.dtype`; CPU results unchanged (audit C8 still bit-identical).
+- **LOCKED preparation (local; nothing uploaded; no evaluation):** `tools/make_kaggle_locked_bundle.py` keeps only `decision_id` and `state_hash` per decision and `trajectory_id` + events per trajectory; `tools/locked_strip_selftest.py` proves the capture input is identical with and without the stripped fields (2,218 identical, 2 overflow identically); `tools/make_kaggle_locked_notebooks.py` writes the capture and text-embedding notebooks; `tools/freeze_head_v3.py` implements the e10 freeze and a verify mode. Open items for the user: the written yes to upload the bundle, the review of the 7-value secret-scan allowlist, and the commit of the code (the run is tagged dirty).
+- **Not claimed:** no accuracy, no H2-versus-H0 difference and no screen result exist yet. The NLL printed by the timing run is a by-product, not a finding.
+
+
+## 19. Direction change: outcome-labelled head, one-week plan (2026-10-03)
+- **Why:** the imitation target taught the head to copy mined history, and trivial features (recency, frequency) matched it (0.663 vs 0.667 [M], sections 7 and BENCHMARKS.md section 4). The new targets are outcomes.
+- **Targets:** `done` (yes only at the last step of a resolved trajectory), `value` (final outcome on every step), `next_move` (9 types, frontier traces, resolved open runs at lower weight), `pick` (Qwen's 4-8 proposals or NONE); `escalate` is a rule (low or falling `value` plus a hard task per the Laya conductor). One forward pass per trajectory, states read at every turn.
+- **Scrapped:** A5-v3 and the 2,220-decision LOCKED capture, isolated 32k states, history-mined pools, the gpt-oss/Jev-reader track. **Kept:** head.py (34.5M), closed_form.py, capture_resident.py, Laya wrappers, hard rules, depth 24, per-type temperature, TRAIN and CAL state files.
+- **Gate:** a three-arm agent test (Qwen; plus Laya sidecar; plus head) on 20-30 seeded-bug tasks; offline accuracy alone does not count. Three shortcut checks guard every result (repo-disjoint split, state-blind baseline, shuffled-state control).
+- **Limits from the source plan:** a separate-GPU head needs a full extra prefill per decision (about 7 s per 8k tokens on a T4); the head is valid only at its capture precision; Laya's act/escalate head is dead here (`act_probability` 1.0).
+- **Not done / not claimed:** nothing in this section is measured here. Open items: PLAN.md 13.6. The `head_v3_t4` run and the LOCKED preparation of section 18 are history; no head result exists.
