@@ -1,0 +1,86 @@
+{
+ "created": "2026-10-03",
+ "what": "Phase 2 capture of every TRAIN and CAL decision on Kaggle T4 x2, notebook v7 (scriptVersionId 354729820), registered gate cadence 50/200, fp16 resident",
+ "source": "Kaggle Logs tab, read in the browser (page text of the committed run log, including the machine-printed capture summary); capture_train.tar / capture_cal.tar / capture_manifest.json NOT yet downloaded",
+ "run": {
+  "status": "Successfully ran",
+  "wall_s": 11636.3,
+  "accelerator": "GPU T4 x2",
+  "output_size": "1.8 GB (capture_train.tar 1,407,948,800 bytes; capture_cal.tar 392,591,360 bytes)"
+ },
+ "device_sidecar": {
+  "device": "Tesla T4",
+  "dtype": "fp16",
+  "resident": true,
+  "torch": "2.10.0+cu128",
+  "transformers": "5.17.0",
+  "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+  "gate_every": 50,
+  "plain_every": 200,
+  "depths": [
+   18,
+   24,
+   30
+  ]
+ },
+ "train": {
+  "manifest": 1986,
+  "files": 1986,
+  "skipped": 0,
+  "gated_decisions": 42,
+  "gates_run": [
+   "content_swap",
+   "plain",
+   "repeat",
+   "shape_change"
+  ],
+  "ungated": 1944,
+  "sec_per_decision_mean": 7.194,
+  "sec_per_decision_median": 7.625,
+  "tok_per_s": 1146.4,
+  "peak_vram_gb": 7.55,
+  "worker_exit_codes": [
+   0,
+   0
+  ],
+  "lm_head_calls": 0,
+  "capture_minutes": {
+   "worker0": 146.9,
+   "worker1": 121.9
+  }
+ },
+ "cal": {
+  "manifest": 569,
+  "files": 569,
+  "skipped": 0,
+  "gated_decisions": 14,
+  "gates_run": [
+   "content_swap",
+   "plain",
+   "repeat",
+   "shape_change"
+  ],
+  "ungated": 555,
+  "sec_per_decision_mean": 7.03,
+  "sec_per_decision_median": 7.32,
+  "tok_per_s": 1158.0,
+  "peak_vram_gb": 7.41,
+  "worker_exit_codes": [
+   0,
+   0
+  ],
+  "lm_head_calls": 0,
+  "capture_minutes": {
+   "worker0": 43.6,
+   "worker1": 34.7
+  }
+ },
+ "effective_rate": "1,986 TRAIN decisions in 148.0 min with 2 GPUs = 4.47 s per decision wall; 569 CAL in 44 min",
+ "note_on_gates": "a failed gate aborts a worker; both workers exited 0 for both roles, and the capture summary lists all four gates as run on the gated decisions. The per-decision gate numbers are in the logs inside the tarballs.",
+ "not_yet_done": [
+  "download and sha256 verification of the tarballs (needs the user's written yes, over 1 GB)",
+  "amendment e2 completeness checks and e3 cross-session reproducibility check against the smoke files",
+  "cosine vs the 3050 files on the 1,376 overlapping decisions",
+  "Kaggle quota reading after the run"
+ ]
+}

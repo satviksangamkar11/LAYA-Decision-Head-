@@ -17,3 +17,5 @@
 {"at": "2026-10-02T00:15:31.707867+00:00", "purpose": "v3 calibration/capture only"}
 {"at": "2026-10-02T00:18:04.330927+00:00", "purpose": "v3 calibration/capture only"}
 {"at": "2026-10-02T19:02:27.442930+00:00", "purpose": "CAL decision rows + trajectories (outcome fields stripped from trajectories) exported to kaggle_bundle/phase2 for recapture on Kaggle T4 (user decision 2026-10-03, configs/phase2_device_rule_v1.toml); capture only, no accuracy computed"}
+{"at": "2026-10-03T09:37:38.116943+00:00", "purpose": "v3 calibration/capture only"}
+{"at": "2026-10-03T09:40:05.184828+00:00", "purpose": "v3 calibration/capture only"}

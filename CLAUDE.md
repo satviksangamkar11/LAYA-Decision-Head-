@@ -33,7 +33,7 @@ DECISION_HEAD.md and PLAN.md are updated as work lands, with what is done and wh
 proper-scoring loss and temperature, free GPU first (Kaggle, Colab), staged paid GPU only as fallback and for LoRA.
 
 **Compute policy (user, 2026-10-02):** renting a GPU is allowed in principle and free Kaggle/Colab come first.
-**No cap, provider or upload has been approved yet, so spend stays Rs 0 and nothing leaves this machine until the user
+**Update 2026-10-03 (user, in chat): Path A: every role (states AND state-free text embeddings) is captured on the Kaggle T4; amendment (e) is registered in configs/a5_v3_spec.toml and configs/thresholds.toml. Kaggle is the provider and the private upload of TRAIN and CAL decision rows and their trajectories (outcome fields stripped) to `laya-phase2-train-cal` is approved; the Phase-2 capture runs on Kaggle T4 x2 (`configs/phase2_device_rule_v1.toml`). Spend stays Rs 0. LOCKED raw data, the >1 GB output download, any paid GPU and any second account are NOT approved.** Original wording follows. **No cap, provider or upload has been approved yet, so spend stays Rs 0 and nothing leaves this machine until the user
 approves them in writing.** Proposed cap: Rs 6,000 in two steps (PLAN.md 12.4). Do not use several accounts to get
 more free quota.
 

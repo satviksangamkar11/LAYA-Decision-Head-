@@ -194,3 +194,16 @@ supersedes = "capture_one_record.indep_cos_min (0.9999, retired for the v3 captu
 content_swap_max_abs_diff = 0.0      # Gate A: target candidate vector and query must be bit-identical when other candidates' content changes at identical shape
 content_swap_targets = 3             # random targets per gated decision, plus the NONE option
 shape_change_cos_min = 0.999         # Gate B: numerical sanity across shape changes (equal to plain_cos_min); not an independence proof
+
+[amendment_e_thresholds]
+version = 1
+registered = "2026-10-03"
+supersedes = "nothing; adds the numbers of configs/a5_v3_spec.toml [amendment_2026_10_03_e]. Previous thresholds.toml sha256 prefix: 6b1b034ea6709539"
+text_embedding_batch_vs_alone_cos_min = 0.9999   # unchanged registered value, now checked on every shard
+repeat_max_abs_diff = 0.0                        # e3: same-device recapture is bit-identical
+repeat_fallback_cos_min = 0.999                  # e3: equals plain_cos_min
+pre_locked_screen_point_estimate_min = 0.02      # e7: go/no-go screen only, NOT success
+screen_seeds = [0, 1, 2]                         # e7, e8
+selection_tie_nll = 0.01                         # e8: unchanged
+primary_min_effect = 0.05                        # unchanged: LOCKED success needs estimate >= 0.05 and lower 95% bound > 0
+primary_max_half_width = 0.04                    # unchanged: wider is INCONCLUSIVE

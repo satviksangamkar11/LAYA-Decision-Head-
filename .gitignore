@@ -58,3 +58,6 @@ kaggle_bundle/
 # downloaded Kaggle outputs (hashes are recorded in results/raw)
 smoke_results.tar.gz
 capture_*.tar
+
+capture_manifest*.json
+capture_manifest*.txt

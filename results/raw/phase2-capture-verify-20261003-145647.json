@@ -1,0 +1,144 @@
+{
+ "created": "2026-10-03T14:56:36",
+ "roles": {
+  "train": {
+   "manifest": 1986,
+   "files": 1986,
+   "missing": [],
+   "n_missing": 0,
+   "extra": [],
+   "n_extra": 0,
+   "sidecars": 2,
+   "sidecars_identical_on_device_lock_fields": true,
+   "sidecar_lock": {
+    "device": "Tesla T4",
+    "dtype": "fp16",
+    "resident": true,
+    "torch": "2.10.0+cu128",
+    "transformers": "5.17.0",
+    "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "gate_every": 50,
+    "plain_every": 200,
+    "depths": [
+     18,
+     24,
+     30
+    ]
+   },
+   "unreadable": [],
+   "nonfinite_files": 0,
+   "files_with_abs_value_ge_60000": 0,
+   "wrong_decision_id_or_role": 0,
+   "e4_cross_device_vs_3050": {
+    "files_compared": 807,
+    "pool_state_prefix_mismatches": 0,
+    "per_depth_min_mean": {
+     "cands@18": [
+      0.999632,
+      0.999974
+     ],
+     "cands@24": [
+      0.998742,
+      0.999936
+     ],
+     "cands@30": [
+      0.999096,
+      0.999961
+     ],
+     "query@18": [
+      0.99988,
+      0.999923
+     ],
+     "query@24": [
+      0.999749,
+      0.999897
+     ],
+     "query@30": [
+      0.999811,
+      0.99993
+     ]
+    },
+    "option_vectors_below_0p999": "5 of 112047",
+    "note": "informational; no cross-device threshold is registered"
+   },
+   "kaggle_manifest_sha256": {
+    "entries": 1986,
+    "mismatches": 0,
+    "absent": 0
+   },
+   "sha256_of_all_files": "4aaa4863ba184d2e9f4ec4d86b814bf2cc410ab32576edf16dd16da7e8d8d6f5"
+  },
+  "cal": {
+   "manifest": 569,
+   "files": 569,
+   "missing": [],
+   "n_missing": 0,
+   "extra": [],
+   "n_extra": 0,
+   "sidecars": 2,
+   "sidecars_identical_on_device_lock_fields": true,
+   "sidecar_lock": {
+    "device": "Tesla T4",
+    "dtype": "fp16",
+    "resident": true,
+    "torch": "2.10.0+cu128",
+    "transformers": "5.17.0",
+    "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "gate_every": 50,
+    "plain_every": 200,
+    "depths": [
+     18,
+     24,
+     30
+    ]
+   },
+   "unreadable": [],
+   "nonfinite_files": 0,
+   "files_with_abs_value_ge_60000": 0,
+   "wrong_decision_id_or_role": 0,
+   "e4_cross_device_vs_3050": {
+    "files_compared": 569,
+    "pool_state_prefix_mismatches": 0,
+    "per_depth_min_mean": {
+     "cands@18": [
+      0.999773,
+      0.999973
+     ],
+     "cands@24": [
+      0.999251,
+      0.999938
+     ],
+     "cands@30": [
+      0.99907,
+      0.999962
+     ],
+     "query@18": [
+      0.999851,
+      0.999923
+     ],
+     "query@24": [
+      0.999474,
+      0.999899
+     ],
+     "query@30": [
+      0.999744,
+      0.999932
+     ]
+    },
+    "option_vectors_below_0p999": "0 of 74148",
+    "note": "informational; no cross-device threshold is registered"
+   },
+   "kaggle_manifest_sha256": {
+    "entries": 569,
+    "mismatches": 0,
+    "absent": 0
+   },
+   "sha256_of_all_files": "f572f009730fde40ecc1c392f57833c0ab431f38db5d815b39c67efd83349b88"
+  }
+ },
+ "e3_cross_session_reproducibility": {
+  "compared": 20,
+  "bit_identical": 20,
+  "differing": []
+ }
+}
