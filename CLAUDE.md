@@ -28,7 +28,7 @@ disagrees with this file, this file wins.
 **The live plan is PLAN.md section 13** (outcome-labelled one-week plan). A5-v3 imitation and the LOCKED capture are scrapped (never evaluate the 2,220-decision LOCKED set).
 Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the
 three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the SWE-rebench-openhands and frontier-trace downloads over 1 GB,
-lifting "no Laya fine-tuning", dropping per-step registration paperwork, deleting `autojev/`, the agent platform choice and the pass margin. Spend stays Rs 0.
+lifting "no Laya fine-tuning", dropping per-step registration paperwork, the agent platform choice and the pass margin. (`autojev/` and the JDownloader installer were deleted on 2026-10-03 with the user's yes.) Spend stays Rs 0.
 The 2026-10-02 direction below stays valid for backbone, Qwen-only and compute policy.
 
 ## Earlier direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below

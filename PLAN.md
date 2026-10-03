@@ -420,7 +420,7 @@ and 12.1-12.2 stay as history. Tags as in section 12. Nothing marked "pending" i
 | A5-v3 imitation study; the 2,220-decision LOCKED capture (never opened; never to be opened) | Outcome labels (resolved or not) |
 | One isolated 32k-character state per decision | One forward pass per full trajectory, states read at every turn |
 | Candidate pools mined from history | Qwen's own 4 to 8 sampled proposals |
-| gpt-oss-120B / AirLLM / Jev-reader track; the 16.8 GB of `autojev/` leftovers | Deleted. **The deletion is NOT done: it needs the user's yes (CLAUDE.md, Ask first).** |
+| gpt-oss-120B / AirLLM / Jev-reader track; the 16.8 GB of `autojev/` leftovers | Deleted. **DONE 2026-10-03 (user's written yes in chat): `autojev/` (900 files, 15.67 GB, untracked) and `GPT OSS 20 B.exe` removed.** Partial downloads in the model caches are untouched. |
 | Per-step registration and amendment paperwork | Three shortcut checks: repo-disjoint split, state-blind baseline, shuffled-state control. **Dropping the paperwork is pending (13.6).** |
 
 Kept unchanged: `capture_resident.py` and the Kaggle notebook, `head.py` (34.5M params), `closed_form.py`, the three Laya teacher wrappers, `policy/hard_rules.py`,
@@ -468,6 +468,6 @@ belong to the scrapped A5-v3 path. They stay as recorded history; whether to sto
 3. Drop the per-step registration and amendment paperwork.
 4. Where the agent runs day to day: Kaggle T4 (fp16) or the local RTX 3050 6GB with a quantized Qwen.
 5. The numeric pass margin of the agent test (and the "strictly lower" versus "not higher" wording).
-6. Deleting the 16.8 GB `autojev/` leftovers and the other dead downloads (README "Older items").
+6. ~~Deleting `autojev/` and the JDownloader installer~~ DONE 2026-10-03. Still open: partial downloads inside the model caches (not touched).
 
 Items 12.6 (1), (3), (5) are unchanged: provider/cap/upload scope, private push of 7962925, questions for AIC.

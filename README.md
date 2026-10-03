@@ -14,7 +14,7 @@ Last updated: 2026-10-03 (direction change: outcome-labelled one-week plan, PLAN
 **Direction change 2026-10-03:** the A5-v3 imitation study and the LOCKED capture are scrapped. The head now trains on real outcomes (task resolved or not) with four targets
 (`done`, `value`, `next_move`, `pick`; `escalate` is a rule) from one forward pass per trajectory, and ships only if a three-arm agent test passes (Qwen alone, plus Laya sidecar,
 plus internal head; 20-30 seeded-bug tasks; numeric margin still to be set). The backbone stays frozen. Pending written approvals: the SWE-rebench-openhands download, lifting
-"no Laya fine-tuning", dropping the per-step paperwork, where the agent runs (Kaggle T4 or local 3050), the pass margin, deleting `autojev/`. Existing TRAIN and CAL state files are reused.
+"no Laya fine-tuning", dropping the per-step paperwork, where the agent runs (Kaggle T4 or local 3050), the pass margin. (`autojev/` and the JDownloader installer were deleted 2026-10-03 with the user's yes.) Existing TRAIN and CAL state files are reused.
 Nothing is known yet about head quality. The 2026-10-02 plan below is kept as history.
 
 ### Superseded: plan of 2026-10-02 (PLAN.md section 12)
@@ -143,11 +143,11 @@ Track A first, no model touched: A3 (finish the teachers) then A4 (compiler) the
 
 ## Open decisions for the user
 
-**Current (2026-10-03):** the six pending approvals in PLAN.md 13.6. The lists below are from earlier plans.
+**Current (2026-10-03):** the five pending approvals in PLAN.md 13.6. The lists below are from earlier plans.
 
 **Plan approvals (2026-10-02):** (1) provider, cap (proposed Rs 6,000) and upload scope for Kaggle/Colab or a rental; (2) downloads over 1 GB: SWE-rebench-openhands, Qwen3-Reranker-4B; (3) lift the "no Laya fine-tuning" rule (only a free side track)? (4) questions for AIC: billing granularity, billing while stopped, disk, Docker, GST. CLAUDE.md, PLAN.md, `configs/p0.toml` and `configs/models.yaml` were updated for the Qwen3-4B backbone on 2026-10-02.
 
-Older items: delete the 16.8 GB of dead `autojev/` partial downloads, the JDownloader installer (`GPT OSS 20 B.exe`) and the partial downloads in the model caches? Record the RB0 env manifest and experiment id now? Update `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` to the Qwen3-4B experiment backbone (they are frozen documents, so this needs your approval)? Add a pinned Qwen3-4B entry to `configs/models.yaml`? Commit the new files and push?
+Older items: `autojev/` and the JDownloader installer were deleted 2026-10-03 (done). Still open: the partial downloads in the model caches? Record the RB0 env manifest and experiment id now? Update `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` to the Qwen3-4B experiment backbone (they are frozen documents, so this needs your approval)? Add a pinned Qwen3-4B entry to `configs/models.yaml`? Commit the new files and push?
 
 
 
