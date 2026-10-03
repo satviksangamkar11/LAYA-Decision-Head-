@@ -292,3 +292,6 @@ Training-cost range seen in the ecosystem: 6.5 min (1,600 examples, M4 Pro), abo
 - **Gate:** a three-arm agent test (Qwen; plus Laya sidecar; plus head) on 20-30 seeded-bug tasks; offline accuracy alone does not count. Three shortcut checks guard every result (repo-disjoint split, state-blind baseline, shuffled-state control).
 - **Limits from the source plan:** a separate-GPU head needs a full extra prefill per decision (about 7 s per 8k tokens on a T4); the head is valid only at its capture precision; Laya's act/escalate head is dead here (`act_probability` 1.0).
 - **Not done / not claimed:** nothing in this section is measured here. Open items: PLAN.md 13.6. The `head_v3_t4` run and the LOCKED preparation of section 18 are history; no head result exists.
+
+### 19b. 2026-10-04: only the Laya conductor is fine-tuned (user, chat)
+The internal head described in this file is NOT touched under this decision. The conductor (base) is fine-tuned on the nebius-derived dataset as the sidecar arm; details and open questions: PLAN.md 13.7.

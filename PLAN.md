@@ -471,3 +471,12 @@ belong to the scrapped A5-v3 path. They stay as recorded history; whether to sto
 6. ~~Deleting `autojev/` and the JDownloader installer~~ DONE 2026-10-03. Still open: partial downloads inside the model caches (not touched).
 
 Items 12.6 (1), (3), (5) are unchanged: provider/cap/upload scope, private push of 7962925, questions for AIC.
+
+### 13.7 Decision 2026-10-04 (user, chat): fine-tune the Laya conductor only; the internal head is not touched
+- **Scope:** `laya-conductor` (`models/laya-conductor`, revision 04116e68, ModernBERT-large encoder, 421M params, max_len 1024, head_max_len 256) is the **base**; it is fine-tuned on the dataset built from `nebius/SWE-rebench-openhands-trajectories`. This is the Laya-coder sidecar arm of 13.5.
+- **Untouched:** the internal head (`head.py`, `decision_head/`, the TRAIN/CAL state files, `head_v3_t4`). No edits, no new runs on it under this decision.
+- **Recipe:** the official `models/laya-conductor/conductor_finetune_colab.ipynb` (DDP on Kaggle T4 x2, AdamW encoder 2.5e-5 / head 1e-4, micro-batch 8 x accum 4, 4 epochs, per-type temperature refit on a 400-item calibration cut), started from the conductor weights instead of `convaiinnovations/laya`. Published cost for 4,105 turns: about 30 min on a T4 [A].
+- **Questions it can learn:** `role` (choice smol/default/slow) and `should_continue` (noul: P(agent stopped mid-task with work left)). `should_continue` equals the plan's `done` label negated: TRUE at every step except the final step of a resolved trajectory (TRUE at the final "finish" of an unresolved one). `role` has no label in nebius; **not decided** (see below).
+- **Input window:** at most 1,024 tokens, so the state is the tail of the trajectory (tail-first packing), not the full 8k state.
+- **Open:** (a) `role` labels (none, or derive hardness, or replay the conductor's own route data from `mvilacad/laya-conductor-decisions` to avoid forgetting); (b) repo-disjoint test split and the three shortcut checks apply to the sidecar too; (c) fine-tuning has NOT started; the data builder is not written.
+- Nothing here is measured. Fine-tuning Laya is permitted since 2026-10-03 (CLAUDE.md).

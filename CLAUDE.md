@@ -29,6 +29,7 @@ disagrees with this file, this file wins.
 Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the
 three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the frontier-trace downloads over 1 GB (SWE-rebench-openhands was approved and downloaded; Laya fine-tuning was approved; the agent runs on Kaggle),
 dropping per-step registration paperwork, the agent platform choice and the pass margin. (`autojev/` and the JDownloader installer were deleted on 2026-10-03 with the user's yes.) Spend stays Rs 0.
+**2026-10-04 (user, chat): the Laya conductor is the base and the only thing fine-tuned (PLAN.md 13.7); the internal head is not touched.**
 The 2026-10-02 direction below stays valid for backbone, Qwen-only and compute policy.
 
 ## Earlier direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
