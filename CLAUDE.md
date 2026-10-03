@@ -27,8 +27,8 @@ disagrees with this file, this file wins.
 
 **The live plan is PLAN.md section 13** (outcome-labelled one-week plan). A5-v3 imitation and the LOCKED capture are scrapped (never evaluate the 2,220-decision LOCKED set).
 Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the
-three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the SWE-rebench-openhands and frontier-trace downloads over 1 GB,
-lifting "no Laya fine-tuning", dropping per-step registration paperwork, the agent platform choice and the pass margin. (`autojev/` and the JDownloader installer were deleted on 2026-10-03 with the user's yes.) Spend stays Rs 0.
+three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the frontier-trace downloads over 1 GB (SWE-rebench-openhands was approved and downloaded; Laya fine-tuning was approved; the agent runs on Kaggle),
+dropping per-step registration paperwork, the agent platform choice and the pass margin. (`autojev/` and the JDownloader installer were deleted on 2026-10-03 with the user's yes.) Spend stays Rs 0.
 The 2026-10-02 direction below stays valid for backbone, Qwen-only and compute policy.
 
 ## Earlier direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
@@ -71,7 +71,7 @@ pass the same gate as everything else.
   silently swap models.
 - Decision layer is the runbook's internal head. **User decision 2026-10-01: no AutoJev, no
   OpenJev/SemIf readout, no hosted Jev; Laya only.** `sarvam-jev/` stays in place, untouched.
-- **Laya checkpoints are used as released. No Laya training or fine-tuning** (user decision
+- **Laya fine-tuning is allowed from 2026-10-03 (user, chat); none is started.** Earlier rule, now lifted: Laya checkpoints used as released, no training (user decision
   2026-10-01; runbook phase 14, Coding-Laya, is dropped). Post-hoc temperature fitting on
   their outputs does not change weights and is allowed.
 - Runtime is AirLLM streaming plus our own expert loader. AirLLM's built-in
