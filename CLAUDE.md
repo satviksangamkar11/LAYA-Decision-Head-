@@ -23,7 +23,15 @@ the MXFP4 weights, the 6 GB streaming design and the expert loader stay as PLAN.
 Where the runbook and PLAN.md disagree on the decision layer, the runbook wins. Where either
 disagrees with this file, this file wins.
 
-## Current direction (user, 2026-10-03) — overrides everything below where they differ
+## Current direction (user, 2026-10-04, chat) — overrides everything below where they differ
+
+- **New head, same architecture as the internal head, started from the pretrained Laya `Coding_Decision_Agent`** (`models/coding-decision-agent`, no starting-point comparison), reading the frozen Qwen3-4B-Thinking-2507 states. This amends the 13.7 rule ("only the conductor is fine-tuned, the internal head is untouched") **for this new head only**; the old internal head code (`head.py`, `decision_head/`, `head_v3_t4`) stays untouched. Plan: PLAN.md sections 14–16, DECISION_HEAD.md section 20.
+- **Capture:** the Qwen sampler on Kaggle finished with **45,500 of 46,826 decisions** (91 shards, none dropped; `results/raw/pool-states-v1-final-20261004-185656.json`). The last 1,326 were not captured and will not be re-run. The set was uploaded as the private Kaggle dataset `laya-head-states-v1`.
+- **Negatives:** hybrid real options (tiers T1/T2/T3 plus Qwen proposals, soft targets, same renderer) are approved **to build and count**; recapture waits for the gates (`configs/thresholds_pool_v2.toml`). A generated proposal that equals or nearly equals the original choice is ignored and counted as a hit; a different one is kept with a middle score and never labelled wrong. Nothing is fabricated.
+- **Compute: TPU only** (Kaggle TPU v5e-8, vllm-tpu) for the new pipeline, including the state recapture once the TPU parity test passes (`configs/thresholds_tpu_capture_v1.toml`). Qwen3-30B-A3B in thinking mode (Kaggle Model `qwen-lm/qwen-3/transformers/30b-a3b/1`, Apache-2.0, mounted inside Kaggle, no local download) generates the option proposals; the 61 GB download inside Kaggle was approved by the user in chat. All rows (train, cal, test) of the new set must be captured the same way. Spend stays Rs 0. No GPU work on the local RTX 3050.
+- Status of every step and the remaining steps: PLAN.md ("Remaining steps") and RUNBOOK.md.
+
+## Earlier direction (user, 2026-10-03)
 
 **The live plan is PLAN.md section 13** (outcome-labelled one-week plan). A5-v3 imitation and the LOCKED capture are scrapped (never evaluate the 2,220-decision LOCKED set).
 Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the

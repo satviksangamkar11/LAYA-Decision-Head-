@@ -21,7 +21,7 @@ rows = []
 for line in open(ROOT / "data" / "raw" / "swerebench-sample-20261001.jsonl", encoding="utf-8"):
     r = json.loads(line)
     rows += make_rows(r, rng, "train")
-c = collections.Counter(); cut = 0; cut_resp = 0; lens = []
+c = collections.Counter(); cut = 0; cut_resp = 0; cut_obs = 0; lens = []
 for r in rows:
     c[r["gold"]["should_continue"]["probabilities"]["true"]] += 1
     qd = {"t": "noul", "ins": q["instructions"], "crit": {}}
@@ -32,4 +32,6 @@ for r in rows:
     squash = lambda t: "".join(t.split())
     tail = squash(json.dumps(r["state"]["last_response"], ensure_ascii=False)[1:-1])[-30:]   # state is json.dumps-ed, so compare escaped
     if tail and tail not in squash(tok.decode(ids)): cut_resp += 1
-print(f"{len(rows)} rows | label TRUE share {c[1.0]/len(rows):.3f} | state truncated {cut/len(rows):.1%} | last_response tail lost {cut_resp/len(rows):.1%} | max len {max(lens)}")
+    ot = squash(json.dumps(r["state"]["last_observation"], ensure_ascii=False)[1:-1])[-30:]
+    if ot and ot not in squash(tok.decode(ids)): cut_obs += 1
+print(f"{len(rows)} rows | label TRUE share {c[1.0]/len(rows):.3f} | state truncated {cut/len(rows):.1%} | last_response tail lost {cut_resp/len(rows):.1%} | last_observation tail lost {cut_obs/len(rows):.1%} | max len {max(lens)}")

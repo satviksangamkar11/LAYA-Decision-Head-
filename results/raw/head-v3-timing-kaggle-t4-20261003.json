@@ -1,0 +1,30 @@
+{
+ "created": "2026-10-03T19:12:27",
+ "source": "TRANSCRIBED from the Kaggle notebook log (notebookd99b4cdcf5 Version 3, 'timing' block); replace by the notebook's own timing-v3-*.json when the run output is downloaded",
+ "device": "Tesla T4 (one of two), python 3.13.15, worker torch 2.10.0+cu128",
+ "stage": "time: exactly one real TRAIN cell on all 1,986 decisions, 5-fold trajectory-grouped CV, registered schedule",
+ "cell": [
+  256,
+  "mean"
+ ],
+ "seed": 0,
+ "wall_seconds": 1417.195104793,
+ "peak_vram_gb": 0.29137372970581055,
+ "h0_calls": 30,
+ "residual_calls": 5,
+ "h0_seconds": 972.5183753020003,
+ "residual_seconds": 205.41447639600005,
+ "fit_rows_processed": 1738064,
+ "rows_per_second": 1226.4112359136798,
+ "gpu0_mean_util_percent": 17.454545454545453,
+ "gpu0_max_temp_c": 76.0,
+ "train_cv_nll_for_this_cell": 1.5381660363567946,
+ "nll_note": "timing/reproducibility by-product of a TRAIN-CV run; not a result claim",
+ "projected_selection_wall_hours_two_workers_assumed_no_contention": 1.9859522556125007,
+ "projected_screen_wall_hours": 0.4908053548741668,
+ "observed_selection_job_minutes_with_two_parallel_workers": "about 46 per (seed, projection) job, versus 26 projected from the single-worker timing (about 1.75x slower: shared CPU cores)",
+ "smoke_stage": "80 decisions x 2 epochs, peak VRAM 0.14 GB, 26 s, device placement check only; its NLLs are meaningless and unused",
+ "finding": "CPU-bound: GPU utilisation 17% and 0.29 GB VRAM; batch building on the CPU limits speed. No numerics change was made or is needed.",
+ "source_commit": "fe1a01e83eb21e023c43e0be0ae6978bbc7be692",
+ "source_dirty_at_bundle": true
+}

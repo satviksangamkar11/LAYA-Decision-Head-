@@ -1,0 +1,45 @@
+{
+ "label": "exploratory (no gate), small sample",
+ "date": "2026-10-04",
+ "source": "dengdan1999/RootSE (MIT, 26 MB), openhands/qwen3-coder-480B files only, human-annotated earliest decisive error step (failure_id)",
+ "instances": 30,
+ "steps": 1807,
+ "n_at": 30,
+ "n_before": 599,
+ "n_after": 1178,
+ "rates_at_decisive_step": {
+  "S1_error_after": 0.033,
+  "S3_edit_outside_gold_patch_files": 0.0,
+  "edit_any": 0.2,
+  "test_run": 0.0,
+  "no_tool_call": 0.6
+ },
+ "rates_before": {
+  "S1_error_after": 0.013,
+  "S3_edit_outside_gold_patch_files": 0.042,
+  "edit_any": 0.05,
+  "test_run": 0.102,
+  "no_tool_call": 0.057
+ },
+ "rates_after": {
+  "S1_error_after": 0.008,
+  "S3_edit_outside_gold_patch_files": 0.16,
+  "edit_any": 0.211,
+  "test_run": 0.182,
+  "no_tool_call": 0.032
+ },
+ "decisive_step_kind": {
+  "no_tool_call": 18,
+  "str_replace_editor:str_replace": 6,
+  "execute_bash:python -c \"\n": 1,
+  "execute_bash:cd /workspac": 3,
+  "str_replace_editor:view": 2
+ },
+ "decisive_position_median_fraction": 0.386,
+ "decisive_at_step0": 3,
+ "caveats": [
+  "n=30 instances; wide uncertainty",
+  "S1 uses a weak regex on the logged response text; S3 compares edit file tails with the gold patch files",
+  "these runs all failed; the signals were not compared with passing runs here"
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "source": "borghei/claude-skills",
+      "sourceType": "github",
+      "skillPath": "engineering/self-improving-agent/SKILL.md",
+      "computedHash": "50dc8be1aca8bab14817b650a1e6d4db87664004998793cb8ccb4f788b61654e"
+    }
+  }
+}

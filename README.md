@@ -154,3 +154,5 @@ Older items: `autojev/` and the JDownloader installer were deleted 2026-10-03 (d
 
 
 
+
+**Status 2026-10-04:** a new head from Coding_Decision_Agent on frozen Qwen3-4B states is planned (PLAN.md 14, DECISION_HEAD.md 20); nothing trained yet. State capture on Kaggle: 45,500 of 46,826 decisions. The synthetic hard negatives are flagged by the shortcut check, so real wrong options were researched and a tiered builder written (PLAN.md 15); its counts have not been run on the full data and recapture waits for them.

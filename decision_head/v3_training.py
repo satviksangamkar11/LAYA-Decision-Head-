@@ -15,6 +15,8 @@ from decision_head.v3_model import EMBED_SD_FLOOR, FEATURE_SD_FLOOR, H0Net, Resi
 
 CFG = dict(lr=3e-4, weight_decay=1e-2, dropout=0.10, clip=1.0, batch=32, max_epochs=100, min_epochs=10, patience=8, val_frac=0.10)
 SINGLE_DEPTH = 24
+SELECTION_SEEDS = (0, 1, 2)         # amendment_2026_10_03_e e8: cell selection only; a different ROLE from the final paired seeds below
+FINAL_SEEDS = (0, 1, 2, 3, 4)       # final paired seeds (unchanged)
 
 
 def _sd(var, floor):
@@ -75,9 +77,16 @@ def _nll(fn, items, h0s, device):
     return sum(-F.log_softmax(l, 0)[d["sets"][k]["true_pos"]].item() for l, (d, k) in zip(lg, items)) / len(items)
 
 
-def train_loop(net, fn, fit_items, val_items, cfg, seed, device="cpu", h0s=None):
-    """AdamW, listwise cross-entropy only, gradient clip, early stopping on validation NLL. Returns a record whose schedule fields are compared across arms."""
+def _brier_loss(logits, y):
+    """e9 SECONDARY arm only: mean over the batch of sum_j (p_j - y_j)^2 on the softmax over the candidate set (masked candidates have p = 0)."""
+    p = F.softmax(logits, -1)
+    return ((p - F.one_hot(y, p.shape[-1]).to(p.dtype)) ** 2).sum(-1).mean()
+
+
+def train_loop(net, fn, fit_items, val_items, cfg, seed, device="cpu", h0s=None, loss="ce"):
+    """AdamW, listwise cross-entropy (primary, loss="ce") or the Brier loss (registered SECONDARY arm only, loss="brier"), gradient clip, early stopping on validation NLL. Returns a record whose schedule fields are compared across arms."""
     assert fit_items and val_items, "need fit and validation items"
+    assert loss in ("ce", "brier"), loss
     assert all(k == 0 for _, k in val_items), "early stopping monitors set 0 only"
     assert all(d["role"] == "train" for d, _ in fit_items + val_items), "only TRAIN rows may enter a gradient step or early stopping (CAL/LOCKED never)"
     torch.manual_seed(seed)
@@ -91,9 +100,10 @@ def train_loop(net, fn, fit_items, val_items, cfg, seed, device="cpu", h0s=None)
             order_hash = hashlib.sha256(json_ids(fit_items, perm).encode()).hexdigest()[:16]
         for i in range(0, len(perm), cfg["batch"]):
             b = {k: v.to(device) for k, v in make_batch([fit_items[j] for j in perm[i:i + cfg["batch"]]], h0s).items()}
-            loss = F.cross_entropy(fn(b), b["y"])
+            lg = fn(b)
+            loss_t = F.cross_entropy(lg, b["y"]) if loss == "ce" else _brier_loss(lg, b["y"])
             opt.zero_grad()
-            loss.backward()
+            loss_t.backward()
             torch.nn.utils.clip_grad_norm_(net.parameters(), cfg["clip"])
             opt.step()
         net.eval()
@@ -107,7 +117,7 @@ def train_loop(net, fn, fit_items, val_items, cfg, seed, device="cpu", h0s=None)
     net.load_state_dict(best_state)
     net.eval()
     sched = {k: cfg[k] for k in ("lr", "weight_decay", "dropout", "clip", "batch", "max_epochs", "min_epochs", "patience")}
-    return dict(epochs=ep + 1, best_val_nll=best, seed=seed, first_epoch_order_hash=order_hash, schedule=sched,
+    return dict(epochs=ep + 1, best_val_nll=best, seed=seed, loss=loss, first_epoch_order_hash=order_hash, schedule=sched,
                 fit_keys_hash=hashlib.sha256(json_ids(fit_items, range(len(fit_items))).encode()).hexdigest()[:16])
 
 
@@ -127,18 +137,18 @@ def _res_fn(res):
     return fn
 
 
-def fit_h0(fit_decs, val_decs, cfg, seed, proj, device="cpu"):
+def fit_h0(fit_decs, val_decs, cfg, seed, proj, device="cpu", loss="ce"):
     st = scaler_stats(fit_decs)
     torch.manual_seed(seed)                                  # the initial weights must depend on the seed, not on whatever ran before
     net = H0Net(NF, fit_decs[0]["q"].shape[-1], len(DEPTHS), proj, cfg["dropout"]).to(device)
     net.set_scalers({k: v.to(device) for k, v in st.items() if k.endswith(("_f", "_t"))})
     fn = _h0_fn(net)
-    info = train_loop(net, fn, items_of(fit_decs), [(d, 0) for d in val_decs], cfg, seed, device)
+    info = train_loop(net, fn, items_of(fit_decs), [(d, 0) for d in val_decs], cfg, seed, device, loss=loss)
     info["scaler_policy"] = hashlib.sha256(repr((FEATURE_SD_FLOOR, EMBED_SD_FLOOR, len(fit_decs))).encode()).hexdigest()[:16]
     return net, info
 
 
-def crossfit_h0(decs, cfg, seed, proj, device="cpu", nfold=None):
+def crossfit_h0(decs, cfg, seed, proj, device="cpu", nfold=None, loss="ce"):
     """Out-of-fold H0 scores for every item of every decision: fold f is scored by an H0 fitted on the other folds only (trajectory-grouped).
     Returns ({(did, k): score vector}, audit records proving the scored trajectories were not in that fold model's training rows)."""
     fold_of = a5v2.folds_by_trajectory(decs)
@@ -148,7 +158,7 @@ def crossfit_h0(decs, cfg, seed, proj, device="cpu", nfold=None):
         if not te:
             continue
         a, v = inner_split(tr, CFG["val_frac"])
-        net, info = fit_h0(a, v, cfg, seed, proj, device)
+        net, info = fit_h0(a, v, cfg, seed, proj, device, loss)
         its = items_of(te)
         for (d, k), s in zip(its, predict(_h0_fn(net), its, device=device)):
             h0s[(d["did"], k)] = s
@@ -175,12 +185,12 @@ class System:
         return dict(cfg=self.cfg, seed=self.seed, proj=self.proj, treatment=self.treatment, h0=self.h0.state_dict(), res=self.res.state_dict(), record=self.record)
 
 
-def h0_bundle(train_decs, cfg, seed, proj, device="cpu"):
+def h0_bundle(train_decs, cfg, seed, proj, device="cpu", loss="ce"):
     """Everything about H0 for one (training set, seed, projection): the final frozen H0 and the cross-fitted scores. Shared by every depth treatment."""
     a, v = inner_split(train_decs, cfg["val_frac"])
-    h0, info = fit_h0(a, v, cfg, seed, proj, device)
-    h0s, folds = crossfit_h0(train_decs, cfg, seed, proj, device)
-    return dict(a=a, v=v, h0=h0, info=info, h0s=h0s, folds=folds, proj=proj, seed=seed)
+    h0, info = fit_h0(a, v, cfg, seed, proj, device, loss)
+    h0s, folds = crossfit_h0(train_decs, cfg, seed, proj, device, loss=loss)
+    return dict(a=a, v=v, h0=h0, info=info, h0s=h0s, folds=folds, proj=proj, seed=seed, loss=loss)
 
 
 def fit_residual(bundle, cfg, treatment, device="cpu"):
@@ -190,12 +200,13 @@ def fit_residual(bundle, cfg, treatment, device="cpu"):
     torch.manual_seed(seed)
     res = ResidualNet(emb, len(DEPTHS), proj, treatment, cfg["dropout"], DEPTHS.index(SINGLE_DEPTH)).to(device)
     res.set_scalers({k: v_.to(device) for k, v_ in st.items() if k.endswith(("_q", "_c"))})
-    ri = train_loop(res, _res_fn(res), items_of(a), [(d, 0) for d in v], cfg, seed, device, h0s=h0s)
+    ri = train_loop(res, _res_fn(res), items_of(a), [(d, 0) for d in v], cfg, seed, device, h0s=h0s, loss=bundle.get("loss", "ce"))
     ci = bundle["info"]
     # same rows, same candidate sets, same seed, same optimiser schedule, same shuffle: the two arms differ only in the state branch
     assert ri["fit_keys_hash"] == ci["fit_keys_hash"], "H0 and H2 trained on different rows/sets"
     assert ri["first_epoch_order_hash"] == ci["first_epoch_order_hash"] and ri["seed"] == ci["seed"], "H0 and H2 used different shuffles/seeds"
     assert ri["schedule"] == ci["schedule"], "H0 and H2 used different optimiser schedules"
+    assert ri["loss"] == ci["loss"], "H0 and H2 used different training losses"
     for fo in bundle["folds"]:
         assert not (fo["trained_on"] & fo["scored"]), "a cross-fit H0 scored trajectories it was trained on"
     assert {k[0] for k in h0s} >= {d["did"] for d in a + v}, "residual training lacked out-of-fold H0 scores for some rows"
@@ -204,8 +215,8 @@ def fit_residual(bundle, cfg, treatment, device="cpu"):
     return System(bundle["h0"], res, cfg, seed, proj, treatment, rec)
 
 
-def fit_system(train_decs, cfg, seed, proj, treatment, device="cpu"):
-    return fit_residual(h0_bundle(train_decs, cfg, seed, proj, device), cfg, treatment, device)
+def fit_system(train_decs, cfg, seed, proj, treatment, device="cpu", loss="ce"):
+    return fit_residual(h0_bundle(train_decs, cfg, seed, proj, device, loss), cfg, treatment, device)
 
 
 def fit_temperature(logit_vecs, ys):
@@ -220,6 +231,30 @@ def fit_temperature(logit_vecs, ys):
         return loss
     opt.step(closure)
     return t.exp().item()
+
+
+def brier_score(logit_vecs, ys, temperature=1.0):
+    """e9 metric: mean over decisions of sum_j (p_j - y_j)^2 with p = softmax(logits / T). Pure function: no gradient, no model update."""
+    tot = 0.0
+    for l, y in zip(logit_vecs, ys):
+        p = F.softmax(l / temperature, 0)
+        tot += float(((p - F.one_hot(torch.tensor(y), p.shape[0]).to(p.dtype)) ** 2).sum())
+    return tot / len(ys)
+
+
+@torch.no_grad()
+def _cal_logits(system, cal_decs, device):
+    return system.scores(cal_decs, 0, device)
+
+
+def cal_temperature(system, cal_decs, device="cpu"):
+    """e9: the CAL-only temperature. Refuses anything that is not a CAL row; the network is never touched (scores are computed under no_grad, only the scalar log-T is optimised).
+    Interpretation (flagged to the user): one scalar per arm, fitted by the SAME procedure on that arm's CAL logits, so the two arms are calibrated identically; accuracy is invariant to it.
+    Returns {"H0": T0, "H2": T2}."""
+    assert cal_decs and all(d["role"] == "cal" for d in cal_decs), "temperature may be fitted on CAL rows only (never TRAIN or LOCKED)"
+    h0, h2 = _cal_logits(system, cal_decs, device)
+    ys = [d["sets"][0]["true_pos"] for d in cal_decs]
+    return {"H0": fit_temperature(h0, ys), "H2": fit_temperature(h2, ys)}
 
 
 def nested_subsets(decs, sizes, seed="a5v3-lc"):

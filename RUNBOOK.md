@@ -5,15 +5,13 @@
 ## Pipeline Steps (Real Measured and Estimates)
 
 ### 1. Proposals Full Run
-- **Script:** `kaggle/qwen_proposals_v2.py` (with sharding, resume, session guard)
-- **Accelerator:** TPU v5e-8 (mode think30, primary) or 2× T4 (mode think_capped, fallback) or nothink (speed fallback)
+- **Script:** `kaggle/qwen_proposals_v2.py` (with sharding, resume, session guard; think30 mode only)
+- **Accelerator:** Kaggle TPU v5e-8 (vllm-tpu; `mode think30`)
 - **Duration formula:** `tokens = decisions × 4 × cap; time_hours = tokens / (tokens_per_sec × 3600)`
-  - Where: decisions = 45,500; cap = thinking cap in tokens (1024 for think30, 2048 for think_capped, 0 for nothink)
-  - tokens_per_sec is **unmeasured until smoke test** (estimated 671–795 tok/s for Qwen3-4B on T4/TPU)
-- **Preliminary estimates (before smoke):**
-  - **think30 on TPU v5e-8 (primary):** (45,500 × 4 × 1024) tokens at ~800 tok/s ≈ 64h (unmeasured, formula-based)
-  - **think_capped on 2×T4 (fallback):** (45,500 × 4 × 2048) tokens at ~800 tok/s ≈ 128h (unmeasured, formula-based)
-  - **nothink on TPU v5e-8 (speed fallback):** (45,500 × 4 × 0) = 0 thinking, just answer ≈ 30–60m (unmeasured)
+  - Where: decisions = 45,500; cap = 1024 (thinking) + 128 (answer)
+  - tokens_per_sec is **unmeasured until smoke test** (estimated 800–1000 tok/s for Qwen3-30B-A3B on TPU)
+- **Estimate (formula-based, before smoke):**
+  - **think30 on TPU v5e-8:** (45,500 × 4 × 1024) tokens at ~900 tok/s ≈ 57h (unmeasured, formula-based)
 - **Input:** laya-head-states-v1 (45,500 decisions), laya-head-rows-v1 (rows.jsonl)
 - **Output:** proposals/shard-NNNN.jsonl.gz (2,000 decisions/shard), MANIFEST-w{N}.json
 - **Session guard:** Stop cleanly at 8h45m on TPU or 11h on 2×T4
@@ -47,13 +45,13 @@
 - **Thresholds file:** `configs/thresholds_pool_v2.toml` (must exist before run, written once)
 
 ### 4. State Recapture (New Option Lists)
-- **Script:** `kaggle/state_recapture.py` (proven encode_pool + capture functions)
-- **Accelerator:** T4 GPU (proven: 1 s/decision) or TPU v5e-8 (untested)
-- **Duration:**
-  - **On T4 (proven):** 1 s/decision × 45,500 = 12.6 hours (two sessions with resume from dataset)
-  - **On TPU (untested):** estimate unknown
+- **Script:** `kaggle/state_recapture.py` (torch_xla + HuggingFace transformers on TPU)
+- **Accelerator:** Kaggle TPU v5e-8 only
+- **Duration (estimate, formula-based):**
+  - **On TPU v5e-8 (torch_xla):** 0.6–0.8 s/decision [E] × 45,500 = 8–12 hours (one or two sessions with resume from dataset)
+  - Cross-device validation already PASSED: TPU bf16 vs T4 fp16 cosine ≥ 0.9999 (worst 0.99891)
 - **Input:** rows_pool_assembled.jsonl.gz (candidates field with gold + real + Qwen)
-- **Output:** states_pool_v2/shard-NNNNN.pt (protocol pool_v1_kaggle)
+- **Output:** states_pool_v2/shard-NNNNN.pt (protocol `pool_v2_kaggle_tpu_bf16`)
 - **Hidden state layout (per decision):**
   ```
   q: (3, 2560)           - query (last token) at depths [18, 24, 30]
@@ -62,22 +60,24 @@
   order: shuffled candidate order
   gold_pos: gold position in order
   n_tokens: prompt length
+  dtype: bfloat16 (TPU native)
   ```
 - **Sharding:** 500 decisions per shard
 - **Resumable:** By decision_id via dataset mount
-- **Session guard:** 11 hours on T4
+- **Session guard:** 12 hours on TPU v5e-8
+- **All roles (TRAIN, CAL, LOCKED) captured on TPU with same dtype and device per CLAUDE.md rule.**
 
-## Total Time (Measured + Formula-based)
+## Total Time (Measured + Formula-based, TPU Only)
 
 | Step | Accelerator | Time | Status |
 |------|------------|------|--------|
-| 1. Proposals | TPU (think30) | ~64h | Formula-based (unmeasured, depends on smoke) |
+| 1. Proposals | TPU v5e-8 (think30, vllm-tpu) | ~57h | Formula-based (unmeasured, depends on smoke) |
 | 2. Pool assembly | CPU | <1h | Estimate |
 | 3. Gates | CPU | <5min | Estimate |
-| 4. Recapture | T4 | 12.6h | Measured (proven, real data) |
-| **Total** | Mixed | ~76-77h | Mixed (1 measured, 3 formula/estimate) |
+| 4. Recapture | TPU v5e-8 (torch_xla) | 8–12h | Estimate (cross-device validation PASSED) |
+| **Total** | TPU only | ~66-70h | All formula-based until smoke tests |
 
-**Note:** Proposal duration is preliminary and depends on smoke-test measurement of tokens/sec on the target accelerator. Once `think30` smoke completes (recommended: first 50 decisions), recompute using actual throughput and update the formula.
+**Note:** Both steps use Kaggle TPU v5e-8. Cross-device numerics already validated (cosine ≥ 0.9999 on 200 decisions). Once `think30` smoke completes (first 50 decisions), recompute proposal time using actual tokens/sec.
 
 **Parallelization possible:** Steps 2–4 wait for step 1. Steps 2 and 3 can overlap.
 
@@ -105,7 +105,10 @@ After step 1 (proposals), create a Kaggle dataset from `/kaggle/working/proposal
 
 ## Notes
 
-- **Measured vs formula-based:** Only T4 recapture (12.6h per 45,500 decisions) is measured from real data. Proposal times use the formula `(decisions × 4 × cap) / tokens_per_sec`, where `tokens_per_sec` is estimated at 671–795 but not yet measured. Run a smoke test (first 50 decisions with think30) to measure actual throughput and refine the estimate.
-- **TPU recapture:** `state_recapture.py` supports it but is untested; use T4 if TPU smoke fails.
+- **TPU-only path (2026-10-04):** Proposals and state recapture both on Kaggle TPU v5e-8. Cross-device numerics validated (bf16 TPU vs fp16 T4, cosine ≥ 0.9999). Both steps use formula-based timing until smoke tests.
+- **Protocol:** `pool_v2_kaggle_tpu_bf16` (bf16 dtype on TPU; distinct from earlier T4 fp16 captures). All roles (TRAIN, CAL, LOCKED) on same device/dtype per CLAUDE.md rule.
+- **Smoke tests (required before full run):**
+  1. Proposals: first 50 decisions with think30, measure tokens/sec, record timing
+  2. Recapture: 50 decisions on TPU, verify cross-device cosine ≥ 0.999 vs T4 baseline, measure s/decision
+  3. If either fails: report blocker; fallback to 2×T4 (safety path, ~27h total)
 - **Quality gates:** Must pass before committing recapture output to training (runbook phase 15, RB4).
-- **Earlier estimates (12.5h think30, 19.4h think_capped):** Were not derived from a formula or measurement; replaced with formula-based estimates on 2026-10-04.

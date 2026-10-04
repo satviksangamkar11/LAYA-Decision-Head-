@@ -1,0 +1,14 @@
+{
+ "check": "nebius SWE-rebench-openhands vs coding-decision-cases (nebius/SWE-agent-trajectories rows)",
+ "label": "exploratory (no gate)",
+ "cases_rows": 102751,
+ "cases_nebius_repos": 858,
+ "cases_nebius_instances": 1843,
+ "ours_repos": 1823,
+ "ours_instances": 6306,
+ "instance_overlap": 677,
+ "repo_overlap": 0,
+ "our_rows_in_overlapping_repos": 0,
+ "our_rows": 67074,
+ "cases_revision": "2ebe9040038897d8e3037c672d0dccb958a04a1c"
+}

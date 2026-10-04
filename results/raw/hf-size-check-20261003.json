@@ -1,0 +1,21 @@
+{
+ "created": "2026-10-03T19:12:27",
+ "method": "Hugging Face API metadata only (api/<kind>/<repo>?blobs=true); nothing downloaded",
+ "datasets/nebius/SWE-rebench-openhands-trajectories": {
+  "files": 6,
+  "total_gb": 2.08,
+  "main_file": "trajectories.parquet 2079.5 MB",
+  "license": "cc-by-4.0",
+  "gated": false,
+  "lastModified": "2025-12-27T14:08:07Z"
+ },
+ "models/Qwen/Qwen3-Reranker-4B": {
+  "files": 17,
+  "total_gb": 8.06,
+  "main_files": "2 safetensors shards 4058.8 + 3984.8 MB",
+  "license": "apache-2.0",
+  "gated": false,
+  "lastModified": "2026-04-16T08:56:07Z"
+ },
+ "note": "Both are over the 1 GB rule: each download needs the user's written yes (CLAUDE.md, Ask first)."
+}

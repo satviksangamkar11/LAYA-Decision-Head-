@@ -5,6 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.12"
 dependencies = [
     "airllm>=4.0.0",
+    "kaggle>=2.2.4",
     "torch==2.14.0",
 ]
 

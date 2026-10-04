@@ -1,0 +1,16 @@
+{
+ "rows": 18894,
+ "trajectories": 300,
+ "repos": 230,
+ "done_positives": 137,
+ "value_positive_rate": 0.41949825341378216,
+ "auroc_state_blind": {
+  "done": 0.931951049710298,
+  "value": 0.5779123260509825
+ },
+ "auroc_shuffled": {
+  "done": 0.4925242508003825,
+  "value": 0.42365624964915255
+ },
+ "note": "metadata-only floor; value is per-step so rows of one trajectory share a label (AUROC is over rows, not trajectories)"
+}

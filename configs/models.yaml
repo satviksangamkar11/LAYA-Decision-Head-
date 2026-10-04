@@ -11,7 +11,7 @@ models:
     path: models/qwen3-4b-thinking-2507
     license: Apache-2.0
     size_bytes: 8044982000                  # three safetensors shards, about 7.6 GiB on disk
-    role: experiment backbone for the internal head, frozen (user, 2026-10-02: Qwen only for now)
+    role: "experiment backbone for the internal head, frozen (user, 2026-10-02: Qwen only for now)"
     verified: "shard sha256 in results/raw/qwen3-4b-thinking-2507.manifest.json; equivalence v2 PASS (results/raw/equiv-v2-qwen3-4b-20261001-145942.json)"
 
   - id: gpt-oss-120b
@@ -51,3 +51,13 @@ models:
     size_bytes: 1685197088                  # fp32
     role: completion decisions (did the turn finish), COMPLETION only. Use the shipped state_pack.py
     verified: "2026-10-01 sha256 (results/raw/verify-laya-stop-completion-judge-deep-20261001-154447.json); offline load pinned by sha256. Smoke test with the shipped state_pack.py: two announced-next-step cases 0.75 and 0.74, a direct answer 0.05, a short reports-results case 0.46, an explicit handback 0.70 (its card warns it over-fires on handbacks). Its config is the typed-decisions config copied over: choice:2 temperature 1.906 is typed-decisions', not fitted for this judge"
+
+  - id: coding-decision-agent
+    repo: S4MPL3BI4S/Coding_Decision_Agent
+    revision: fbc40c2e4b625519de1c1f617724449a636d08ff
+    path: models/coding-decision-agent
+    license: Apache-2.0
+    weights_sha256: e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a
+    size_bytes: 842609220                   # fp16, 421.29M params
+    role: candidate base for the Laya sidecar/internal head (user choice 2026-10-04); agent_trace action/outcome, code_review likely_correct, routing
+    verified: "2026-10-04 download user-approved (weights only, 807 MB); sha256 equals the HF LFS hash; offline load with laya 0.3.22 on CPU gives 421.29M params and temperatures [1.116161, 1.091507, 1.2] as in its rl_agent_config.json. NOT measured on our data. Its rl_agent_config training block (1.96 h, 7313 updates) is inherited from the base and is not its own log. Question wording is in configs/schema.py of github.com/SampleBias/Coding_Decision_Agent (MIT), not downloaded."
