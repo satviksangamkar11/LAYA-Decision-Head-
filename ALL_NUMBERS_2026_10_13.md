@@ -52,4 +52,4 @@ typed minus coding +1.8 (not significant).
 | LAYA v4 / random head / baseline v1 / probe | 0% / 0% / 1.8% / 0% | 0% / 0% / 4.8% / 0% |
 | Same without context | 1.8% / 1.8% / 0% / 0% | 4.8% / 0% / 0% / 0% |
 
-Every scorer's probabilities are within ~0.02 of uniform: the frozen, mean-pooled Qwen option features cannot see a one-token bug.
+Every imitation-trained scorer's probabilities are within ~0.02 of uniform. (CORRECTED by section E: the features do carry the signal; these scorers were not trained to use it.)

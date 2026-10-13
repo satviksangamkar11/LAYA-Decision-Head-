@@ -361,7 +361,10 @@ selector, LAYA included, is shown to help or to hurt.
 
 **Mutation diagnostic (2026-10-13, 16.24):** given Fable's verified-passing fix and up to 4 copies broken by a single token, every learned scorer
 (LAYA, random head, baseline, probe; with or without context) picked the passing fix 0-2% of the time against 20.5% for a random pick, with
-probabilities within ~0.02 of uniform: the frozen mean-pooled Qwen features cannot see a one-token bug. Code correctness has to come from execution;
+probabilities within ~0.02 of uniform. **Corrected by the diff-focused diagnostic (16.25):** a linear probe trained on the pass / fail labels
+(leave one state out) picks the passing fix in 89.5% of states with edit-site features and 100% with the existing whole-option features (random 20.5%,
+permutation p = 0.001): the features carry the signal; the imitation-trained scorers do not use it. Open question: correctness or "this text was
+mechanically edited" (test with the 36 mutants that still pass their tests). Until then code correctness comes from execution;
 the re-plan is in LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 8, all numbers in ALL_NUMBERS_2026_10_13.md. The sandbox now also replays Go,
 C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
 

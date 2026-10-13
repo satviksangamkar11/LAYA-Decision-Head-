@@ -187,3 +187,13 @@ a chance of about 0.21 has a one-sided binomial p of about 0.002 (estimate).
 1. GO for the capture kernel (new versioned capture script) and the CPU evaluation kernel.
 2. **Upload of the 19 states' pass / fail labels** (TRAIN, execution-verified) to a private Kaggle dataset: the probe must be trained inside the
    evaluation kernel. Until now these labels stayed on this PC.
+
+
+### 9.9 Result (2026-10-13, 18:40 IST): PASS, with a correction and an open confound
+
+Primary 89.5% (17/19; unseen 85.7%), p = 0.001, lexical 26.3%: verdict PASS (HANDOFF 16.25). But the existing whole-option features reach 100% with the
+same probe, so section 8 point 2 ("the current features cannot see code correctness") is WRONG as written: the features carry the signal; the scorers
+trained to imitate Fable do not use it. Before any "learned scorer picks code" work resumes, one cheap control must run: the probe (same CV) on pools
+of each original vs its 36 test-PASSING mutants (EQUAL_ON_TESTS). If it still rejects them, it detects edits, not correctness, and the section-8
+recommendation (execution decides code correctness) stands; if it accepts them, a pass / fail scorer trained on execution labels becomes a real option.
+Needs the user's GO (Kaggle CPU, minutes; features of the passing mutants need one more capture of those pools, about 10 min T4).

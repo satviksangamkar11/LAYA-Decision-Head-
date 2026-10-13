@@ -1834,3 +1834,29 @@ dataset laya-mutation-features-v2 and scored by the unchanged, parity-verified s
 - The primary result is all 19 states (above); the 7 states no scorer trained on are reported separately. No 18-state result is used. (For the record, py-incident-cli:4, the one pool captured through per-option passes, was a miss for every scorer.)
 - Limits: TRAIN states; synthetic single-site mutants; 19 states. It does show a hard limit of the current feature representation for code-correctness
   decisions.
+
+### 16.25 Diff-focused diagnostic (19 TRAIN states, Kaggle): pre-registered verdict PASS, and a CORRECTION of 16.24 (2026-10-13, 18:40 IST)
+
+User GO (chat, 2026-10-13: "GO, upload labels and run on Kaggle, push branch"); protocol: LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 9. Labels of the
+19 states uploaded as private dataset laya-mutation-labels-v1 (mounted only by the evaluation). Capture `kaggle/diff_capture_v1.py` (kernel
+laya-diff-capture, T4, 470 s; output `results/raw/diff-capture-run-20261013T122559Z`): all checks passed (hashes identical; whole-option features
+reproduce the existing ones, cosine 1.0; spans non-empty; finite; repeat identical; key not mounted; py-incident-cli:4 through per-option passes).
+Evaluation `kaggle/diff_eval_v1.py` (kernel laya-diff-eval, Kaggle CPU, 582 s; `results/raw/diff-eval-run-20261013T123715Z/RESULT.json`).
+
+| linear probe, leave one state (= trajectory) out | all 19 states | 7 unseen states |
+|---|---|---|
+| **primary: edit sites +- 8 tokens, pool-centred, real context** | **89.5%** (17/19) | 85.7% |
+| +- 8 uncentred / +- 32 centred / +- 8 without context | 94.7% / 100% / 89.5% | 100% / 100% / 100% |
+| control a: the existing whole-option mean features, centred, same CV | **100%** | 100% |
+| lexical: the option's own site token ids, no Qwen | 26.3% | 14.3% |
+| uniform random / shortest / longest | 20.5% / 10.5% / 26.3% | 20.0% / 0% / 14.3% |
+
+Permutation null (1,000 runs, C fixed at 0.001, the primary run's modal C): mean 21.0%, 95th percentile 42.1%, p = 0.001. Criteria: top-1 >= 0.50 yes,
+p < 0.05 yes, lexical margin +63 points (>= 15) yes: **verdict PASS**.
+
+- **Correction of 16.24:** "the frozen mean-pooled features cannot see a one-token bug" was wrong. A probe trained FOR THIS TASK on the same whole-option
+  features reaches 100%; the scorers of 16.24 failed because they were trained to imitate Fable, not because the features lack the signal.
+- **Open confound (not tested yet):** every positive is the original text and every negative a synthetic mutant, so the probe may detect "mechanically
+  edited / unnatural code" rather than "fails its tests". The v1.1 labels contain 36 mutants that change the code but still PASS the tests
+  (EQUAL_ON_TESTS): scoring them against the originals separates the two readings (a correctness detector should not reject them; an edit detector will).
+- Limits: TRAIN states; synthetic single-site mutants; 19 states; the probe is trained on 18 states' mutation labels (no Fable imitation involved).

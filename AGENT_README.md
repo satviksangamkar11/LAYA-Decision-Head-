@@ -93,6 +93,13 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 18:40 IST: diff-focused diagnostic PASS; correction of the mutation reading
+
+- Probe trained on pass / fail labels, leave one state out (19 states = 19 trajectories), Kaggle: edit-site features 89.5% (unseen 85.7%), whole-option
+  features 100%, lexical 26.3%, random 20.5%, permutation p = 0.001: PASS. The 17:30 statement "features cannot see a one-token bug" is wrong: the
+  imitation-trained scorers do not use the signal. Open confound: edit detection vs correctness (control with the 36 test-passing mutants, needs GO).
+  HANDOFF 16.25; ledger 70.
+
 ## UPDATE - 2026-10-13, 17:30 IST: mutation diagnostic scored; all numbers; re-plan
 
 - 19 TRAIN states, passing fix vs one-token-broken copies, scored on Kaggle: LAYA 0%, random head 0%, baseline 1.8%, probe 0% vs random 20.5%;
