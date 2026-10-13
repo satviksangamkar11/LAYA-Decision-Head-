@@ -1803,3 +1803,32 @@ temperature 1.0 kept; no Kaggle. Registration PREREG_V3 in `tools/val_outcome_gl
   informative problems in total, one each way: still no evidence for or against any selector, and LAYA is never distinguishable from the probe or the
   random head. By the registered gate the pilot stops here. Next: the user's decision.
 - Folders: local capture results/raw/local-capture-glmlow3-20261013T101558Z; scores results/raw/glmlow3-score-local-20261013T101735Z; local-vs-Kaggle scoring check results/raw/glm-pilot-score-local-check-20261013T101346Z.
+
+### 16.24 Mutation diagnostic scored (19 TRAIN states, Kaggle): the scorers cannot tell a working fix from its one-token-broken copies (2026-10-13, 17:30 IST)
+
+User (chat, 2026-10-13): "complete scoring first ... finish it first"; all computation on Kaggle. Pools: Fable's verified-passing action + up to 4 test-failing,
+crash-free mutants (v1.1 labels), rendered with the imitation builder's own functions (all 12 rendering checks against the imitation set byte-identical),
+order by hash, labels local only. Bundle `results/raw/mutation-score-bundle-v1-20261013T104646Z` (PLAN, PRIVATE_KEY, RESULT.json); capture v1
+(`mutation-capture-run-20261013T105921Z`) aborted at validation: one 5-option pool (py-incident-cli:4, prefix 14,312 tokens) over the 24,576 total-token
+limit. Capture v2 (built by another session: `mutation-score-bundle-v2-20261013T112130Z`, RECOVERY.json) applies the total limit per option and sends
+that one pool through the existing one-at-a-time path (same representation, repeat-identical): B 19/19 and A 19/19 saved, all finite
+(`mutation-capture-v2-run-20261013T114559Z`); the kernel then ended in ERROR after Level 1 (log empty; outputs complete), so its features were uploaded as
+dataset laya-mutation-features-v2 and scored by the unchanged, parity-verified scorer (kernel laya-mutation-score v2, Kaggle CPU;
+`mutation-score-run-20261013T115456Z`; the 12 rebuilt runs reproduce their VAL picks).
+
+| selector | top choice = the passing fix, 19 states | 7 states no scorer trained on |
+|---|---|---|
+| uniform random | 20.5% | 20.0% |
+| shortest option / longest option | 10.5% / 26.3% | 0% / 14.3% |
+| LAYA v4 (3 seeds) / no context | 0% / 1.8% | 0% / 4.8% |
+| random head (9) / no context | 0% / 1.8% | 0% / 0% |
+| baseline v1 (3) / no context | 1.8% / 0% | 4.8% / 0% |
+| linear probe / no context | 0% / 0% | 0% / 0% |
+
+- Answer key verified: every mutant differs from Fable's option only at its mutation site.
+- Every scorer's probabilities are within about 0.02 of uniform in every state (e.g. LAYA 0.198-0.204 for five options): the mean-pooled frozen
+  Qwen option states barely change when one token changes, so no scorer on these features (the probe included) separates the working fix from its
+  broken copies. The near-zero top-1 is a small consistent tilt toward the edited text, not knowledge. Context makes no difference.
+- Excluding py-incident-cli:4 (the one pool under the reinterpreted limit) changes nothing (it was a miss for every scorer).
+- Limits: TRAIN states; synthetic single-site mutants; 19 states. It does show a hard limit of the current feature representation for code-correctness
+  decisions.

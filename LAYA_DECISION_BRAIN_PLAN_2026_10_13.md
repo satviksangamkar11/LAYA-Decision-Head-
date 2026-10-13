@@ -83,3 +83,33 @@ route, on the SAME execution-verified pools. Option A is untested in this projec
 
 Open decisions for the user: (1) is using LAYA's released encoder frozen (option A) allowed under the "no encoder touched" rule? (2) which held-out
 problem source for milestone 3? (3) is the general typed-decision data in scope (licences, Jev rule)?
+
+## 8. Re-plan after all scoring is complete (2026-10-13, 17:30 IST)
+
+All numbers: ALL_NUMBERS_2026_10_13.md. Three facts now decide the plan:
+
+1. **Fable agreement is not the bottleneck and not the goal.** Adapters reach 76-80%, random heads 83%, the probe 86-94%; the pretrained head adds nothing.
+2. **The current features cannot see code correctness.** On the mutation diagnostic every scorer stays within ~0.02 of uniform between a working fix and
+   its one-token-broken copies (16.24). Mean-pooling a frozen model's states over a whole file erases a one-token change. No head, adapter or probe on
+   these features can learn "this patch is correct"; more data or more training will not change that.
+3. **Execution already beats every scorer at choosing fixes.** Running the candidates' tests (the oracle) solved 4/5 and 2/5 problems where the best
+   learned selector solved 3/5 and 2/5.
+
+What follows for the design:
+- **Correctness of code is decided by execution, never by the scorer.** The project's evidence order already says this (protected tests / real
+  execution above the head). The practical system for "which fix?" is: generate several candidates, run them in the sandbox, keep the passing ones.
+- **LAYA's job is the decisions execution cannot answer cheaply**: what to do next (read, search, run tests, edit, ask), whether there is enough
+  evidence to act, when to stop, when every option is bad, and which passing fix to keep when several pass (smaller, safer). These are visible in
+  the features (they differ by tool, target and intent, not by one token).
+- **If code-level discrimination is ever wanted from a learned scorer**, it needs a different representation, not more training: features of the
+  edited region only (diff-focused), or a model that reads context and option together token by token. That is a new capture protocol (versioned).
+
+Proposed next steps (each needs GO; compute on Kaggle; nothing started):
+1. **Diff-focused feature check (read-only, small):** recapture the 19 mutation pools with features of the changed region (option tokens around the
+   edit, or option minus pool mean at token level) and refit only the linear probe out of fold. Answers in one Kaggle run whether ANY frozen-feature
+   scorer can see a one-token bug. If not, close the "learned scorer picks code" line for good.
+2. **Action-type decision dataset:** from the Fable trajectories, label next-action decisions by what happened next in the sandbox replay (did the
+   test run after this action pass, did a read precede a successful edit), with same-author pools and no-context / options-only controls. This is where
+   LAYA's choose / score / none primitives fit.
+3. **Execution-in-the-loop selector for fixes:** generator -> sandbox -> pick passing; LAYA only ranks among passing candidates or decides when to stop.
+4. The option-A text route (LAYA with its own encoder) stays a candidate for steps 2-3, pending the user's decision on using the released encoder frozen.

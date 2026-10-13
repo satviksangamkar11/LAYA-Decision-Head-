@@ -1,0 +1,305 @@
+{
+ "device": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "transformers": "5.16.1",
+ "protocol_id": "fable_capture_v1",
+ "depths": [
+  18,
+  24,
+  30
+ ],
+ "limits": {
+  "max_prefix_tokens": 24000,
+  "max_option_tokens": 4096,
+  "max_total_tokens": 24576,
+  "max_options": 8
+ },
+ "dtype": "float16",
+ "pools": 19,
+ "rows": [],
+ "validation": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "B",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 18.67,
+   "peak_gib": 8.15,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 137.5,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "B",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.65,
+   "peak_gib": 6.91,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 143.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 0.999997,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "B",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 17.25,
+   "peak_gib": 7.77,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.875,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "B",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 10.37,
+   "peak_gib": 7.29,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 147.75,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "B",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 17.6,
+   "peak_gib": 7.76,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "B",
+   "prefix_tokens": 7130,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.71,
+   "peak_gib": 7.23,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 134.25,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "B",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 15.19,
+   "peak_gib": 7.63,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "B",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 19.91,
+   "peak_gib": 7.96,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 146.0,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "B",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.99,
+   "peak_gib": 7.17,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 139.75,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "B",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "status": "excluded_over_limit"
+  }
+ ],
+ "aborted": "validation sample failed"
+}

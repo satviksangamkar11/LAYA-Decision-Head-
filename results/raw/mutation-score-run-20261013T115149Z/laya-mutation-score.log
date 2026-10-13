@@ -1,0 +1,15 @@
+[{"stream_name":"stderr","time":29.971494878,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":29.972098767,"data":"  File \"/kaggle/src/script.py\", line 88, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":29.97211911,"data":"    main()\n"}
+,{"stream_name":"stderr","time":29.972125201,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":29.972129435,"data":"  File \"/kaggle/src/script.py\", line 40, in main\n"}
+,{"stream_name":"stderr","time":29.97213373,"data":"    lvl = Path(find(\"out/level1/B.pt\")[0]).parent\n"}
+,{"stream_name":"stderr","time":29.972137994,"data":"               ~~~~~~~~~~~~~~~~~~~~~~~^^^\n"}
+,{"stream_name":"stderr","time":29.972143754,"data":"IndexError: list index out of range\n"}
+,{"stream_name":"stderr","time":33.554569752,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":33.554606768,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":33.918911925,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":33.918944442,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":34.910395833,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":36.257634325,"data":"[NbConvertApp] Writing 302304 bytes to __results__.html\n"}
+]

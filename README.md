@@ -357,7 +357,12 @@ A registered v3 of the low-effort pilot then ran (strict unwrap of a single-obje
 25 of 25 answered with no timeouts, but only 5 of 25 answers were valid (genuine model format errors), the oracle solved 2 of 5 problems, and only
 1 problem was informative, so the expansion gate failed. On that problem every learned scorer picked the passing fix; end to end every learned
 scorer solved 2 of 5 against 1 for the first valid candidate. Across both pilots there are two informative problems, one going each way: no
-selector, LAYA included, is shown to help or to hurt. The sandbox now also replays Go,
+selector, LAYA included, is shown to help or to hurt.
+
+**Mutation diagnostic (2026-10-13, 16.24):** given Fable's verified-passing fix and up to 4 copies broken by a single token, every learned scorer
+(LAYA, random head, baseline, probe; with or without context) picked the passing fix 0-2% of the time against 20.5% for a random pick, with
+probabilities within ~0.02 of uniform: the frozen mean-pooled Qwen features cannot see a one-token bug. Code correctness has to come from execution;
+the re-plan is in LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 8, all numbers in ALL_NUMBERS_2026_10_13.md. The sandbox now also replays Go,
 C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
 
 ### 3. Transfer to new trajectories (held-out, pre-registered)

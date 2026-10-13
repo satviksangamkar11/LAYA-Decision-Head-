@@ -1,0 +1,96 @@
+{
+ "states": 19,
+ "options": [
+  5,
+  4,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  5,
+  4
+ ],
+ "fable_position": {
+  "0": 6,
+  "2": 3,
+  "1": 6,
+  "3": 2,
+  "4": 2
+ },
+ "in_imitation_pools": 12,
+ "rendering_checks": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "fable_option_equals_imitation": true,
+   "context_equals_imitation": true
+  }
+ ],
+ "all_checks_pass": true,
+ "labels_uploaded": false
+}

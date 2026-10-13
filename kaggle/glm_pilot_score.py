@@ -37,7 +37,7 @@ def main():
     cfg = dict(pack["head_cfg"])
     rq = find("requests_level1.jsonl*")[0]   # Kaggle decompresses .gz files in datasets
     req = {r["decision_id"]: r for r in (json.loads(l) for l in (gzip.open if rq.endswith(".gz") else open)(rq, "rt", encoding="utf-8"))}
-    lvl = Path(find("out/level1/B.pt")[0]).parent
+    lvl = Path(find("level1/B.pt")[0]).parent   # "out/level1" in kernel outputs, "level1" in datasets
     pools = {}
     for v in ("B", "A"):
         for x in torch.load(lvl / (v + ".pt"), map_location="cpu", weights_only=False)["records"]:

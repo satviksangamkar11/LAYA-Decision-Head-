@@ -1,0 +1,25 @@
+[{"stream_name":"stdout","time":85.618792833,"data":"integrity [{\"file\": \"coding-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"coding-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"coding-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s2.pt\", \"reproduces_46_val_picks\": true}]\n"}
+,{"stream_name":"stdout","time":85.619911596,"data":"laya_v4/coding-s0 [3, 0, 0, 0, 4, 3, 3, 3, 2, 3, 1, 0, 3, 1, 3, 4, 0, 2, 0] | no context [3, 0, 0, 0, 4, 0, 1, 3, 2, 3, 2, 0, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.620644166,"data":"laya_v4/coding-s1 [3, 0, 0, 0, 4, 3, 3, 3, 4, 2, 1, 0, 3, 1, 3, 3, 0, 2, 0] | no context [3, 0, 0, 0, 4, 0, 0, 3, 2, 3, 0, 0, 3, 1, 4, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.621339232,"data":"laya_v4/coding-s2 [3, 0, 0, 0, 4, 3, 3, 3, 4, 3, 1, 0, 3, 3, 1, 4, 0, 2, 0] | no context [3, 3, 2, 1, 2, 3, 3, 4, 1, 1, 2, 3, 1, 3, 3, 3, 2, 3, 3]\n"}
+,{"stream_name":"stdout","time":85.622254524,"data":"random_head_v4/random_1001-s0 [3, 0, 0, 0, 2, 3, 3, 3, 2, 4, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 4, 4, 4, 3, 2, 1, 1, 0, 4, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.62333634,"data":"random_head_v4/random_1001-s1 [3, 0, 0, 0, 2, 3, 3, 3, 4, 3, 1, 4, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 0, 1, 4, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.626515171,"data":"random_head_v4/random_1001-s2 [3, 0, 0, 0, 2, 3, 3, 3, 4, 4, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 4, 4, 4, 3, 2, 1, 2, 4, 3, 1, 3, 2, 0, 2, 1]\n"}
+,{"stream_name":"stdout","time":85.626545399,"data":"random_head_v4/random_1002-s0 [3, 0, 0, 0, 2, 3, 3, 3, 2, 4, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 1, 1, 0, 4, 1, 3, 2, 0, 2, 1]\n"}
+,{"stream_name":"stdout","time":85.626571599,"data":"random_head_v4/random_1002-s1 [3, 0, 0, 0, 2, 3, 3, 3, 4, 3, 1, 4, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 0, 1, 4, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.626577547,"data":"random_head_v4/random_1002-s2 [3, 0, 0, 0, 2, 3, 3, 3, 4, 3, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 1, 1, 4, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.626582604,"data":"random_head_v4/random_1003-s0 [3, 0, 0, 0, 2, 3, 3, 3, 4, 4, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 4, 4, 4, 3, 2, 1, 1, 0, 4, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.628603119,"data":"random_head_v4/random_1003-s1 [3, 0, 0, 0, 2, 3, 3, 3, 4, 4, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 0, 1, 0, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.628642274,"data":"random_head_v4/random_1003-s2 [3, 0, 0, 0, 2, 3, 3, 3, 4, 3, 1, 0, 3, 1, 3, 4, 0, 2, 1] | no context [3, 0, 0, 0, 2, 4, 4, 3, 2, 1, 1, 0, 4, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.628648757,"data":"laya_baseline_v1/final-s0 [3, 0, 4, 0, 2, 3, 3, 3, 4, 3, 1, 4, 3, 4, 1, 4, 0, 2, 0] | no context [3, 0, 2, 0, 4, 4, 3, 2, 2, 3, 2, 4, 3, 1, 4, 4, 0, 2, 1]\n"}
+,{"stream_name":"stdout","time":85.62865404,"data":"laya_baseline_v1/final-s1 [3, 0, 4, 0, 4, 3, 3, 3, 4, 3, 1, 4, 3, 1, 1, 4, 0, 0, 0] | no context [3, 0, 4, 0, 4, 4, 0, 3, 0, 3, 2, 4, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.629720187,"data":"laya_baseline_v1/final-s2 [3, 0, 4, 0, 4, 3, 3, 3, 4, 3, 1, 4, 3, 1, 3, 4, 0, 2, 0] | no context [3, 0, 4, 0, 4, 3, 0, 3, 2, 3, 1, 4, 3, 1, 3, 2, 0, 0, 1]\n"}
+,{"stream_name":"stdout","time":85.630528304,"data":"linear_probe/train303 [3, 0, 0, 3, 2, 3, 3, 3, 4, 4, 1, 4, 3, 1, 1, 3, 0, 2, 1] | no context [3, 0, 0, 0, 4, 4, 4, 3, 0, 2, 2, 4, 1, 1, 3, 2, 0, 2, 1]\n"}
+,{"stream_name":"stdout","time":85.63064366,"data":"DONE\n"}
+,{"stream_name":"stderr","time":90.032612154,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":90.032669255,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":90.526298677,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":90.526344439,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":91.551516027,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":93.137697484,"data":"[NbConvertApp] Writing 302381 bytes to __results__.html\n"}
+]

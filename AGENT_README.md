@@ -93,6 +93,13 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 17:30 IST: mutation diagnostic scored; all numbers; re-plan
+
+- 19 TRAIN states, passing fix vs one-token-broken copies, scored on Kaggle: LAYA 0%, random head 0%, baseline 1.8%, probe 0% vs random 20.5%;
+  probabilities within ~0.02 of uniform: the features cannot see a one-token bug. Capture v1 aborted on one over-limit pool; capture v2 (another
+  session, per-option routing) captured 19/19; scored from an uploaded features dataset because Kaggle hides outputs of ERROR kernels.
+- All numbers: ALL_NUMBERS_2026_10_13.md. Re-plan: LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 8. HANDOFF 16.24; ledger 69.
+
 ## UPDATE - 2026-10-13, 15:30 IST: low-effort GLM pilot v3 complete; expansion gate failed
 
 - Offline verification passed (3 saved answers decode; strict unwrap). Generation 25/25 HTTP 200, 0 timeouts (up to 5 in flight per key).
