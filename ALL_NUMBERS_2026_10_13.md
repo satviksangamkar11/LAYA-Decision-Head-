@@ -76,3 +76,18 @@ Permutation p = 0.001; verdict PASS, but EXPLAINED BY A SHORTCUT (section F): an
 | Operator-matched pools (12 states): probe vs tokens / operator | 58.3% vs 66.7% / 66.7% | 32.4% |
 
 Verdict ONLY WITH ORIGINAL: above chance (p 0.003) but not above the simple baselines; no context needed: edit-type cues, not correctness.
+
+## G. Nebius branching count (natural next-action branches; HANDOFF 16.27)
+
+| stage (EXACT history matches; headline) | branchpoints | tasks | repos |
+|---|---|---|---|
+| mixed-outcome tasks parsed (19,602 runs, parse 100%, tool calls matched 98.5%) | - | 1,741 | 859 |
+| identical history, then >= 2 different actions | 9,980 | 1,738 | 859 |
+| ... with >= 2 action TYPES | 5,689 | 1,693 | 833 |
+| ... and different resolve rates (single tier) | 3,741 | 1,608 | 793 |
+| ... >= 2 runs per branch (repeated) | 1,483 | 1,114 | 594 |
+| ... >= 3 runs per branch and gap >= 0.3 (strong) | 256 | 249 | 190 |
+| strong, excluding the 361 LAYA-overlap repos | 129 | 126 | 107 |
+| verified identical workspace | 0 (no snapshots) | | |
+
+Audit: almost all branches are early orientation steps; no edit / stop among the 15 most common type pairs. Threshold met in count, not in substance.

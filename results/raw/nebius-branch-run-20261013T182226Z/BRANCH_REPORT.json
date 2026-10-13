@@ -1,0 +1,422 @@
+{
+ "plan": {
+  "written": "2026-10-13, before any branch was counted",
+  "approved_by": "user, chat 2026-10-13: GO bounded nebius branching feasibility count on Kaggle CPU; frozen branch definition; small parse check first; 300 branchpoints / 100 repos is a discovery threshold, not a training gate; stop after the report",
+  "state": "same task (same system and user prompt) and the same sequence of executed tool actions with the same observed tool outputs before the decision. Free-text reasoning (assistant prose and `think` calls) is excluded: it differs between every run and does not change the workspace. Two matching levels reported: exact outputs, and normalised outputs (ANSI codes, timings, memory addresses, temp paths, timestamps and whitespace normalised). Three levels, never combined: (1) EXACT observed-history matches = the headline; (2) NORMALISED matches = exploratory; (3) verified identical WORKSPACE states = 0 available: the dataset has no workspace snapshots, so no branch is a verified identical environment (same calls and outputs can still hide different unobserved file contents). Task instructions (system and user prompt) are part of every state",
+  "action": "a tool call (name + canonical JSON arguments without is_input / timeout / security_risk / thought; bash commands whitespace-collapsed). Branchpoint: a state reached by >= 2 runs whose next actions are >= 2 different actions",
+  "action_types": "read (editor view; cat / head / tail / sed -n / less / nl), search (grep / rg / find / ls / tree), test (pytest / unittest / tox / test scripts), run (other python / node / go / make / script execution), edit (editor create / str_replace / insert / undo; sed -i, redirections, patch), vcs (git), env (pip / apt / npm install / conda), stop (finish), plan (task_tracker), other",
+  "outcome": "each child action's runs and their final `resolved` flags: OBSERVATIONAL evidence (later steps also matter), never a verified label",
+  "evidence tiers": {
+   "single": ">= 2 children with different resolve rates (any run counts)",
+   "repeated": ">= 2 children with >= 2 runs each and different resolve rates",
+   "strong": ">= 2 children with >= 3 runs each and resolve rates differing by >= 0.3"
+  },
+  "initial_vs_later": "depth 0 (the first executed action after the task prompt) vs depth >= 1",
+  "independence": "unique tasks, repos and trajectories counted at every funnel stage; branchpoints inside one task are not independent",
+  "overlap": "858 = size of the source-side repo list (coding-decision-cases, nebius/SWE-agent rows); 618 = its recorded overlap with the full nebius set; the filtered 859 repos are checked against the list here. Overlap is a contamination RISK, not proof an example was in pretraining",
+  "stage1_gate": ">= 95% of runs parse and >= 95% of tool calls are matched to a tool output, on the first 50 tasks (sorted by instance id)",
+  "discovery_threshold": "EXACT matches: >= 300 branchpoints with >= 2 action TYPES and single-tier outcome evidence, from >= 100 repos (not a training gate)"
+ },
+ "stage1": {
+  "runs": 555,
+  "parsed": 555,
+  "parse_failures": {},
+  "tool_calls": 34443,
+  "tool_calls_matched": 33888,
+  "tasks": 50,
+  "tasks_with_2_parsed_runs": 50,
+  "tasks_with_2_runs_same_prompt": 50,
+  "parse_rate": 1.0,
+  "tool_call_match_rate": 0.9839,
+  "gate_passed": true,
+  "sample_funnel_exact": {
+   "branchpoints": 116,
+   "tasks": 50,
+   "repos": 32,
+   "trajectories": 484
+  }
+ },
+ "stage2_integrity": {
+  "runs": 19602,
+  "parsed": 19602,
+  "parse_failures": {},
+  "tool_calls": 1293738,
+  "tool_calls_matched": 1274160,
+  "tasks": 1741,
+  "tasks_with_2_parsed_runs": 1741,
+  "tasks_with_2_runs_same_prompt": 1741,
+  "parse_rate": 1.0,
+  "tool_call_match_rate": 0.9849
+ },
+ "funnel": {
+  "exact": {
+   "all": {
+    "any": {
+     "branchpoints": 9980,
+     "tasks": 1738,
+     "repos": 859,
+     "trajectories": 19579
+    },
+    "initial": {
+     "branchpoints": 847,
+     "tasks": 847,
+     "repos": 507,
+     "trajectories": 9892
+    },
+    "later": {
+     "branchpoints": 9133,
+     "tasks": 1736,
+     "repos": 858,
+     "trajectories": 19252
+    },
+    "single": {
+     "branchpoints": 6500,
+     "tasks": 1737,
+     "repos": 858,
+     "trajectories": 19565
+    },
+    "repeated": {
+     "branchpoints": 2556,
+     "tasks": 1517,
+     "repos": 782,
+     "trajectories": 17417
+    },
+    "strong": {
+     "branchpoints": 428,
+     "tasks": 405,
+     "repos": 297,
+     "trajectories": 4431
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 3264,
+     "tasks": 867,
+     "repos": 497,
+     "trajectories": 9665
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 216,
+     "tasks": 206,
+     "repos": 166,
+     "trajectories": 2122
+    }
+   },
+   "multi_type": {
+    "any": {
+     "branchpoints": 5689,
+     "tasks": 1693,
+     "repos": 833,
+     "trajectories": 17459
+    },
+    "initial": {
+     "branchpoints": 2,
+     "tasks": 2,
+     "repos": 2,
+     "trajectories": 19
+    },
+    "later": {
+     "branchpoints": 5687,
+     "tasks": 1693,
+     "repos": 833,
+     "trajectories": 17455
+    },
+    "single": {
+     "branchpoints": 3741,
+     "tasks": 1608,
+     "repos": 793,
+     "trajectories": 15814
+    },
+    "repeated": {
+     "branchpoints": 1483,
+     "tasks": 1114,
+     "repos": 594,
+     "trajectories": 12144
+    },
+    "strong": {
+     "branchpoints": 256,
+     "tasks": 249,
+     "repos": 190,
+     "trajectories": 2767
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 1840,
+     "tasks": 800,
+     "repos": 458,
+     "trajectories": 7773
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 129,
+     "tasks": 126,
+     "repos": 107,
+     "trajectories": 1293
+    }
+   },
+   "same_type": {
+    "any": {
+     "branchpoints": 4291,
+     "tasks": 1557,
+     "repos": 797,
+     "trajectories": 14849
+    },
+    "initial": {
+     "branchpoints": 845,
+     "tasks": 845,
+     "repos": 507,
+     "trajectories": 9873
+    },
+    "later": {
+     "branchpoints": 3446,
+     "tasks": 1451,
+     "repos": 755,
+     "trajectories": 10658
+    },
+    "single": {
+     "branchpoints": 2759,
+     "tasks": 1380,
+     "repos": 741,
+     "trajectories": 13628
+    },
+    "repeated": {
+     "branchpoints": 1073,
+     "tasks": 857,
+     "repos": 540,
+     "trajectories": 9547
+    },
+    "strong": {
+     "branchpoints": 172,
+     "tasks": 167,
+     "repos": 147,
+     "trajectories": 1774
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 1424,
+     "tasks": 695,
+     "repos": 425,
+     "trajectories": 6849
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 87,
+     "tasks": 87,
+     "repos": 76,
+     "trajectories": 891
+    }
+   },
+   "type_pairs_multi_type_single": {
+    "other+read": 982,
+    "read+search": 488,
+    "read+test": 431,
+    "search+test": 292,
+    "run+test": 247,
+    "read+run": 231,
+    "read+search+test": 207,
+    "run+search": 147,
+    "other+read+search": 129,
+    "read+run+search": 69,
+    "run+search+test": 64,
+    "read+run+test": 48,
+    "other+test": 42,
+    "other+read+test": 40,
+    "read+run+search+test": 37
+   },
+   "depth_hist_multi_type_single": {
+    "1": 1037,
+    "3": 1296,
+    "2": 232,
+    "5": 302,
+    "4": 660,
+    "6": 122,
+    "7": 45,
+    "8": 20,
+    "9": 18,
+    "10": 7,
+    "0": 2
+   }
+  },
+  "normalised": {
+   "all": {
+    "any": {
+     "branchpoints": 10592,
+     "tasks": 1738,
+     "repos": 859,
+     "trajectories": 19579
+    },
+    "initial": {
+     "branchpoints": 847,
+     "tasks": 847,
+     "repos": 507,
+     "trajectories": 9892
+    },
+    "later": {
+     "branchpoints": 9745,
+     "tasks": 1737,
+     "repos": 858,
+     "trajectories": 19265
+    },
+    "single": {
+     "branchpoints": 6752,
+     "tasks": 1738,
+     "repos": 859,
+     "trajectories": 19573
+    },
+    "repeated": {
+     "branchpoints": 2574,
+     "tasks": 1521,
+     "repos": 784,
+     "trajectories": 17457
+    },
+    "strong": {
+     "branchpoints": 431,
+     "tasks": 408,
+     "repos": 298,
+     "trajectories": 4463
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 3446,
+     "tasks": 868,
+     "repos": 498,
+     "trajectories": 9673
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 219,
+     "tasks": 209,
+     "repos": 167,
+     "trajectories": 2154
+    }
+   },
+   "multi_type": {
+    "any": {
+     "branchpoints": 5999,
+     "tasks": 1694,
+     "repos": 834,
+     "trajectories": 17492
+    },
+    "initial": {
+     "branchpoints": 2,
+     "tasks": 2,
+     "repos": 2,
+     "trajectories": 19
+    },
+    "later": {
+     "branchpoints": 5997,
+     "tasks": 1694,
+     "repos": 834,
+     "trajectories": 17488
+    },
+    "single": {
+     "branchpoints": 3858,
+     "tasks": 1610,
+     "repos": 795,
+     "trajectories": 15835
+    },
+    "repeated": {
+     "branchpoints": 1493,
+     "tasks": 1116,
+     "repos": 595,
+     "trajectories": 12162
+    },
+    "strong": {
+     "branchpoints": 257,
+     "tasks": 250,
+     "repos": 190,
+     "trajectories": 2775
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 1916,
+     "tasks": 802,
+     "repos": 460,
+     "trajectories": 7787
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 130,
+     "tasks": 127,
+     "repos": 107,
+     "trajectories": 1301
+    }
+   },
+   "same_type": {
+    "any": {
+     "branchpoints": 4593,
+     "tasks": 1580,
+     "repos": 812,
+     "trajectories": 15039
+    },
+    "initial": {
+     "branchpoints": 845,
+     "tasks": 845,
+     "repos": 507,
+     "trajectories": 9873
+    },
+    "later": {
+     "branchpoints": 3748,
+     "tasks": 1486,
+     "repos": 772,
+     "trajectories": 10994
+    },
+    "single": {
+     "branchpoints": 2894,
+     "tasks": 1399,
+     "repos": 754,
+     "trajectories": 13744
+    },
+    "repeated": {
+     "branchpoints": 1081,
+     "tasks": 864,
+     "repos": 544,
+     "trajectories": 9612
+    },
+    "strong": {
+     "branchpoints": 174,
+     "tasks": 169,
+     "repos": 149,
+     "trajectories": 1798
+    },
+    "single_no_laya_overlap": {
+     "branchpoints": 1530,
+     "tasks": 710,
+     "repos": 435,
+     "trajectories": 6928
+    },
+    "strong_no_laya_overlap": {
+     "branchpoints": 89,
+     "tasks": 89,
+     "repos": 78,
+     "trajectories": 915
+    }
+   },
+   "type_pairs_multi_type_single": {
+    "other+read": 983,
+    "read+search": 536,
+    "read+test": 440,
+    "search+test": 304,
+    "run+test": 253,
+    "read+run": 237,
+    "read+search+test": 212,
+    "run+search": 152,
+    "other+read+search": 129,
+    "read+run+search": 74,
+    "run+search+test": 64,
+    "read+run+test": 49,
+    "other+test": 44,
+    "other+read+test": 41,
+    "read+run+search+test": 37
+   },
+   "depth_hist_multi_type_single": {
+    "1": 1037,
+    "3": 1296,
+    "2": 232,
+    "5": 335,
+    "4": 668,
+    "6": 152,
+    "7": 67,
+    "8": 31,
+    "9": 22,
+    "10": 16,
+    "0": 2
+   }
+  }
+ },
+ "verified_identical_workspace_branchpoints": 0,
+ "verified_identical_workspace_note": "no workspace snapshots in the dataset",
+ "discovery_threshold_met": true,
+ "examples": 21,
+ "seconds": 657.7
+}

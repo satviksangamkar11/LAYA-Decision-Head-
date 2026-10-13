@@ -1894,3 +1894,37 @@ Reading:
   and operator baselines (67%). The probe learns which kinds of edits tend to survive the tests, not whether this fix is correct in this situation.
 - No demonstrated correctness discrimination by this representation and probe. Development diagnostic on TRAIN states; 15 states; synthetic edits;
   "pass" = passes the recorded tests.
+
+### 16.27 Nebius branching count (Kaggle CPU): threshold met in count, NOT in substance (2026-10-14, 00:10 IST)
+
+User GO (chat, 2026-10-13) with the frozen branch definition (exact history = headline, normalised = exploratory, verified workspace = 0; outcomes
+observational; LAYA overlap separate). Filtered upload: the 1,741 mixed-outcome tasks (19,602 runs, 859 repos; 361 repos in LAYA's pretraining
+source list of 858; the recorded overlap with the full nebius set is 618). Credential scan before upload (`tools/secret_scan_parquet_v1.py`): 24 matches,
+all fixtures (10 x the AWS documentation key AKIAIOSFODNN7EXAMPLE; 14 private-key headers inside test assertions, 0 followed by key material).
+Bundle `results/raw/nebius-branch-bundle-v1-20261013T174558Z`, kernel laya-nebius-branch (`kaggle/nebius_branch_count_v1.py`, 658 s), output
+`results/raw/nebius-branch-run-20261013T182226Z` (BRANCH_REPORT.json, BRANCH_EXAMPLES.json). Stage-1 parse gate passed (50 tasks: parse 100%,
+tool calls matched 98.4%).
+
+| stage (EXACT history matches; headline) | branchpoints | tasks | repos |
+|---|---|---|---|
+| mixed-outcome tasks parsed (19,602 runs, parse 100%, tool calls matched 98.5%) | - | 1,741 | 859 |
+| identical history, then >= 2 different actions | 9,980 | 1,738 | 859 |
+| ... with >= 2 action TYPES | 5,689 | 1,693 | 833 |
+| ... and different resolve rates (single tier) | 3,741 | 1,608 | 793 |
+| ... >= 2 runs per branch (repeated) | 1,483 | 1,114 | 594 |
+| ... >= 3 runs per branch and gap >= 0.3 (strong) | 256 | 249 | 190 |
+| strong, excluding the 361 LAYA-overlap repos | 129 | 126 | 107 |
+| verified identical workspace | 0 (no snapshots) | | |
+
+Normalised matching adds about 3% (multi-type single tier 3,858). Different-type branchpoints are almost all later than the first action (2 initial).
+
+Audit of the 25 examples:
+- Nearly every branch is an early, interchangeable orientation step (depth mostly 1-5): `view /workspace/<repo>` vs `cd <repo> && pwd`,
+  `pytest --version` vs `find . -name "*test*"`, README vs CONTRIBUTING. These do not change the task; the outcome gaps (e.g. 4/4 vs 11/17) come from
+  later steps.
+- None of the 15 most common type pairs (about 87% of the single-tier multi-type branchpoints) involves edit or stop; the top pair is other+read (982),
+  mostly `pwd` vs a directory view. Histories stay identical only through scripted setup; once real work starts, outputs differ.
+- With 3-17 runs per branch over thousands of branchpoints, many >= 0.3 gaps are expected by chance.
+
+Reading: the discovery threshold (>= 300 / >= 100 repos, exact) is met numerically, but natural exact-history branching does NOT supply trustworthy
+labels for the decisions that matter (when to edit, test, stop). Label building from this source in its current form: HOLD.

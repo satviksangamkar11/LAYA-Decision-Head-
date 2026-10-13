@@ -1,0 +1,17 @@
+{
+ "source": "nebius/SWE-rebench-openhands-trajectories (CC-BY-4.0), data/nebius_swe_rebench/trajectories.parquet",
+ "filter": "instances with >= 1 resolved and >= 1 unresolved run",
+ "columns": [
+  "trajectory_id",
+  "instance_id",
+  "repo",
+  "trajectory",
+  "resolved",
+  "exit_status"
+ ],
+ "runs": 19602,
+ "tasks": 1741,
+ "repos": 859,
+ "repos_in_laya_pretraining_overlap": 361,
+ "sha256": "487d1b6946863cfccbde70f486c9e413e6d2e591f25233b88934721a8c218652"
+}

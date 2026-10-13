@@ -221,3 +221,11 @@ test / edit / ask / stop, labelled by evidence of task progress, never by "the a
 3. **Small Kaggle comparison:** a simple outcome-trained probe first (the existing scorers were trained for imitation and are not a fair judge), against
    rule baselines R1-R6 and a random-head system with every shortcut control; pretrained LAYA only if the labels prove informative.
 4. **Final gate:** task success and tool cost with and without the decision system on independent problems; CAL / TEST protected; VAL is development.
+
+### 10.1 Branching count result (2026-10-14): HOLD on nebius exact branching as a label source
+
+3,741 exact branchpoints with different action types (793 repos), but they are early orientation steps (view vs pwd, pytest --version vs find); the
+decisions that matter are absent because histories stop matching once real work starts. Options for the user: (a) controlled continuations from our 115
+TRAIN replay states (saved proposals + Fable's action, each continued by one fixed policy in the sandbox): same snapshot, so the environment is
+verified identical; (b) an abstracted-state matching tier on nebius (same files changed + same last test result), clearly labelled exploratory and
+observational; (c) stop pursuing outcome labels for next actions and keep the rule baselines.

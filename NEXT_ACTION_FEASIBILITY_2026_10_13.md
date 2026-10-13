@@ -80,3 +80,19 @@ them, repo-disjoint). Otherwise -> fall back to executing the saved proposals at
 
 Caveats: a shared identical history is rarer than a shared task; downstream resolve rate mixes the action's effect with later steps (needs >= 3 runs
 per branch and is still noisy); the runs are from one generator (Qwen3-Coder-480B), so labels describe that agent's continuations.
+
+## 6. Result of the branching count (2026-10-14, 00:10 IST; HANDOFF 16.27)
+
+| stage (EXACT history matches; headline) | branchpoints | tasks | repos |
+|---|---|---|---|
+| mixed-outcome tasks parsed (19,602 runs, parse 100%, tool calls matched 98.5%) | - | 1,741 | 859 |
+| identical history, then >= 2 different actions | 9,980 | 1,738 | 859 |
+| ... with >= 2 action TYPES | 5,689 | 1,693 | 833 |
+| ... and different resolve rates (single tier) | 3,741 | 1,608 | 793 |
+| ... >= 2 runs per branch (repeated) | 1,483 | 1,114 | 594 |
+| ... >= 3 runs per branch and gap >= 0.3 (strong) | 256 | 249 | 190 |
+| strong, excluding the 361 LAYA-overlap repos | 129 | 126 | 107 |
+| verified identical workspace | 0 (no snapshots) | | |
+
+The count passes the discovery threshold, but the audit shows the branches are early, interchangeable orientation moves; the decisions that matter
+(edit, test after a change, stop) almost never occur at an exactly shared history. Natural exact branching is not a trustworthy label source as is.
