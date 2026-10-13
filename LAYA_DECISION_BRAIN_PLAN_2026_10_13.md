@@ -113,3 +113,77 @@ Proposed next steps (each needs GO; compute on Kaggle; nothing started):
    LAYA's choose / score / none primitives fit.
 3. **Execution-in-the-loop selector for fixes:** generator -> sandbox -> pick passing; LAYA only ranks among passing candidates or decides when to stop.
 4. The option-A text route (LAYA with its own encoder) stays a candidate for steps 2-3, pending the user's decision on using the released encoder frozen.
+
+## 9. Next-step direction (user, chat 2026-10-13) and the diff-focused diagnostic protocol (FOR REVIEW, not launched)
+
+**Direction.** The mutation result is reported on all 19 states (primary), with the 7 states no scorer trained on reported separately; no 18-state
+substitute. The next, optional experiment is a bounded diff-focused feature diagnostic on the same 19 states. If it fails: close the code-patch ranking
+line for the current frozen features and prioritise generate candidates -> run sandbox tests -> keep passing candidates, with LAYA used for decisions
+such as read / test / ask / stop and for choosing among several passing candidates. Before any broader training, solve the shortage of informative
+held-out pools. Correction to the record: capture v2 did not change the total-token limit; it routes a pool whose COMBINED batch exceeds it through
+separate per-option forward passes and keeps the individual forward-pass guard (prefix + one option must fit; nothing truncated).
+
+### 9.1 Question
+
+Can ANY scorer on frozen Qwen3-4B features tell Fable's passing fix from its one-token-broken copies when the features describe the edited region
+instead of the whole option?
+
+### 9.2 Data (unchanged)
+
+- The 19 pools of `results/raw/mutation-score-bundle-v1-20261013T104646Z`: same contexts, options, option order (sha256), request hashes, private key.
+  17 pools of 5 options, 2 of 4. 19 states = 19 distinct trajectories. 7 states were never in any scorer's training pools.
+- Labels: v1.1 execution outcomes (Fable's action PASS; mutants WORSE, crash-free). Same backbone revision, layers [18, 24, 30], fp16 storage.
+
+### 9.3 Features (new capture protocol, versioned `diff_capture_v1`)
+
+- **Edit sites, label-free:** tokenise each option exactly as the existing capture does (independent suffix after the same prefix); align every option's
+  token ids to the pool's first option in hash order (difflib on token ids); the pool's sites = every token position where any option differs. Every
+  option is represented over ALL sites of its pool (its own tokens at each site), so no option's span size reveals which option is the reference.
+  The private key is never read by the capture.
+- **Span feature:** mean hidden state over each option's site tokens +- w tokens. Primary: w = 8, centred by the pool mean (option minus the mean of
+  its pool's options). Secondary (reported, not decisive): w = 8 uncentred; w = 32 centred.
+- Taken from the same forward pass as the existing mean-pooled features (packed when the combined batch fits, otherwise per-option passes with the
+  individual guard), with real context (B) and with the neutral prefix (A).
+
+### 9.4 Evaluation
+
+- **Linear probe, out of fold, grouped:** leave one state (= one trajectory) out, 19 folds. Training data: the other 18 pools' options, label 1 for the
+  passing fix, 0 for each mutant. Same recipe as the project's probe (standardise, logistic regression, class_weight balanced); C from {1e-3, 1e-2, 1e-1}
+  chosen by an inner grouped 3-fold CV on the 18 training states only. Prediction: the held-out pool's highest-scoring option.
+- **Metric:** per state, 1 if the top choice is the passing fix. Primary: mean over all 19 states. Reported separately: the 7 unseen states.
+- **Controls (same folds):** (a) the same probe on the existing mean-pooled features (expected near chance; ties the result to the feature change);
+  (b) the no-context (A) span features; (c) option-only baselines: uniform random (1/n), shortest, longest; (d) **lexical baseline:** the same probe
+  on a bag of the option's own token ids at the sites (no Qwen), to catch "the probe learned which tokens a mutation produces"; (e) **label-permutation
+  null:** 1,000 runs with the positive option chosen at random inside each training pool; p = share of runs with mean top-1 >= the observed one.
+
+### 9.5 Validation checks (stop on any failure, before any evaluation)
+
+1. Request, option and order hashes identical to the bundle; the key file is not among the capture inputs.
+2. Whole-option span reproduces the existing mean-pooled features: cosine >= 0.999 against `laya-mutation-features-v2` for every option (B and A).
+3. Every option has a non-empty site span; every pool has >= 1 site; all values finite.
+4. Deterministic repeat on 2 pools (identical tensors).
+5. The one over-limit pool uses per-option passes with each pass within the guard.
+
+### 9.6 Pre-registered criteria (primary feature, all 19 states)
+
+| Outcome | Rule | Decision |
+|---|---|---|
+| PASS | top-1 >= 50% (>= 10 of 19; chance is about 21%) AND permutation p < 0.05 AND >= 15 points above the lexical baseline | frozen features can see the bug when focused on the edit; consider a diff-focused scorer as a separate, later proposal |
+| SHORTCUT | the first two hold but the lexical margin fails | treated as FAIL (token identity, not understanding) |
+| FAIL | top-1 < 50% or p >= 0.05 | close the code-patch ranking line for the current frozen features; prioritise generate -> sandbox -> keep passing |
+
+The 7 unseen states and the no-context result are reported, not decisive (too few). With 19 states only a large effect can be detected: 10 of 19 against
+a chance of about 0.21 has a one-sided binomial p of about 0.002 (estimate).
+
+### 9.7 Kaggle runtime and cost (estimates, unmeasured for this protocol)
+
+- Capture, T4 GPU: model download and load about 2 min, validation about 6 min, B about 5 min and A about 2 min (the earlier capture of the same pools
+  took 260 s and 98 s; site spans come from the same forward pass) -> about 15-20 min.
+- Probe evaluation, Kaggle CPU: 19 folds x 3 C x 4 feature sets + lexical baseline: under 2 min; permutation null 1,000 x 19 folds: about 5-15 min.
+- Cost Rs 0 (free Kaggle quota; about 0.3 GPU hours of the weekly allowance). No NVIDIA calls.
+
+### 9.8 What needs the user's decision before launch
+
+1. GO for the capture kernel (new versioned capture script) and the CPU evaluation kernel.
+2. **Upload of the 19 states' pass / fail labels** (TRAIN, execution-verified) to a private Kaggle dataset: the probe must be trained inside the
+   evaluation kernel. Until now these labels stayed on this PC.
