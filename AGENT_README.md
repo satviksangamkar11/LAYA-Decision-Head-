@@ -93,6 +93,12 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 14:00 IST: GLM-5.3 low-effort pilot stopped at API verification
+
+- Call 1 HTTP 504 after 302 s; call 2 HTTP 200 with a decodable action (Read + Bash). The registered rule needs both: stopped, nothing generated.
+- Both stopped verifications (gpt-oss-20b, GLM-low) failed on the second of two SIMULTANEOUS calls on KEY_2 (504 at the gateway's ~300 s limit), which
+  points to the gateway / concurrency rather than the models. A sequential re-check needs a new registration and the user's GO. HANDOFF 16.21; ledger 66.
+
 ## UPDATE - 2026-10-13, 13:40 IST: gpt-oss-20b pilot stopped at API verification
 
 - Two verification calls on the TRAIN request py-incident-cli:1: HTTP 504 after 302 s; HTTP 200 with an empty answer (235 reasoning characters). Both

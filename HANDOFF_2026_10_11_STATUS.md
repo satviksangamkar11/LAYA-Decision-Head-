@@ -1753,3 +1753,12 @@ local Qwen capture only after a parity gate; no Kaggle; expansion gate: >= 2 of 
 - Not attempted: the local Qwen capture and its parity gate (the scoring step depends on generation). The expansion gate was not reached.
 - Pre-flight facts recorded for a later attempt: the 5 problems are canonical VAL, their recorded test commands have no display filter, and the VAL oracle
   check shows each fails before Fable's action and passes after it (exit 1 -> 0).
+
+### 16.21 GLM-5.3 low-effort pilot: STOPPED at API verification (2026-10-13, 14:00 IST)
+
+User GO (chat, 2026-10-13: "use glm itself with low accuracy" -> "Go complete report update"). Registration `tools/val_outcome_glmlow_v1.py` (GLM-5.3,
+reasoning_effort low, temperature 1.0, top_p 1.0, streamed, 32,768 tokens; the 5 problems registered for gpt-oss-20b; same gate and rules).
+- Verification (`results/raw/glmlow-verify-20261013T082223Z`): call 1 HTTP 504 after 302 s; call 2 HTTP 200, finish stop, a decodable action (Read + Bash). The registered rule needs both, so
+  the pilot stopped: no VAL request sent, nothing generated, executed, captured or scored.
+- Observation: in both stopped verifications (gpt-oss-20b and GLM-low) the two calls ran at the same time on KEY_2 and the slower one got the gateway's
+  504 at ~302 s. This points to the gateway / concurrency, not to the model; a sequential verification would need a new registration (user decision).

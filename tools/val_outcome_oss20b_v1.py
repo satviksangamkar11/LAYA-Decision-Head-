@@ -43,14 +43,14 @@ PREREG = {
 }
 
 
-def verify():
+def verify(settings=SETTINGS, prereg=PREREG, tag="oss20b"):
     import judge_qual_v1 as J
     import fable_teacher_runner as RR
     req = next(r for r in (json.loads(l) for l in gzip.open(L2 / "upload/requests_level2.jsonl.gz", "rt", encoding="utf-8")) if r["decision_id"] == VERIFY_ID)
-    out = V.OUT.parent / ("oss20b-verify-%s" % datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
+    out = V.OUT.parent / ("%s-verify-%s" % (tag, datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")))
     out.mkdir()
-    (out / "PREREG.json").write_text(json.dumps(PREREG, indent=1), "utf-8")
-    stats = J.run_jobs([dict(id="verify_%d" % i, payload=dict(SETTINGS, messages=req["messages"])) for i in (1, 2)], out, inflight=2, rpm=V.RPM)
+    (out / "PREREG.json").write_text(json.dumps(prereg, indent=1), "utf-8")
+    stats = J.run_jobs([dict(id="verify_%d" % i, payload=dict(settings, messages=req["messages"])) for i in (1, 2)], out, inflight=2, rpm=V.RPM)
     ctx = json.loads((L2 / "level2_requests/contexts" / (RR.key_of(VERIFY_ID) + ".json")).read_text("utf-8"))
     checks = []
     for i in (1, 2):
