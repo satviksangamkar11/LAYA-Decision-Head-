@@ -93,6 +93,11 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 14:15 IST: low-effort GLM verification v2 (sequential) stopped on answer format
+
+- Sequential calls on KEY_2: both HTTP 200 (no 504; consistent with, not proof of, the concurrency explanation). Call 1 decodable; call 2 wrapped the
+  action in a JSON list (wrong_top_level): stopped, nothing generated. Blocker: answer-format reliability at low effort / temperature 1.0. HANDOFF 16.22; ledger 67.
+
 ## UPDATE - 2026-10-13, 14:00 IST: GLM-5.3 low-effort pilot stopped at API verification
 
 - Call 1 HTTP 504 after 302 s; call 2 HTTP 200 with a decodable action (Read + Bash). The registered rule needs both: stopped, nothing generated.

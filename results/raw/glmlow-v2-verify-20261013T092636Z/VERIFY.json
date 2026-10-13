@@ -1,0 +1,34 @@
+{
+ "passed": false,
+ "sequential": true,
+ "checks": [
+  {
+   "call": 1,
+   "alias": "KEY_2",
+   "http": 200,
+   "seconds": 81.78,
+   "finish_reason": "stop",
+   "answer_chars": 88,
+   "decodable": true,
+   "tools": [
+    "Read"
+   ],
+   "why_not": null,
+   "answer_head": "{\"reply\":null,\"calls\":[{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_incidentctl.py\"}}]}",
+   "passed": true
+  },
+  {
+   "call": 2,
+   "alias": "KEY_2",
+   "http": 200,
+   "seconds": 79.53,
+   "finish_reason": "stop",
+   "answer_chars": 90,
+   "decodable": false,
+   "tools": [],
+   "why_not": "wrong_top_level",
+   "answer_head": "[{\"reply\":null,\"calls\":[{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_incidentctl.py\"}}]}]",
+   "passed": false
+  }
+ ]
+}

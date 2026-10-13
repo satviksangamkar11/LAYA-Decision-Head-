@@ -350,7 +350,8 @@ problems whose recorded test fails before the fix; every candidate ran twice in 
 
 On the one informative problem every scorer run picked a failing fix: one problem, no conclusion either way. The pilot was not expanded. A second
 pilot with gpt-oss-20b stopped at API verification (one gateway timeout, one empty answer), and a third with GLM-5.3 at low reasoning effort stopped the
-same way (one gateway timeout, one valid answer); in both, the failing call was the second of two simultaneous calls on one key. Nothing was generated. The sandbox now also replays Go,
+same way (one gateway timeout, one valid answer); in both, the failing call was the second of two simultaneous calls on one key. A sequential re-check
+had no timeout but one of its two answers wrapped the action in a list, which the decoder rejects, so that pilot also stopped. Nothing was generated. The sandbox now also replays Go,
 C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
 
 ### 3. Transfer to new trajectories (held-out, pre-registered)

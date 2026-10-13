@@ -1762,3 +1762,12 @@ reasoning_effort low, temperature 1.0, top_p 1.0, streamed, 32,768 tokens; the 5
   the pilot stopped: no VAL request sent, nothing generated, executed, captured or scored.
 - Observation: in both stopped verifications (gpt-oss-20b and GLM-low) the two calls ran at the same time on KEY_2 and the slower one got the gateway's
   504 at ~302 s. This points to the gateway / concurrency, not to the model; a sequential verification would need a new registration (user decision).
+
+### 16.22 GLM-5.3 low-effort verification v2 (sequential): STOPPED on answer format (2026-10-13, 14:15 IST)
+
+User GO (chat, 2026-10-13): a new, separately registered verification with sequential calls; the five-problem pilot only if both pass.
+`tools/val_outcome_glmlow_v1.py verify_seq` (PREREG_V2), output `results/raw/glmlow-v2-verify-20261013T092636Z` (VERIFY.json, CONCURRENCY.json, raw responses).
+- Call 1 (alone): HTTP 200, 82 s, decodable Read action: passed. Call 2 (alone, after call 1): HTTP 200, 80 s, the same action wrapped in a JSON list:
+  the v3t decoder rejects it (wrong_top_level): failed. Pilot stopped; no VAL request sent; decoder and gate unchanged.
+- No 504 with sequential calls (2 of 2 answered), consistent with the concurrency explanation of the earlier 504s but not proof of it.
+- The new blocker is answer-format reliability at reasoning_effort low / temperature 1.0 (1 of 2 answers decodable).
