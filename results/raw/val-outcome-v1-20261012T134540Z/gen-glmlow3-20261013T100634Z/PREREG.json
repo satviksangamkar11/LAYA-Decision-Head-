@@ -1,0 +1,56 @@
+{
+ "written": "2026-10-13, after verification v2 (call 2 wrapped its action in a JSON list) and before any v3 generation",
+ "approved_by": "user, chat 2026-10-13: GO glmlow-v3: strict singleton-list normalization, verified on the saved responses, then the bounded five-problem pilot; temperature unchanged; no repeated verification loops",
+ "generator": {
+  "model": "z-ai/glm-5.3",
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "reasoning_effort": "low",
+  "stream": true,
+  "max_tokens": 32768,
+  "samples": 5,
+  "why": "a weaker setting of the endpoint that worked (GLM-5.3 answered 25 of 25 streamed requests in the GLM-max pilot): reasoning_effort low (accepted by this endpoint on 2026-10-11, tools/judge_qual_v1.py 'glm'), temperature 1.0 for more variety between the 5 samples, top_p 1.0; fixed before the first call"
+ },
+ "verification": "OFFLINE: the saved responses of verification v2 (and v1 call 2) re-decoded with the normalization must all decode; no new API verification calls. Transport failures (no HTTP 200) are retried by the generation loop; format failures are INVALID samples and never stop the pilot",
+ "problems": [
+  "fable5:py-event-sched:1",
+  "fable5:py-trie-suggest:1",
+  "fable5:ps-shiftbrief:2",
+  "fable5:ps-loadsheet:1",
+  "fable5:ps-fleetpatch:1"
+ ],
+ "problem_choice": "the 5 problems registered for the stopped gpt-oss-20b pilot (positions 6-10 of the hash order); none was ever sent to a model",
+ "prompt": "requests_all_23_not_uploaded.jsonl.gz messages unchanged",
+ "call_logic": "judge_qual_v1.run_jobs: <= 5 in flight per key, <= 39 sends per key per minute, a rate-limit response cools that key 60 s and re-queues; a sample with no HTTP 200 gets a new attempt id (hard stop 20); a 200 answer is final; all 25 raw responses kept",
+ "execution": "tools/val_outcome_glm_v1.py execute <pilot> a3 (amendments 2 and 3 from the start; baseline must reproduce the recorded failure twice)",
+ "features": "local GPU capture with tools/val_capture_local.py (same representation as the Kaggle capture); used ONLY after its parity gate passes against the Kaggle capture of the GLM pilot pools (every hq / ho cosine >= 0.999 and identical top choices); otherwise scoring stops",
+ "selectors": "laya_v4 (rebuilt coding head x3), random_head_v4 (rebuilt x9), laya_baseline_v1 (x3), linear_probe (refit on the 303 TRAIN pools), first valid candidate, random among valid; raw sample 1 reported separately. End-to-end (invalid = fail) and valid-only reported apart",
+ "expansion_gate": "continue to the remaining 13 VAL problems only if at least 2 of the 5 problems have >= 1 PASS and >= 1 FAIL among valid candidates; otherwise stop. Generator and threshold are not changed after seeing results",
+ "aim": "more pools with BOTH passing and failing valid candidates; all candidates of a pool share one author and one setting",
+ "limit": "a positive selector result shows separation of passing from failing fixes among real model errors; it does not show help for a small local model",
+ "monitoring": "every send's start, end, key, latency and HTTP status are reconstructed from the ledger, with the number of requests in flight on that key at its start, so a recurrence of 504s during generation can be tied to concurrency or not",
+ "normalization": "answer text that parses as a JSON list of EXACTLY one object whose keys are EXACTLY {reply, calls} is replaced by that object; anything else is passed unchanged to the unchanged v3t decoder (which validates schema and tool safety). The raw text is kept next to the normalized text. Applies to v3 only",
+ "offline_verification": [
+  {
+   "file": "results\\raw\\glmlow-v2-verify-20261013T092636Z\\responses\\verify_1.json",
+   "http": 200,
+   "normalized": false,
+   "decodable": true,
+   "why_not": null
+  },
+  {
+   "file": "results\\raw\\glmlow-v2-verify-20261013T092636Z\\responses\\verify_2.json",
+   "http": 200,
+   "normalized": true,
+   "decodable": true,
+   "why_not": null
+  },
+  {
+   "file": "results\\raw\\glmlow-verify-20261013T082223Z\\responses\\verify_2.json",
+   "http": 200,
+   "normalized": false,
+   "decodable": true,
+   "why_not": null
+  }
+ ]
+}

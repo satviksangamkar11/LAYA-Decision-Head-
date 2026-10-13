@@ -351,7 +351,13 @@ problems whose recorded test fails before the fix; every candidate ran twice in 
 On the one informative problem every scorer run picked a failing fix: one problem, no conclusion either way. The pilot was not expanded. A second
 pilot with gpt-oss-20b stopped at API verification (one gateway timeout, one empty answer), and a third with GLM-5.3 at low reasoning effort stopped the
 same way (one gateway timeout, one valid answer); in both, the failing call was the second of two simultaneous calls on one key. A sequential re-check
-had no timeout but one of its two answers wrapped the action in a list, which the decoder rejects, so that pilot also stopped. Nothing was generated. The sandbox now also replays Go,
+had no timeout but one of its two answers wrapped the action in a list, which the decoder rejects, so that pilot also stopped.
+
+A registered v3 of the low-effort pilot then ran (strict unwrap of a single-object list, local feature capture after a parity check, no Kaggle):
+25 of 25 answered with no timeouts, but only 5 of 25 answers were valid (genuine model format errors), the oracle solved 2 of 5 problems, and only
+1 problem was informative, so the expansion gate failed. On that problem every learned scorer picked the passing fix; end to end every learned
+scorer solved 2 of 5 against 1 for the first valid candidate. Across both pilots there are two informative problems, one going each way: no
+selector, LAYA included, is shown to help or to hurt. The sandbox now also replays Go,
 C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
 
 ### 3. Transfer to new trajectories (held-out, pre-registered)

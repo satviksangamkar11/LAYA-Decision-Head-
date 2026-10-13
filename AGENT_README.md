@@ -93,6 +93,14 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 15:30 IST: low-effort GLM pilot v3 complete; expansion gate failed
+
+- Offline verification passed (3 saved answers decode; strict unwrap). Generation 25/25 HTTP 200, 0 timeouts (up to 5 in flight per key).
+- Only 5 of 25 valid (model format errors at low effort). Oracle 2 of 5; 1 informative problem (py-event-sched:1): gate needs 2, FAILED, no expansion.
+- Local capture parity passed (0.999992 / 0.999957; 12/12 top choices); local scoring reproduced Kaggle 128/128. Every learned scorer picked the passing
+  fix on the informative problem; end to end 2 of 5 each vs first valid 1. Execution bug (single-call actions dropped) fixed as OUTCOMES_A3b; GLM-max
+  pilot unaffected. HANDOFF 16.23; ledger 68.
+
 ## UPDATE - 2026-10-13, 14:15 IST: low-effort GLM verification v2 (sequential) stopped on answer format
 
 - Sequential calls on KEY_2: both HTTP 200 (no 504; consistent with, not proof of, the concurrency explanation). Call 1 decodable; call 2 wrapped the

@@ -19,14 +19,16 @@ from pathlib import Path
 import numpy as np
 import torch
 
-find = lambda pat: sorted(glob.glob("/kaggle/input/**/" + pat, recursive=True))
+import os
+ROOTS = os.environ.get("SCORE_ROOTS", "/kaggle/input").split(os.pathsep)   # local runs (user, 2026-10-13: no Kaggle) list the input folders here
+find = lambda pat: sorted(f for r in ROOTS for f in glob.glob(os.path.join(r, "**", pat), recursive=True))
 SRC = Path(find("pack5.pt")[0]).parent
-sys.argv = [sys.argv[0], str(SRC), "/kaggle/working"]
+sys.argv = [sys.argv[0], str(SRC), os.environ.get("SCORE_OUT", "/kaggle/working")]
 sys.path.insert(0, str(SRC))
 import exp4lib as L  # noqa: E402
 from head import DecisionHead  # noqa: E402
 
-OUT = Path("/kaggle/working")
+OUT = Path(os.environ.get("SCORE_OUT", "/kaggle/working"))
 
 
 def main():
@@ -74,6 +76,7 @@ def main():
     out = dict(pools=[dict(decision_id=p["decision_id"], option_sha256=p["option_sha256"], n_options=int(p["ho"].shape[0])) for p in pools["B"]],
                integrity=integrity, all_rebuilt_reproduce=all(x["reproduces_46_val_picks"] for x in integrity), runs=runs,
                note="probabilities in each pool's request option order; variant B real context, A neutral prefix (no context)")
+    OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "SCORES.json").write_text(json.dumps(out, indent=1), "utf-8")
     print("integrity", json.dumps(integrity), flush=True)
     for k, v in runs.items():

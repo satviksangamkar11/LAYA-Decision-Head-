@@ -1,0 +1,42 @@
+{
+ "rule": "(fixed here before any run): a different device and kernel path produced the TRAIN features (Kaggle T4). Before VAL features from\nthis script are used, the same script captures TRAIN pools that Kaggle already captured and tools/val_capture_local.py parity compares them:\nevery hq and ho cosine >= 0.999 (the capture's own packed-vs-plain threshold) and the saved adapters' top choice identical on those pools.",
+ "pools": 4,
+ "worst_cosine": 0.999992,
+ "head_top_choice": {
+  "final-s0": {
+   "pools": 4,
+   "same_top_choice": 4
+  },
+  "final-s1": {
+   "pools": 4,
+   "same_top_choice": 4
+  },
+  "final-s2": {
+   "pools": 4,
+   "same_top_choice": 4
+  }
+ },
+ "passed": true,
+ "rows": [
+  {
+   "decision_id": "fable5:py-role-hierarchy:1",
+   "cos_min": 0.999998,
+   "max_abs_diff": 0.0469
+  },
+  {
+   "decision_id": "fable5:py-tree-filters:3",
+   "cos_min": 0.999993,
+   "max_abs_diff": 0.125
+  },
+  {
+   "decision_id": "fable5:py-inventory-log:2",
+   "cos_min": 0.999997,
+   "max_abs_diff": 0.125
+  },
+  {
+   "decision_id": "fable5:bash-retryrun:2",
+   "cos_min": 0.999992,
+   "max_abs_diff": 0.125
+  }
+ ]
+}

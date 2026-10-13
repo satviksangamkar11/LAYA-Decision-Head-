@@ -4,6 +4,7 @@ requests, decoder, sandbox and amendments 2 + 3; local Qwen capture only after i
 
   verify | gen      (Windows)  then the same decode / execute / capture / score steps as the earlier pilots
 """
+import json
 import sys
 from pathlib import Path
 
@@ -36,8 +37,53 @@ PREREG_V2 = dict(PREREG,
                             "on that key at its start, so a recurrence of 504s during generation can be tied to concurrency or not")
 
 
+PREREG_V3 = dict(PREREG_V2,
+                 written="2026-10-13, after verification v2 (call 2 wrapped its action in a JSON list) and before any v3 generation",
+                 approved_by="user, chat 2026-10-13: GO glmlow-v3: strict singleton-list normalization, verified on the saved responses, then the bounded "
+                             "five-problem pilot; temperature unchanged; no repeated verification loops",
+                 normalization="answer text that parses as a JSON list of EXACTLY one object whose keys are EXACTLY {reply, calls} is replaced by that "
+                               "object; anything else is passed unchanged to the unchanged v3t decoder (which validates schema and tool safety). The raw "
+                               "text is kept next to the normalized text. Applies to v3 only",
+                 verification="OFFLINE: the saved responses of verification v2 (and v1 call 2) re-decoded with the normalization must all decode; no new API "
+                              "verification calls. Transport failures (no HTTP 200) are retried by the generation loop; format failures are INVALID samples "
+                              "and never stop the pilot")
+
+
+def normalize(text):
+    """Strict singleton-list unwrap (PREREG_V3). Returns (text, changed)."""
+    try:
+        obj = json.loads(text)
+    except ValueError:
+        return text, False
+    if isinstance(obj, list) and len(obj) == 1 and isinstance(obj[0], dict) and set(obj[0]) == {"reply", "calls"}:
+        return json.dumps(obj[0], ensure_ascii=False), True
+    return text, False
+
+
 def verify():
     O.verify(settings=SETTINGS, prereg=PREREG, tag="glmlow")
+
+
+def verify_offline():
+    """v3 verification on saved responses only (no API call)."""
+    import gzip
+    import glob
+    import fable_teacher_runner as RR
+    ctx = json.loads((O.L2 / "level2_requests/contexts" / (RR.key_of(O.VERIFY_ID) + ".json")).read_text("utf-8"))
+    files = sorted(glob.glob(str(V.OUT.parent / "glmlow-v2-verify-*/responses/*.json"))) + sorted(glob.glob(str(V.OUT.parent / "glmlow-verify-*/responses/verify_2.json")))
+    res = []
+    for f in files:
+        r = json.loads(open(f, encoding="utf-8").read())
+        answer = (json.loads(r["raw"])["choices"][0]["message"].get("content") or "") if r["status"] == 200 else ""
+        text, changed = normalize(answer)
+        saved = dict(status="completed", raw_response=json.dumps(dict(choices=[dict(index=0, message=dict(role="assistant", content=text), finish_reason="stop")])))
+        main, bad = RR.partition_saved(O.VERIFY_ID, "train", saved, RR.protocol_partition_v3t, ctx, strict_finish=True)
+        res.append(dict(file=str(Path(f).relative_to(ROOT)), http=r["status"], normalized=changed, decodable=bool(main), why_not=None if main else (bad[0].get("reason") if bad else None)))
+        print(res[-1], flush=True)
+    assert all(normalize(x)[1] is False for x in ('{"reply":null,"calls":[]}', '[{"reply":null}]', '[{"reply":null,"calls":[]},{"reply":null,"calls":[]}]', '[1]'))
+    passed = bool(res) and all(x["decodable"] for x in res)
+    print("OFFLINE VERIFY", "PASSED" if passed else "FAILED")
+    return passed, res
 
 
 def verify_seq():
@@ -92,8 +138,15 @@ def concurrency(ledger_path):
 
 
 def gen():
-    V.gen(settings=SETTINGS, pilot=O.PROBLEMS, prereg=PREREG, tag="glmlow")
+    raise SystemExit("glmlow v1 stopped at verification; use gen_v3")
+
+
+def gen_v3():
+    ok, res = verify_offline()
+    if not ok:
+        raise SystemExit("offline verification failed")
+    V.gen(settings=SETTINGS, pilot=O.PROBLEMS, prereg=dict(PREREG_V3, offline_verification=res), tag="glmlow3", normalize=normalize)
 
 
 if __name__ == "__main__":
-    {"verify": verify, "verify_seq": verify_seq, "gen": gen}[sys.argv[1]]()
+    {"verify": verify, "verify_seq": verify_seq, "gen": gen, "gen_v3": gen_v3}[sys.argv[1]]()

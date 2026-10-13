@@ -47,7 +47,7 @@ PREREG = {
 }
 
 
-def gen(settings=SETTINGS, pilot=None, prereg=PREREG, tag="glm", reqs=None, samples=SAMPLES):
+def gen(settings=SETTINGS, pilot=None, prereg=PREREG, tag="glm", reqs=None, samples=SAMPLES, normalize=None):
     """Defaults reproduce the GLM-5.3 pilot exactly; tools/val_outcome_oss20b_v1.py passes its own pre-registered settings and problems."""
     import judge_qual_v1 as J
     reqs = reqs or {r["decision_id"]: r for r in (json.loads(l) for l in gzip.open(OUT / "requests_all_23_not_uploaded.jsonl.gz", "rt", encoding="utf-8"))}
@@ -83,8 +83,11 @@ def gen(settings=SETTINGS, pilot=None, prereg=PREREG, tag="glm", reqs=None, samp
                 continue
             body = json.loads(r["raw"])
             ch = body["choices"][0]
+            raw = ch["message"].get("content") or ""
+            text, changed = normalize(raw) if normalize else (raw, False)   # glmlow-v3 only: strict singleton-list unwrap; raw kept
             rows.append(dict(decision_id=d, sample=s, status="ok", finished=ch.get("finish_reason") == "stop", finish_reason=ch.get("finish_reason"),
-                             seconds=r["seconds"], usage=body.get("usage"), reasoning_chars=ch["message"].get("reasoning_chars"), text=ch["message"].get("content") or ""))
+                             seconds=r["seconds"], usage=body.get("usage"), reasoning_chars=ch["message"].get("reasoning_chars"), text=text,
+                             **(dict(raw_text=raw, normalized=changed) if normalize else {})))
     with open(g / "out" / "gen-0.jsonl", "x", encoding="utf-8") as f:
         f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in rows)
     print(json.dumps(stats))
@@ -139,8 +142,8 @@ def execute(res_arg, version="a2"):
     import fable_wsl_runner as W
     import cal_outcome_v1 as C
     res = ROOT / res_arg
-    a3 = version == "a3"
-    name = "OUTCOMES_A3.json" if a3 else "OUTCOMES.json"
+    a3 = version in ("a3", "a3b")   # a3b = a3 with the single-call parsing bug fixed; same rule
+    name = ("OUTCOMES_A3b.json" if version == "a3b" else "OUTCOMES_A3.json") if a3 else "OUTCOMES.json"
     (res / ("AMENDMENT_3.json" if a3 else "AMENDMENT_2.json")).write_text(json.dumps(AMENDMENT_3 if a3 else AMENDMENT_2, indent=1), "utf-8")
     assert not (res / name).exists(), "create-only"
     decs = json.loads((res / "CANDIDATES.json").read_text("utf-8"))
@@ -162,7 +165,7 @@ def execute(res_arg, version="a2"):
         prot = protected_a3([*json.loads((C.STATES / d["key"] / "decision.json").read_text("utf-8"))["files"]], d["test_command"]) if a3 else set(d["protected_files"])
         for c in d["candidates"]:
             a = json.loads(c["action_text"])
-            calls = (a.get("calls") if isinstance(a, dict) else a) or []
+            calls = ([a] if isinstance(a, dict) and "name" in a else a.get("calls") if isinstance(a, dict) else a) or []   # a single call is rendered as a bare object (bug fixed 2026-10-13)
             st, code, tamper = [], False, False
             for k in calls:
                 g = dict(k.get("arguments") or {})
