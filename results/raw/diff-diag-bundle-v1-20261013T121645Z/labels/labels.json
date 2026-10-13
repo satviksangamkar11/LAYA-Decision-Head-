@@ -1,0 +1,116 @@
+[
+ {
+  "decision_id": "fable5:go-mazekit:2",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-ansi-paginate:1",
+  "fable_index": 2,
+  "n_options": 4,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-csv-sqlite:2",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:py-htmlclean:2",
+  "fable_index": 2,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-parking-garage:4",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:ts-config-merge3:5",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:ts-csv-mapper:2",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:ts-jsonrpc:1",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:ts-notification-center:2",
+  "fable_index": 3,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:ts-recur-cal:5",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-slide-splitter:1",
+  "fable_index": 3,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:ts-lru-ttl-cache:2",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:ts-memory:2",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:ts-pong:1",
+  "fable_index": 4,
+  "n_options": 5,
+  "in_imitation_pools": false
+ },
+ {
+  "decision_id": "fable5:py-btree-pages:5",
+  "fable_index": 0,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-config-migrate:6",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-ibantool:2",
+  "fable_index": 1,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-incident-cli:4",
+  "fable_index": 4,
+  "n_options": 5,
+  "in_imitation_pools": true
+ },
+ {
+  "decision_id": "fable5:py-jsonpath-edit:2",
+  "fable_index": 2,
+  "n_options": 4,
+  "in_imitation_pools": true
+ }
+]
