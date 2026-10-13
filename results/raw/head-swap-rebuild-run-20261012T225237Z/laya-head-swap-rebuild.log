@@ -1,0 +1,35 @@
+[{"stream_name":"stdout","time":14.242794831,"data":"torch 2.11.0+cu128 | Tesla T4\n"}
+,{"stream_name":"stderr","time":22.166088136,"data":"/usr/lib/python3.13/contextlib.py:141: UserWarning: CUDA reports that you have 2 available devices, and you have used fork_rng without explicitly specifying which devices are being used. For safety, we initialize *every* CUDA device by default, which can be quite slow if you have a lot of CUDAs. If you know that you are only making use of a few CUDA devices, set the environment variable CUDA_VISIBLE_DEVICES or the 'devices' keyword argument of fork_rng with the set of devices you are actually using. For example, if you are using CPU only, set device.upper()_VISIBLE_DEVICES= or devices=[]; if you are using device 0 only, set CUDA_VISIBLE_DEVICES=0 or devices=[0].  To initialize all devices and suppress this warning, set the 'devices' keyword argument to `range(torch.cuda.device_count())`.\n"}
+,{"stream_name":"stderr","time":22.166171793,"data":"  return next(self.gen)\n"}
+,{"stream_name":"stdout","time":34.071275477,"data":"RUN coding       s0 fit 251 best 250 | dev 0.865 fit 0.932 native 0.263 | head frozen True | 12s\n"}
+,{"stream_name":"stdout","time":34.634543724,"data":"REBUILD coding       s0 exact True (differing 0) best 250\n"}
+,{"stream_name":"stdout","time":38.539202826,"data":"RUN coding       s1 fit 251 best 300 | dev 0.808 fit 0.956 native 0.318 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":39.116475357,"data":"REBUILD coding       s1 exact True (differing 0) best 300\n"}
+,{"stream_name":"stdout","time":43.070717206,"data":"RUN coding       s2 fit 251 best 200 | dev 0.865 fit 0.932 native 0.283 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":43.575156095,"data":"REBUILD coding       s2 exact True (differing 0) best 200\n"}
+,{"stream_name":"stdout","time":47.712897152,"data":"RUN random_1001  s0 fit 251 best 250 | dev 0.865 fit 0.992 native 0.332 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":48.213305745,"data":"REBUILD random_1001  s0 exact True (differing 0) best 250\n"}
+,{"stream_name":"stdout","time":52.42904244,"data":"RUN random_1001  s1 fit 251 best 300 | dev 0.885 fit 0.996 native 0.322 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":52.934909379,"data":"REBUILD random_1001  s1 exact True (differing 0) best 300\n"}
+,{"stream_name":"stdout","time":57.003953727,"data":"RUN random_1001  s2 fit 251 best 275 | dev 0.865 fit 0.996 native 0.293 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":57.512694623,"data":"REBUILD random_1001  s2 exact True (differing 0) best 275\n"}
+,{"stream_name":"stdout","time":61.606015988,"data":"RUN random_1002  s0 fit 251 best 250 | dev 0.885 fit 0.992 native 0.312 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":62.106455751,"data":"REBUILD random_1002  s0 exact True (differing 0) best 250\n"}
+,{"stream_name":"stdout","time":66.240948578,"data":"RUN random_1002  s1 fit 251 best 300 | dev 0.865 fit 0.996 native 0.272 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":66.764581845,"data":"REBUILD random_1002  s1 exact True (differing 0) best 300\n"}
+,{"stream_name":"stdout","time":70.925276138,"data":"RUN random_1002  s2 fit 251 best 275 | dev 0.846 fit 0.996 native 0.297 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":71.482972824,"data":"REBUILD random_1002  s2 exact True (differing 0) best 275\n"}
+,{"stream_name":"stdout","time":75.69663863,"data":"RUN random_1003  s0 fit 251 best 275 | dev 0.885 fit 0.992 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":76.207038091,"data":"REBUILD random_1003  s0 exact True (differing 0) best 275\n"}
+,{"stream_name":"stdout","time":80.297066864,"data":"RUN random_1003  s1 fit 251 best 300 | dev 0.885 fit 0.996 native 0.272 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":80.809569536,"data":"REBUILD random_1003  s1 exact True (differing 0) best 300\n"}
+,{"stream_name":"stdout","time":84.934280123,"data":"RUN random_1003  s2 fit 251 best 275 | dev 0.865 fit 0.996 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":85.454543273,"data":"REBUILD random_1003  s2 exact True (differing 0) best 275\n"}
+,{"stream_name":"stdout","time":85.455572596,"data":"ALL EXACT True\n"}
+,{"stream_name":"stderr","time":92.08578855,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":92.08588645,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":92.384149789,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":92.384203376,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":93.212556931,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":94.265210585,"data":"[NbConvertApp] Writing 294348 bytes to __results__.html\n"}
+]

@@ -1,0 +1,23 @@
+{
+ "go_states_train_val": 43,
+ "repaired": 41,
+ "match_both_runs": 38,
+ "by_split": {
+  "train": {
+   "match": 25,
+   "states": 29
+  },
+  "val": {
+   "match": 13,
+   "states": 14
+  }
+ },
+ "verdicts": {
+  "MATCH/MATCH": 38,
+  "MISMATCH:exit/MISMATCH:exit": 3
+ },
+ "not_repaired": {
+  "go.mod already present": 2
+ },
+ "note": "summary written from rows.jsonl after the script crashed on a tuple JSON key at the end (all rows were already saved); the key bug is fixed in the script"
+}

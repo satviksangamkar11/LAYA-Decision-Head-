@@ -1,0 +1,69 @@
+﻿Go states, canonical TRAIN + VAL: 43
+fable5:go-mazekit:2 train not_repaired None go.mod already present
+fable5:go-histogram:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-bloomset:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-shiplog:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-streamdiff:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-circuit-breaker:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:7 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-path-router:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-cronsched:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-flowschema:2 train repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-sortid:3 train not_repaired None go.mod already present
+fable5:go-timer-rearm:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-histogram:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-lzrle:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:5 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-shiplog:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-tseries:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-healbudget:2 train repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-inventory-api:5 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-eventbus:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-cronsched:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-envrender:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-resumeup:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-textindex:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:6 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-taskrunner:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-switchcase:3 val repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-inventory-api:8 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-jobflow:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-csv-report:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:3 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-ttt-server:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-supervisor:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:2 val repaired_replay ['MATCH', 'MATCH'] 
+wsl : Traceback (most recent call last):
+At line:1 char:302
++ ... tch {} } }; wsl -d Ubuntu-24.04 -u root -e python3 "/mnt/d/local mode ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "/mnt/d/local model/tools/go_mod_fidelity_v1.py", line 81, in <module>
+    main()
+  File "/mnt/d/local model/tools/go_mod_fidelity_v1.py", line 75, in main
+    (out / "summary.json").write_text(json.dumps(summary, indent=1), "utf-8")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 377, in _iterencode_dict
+    raise TypeError(f'keys must be str, int, float, bool or None, '
+TypeError: keys must be str, int, float, bool or None, not tuple

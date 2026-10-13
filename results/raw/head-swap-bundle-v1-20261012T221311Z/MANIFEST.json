@@ -1,0 +1,68 @@
+{
+ "status": "PREPARED, NOT UPLOADED, NOT LAUNCHED (held for the user's review)",
+ "sources": {
+  "checkpoints": {
+   "coding": {
+    "path": "models/coding-decision-agent/model.safetensors",
+    "sha256": "e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a"
+   },
+   "typed": {
+    "path": "models/laya-typed-decisions/model.safetensors",
+    "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e"
+   },
+   "code": {
+    "path": "models/laya-code/model.safetensors",
+    "sha256": "1cc1a3716fcd0121a1aafab184d844b6df9b54a8237c883d05780e101cbae5f8"
+   },
+   "conductor": {
+    "path": "models/laya-conductor/model.safetensors",
+    "sha256": "3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e"
+   }
+  },
+  "baseline_adapters": [
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s0.pt",
+    "sha256": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2"
+   },
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s1.pt",
+    "sha256": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e"
+   },
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s2.pt",
+    "sha256": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+   }
+  ],
+  "not_loaded": [
+   "act_head.0.bias",
+   "act_head.0.weight",
+   "act_head.2.bias",
+   "act_head.2.weight",
+   "temperature"
+  ]
+ },
+ "tensor_dtype": {
+  "coding": "torch.float16",
+  "typed": "torch.float16",
+  "code": "torch.float16",
+  "conductor": "torch.float16"
+ },
+ "contains_cal_or_test": false,
+ "contains_texts": false,
+ "reused_dataset": {
+  "slug": "sangeetasangamkar/laya-head-exp5-v1",
+  "local": "results\\raw\\head-exp5-bundle-v1-20261012T203417Z\\upload",
+  "pack5_sha256": "0aec2b00f85ad90c5a64d2cb02b1fc5faba86869409e024b663664fb4ba0b456"
+ },
+ "script_sha256": "0f60c4fe8addecb0ec855e62ffb5eef2fbf11065153ca50dedfd987a15e0541a",
+ "files": {
+  "dataset-metadata.json": {
+   "bytes": 133,
+   "sha256": "6189f9fa4339ee1588cb2ce3eea4d9ccc9661361d945bb55a494f85ca2fb5b47"
+  },
+  "heads.pt": {
+   "bytes": 276639031,
+   "sha256": "54e65d318492b352c8dd630ab70e4ca437dd60be1491f47f81cdefdea305ce95"
+  }
+ }
+}

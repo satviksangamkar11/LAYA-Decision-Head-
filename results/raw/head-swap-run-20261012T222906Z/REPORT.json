@@ -1,0 +1,1127 @@
+{
+ "created_utc": "2026-10-12T22:17:01.620631+00:00",
+ "torch": "2.11.0+cu128",
+ "cuda_device": "Tesla T4",
+ "smoke": 0,
+ "train_pools": 303,
+ "train_pools_with_no_context": 112,
+ "val_pools": 46,
+ "native_val": 600,
+ "head_sources": {
+  "checkpoints": {
+   "coding": {
+    "path": "models/coding-decision-agent/model.safetensors",
+    "sha256": "e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a"
+   },
+   "typed": {
+    "path": "models/laya-typed-decisions/model.safetensors",
+    "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e"
+   },
+   "code": {
+    "path": "models/laya-code/model.safetensors",
+    "sha256": "1cc1a3716fcd0121a1aafab184d844b6df9b54a8237c883d05780e101cbae5f8"
+   },
+   "conductor": {
+    "path": "models/laya-conductor/model.safetensors",
+    "sha256": "3c8bed1ad91e90151b38fefb3a5625e02307ce491f1eb11659bcdde05e4f1d7e"
+   }
+  },
+  "baseline_adapters": [
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s0.pt",
+    "sha256": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2"
+   },
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s1.pt",
+    "sha256": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e"
+   },
+   {
+    "path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s2.pt",
+    "sha256": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+   }
+  ],
+  "not_loaded": [
+   "act_head.0.bias",
+   "act_head.0.weight",
+   "act_head.2.bias",
+   "act_head.2.weight",
+   "temperature"
+  ]
+ },
+ "head_tensor_norms": {
+  "coding": {
+   "context_layers": 134.85,
+   "scorer": 36.67,
+   "type_embedding": 51.59
+  },
+  "typed": {
+   "context_layers": 133.48,
+   "scorer": 36.76,
+   "type_embedding": 51.93
+  },
+  "code": {
+   "context_layers": 134.4,
+   "scorer": 36.74,
+   "type_embedding": 51.9
+  },
+  "conductor": {
+   "context_layers": 133.47,
+   "scorer": 36.76,
+   "type_embedding": 51.94
+  },
+  "random_1001": {
+   "type_embedding": 55.83,
+   "context_layers": 106.14,
+   "scorer": 36.96
+  },
+  "random_1002": {
+   "type_embedding": 56.2,
+   "context_layers": 106.14,
+   "scorer": 36.95
+  },
+  "random_1003": {
+   "type_embedding": 55.47,
+   "context_layers": 106.12,
+   "scorer": 36.96
+  }
+ },
+ "zero_training_swap": {
+  "coding": {
+   "each_adapter": [
+    {
+     "val": 0.7826,
+     "native": 0.37
+    },
+    {
+     "val": 0.8043,
+     "native": 0.3067
+    },
+    {
+     "val": 0.7609,
+     "native": 0.3367
+    }
+   ],
+   "val_mean": 0.7826,
+   "native_mean": 0.3378
+  },
+  "typed": {
+   "each_adapter": [
+    {
+     "val": 0.7609,
+     "native": 0.3617
+    },
+    {
+     "val": 0.7609,
+     "native": 0.3017
+    },
+    {
+     "val": 0.7826,
+     "native": 0.33
+    }
+   ],
+   "val_mean": 0.7681,
+   "native_mean": 0.3311
+  },
+  "code": {
+   "each_adapter": [
+    {
+     "val": 0.7609,
+     "native": 0.365
+    },
+    {
+     "val": 0.7391,
+     "native": 0.2783
+    },
+    {
+     "val": 0.7391,
+     "native": 0.3367
+    }
+   ],
+   "val_mean": 0.7464,
+   "native_mean": 0.3267
+  },
+  "conductor": {
+   "each_adapter": [
+    {
+     "val": 0.7609,
+     "native": 0.365
+    },
+    {
+     "val": 0.7826,
+     "native": 0.3033
+    },
+    {
+     "val": 0.7609,
+     "native": 0.3283
+    }
+   ],
+   "val_mean": 0.7681,
+   "native_mean": 0.3322
+  },
+  "random_1001": {
+   "each_adapter": [
+    {
+     "val": 0.0435,
+     "native": 0.3567
+    },
+    {
+     "val": 0.1087,
+     "native": 0.315
+    },
+    {
+     "val": 0.0435,
+     "native": 0.31
+    }
+   ],
+   "val_mean": 0.0652,
+   "native_mean": 0.3272
+  },
+  "random_1002": {
+   "each_adapter": [
+    {
+     "val": 0.1522,
+     "native": 0.1933
+    },
+    {
+     "val": 0.5217,
+     "native": 0.25
+    },
+    {
+     "val": 0.3261,
+     "native": 0.1717
+    }
+   ],
+   "val_mean": 0.3333,
+   "native_mean": 0.205
+  },
+  "random_1003": {
+   "each_adapter": [
+    {
+     "val": 0.4565,
+     "native": 0.335
+    },
+    {
+     "val": 0.5652,
+     "native": 0.2867
+    },
+    {
+     "val": 0.4565,
+     "native": 0.2233
+    }
+   ],
+   "val_mean": 0.4927,
+   "native_mean": 0.2817
+  }
+ },
+ "reproduction_gate_oof_seed0": {
+  "now": 0.7789,
+  "recorded": 0.7789,
+  "allowed": 0.04,
+  "passed": true
+ },
+ "cross_validation": {
+  "coding": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.7723,
+    "ci95": [
+     0.728,
+     0.8126
+    ]
+   },
+   "each_seed": [
+    0.7789,
+    0.769,
+    0.769
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.7649,
+    "ci95": [
+     0.6997,
+     0.8244
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8095,
+    "ci95": [
+     0.744,
+     0.8687
+    ]
+   },
+   "fit_top1": 0.9284,
+   "native_mean": 0.3439,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     50,
+     1
+    ],
+    [
+     75,
+     1
+    ],
+    [
+     100,
+     4
+    ],
+    [
+     125,
+     4
+    ],
+    [
+     150,
+     1
+    ],
+    [
+     225,
+     1
+    ],
+    [
+     275,
+     1
+    ],
+    [
+     300,
+     2
+    ]
+   ]
+  },
+  "typed": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.7899,
+    "ci95": [
+     0.7455,
+     0.8333
+    ]
+   },
+   "each_seed": [
+    0.7756,
+    0.8251,
+    0.769
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.7351,
+    "ci95": [
+     0.6697,
+     0.7955
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8095,
+    "ci95": [
+     0.7407,
+     0.8713
+    ]
+   },
+   "fit_top1": 0.9453,
+   "native_mean": 0.3401,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     75,
+     1
+    ],
+    [
+     100,
+     2
+    ],
+    [
+     125,
+     1
+    ],
+    [
+     150,
+     1
+    ],
+    [
+     175,
+     2
+    ],
+    [
+     200,
+     2
+    ],
+    [
+     225,
+     1
+    ],
+    [
+     300,
+     5
+    ]
+   ]
+  },
+  "code": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.769,
+    "ci95": [
+     0.7224,
+     0.8134
+    ]
+   },
+   "each_seed": [
+    0.7822,
+    0.7624,
+    0.7624
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.7202,
+    "ci95": [
+     0.6481,
+     0.7865
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.7976,
+    "ci95": [
+     0.7333,
+     0.8542
+    ]
+   },
+   "fit_top1": 0.929,
+   "native_mean": 0.3276,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     125,
+     2
+    ],
+    [
+     150,
+     2
+    ],
+    [
+     200,
+     4
+    ],
+    [
+     225,
+     1
+    ],
+    [
+     250,
+     1
+    ],
+    [
+     275,
+     2
+    ],
+    [
+     300,
+     3
+    ]
+   ]
+  },
+  "conductor": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.7965,
+    "ci95": [
+     0.755,
+     0.8355
+    ]
+   },
+   "each_seed": [
+    0.7921,
+    0.8119,
+    0.7855
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.744,
+    "ci95": [
+     0.6782,
+     0.8047
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8274,
+    "ci95": [
+     0.7628,
+     0.8824
+    ]
+   },
+   "fit_top1": 0.9081,
+   "native_mean": 0.3302,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     25,
+     1
+    ],
+    [
+     50,
+     2
+    ],
+    [
+     75,
+     4
+    ],
+    [
+     100,
+     1
+    ],
+    [
+     150,
+     1
+    ],
+    [
+     200,
+     1
+    ],
+    [
+     225,
+     3
+    ],
+    [
+     250,
+     1
+    ],
+    [
+     300,
+     1
+    ]
+   ]
+  },
+  "random_1001": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.8383,
+    "ci95": [
+     0.7952,
+     0.8792
+    ]
+   },
+   "each_seed": [
+    0.8416,
+    0.8383,
+    0.835
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.8214,
+    "ci95": [
+     0.75,
+     0.8836
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8571,
+    "ci95": [
+     0.7953,
+     0.9129
+    ]
+   },
+   "fit_top1": 0.9928,
+   "native_mean": 0.3395,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     100,
+     2
+    ],
+    [
+     125,
+     2
+    ],
+    [
+     150,
+     4
+    ],
+    [
+     200,
+     1
+    ],
+    [
+     225,
+     1
+    ],
+    [
+     275,
+     1
+    ],
+    [
+     300,
+     4
+    ]
+   ]
+  },
+  "random_1002": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.8317,
+    "ci95": [
+     0.7874,
+     0.8738
+    ]
+   },
+   "each_seed": [
+    0.8317,
+    0.8218,
+    0.8416
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.8155,
+    "ci95": [
+     0.7436,
+     0.8754
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8542,
+    "ci95": [
+     0.7924,
+     0.9071
+    ]
+   },
+   "fit_top1": 0.9896,
+   "native_mean": 0.3363,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     75,
+     1
+    ],
+    [
+     100,
+     3
+    ],
+    [
+     125,
+     3
+    ],
+    [
+     150,
+     3
+    ],
+    [
+     175,
+     1
+    ],
+    [
+     275,
+     1
+    ],
+    [
+     300,
+     3
+    ]
+   ]
+  },
+  "random_1003": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.8328,
+    "ci95": [
+     0.7884,
+     0.8744
+    ]
+   },
+   "each_seed": [
+    0.8284,
+    0.8284,
+    0.8416
+   ],
+   "no_context_out_of_fold": {
+    "n": 112,
+    "top1": 0.7976,
+    "ci95": [
+     0.7231,
+     0.8631
+    ]
+   },
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8482,
+    "ci95": [
+     0.7838,
+     0.9025
+    ]
+   },
+   "fit_top1": 0.9861,
+   "native_mean": 0.3376,
+   "head_tensors_identical_all": true,
+   "best_steps": [
+    [
+     75,
+     3
+    ],
+    [
+     100,
+     4
+    ],
+    [
+     150,
+     3
+    ],
+    [
+     175,
+     1
+    ],
+    [
+     225,
+     1
+    ],
+    [
+     300,
+     3
+    ]
+   ]
+  },
+  "random_mean": {
+   "out_of_fold": {
+    "n": 303,
+    "top1": 0.8343,
+    "ci95": [
+     0.7908,
+     0.8752
+    ]
+   },
+   "each_seed": null,
+   "no_context_out_of_fold": null,
+   "same_pools_with_context": {
+    "n": 112,
+    "top1": 0.8532,
+    "ci95": [
+     0.7921,
+     0.9073
+    ]
+   },
+   "fit_top1": null,
+   "native_mean": null,
+   "head_tensors_identical_all": null,
+   "best_steps": []
+  }
+ },
+ "random_heads_spread": [
+  0.8383,
+  0.8317,
+  0.8328
+ ],
+ "primary": {
+  "coding minus random (mean of 3)": {
+   "n": 303,
+   "delta": -0.062,
+   "ci_corrected": [
+    -0.0897,
+    -0.037
+   ],
+   "ci95": [
+    -0.0835,
+    -0.042
+   ],
+   "meets_rule": true
+  },
+  "typed minus coding": {
+   "n": 303,
+   "delta": 0.0176,
+   "ci_corrected": [
+    -0.0132,
+    0.0476
+   ],
+   "ci95": [
+    -0.0044,
+    0.0408
+   ],
+   "meets_rule": false
+  },
+  "code minus coding": {
+   "n": 303,
+   "delta": -0.0033,
+   "ci_corrected": [
+    -0.0361,
+    0.0292
+   ],
+   "ci95": [
+    -0.0282,
+    0.021
+   ],
+   "meets_rule": false
+  },
+  "conductor minus coding": {
+   "n": 303,
+   "delta": 0.0242,
+   "ci_corrected": [
+    0.0012,
+    0.0473
+   ],
+   "ci95": [
+    0.0075,
+    0.0426
+   ],
+   "meets_rule": false
+  },
+  "coding: real context minus no context (same pools)": {
+   "n": 112,
+   "delta": 0.0446,
+   "ci_corrected": [
+    -0.0275,
+    0.1228
+   ],
+   "ci95": [
+    -0.0139,
+    0.1032
+   ],
+   "meets_rule": false
+  },
+  "probe minus coding": {
+   "n": 303,
+   "delta": 0.0858,
+   "ci_corrected": [
+    0.0439,
+    0.1316
+   ],
+   "ci95": [
+    0.0523,
+    0.119
+   ],
+   "meets_rule": true
+  }
+ },
+ "linear_probe_out_of_fold": {
+  "n": 303,
+  "top1": 0.8581,
+  "ci95": [
+   0.815,
+   0.899
+  ]
+ },
+ "val": {
+  "coding": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.7826,
+    "ci95": [
+     0.6583,
+     0.8864
+    ]
+   },
+   "each_seed": [
+    0.8261,
+    0.7826,
+    0.7391
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6014,
+    "ci95": [
+     0.4762,
+     0.7305
+    ]
+   },
+   "minus_coding": null,
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.8116,
+    "ci95": [
+     0.7007,
+     0.9078
+    ]
+   },
+   "native_600": [
+    0.2633,
+    0.3183,
+    0.2833
+   ],
+   "head_tensors_identical": true
+  },
+  "typed": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.7391,
+    "ci95": [
+     0.5897,
+     0.8681
+    ]
+   },
+   "each_seed": [
+    0.7174,
+    0.7826,
+    0.7174
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6594,
+    "ci95": [
+     0.5212,
+     0.7971
+    ]
+   },
+   "minus_coding": {
+    "delta": -0.0435,
+    "ci95": [
+     -0.1057,
+     0.0079
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.7754,
+    "ci95": [
+     0.6434,
+     0.8939
+    ]
+   },
+   "native_600": [
+    0.3533,
+    0.2733,
+    0.2933
+   ],
+   "head_tensors_identical": true
+  },
+  "code": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.7246,
+    "ci95": [
+     0.5816,
+     0.8527
+    ]
+   },
+   "each_seed": [
+    0.7174,
+    0.7391,
+    0.7174
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6014,
+    "ci95": [
+     0.4653,
+     0.7417
+    ]
+   },
+   "minus_coding": {
+    "delta": -0.058,
+    "ci95": [
+     -0.1429,
+     0.0145
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.7754,
+    "ci95": [
+     0.6429,
+     0.8939
+    ]
+   },
+   "native_600": [
+    0.34,
+    0.3217,
+    0.3367
+   ],
+   "head_tensors_identical": true
+  },
+  "conductor": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.7536,
+    "ci95": [
+     0.6098,
+     0.8794
+    ]
+   },
+   "each_seed": [
+    0.6957,
+    0.7609,
+    0.8043
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6232,
+    "ci95": [
+     0.5,
+     0.7536
+    ]
+   },
+   "minus_coding": {
+    "delta": -0.029,
+    "ci95": [
+     -0.1,
+     0.029
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.7899,
+    "ci95": [
+     0.6603,
+     0.9058
+    ]
+   },
+   "native_600": [
+    0.3317,
+    0.2783,
+    0.3467
+   ],
+   "head_tensors_identical": true
+  },
+  "random_1001": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.8043,
+    "ci95": [
+     0.6591,
+     0.9333
+    ]
+   },
+   "each_seed": [
+    0.8043,
+    0.8043,
+    0.8043
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6884,
+    "ci95": [
+     0.5461,
+     0.8293
+    ]
+   },
+   "minus_coding": {
+    "delta": 0.0217,
+    "ci95": [
+     -0.0476,
+     0.0877
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.8696,
+    "ci95": [
+     0.74,
+     0.9773
+    ]
+   },
+   "native_600": [
+    0.3317,
+    0.3217,
+    0.2933
+   ],
+   "head_tensors_identical": true
+  },
+  "random_1002": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.8261,
+    "ci95": [
+     0.6905,
+     0.9487
+    ]
+   },
+   "each_seed": [
+    0.8261,
+    0.8261,
+    0.8261
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6812,
+    "ci95": [
+     0.5435,
+     0.8217
+    ]
+   },
+   "minus_coding": {
+    "delta": 0.0435,
+    "ci95": [
+     -0.0217,
+     0.1088
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.8841,
+    "ci95": [
+     0.7564,
+     0.9919
+    ]
+   },
+   "native_600": [
+    0.3117,
+    0.2717,
+    0.2967
+   ],
+   "head_tensors_identical": true
+  },
+  "random_1003": {
+   "cleaned_val": {
+    "n": 46,
+    "top1": 0.8188,
+    "ci95": [
+     0.6818,
+     0.9333
+    ]
+   },
+   "each_seed": [
+    0.8261,
+    0.8043,
+    0.8261
+   ],
+   "no_context": {
+    "n": 46,
+    "top1": 0.6884,
+    "ci95": [
+     0.5461,
+     0.8293
+    ]
+   },
+   "minus_coding": {
+    "delta": 0.0362,
+    "ci95": [
+     -0.0303,
+     0.1032
+    ],
+    "interval_excludes_zero": false
+   },
+   "with_loose_equivalents": {
+    "n": 46,
+    "top1": 0.8696,
+    "ci95": [
+     0.74,
+     0.9773
+    ]
+   },
+   "native_600": [
+    0.3167,
+    0.2717,
+    0.3
+   ],
+   "head_tensors_identical": true
+  }
+ },
+ "reproduction_gate_val": {
+  "now": 0.7826,
+  "recorded": 0.7609,
+  "allowed": 0.044,
+  "passed": true
+ },
+ "linear_probe_val": {
+  "n": 46,
+  "top1": 0.8913,
+  "ci95": [
+   0.7843,
+   0.9783
+  ]
+ },
+ "gates_passed": true,
+ "finished_utc": "2026-10-12T22:28:00.806529+00:00"
+}

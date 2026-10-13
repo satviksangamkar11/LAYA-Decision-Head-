@@ -1,0 +1,18 @@
+{
+ "states": 4,
+ "match_both_runs": 0,
+ "by_lang": {
+  "csharp": {
+   "match": 0,
+   "states": 3
+  },
+  "rust": {
+   "match": 0,
+   "states": 1
+  }
+ },
+ "verdicts": {
+  "MISMATCH:output/MISMATCH:output": 4
+ },
+ "match_both_runs_rule_v2": 3
+}

@@ -1,0 +1,1 @@
+SUPERSEDED: its kernel script had a smoke-mode bug (random_mean KeyError); replaced by the next head-swap-bundle-v1 folder. Never uploaded.

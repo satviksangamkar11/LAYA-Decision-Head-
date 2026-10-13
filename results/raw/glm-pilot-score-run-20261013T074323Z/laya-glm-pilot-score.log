@@ -1,0 +1,25 @@
+[{"stream_name":"stdout","time":75.187694662,"data":"integrity [{\"file\": \"coding-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"coding-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"coding-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1001-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1002-s2.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s0.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s1.pt\", \"reproduces_46_val_picks\": true}, {\"file\": \"random_1003-s2.pt\", \"reproduces_46_val_picks\": true}]\n"}
+,{"stream_name":"stdout","time":75.190991372,"data":"laya_v4/coding-s0 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.191460716,"data":"laya_v4/coding-s1 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.191850369,"data":"laya_v4/coding-s2 [3, 2, 3, 0] | no context [2, 3, 3, 3]\n"}
+,{"stream_name":"stdout","time":75.192390029,"data":"random_head_v4/random_1001-s0 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.192893694,"data":"random_head_v4/random_1001-s1 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.193368131,"data":"random_head_v4/random_1001-s2 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.193853931,"data":"random_head_v4/random_1002-s0 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.194252963,"data":"random_head_v4/random_1002-s1 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.194623429,"data":"random_head_v4/random_1002-s2 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.194999632,"data":"random_head_v4/random_1003-s0 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.195377483,"data":"random_head_v4/random_1003-s1 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.195779798,"data":"random_head_v4/random_1003-s2 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.196198968,"data":"laya_baseline_v1/final-s0 [3, 2, 3, 0] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.196630855,"data":"laya_baseline_v1/final-s1 [3, 2, 3, 2] | no context [3, 2, 0, 2]\n"}
+,{"stream_name":"stdout","time":75.199753325,"data":"laya_baseline_v1/final-s2 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.200171899,"data":"linear_probe/train303 [3, 2, 3, 2] | no context [3, 2, 3, 2]\n"}
+,{"stream_name":"stdout","time":75.200274123,"data":"DONE\n"}
+,{"stream_name":"stderr","time":79.096255357,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":79.096349838,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":79.523735076,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":79.523765634,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":80.564966734,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":82.053866427,"data":"[NbConvertApp] Writing 300468 bytes to __results__.html\n"}
+]

@@ -1,0 +1,61 @@
+﻿Go states, canonical TRAIN + VAL: 43
+fable5:go-mazekit:2 train not_repaired None go.mod already present
+fable5:go-orderfsm:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-bloomset:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-histogram:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-shiplog:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-circuit-breaker:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-streamdiff:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:7 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-path-router:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-cronsched:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-flowschema:2 train repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-sortid:3 train not_repaired None go.mod already present
+fable5:go-timer-rearm:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-histogram:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-lzrle:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-modcycles:5 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-shiplog:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-tseries:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:5 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-healbudget:2 train repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-eventbus:3 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-envrender:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-cronsched:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:4 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-resumeup:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-textindex:2 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-inventory-api:6 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-taskrunner:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-switchcase:3 val repaired_replay ['MISMATCH:exit', 'MISMATCH:exit'] 
+fable5:go-inventory-api:8 train repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-jobflow:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:4 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:1 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-csv-report:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:3 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-orderfsm:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-ttt-server:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-supervisor:2 val repaired_replay ['MATCH', 'MATCH'] 
+fable5:go-session-store:2 val repaired_replay ['MATCH', 'MATCH'] 
+{
+ "go_states_train_val": 43,
+ "repaired": 41,
+ "match_both_runs": 38,
+ "by_split": {
+  "train": 25,
+  "val": 13
+ },
+ "verdicts": {
+  "MATCH/MATCH": 38,
+  "MISMATCH:exit/MISMATCH:exit": 3
+ },
+ "not_repaired": {
+  "go.mod already present": 2
+ }
+}
+written: results/raw/go-mod-fidelity-v1-20261012T232637Z

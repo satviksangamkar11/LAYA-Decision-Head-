@@ -1,0 +1,13 @@
+{
+ "go_states_train_val": 3,
+ "repaired": 3,
+ "match_both_runs": 3,
+ "by_split": {
+  "train": 2,
+  "val": 1
+ },
+ "verdicts": {
+  "MATCH/MATCH": 3
+ },
+ "not_repaired": {}
+}

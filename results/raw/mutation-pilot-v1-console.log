@@ -1,0 +1,297 @@
+﻿replayable by canonical split: {'train': 88, 'test': 31, 'cal': 9, 'val': 13} | canonical TRAIN population: 88
+SCREEN fable5:ts-hangman:1 ts not_only_fable_write_edit_before_test
+SCREEN fable5:py-config-migrate:5 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-jsonpath-edit:2 py selected
+SCREEN fable5:py-btree-pages:5 py selected
+SCREEN fable5:py-ansi-paginate:1 py selected
+SCREEN fable5:py-incident-cli:4 py selected
+SCREEN fable5:ts-jsonrpc:1 ts selected
+SCREEN fable5:py-parking-garage:4 py selected
+SCREEN fable5:py-htmlclean:2 py selected
+SCREEN fable5:py-warehouse-bins:3 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-habit-streaks:1 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-timeclock:1 py not_only_fable_write_edit_before_test
+SCREEN fable5:go-mazekit:2 go selected
+SCREEN fable5:py-csv-sqlite:2 py selected
+SCREEN fable5:py-parking-garage:3 py not_only_fable_write_edit_before_test
+SCREEN fable5:ts-csv-mapper:2 ts selected
+SCREEN fable5:ts-config-merge3:4 ts not_only_fable_write_edit_before_test
+SCREEN fable5:ts-form-async-validate:1 ts not_only_fable_write_edit_before_test
+SCREEN fable5:py-a11yaudit:2 py action_only_not_exit_0
+SCREEN fable5:ts-recur-cal:5 ts selected
+SCREEN fable5:ts-expense-split:3 ts not_only_fable_write_edit_before_test
+SCREEN fable5:py-wiki-compiler:4 py not_only_fable_write_edit_before_test
+SCREEN fable5:ts-config-merge3:5 ts selected
+SCREEN fable5:py-incident-cli:3 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-stream-stats:2 py not_only_fable_write_edit_before_test
+SCREEN fable5:ts-kv-transactions:3 ts oracle_not_useful
+SCREEN fable5:ts-notification-center:2 ts selected
+SCREEN fable5:ts-lru-ttl-cache:2 ts selected
+SCREEN fable5:py-timeclock:2 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-bookmark-vault:4 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-table-export:1 py not_only_fable_write_edit_before_test
+SCREEN fable5:ts-recur-cal:4 ts not_only_fable_write_edit_before_test
+SCREEN fable5:py-task-runner:3 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-ibantool:2 py selected
+SCREEN fable5:ts-pong:1 ts selected
+SCREEN fable5:py-wiki-compiler:2 py not_only_fable_write_edit_before_test
+SCREEN fable5:ts-retry-abort:2 ts unstable
+SCREEN fable5:ts-memory:2 ts selected
+SCREEN fable5:py-task-runner:4 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-config-migrate:6 py selected
+SCREEN fable5:py-timeclock:4 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-wiki-compiler:3 py not_only_fable_write_edit_before_test
+SCREEN fable5:py-slide-splitter:1 py selected
+SCREEN fable5:ts-msgfmt:3 ts selected
+mutants to run: 152
+MUT fable5:py-jsonpath-edit:2#m078ddcd63d arith WORSE  [1, 1]
+MUT fable5:py-jsonpath-edit:2#m12d50400a5 cmp WORSE  [1, 1]
+MUT fable5:py-jsonpath-edit:2#m136d24d14e bool WORSE  [1, 1]
+MUT fable5:py-jsonpath-edit:2#m12877d6eff arith EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-jsonpath-edit:2#m02db84135b logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-jsonpath-edit:2#m097c5c2062 num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-jsonpath-edit:2#m1e232167b1 cmp EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-jsonpath-edit:2#m3ca8073adc bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#m0d4bcbac97 cmp WORSE  [1, 1]
+MUT fable5:py-btree-pages:5#m34a7e2ad45 cmp WORSE  [1, 1]
+MUT fable5:py-btree-pages:5#m629932d88e logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#m20b42d4bf4 num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#mac3b97f127 logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#m367640f1ab num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#m7d4a55ae9a cmp WORSE  [1, 1]
+MUT fable5:py-ansi-paginate:1#m1558a88df1 bool WORSE  [1, 1]
+MUT fable5:py-ansi-paginate:1#m184fd9ca10 arith WORSE  [1, 1]
+MUT fable5:py-ansi-paginate:1#m03b0ae4fda logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-ansi-paginate:1#m0502d0103e cmp EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-ansi-paginate:1#m00e724b381 num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-ansi-paginate:1#m18f3b3c3d2 arith EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-btree-pages:5#m3d165724b6 num WORSE  [1, 1]
+MUT fable5:py-ansi-paginate:1#m861d14f94a bool WORSE  [1, 1]
+MUT fable5:py-ansi-paginate:1#m16a7ecbc6f cmp EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-incident-cli:4#m0476fc138f arith EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-incident-cli:4#m48dacc7c7f cmp WORSE  [1, 1]
+MUT fable5:py-incident-cli:4#m2bdad5c7c7 bool WORSE  [1, 1]
+MUT fable5:py-incident-cli:4#m45c1e79e6d logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-incident-cli:4#m0a5a42a25c num WORSE  [1, 1]
+MUT fable5:py-incident-cli:4#m661887367d arith WORSE  [1, 1]
+MUT fable5:py-incident-cli:4#m48e4bbfbdf bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-incident-cli:4#m4a8ad3258b cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#m10f3f2f13f cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#md0ef3d2252 num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-jsonrpc:1#m5b0454c59d logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-jsonrpc:1#m69e09d9b5e cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#mc583fe89e8 cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#ma04770ed68 cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#me4e07aecc5 cmp WORSE  [1, 1]
+MUT fable5:ts-jsonrpc:1#me60641d7cd cmp WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m52afee87ea cmp WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m17990f6742 logic WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m255060e56e num WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m7852482944 cmp WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m430154d1b4 logic WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m13635ab57d bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-htmlclean:2#ma9ff9ad5fd bool WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#m1b212332fc cmp WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#m13ba717f5b logic WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#m4953f838e6 num WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#mec46aabe34 bool WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#m6363b81815 cmp WORSE  [1, 1]
+MUT fable5:py-htmlclean:2#m683f71b78a logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-htmlclean:2#m6b9426de20 num WORSE  [1, 1]
+MUT fable5:py-parking-garage:4#m204d4f67d7 bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-parking-garage:4#m3d56b72a54 num WORSE  [1, 1]
+MUT fable5:go-mazekit:2#m687cf75e95 arith WORSE  [1, 1]
+MUT fable5:go-mazekit:2#m11a7ccb958 bool WORSE  [1, 1]
+MUT fable5:go-mazekit:2#m0bc91d7707 cmp WORSE  [1, 1]
+MUT fable5:go-mazekit:2#m46d8060472 logic UNKNOWN  [1, 1]
+MUT fable5:go-mazekit:2#m01d7532929 num WORSE  [1, 1]
+MUT fable5:go-mazekit:2#m7d90409833 arith WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m2c378cd067 arith WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m15fd0294aa bool WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m15eaf6da88 cmp WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m5e77c1afd8 logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-csv-sqlite:2#m0cd9235a8e num WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m3a04451892 arith WORSE  [1, 1]
+MUT fable5:py-csv-sqlite:2#m50909e2a93 bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-csv-sqlite:2#m19655065a5 cmp WORSE  [1, 1]
+MUT fable5:ts-csv-mapper:2#m41b58ea742 arith UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m16090f2317 bool UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m5b4a7a28ee cmp UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m638765988f logic UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m16085f688e num UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m926b882ca0 arith UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m20110489ba bool UNKNOWN  [0, 0]
+MUT fable5:ts-csv-mapper:2#m6198465280 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#m1a733b398d arith UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#m17838c00e1 cmp EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-recur-cal:5#m99a5b8bddb logic UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#m26b8da36a9 num UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#m3fdca074e6 arith EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-recur-cal:5#m7c2d3fcb44 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#mdb43c3c9ee logic UNKNOWN  [0, 0]
+MUT fable5:ts-recur-cal:5#m6c99ed7bd3 num UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m0686cc0b59 cmp UNKNOWN  [0, 0]
+MUT fable5:go-mazekit:2#m2343febe2d bool WORSE  [1, 1]
+MUT fable5:ts-config-merge3:5#m8bfce3b3db logic UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m31b92e4bb3 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m9b685f9cff logic UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m6ea3d4852d cmp UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m863764a859 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m906b3e0e24 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-config-merge3:5#m91ba7fe86d cmp UNKNOWN  [0, 0]
+MUT fable5:ts-notification-center:2#m157ab513a9 arith WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m1eefdc464e bool WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m3ee7744fda cmp WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m123c0f9f2e logic WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m2b2afeaa51 num WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m6480a627b8 arith WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m725bdd7dbe bool WORSE  [1, 1]
+MUT fable5:ts-notification-center:2#m7f24cee4f9 cmp WORSE  [1, 1]
+MUT fable5:ts-lru-ttl-cache:2#mb875180d76 arith UNKNOWN  [0, 0]
+MUT fable5:go-mazekit:2#m23f88fba37 cmp EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m00ccb40e75 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m00dd94d0ae logic UNKNOWN  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m055b37c47c num UNKNOWN  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m1ab9fcabd0 cmp UNKNOWN  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m96fa1d0cec logic UNKNOWN  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m9a7c995365 num EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-lru-ttl-cache:2#m26078e3a19 cmp UNKNOWN  [0, 0]
+MUT fable5:py-ibantool:2#m0d3fa57725 arith WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m0f681f095f bool WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m0c428530b0 cmp WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m31001140ff logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-ibantool:2#m0479c8ff7f num WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m26b9bc72e0 arith WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m5bef1de479 bool WORSE  [1, 1]
+MUT fable5:py-ibantool:2#m0f6315754e cmp WORSE  [1, 1]
+MUT fable5:ts-pong:1#m2111ac2d53 arith WORSE  [1, 1]
+MUT fable5:ts-pong:1#m2c0c066ffb bool WORSE  [1, 1]
+MUT fable5:ts-pong:1#m0dec49d8ae logic WORSE  [1, 1]
+MUT fable5:ts-pong:1#m01abfb206f cmp WORSE  [1, 1]
+MUT fable5:ts-pong:1#m008947b74d num WORSE  [1, 1]
+MUT fable5:ts-pong:1#mb98aced839 bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:ts-pong:1#m31b9cc8689 arith WORSE  [1, 1]
+MUT fable5:ts-pong:1#m2c049109b1 cmp WORSE  [1, 1]
+MUT fable5:ts-memory:2#m1453111d21 arith UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m5f0cbee085 bool UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m0af6c0db5a cmp UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m2c8448542e logic UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m016093c95c num UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m2c8ee9b4fd arith UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m1ba4b21ecb cmp UNKNOWN  [0, 0]
+MUT fable5:ts-memory:2#m7ac7086757 bool UNKNOWN  [0, 0]
+MUT fable5:py-config-migrate:6#mf286b44178 arith WORSE  [1, 1]
+MUT fable5:py-config-migrate:6#m26603b3427 cmp WORSE  [1, 1]
+MUT fable5:py-config-migrate:6#m364b8a27a2 num WORSE  [1, 1]
+MUT fable5:py-config-migrate:6#m562c3e5722 cmp WORSE  [1, 1]
+MUT fable5:py-config-migrate:6#mbd341e418f bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-config-migrate:6#m25039f417b logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-slide-splitter:1#m0133c3910c arith WORSE  [1, 1]
+MUT fable5:py-slide-splitter:1#m036a0bd148 bool EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-slide-splitter:1#m2102727d01 cmp WORSE  [1, 1]
+MUT fable5:py-slide-splitter:1#m07e433fa79 logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-slide-splitter:1#m373f13ad1d num WORSE  [1, 1]
+MUT fable5:py-slide-splitter:1#m6c5cafcd70 arith WORSE  [1, 1]
+MUT fable5:py-slide-splitter:1#mcd7820d818 bool WORSE  [1, 1]
+MUT fable5:py-slide-splitter:1#m4f9590c940 cmp WORSE  [1, 1]
+MUT fable5:py-config-migrate:6#m7932b684d2 logic EQUAL_ON_TESTS  [0, 0]
+MUT fable5:py-config-migrate:6#m571c33e2a0 num EQUAL_ON_TESTS  [0, 0]
+{
+ "canonical_split_of_replayable_states": {
+  "train": 88,
+  "test": 31,
+  "cal": 9,
+  "val": 13
+ },
+ "canonical_train_population": 88,
+ "screened": 44,
+ "screen_reasons": {
+  "not_only_fable_write_edit_before_test": 21,
+  "selected": 20,
+  "action_only_not_exit_0": 1,
+  "oracle_not_useful": 1,
+  "unstable": 1
+ },
+ "selected": 20,
+ "selected_by_lang": {
+  "py": 10,
+  "ts": 9,
+  "go": 1
+ },
+ "mutants": 152,
+ "labels": {
+  "WORSE": 78,
+  "EQUAL_ON_TESTS": 36,
+  "UNKNOWN": 38
+ },
+ "labels_by_operator": {
+  "arith": {
+   "WORSE": 16,
+   "EQUAL_ON_TESTS": 4,
+   "UNKNOWN": 6
+  },
+  "bool": {
+   "WORSE": 15,
+   "EQUAL_ON_TESTS": 8,
+   "UNKNOWN": 4
+  },
+  "cmp": {
+   "WORSE": 29,
+   "EQUAL_ON_TESTS": 5,
+   "UNKNOWN": 14
+  },
+  "logic": {
+   "EQUAL_ON_TESTS": 12,
+   "WORSE": 5,
+   "UNKNOWN": 9
+  },
+  "num": {
+   "EQUAL_ON_TESTS": 7,
+   "WORSE": 13,
+   "UNKNOWN": 5
+  }
+ },
+ "labels_by_lang": {
+  "go": {
+   "WORSE": 6,
+   "UNKNOWN": 1,
+   "EQUAL_ON_TESTS": 1
+  },
+  "py": {
+   "WORSE": 51,
+   "EQUAL_ON_TESTS": 29
+  },
+  "ts": {
+   "WORSE": 21,
+   "EQUAL_ON_TESTS": 6,
+   "UNKNOWN": 37
+  }
+ },
+ "worse_crash_share": 0.0,
+ "non_crash_worse_per_state": {
+  "fable5:py-jsonpath-edit:2": 3,
+  "fable5:py-btree-pages:5": 4,
+  "fable5:py-ansi-paginate:1": 3,
+  "fable5:py-incident-cli:4": 5,
+  "fable5:ts-jsonrpc:1": 6,
+  "fable5:py-parking-garage:4": 6,
+  "fable5:py-htmlclean:2": 7,
+  "fable5:go-mazekit:2": 6,
+  "fable5:py-csv-sqlite:2": 6,
+  "fable5:ts-csv-mapper:2": 0,
+  "fable5:ts-recur-cal:5": 0,
+  "fable5:ts-config-merge3:5": 0,
+  "fable5:ts-notification-center:2": 8,
+  "fable5:ts-lru-ttl-cache:2": 0,
+  "fable5:py-ibantool:2": 7,
+  "fable5:ts-pong:1": 7,
+  "fable5:ts-memory:2": 0,
+  "fable5:py-config-migrate:6": 4,
+  "fable5:py-slide-splitter:1": 6,
+  "fable5:ts-msgfmt:3": 0
+ },
+ "states_with_2_or_more_non_crash_worse": 14,
+ "usable": false,
+ "usable_rule": "at least 15 of 20 states have >= 2 non-crash WORSE mutants AND crashes are at most half of all WORSE"
+}
+written: results/raw/mutation-pilot-v1-20261012T215655Z

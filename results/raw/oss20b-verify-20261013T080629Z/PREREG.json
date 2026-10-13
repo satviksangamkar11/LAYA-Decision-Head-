@@ -1,0 +1,29 @@
+{
+ "written": "2026-10-13, before any gpt-oss-20b request was sent",
+ "approved_by": "user, chat 2026-10-13: GO execute the GPT-OSS-20B pilot (two TRAIN verification calls, 5 registered problems x 5 samples, amendments 2 and 3 from the beginning, local WSL execution, local Qwen capture only after a parity check, no Kaggle, expansion gate fixed)",
+ "generator": {
+  "model": "openai/gpt-oss-20b",
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "reasoning_effort": "high",
+  "stream": true,
+  "max_tokens": 32768,
+  "samples": 5,
+  "why": "the project's gptoss20_high setting (tools/judge_qual_v1.py: temperature 1.0, top_p 0.95, reasoning_effort high, streamed), max_tokens 32,768 (the project's streamed allowance); fixed before the first call"
+ },
+ "verification": "2 calls on the canonical TRAIN request fable5:py-incident-cli:1 (Level 2 TRAIN requests, same blind builder); required: HTTP 200, finish_reason stop and a tool action decodable by the v3t decoder, on BOTH calls; otherwise stop and report",
+ "problems": [
+  "fable5:py-event-sched:1",
+  "fable5:py-trie-suggest:1",
+  "fable5:ps-shiftbrief:2",
+  "fable5:ps-loadsheet:1",
+  "fable5:ps-fleetpatch:1"
+ ],
+ "problem_choice": "positions 6-10 of the 23-problem hash order in MANIFEST.json (the GLM pilot used 1-5)",
+ "prompt": "requests_all_23_not_uploaded.jsonl.gz messages unchanged",
+ "call_logic": "judge_qual_v1.run_jobs: <= 5 in flight per key, <= 39 sends per key per minute, a rate-limit response cools that key 60 s and re-queues; a sample with no HTTP 200 gets a new attempt id (hard stop 20); a 200 answer is final; all 25 raw responses kept",
+ "execution": "tools/val_outcome_glm_v1.py execute <pilot> a3 (amendments 2 and 3 from the start; baseline must reproduce the recorded failure twice)",
+ "features": "local GPU capture with tools/val_capture_local.py (same representation as the Kaggle capture); used ONLY after its parity gate passes against the Kaggle capture of the GLM pilot pools (every hq / ho cosine >= 0.999 and identical top choices); otherwise scoring stops",
+ "selectors": "laya_v4 (rebuilt coding head x3), random_head_v4 (rebuilt x9), laya_baseline_v1 (x3), linear_probe (refit on the 303 TRAIN pools), first valid candidate, random among valid; raw sample 1 reported separately. End-to-end (invalid = fail) and valid-only reported apart",
+ "expansion_gate": "continue to the remaining 13 VAL problems only if at least 2 of the 5 problems have >= 1 PASS and >= 1 FAIL among valid candidates; otherwise stop. Generator and threshold are not changed after seeing results"
+}

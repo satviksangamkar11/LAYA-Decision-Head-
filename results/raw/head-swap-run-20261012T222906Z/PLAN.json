@@ -1,0 +1,60 @@
+{
+ "written": "2026-10-13, before any run; Kaggle launch held for the user's review",
+ "approved_by": "user, chat 2026-10-13: GO preparation of the head-swap experiment; three random heads; 5-point rule with a multiplicity-adjusted interval; no-context for every head; probe on identical folds; hold the Kaggle run until the registered plan is reviewed",
+ "questions": {
+  "Q1": "do pretrained heads beat randomly initialised heads after the same adapter training?",
+  "Q2": "does the typed-decisions head beat the coding head?",
+  "Q3": "does removing the coding context reduce the reference head's accuracy?",
+  "Q4": "does the reference system beat the standalone linear probe?"
+ },
+ "heads (all frozen; 31 tensors each: 24 context-layer, 6 scorer, 1 type embedding)": {
+  "coding": "models/coding-decision-agent (REFERENCE, the head of every earlier result)",
+  "typed": "models/laya-typed-decisions",
+  "code": "models/laya-code",
+  "conductor": "models/laya-conductor",
+  "random_1001 / _1002 / _1003": "the same DecisionHead architecture built under torch seed 1001 / 1002 / 1003: PyTorch's default initialisation of every layer (the family a fresh head of this architecture starts from); per-tensor norms of every head are reported next to the result"
+ },
+ "not loaded from any checkpoint (reconciliation of 36 vs 31)": "act_head.0/2 weight and bias (LAYA's abstain/escalate gate; our head's own gate is frozen and unused) and the scalar `temperature`",
+ "adapter training (identical for every head)": {
+  "steps": 300,
+  "eval_every": 25,
+  "batch_size": 8,
+  "lr_adapter": 0.0005,
+  "weight_decay": 0.01,
+  "grad_clip": 1.0,
+  "lr_floor": 0.1,
+  "unknown_weight": 0.5,
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "init": "DecisionHead built under torch seed = run seed, so every head gets the SAME initial adapter for a given seed",
+  "schedule": "cosine over all steps to 0.1 x, as the frozen trainer's adapter group",
+  "checkpoint": "lowest recorded-action loss on the development fold, every 25 steps",
+  "replay": "none (the head is frozen)"
+ },
+ "reproduction gate (stop interpreting if it fails)": "coding head, seed 0, out of fold must be within 4 points of 77.89% (tools/laya_joint_v1.py adapter_only, same 303 pools and folds); the 3-seed cleaned VAL mean within 4.4 points of 76.09%",
+ "primary evaluation": "5-fold cross-validation on the 303 cleaned TRAIN pools (test fold k, development fold (k+1) mod 5, three folds fitted; trajectory-disjoint); per pool the mean over 3 seeds (seeds are NOT independent examples); paired differences with 2,000 bootstrap resamples of whole trajectories",
+ "primary comparisons (family of 6; two-sided intervals at 99.17%)": [
+  "coding minus random (mean of 3)",
+  "typed minus coding",
+  "code minus coding",
+  "conductor minus coding",
+  "coding: real context minus no context (same pools)",
+  "probe minus coding"
+ ],
+ "decision rule (development screening)": "a difference counts only if it is at least 5 points AND its corrected interval excludes 0. random_mean = per pool, the mean of the three random heads; the spread of the three is reported",
+ "no-context": "every trained model is also scored with the no-context features on the 112 TRAIN pools that have them (test-time removal)",
+ "VAL": "after the configuration is fixed: each head, adapter trained on folds 1-4, development fold 0, 3 seeds, scored ONCE on the 46 cleaned VAL pools with and without context. Development-exposed: a check, not confirmation; nothing is chosen on it",
+ "zero-training swap (diagnostic)": "the three Fable-trained adapters of laya-baseline-v1 (trained for the coding head) loaded unchanged in front of every head; scored on cleaned VAL and the 600 native items only (those adapters saw every TRAIN pool). A failure shows incompatibility of that adapter with that head; it does not by itself show why",
+ "native 600": "reported for every model, information only (the items are the coding head's own decision types)",
+ "readings fixed beforehand": {
+  "pretrained heads beat random by the rule": "pretraining contributes under this interface",
+  "random within 5 points of coding": "no demonstrated advantage of these pretrained heads under this adapter and recipe; it does NOT show that a better-trained general head could never help",
+  "typed beats coding by the rule": "general-decision specialisation transfers to this Fable task; a reason to revisit general-decision training",
+  "probe beats coding": "the pretrained-head system adds nothing over a linear read-out on these features (expected from earlier results)",
+  "any result": "agreement with Fable only; not coding-task success; one backbone"
+ },
+ "leakage safeguards": "folds trajectory-disjoint (asserted); VAL trajectories disjoint from TRAIN (asserted); no CAL / TEST in either dataset; each head's 31 tensors asserted identical before and after training; the zero-training adapters are never scored on TRAIN pools"
+}

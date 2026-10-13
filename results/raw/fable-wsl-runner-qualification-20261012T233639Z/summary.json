@@ -1,0 +1,150 @@
+{
+ "sandbox_qualified": true,
+ "probes": {
+  "network_tcp": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "/opt/toolchains/python/cpython-3.13.11-linux-x86_64-gnu/lib/python3.13/socket.py\", line 849, in create_connection\n    sock.connect(sa)\n    ~~~~~~~~~~~~^^^^\nOSError: [Errno 101] Network is unreachable\n"
+  },
+  "network_curl": {
+   "qualified": true,
+   "exit_code": 6,
+   "killed": false,
+   "stdout": "",
+   "stderr": "curl: (6) Could not resolve host: example.com\n"
+  },
+  "dns": {
+   "qualified": true,
+   "exit_code": 2,
+   "killed": false,
+   "stdout": "",
+   "stderr": ""
+  },
+  "windows_drive_hidden": {
+   "qualified": true,
+   "exit_code": 2,
+   "killed": false,
+   "stdout": "",
+   "stderr": "ls: cannot access '/mnt/d': No such file or directory\n"
+  },
+  "secrets_unreachable": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "cat: '/mnt/d/local model/.secrets/nvidia_api_key_2.txt': No such file or directory\n"
+  },
+  "root_home_hidden": {
+   "qualified": true,
+   "exit_code": 2,
+   "killed": false,
+   "stdout": "",
+   "stderr": "ls: cannot access '/root': No such file or directory\n"
+  },
+  "write_toolchains": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "touch: cannot touch '/opt/toolchains/x': Read-only file system\n"
+  },
+  "write_usr": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "touch: cannot touch '/usr/x': Read-only file system\n"
+  },
+  "write_etc": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "touch: cannot touch '/etc/x': Read-only file system\n"
+  },
+  "protected_test_readonly": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "/bin/bash: line 1: test_protected.py: Read-only file system\n"
+  },
+  "sudo": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "0\nsudo: The \"no new privileges\" flag is set, which prevents sudo from running as root.\nsudo: If sudo is running in a container, you may need to adjust the container configuration to disable the flag.\n"
+  },
+  "not_root": {
+   "qualified": true,
+   "exit_code": 0,
+   "killed": false,
+   "stdout": "",
+   "stderr": ""
+  },
+  "env_has_no_secrets": {
+   "qualified": true,
+   "exit_code": 0,
+   "killed": false,
+   "stdout": "",
+   "stderr": ""
+  },
+  "memory_cap": {
+   "qualified": true,
+   "exit_code": -15,
+   "killed": false,
+   "stdout": "",
+   "stderr": ""
+  },
+  "process_cap": {
+   "qualified": true,
+   "exit_code": 1,
+   "killed": false,
+   "stdout": "",
+   "stderr": "ids, uid, umask,\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            preexec_fn, _USE_VFORK)\n            ^^^^^^^^^^^^^^^^^^^^^^^\nBlockingIOError: [Errno 11] Resource temporarily unavailable\n"
+  },
+  "timeout_kill": {
+   "qualified": true,
+   "exit_code": -9,
+   "killed": true,
+   "stdout": "",
+   "stderr": ""
+  },
+  "workspace_writable": {
+   "qualified": true,
+   "exit_code": 0,
+   "killed": false,
+   "stdout": "ok\n",
+   "stderr": ""
+  },
+  "toolchains": {
+   "qualified": true,
+   "exit_code": 0,
+   "killed": false,
+   "stdout": "Python 3.13.11\nv26.3.0\ngo version go1.26.4 linux/amd64\nopenjdk version \"26.0.1\" 2026-04-21\n7.6.3\n",
+   "stderr": ""
+  }
+ },
+ "isolation": "systemd scope (cgroup limits) + bubblewrap namespaces, unprivileged uid 999, no network namespace devices",
+ "states_dir": "results/raw/fable-replay-states-go-py-ts-strict-20261009T220928Z",
+ "proof_decisions": 9,
+ "baseline_status": {
+  "deterministic": 7,
+  "nondeterministic": 2
+ },
+ "baseline_by_lang": {
+  "py": {
+   "deterministic/exit 1": 3
+  },
+  "ts": {
+   "nondeterministic/exit 0": 2,
+   "deterministic/exit 1": 1
+  },
+  "go": {
+   "deterministic/exit 1": 3
+  }
+ }
+}
