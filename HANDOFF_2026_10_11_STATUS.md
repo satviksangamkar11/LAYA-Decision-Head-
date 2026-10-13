@@ -1771,3 +1771,35 @@ User GO (chat, 2026-10-13): a new, separately registered verification with seque
   the v3t decoder rejects it (wrong_top_level): failed. Pilot stopped; no VAL request sent; decoder and gate unchanged.
 - No 504 with sequential calls (2 of 2 answered), consistent with the concurrency explanation of the earlier 504s but not proof of it.
 - The new blocker is answer-format reliability at reasoning_effort low / temperature 1.0 (1 of 2 answers decodable).
+
+### 16.23 GLM-5.3 low-effort pilot v3: run complete, expansion gate FAILED (2026-10-13, 15:30 IST)
+
+User GO (chat, 2026-10-13): glmlow-v3 with strict singleton-list normalization verified offline on the saved responses, then the bounded 5-problem pilot;
+temperature 1.0 kept; no Kaggle. Registration PREREG_V3 in `tools/val_outcome_glmlow_v1.py` (gen_v3); generation
+`results/raw/val-outcome-v1-20261012T134540Z/gen-glmlow3-20261013T100634Z` (raw and normalized text kept, CONCURRENCY.json); outcomes and result in
+`results/raw/val-outcome-v1-20261012T134540Z/pilot-20261013T100634Z` (OUTCOMES_A3.json, OUTCOMES_A3b.json, RESULT_A3b.json).
+- Offline verification: the 3 saved HTTP-200 answers all decode (one through the unwrap); negative cases stay rejected. No new verification call.
+- Generation: 25 of 25 HTTP 200, 0 timeouts (17 rate-limit rejections re-queued), mean 218 s; 4 to 5 requests in flight on a key for 14 of the 25
+  answers, so concurrency alone did not cause 504s this time. The unwrap applied to 0 answers.
+- **Validity: 5 of 25.** The 20 invalid answers are genuine model format errors at low effort (extra closing brackets, a made-up "[call] {...}" or
+  "<tool_call>" syntax, prose before the JSON, bare lists of calls); the decoder was not changed after seeing them.
+- Execution bug found and fixed: the amendment-2 parser dropped single-call actions (rendered as a bare object), so one Write candidate was wrongly
+  "not a code change" (OUTCOMES_A3.json, kept). Fixed rerun OUTCOMES_A3b.json (same rule). The GLM-max pilot was not affected (all its candidates are lists).
+- Every baseline reproduces the recorded failure. py-event-sched:1: 2 valid (1 PASS, 1 FAIL), informative; py-trie-suggest:1: 2 valid, both PASS;
+  ps-shiftbrief:2: 1 valid, FAIL; ps-loadsheet:1 and ps-fleetpatch:1: 0 valid. **Oracle 2 of 5; informative 1 of 5: expansion gate FAILED (needs 2).**
+- Local capture verified first: parity re-capture of the 4 GLM-max pools (`results/raw/local-capture-parity-glmmax-20261013T100901Z/PARITY.json`):
+  worst cosine 0.999992 (real context), 0.999957 (no context), top choices 12 of 12 identical; the local scoring path reproduced the Kaggle scores
+  128 of 128. Then the 2 v3 pools with >= 2 valid candidates were captured locally and scored (folders below).
+
+| selector | end to end, 5 problems | the informative problem (py-event-sched:1) |
+|---|---|---|
+| oracle | 2 | 1 |
+| GLM raw sample 1 | 0 (every sample 1 invalid) | 0 |
+| first valid candidate | 1 | 0 |
+| random among valid / uniform over all 5 samples | 1.5 / 0.6 | 0.5 |
+| LAYA v4 (3), random head (9), baseline v1 (3), linear probe | 2 each | 1 (every run, with and without context) |
+
+- Reading: on the informative problem every learned scorer picked the passing fix (in the GLM-max pilot every scorer picked a failing one). Two
+  informative problems in total, one each way: still no evidence for or against any selector, and LAYA is never distinguishable from the probe or the
+  random head. By the registered gate the pilot stops here. Next: the user's decision.
+- Folders: local capture results/raw/local-capture-glmlow3-20261013T101558Z; scores results/raw/glmlow3-score-local-20261013T101735Z; local-vs-Kaggle scoring check results/raw/glm-pilot-score-local-check-20261013T101346Z.
