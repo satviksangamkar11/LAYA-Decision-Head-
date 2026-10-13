@@ -206,3 +206,18 @@ falls below those baselines on operator-matched pools. So: **close the code-patc
 generate candidates -> run sandbox tests -> keep passing candidates; LAYA for read / test / ask / stop and for choosing among several passing candidates;
 before any broader training, solve the shortage of informative held-out pools. Section 8 point 2's practical conclusion (execution decides code
 correctness) stands, now for the right reason.
+
+## 10. Next-action decisions: plan (user direction 2026-10-13; feasibility report NEXT_ACTION_FEASIBILITY_2026_10_13.md)
+
+Goal unchanged: a decision component that helps a smaller model finish more tasks with fewer unnecessary actions. The target is WHEN to read / search /
+test / edit / ask / stop, labelled by evidence of task progress, never by "the action before a success was right".
+
+1. **Inventory and feasibility (done, read-only):** 115 canonical TRAIN and 58 canonical VAL replay states; 0 informative next-action-TYPE decisions in
+   our own data; the on-disk nebius set has 1,741 tasks with both resolved and unresolved runs (19,602 runs, 859 repos), the best natural source of
+   same-state branching; 192 replay states carry 4 never-executed Qwen3-30B proposals each.
+2. **Build a small reliable decision dataset (next GO):** first the nebius branching count (Kaggle CPU, gate: >= 300 decision points from >= 100 repos);
+   then labels from natural branching (repo-disjoint) or, if the gate fails, from executing the saved proposals with a short fixed continuation in the
+   sandbox. Validity rules are filters and baselines, never the target. Rollout outcomes may later supervise training (user), not only evaluate.
+3. **Small Kaggle comparison:** a simple outcome-trained probe first (the existing scorers were trained for imitation and are not a fair judge), against
+   rule baselines R1-R6 and a random-head system with every shortcut control; pretrained LAYA only if the labels prove informative.
+4. **Final gate:** task success and tool cost with and without the decision system on independent problems; CAL / TEST protected; VAL is development.
