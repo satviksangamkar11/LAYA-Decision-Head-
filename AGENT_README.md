@@ -93,6 +93,12 @@ rate-limit response cools that key one minute, nothing completed is resent. Meas
 4. Decide on the remaining 471 decisions, head diagnosis, and outcome-labelled data only after steps 1-3.
 Needs the user's GO: any Kaggle run, any further fine-tuning, generation beyond Stage 1.
 
+## UPDATE - 2026-10-13, 22:00 IST: edited-only control: ONLY WITH ORIGINAL; code-patch ranking line closed for these features
+
+- Original excluded, 15 states, 36 pass vs 83 fail edited copies: probe 73% (whole-option) / 60% (edit sites) vs chance 30%, but lexical 67%, operator
+  60%, no-context 80%; consensus rule finds the original in 19/19 earlier pools: the 16.25 PASS was a shortcut. Verdict ONLY WITH ORIGINAL.
+  Eval run 1 crashed on a numpy-bool JSON write after computing; run 2 (same seeds) is official. HANDOFF 16.26; ledger 71.
+
 ## UPDATE - 2026-10-13, 18:40 IST: diff-focused diagnostic PASS; correction of the mutation reading
 
 - Probe trained on pass / fail labels, leave one state out (19 states = 19 trajectories), Kaggle: edit-site features 89.5% (unseen 85.7%), whole-option

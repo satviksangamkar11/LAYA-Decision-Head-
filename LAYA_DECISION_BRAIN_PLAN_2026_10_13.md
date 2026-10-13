@@ -197,3 +197,12 @@ trained to imitate Fable do not use it. Before any "learned scorer picks code" w
 of each original vs its 36 test-PASSING mutants (EQUAL_ON_TESTS). If it still rejects them, it detects edits, not correctness, and the section-8
 recommendation (execution decides code correctness) stands; if it accepts them, a pass / fail scorer trained on execution labels becomes a real option.
 Needs the user's GO (Kaggle CPU, minutes; features of the passing mutants need one more capture of those pools, about 10 min T4).
+
+### 9.10 Edited-only control result (2026-10-13, 22:00 IST): ONLY WITH ORIGINAL
+
+The 9.9 PASS was the original-as-centre shortcut (an untrained similarity rule finds the original in 19/19 pools). With every candidate edited, the probe
+is above chance (73% vs 30%) but no better than the changed tokens alone (67%) or the mutation operator alone (60%), does not need the context, and
+falls below those baselines on operator-matched pools. So: **close the code-patch ranking line for the current frozen features.** Priority, as directed:
+generate candidates -> run sandbox tests -> keep passing candidates; LAYA for read / test / ask / stop and for choosing among several passing candidates;
+before any broader training, solve the shortage of informative held-out pools. Section 8 point 2's practical conclusion (execution decides code
+correctness) stands, now for the right reason.

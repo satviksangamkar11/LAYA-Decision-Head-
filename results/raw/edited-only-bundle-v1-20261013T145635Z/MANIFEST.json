@@ -1,0 +1,24 @@
+{
+ "states": 15,
+ "pass_": 36,
+ "fail": 83,
+ "operator_matched_states": 12,
+ "pool_sizes": [
+  7,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8
+ ],
+ "original_excluded": true
+}

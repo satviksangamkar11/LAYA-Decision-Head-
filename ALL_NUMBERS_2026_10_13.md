@@ -53,3 +53,26 @@ typed minus coding +1.8 (not significant).
 | Same without context | 1.8% / 1.8% / 0% / 0% | 4.8% / 0% / 0% / 0% |
 
 Every imitation-trained scorer's probabilities are within ~0.02 of uniform. (CORRECTED by section E: the features do carry the signal; these scorers were not trained to use it.)
+
+## E. Diff-focused diagnostic (probe trained on pass/fail, leave-one-state-out, Kaggle, HANDOFF 16.25)
+
+| Probe features | All 19 | 7 unseen |
+|---|---|---|
+| Edit sites +- 8, centred (primary) | 89.5% | 85.7% |
+| Edit sites +- 8 uncentred / +- 32 centred / +- 8 no context | 94.7% / 100% / 89.5% | 100% / 100% / 100% |
+| Whole-option features (existing), centred | 100% | 100% |
+| Lexical (site token ids, no Qwen) / random | 26.3% / 20.5% | 14.3% / 20.0% |
+
+Permutation p = 0.001; verdict PASS, but EXPLAINED BY A SHORTCUT (section F): an untrained "most similar to the others" rule picks the original in 19/19.
+
+## F. Edited-only control (original excluded; 15 states, 36 pass vs 83 fail edited copies; HANDOFF 16.26)
+
+| Selector | Top choice passes | Chance |
+|---|---|---|
+| Probe, whole-option / edit sites +- 8 | 73.3% / 60.0% | 30.1% |
+| Probe, whole-option without context | 80.0% | 30.1% |
+| Changed tokens only (no Qwen) / mutation operator only | 66.7% / 60.0% | 30.1% |
+| Token consensus (untrained) | 21.4% | 30.1% |
+| Operator-matched pools (12 states): probe vs tokens / operator | 58.3% vs 66.7% / 66.7% | 32.4% |
+
+Verdict ONLY WITH ORIGINAL: above chance (p 0.003) but not above the simple baselines; no context needed: edit-type cues, not correctness.

@@ -364,7 +364,9 @@ selector, LAYA included, is shown to help or to hurt.
 probabilities within ~0.02 of uniform. **Corrected by the diff-focused diagnostic (16.25):** a linear probe trained on the pass / fail labels
 (leave one state out) picks the passing fix in 89.5% of states with edit-site features and 100% with the existing whole-option features (random 20.5%,
 permutation p = 0.001): the features carry the signal; the imitation-trained scorers do not use it. Open question: correctness or "this text was
-mechanically edited" (test with the 36 mutants that still pass their tests). Until then code correctness comes from execution;
+mechanically edited". **Settled by the edited-only control (16.26):** the 89.5% / 100% came from the original being the centre of its pool (an
+untrained similarity rule finds it 19/19); with only edited candidates the probe (73%) is no better than the changed tokens alone (67%) or the mutation
+operator alone (60%) and needs no context. Code correctness comes from execution;
 the re-plan is in LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 8, all numbers in ALL_NUMBERS_2026_10_13.md. The sandbox now also replays Go,
 C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
 

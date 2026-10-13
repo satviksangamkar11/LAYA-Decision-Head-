@@ -1,0 +1,868 @@
+{
+ "protocol": "diff_capture_v2_edited_only",
+ "depths": [
+  18,
+  24,
+  30
+ ],
+ "windows": [
+  8,
+  32
+ ],
+ "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+ "device": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "checks": {
+  "options_matched_to_earlier_capture": 116,
+  "hashes_identical": true,
+  "whole_option_cos_min": 0.999779,
+  "whole_option_reproduces": true,
+  "spans_nonempty": true,
+  "finite": true,
+  "repeat_identical": true,
+  "plain_pools": [
+   "fable5:py-incident-cli:4"
+  ],
+  "key_file_mounted": false,
+  "all_passed": true
+ },
+ "rows": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "sites": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "seconds": 28.17,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 8.62,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 25.25,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 14.02,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 23.43,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3716,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 9.02,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 15.53,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2605,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 12.57,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2596,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 11.33,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3632,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 13.03,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 23.66,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 10.36,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3523,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 21.55,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "B",
+   "mode": "plain_per_option",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 92.89,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2588,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 24.47,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "sites": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "seconds": 20.11,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 6.09,
+   "whole_vs_existing_cos": 0.999999
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 19.36,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 7.88,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 10.91,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 4.26,
+   "whole_vs_existing_cos": 0.999999
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 2.36,
+   "whole_vs_existing_cos": 0.999779
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 8.51,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 7.58,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 7.62,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 6.69,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 3.77,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 14.3,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 25.64,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "sites": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "seconds": 18.81,
+   "whole_vs_existing_cos": 1.0
+  }
+ ],
+ "seconds": 626.3
+}

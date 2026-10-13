@@ -139,5 +139,76 @@ def join(out_arg, scores_arg):
     print(json.dumps(summary, indent=1))
 
 
+PLAN_EDITED = {
+    "written": "2026-10-13, before any edited-only pool was captured or evaluated",
+    "approved_by": "user, chat 2026-10-13: GO one bounded edited-only mutation control on Kaggle (exclude the unmodified Fable action; 15 mixed states; "
+                   "whole-option and diff-focused features; no-context, lexical, operator and token-consensus baselines; operator-matched subset of 12; "
+                   "leave-one-trajectory-out; pre-registered; development diagnostic)",
+    "why": "in the earlier pools the original is the common centre of all mutants (1 site from each, mutants 2 sites from each other), so a probe can "
+           "find it without judging correctness; here every candidate is an edited copy",
+    "states": "the 15 valid v1.1 states with >= 1 EQUAL_ON_TESTS and >= 1 WORSE (crash-free) mutant; 15 distinct trajectories",
+    "pool": "every EQUAL_ON_TESTS and every crash-free WORSE mutant of the state (7-8 per pool; 36 pass, 83 fail in total); Fable's original EXCLUDED; "
+            "options rendered as in the earlier pools; order by sha256(decision_id|option text)",
+    "labels": "PASS = the recorded test passes (EQUAL_ON_TESTS), FAIL = it fails (WORSE); 'pass' means passing the recorded tests, not proven correct",
+}
+
+
+def build_edited(out_arg):
+    out = ROOT / out_arg
+    (out / "upload").mkdir(parents=True)
+    states = {s["decision_id"] for s in map(json.loads, open(MUT / "states.jsonl", encoding="utf-8")) if s["valid"]}
+    by = collections.defaultdict(list)
+    for m in map(json.loads, open(MUT / "mutants.jsonl", encoding="utf-8")):
+        if m["decision_id"] in states and not m["crash"] and m["label"] in ("EQUAL_ON_TESTS", "WORSE"):
+            by[m["decision_id"]].append(m)
+    mixed = {d: v for d, v in by.items() if {m["label"] for m in v} == {"EQUAL_ON_TESTS", "WORSE"}}
+    meta = {(r["trajectory_id"], r["step"] + 1): r for r in FP.read_gz(FI.METADATA) if r["source"] == "fable5"}
+    rows, labels = [], []
+    with open(FI.TRACES, encoding="utf-8") as f:
+        for line in f:
+            row = json.loads(line)
+            mm = meta.get((row["source_trajectory_id"], row["assistant_step"]))
+            if mm is None or mm["decision_id"] not in mixed:
+                continue
+            did = mm["decision_id"]
+            msgs, ti = row["messages"], row["target_message_index"]
+            ctx, info = FP.select_context(msgs[:ti], V.MAX_CONTEXT_CHARS)
+            assert ctx is not None and not info.get("n_omitted"), did
+            calls = [FP.parse_call(tc) for tc in msgs[ti]["tool_calls"]]
+            fable = option_of(calls)
+            opts = []
+            for m in mixed[did]:
+                st = m["steps"][m["step"]]
+                k = "content" if st["effect"] == "write" else "new_string"
+                t = option_of([(n, dict(a, **{k: st["arguments"][k]}) if i == m["step"] else a) for i, (n, a) in enumerate(calls)])
+                assert t != fable
+                opts.append((m, t))
+            opts.sort(key=lambda o: hashlib.sha256(("%s|%s" % (did, o[1])).encode()).hexdigest())
+            texts = [t for _, t in opts]
+            assert len(set(texts)) == len(texts) and len(texts) <= 8, did
+            rows.append(dict(decision_id=did, context_text=ctx, options=texts, same_trajectory_context="", other_trajectory_from=did, **FP.request_hashes(ctx, texts)))
+            ops = {m["op"] for m, _ in opts}
+            matched = sorted(op for op in ops if {m["label"] for m, _ in opts if m["op"] == op} == {"EQUAL_ON_TESTS", "WORSE"})
+            labels.append(dict(decision_id=did, mutant_ids=[m["id"] for m, _ in opts], passes=[m["label"] == "EQUAL_ON_TESTS" for m, _ in opts],
+                               operators=[m["op"] for m, _ in opts], operator_matched=bool(matched), matched_operators=matched))
+    assert len(rows) == 15, len(rows)
+    with gzip.open(out / "upload/requests_edited.jsonl.gz", "xt", encoding="utf-8") as fh:
+        fh.writelines(json.dumps(r, ensure_ascii=False) + "\n" for r in rows)
+    for n in ("capture.py", "capture_resident.py"):
+        shutil.copy(CODE / n, out / "upload" / n)
+    shutil.copy(CONFIG, out / "upload/level12_config.json")
+    (out / "upload/dataset-metadata.json").write_text(json.dumps(dict(title="laya-mutation-edited-v1", id="sangeetasangamkar/laya-mutation-edited-v1",
+                                                                       licenses=[dict(name="other")])), "utf-8")
+    (out / "labels").mkdir()
+    (out / "labels/labels_edited.json").write_text(json.dumps(labels, indent=1), "utf-8")
+    (out / "labels/dataset-metadata.json").write_text(json.dumps(dict(title="laya-mutation-edited-labels-v1", id="sangeetasangamkar/laya-mutation-edited-labels-v1",
+                                                                       licenses=[dict(name="other")])), "utf-8")
+    (out / "PLAN.json").write_text(json.dumps(PLAN_EDITED, indent=1), "utf-8")
+    man = dict(states=len(rows), pass_=sum(sum(x["passes"]) for x in labels), fail=sum(len(x["passes"]) - sum(x["passes"]) for x in labels),
+               operator_matched_states=sum(x["operator_matched"] for x in labels), pool_sizes=[len(x["passes"]) for x in labels], original_excluded=True)
+    (out / "MANIFEST.json").write_text(json.dumps(man, indent=1), "utf-8")
+    print(json.dumps(man))
+
+
 if __name__ == "__main__":
-    join(*sys.argv[2:]) if sys.argv[1] == "join" else build(sys.argv[1])
+    {"join": lambda: join(*sys.argv[2:]), "edited": lambda: build_edited(sys.argv[2])}.get(sys.argv[1], lambda: build(sys.argv[1]))()

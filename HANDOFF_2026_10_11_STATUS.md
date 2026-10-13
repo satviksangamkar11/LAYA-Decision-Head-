@@ -1860,3 +1860,37 @@ p < 0.05 yes, lexical margin +63 points (>= 15) yes: **verdict PASS**.
   edited / unnatural code" rather than "fails its tests". The v1.1 labels contain 36 mutants that change the code but still PASS the tests
   (EQUAL_ON_TESTS): scoring them against the originals separates the two readings (a correctness detector should not reject them; an edit detector will).
 - Limits: TRAIN states; synthetic single-site mutants; 19 states; the probe is trained on 18 states' mutation labels (no Fable imitation involved).
+
+### 16.26 Edited-only mutation control (15 TRAIN states, Kaggle): verdict ONLY WITH ORIGINAL; the 16.25 PASS is explained by the original-as-centre shortcut (2026-10-13, 22:00 IST)
+
+User GO (chat, 2026-10-13) with the user's correction: exclude Fable's unmodified action (it is the common centre of all mutants); pools of edited copies
+only. Bundle `results/raw/edited-only-bundle-v1-20261013T145635Z` (PLAN, MANIFEST; requests and labels uploaded as private datasets
+laya-mutation-edited-v1 and laya-mutation-edited-labels-v1, the labels mounted only by the evaluation). 15 states (= 15 trajectories) with both
+outcomes: 36 PASS and 83 FAIL edited candidates, 7-8 per pool; 12 operator-matched states. Capture `kaggle/diff_capture_v2.py` (kernel
+laya-edited-capture, T4, 626 s, `results/raw/edited-capture-run-20261013T151424Z`): all checks passed (116 option captures shared with the earlier pools
+reproduce them, cosine >= 0.99978; repeat identical; labels not mounted). Evaluation `kaggle/edited_eval_v1.py` (kernel laya-edited-eval, Kaggle CPU):
+run 1 computed everything but crashed writing RESULT.json (a numpy bool; `results/raw/edited-eval-run-20261013T154709Z`, partial file kept); run 2
+(same seeds, JSON fix only) is the official result `results/raw/edited-eval-run-20261013T162326Z/RESULT.json`; its numbers equal run 1's log.
+
+| leave one state out, 15 states | top choice passes | chance | minus chance (95% bootstrap) | 12 operator-matched states, restricted pools |
+|---|---|---|---|---|
+| whole-option features, centred (co-primary) | 73.3% | 30.1% | +43.2 (+20.8 to +63.8) | 58.3% (chance 32.4%) |
+| edit sites +- 8, centred (co-primary) | 60.0% | 30.1% | +29.9 (+7.5 to +54.2) | 50.0% |
+| edit sites +- 32 | 66.7% | 30.1% | +36.6 | - |
+| whole-option, NO context / +- 8, no context | 80.0% / 73.3% | 30.1% | +49.9 / +43.2 | - |
+| lexical (site token ids, no Qwen) | 66.7% | 30.1% | +36.6 | 66.7% |
+| mutation operator only | 60.0% | 30.1% | +29.9 | 66.7% |
+| token consensus (unsupervised) | 21.4% | 30.1% | -8.7 | - |
+| **token consensus on the EARLIER pools (original included)** | **picks the original in 19 of 19 states** | 20.5% | | |
+
+Permutation (1,000 runs, labels shuffled within pools): whole-option p = 0.003 (Holm 0.006), +- 8 p = 0.026 (Holm 0.026). Margin over the best simple
+baseline (lexical 66.7%): +6.7 and -6.7 points, below the pre-registered 15: **verdict ONLY WITH ORIGINAL** (above chance, does not beat the baselines).
+
+Reading:
+- The 89.5% / 100% of 16.25 is fully explained by the original-as-centre shortcut: an untrained rule that picks the text most similar to the others
+  finds the original in every one of the 19 earlier pools.
+- On edited-only pools the probe is above chance, but simple cues explain it: the changed tokens alone (67%) and the mutation operator alone (60%) do
+  about as well, removing the context does not hurt (80% without vs 73% with), and on the operator-matched pools the probe (58%) is below the token
+  and operator baselines (67%). The probe learns which kinds of edits tend to survive the tests, not whether this fix is correct in this situation.
+- No demonstrated correctness discrimination by this representation and probe. Development diagnostic on TRAIN states; 15 states; synthetic edits;
+  "pass" = passes the recorded tests.
