@@ -229,3 +229,15 @@ decisions that matter are absent because histories stop matching once real work 
 TRAIN replay states (saved proposals + Fable's action, each continued by one fixed policy in the sandbox): same snapshot, so the environment is
 verified identical; (b) an abstracted-state matching tier on nebius (same files changed + same last test result), clearly labelled exploratory and
 observational; (c) stop pursuing outcome labels for next actions and keep the rule baselines.
+
+### 10.2 Option A step 1 (2026-10-14): not eligible; pilot not run
+
+- 115 canonical TRAIN replay states (74 trajectories); all 115 snapshots verify (every recorded file present with its recorded sha256).
+- The saved proposals cannot supply next-action choices: all 768 of them (192 states; 460 at the 115 TRAIN states) are Write (707) or Edit (61): the
+  replay set was built with `min_code_proposals: 4`, i.e. states were SELECTED for having 4 code-edit proposals. No read, search, test or stop proposal
+  exists. Every proposal also carries finish_reason `length`; they all parse as JSON, but whether each file body is complete cannot be confirmed
+  without execution.
+- Result: 0 states with >= 2 meaningfully different action TYPES; the only alternatives are other code edits (the code-patch ranking question, closed
+  in 16.26). Following the user's rule (do not manufacture action-type diversity), the 36-continuation pilot did NOT run; no model was called.
+- A further limit for any read / search alternative here: the states are trace-reconstructed (only files the original session saw exist), so reading
+  a file the session never opened would fail for an artificial reason.

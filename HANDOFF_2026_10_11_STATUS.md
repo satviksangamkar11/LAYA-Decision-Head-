@@ -1900,7 +1900,7 @@ Reading:
 User GO (chat, 2026-10-13) with the frozen branch definition (exact history = headline, normalised = exploratory, verified workspace = 0; outcomes
 observational; LAYA overlap separate). Filtered upload: the 1,741 mixed-outcome tasks (19,602 runs, 859 repos; 361 repos in LAYA's pretraining
 source list of 858; the recorded overlap with the full nebius set is 618). Credential scan before upload (`tools/secret_scan_parquet_v1.py`): 24 matches,
-all fixtures (10 x the AWS documentation key AKIAIOSFODNN7EXAMPLE; 14 private-key headers inside test assertions, 0 followed by key material).
+all fixtures (10 x the AWS documentation key AKIA...EXAMPLE (AWS documentation example key); 14 private-key headers inside test assertions, 0 followed by key material).
 Bundle `results/raw/nebius-branch-bundle-v1-20261013T174558Z`, kernel laya-nebius-branch (`kaggle/nebius_branch_count_v1.py`, 658 s), output
 `results/raw/nebius-branch-run-20261013T182226Z` (BRANCH_REPORT.json, BRANCH_EXAMPLES.json). Stage-1 parse gate passed (50 tasks: parse 100%,
 tool calls matched 98.4%).
@@ -1928,3 +1928,19 @@ Audit of the 25 examples:
 
 Reading: the discovery threshold (>= 300 / >= 100 repos, exact) is met numerically, but natural exact-history branching does NOT supply trustworthy
 labels for the decisions that matter (when to edit, test, stop). Label building from this source in its current form: HOLD.
+
+### 16.28 Option A step 1 (no-inference eligibility audit): NOT eligible; the pilot did not run (2026-10-14, 00:40 IST)
+
+User GO (chat, 2026-10-14) for a no-inference audit, then a pilot of at most 36 controlled continuations if eligible. `tools/continuation_audit_v1.py`,
+output `results/raw/continuation-audit-v1-20261013T182718Z` (AUDIT.json, STATES.jsonl). File reading only.
+- 115 canonical TRAIN replay states (74 trajectories); all 115 snapshots verify (every recorded file present with its recorded sha256).
+- The saved proposals cannot supply next-action choices: all 768 of them (192 states; 460 at the 115 TRAIN states) are Write (707) or Edit (61): the
+  replay set was built with `min_code_proposals: 4`, i.e. states were SELECTED for having 4 code-edit proposals. No read, search, test or stop proposal
+  exists. Every proposal also carries finish_reason `length`; they all parse as JSON, but whether each file body is complete cannot be confirmed
+  without execution.
+- Result: 0 states with >= 2 meaningfully different action TYPES; the only alternatives are other code edits (the code-patch ranking question, closed
+  in 16.26). Following the user's rule (do not manufacture action-type diversity), the 36-continuation pilot did NOT run; no model was called.
+- A further limit for any read / search alternative here: the states are trace-reconstructed (only files the original session saw exist), so reading
+  a file the session never opened would fail for an artificial reason.
+Also: the push of d4ce10f ran before its secret-scan result was checked (2 matches, both the published AWS documentation example key
+quoted in our own notes, masked since). The push is now gated on a zero scan count.

@@ -1,0 +1,17 @@
+{
+ "canonical_train_replay_states": 115,
+ "trajectories": 74,
+ "snapshot_exact": 115,
+ "candidate_status": {
+  "eligible": 115,
+  "truncated_length": 460
+ },
+ "eligible_per_state": {
+  "1": 115
+ },
+ "states_2plus_distinct_eligible": 0,
+ "states_2plus_action_types": 0,
+ "trajectories_2plus_action_types": 0,
+ "type_combinations_2plus": {},
+ "languages_2plus_types": {}
+}
