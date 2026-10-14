@@ -1,0 +1,78 @@
+[{"stream_name":"stdout","time":59.450468163,"data":"done 37/37  58s\n"}
+,{"stream_name":"stdout","time":59.469846129,"data":"{\n"}
+,{"stream_name":"stdout","time":59.469896926,"data":" \"table\": {\n"}
+,{"stream_name":"stdout","time":59.469904474,"data":"  \"mini-SWE-agent|terminal\": {\n"}
+,{"stream_name":"stdout","time":59.469910272,"data":"   \"REF_CONSISTENT\": {\n"}
+,{"stream_name":"stdout","time":59.46991518,"data":"    \"runs\": 4,\n"}
+,{"stream_name":"stdout","time":59.469920486,"data":"    \"flagged_incorrect\": 12,\n"}
+,{"stream_name":"stdout","time":59.469925588,"data":"    \"flagged_unuseful\": 3\n"}
+,{"stream_name":"stdout","time":59.469930085,"data":"   },\n"}
+,{"stream_name":"stdout","time":59.469934363,"data":"   \"REF_CONFLICT\": {\n"}
+,{"stream_name":"stdout","time":59.469938702,"data":"    \"runs\": 2,\n"}
+,{"stream_name":"stdout","time":59.469943009,"data":"    \"flagged_incorrect\": 39,\n"}
+,{"stream_name":"stdout","time":59.469949694,"data":"    \"flagged_unuseful\": 8\n"}
+,{"stream_name":"stdout","time":59.469958645,"data":"   },\n"}
+,{"stream_name":"stdout","time":59.469961688,"data":"   \"MISSING_SOURCE\": {\n"}
+,{"stream_name":"stdout","time":59.469964603,"data":"    \"runs\": 2,\n"}
+,{"stream_name":"stdout","time":59.469967436,"data":"    \"flagged_incorrect\": 5,\n"}
+,{"stream_name":"stdout","time":59.469970357,"data":"    \"flagged_unuseful\": 1\n"}
+,{"stream_name":"stdout","time":59.469973259,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.469976049,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.469978824,"data":"  \"mini-SWE-agent|swe\": {\n"}
+,{"stream_name":"stdout","time":59.469981754,"data":"   \"COUNT_MATCH_ONLY\": {\n"}
+,{"stream_name":"stdout","time":59.469984652,"data":"    \"runs\": 6,\n"}
+,{"stream_name":"stdout","time":59.470008724,"data":"    \"flagged_incorrect\": 17,\n"}
+,{"stream_name":"stdout","time":59.470014528,"data":"    \"flagged_unuseful\": 0\n"}
+,{"stream_name":"stdout","time":59.470019187,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.470024513,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.470028833,"data":"  \"OpenHands|terminal\": {\n"}
+,{"stream_name":"stdout","time":59.470033274,"data":"   \"REF_CONFLICT\": {\n"}
+,{"stream_name":"stdout","time":59.470037811,"data":"    \"runs\": 5,\n"}
+,{"stream_name":"stdout","time":59.470042474,"data":"    \"flagged_incorrect\": 63,\n"}
+,{"stream_name":"stdout","time":59.470046892,"data":"    \"flagged_unuseful\": 1\n"}
+,{"stream_name":"stdout","time":59.470051295,"data":"   },\n"}
+,{"stream_name":"stdout","time":59.470055489,"data":"   \"COUNT_MISMATCH\": {\n"}
+,{"stream_name":"stdout","time":59.470060102,"data":"    \"runs\": 1,\n"}
+,{"stream_name":"stdout","time":59.470064404,"data":"    \"flagged_incorrect\": 2,\n"}
+,{"stream_name":"stdout","time":59.470069101,"data":"    \"flagged_unuseful\": 0\n"}
+,{"stream_name":"stdout","time":59.470075837,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.470084363,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.470087612,"data":"  \"OpenHands|swe\": {\n"}
+,{"stream_name":"stdout","time":59.470091763,"data":"   \"COUNT_MISMATCH\": {\n"}
+,{"stream_name":"stdout","time":59.470111352,"data":"    \"runs\": 6,\n"}
+,{"stream_name":"stdout","time":59.470116807,"data":"    \"flagged_incorrect\": 11,\n"}
+,{"stream_name":"stdout","time":59.470122139,"data":"    \"flagged_unuseful\": 0\n"}
+,{"stream_name":"stdout","time":59.470127735,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.470132027,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.470150539,"data":"  \"SWE-agent|swe\": {\n"}
+,{"stream_name":"stdout","time":59.4701551,"data":"   \"COUNT_MATCH_ONLY\": {\n"}
+,{"stream_name":"stdout","time":59.470159504,"data":"    \"runs\": 6,\n"}
+,{"stream_name":"stdout","time":59.470163813,"data":"    \"flagged_incorrect\": 13,\n"}
+,{"stream_name":"stdout","time":59.470168945,"data":"    \"flagged_unuseful\": 0\n"}
+,{"stream_name":"stdout","time":59.470276843,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.470283326,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.470288565,"data":"  \"Terminus2|terminal\": {\n"}
+,{"stream_name":"stdout","time":59.470293829,"data":"   \"REF_CONFLICT\": {\n"}
+,{"stream_name":"stdout","time":59.470298836,"data":"    \"runs\": 4,\n"}
+,{"stream_name":"stdout","time":59.470303136,"data":"    \"flagged_incorrect\": 24,\n"}
+,{"stream_name":"stdout","time":59.470307592,"data":"    \"flagged_unuseful\": 5\n"}
+,{"stream_name":"stdout","time":59.470312045,"data":"   },\n"}
+,{"stream_name":"stdout","time":59.470316202,"data":"   \"COUNT_MATCH_ONLY\": {\n"}
+,{"stream_name":"stdout","time":59.470320612,"data":"    \"runs\": 1,\n"}
+,{"stream_name":"stdout","time":59.4703251,"data":"    \"flagged_incorrect\": 3,\n"}
+,{"stream_name":"stdout","time":59.470329441,"data":"    \"flagged_unuseful\": 0\n"}
+,{"stream_name":"stdout","time":59.470333787,"data":"   }\n"}
+,{"stream_name":"stdout","time":59.470337922,"data":"  }\n"}
+,{"stream_name":"stdout","time":59.470342178,"data":" },\n"}
+,{"stream_name":"stdout","time":59.470346268,"data":" \"secrets\": {\n"}
+,{"stream_name":"stdout","time":59.470350806,"data":"  \"openai_style_key\": 6\n"}
+,{"stream_name":"stdout","time":59.470357711,"data":" },\n"}
+,{"stream_name":"stdout","time":59.470364269,"data":" \"wall\": 58.0\n"}
+,{"stream_name":"stdout","time":59.470369683,"data":"}\n"}
+,{"stream_name":"stderr","time":62.31310083,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":62.313146235,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":62.684911448,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":62.684972665,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":64.327230432,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":65.718484312,"data":"[NbConvertApp] Writing 465849 bytes to __results__.html\n"}
+]

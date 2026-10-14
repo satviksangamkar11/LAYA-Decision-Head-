@@ -2,8 +2,9 @@
 (NJU-LINK/CodeTracer @ 2d302191, MIT). Local CPU exception approved for the 7 sample archives only. Parses files; executes nothing from the archives.
 
 Per sample run: rebuilt step count vs manifest `step_count`; for every flagged step that carries a manifest `action_ref`, does the rebuilt step with the
-same id contain that action's command? A run is ADMISSIBLE only if the count matches and every checkable ref matches; flagged steps without a ref are
-counted as `unverifiable_refs` (weaker evidence, reported, never silently admitted).
+same id contain that action's command? Evidence levels: ACTION_VERIFIED (count matches and every flagged step has a matching ref),
+COUNT_MATCH_ONLY, REF_CONFLICT, MISMATCH_OR_MISSING; only ACTION_VERIFIED is admissible. Caveat: upstream refs were assigned positionally
+(backfill_step_refs.py), so even a ref match is not fully independent evidence.
 
   python -I tools/ctb_align_check_v1.py <codetracer_src> <sample_root> <manifest_parquet> <out_json>
 """
@@ -88,7 +89,16 @@ def main(src, sample_root, manifest, out):
             checks.append(dict(step_id=s["step_id"], match=cmd[:200] in got or got.strip()[:200] in cmd))
         rec.update(count_match=rec["rebuilt"] == r["step_count"], ref_checks=len(checks), ref_matches=sum(c["match"] for c in checks),
                    unverifiable_refs=len(flagged) - len(checks), ref_detail=checks)
-        rec["admissible"] = rec["count_match"] and rec["ref_matches"] == rec["ref_checks"]
+        # evidence levels; count-only is never training-admissible (user review of f453d30: 0 == 0 passed before)
+        if not rec["count_match"]:
+            rec["evidence"] = "MISMATCH_OR_MISSING"
+        elif rec["ref_checks"] and rec["ref_matches"] < rec["ref_checks"]:
+            rec["evidence"] = "REF_CONFLICT"
+        elif rec["ref_checks"] and not rec["unverifiable_refs"]:
+            rec["evidence"] = "ACTION_VERIFIED"
+        else:
+            rec["evidence"] = "COUNT_MATCH_ONLY"
+        rec["admissible"] = rec["evidence"] == "ACTION_VERIFIED"
         report.append(rec)
         print({k: v for k, v in rec.items() if k != "ref_detail"})
     Path(out).write_text(json.dumps(dict(codetracer_commit="2d302191dd07e7c0c2da6f7a5e9451c7cbb62d34", runs=report), indent=1), "utf-8")

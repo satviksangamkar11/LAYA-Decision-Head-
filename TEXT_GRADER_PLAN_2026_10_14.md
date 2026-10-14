@@ -136,3 +136,19 @@ K3 a few hours.
 - Terminal formats hold 17,865 of 19,169 flags. If they stay unrecoverable, the clean training set is the SWE-style part only (about 906 incorrect +
   88 unuseful, fewer after alignment), enough for an evaluation and a small head experiment, not a strong training set.
 - Next: K1 stage 1 = the decisive per-format alignment test over ALL archives on Kaggle CPU (no model), before any rendering.
+
+## 11. K1 and K2 results (2026-10-14); zero-shot testing CLOSED (user)
+
+- K1 (`results/raw/ctb-k1-inventory-20261014T2246Z-full`, Kaggle CPU, 3,316 runs, revision aa213b8): 0 independently verified label-to-action
+  mappings. Step counting is consistent for Terminus2 (response commands 914/917) and OpenHands Terminal (all agent actions 690/787), but the
+  published data has no anchor independent of the positional reference backfill. 0 admissible CodeTraceBench training labels under the 100% rule.
+  Archives contain secret-like strings (1,709 pattern hits, 788 secret-named files); outputs hold none unmasked.
+- K2 v1 (genuine full run, version 3 of text-grader-k2-v1; an earlier version was a dryrun on random scores and is discarded): within-run
+  metrics confounded by position (the error step was always last in its comparison set). Reading: `results/raw/text-grader-k2-full-v3-pull-20261014T0510Z/READING.md`.
+- K2 v2 (position-controlled, `configs/thresholds_text_grader_k2_v2.toml`, version 3 of text-grader-k2-v2, 6,282 new + 18,774 reused scores):
+  verdict before and after the action: "no evidence beyond position/action-type controls; stop zero-shot testing". RootSE 71 runs: the unchanged
+  checkpoint's 4 native questions give decisive-step local-peak rates 0.29-0.36 (chance 0.33); APB position-residualised AUROC 0.47-0.54.
+  Report: `results/raw/text-grader-k2-v2-20261014T0724Z/out/REPORT.md`.
+- User reading (2026-10-14): this does not show the encoder is useless, only that this evaluation did not demonstrate coding-error recognition by
+  the unchanged checkpoint. Next priority: reliable coding-action labels (CodeTracer author request; else sandbox-verified decisions), then one
+  supervised experiment defined but not launched. Architecture change and fine-tuning: HOLD.

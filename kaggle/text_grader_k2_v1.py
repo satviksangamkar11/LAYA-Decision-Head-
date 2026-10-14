@@ -16,7 +16,7 @@ import subprocess
 import sys
 import time
 
-MODE = "dryrun"         # smoke | dryrun | full
+MODE = "full"           # smoke | dryrun | full
 VERSION = "k2-2026-10-14a"
 KERNEL_SLUG = "sangeetasangamkar/text-grader-k2-v1"
 ROOT_IN, OUT, TMP = "/kaggle/input", "/kaggle/working/out", "/tmp/k2"

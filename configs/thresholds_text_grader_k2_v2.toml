@@ -1,0 +1,76 @@
+# PRE-REGISTRATION for K2 v2 (text-grader plan). Create-only. Written 2026-10-14 BEFORE any v2 scoring run (smoke included).
+# v1 file configs/thresholds_text_grader_k2_v1.toml and every v1 result stay unchanged and valid as v1.
+# User GO (chat, 2026-10-14) for exactly this v2 design. K2 v2 is REPORT-ONLY apart from the decision rule below.
+
+[meta]
+id = "text_grader_k2_v2"
+supersedes = "metrics of text_grader_k2_v1 (scores of v1 stay valid and are reused; only the metrics are replaced)"
+reason = "v1 within-run metrics were confounded by position: the error step was always the last item of its comparison set"
+kernel_script = "kaggle/text_grader_k2_v2.py"
+kernel_slug = "sangeetasangamkar/text-grader-k2-v2"
+checkpoint_use = "unchanged: ORIGINAL ModernBERT encoder + head, frozen inference only, no training of encoder or head, no dataset change, no fine-tuning"
+unchanged_from_v1 = ["checkpoint repo/revision and the private dataset sangeetasangamkar/laya-align-v1", "RootSE and AgentProcessBench pinned HF revisions", "renderer k2_render_v1 (code copied verbatim, only the RootSE step range is widened)", "the four questions (sha256 21fea2eb...)", "temperatures", "T4 fp16, max_len 2048, head_max_len 320", "state token budget 1969"]
+compute = "ALL computation on Kaggle (T4). Locally only: code writing, py_compile, sha256, kernel push, output pull, reading small result files."
+
+[reuse]
+source = "kernel output of sangeetasangamkar/text-grader-k2-v1 mounted through kernel_sources"
+check = "every file of that output is hashed inside the v2 kernel and compared with a sha256 table computed locally from results/raw/text-grader-k2-full-v3-pull-20261014T0510Z/out/ and embedded in the script; ANY difference or any extra/missing file aborts the run (the other chat may have rerun v1)"
+render_check = "v2 re-renders every item; for every item id present in v1 the manifest fields (label, role, cohort, step, tokens, hist_kept, hist_avail, cut flags, fixed_overflow, atype, rule) must equal the v1 manifest (zero mismatches or abort); for a deterministic sample of reused items the per-question sequence length and truncation count of the v2 state must equal the v1 score records; a deterministic sample of reused items is re-scored on the GPU and the maximum absolute logit difference is recorded"
+score_only_missing = "items not in the v1 scores: RootSE steps AFTER the decisive step, pre-action and post-action. APB: no new inference (v1 already holds every +1/-1 step, 0 dropped)."
+
+[items.rootse]
+runs = 102
+unit = "every step of every run, rendered with only its own past (pre-action: past + proposed action; post-action: the same + that step's own observation)"
+labels = "decisive step (failure_id) = 1; EARLIER and LATER steps = 'not decisive'. LATER steps are position controls, never clean negatives; earlier steps are never verified good."
+cutoff_proof = "(a) renderer is called with pre-sliced inputs; (b) leak check against all text after the step's own cutoff (later steps; at pre-action also the step's own observation); (c) structural re-render: for a sample of steps the run is truncated at the step (pre-action: own observation blanked) and re-rendered, the state must be IDENTICAL to the full-trajectory rendering (assert)"
+cohorts = ["primary_non_OH_72 (swe-agent, swe-agent-live, auto-code-rover)", "secondary_OH_30", "all_102", "OH_toolcall_only_sensitivity (OpenHands runs whose decisive step has a tool call, scored on steps that have a tool call)"]
+run_inclusion = "a run enters the RootSE metrics if its decisive step survived the leak exclusions and >= 2 of its steps are scored; others are listed with the reason"
+
+[items.apb]
+trajectories = 1000
+unit = "unchanged from v1: every assistant step with label +1 or -1 (label 0 dropped, counts reported), including steps after the first error"
+cluster = "task = config + query_index (five models' trajectories of a task always together in folds and bootstrap)"
+
+[arms]
+zero_shot = ["zs_action = 1-P(continue)", "zs_outcome = P(failure)+P(harmful)", "zs_needs_review = P(yes)", "zs_risk = expected level 0..3"]
+fixed_rule = "rule_error (post-action only), as v1"
+position_controls_unfitted = [
+ "ctl_step_up / ctl_step_down: score = +k / -k, k = 0-based step index (APB: ordinal of the assistant step)",
+ "ctl_histlen_up / ctl_histlen_down: score = +/- hist_avail, number of prior history units before the step (RootSE: identical to the step index; APB: prior messages other than system/tool)",
+ "ctl_histtok_up / ctl_histtok_down: score = +/- number of checkpoint-tokenizer tokens of the rendered recent_steps text (saturates at the token budget, ties handled fractionally)"]
+fitted_oof_diagnostics = "as v1 (a_step_index, b_action_type, c_obs_tfidf (post only), d_text_tfidf, e_probe_cls, e_probe_markers), grouped out-of-fold, inner grouped 3-fold CV for C, same C grids. RootSE: fitted ONLY on decisive vs EARLIER steps of the training folds (as v1), then applied to ALL steps (earlier and later) of the test fold. APB: all +1/-1 items of the training folds. Folds are recomputed with the same procedure and seed on the v2 item set."
+fitted_label = "out-of-fold diagnostic (fitted on the evaluation set's other folds), not a held-out test"
+orientation = "higher = more likely a bad / decisive / incorrect step for every arm"
+
+[metrics.rootse]
+# every arm, pre-action and post-action reported SEPARATELY, per cohort. Cluster bootstrap over runs.
+P1 = "matched neighbours: runs where both step d-1 and d+1 are scored. Mean paired differences s(d)-s(d-1) and s(d)-s(d+1) with CIs; local-peak rate P[s(d) > both neighbours] (ties fractional via expected rank), chance 1/3"
+P2 = "whole-run localisation: rank of the decisive step among ALL scored steps of its run: top-1 (ties fractional; chance mean 1/n), top-3 (chance mean min(3,n)/n), percentile ((#others lower + 0.5 ties)/#others)"
+P3 = "position-residualised localisation: within each run residualise each arm's score on [1, step index, history length] by OLS (lstsq; residuals rounded to 1e-9 so numerical noise is not a rank), then P2 on the residuals. Position controls become ties by construction (chance)."
+ci = "cluster bootstrap over runs, 2000 resamples, seed 20261015, percentile 95%"
+
+[metrics.apb]
+A1 = "position-residualised all-step AUROC and AUPRC (label -1 = positive class vs +1): within each trajectory residualise the score on [1, ordinal assistant-step index, history length] (OLS), pool the residuals. Raw (unresidualised) AUROC/AUPRC reported alongside. CIs by task-clustered bootstrap (2000, seed 20261015)."
+A2 = "recovery test (position works AGAINST the label): in every trajectory that contains a -1 followed later by a +1: the pair = (the last -1 before the first +1 that follows a -1, that first +1). Report the share of pairs where the arm scores the -1 step higher (ties 0.5), n pairs, task-clustered CI. Chance 0.5. A position-up arm scores 0 here by construction, a position-down arm 1."
+v1_episode_metric = "reported only as 'position-confounded (v1)' (copied from the mounted v1 METRICS.json)"
+
+[decision_rule]
+# Pre-registered verbatim from the user (chat 2026-10-14):
+verbatim = "LAYA beats the controls only if, on the primary 72-run cohort, the best zero-shot question (Holm across the 4 questions) has a P1 paired-difference CI above 0 against BOTH neighbours AND its P3 top-1 exceeds each of step index, history length and action type with a bootstrap CI of the difference above 0. Otherwise: report 'no evidence beyond position/action-type controls; stop zero-shot testing'."
+# Operationalisation, fixed here before scoring (the user text leaves these open):
+evaluated = "separately for pre-action and for post-action; a verdict is stated per prediction time, never pooled"
+p1_test = "for each zero-shot question: one-sided bootstrap p = (#boot means <= 0 + 1)/(B + 1) for each of the two paired differences; the question's p is the larger of the two (both must be > 0); Holm-adjusted across the 4 questions; P1 passes if adjusted p < 0.05"
+best_question = "a question satisfies the rule iff it passes P1 (Holm) AND all P3 comparisons below; the rule holds if at least one question satisfies it"
+p3_comparison = "difference = LAYA question's P3 top-1 MINUS the control's P2 (raw, unresidualised) top-1, same bootstrap resamples; 95% percentile CI lower bound must be > 0. Controls: ctl_step_up AND ctl_step_down, ctl_histlen_up AND ctl_histlen_down (both orientations, because the orientation is not fixed by the label), and oof_b_action_type. The difference against each control's own P3 top-1 is reported as well but is not part of the rule. ctl_histtok_* and the other fitted arms are reported, not part of the rule."
+stop = "if the rule does not hold: no zero-shot test beyond this one, no fine-tuning, no dataset change"
+
+[seeds]
+folds = 20261014
+bootstrap = 20261015
+lr = 0
+bootstrap_resamples = 2000
+
+[procedure]
+smoke = "mechanical only (~50 new items scored on Kaggle: rendering, leakage and cutoff asserts, reuse hash/render checks, finite scores, probability parity vs the library); no metric is computed or inspected. A 'dryrun' mode runs the analysis code on RANDOM fake scores to debug it; its numbers carry no information and are not reported."
+full = "score the missing items, merge with the reused v1 scores, baselines, metrics, REPORT.md"
+run_record = ["kernel slug and version numbers", "items scored new vs reused", "exclusions with reasons", "wall times", "workers/devices", "failures/retries"]
