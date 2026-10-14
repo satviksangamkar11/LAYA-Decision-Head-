@@ -1,0 +1,8 @@
+{
+ "aborted": true,
+ "reason": "dataset files not found / ambiguous",
+ "pools": [],
+ "prereg": [
+  "/kaggle/input/datasets/sangeetasangamkar/laya-text-imitation-v1/thresholds_text_imitation_v1.toml"
+ ]
+}

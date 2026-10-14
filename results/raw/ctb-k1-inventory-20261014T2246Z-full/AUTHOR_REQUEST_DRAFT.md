@@ -1,4 +1,4 @@
-# DRAFT (not posted; needs the user's approval): GitHub issue for NJU-LINK/CodeTracer
+# FINAL TEXT v2 (credential paragraph removed per user review of b866908; raise that privately; posting approved by the user's approval): GitHub issue for NJU-LINK/CodeTracer
 
 **Title:** Request: per-trajectory normalized steps.json used for the CodeTraceBench step annotations
 
@@ -23,8 +23,5 @@ What we observed (counts only; parsers from CodeTracer commit `2d302191`):
 - **mini-SWE-agent (Terminal), e.g. `miniswe-Qwen__Qwen3-Coder-480B-A35B-Instruct-polyglot-rust-c-20cc77a5`:** `step_count` = 61, but
   `agent-logs/` is empty (no `mini.traj.json`) in 192 of 833 runs, so these steps cannot be rebuilt from the artifact.
 - The annotation directory referenced by `annotation_relpath` is not in the dataset repository.
-
-Separately, and for your awareness: some artifacts contain strings matching credential patterns and files such as `sessions/.jwt_secret`.
-We have not published or used any of them; you may want to check whether any are real before further redistribution.
 
 Thank you very much for any help.

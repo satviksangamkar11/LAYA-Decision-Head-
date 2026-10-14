@@ -1,0 +1,67 @@
+{
+ "version": "ti1-2026-10-14a",
+ "mode": "smoke",
+ "note": "mechanical checks only; no accuracy or other performance metric computed",
+ "dataset_pools_sha256": "910162125caa1a970af6995fd915c5362d5d0fdd077e624f74bb863fbca85e4e",
+ "loaded_dtypes": {
+  "encoder": "torch.float32",
+  "head": "torch.float32",
+  "agent_autocast": "torch.float16"
+ },
+ "encoder_sha_before": "7bf36bc15bec46dd6dfa551e6742efb5d3db71b34ef9514129287d2590d1969c",
+ "val_loaded": false,
+ "prepare": {
+  "budget": 1969,
+  "rooms": {
+   "action": 1982,
+   "outcome": 1981,
+   "needs_review": 2016,
+   "risk": 1969
+  },
+  "excluded": [],
+  "encode_seconds": 7,
+  "h_dtype": "torch.float32"
+ },
+ "survival": {
+  "items": 65,
+  "candidate_action_intact": 52,
+  "candidate_action_intact_share": 0.8,
+  "task_survived": 65,
+  "task_survived_share": 1.0,
+  "A_cut": 13,
+  "T_cut_task_longer_than_400": 43,
+  "fixed_overflow": 0,
+  "library_truncated": 0,
+  "tokens": {
+   "min": 389,
+   "max": 1952,
+   "mean": 1045.2
+  },
+  "seqlen_max": 2018,
+  "history_units_kept_mean": 3.6615384615384614,
+  "history_units_available_mean": 3.830769230769231,
+  "items_all_history_kept": 59,
+  "bad_call_json_pools": 0,
+  "empty_task_pools": 0
+ },
+ "predict_vs_full_forward_max_prob_diff": 4.193841481420213e-05,
+ "head_sha_orig": "b6553d6b340c43658c2e9cef2899e9de8df6b238e9f9f59844f048c77fd240e6a78ed113521e5b409e31b87a36fae894d4c1513e64ab484ba2c58ee5182083ae",
+ "cached_head_vs_full_forward_max_abs_logit_diff": 0.0009765625,
+ "train_2_epochs_seconds": 2.7,
+ "seconds_per_pool_epoch": 0.06836200952529907,
+ "loss_finite": true,
+ "grad_check_first_backward": {
+  "head_scorer_params_with_grad": 30,
+  "head_scorer_params": 30,
+  "other_params_with_grad_or_trainable": [],
+  "n_other_bad": 0
+ },
+ "encoder_sha_after": "7bf36bc15bec46dd6dfa551e6742efb5d3db71b34ef9514129287d2590d1969c",
+ "encoder_unchanged": true,
+ "encoder_requires_grad_any": false,
+ "head_changed": true,
+ "type_emb_act_head_unchanged": true,
+ "gpu_mem_max_gb": 3.01704192,
+ "wall_seconds": 71,
+ "ok": true
+}
