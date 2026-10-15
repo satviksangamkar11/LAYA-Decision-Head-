@@ -1,0 +1,23 @@
+# setup (network ON) pvlib__pvanalytics-128 python 3.7.16, 47 pinned requirements
+set -ex
+cd /workspace
+git clone --quiet https://github.com/pvlib/pvanalytics.git pvlib__pvanalytics__0.1
+cd pvlib__pvanalytics__0.1
+git -c advice.detachedHead=false checkout --quiet 31771dedb1afa641557dcdbaa11bc82c93f9adf1
+/opt/toolchains/uv-0.11.25/uv python install 3.7.16
+/opt/toolchains/uv-0.11.25/uv venv --seed --python 3.7.16 /opt/conda/envs/testbed
+/opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+pip install -e .[all]
+pip install pytest pytest-cov
+python --version
+pip freeze > /tmp/freeze.txt
+git status --porcelain | head -20
+
++ cd /workspace
++ git clone --quiet https://github.com/pvlib/pvanalytics.git pvlib__pvanalytics__0.1
++ cd pvlib__pvanalytics__0.1
++ git -c advice.detachedHead=false checkout --quiet 31771dedb1afa641557dcdbaa11bc82c93f9adf1
++ /opt/toolchains/uv-0.11.25/uv python install 3.7.16
+error: No download found for request: cpython-3.7.16-linux-x86_64-gnu
+
+# exit 2, 6.0 s

@@ -1,0 +1,23 @@
+# setup (network ON) dwavesystems__dwave-system-373 python 3.6.13, 35 pinned requirements
+set -ex
+cd /workspace
+git clone --quiet https://github.com/dwavesystems/dwave-system.git dwavesystems__dwave-system__1.3
+cd dwavesystems__dwave-system__1.3
+git -c advice.detachedHead=false checkout --quiet 01d3c061440d94c22234dbf99ecd277def4259b9
+/opt/toolchains/uv-0.11.25/uv python install 3.6.13
+/opt/toolchains/uv-0.11.25/uv venv --seed --python 3.6.13 /opt/conda/envs/testbed
+/opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+pip install -e .
+pip install pytest
+python --version
+pip freeze > /tmp/freeze.txt
+git status --porcelain | head -20
+
++ cd /workspace
++ git clone --quiet https://github.com/dwavesystems/dwave-system.git dwavesystems__dwave-system__1.3
++ cd dwavesystems__dwave-system__1.3
++ git -c advice.detachedHead=false checkout --quiet 01d3c061440d94c22234dbf99ecd277def4259b9
++ /opt/toolchains/uv-0.11.25/uv python install 3.6.13
+error: No download found for request: cpython-3.6.13-linux-x86_64-gnu
+
+# exit 2, 6.0 s

@@ -1,0 +1,46 @@
+# Loop engineering v2: bounded decision-REVISION experiment on the SAME frozen Fable data (user decision, chat 2026-10-15).
+# Question: does an engineered rule combining existing scorers produce MORE CORRECT CHOICES over ALL pools than the best standalone scorer?
+# Written before any run; v1 file (thresholds_loop_eng_v1.toml) is not edited. No generation, no training, CAL/TEST never read.
+
+[data]
+pools = "the 46 cleaned VAL pools (32 trajectories), real-context and no-context Qwen features from laya-head-exp5-v1 (pack5.pt); probe fitted on the 303 cleaned TRAIN pools of the same pack"
+denominator = "N = 46 for every rule: an abstention is never allowed to drop a pool; every rule must output one existing option per pool"
+note = "VAL was examined in earlier runs: all results are exploratory development evidence"
+
+[scorers]
+laya_seed = "coding head + frozen adapter final-s0 / s1 / s2 (per-pool softmax of the head logits)"
+laya_ens = "mean over the 3 seeds of the per-pool softmax; pick = argmax"
+laya_nc = "the same system on the no-context features (control)"
+probe = "exp4lib.probe_scores: per-option logistic regression on ho only, fitted on the 303 cleaned TRAIN pools (C by 3-fold trajectory-grouped CV inside TRAIN); per-pool probability = softmax of its decision values (temperature 1, fixed)"
+probe_nc = "that same fitted probe applied to the no-context features (control)"
+options_only = "TF-IDF + listwise conditional logit on candidate text (stage-1 recipe, fitted on 335 TRAIN text pools); used in combination rules only if its option order is verified identical to pack5 (label index and option count equal for all 46 pools), else standalone only"
+comparability_check = "the probe's reported 94.3% is on the 53 raw pools; on these 46 cleaned pools its recorded value is 0.8913 (head-swap-run-20261012T222906Z); this run recomputes it on the same 46 and uses ONLY that"
+
+[headroom]
+oracle = "per pool, is the recorded action ranked first by at least one scorer? reported for {laya_seed x3}, {laya_ens, probe}, {all scorers}; this is the ceiling of any selection-only rule over those scorers"
+reading = "if oracle({laya_ens, probe}) <= accuracy(probe) + 1 pool, no combination of these two can beat the probe and experiment E (Qwen second opinion) is the only remaining option"
+
+[rules]
+primary_threshold = 0.20            # fixed in advance; 0.10 and 0.30 reported as sensitivity only; no threshold is selected on VAL
+note_on_thresholds = "genuine out-of-fold LAYA margins do not exist (CV runs saved hits only); the probe's margins could be out-of-fold but one fixed grid is used for all rules"
+B_seed_agreement = [
+  "S_vote: majority vote of the 3 seeds' argmax (tie broken by laya_ens)",
+  "S_unanimous_else_probe: if all 3 seeds' argmax agree take it, else take the probe's argmax"
+]
+C_laya_probe = [
+  "C_avg: argmax of 0.5 * laya_ens + 0.5 * probe probabilities (equal weights, fixed)",
+  "C_laya_first: take laya_ens argmax if its margin (p1 - p2) >= t, else the probe's argmax",
+  "C_probe_first: take the probe's argmax if its margin >= t, else laya_ens argmax"
+]
+controls = "the same C rules with laya_ens replaced by laya_nc (and by options_only when order-verified), and the probe replaced by probe_nc where stated, to show whether any gain survives without context"
+D_option_order = "NOT RUN: the head has no positional encoding and the Qwen capture feeds options as independent suffixes (hq = last context token, ho = mean over each option's own tokens), so reordering cannot change any score (STAGE2_NOT_RUN.md)"
+E_qwen_second_opinion = "NOT RUN in this stage; allowed only if the headroom reading says combinations of existing scorers cannot help, and only with a fresh pre-registration"
+
+[metrics]
+primary = "accuracy over all 46 pools; net gain = (wrong->right - right->wrong) / 46 against (a) laya_ens and (b) the best standalone scorer (the probe unless the run shows otherwise); counts reported, not just percentages"
+uncertainty = "paired cluster bootstrap by trajectory, 2,000 resamples, seed 20261015, for net gain vs laya_ens and vs probe"
+also = "per-pool picks saved; abstain-style coverage is NOT used (full denominator only)"
+
+[reading_fixed_beforehand]
+improvement = "a rule counts as an improvement over the best scorer only if its net gain vs the probe has a bootstrap CI above 0 AND exceeds the net gain of the same rule with the no-context / options-only control substituted"
+not_an_improvement = "a rule that only matches or trails the probe is not an improvement; a gain over laya_ens alone is a statement about LAYA, not about the loop"

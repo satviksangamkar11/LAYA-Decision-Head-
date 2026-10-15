@@ -1,0 +1,16 @@
+{
+ "id": "sangeetasangamkar/outcome-head-v1",
+ "title": "outcome-head-v1",
+ "code_file": "outcome_head_v1.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "dataset_sources": ["sangeetasangamkar/laya-align-v1", "sangeetasangamkar/laya-nebius-branch-v1", "sangeetasangamkar/laya-outcome-head-v1"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

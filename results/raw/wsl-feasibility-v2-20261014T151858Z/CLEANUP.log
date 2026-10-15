@@ -1,0 +1,9 @@
+# 2026-10-14T15:33:05Z cleanup googleapis__python-storage-1357: removed /var/lib/fable-runs/feas-v2/googleapis__python-storage-1357 and runs/*; fstrim exit 0
+/: 1000.6 GiB (1074354466816 bytes) trimmed on /dev/sdd
+
+# 2026-10-14T15:33:45Z cleanup pvlib__pvanalytics-128: removed /var/lib/fable-runs/feas-v2/pvlib__pvanalytics-128 and runs/*; fstrim exit 0
+/: 1000.7 GiB (1074481025024 bytes) trimmed on /dev/sdd
+
+# 2026-10-14T15:37:59Z cleanup stephenhillier__starlette_exporter-89: removed /var/lib/fable-runs/feas-v2/stephenhillier__starlette_exporter-89 and runs/*; fstrim exit 0
+/: 1000.6 GiB (1074388025344 bytes) trimmed on /dev/sdd
+

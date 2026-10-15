@@ -1,0 +1,41 @@
+# Loop engineering v1 on the SAME Fable data (user GO, chat 2026-10-15): "loop engineering, not loop generation".
+# Frozen system: frozen Qwen3-4B-Thinking-2507 states -> the 3 frozen adapters of laya-finetune-all-v1 (final-s0/s1/s2) -> frozen pretrained
+# coding-decision-agent head. Same candidates, no generation, no training, CAL/TEST untouched. Written before any loop run; never edited after.
+
+[data]
+primary = "the 46 cleaned VAL pools (32 trajectories) in Kaggle dataset sangeetasangamkar/laya-head-exp5-v1 (pack5.pt sha256 0aec2b00...), real-context (hq/ho) and no-context (hq_nc/ho_nc) Qwen features"
+secondary = "the 53 raw VAL pools: features exist only locally (results/raw/val-capture-run-20261012T111837Z); reported later if packed; not part of stage 1"
+options_text = "candidate texts and labels from Kaggle dataset sangeetasangamkar/laya-text-imitation-v1 (pools.jsonl: v3 TRAIN 335 pools + the same 46 cleaned VAL pools)"
+note = "VAL was examined in earlier runs: every result here is exploratory development evidence, not an unbiased test"
+
+[system]
+adapters = "heads.pt baseline_adapters (laya-finetune-all-v1 final-s0, s1, s2; sha256 111a3616 / af43e251 / 67ce37c2) on the frozen coding head, as the head-swap zero-training swap"
+reproduction_gate = "single-pass 3-seed mean top-1 on the 46 cleaned VAL pools must equal 0.7826 (per seed 0.7826 / 0.8043 / 0.7609, head-swap-run-20261012T222906Z); otherwise STOP"
+seed_aggregation = "per pool: mean over the 3 seeds of softmax(logits); the system's pick = argmax of that mean"
+
+[baselines]
+single_pass = "the frozen system, argmax, no loop"
+no_context = "the same frozen system on the no-context features (hq_nc/ho_nc)"
+options_only = "TF-IDF (1-2 grams, min_df 2, sublinear) on candidate text only + listwise conditional logit fitted on the 335 TRAIN pools (C from [0.01, 0.1, 1, 10, 100] by 3-fold trajectory-grouped CV inside TRAIN); probability = softmax of its scores"
+probe_reference = "0.943 on the 53 VAL pools (val-eval-v1); cited, not recomputed"
+
+[L1_decide_or_abstain]
+margin = "p(top-1) - p(top-2) of the pool's probability vector"
+thresholds = [0.10, 0.20, 0.30]   # fixed, NOT optimised: no genuine out-of-fold margins exist (the CV fold runs saved only hits, no checkpoints)
+report = "per threshold and arm (single_pass, no_context, options_only): coverage (share decided), accuracy on decided pools, accuracy on abstained pools, n; cluster bootstrap over trajectories (2,000, seed 20261015)"
+terminal_states = "DECIDED (margin >= threshold) or ESCALATE (margin < threshold); an escalated pool is never counted as a pick"
+reading = "the loop helps only if, for the full system, accuracy on decided pools exceeds single-pass accuracy AND the gain is larger than the same loop applied to options_only and no_context"
+
+[L2_order_voting]
+stage = 2
+order_sensitivity_note = "the head has no positional encoding (permutation-equivariant by construction): reordering rows without recapture changes nothing; L2 therefore re-captures Qwen states with the options presented in new orders"
+orders = "the original order + 5 seeded shuffles (seed 20261015 + pool index); candidate identity kept by candidate id; scores mapped back by id before aggregation"
+aggregation = "mean over the 6 orders of the seed-averaged softmax probabilities per candidate id; pick = argmax (fixed now, no other aggregation is tried)"
+controls = "no_context is re-captured in the same orders and aggregated the same way; options_only is order-independent (reported unchanged)"
+report = "top-1 of L2 vs single pass on the 46 pools; paired wins / losses / ties against single pass; cluster bootstrap CI of the difference over trajectories; also L1 applied to the L2 probabilities"
+reading = "L2 helps only if the paired difference CI is above 0; a gain matched by the no_context control is not evidence of better context-aware decisions"
+
+[limits]
+no_generation = true
+no_training = true
+cal_test = "never read"

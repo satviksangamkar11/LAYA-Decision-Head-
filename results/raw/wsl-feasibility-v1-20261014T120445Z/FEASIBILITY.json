@@ -1,0 +1,18 @@
+{
+ "question": "can a SWE-rebench task give a complete, reproducible starting state in the qualified WSL sandbox?",
+ "answer": "NOT ANSWERED: stopped by a host resource failure before any test or replay ran",
+ "tasks": {
+  "iterative__datachain-206": {"run": "chatcmpl-f51b0bd75acaa15f04302bfe3215bbdd", "prefix_tool_calls": 7, "prefix_env_steps": 6, "decision": "test run at tool call 7",
+   "setup": "FAILED twice: uv pip install of the task's 216 pinned requirements (incl. torch 2.x + CUDA wheels, ~4 GB) died with 'Bus error' (exit -7) and the WSL VM restarted",
+   "attempts": [{"seconds": 917.5, "log": "SETUP-iterative__datachain-206-attempt1-wsl-crash.log"}, {"seconds": 60.6, "log": "SETUP-iterative__datachain-206.log", "change": "UV_CONCURRENT_INSTALLS=1, link-mode copy, MemoryMax 3G, shared download cache"}],
+   "root_cause": "host disk full: C: 0.2 GB free, D: 1.2 GB free after the run; the WSL disk C:/Users/Satvik/AppData/Local/wsl/{2aae1072-...}/ext4.vhdx is 17.2 GB (in-VM usage 5.9 GB before -> 16 GB after: uv download cache 6.0 GB + partial env 3.5 GB)",
+   "initial_tests": "NOT RUN", "replay": "NOT RUN", "hash_equality": "NOT RUN", "qualified": false},
+  "googleapis__python-storage-1357": {"run": "chatcmpl-3a66bc4dee8a4331578c355761acc3b2", "prefix_tool_calls": 7, "prefix_env_steps": 6, "decision": "test run at tool call 7",
+   "setup": "NOT STARTED (WSL returned Input/output error after the VM crash)", "qualified": false}
+ },
+ "reserves_used": [],
+ "reserves_not_used_reason": "the failure is the host disk, which would stop any reserve the same way",
+ "qualified_count": 0,
+ "network": "setup only (bwrap --share-net); no replay or test ran, so no network-off run happened",
+ "glm_or_nvidia_calls": 0, "continuations": 0, "training": 0, "kaggle": 0
+}

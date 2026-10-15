@@ -1,0 +1,40 @@
+# setup (network ON) iterative__datachain-206 python 3.9.21, 216 pinned requirements
+set -ex
+cd /workspace
+git clone --quiet https://github.com/iterative/datachain.git iterative__datachain__0.2
+cd iterative__datachain__0.2
+git -c advice.detachedHead=false checkout --quiet 83a9ab24e68556c651e4e4d67bffa95a7459e36a
+/opt/toolchains/uv-0.11.25/uv python install 3.9.21
+/opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+/opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+pip install -e .[dev]
+pip install pytest
+python --version
+pip freeze > /tmp/freeze.txt
+git status --porcelain | head -20
+
++ cd /workspace
++ git clone --quiet https://github.com/iterative/datachain.git iterative__datachain__0.2
++ cd iterative__datachain__0.2
++ git -c advice.detachedHead=false checkout --quiet 83a9ab24e68556c651e4e4d67bffa95a7459e36a
++ /opt/toolchains/uv-0.11.25/uv python install 3.9.21
+Downloading cpython-3.9.21-linux-x86_64-gnu (download) (19.3MiB)
+ Downloaded cpython-3.9.21-linux-x86_64-gnu (download)
+Installed Python 3.9.21 in 4.39s
+ + cpython-3.9.21-linux-x86_64-gnu (python3.9)
+warning: `/tmp/home/.local/bin` is not on your PATH. To use installed Python executables, run `export PATH="/tmp/home/.local/bin:$PATH"` or `uv python update-shell`.
++ /opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+Using CPython 3.9.21
+Creating virtual environment with seed packages at: /opt/conda/envs/testbed
+ + packaging==26.3
+ + pip==26.0.1
+ + setuptools==82.0.1
+ + wheel==0.48.0
+Activate with: source /opt/conda/envs/testbed/bin/activate
++ /opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+Using Python 3.9.21 environment at: /opt/conda/envs/testbed
+Resolved 216 packages in 3.27s
+Uninstalled 1 package in 0.70ms
+/bin/bash: line 8:    34 Bus error               (core dumped) /opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+
+# exit -7, 60.6 s

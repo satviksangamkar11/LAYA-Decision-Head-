@@ -1,0 +1,18 @@
+# Trace-fidelity rule v4 (written 2026-10-14 ~21:05 UTC, BEFORE any v2-pilot replay). Pre-registered with sandbox pilot v2
+# (configs/thresholds_sandbox_pilot_v2.toml). Versioned addition: compare_v2 / compare_v3 are NOT edited.
+
+name = "compare_v4"
+implementation = "tools/sandbox_pilot_v2.py: compare_v4()"
+base_rule = "compare_v3 (configs/fidelity_v3.toml)"
+
+change = """Used ONLY for an execute_bash step whose command matches the test-runner regex (TEST in tools/sandbox_pilot_v1.py:
+pytest, py.test, unittest, tox, nox, runtests, run_tests, manage.py test, make test, python *test*.py), and only when compare_v3 does not match.
+Before compare_v3 runs again, test-DURATION tokens are masked in both texts:
+  (1) clock durations  \\b\\d+:\\d{2}:\\d{2}(\\.\\d+)?\\b                         -> <DUR>
+  (2) seconds/millis   \\b\\d+(\\.\\d+)?\\s?(s|sec|secs|seconds|ms)\\b              -> <DUR>  (compare_v2 already masks most of these)
+  (3) pytest '--durations' rows: leading '<DUR> (call|setup|teardown) ' stays as is after (2)
+Nothing else is masked: test names, PASSED/FAILED, counts, percentages, exit code, tracebacks stay strict."""
+
+reason = """Pilot v2 replays long recorded prefixes (60-80 actions) that contain test runs; a test runner's wall-clock timing is a property
+of the machine, not of the repository state. Pre-registered now so it is fixed before any replay (task instruction, user GO 2026-10-15).
+Every step records which rule matched (v3 or v4); a v4-only match is reported per task."""

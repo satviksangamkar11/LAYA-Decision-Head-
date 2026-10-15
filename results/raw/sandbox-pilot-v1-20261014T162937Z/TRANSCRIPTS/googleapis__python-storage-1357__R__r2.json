@@ -1,0 +1,325 @@
+{
+ "rollout_id": "googleapis__python-storage-1357__R__r2",
+ "candidate": {
+  "tool": "execute_bash",
+  "command": "cd /workspace/googleapis__python-storage__2.18 && python -m pytest --version"
+ },
+ "steps": [
+  {
+   "step": 1,
+   "action": {
+    "tool": "execute_bash",
+    "command": "cd /workspace/googleapis__python-storage__2.18 && grep -rn \"download_chunks_concurrently\" --include=\"*.py\" -l"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "samples/snippets/snippets_test.py\nsamples/snippets/storage_transfer_manager_download_chunks_concurrently.py\ngoogle/cloud/storage/transfer_manager.py\ntests/unit/test_transfer_manager.py\ntests/system/test_transfer_manager.py\n[The command completed with exit code 0.]"
+  },
+  {
+   "step": 2,
+   "action": {
+    "tool": "execute_bash",
+    "command": "cd /workspace/googleapis__python-storage__2.18 && grep -rn \"No MD5 checksum was returned\" --include=\"*.py\" . | head -50"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.1,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "\n[The command completed with exit code 0.]"
+  },
+  {
+   "step": 3,
+   "action": {
+    "tool": "execute_bash",
+    "command": "pip show google-resumable-media | head -20 && python -c \"import google.resumable_media as grm; print(grm.__file__)\""
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.6,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "Name: google-resumable-media\nVersion: 2.7.2\nSummary: Utilities for Google Media Downloads and Resumable Uploads\nHome-page: https://github.com/googleapis/google-resumable-media-python\nAuthor: Google Cloud Platform\nAuthor-email: googleapis-publisher@google.com\nLicense: Apache 2.0\nLocation: /opt/conda/envs/testbed/lib/python3.9/site-packages\nRequires: google-crc32c\nRequired-by: google-cloud-storage\n/"
+  },
+  {
+   "step": 4,
+   "action": {
+    "tool": "execute_bash",
+    "command": "grep -rn \"No MD5 checksum was returned\" /opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/ | head -20"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "\n[The command completed with exit code 0.]"
+  },
+  {
+   "step": 5,
+   "action": {
+    "tool": "execute_bash",
+    "command": "grep -rn \"checksum\" /opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/_helpers.py | head -30"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "47:No {checksum_type} checksum was returned from the service while downloading {}\n183:def _get_metadata_key(checksum_type):\n184:    if checksum_type == \"md5\":\n187:        return checksum_type\n190:def prepare_checksum_digest(digest_bytestring):\n191:    \"\"\"Convert a checksum object into a digest encoded for an HTTP header.\n194:        bytes: A checksum digest bytestring.\n204:def _get_expected_checks"
+  },
+  {
+   "step": 6,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/_helpers.py",
+    "view_range": [
+     1,
+     100
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/_helpers.py:\n     1\t# Copyright 2017 Google Inc.\n     2\t#\n     3\t# Licensed under the Apache License, Version 2.0 (the \"License\");\n     4\t# you may not use this file except in compliance with the License.\n     5\t# You may obtain a copy of the License at\n     6\t#\n     7\t#     http://w"
+  },
+  {
+   "step": 7,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/_helpers.py",
+    "view_range": [
+     180,
+     250
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /opt/conda/envs/testbed/lib/python3.9/site-packages/google/resumable_media/_helpers.py:\n   180\t    return fast_crc\n   181\t\n   182\t\n   183\tdef _get_metadata_key(checksum_type):\n   184\t    if checksum_type == \"md5\":\n   185\t        return \"md5Hash\"\n   186\t    else:\n   187\t        return checksum_type\n   188\t\n   189\t\n   190\tdef prepare_checksum_digest(digest_by"
+  },
+  {
+   "step": 8,
+   "action": {
+    "tool": "execute_bash",
+    "command": "cd /workspace/googleapis__python-storage__2.18 && wc -l google/cloud/storage/transfer_manager.py && grep -n \"def \" google/cloud/storage/transfer_manager.py"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "1374 google/cloud/storage/transfer_manager.py\n78:def _deprecate_threads_param(func):\n80:    def convert_threads_or_raise(*args, **kwargs):\n106:def upload_many(\n264:def download_many(\n413:def upload_many_from_filenames(\n604:def download_many_to_path(\n776:def download_chunks_concurrently(\n957:def upload_chunks_concurrently(\n1158:def _upload_part(\n1195:def _headers_from_metadata(metadata):\n1210:def _"
+  },
+  {
+   "step": 9,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/workspace/googleapis__python-storage__2.18/google/cloud/storage/transfer_manager.py",
+    "view_range": [
+     776,
+     960
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /workspace/googleapis__python-storage__2.18/google/cloud/storage/transfer_manager.py:\n   776\tdef download_chunks_concurrently(\n   777\t    blob,\n   778\t    filename,\n   779\t    chunk_size=TM_DEFAULT_CHUNK_SIZE,\n   780\t    download_kwargs=None,\n   781\t    deadline=None,\n   782\t    worker_type=PROCESS,\n   783\t    max_workers=DEFAULT_MAX_WORKERS,\n   784\t    *,\n"
+  },
+  {
+   "step": 10,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/workspace/googleapis__python-storage__2.18/google/cloud/storage/transfer_manager.py",
+    "view_range": [
+     1195,
+     1270
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /workspace/googleapis__python-storage__2.18/google/cloud/storage/transfer_manager.py:\n  1195\tdef _headers_from_metadata(metadata):\n  1196\t    \"\"\"Helper function to translate object metadata into a header dictionary.\"\"\"\n  1197\t\n  1198\t    headers = {}\n  1199\t    # Handle standard writable metadata\n  1200\t    for key, value in metadata.items():\n  1201\t       "
+  },
+  {
+   "step": 11,
+   "action": {
+    "tool": "execute_bash",
+    "command": "cd /workspace/googleapis__python-storage__2.18 && grep -n \"_prep_and_do_download\" google/cloud/storage/blob.py | head -10"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "949:        This is intended to be called by :meth:`_prep_and_do_download` so it can\n1002:            evaluated in blob._prep_and_do_download().\n1192:        self._prep_and_do_download(\n1220:                self._prep_and_do_download(\n1469:        self._prep_and_do_download(\n4271:    def _prep_and_do_download(\n[The command completed with exit code 0.]"
+  },
+  {
+   "step": 12,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/workspace/googleapis__python-storage__2.18/google/cloud/storage/blob.py",
+    "view_range": [
+     4271,
+     4400
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /workspace/googleapis__python-storage__2.18/google/cloud/storage/blob.py:\n  4271\t    def _prep_and_do_download(\n  4272\t        self,\n  4273\t        file_obj,\n  4274\t        client=None,\n  4275\t        start=None,\n  4276\t        end=None,\n  4277\t        raw_download=False,\n  4278\t        if_etag_match=None,\n  4279\t        if_etag_not_match=None,\n  4280\t     "
+  },
+  {
+   "step": 13,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/workspace/googleapis__python-storage__2.18/google/cloud/storage/blob.py",
+    "view_range": [
+     4400,
+     4460
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /workspace/googleapis__python-storage__2.18/google/cloud/storage/blob.py:\n  4400\t            if_metageneration_match=if_metageneration_match,\n  4401\t            if_metageneration_not_match=if_metageneration_not_match,\n  4402\t        )\n  4403\t        headers = _get_encryption_headers(self._encryption_key)\n  4404\t        headers[\"accept-encoding\"] = \"gzip\"\n  "
+  },
+  {
+   "step": 14,
+   "action": {
+    "tool": "execute_bash",
+    "command": "cd /workspace/googleapis__python-storage__2.18 && grep -n \"checksum\" tests/unit/test_transfer_manager.py | head -50"
+   },
+   "finish": "stop",
+   "info": {
+    "exit": 0,
+    "seconds": 0.0,
+    "env_failure": false,
+    "killed": false
+   },
+   "observation_head": "617:            crc32c_checksum=False,\n654:            crc32c_checksum=True,\n683:                crc32c_checksum=True,\n721:                    \"checksum\": \"crc32c\",\n746:            crc32c_checksum=False,\n1066:            crc32c_checksum=False,\n1179:        # test no checksumming\n[The command completed with exit code 0.]"
+  },
+  {
+   "step": 15,
+   "action": {
+    "tool": "str_replace_editor",
+    "command": "view",
+    "path": "/workspace/googleapis__python-storage__2.18/tests/unit/test_transfer_manager.py",
+    "view_range": [
+     580,
+     780
+    ]
+   },
+   "finish": "stop",
+   "info": {
+    "exec_error": false
+   },
+   "observation_head": "Here's the result of running `cat -n` on /workspace/googleapis__python-storage__2.18/tests/unit/test_transfer_manager.py:\n   580\t                BLOBNAMES,\n   581\t                destination_directory=tempdir,\n   582\t                create_directories=True,\n   583\t                raise_exception=True,\n   584\t            )\n   585\t\n   586\t        mock_download_many.assert_called_once_with(\n   587\t  "
+  }
+ ],
+ "calls": [
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s01__a1",
+   "status": 200,
+   "seconds": 85.63
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s02__a1",
+   "status": 200,
+   "seconds": 75.12
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s03__a1",
+   "status": 200,
+   "seconds": 67.03
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s04__a1",
+   "status": 200,
+   "seconds": 127.6
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s05__a1",
+   "status": 200,
+   "seconds": 71.88
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s06__a1",
+   "status": 200,
+   "seconds": 130.33
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s07__a1",
+   "status": 200,
+   "seconds": 110.05
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s08__a1",
+   "status": 200,
+   "seconds": 76.5
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s09__a1",
+   "status": 200,
+   "seconds": 38.55
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s10__a1",
+   "status": 200,
+   "seconds": 37.77
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s11__a1",
+   "status": 200,
+   "seconds": 28.34
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s12__a1",
+   "status": 200,
+   "seconds": 8.46
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s13__a1",
+   "status": 200,
+   "seconds": 7.05
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s14__a1",
+   "status": 200,
+   "seconds": 14.79
+  },
+  {
+   "id": "googleapis__python-storage-1357__R__r2__s15__a1",
+   "status": 200,
+   "seconds": 2.09
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "mixed": 1741,
+ "excluded": {
+  "rootse": 39,
+  "codetracebench": 2,
+  "laya": 862
+ },
+ "eligible": 838,
+ "rootse_names": 174,
+ "laya_groups": 858,
+ "accepted": [
+  "iterative__datachain-206",
+  "googleapis__python-storage-1357"
+ ],
+ "reserves": [
+  "pvlib__pvanalytics-128",
+  "stephenhillier__starlette_exporter-89"
+ ],
+ "seed": 20261014,
+ "run": {
+  "iterative__datachain-206": "chatcmpl-f51b0bd75acaa15f04302bfe3215bbdd",
+  "googleapis__python-storage-1357": "chatcmpl-3a66bc4dee8a4331578c355761acc3b2",
+  "pvlib__pvanalytics-128": "chatcmpl-dad00381c9e93d22c4b17626b7c00408",
+  "stephenhillier__starlette_exporter-89": "chatcmpl-97f89407780ee6dcb940b025695a7f95"
+ }
+}

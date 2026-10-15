@@ -1,0 +1,143 @@
+{
+ "instance_id": "googleapis__python-storage-1357",
+ "repo": "googleapis/python-storage",
+ "base_commit": "8ec02c0e656a4e6786f256798f4b93b95b50acec",
+ "trajectory_id": "chatcmpl-3a66bc4dee8a4331578c355761acc3b2",
+ "workspace_dir": "/workspace/googleapis__python-storage__2.18",
+ "prefix_steps": 7,
+ "decision": {
+  "kind": "test",
+  "index": 7
+ },
+ "setup_task_dir_bytes_peak": 121467970,
+ "setup": {
+  "ok": true,
+  "exit": 0,
+  "seconds": 512.9,
+  "python": "3.9.21",
+  "pinned_requirements": 27,
+  "pip_freeze_sha256": "85d93a9dfb5217ce2fca46d3c4d6604b20808047205854789b6a6651466afcf4",
+  "pip_freeze_lines": 28,
+  "python_version_out": "Python 3.9.21"
+ },
+ "network_off_probe": {
+  "socket_and_dns_failed": true,
+  "tail": " File \"/opt/conda/py/cpython-3.9.21-linux-x86_64-gnu/lib/python3.9/socket.py\", line 856, in create_connection\n    raise err\n  File \"/opt/conda/py/cpython-3.9.21-linux-x86_64-gnu/lib/python3.9/socket.py\", line 844, in create_connection\n    sock.connect(sa)\nOSError: [Errno 101] Network is unreachable\n"
+ },
+ "tests": [
+  {
+   "run": 1,
+   "test_patch_applied": true,
+   "exit": 1,
+   "seconds": 1.0,
+   "f2p_failed": 1,
+   "f2p_total": 1,
+   "f2p_not_reported": 0,
+   "p2p_passed": 20,
+   "p2p_total": 20,
+   "p2p_universe": 40,
+   "status": {
+    "tests/unit/test_transfer_manager.py::test_download_chunks_concurrently": "FAILED",
+    "tests/unit/test_transfer_manager.py::test__download_and_write_chunk_in_place": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_with_skip_if_exists": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_processes_rejects_file_obj": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently_with_metadata_and_encryption": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__LazyClient": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_to_path": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_to_path_creates_directories": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_from_filenames_additional_properties": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__pickle_client": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_chunks_concurrently_raises_on_invalid_kwargs": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_threads_deprecation_conflict_with_upload": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_with_processes_rejects_file_obj": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_passes_concurrency_options": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__get_pool_class_and_requirements_error": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__reduce_client": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_suppresses_exceptions": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_processes": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_suppresses_412_with_skip_if_exists": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_file_objs": "PASSED"
+   }
+  },
+  {
+   "run": 2,
+   "test_patch_applied": true,
+   "exit": 1,
+   "seconds": 1.0,
+   "f2p_failed": 1,
+   "f2p_total": 1,
+   "f2p_not_reported": 0,
+   "p2p_passed": 20,
+   "p2p_total": 20,
+   "p2p_universe": 40,
+   "status": {
+    "tests/unit/test_transfer_manager.py::test_download_chunks_concurrently": "FAILED",
+    "tests/unit/test_transfer_manager.py::test__download_and_write_chunk_in_place": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_with_skip_if_exists": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_processes_rejects_file_obj": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently_with_metadata_and_encryption": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__LazyClient": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_to_path": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_to_path_creates_directories": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_from_filenames_additional_properties": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__pickle_client": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_chunks_concurrently_raises_on_invalid_kwargs": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_threads_deprecation_conflict_with_upload": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_with_processes_rejects_file_obj": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_passes_concurrency_options": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__get_pool_class_and_requirements_error": "PASSED",
+    "tests/unit/test_transfer_manager.py::test__reduce_client": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_download_many_suppresses_exceptions": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_processes": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_suppresses_412_with_skip_if_exists": "PASSED",
+    "tests/unit/test_transfer_manager.py::test_upload_many_with_file_objs": "PASSED"
+   }
+  }
+ ],
+ "tests_ok": true,
+ "replay": {
+  "A": {
+   "matched": 5,
+   "mismatched": 1,
+   "no_env_effect": 1
+  },
+  "B": {
+   "matched": 5,
+   "mismatched": 1,
+   "no_env_effect": 1
+  },
+  "C": {
+   "matched": 5,
+   "mismatched": 1,
+   "no_env_effect": 1
+  }
+ },
+ "prefix_env_steps": 6,
+ "hashes": [
+  {
+   "replay": "A",
+   "workspace_sha256": "26410a20ec0dc42b0ba034202ff4164e5de140fe6217ece8b191c1defd8586ef",
+   "full_tree_sha256_info": "276e6631b6d0feae89633f60d65f73bedd002d2bf65d10610b761d1ef70ddbfa",
+   "files": 344
+  },
+  {
+   "replay": "B",
+   "workspace_sha256": "26410a20ec0dc42b0ba034202ff4164e5de140fe6217ece8b191c1defd8586ef",
+   "full_tree_sha256_info": "276e6631b6d0feae89633f60d65f73bedd002d2bf65d10610b761d1ef70ddbfa",
+   "files": 344
+  },
+  {
+   "replay": "C",
+   "workspace_sha256": "26410a20ec0dc42b0ba034202ff4164e5de140fe6217ece8b191c1defd8586ef",
+   "full_tree_sha256_info": "276e6631b6d0feae89633f60d65f73bedd002d2bf65d10610b761d1ef70ddbfa",
+   "files": 344
+  }
+ ],
+ "hash_equal_BC": true,
+ "hash_equal_ABC": true,
+ "qualified": false,
+ "reason": "prefix replay mismatch",
+ "wall_seconds": 516.2
+}

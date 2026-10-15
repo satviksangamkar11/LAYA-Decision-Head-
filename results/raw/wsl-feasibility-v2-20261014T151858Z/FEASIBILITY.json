@@ -1,0 +1,22 @@
+{
+ "question": "can a SWE-rebench task give a complete, reproducible starting state in the qualified WSL sandbox?",
+ "answer": "YES for 1 of 2 tasks under the pre-registered rule (starlette_exporter QUALIFIED); googleapis NOT QUALIFIED only because one `ls -la` observation differs in file owner/group and mtime",
+ "rule": "SELECTION_v2.md (written before any v2 fetch/draw/run)",
+ "selection": {"visited": 15, "v1_rows_reused": 13, "fetched_new": 2, "walk_counts": {"v1_other": 4, "docker_or_system_packages": 6, "x1_heavy_or_over_80": 1, "x2_network_prefix": 0, "accepted": 4},
+  "tasks": ["googleapis__python-storage-1357", "pvlib__pvanalytics-128"], "reserves": ["stephenhillier__starlette_exporter-89", "dwavesystems__dwave-system-373"]},
+ "tasks": {
+  "googleapis__python-storage-1357": {"setup": "OK 512.9 s, Python 3.9.21, 27 pinned, pip freeze 28 lines, task dir peak 0.11 GiB", "network_probe_failed": true,
+   "initial_tests": "x2: F2P 1/1 failed, P2P 20/20 passed (sample of 40), identical status both runs", "prefix_env_steps_matched": "5/6 in each of A, B, C (step 6 `ls -la tests/` MISMATCH: owner root/root vs replay/systemd-journal, mtime Sep 1 01:30 vs today; names, modes, sizes, link counts equal)",
+   "hash_equal_BC": true, "hash_equal_ABC": true, "qualified": false, "reason": "prefix replay mismatch", "wall_seconds": 516.2},
+  "pvlib__pvanalytics-128": {"setup": "IMPOSSIBLE: uv has no build of the exact recorded Python 3.7.16 (`No download found for request: cpython-3.7.16-linux-x86_64-gnu`), 6.0 s", "qualified": false,
+   "replaced_by": "stephenhillier__starlette_exporter-89 (reserve 1; reason unrelated to reproducibility: dependency not downloadable)", "wall_seconds": 6.0},
+  "stephenhillier__starlette_exporter-89": {"setup": "OK 201.8 s, Python 3.9.21, 23 pinned, pip freeze 24 lines, task dir peak 0.07 GiB", "network_probe_failed": true,
+   "initial_tests": "x2: F2P 1/1 failed, P2P 20/20 passed (sample of 43), identical status both runs", "prefix_env_steps_matched": "4/4 in each of A, B, C (all exact)",
+   "hash_equal_BC": true, "hash_equal_ABC": true, "qualified": true, "reason": null, "wall_seconds": 204.2}
+ },
+ "qualified_count": 1,
+ "disk": {"c_free_before_bytes": 9016254464, "c_free_after_bytes": 8968818688, "min_runner_reading_gib": 8.299, "guard_aborts": 0},
+ "network": "setup only (bwrap --share-net); probe (socket + DNS) failed inside the replay/test sandbox for both executed tasks",
+ "code_fixes": 0,
+ "glm_or_nvidia_calls": 0, "continuations": 0, "candidates": 0, "training": 0, "kaggle": 0
+}

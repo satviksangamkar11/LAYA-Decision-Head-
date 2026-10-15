@@ -1,0 +1,25 @@
+{
+ "instance_id": "iterative__datachain-206",
+ "repo": "iterative/datachain",
+ "base_commit": "83a9ab24e68556c651e4e4d67bffa95a7459e36a",
+ "trajectory_id": "chatcmpl-f51b0bd75acaa15f04302bfe3215bbdd",
+ "workspace_dir": "/workspace/iterative__datachain__0.2",
+ "prefix_steps": 7,
+ "decision": {
+  "kind": "test",
+  "index": 7
+ },
+ "setup": {
+  "ok": false,
+  "exit": -7,
+  "seconds": 60.6,
+  "python": "3.9.21",
+  "pinned_requirements": 216,
+  "pip_freeze_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "pip_freeze_lines": 0,
+  "python_version_out": null
+ },
+ "qualified": false,
+ "reason": "setup failed (exit -7)",
+ "wall_seconds": 62.1
+}

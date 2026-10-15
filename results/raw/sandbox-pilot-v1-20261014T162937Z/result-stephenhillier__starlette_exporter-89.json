@@ -1,0 +1,143 @@
+{
+ "instance_id": "stephenhillier__starlette_exporter-89",
+ "repo": "stephenhillier/starlette_exporter",
+ "base_commit": "df3e70b2b1faf0d95d3686c79f67f5415275413b",
+ "trajectory_id": "chatcmpl-97f89407780ee6dcb940b025695a7f95",
+ "workspace_dir": "/workspace/stephenhillier__starlette_exporter__0.19",
+ "prefix_steps": 5,
+ "decision": {
+  "kind": "test",
+  "index": 5
+ },
+ "setup_task_dir_bytes_peak": 78139328,
+ "setup": {
+  "ok": true,
+  "exit": 0,
+  "seconds": 297.3,
+  "python": "3.9.21",
+  "pinned_requirements": 23,
+  "pip_freeze_sha256": "3abbc22c04d55467a2dfe745f94fef6a743fd64cb2a9d16b323c95a839ab25d5",
+  "pip_freeze_lines": 24,
+  "python_version_out": "Python 3.9.21"
+ },
+ "network_off_probe": {
+  "socket_and_dns_failed": true,
+  "tail": " File \"/opt/conda/py/cpython-3.9.21-linux-x86_64-gnu/lib/python3.9/socket.py\", line 856, in create_connection\n    raise err\n  File \"/opt/conda/py/cpython-3.9.21-linux-x86_64-gnu/lib/python3.9/socket.py\", line 844, in create_connection\n    sock.connect(sa)\nOSError: [Errno 101] Network is unreachable\n"
+ },
+ "tests": [
+  {
+   "run": 1,
+   "test_patch_applied": true,
+   "exit": 1,
+   "seconds": 1.1,
+   "f2p_failed": 1,
+   "f2p_total": 1,
+   "f2p_not_reported": 0,
+   "p2p_passed": 20,
+   "p2p_total": 20,
+   "p2p_universe": 43,
+   "status": {
+    "tests/test_middleware.py::TestMiddleware::test_skip_paths__re": "FAILED",
+    "tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_with_always_use_int_status_set": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_mounted_path_404": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_mounted_path": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_custom_root_path": "PASSED",
+    "tests/test_middleware.py::TestDefaultLabels::test_callable_default_values": "PASSED",
+    "tests/test_middleware.py::TestOptionalMetrics::test_response_body_size": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200_options": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_skip_methods": "PASSED",
+    "tests/test_middleware.py::TestOptionalMetrics::test_receive_body_size": "PASSED",
+    "tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_always_use_int_status_set": "PASSED",
+    "tests/test_middleware.py::TestDefaultLabels::test_from_header_allowed_values": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_histogram": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_requests_in_progress": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_staticfiles_path": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_unhandled": "PASSED",
+    "tests/test_middleware.py::TestBackgroundTasks::test_background_task_endpoint": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_prefix": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_staticfiles_path": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_app_name": "PASSED"
+   }
+  },
+  {
+   "run": 2,
+   "test_patch_applied": true,
+   "exit": 1,
+   "seconds": 1.1,
+   "f2p_failed": 1,
+   "f2p_total": 1,
+   "f2p_not_reported": 0,
+   "p2p_passed": 20,
+   "p2p_total": 20,
+   "p2p_universe": 43,
+   "status": {
+    "tests/test_middleware.py::TestMiddleware::test_skip_paths__re": "FAILED",
+    "tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_with_always_use_int_status_set": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_mounted_path_404": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_mounted_path": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_custom_root_path": "PASSED",
+    "tests/test_middleware.py::TestDefaultLabels::test_callable_default_values": "PASSED",
+    "tests/test_middleware.py::TestOptionalMetrics::test_response_body_size": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200_options": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_skip_methods": "PASSED",
+    "tests/test_middleware.py::TestOptionalMetrics::test_receive_body_size": "PASSED",
+    "tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_always_use_int_status_set": "PASSED",
+    "tests/test_middleware.py::TestDefaultLabels::test_from_header_allowed_values": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_histogram": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_requests_in_progress": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_staticfiles_path": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_unhandled": "PASSED",
+    "tests/test_middleware.py::TestBackgroundTasks::test_background_task_endpoint": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_prefix": "PASSED",
+    "tests/test_middleware.py::TestMiddlewareGroupedPaths::test_staticfiles_path": "PASSED",
+    "tests/test_middleware.py::TestMiddleware::test_app_name": "PASSED"
+   }
+  }
+ ],
+ "tests_ok": true,
+ "replay": {
+  "A": {
+   "matched": 4,
+   "mismatched": 0,
+   "no_env_effect": 1
+  },
+  "B": {
+   "matched": 4,
+   "mismatched": 0,
+   "no_env_effect": 1
+  },
+  "C": {
+   "matched": 4,
+   "mismatched": 0,
+   "no_env_effect": 1
+  }
+ },
+ "prefix_env_steps": 4,
+ "hashes": [
+  {
+   "replay": "A",
+   "workspace_sha256": "f525ad19abc6389957df51efe40187ca8ac275da01311d397b56cc9be5377c2d",
+   "full_tree_sha256_info": "ae6ae88e60f5e81e233f39f6d597db35bb506feceb5fc9fde2bc687cf3cf2e43",
+   "files": 20
+  },
+  {
+   "replay": "B",
+   "workspace_sha256": "f525ad19abc6389957df51efe40187ca8ac275da01311d397b56cc9be5377c2d",
+   "full_tree_sha256_info": "ae6ae88e60f5e81e233f39f6d597db35bb506feceb5fc9fde2bc687cf3cf2e43",
+   "files": 20
+  },
+  {
+   "replay": "C",
+   "workspace_sha256": "f525ad19abc6389957df51efe40187ca8ac275da01311d397b56cc9be5377c2d",
+   "full_tree_sha256_info": "ae6ae88e60f5e81e233f39f6d597db35bb506feceb5fc9fde2bc687cf3cf2e43",
+   "files": 20
+  }
+ ],
+ "hash_equal_BC": true,
+ "hash_equal_ABC": true,
+ "qualified": true,
+ "reason": null,
+ "wall_seconds": 299.9
+}

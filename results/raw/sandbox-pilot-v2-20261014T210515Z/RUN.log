@@ -1,0 +1,19 @@
+2026-10-14T21:06:26Z run start stephenhillier__starlette_exporter-89
+2026-10-14T21:06:27Z reuse check {'head_ok': True, 'status_clean': True, 'freeze_sha256': '3abbc22c04d55467a2dfe745f94fef6a743fd64cb2a9d16b323c95a839ab25d5', 'v1_freeze_sha256': '3abbc22c04d55467a2dfe745f94fef6a743fd64cb2a9d16b323c95a839ab25d5', 'freeze_exit': 0, 'ok': True}
+2026-10-14T21:06:30Z initial test condition ok: True
+2026-10-14T21:06:31Z replay A match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:32Z replay B match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:34Z replay C match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:34Z QUALIFY stephenhillier__starlette_exporter-89 False (a) prefix replay mismatch; (b) oracle: recorded remaining actions do not resolve presolved None
+2026-10-14T21:06:34Z not qualified: stop for this id
+2026-10-14T21:06:34Z secret scan hits: []
+2026-10-14T21:07:13Z run start googleapis__python-storage-1357
+2026-10-14T21:07:14Z reuse check {'head_ok': True, 'status_clean': True, 'freeze_sha256': '85d93a9dfb5217ce2fca46d3c4d6604b20808047205854789b6a6651466afcf4', 'v1_freeze_sha256': '85d93a9dfb5217ce2fca46d3c4d6604b20808047205854789b6a6651466afcf4', 'freeze_exit': 0, 'ok': True}
+2026-10-14T21:07:16Z initial test condition ok: True
+2026-10-14T21:07:18Z replay A match 12 mismatch 1 v4-only 0
+2026-10-14T21:07:19Z replay B match 12 mismatch 1 v4-only 0
+2026-10-14T21:07:20Z replay C match 12 mismatch 1 v4-only 0
+2026-10-14T21:07:20Z QUALIFY googleapis__python-storage-1357 False (a) prefix replay mismatch; (b) oracle: recorded remaining actions do not resolve presolved None
+2026-10-14T21:07:20Z not qualified: stop for this id
+2026-10-14T21:07:20Z secret scan hits: []
+2026-10-14T21:09:18Z secret scan hits: []

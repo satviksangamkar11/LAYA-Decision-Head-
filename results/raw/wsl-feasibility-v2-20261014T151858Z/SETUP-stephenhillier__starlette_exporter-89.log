@@ -1,0 +1,171 @@
+# setup (network ON) stephenhillier__starlette_exporter-89 python 3.9.21, 23 pinned requirements
+set -ex
+cd /workspace
+git clone --quiet https://github.com/stephenhillier/starlette_exporter.git stephenhillier__starlette_exporter__0.19
+cd stephenhillier__starlette_exporter__0.19
+git -c advice.detachedHead=false checkout --quiet df3e70b2b1faf0d95d3686c79f67f5415275413b
+/opt/toolchains/uv-0.11.25/uv python install 3.9.21
+/opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+/opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+pip install -e .
+pip install pytest
+python --version
+pip freeze > /tmp/freeze.txt
+git status --porcelain | head -20
+
++ cd /workspace
++ git clone --quiet https://github.com/stephenhillier/starlette_exporter.git stephenhillier__starlette_exporter__0.19
++ cd stephenhillier__starlette_exporter__0.19
++ git -c advice.detachedHead=false checkout --quiet df3e70b2b1faf0d95d3686c79f67f5415275413b
++ /opt/toolchains/uv-0.11.25/uv python install 3.9.21
+Downloading cpython-3.9.21-linux-x86_64-gnu (download) (19.3MiB)
+ Downloaded cpython-3.9.21-linux-x86_64-gnu (download)
+Installed Python 3.9.21 in 8.17s
+ + cpython-3.9.21-linux-x86_64-gnu (python3.9)
+warning: `/tmp/home/.local/bin` is not on your PATH. To use installed Python executables, run `export PATH="/tmp/home/.local/bin:$PATH"` or `uv python update-shell`.
++ /opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+Using CPython 3.9.21
+Creating virtual environment with seed packages at: /opt/conda/envs/testbed
+ + packaging==26.3
+ + pip==26.0.1
+ + setuptools==82.0.1
+ + wheel==0.48.0
+Activate with: source /opt/conda/envs/testbed/bin/activate
++ /opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+Using Python 3.9.21 environment at: /opt/conda/envs/testbed
+Resolved 23 packages in 22.12s
+Prepared 23 packages in 52.64s
+Uninstalled 1 package in 0.45ms
+Installed 23 packages in 36ms
+ + aiofiles==22.1.0
+ + anyio==4.9.0
+ + attrs==25.3.0
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + exceptiongroup==1.2.2
+ + h11==0.14.0
+ + httpcore==0.16.3
+ + httpx==0.23.3
+ + idna==3.10
+ + iniconfig==2.1.0
+ - packaging==26.3
+ + packaging==24.2
+ + pluggy==1.0.0.dev0
+ + prometheus-client==0.15.0
+ + py==1.11.0
+ + pytest==6.2.4
+ + requests==2.31.0
+ + rfc3986==1.5.0
+ + sniffio==1.3.1
+ + starlette==0.35.1
+ + toml==0.10.2
+ + typing-extensions==4.13.0
+ + urllib3==2.3.0
++ pip install -e .
+Obtaining file:///workspace/stephenhillier__starlette_exporter__0.19
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: prometheus_client>=0.12 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from starlette_exporter==0.19.0) (0.15.0)
+Requirement already satisfied: starlette>=0.35 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from starlette_exporter==0.19.0) (0.35.1)
+Requirement already satisfied: anyio<5,>=3.4.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from starlette>=0.35->starlette_exporter==0.19.0) (4.9.0)
+Requirement already satisfied: typing-extensions>=3.10.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from starlette>=0.35->starlette_exporter==0.19.0) (4.13.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from anyio<5,>=3.4.0->starlette>=0.35->starlette_exporter==0.19.0) (1.2.2)
+Requirement already satisfied: idna>=2.8 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from anyio<5,>=3.4.0->starlette>=0.35->starlette_exporter==0.19.0) (3.10)
+Requirement already satisfied: sniffio>=1.1 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from anyio<5,>=3.4.0->starlette>=0.35->starlette_exporter==0.19.0) (1.3.1)
+Building wheels for collected packages: starlette_exporter
+  Building editable for starlette_exporter (pyproject.toml): started
+  Building editable for starlette_exporter (pyproject.toml): finished with status 'done'
+  Created wheel for starlette_exporter: filename=starlette_exporter-0.19.0-0.editable-py3-none-any.whl size=10647 sha256=0728334f150729aefed37e4eeb2d6cae8134bad5765044c89dc1333f7fbb577b
+  Stored in directory: /tmp/pip-ephem-wheel-cache-3vd0v5b9/wheels/8b/d4/67/b91d89403a97b5105ca1bef6abc3f9343d9e2cbff12a9cdb66
+Successfully built starlette_exporter
+Installing collected packages: starlette_exporter
+Successfully installed starlette_exporter-0.19.0
++ pip install pytest
+Requirement already satisfied: pytest in /opt/conda/envs/testbed/lib/python3.9/site-packages (6.2.4)
+Requirement already satisfied: attrs>=19.2.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (25.3.0)
+Requirement already satisfied: iniconfig in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (2.1.0)
+Requirement already satisfied: packaging in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (24.2)
+Requirement already satisfied: pluggy<1.0.0a1,>=0.12 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (1.0.0.dev0)
+Requirement already satisfied: py>=1.8.2 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (1.11.0)
+Requirement already satisfied: toml in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (0.10.2)
++ python --version
+Python 3.9.21
++ pip freeze
++ git status --porcelain
++ head -20
+
+# exit 0, 201.8 s
+
+# test condition run 1 (network OFF) exit 1 1.1 s
+============================= test session starts ==============================
+collected 21 items
+
+tests/test_middleware.py F....................                           [100%]
+
+=================================== FAILURES ===================================
+/workspace/stephenhillier__starlette_exporter__0.19/tests/test_middleware.py:399: assert 'path="/health' not in '# HELP star...567622e+09\n'
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_with_always_use_int_status_set
+PASSED tests/test_middleware.py::TestMiddleware::test_mounted_path_404
+PASSED tests/test_middleware.py::TestMiddleware::test_mounted_path
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_custom_root_path
+PASSED tests/test_middleware.py::TestDefaultLabels::test_callable_default_values
+PASSED tests/test_middleware.py::TestOptionalMetrics::test_response_body_size
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200_options
+PASSED tests/test_middleware.py::TestMiddleware::test_skip_methods
+PASSED tests/test_middleware.py::TestOptionalMetrics::test_receive_body_size
+PASSED tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_always_use_int_status_set
+PASSED tests/test_middleware.py::TestDefaultLabels::test_from_header_allowed_values
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_histogram
+PASSED tests/test_middleware.py::TestMiddleware::test_requests_in_progress
+PASSED tests/test_middleware.py::TestMiddleware::test_staticfiles_path
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_unhandled
+PASSED tests/test_middleware.py::TestBackgroundTasks::test_background_task_endpoint
+PASSED tests/test_middleware.py::TestMiddleware::test_prefix
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_staticfiles_path
+PASSED tests/test_middleware.py::TestMiddleware::test_app_name
+FAILED tests/test_middleware.py::TestMiddleware::test_skip_paths__re - assert...
+========================= 1 failed, 20 passed in 0.51s =========================
+
+
+# test condition run 2 (network OFF) exit 1 1.0 s
+============================= test session starts ==============================
+collected 21 items
+
+tests/test_middleware.py F....................                           [100%]
+
+=================================== FAILURES ===================================
+/workspace/stephenhillier__starlette_exporter__0.19/tests/test_middleware.py:399: assert 'path="/health' not in '# HELP star...117861e+09\n'
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_with_always_use_int_status_set
+PASSED tests/test_middleware.py::TestMiddleware::test_mounted_path_404
+PASSED tests/test_middleware.py::TestMiddleware::test_mounted_path
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_custom_root_path
+PASSED tests/test_middleware.py::TestDefaultLabels::test_callable_default_values
+PASSED tests/test_middleware.py::TestOptionalMetrics::test_response_body_size
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_200_options
+PASSED tests/test_middleware.py::TestMiddleware::test_skip_methods
+PASSED tests/test_middleware.py::TestOptionalMetrics::test_receive_body_size
+PASSED tests/test_middleware.py::TestAlwaysUseIntStatus::test_200_always_use_int_status_set
+PASSED tests/test_middleware.py::TestDefaultLabels::test_from_header_allowed_values
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_histogram
+PASSED tests/test_middleware.py::TestMiddleware::test_requests_in_progress
+PASSED tests/test_middleware.py::TestMiddleware::test_staticfiles_path
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_unhandled
+PASSED tests/test_middleware.py::TestBackgroundTasks::test_background_task_endpoint
+PASSED tests/test_middleware.py::TestMiddleware::test_prefix
+PASSED tests/test_middleware.py::TestMiddlewareGroupedPaths::test_staticfiles_path
+PASSED tests/test_middleware.py::TestMiddleware::test_app_name
+FAILED tests/test_middleware.py::TestMiddleware::test_skip_paths__re - assert...
+========================= 1 failed, 20 passed in 0.49s =========================
+

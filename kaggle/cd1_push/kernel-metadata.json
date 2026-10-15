@@ -1,0 +1,4 @@
+{"id": "sangeetasangamkar/laya-context-diag-run-v1", "title": "laya-context-diag-run-v1", "code_file": "context_diag_v1.py", "language": "python", "kernel_type": "script",
+ "is_private": true, "enable_gpu": true, "enable_tpu": false, "enable_internet": true,
+ "dataset_sources": ["sangeetasangamkar/laya-head-exp5-v1", "sangeetasangamkar/laya-head-swap-v1", "sangeetasangamkar/laya-text-imitation-v1", "sangeetasangamkar/laya-level12-v1", "sangeetasangamkar/laya-context-diag-v1"],
+ "kernel_sources": [], "competition_sources": [], "model_sources": [], "machine_shape": "NvidiaTeslaT4"}

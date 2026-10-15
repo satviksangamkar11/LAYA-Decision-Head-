@@ -1,0 +1,9 @@
+2026-10-14T21:06:26Z run start stephenhillier__starlette_exporter-89
+2026-10-14T21:06:27Z reuse check {'head_ok': True, 'status_clean': True, 'freeze_sha256': '3abbc22c04d55467a2dfe745f94fef6a743fd64cb2a9d16b323c95a839ab25d5', 'v1_freeze_sha256': '3abbc22c04d55467a2dfe745f94fef6a743fd64cb2a9d16b323c95a839ab25d5', 'freeze_exit': 0, 'ok': True}
+2026-10-14T21:06:30Z initial test condition ok: True
+2026-10-14T21:06:31Z replay A match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:32Z replay B match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:34Z replay C match 4 mismatch 1 v4-only 0
+2026-10-14T21:06:34Z QUALIFY stephenhillier__starlette_exporter-89 False (a) prefix replay mismatch; (b) oracle: recorded remaining actions do not resolve presolved None
+2026-10-14T21:06:34Z not qualified: stop for this id
+2026-10-14T21:06:34Z secret scan hits: []

@@ -1,0 +1,189 @@
+# setup (network ON) googleapis__python-storage-1357 python 3.9.21, 27 pinned requirements
+set -ex
+cd /workspace
+git clone --quiet https://github.com/googleapis/python-storage.git googleapis__python-storage__2.18
+cd googleapis__python-storage__2.18
+git -c advice.detachedHead=false checkout --quiet 8ec02c0e656a4e6786f256798f4b93b95b50acec
+/opt/toolchains/uv-0.11.25/uv python install 3.9.21
+/opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+/opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+pip install -e .[dev]
+pip install pytest pytest-cov pytest-rerunfailures mock
+python --version
+pip freeze > /tmp/freeze.txt
+git status --porcelain | head -20
+
++ cd /workspace
++ git clone --quiet https://github.com/googleapis/python-storage.git googleapis__python-storage__2.18
++ cd googleapis__python-storage__2.18
++ git -c advice.detachedHead=false checkout --quiet 8ec02c0e656a4e6786f256798f4b93b95b50acec
++ /opt/toolchains/uv-0.11.25/uv python install 3.9.21
+Downloading cpython-3.9.21-linux-x86_64-gnu (download) (19.3MiB)
+ Downloaded cpython-3.9.21-linux-x86_64-gnu (download)
+Installed Python 3.9.21 in 5.88s
+ + cpython-3.9.21-linux-x86_64-gnu (python3.9)
+warning: `/tmp/home/.local/bin` is not on your PATH. To use installed Python executables, run `export PATH="/tmp/home/.local/bin:$PATH"` or `uv python update-shell`.
++ /opt/toolchains/uv-0.11.25/uv venv --seed --python 3.9.21 /opt/conda/envs/testbed
+Using CPython 3.9.21
+Creating virtual environment with seed packages at: /opt/conda/envs/testbed
+ + packaging==26.3
+ + pip==26.0.1
+ + setuptools==82.0.1
+ + wheel==0.48.0
+Activate with: source /opt/conda/envs/testbed/bin/activate
++ /opt/toolchains/uv-0.11.25/uv pip install --python /opt/conda/envs/testbed/bin/python -r /tmp/reqs.txt
+Using Python 3.9.21 environment at: /opt/conda/envs/testbed
+Resolved 27 packages in 3m 34s
+Prepared 27 packages in 2m 45s
+Uninstalled 1 package in 0.82ms
+Installed 27 packages in 52ms
+ + cachetools==5.5.2
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + coverage==7.8.0
+ + exceptiongroup==1.2.2
+ + google-api-core==2.24.2
+ + google-auth==2.38.0
+ + google-cloud-core==2.4.3
+ + google-crc32c==1.7.1
+ + google-resumable-media==2.7.2
+ + googleapis-common-protos==1.69.2
+ + idna==3.10
+ + iniconfig==2.1.0
+ + mock==5.2.0
+ - packaging==26.3
+ + packaging==24.2
+ + pluggy==1.5.0
+ + proto-plus==1.26.1
+ + protobuf==6.30.2
+ + pyasn1==0.6.1
+ + pyasn1-modules==0.4.2
+ + pytest==8.3.5
+ + pytest-cov==6.0.0
+ + pytest-rerunfailures==15.0
+ + requests==2.32.3
+ + rsa==4.9
+ + tomli==2.2.1
+ + urllib3==2.3.0
++ pip install -e '.[dev]'
+Obtaining file:///workspace/googleapis__python-storage__2.18
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: google-auth<3.0dev,>=2.26.1 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (2.38.0)
+Requirement already satisfied: google-api-core<3.0.0dev,>=2.15.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (2.24.2)
+Requirement already satisfied: google-cloud-core<3.0dev,>=2.3.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (2.4.3)
+Requirement already satisfied: google-resumable-media>=2.7.2 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (2.7.2)
+Requirement already satisfied: requests<3.0.0dev,>=2.18.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (2.32.3)
+Requirement already satisfied: google-crc32c<2.0dev,>=1.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-cloud-storage==2.18.2) (1.7.1)
+WARNING: google-cloud-storage 2.18.2 does not provide the extra 'dev'
+Requirement already satisfied: googleapis-common-protos<2.0.0,>=1.56.2 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-api-core<3.0.0dev,>=2.15.0->google-cloud-storage==2.18.2) (1.69.2)
+Requirement already satisfied: protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<7.0.0,>=3.19.5 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-api-core<3.0.0dev,>=2.15.0->google-cloud-storage==2.18.2) (6.30.2)
+Requirement already satisfied: proto-plus<2.0.0,>=1.22.3 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-api-core<3.0.0dev,>=2.15.0->google-cloud-storage==2.18.2) (1.26.1)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-auth<3.0dev,>=2.26.1->google-cloud-storage==2.18.2) (5.5.2)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-auth<3.0dev,>=2.26.1->google-cloud-storage==2.18.2) (0.4.2)
+Requirement already satisfied: rsa<5,>=3.1.4 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from google-auth<3.0dev,>=2.26.1->google-cloud-storage==2.18.2) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from requests<3.0.0dev,>=2.18.0->google-cloud-storage==2.18.2) (3.4.1)
+Requirement already satisfied: idna<4,>=2.5 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from requests<3.0.0dev,>=2.18.0->google-cloud-storage==2.18.2) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from requests<3.0.0dev,>=2.18.0->google-cloud-storage==2.18.2) (2.3.0)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from requests<3.0.0dev,>=2.18.0->google-cloud-storage==2.18.2) (2025.1.31)
+Requirement already satisfied: pyasn1>=0.1.3 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from rsa<5,>=3.1.4->google-auth<3.0dev,>=2.26.1->google-cloud-storage==2.18.2) (0.6.1)
+Building wheels for collected packages: google-cloud-storage
+  Building editable for google-cloud-storage (pyproject.toml): started
+  Building editable for google-cloud-storage (pyproject.toml): finished with status 'done'
+  Created wheel for google-cloud-storage: filename=google_cloud_storage-2.18.2-0.editable-py2.py3-none-any.whl size=10099 sha256=5a5e597bf265ae1043ae8ff10233ad7375d52ffb47b7528779a132cfd70dbd0f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-bjd9v0bm/wheels/c9/91/10/59b0fcf181d5aa8ef69640041482f4bb60c842273bf8839692
+Successfully built google-cloud-storage
+Installing collected packages: google-cloud-storage
+Successfully installed google-cloud-storage-2.18.2
++ pip install pytest pytest-cov pytest-rerunfailures mock
+Requirement already satisfied: pytest in /opt/conda/envs/testbed/lib/python3.9/site-packages (8.3.5)
+Requirement already satisfied: pytest-cov in /opt/conda/envs/testbed/lib/python3.9/site-packages (6.0.0)
+Requirement already satisfied: pytest-rerunfailures in /opt/conda/envs/testbed/lib/python3.9/site-packages (15.0)
+Requirement already satisfied: mock in /opt/conda/envs/testbed/lib/python3.9/site-packages (5.2.0)
+Requirement already satisfied: exceptiongroup>=1.0.0rc8 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (1.2.2)
+Requirement already satisfied: iniconfig in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (2.1.0)
+Requirement already satisfied: packaging in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (24.2)
+Requirement already satisfied: pluggy<2,>=1.5 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (1.5.0)
+Requirement already satisfied: tomli>=1 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from pytest) (2.2.1)
+Requirement already satisfied: coverage>=7.5 in /opt/conda/envs/testbed/lib/python3.9/site-packages (from coverage[toml]>=7.5->pytest-cov) (7.8.0)
++ python --version
+Python 3.9.21
++ pip freeze
++ git status --porcelain
++ head -20
+
+# exit 0, 512.9 s
+
+# test condition run 1 (network OFF) exit 1 1.0 s
+============================= test session starts ==============================
+collected 21 items
+
+tests/unit/test_transfer_manager.py F....................                [100%]
+
+=================================== FAILURES ===================================
+/opt/conda/envs/testbed/lib/python3.9/site-packages/mock/mock.py:1064: AssertionError: _prep_and_do_download(<ANY>, command='tm.download_sharded', accept-encoding='fake_gzip', checksum=None, start=0, end=7) call not found
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/unit/test_transfer_manager.py::test__download_and_write_chunk_in_place
+PASSED tests/unit/test_transfer_manager.py::test_download_many_with_skip_if_exists
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_processes_rejects_file_obj
+PASSED tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently_with_metadata_and_encryption
+PASSED tests/unit/test_transfer_manager.py::test__LazyClient
+PASSED tests/unit/test_transfer_manager.py::test_download_many_to_path
+PASSED tests/unit/test_transfer_manager.py::test_download_many_to_path_creates_directories
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_from_filenames_additional_properties
+PASSED tests/unit/test_transfer_manager.py::test__pickle_client
+PASSED tests/unit/test_transfer_manager.py::test_download_chunks_concurrently_raises_on_invalid_kwargs
+PASSED tests/unit/test_transfer_manager.py::test_threads_deprecation_conflict_with_upload
+PASSED tests/unit/test_transfer_manager.py::test_download_many_with_processes_rejects_file_obj
+PASSED tests/unit/test_transfer_manager.py::test_download_many_passes_concurrency_options
+PASSED tests/unit/test_transfer_manager.py::test__get_pool_class_and_requirements_error
+PASSED tests/unit/test_transfer_manager.py::test__reduce_client
+PASSED tests/unit/test_transfer_manager.py::test_download_many_suppresses_exceptions
+PASSED tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_processes
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_suppresses_412_with_skip_if_exists
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_file_objs
+FAILED tests/unit/test_transfer_manager.py::test_download_chunks_concurrently - AssertionError: _prep_and_do_download(<ANY>, command='tm.download_sharded', accept-encoding='fake_gzip', checksum=None, start=0, end=7) call not found
+========================= 1 failed, 20 passed in 0.48s =========================
+
+
+# test condition run 2 (network OFF) exit 1 1.0 s
+============================= test session starts ==============================
+collected 21 items
+
+tests/unit/test_transfer_manager.py F....................                [100%]
+
+=================================== FAILURES ===================================
+/opt/conda/envs/testbed/lib/python3.9/site-packages/mock/mock.py:1064: AssertionError: _prep_and_do_download(<ANY>, command='tm.download_sharded', accept-encoding='fake_gzip', checksum=None, start=0, end=7) call not found
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/unit/test_transfer_manager.py::test__download_and_write_chunk_in_place
+PASSED tests/unit/test_transfer_manager.py::test_download_many_with_skip_if_exists
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_processes_rejects_file_obj
+PASSED tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently_with_metadata_and_encryption
+PASSED tests/unit/test_transfer_manager.py::test__LazyClient
+PASSED tests/unit/test_transfer_manager.py::test_download_many_to_path
+PASSED tests/unit/test_transfer_manager.py::test_download_many_to_path_creates_directories
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_from_filenames_additional_properties
+PASSED tests/unit/test_transfer_manager.py::test__pickle_client
+PASSED tests/unit/test_transfer_manager.py::test_download_chunks_concurrently_raises_on_invalid_kwargs
+PASSED tests/unit/test_transfer_manager.py::test_threads_deprecation_conflict_with_upload
+PASSED tests/unit/test_transfer_manager.py::test_download_many_with_processes_rejects_file_obj
+PASSED tests/unit/test_transfer_manager.py::test_download_many_passes_concurrency_options
+PASSED tests/unit/test_transfer_manager.py::test__get_pool_class_and_requirements_error
+PASSED tests/unit/test_transfer_manager.py::test__reduce_client
+PASSED tests/unit/test_transfer_manager.py::test_download_many_suppresses_exceptions
+PASSED tests/unit/test_transfer_manager.py::test_upload_chunks_concurrently
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_processes
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_suppresses_412_with_skip_if_exists
+PASSED tests/unit/test_transfer_manager.py::test_upload_many_with_file_objs
+FAILED tests/unit/test_transfer_manager.py::test_download_chunks_concurrently - AssertionError: _prep_and_do_download(<ANY>, command='tm.download_sharded', accept-encoding='fake_gzip', checksum=None, start=0, end=7) call not found
+========================= 1 failed, 20 passed in 0.45s =========================
+

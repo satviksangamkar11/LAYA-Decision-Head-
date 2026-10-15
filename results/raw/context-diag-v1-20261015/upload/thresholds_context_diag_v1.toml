@@ -1,0 +1,40 @@
+# Context diagnostic v1 on the Fable TRAIN pools (user GO, chat 2026-10-15): run the EXISTING pipeline with and without context on the same pools.
+# No new dataset, no training, no candidate generation; everything frozen. Written before any run; never edited after.
+
+[data]
+pools = "the cleaned v3 TRAIN pools that have Qwen features in pack5.pt (303 of the 304 cleaned pools; 1 pool is over the capture limit); 177 trajectories (approx.); same candidate options in both conditions"
+text_source = "Kaggle dataset laya-text-imitation-v1 (v3 TRAIN texts: context WITHOUT the [system] block, options, label); pool ids and label indices must equal pack5 (asserted)"
+
+[conditions]
+with_context = "task + history + candidate actions (Qwen features hq/ho from pack5; Qwen-alone prompt with the pool's context_text)"
+without_context = "same candidates, context replaced by the neutral prefix 'Candidate next actions for a coding task:' (variant A of fable_capture_v1, recaptured for ALL 303 pools; parity vs the stored hq_nc/ho_nc of the 112 pools that have them must reach cosine >= 0.999 or the run stops)"
+
+[scorers]
+qwen_alone = "frozen Qwen3-4B-Thinking-2507 (rev 768f209d), plain prompt, answer-letter logits (lm head, logits_to_keep=1), softmax over the pool's letters; prompt tail: 'Which option is the best next action? Answer with one letter.\\nAnswer: ['; two option orders (original, reversed); per candidate id the mean of the two probabilities; positional bias (mean probability by letter position) reported"
+laya_adapter = "coding head + frozen adapters laya-finetune-all-v1 final-s0/s1/s2; per-pool softmax; laya_ens = mean over the 3 seeds. IN-SAMPLE: the adapters were fitted on folds 1-4 of these pools and fold 0 selected the checkpoint (fold assignment taken from pack5, believed identical to laya-finetune-all-v1; not verified)"
+memorisation_indicator = "LAYA with-context accuracy on folds 1-4 minus fold 0 (reported with a cluster bootstrap CI)"
+probe = "exp4lib.probe_scores (per-option logistic regression on ho only), OUT-OF-FOLD over the 5 pack5 folds (fit on 4 folds, apply to the 5th); the no-context probe applies the real-context-fitted probe of the same fold to the held-out fold's no-context features; in-sample numbers also reported"
+options_only = "TF-IDF (1-2 grams, min_df 2, sublinear) + listwise conditional logit on candidate text only, OUT-OF-FOLD over the same 5 folds, C in [0.1, 1, 10] by 3-fold trajectory-grouped inner CV; identical in both conditions (no context by construction)"
+chance = "mean of 1/k over pools"
+
+[loop_rules]
+note = "the loop rules of thresholds_loop_eng_v2.toml, unchanged, plus ONE three-scorer rule; no threshold or weight is tuned; primary threshold 0.20, grid 0.10/0.20/0.30"
+rules = ["S_vote", "S_unanimous_else_probe", "C_avg (laya_ens, probe)", "C_laya_first t", "C_probe_first t", "C_avg3 (equal weights: laya_ens, probe, qwen_alone)", "control C_avg (options_only, probe)"]
+conditions = "every rule is run once with the with-context scorers and once with the without-context scorers"
+
+[metrics]
+per_scorer_and_rule = "correct / N, accuracy, cluster-bootstrap CI by trajectory (2,000, seed 20261015)"
+context_gain = "correct_with - correct_without per scorer and per rule, with wrong->right and right->wrong counts of the pick change and a paired bootstrap CI"
+per_pool = "saved: with-context pick, without-context pick, correctness, changed flag; disagreements are listed, nothing is tuned on them"
+comparison = "each loop rule vs qwen_alone, laya_ens, probe_oof and options_only_oof on the exact same pools: wrong->right, right->wrong, net"
+
+[interpretation_fixed_beforehand]
+context_helps = "context improves accuracy AND fixes previously wrong decisions (wrong->right > right->wrong with CI above 0): evidence that context helps on these (in-sample for LAYA) examples"
+changes_not_improves = "predictions change but accuracy does not improve: the scorer responds to context without selecting better"
+no_context_equal_or_better = "without-context equal or better: no demonstrated contextual reasoning"
+loop_beats_all = "the loop beats every standalone scorer: a promising engineering result that is still in-sample and says nothing about generalisation"
+scope = "agreement with Fable's recorded action on training pools; NOT a statement about real-world coding decisions"
+
+[gates]
+repro = "LAYA 3-seed with-context accuracy on the 46 cleaned VAL pools must reproduce 0.7826 / 0.8043 / 0.7609 (checked in the same kernel); parity of recaptured no-context features on the 112 stored pools (cosine >= 0.999)"
+no_cal_test_no_generation_no_training = true

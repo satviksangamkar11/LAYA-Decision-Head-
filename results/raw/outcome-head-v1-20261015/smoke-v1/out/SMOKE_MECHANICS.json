@@ -1,0 +1,103 @@
+{
+ "version": "oh1-2026-10-15a",
+ "kernel": "sangeetasangamkar/outcome-head-v1",
+ "mode": "smoke",
+ "prereg_sha256": "e8209a04c6632a36c305387bc9f255f7d6e8e872e3d677b2a439c35dde8bc8bb",
+ "stages": {
+  "train_seconds": 26
+ },
+ "split": {
+  "repos": 859,
+  "overlap_repos": 361,
+  "excluded_runs": {
+   "unparsed": {
+    "0": 0,
+    "1": 0
+   },
+   "too_short": {
+    "0": 3,
+    "1": 0
+   }
+  },
+  "train": {
+   "runs": 4000,
+   "tasks": 1223,
+   "repos": 589,
+   "resolved_share": 0.5545
+  },
+  "val": {
+   "runs": 1779,
+   "tasks": 150,
+   "repos": 77,
+   "resolved_share": 0.5430016863406408
+  },
+  "test": {
+   "runs": 3264,
+   "tasks": 290,
+   "repos": 172,
+   "resolved_share": 0.5180759803921569
+  }
+ },
+ "survival": {
+  "items": 180,
+  "action_intact_share": 0.9777777777777777,
+  "task_survived_share": 1.0,
+  "A_cut": 4,
+  "T_cut": 45,
+  "library_truncated": 0,
+  "tokens_mean": 1463.2666666666667,
+  "seqlen_max": 2034,
+  "history_kept_mean": 7.522222222222222,
+  "history_avail_mean": 11.0
+ },
+ "items": {
+  "train": 120,
+  "val": 30,
+  "test": 30
+ },
+ "own_observation_leak_in_first_500": 0,
+ "predict_vs_full_forward_max_prob_diff": 4.339902738070833e-05,
+ "head_path_vs_full_forward_max_abs_logit_diff": 0.0,
+ "overfit": {
+  "0.0001": {
+   "loss_first": 1.039920300245285,
+   "loss_last": 0.7682069763541222,
+   "drop": 0.2612828346817291
+  },
+  "0.0003": {
+   "loss_first": 1.046753890812397,
+   "loss_last": 0.5396036803722382,
+   "drop": 0.4844980418907773
+  },
+  "0.001": {
+   "loss_first": 1.0393761992454529,
+   "loss_last": 0.3701993227005005,
+   "drop": 0.6438254763104534
+  }
+ },
+ "lr_selected": 0.001,
+ "w1": 1.5,
+ "train_history": [
+  {
+   "epoch": 1,
+   "train_loss": 1.2120483716328938,
+   "val_auroc": 0.6018518518518519,
+   "seconds": 26
+  }
+ ],
+ "best_epoch": 1,
+ "best_val_auroc": 0.6018518518518519,
+ "encoder_unchanged": true,
+ "type_emb_act_head_unchanged": true,
+ "encoder_requires_grad_any": false,
+ "gpu_mem_max_gb": 2.602705408,
+ "passA": {
+  "items": 180,
+  "seconds": 24,
+  "encoder_sha": "7bf36bc15bec46dd6dfa551e6742efb5d3db71b34ef9514129287d2590d1969c",
+  "enc_sha_ok": true,
+  "nonfinite": 0
+ },
+ "note": "smoke: mechanics only, no performance metric computed",
+ "ok": true
+}
