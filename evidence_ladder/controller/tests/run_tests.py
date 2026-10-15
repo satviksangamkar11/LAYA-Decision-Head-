@@ -71,7 +71,8 @@ class FakeExec:
 
     def run_experiment(self, art, experiment):
         self.exp_calls.append(art.artifact_id)
-        return dict({"check_id": "critic_experiment_v1", "status": "pass", "observed": "x"}, **self.exp_table.get(art.source, {}))
+        out = dict({"check_id": "critic_experiment_v1", "status": "pass", "observed": "x"}, **self.exp_table.get(art.source, {}))
+        return {k: v for k, v in out.items() if v is not None}
 
     def backend_info(self):
         return {"user": "nobody", "toolchain": "fake-1"}
@@ -320,7 +321,6 @@ def critic_experiment_demotes_and_records_breakage():
     codes = ["OK:a", "OK:b", "OK:c"]
     exe = FakeExec(exp_table={"OK:a": {"status": "pass", "observed": "2"}, "OK:b": {"status": "error", "failure_class": "runtime_error", "observed": None},
                               "OK:c": {"status": "pass", "observed": "3"}})
-    exe.exp_table["OK:b"].pop("observed")
     cfg = {"k": 3, "critic": True, "critic_experiment": True, "critic_responses": {crit_rid(codes): GOOD_RESP}}
     res, ctl, _, _ = run([codes], cfg, critic=FakeCritic(), exe=exe)
     assert res.stop_cause == "decided" and res.final_artifact.source == "OK:a"
@@ -350,16 +350,16 @@ def critic_malformed_is_logged_and_run_continues():
 def critic_pending_gives_api_unavailable_then_second_pass_decides():
     critic = FakeCritic()
     cfg = {"k": 1, "critic": True, "critic_experiment": True}
-    res, ctl, _, _ = run([["OK:a"]], cfg, critic=critic)
+    res, ctl, _, _ = run([["OK:a"]], cfg, critic=critic, exe=FakeExec(exp_table={"OK:a": {"observed": "2"}}))
     assert res.stop_cause == "api_unavailable" and res.stop_details == "critic_pending" and res.decision["next_step"] == "discriminate"
     assert res.answer_label == "SUPPORTED" and len(critic.export_pending()) == 1
     rid = critic.built[0]["request_id"]
     assert rid == crit_rid(["OK:a"]) and critic.built[0]["model"] == "z-ai/glm-5.3-flash"
     C.validate("critic_request", critic.built[0])
-    res2, _, _, _ = run([["OK:a"]], cfg, critic=FakeCritic(done={"pk-" + rid: GOOD_RESP}))       # second pass: the broker returns the ingested response
+    res2, _, _, _ = run([["OK:a"]], cfg, critic=FakeCritic(done={"pk-" + rid: GOOD_RESP}), exe=FakeExec(exp_table={"OK:a": {"observed": "2"}}))       # second pass: the broker returns the ingested response
     assert res2.stop_cause == "decided" and res2.stop_details == ""
     cfg["critic_responses"] = {rid: GOOD_RESP}                                                    # test-only fallback convention
-    res3, _, _, _ = run([["OK:a"]], cfg, critic=FakeCritic())
+    res3, _, _, _ = run([["OK:a"]], cfg, critic=FakeCritic(), exe=FakeExec(exp_table={"OK:a": {"observed": "2"}}))
     assert res3.stop_cause == "decided"
 
 

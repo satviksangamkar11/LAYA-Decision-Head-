@@ -424,7 +424,9 @@ def two_phase_critic_flow():
         assert pend, "pass 1 must end with api_unavailable for some critic runs"
         for tid, arm, _, seeds in pend:   # each pending run is replayed once with identical seeds, and the replay ends differently
             rep = [c for c in calls if c[0] == tid and c[1] == arm]
-            assert len(rep) == 2 and rep[0][3] == rep[1][3] and rep[1][2] != "api_unavailable"
+            assert len(rep) == 2, ("replay count", tid, arm, rep)
+            assert rep[0][3] == rep[1][3], ("seeds differ between passes", tid, arm, rep)
+            assert rep[1][2] != "api_unavailable", ("pass 2 still pending", tid, arm, rep)
         rows = [json.loads(l) for l in (Path(t) / "selection/selection_log_all_passes.jsonl").read_text().splitlines()]
         assert any(x["pass"] == 1 and x["critic_pending"] and x["stop_cause"] == "api_unavailable" for x in rows)
         assert (Path(t) / "critic_packets/pass1_pending.jsonl").is_file()
