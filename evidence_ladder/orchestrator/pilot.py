@@ -188,9 +188,15 @@ class PilotRunner:
         if packets:
             write_jsonl(self.out / "critic_packets" / "pass1_pending.jsonl", packets)
         if packets and self.transport is not None:
-            by_pid = {x["packet"]["packet_id"]: pend[f"{x['task_id']}|{x['arm']}"] for x in packets}
-            for pid, status, raw in self.transport([x["packet"] for x in packets]):
-                _Critic(by_pid[pid].broker, by_pid[pid].tally).ingest(pid, status, raw)
+            by_pid: Dict[str, list] = {}
+            for x in packets:      # the same content hash can occur for several arms (each arm has its own broker): route every response to ALL brokers that asked for it
+                by_pid.setdefault(x["packet"]["packet_id"], []).append(pend[f"{x['task_id']}|{x['arm']}"])
+            unique: Dict[str, dict] = {}
+            for x in packets:      # send each distinct packet once (also avoids paying for the same request twice)
+                unique.setdefault(x["packet"]["packet_id"], x["packet"])
+            for pid, status, raw in self.transport([unique[k] for k in sorted(unique)]):
+                for pd in by_pid[pid]:
+                    _Critic(pd.broker, pd.tally).ingest(pid, status, raw)
             for key in sorted(pend):                       # pass 2: deterministic replay on a fresh context, same seeds, same broker
                 pd = pend[key]
                 final[(pd.task.task_id, pd.arm)], _ = self._one(pd.task, pd.arm, 2, pd.broker, pd.tally)

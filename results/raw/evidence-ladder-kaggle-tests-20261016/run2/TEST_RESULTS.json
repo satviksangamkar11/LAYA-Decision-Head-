@@ -1,0 +1,53 @@
+{
+ "bundle_found": true,
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "suites": {
+  "contract": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 23,
+    "passed": 23,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 23,\n \"passed\": 23,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "controller": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "orchestrator": {
+   "exit_code": 1,
+   "summary": {
+    "tests": 24,
+    "passed": 23,
+    "failed": {
+     "two_phase_critic_flow": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\", line 548, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\", line 429, in two_phase_critic_flow\n    assert rep[1][2] != \"api_unavailable\", (\"pass 2 still pending\", tid, arm, rep)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('pass 2 still pending', 'SYN-J1', 'D1', [('SYN-J1', 'D1', 'api_unavailable', (2938303973, 4017806701, 2862156731, 278536517)), ('SYN-J1', 'D1', 'api_unavailable', (2938303973, 4017806701, 2862156731, 278536517))])\n"
+    }
+   },
+   "stdout_tail": "{\n \"tests\": 24,\n \"passed\": 23,\n \"failed\": {\n  \"two_phase_critic_flow\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\\\", line 548, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\\\", line 429, in two_phase_critic_flow\\n    assert rep[1][2] != \\\"api_unavailable\\\", (\\\"pass 2 still pending\\\", tid, arm, rep)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError: ('pass 2 still pending', 'SYN-J1', 'D1', [('SYN-J1', 'D1', 'api_unavailable', (2938303973, 4017806701, 2862156731, 278536517)), ('SYN-J1', 'D1', 'api_unavailable', (2938303973, 4017806701, 2862156731, 278536517))])\\n\"\n }\n}\n",
+   "stderr_tail": ""
+  },
+  "models": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 28,
+    "passed": 28,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 28,\n \"passed\": 28,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "manifest_files": 71,
+ "hash_mismatches": [],
+ "all_exit_zero": false,
+ "seconds": 9.0
+}
