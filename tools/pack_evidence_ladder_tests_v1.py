@@ -12,6 +12,7 @@ ds.mkdir(parents=True, exist_ok=False); kn.mkdir()
 files = {}
 
 def put(rel, base):
+    rel = str(rel)
     s = base / rel
     d = ds / rel
     d.parent.mkdir(parents=True, exist_ok=True)
@@ -22,7 +23,9 @@ for p in sorted((CODE / "evidence_ladder").rglob("*")):
     if p.is_file() and "__pycache__" not in p.parts and p.suffix in (".py", ".json", ".md", ".jsonl", ".txt"):
         put(p.relative_to(CODE), CODE)
 for rel in ["specs/evidence_ladder_v1/schemas_v1.json", "specs/evidence_ladder_v1/contract/contract_lib_v1.py", "specs/evidence_ladder_v1/contract/test_contracts_v1.py",
-            "configs/thresholds_evidence_ladder_v1.toml", "configs/thresholds_evidence_ladder_v1.toml.sha256"]:
+            "configs/thresholds_evidence_ladder_v1.toml", "configs/thresholds_evidence_ladder_v1.toml.sha256",
+            # LAYA metadata checks hash these two files (they are untracked in git, so they must travel in the bundle); adapter hashes come from the baseline manifest
+            "tools/fable_capture.py", "decision_head/fable_features.py", "results/raw/laya-baseline-v1-20261012T215242Z/MANIFEST.json"]:
     put(rel, ROOT)
 IDX = ROOT / "results/raw/combined-index-v1-20261015T221945Z"
 for f in ["INDEX.jsonl", "SUMMARY.json", "VALIDATION.json", "SOURCES.json", "README.md"]:

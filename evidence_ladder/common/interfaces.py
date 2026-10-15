@@ -72,6 +72,7 @@ class CheckOutcome(TypedDict, total=False):
     duration_s: float
     stderr_tail: str
     failure_class: str              # "", "compile_error", "runtime_error", "timeout", "sandbox_error", "wrong_answer", "missing_output", "invalid_output"
+    example_index: int              # run_public: position of the public example this outcome refers to (check_id "public_examples_v1"); absent for parse_v1/limits_v1
 
 
 class HiddenGrade(TypedDict):
@@ -117,6 +118,8 @@ class Generation:
 class ExecutionBackend(Protocol):
     """Runs candidate code inside the sandbox. Has NO access to protected tests: run_public uses only TaskSpec.public_tests."""
     def run_public(self, artifact: Artifact, task: TaskSpec) -> List[CheckOutcome]: ...
+    # run_public returns, in order: a "parse_v1" outcome (compile/parse), then ONE "public_examples_v1" outcome PER public example (same order as
+    # task.public_tests, each with example_index, status, observed, and a counterexample when it fails). No aggregate outcome.
     def run_experiment(self, artifact: Artifact, experiment: Dict[str, Any]) -> CheckOutcome: ...   # experiment = critic_response["experiment"]
     def backend_info(self) -> Dict[str, Any]: ...   # isolation receipt: user, namespaces, limits, toolchain versions
 
@@ -135,6 +138,7 @@ class GenerationBackend(Protocol):
 class CriticBroker(Protocol):
     """Staged critic (decision D7 option a): packets are exported for the PC to send; responses are ingested later. Idempotent by packet_id."""
     def build_packet(self, critic_request: Dict[str, Any]) -> Dict[str, Any]: ...      # validates blinding + schema; returns {"packet_id","request","created"}
+    def completed(self, packet_id: str) -> Optional[Dict[str, Any]]: ...   # validated critic_response of an already-ingested "ok" packet, else None (second pass reads it here)
     def export_pending(self) -> List[Dict[str, Any]]: ...
     def ingest(self, packet_id: str, http_status: Optional[int], raw_response: Any) -> Dict[str, Any]: ...   # {"state": "ok"|"malformed"|"retry"|"unavailable"|"duplicate", "response": critic_response|None}
 
@@ -176,6 +180,8 @@ class ProblemResult:
     budget_record: Dict[str, Any]
     rounds: int
     journal_hash: str                      # sha256 of the canonical evidence journal; reproducibility receipt
+    final_artifact: Optional[Artifact] = None   # the selected candidate (so the orchestrator can grade it); None only when nothing was produced
+    stop_details: str = ""                 # e.g. "critic_pending" when stop_cause == "api_unavailable"
 
 
 class Controller(Protocol):

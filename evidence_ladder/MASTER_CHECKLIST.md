@@ -33,10 +33,12 @@ Compute policy ANSWERED by the user (2026-10-16): pure-logic unit tests run on *
 ## Agents (status filled in at Checkpoint 1)
 | agent | status | integration-ready |
 |---|---|---|
-| 1 controller | PENDING | |
-| 2 execution | PENDING | |
-| 3 orchestrator | PENDING | |
-| 4 models | PENDING | |
+| 1 controller | reported 2026-10-16 (model self-report: claude-sonnet-5-5); 22 tests written, NOT executed; resumed for integration fixes | no |
+| 2 execution | reported; 20/20 WSL tests; coordinator re-ran in the main checkout: 19/20 then 20/20 after the receipt-hash re-pin (line-ending defect in the agent's pins, not in the sandbox); resumed to emit per-example public outcomes | WSL path yes; Kaggle untested |
+| 3 orchestrator | reported; 21 tests written, NOT executed | no (needs Kaggle run) |
+| 4 models | reported; ~29 tests written, NOT executed; resumed to add `completed(packet_id)` | no (needs Kaggle run) |
+
+Integration gaps found at review (all assigned): (a) controller expects per-example public outcomes, execution returned an aggregate -> contract fixed, Agent 2 resumed; (b) controller had no way to read an ingested critic response -> `CriticBroker.completed()` added, Agents 4 and 1 resumed; (c) `.gitignore` ignores `models/`, so evidence_ladder/models needs `git add -f`; (d) LAYA capture-code files are untracked in git: added to the Kaggle bundle; (e) ProblemResult lacked final_artifact/stop_details: added.
 
 ## Checkpoint 2: integrated deterministic replay: PENDING (all items)
 ## Checkpoint 3: authorization: BLOCKED on the user (D1 waiver, D7, credits, GO)
