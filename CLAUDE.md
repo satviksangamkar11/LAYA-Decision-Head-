@@ -199,8 +199,9 @@ pass the same gate as everything else.
 - Never quote a number you did not measure. Label unmeasured figures
   `estimate (unmeasured)`.
 - Never modify `sarvam-jev/` or `reference/`. Copy what you need, keep the MIT notice.
-- Never run `git commit`, `git push`, `git tag`, `git merge`, `git rebase` or `git reset`
-  unless the user explicitly asks. Read-only git is fine.
+- Never run `git tag`, `git merge`, `git rebase` or `git reset` unless the user explicitly asks. Read-only git is fine.
+  **User decision 2026-10-16: the rule against `git commit` and `git push` is removed.** Commit and push to a new branch is allowed;
+  the secret scan on added lines (must be 0) still gates every push, and nothing is merged into `main` without the user's ask.
 
 ## Ask first (state name, source, size or cost, then wait for a clear yes)
 
