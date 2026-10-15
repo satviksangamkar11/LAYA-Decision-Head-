@@ -40,6 +40,17 @@ Compute policy ANSWERED by the user (2026-10-16): pure-logic unit tests run on *
 
 Integration gaps found at review (all assigned): (a) controller expects per-example public outcomes, execution returned an aggregate -> contract fixed, Agent 2 resumed; (b) controller had no way to read an ingested critic response -> `CriticBroker.completed()` added, Agents 4 and 1 resumed; (c) `.gitignore` ignores `models/`, so evidence_ladder/models needs `git add -f`; (d) LAYA capture-code files are untracked in git: added to the Kaggle bundle; (e) ProblemResult lacked final_artifact/stop_details: added.
 
-## Checkpoint 2: integrated deterministic replay: PENDING (all items)
+## Checkpoint 1 result (verified by the coordinator, not by agent claims)
+| suite | where | result |
+|---|---|---|
+| contract (S1-S5, rollback, schemas) | Kaggle CPU, run 3 | 23/23 |
+| controller | Kaggle CPU, run 3 | 25/25 (run 1 had 23/25: two test-fixture bugs, fixed) |
+| orchestrator | Kaggle CPU, run 3 | 24/24 (run 1 and 2 had 23/24: a REAL routing bug: one critic response reached only one of two arms' brokers; fixed in pilot.py) |
+| models and critic broker | Kaggle CPU, run 3 | 28/28 |
+| execution and grading | WSL, coordinator re-run | 21/21 (one defect found and fixed: receipt hashes pinned over CRLF-sensitive bytes) |
+Bundle integrity: 71 file hashes verified in every Kaggle run; Python 3.13.15 on Kaggle. Receipts: results/raw/evidence-ladder-kaggle-tests-20261016/run{1,2,3}/.
+Models actually used (self-reported by each agent): all four build agents and the replay agent claude-sonnet-5-5 at medium effort; the small-edit agents claude-haiku-5-5.
+
+## Checkpoint 2: integrated deterministic replay: IN PROGRESS (agent writing evidence_ladder/testing/; sandbox recording in WSL, replay on Kaggle)
 ## Checkpoint 3: authorization: BLOCKED on the user (D1 waiver, D7, credits, GO)
 ## Checkpoint 4: pilot execution: BLOCKED (needs Checkpoint 3)
