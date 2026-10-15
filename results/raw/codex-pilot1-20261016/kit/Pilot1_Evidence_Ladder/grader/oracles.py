@@ -1,0 +1,299 @@
+"""Pilot 1 reference implementations. KEEP OUT OF WORKER KERNEL."""
+import collections
+import heapq
+import re
+from bisect import bisect_left
+
+
+def p01(d): return sum(c in 'aeiou' for c in d['text'].lower())
+def p02(d): return sum(x for x in d['nums'] if x % 2 == 0)
+def p03(d):
+    s=d['text']; counts=collections.Counter(s)
+    return next((i for i,c in enumerate(s) if counts[c]==1),-1)
+def p04(d):
+    a=d['nums']; k=d['k']
+    if not a: return []
+    k %= len(a)
+    return a[-k:]+a[:-k] if k else a[:]
+def p05(d):
+    words=re.findall(r'[a-z]+',d['text'].lower())
+    return dict(sorted(collections.Counter(words).items()))
+def p06(d):
+    a,b=d['a'],d['b']; i=j=0; out=[]
+    while i<len(a) and j<len(b):
+        if a[i]<=b[j]: out.append(a[i]);i+=1
+        else: out.append(b[j]);j+=1
+    return out+a[i:]+b[j:]
+def p07(d):
+    a=d['nums']; out=[]
+    if not a: return out
+    l=r=a[0]
+    for x in a[1:]:
+        if x==r+1:r=x
+        else:out.append([l,r]);l=r=x
+    out.append([l,r]);return out
+def p08(d):
+    s=d['text'];out=[]
+    for c in s:
+        if out and out[-1][0]==c:out[-1][1]+=1
+        else:out.append([c,1])
+    return out
+def p09(d):
+    vals=sorted(set(d['nums']),reverse=True)
+    return vals[1] if len(vals)>1 else None
+def p10(d):return ' '.join(d['text'].split())
+def p11(d):
+    pairs={')':'(',']':'[','}':'{'}; stack=[]
+    for c in d['text']:
+        if c in '([{': stack.append(c)
+        elif c in pairs:
+            if not stack or stack.pop()!=pairs[c]:return False
+    return not stack
+def p12(d):
+    a=d['nums']; cur=best=a[0]
+    for x in a[1:]:cur=max(x,cur+x);best=max(best,cur)
+    return best
+def p13(d):
+    s=d['text'];last={};start=best=0
+    for i,c in enumerate(s):
+        start=max(start,last.get(c,-1)+1);last[c]=i;best=max(best,i-start+1)
+    return best
+def p14(d):
+    groups={}
+    for w in d['words']: groups.setdefault(''.join(sorted(w)),[]).append(w)
+    return list(groups.values())
+def p15(d):
+    out=[]
+    for l,r in sorted(d['intervals']):
+        if not out or l>out[-1][1]:out.append([l,r])
+        else:out[-1][1]=max(out[-1][1],r)
+    return out
+def p16(d):
+    g=d['grid'];m=len(g);n=len(g[0]) if m else 0;seen=set();count=0
+    for i in range(m):
+        for j in range(n):
+            if g[i][j]!='1' or (i,j) in seen:continue
+            count+=1;todo=[(i,j)];seen.add((i,j))
+            while todo:
+                x,y=todo.pop()
+                for u,v in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+                    if 0<=u<m and 0<=v<n and g[u][v]=='1' and (u,v) not in seen:
+                        seen.add((u,v));todo.append((u,v))
+    return count
+def p17(d):
+    n=d['n'];a=[[] for _ in range(n)]
+    for u,v in d['edges']:a[u].append(v)
+    q=collections.deque([(d['source'],0)]);seen={d['source']}
+    while q:
+        u,l=q.popleft()
+        if u==d['target']:return l
+        for v in a[u]:
+            if v not in seen:seen.add(v);q.append((v,l+1))
+    return -1
+def p18(d):
+    n=d['amount'];coins=[x for x in d['coins'] if x>0];dp=[n+1]*(n+1);dp[0]=0
+    for v in range(1,n+1):
+        for c in coins:
+            if c<=v:dp[v]=min(dp[v],dp[v-c]+1)
+    return -1 if dp[n]>n else dp[n]
+def p19(d):
+    s,t=d['s'],d['t']
+    if not t:return ''
+    need=collections.Counter(t);window=collections.Counter();missing=len(t)
+    left=0;best=(10**10,0,0)
+    for right,c in enumerate(s):
+        if window[c]<need[c]:missing-=1
+        window[c]+=1
+        while missing==0:
+            if right-left+1<best[0]:best=(right-left+1,left,right+1)
+            c2=s[left];window[c2]-=1
+            if window[c2]<need[c2]:missing+=1
+            left+=1
+    return s[best[1]:best[2]] if best[0]!=10**10 else ''
+def p20(d):
+    cap=d['capacity'];cache=collections.OrderedDict();out=[]
+    for op in d['ops']:
+        if op[0]=='get':
+            k=op[1]
+            if k in cache:cache.move_to_end(k);out.append(cache[k])
+            else:out.append(-1)
+        else:
+            k,v=op[1],op[2]
+            if cap==0:continue
+            cache[k]=v;cache.move_to_end(k)
+            if len(cache)>cap:cache.popitem(last=False)
+    return out
+def p21(d):
+    s,p=d['text'],d['pattern'];m=len(s);dp=[False]*(m+1);dp[0]=True
+    for x in p:
+        nd=[False]*(m+1)
+        if x=='*':
+            nd[0]=dp[0]
+            for j in range(1,m+1):nd[j]=nd[j-1] or dp[j]
+        else:
+            for j in range(1,m+1):nd[j]=dp[j-1] and (x=='?' or x==s[j-1])
+        dp=nd
+    return dp[m]
+def p22(d):
+    end=None;count=0
+    for a,b in sorted(d['intervals'],key=lambda x:(x[1],x[0])):
+        if end is None or a>=end:count+=1;end=b
+    return count
+def p23(d):
+    s=d['text'];i=0
+    def parse():
+        nonlocal i
+        ans=''
+        while i<len(s) and s[i]!=']':
+            if s[i].isdigit():
+                j=i
+                while i<len(s) and s[i].isdigit():i+=1
+                k=int(s[j:i]);i+=1;chunk=parse();i+=1;ans+=chunk*k
+            else:ans+=s[i];i+=1
+        return ans
+    return parse()
+def p24(d):
+    n=0
+    for c in d['label']:n=n*26+ord(c)-64
+    return n
+def p25(d):
+    a=d['nums'];k=d['target'];l=0;r=len(a)-1
+    while l<=r:
+        m=(l+r)//2
+        if a[m]==k:return m
+        if a[l]<=a[m]:
+            if a[l]<=k<a[m]:r=m-1
+            else:l=m+1
+        else:
+            if a[m]<k<=a[r]:l=m+1
+            else:r=m-1
+    return -1
+def p26(d):
+    a=[]
+    for t in d['tokens']:
+        if t not in ('+','-','*','/'):
+            a.append(int(t));continue
+        b=a.pop();x=a.pop()
+        if t=='+':a.append(x+b)
+        if t=='-':a.append(x-b)
+        if t=='*':a.append(x*b)
+        if t=='/':a.append((abs(x)//abs(b))*(-1 if (x<0)^(b<0) else 1))
+    return a[-1]
+def p27(d):
+    n=d['n'];adj=[set() for _ in range(n)];deg=[0]*n
+    for a,b in d['edges']:
+        if b not in adj[a]:adj[a].add(b);deg[b]+=1
+    h=[i for i in range(n) if deg[i]==0];heapq.heapify(h);out=[]
+    while h:
+        u=heapq.heappop(h);out.append(u)
+        for v in adj[u]:
+            deg[v]-=1
+            if deg[v]==0:heapq.heappush(h,v)
+    return out if len(out)==n else []
+def p28(d):
+    g=d['grid'];m=len(g);n=len(g[0]) if m else 0
+    if not m or not n or g[0][0]!=0 or g[-1][-1]!=0:return -1
+    q=collections.deque([(0,0,0)]);seen={(0,0)}
+    while q:
+        x,y,k=q.popleft()
+        if x==m-1 and y==n-1:return k
+        for u,v in ((x+1,y),(x-1,y),(x,y+1),(x,y-1)):
+            if 0<=u<m and 0<=v<n and g[u][v]==0 and (u,v) not in seen:
+                seen.add((u,v));q.append((u,v,k+1))
+    return -1
+def p29(d):return sorted(d['nums'],reverse=True)[d['k']-1]
+def p30(d):
+    a=d['temps'];out=[0]*len(a);stack=[]
+    for i,x in enumerate(a):
+        while stack and x>a[stack[-1]]:
+            j=stack.pop();out[j]=i-j
+        stack.append(i)
+    return out
+def p31(d):
+    a,b=d['a'],d['b'];prev=list(range(len(b)+1))
+    for i,x in enumerate(a,1):
+        cur=[i]
+        for j,y in enumerate(b,1):cur.append(min(prev[j]+1,cur[j-1]+1,prev[j-1]+(x!=y)))
+        prev=cur
+    return prev[-1]
+def p32(d):
+    ends=[]
+    for x in d['nums']:
+        p=bisect_left(ends,x)
+        if p==len(ends):ends.append(x)
+        else:ends[p]=x
+    return len(ends)
+def p33(d):
+    s=d['text'];words=set(d['words']);dp=[False]*(len(s)+1);dp[0]=True
+    for i in range(1,len(s)+1):
+        dp[i]=any(dp[j] and s[j:i] in words for j in range(i))
+    return dp[-1]
+def p34(d):
+    s,p=d['text'],d['pattern'];m=len(s);n=len(p);dp=[[False]*(n+1) for _ in range(m+1)];dp[0][0]=True
+    for j in range(2,n+1):
+        if p[j-1]=='*':dp[0][j]=dp[0][j-2]
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if p[j-1]=='*':
+                dp[i][j]=dp[i][j-2] or ((p[j-2]=='.' or p[j-2]==s[i-1]) and dp[i-1][j])
+            elif p[j-1]=='.' or p[j-1]==s[i-1]:dp[i][j]=dp[i-1][j-1]
+    return dp[m][n]
+def p35(d):
+    a=d['heights'];l=0;r=len(a)-1;lh=rh=ans=0
+    while l<=r:
+        if a[l]<=a[r]:lh=max(lh,a[l]);ans+=lh-a[l];l+=1
+        else:rh=max(rh,a[r]);ans+=rh-a[r];r-=1
+    return ans
+def p36(d):
+    n=d['n'];graph=[[] for _ in range(n)]
+    for u,v,w in d['edges']:graph[u].append((v,w))
+    dist=[None]*n;dist[d['source']]=0;h=[(0,d['source'])]
+    while h:
+        k,u=heapq.heappop(h)
+        if k!=dist[u]:continue
+        for v,w in graph[u]:
+            if dist[v] is None or k+w<dist[v]:dist[v]=k+w;heapq.heappush(h,(dist[v],v))
+    return dist
+def p37(d):
+    g=d['grid'];m=len(g);n=len(g[0]) if m else 0
+    if not m or not n or g[0][0]==-1 or g[-1][-1]==-1:return None
+    dp=[[None]*n for _ in range(m)]
+    for i in range(m):
+        for j in range(n):
+            if g[i][j]==-1:continue
+            if i==0 and j==0:dp[i][j]=g[i][j];continue
+            prev=[v for v in ((dp[i-1][j] if i else None),(dp[i][j-1] if j else None)) if v is not None]
+            if prev:dp[i][j]=min(prev)+g[i][j]
+    return dp[-1][-1]
+def p38(d):
+    a=d['nums'];s=sum(a)
+    if s%2:return False
+    seen={0}
+    for x in a:seen|={q+x for q in seen if q+x<=s//2}
+    return s//2 in seen
+def p39(d):
+    a=d['nums'];mn=mx=best=a[0]
+    for x in a[1:]:
+        z=(x,mn*x,mx*x);mn=min(z);mx=max(z);best=max(best,mx)
+    return best
+def p40(d):
+    n=d['n'];g=[[] for _ in range(n)];rev=[[] for _ in range(n)]
+    for u,v in d['edges']:g[u].append(v);rev[v].append(u)
+    seen=set();order=[]
+    def dfs1(u):
+        seen.add(u)
+        for v in g[u]:
+            if v not in seen:dfs1(v)
+        order.append(u)
+    for i in range(n):
+        if i not in seen:dfs1(i)
+    seen=set();count=0
+    def dfs2(u):
+        seen.add(u)
+        for v in rev[u]:
+            if v not in seen:dfs2(v)
+    for u in reversed(order):
+        if u not in seen:count+=1;dfs2(u)
+    return count
+
+ORACLES={f'{i:02d}':globals()[f'p{i:02d}'] for i in range(1,41)}

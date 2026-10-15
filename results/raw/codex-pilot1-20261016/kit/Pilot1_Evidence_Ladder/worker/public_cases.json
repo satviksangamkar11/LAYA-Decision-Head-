@@ -1,0 +1,1949 @@
+[
+  {
+    "task_id": "P1-01",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "AEIOU"
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "text": "rhythm"
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "a!E_9u"
+        },
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "task_id": "P1-02",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "expected": 6
+      },
+      {
+        "input": {
+          "nums": [
+            -4,
+            -3,
+            0,
+            5
+          ]
+        },
+        "expected": -4
+      },
+      {
+        "input": {
+          "nums": [
+            7
+          ]
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "task_id": "P1-03",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "text": "aabb"
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "text": "leetcode"
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "aAbA"
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "task_id": "P1-04",
+    "cases": [
+      {
+        "input": {
+          "nums": [],
+          "k": 100
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "k": 0
+        },
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "k": 4
+        },
+        "expected": [
+          3,
+          1,
+          2
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            9
+          ],
+          "k": 99
+        },
+        "expected": [
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-05",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": {}
+      },
+      {
+        "input": {
+          "text": "Hello, HELLO! 123world"
+        },
+        "expected": {
+          "hello": 2,
+          "world": 1
+        }
+      },
+      {
+        "input": {
+          "text": "a1b-a"
+        },
+        "expected": {
+          "a": 2,
+          "b": 1
+        }
+      },
+      {
+        "input": {
+          "text": "two\nTWO words"
+        },
+        "expected": {
+          "two": 2,
+          "words": 1
+        }
+      }
+    ]
+  },
+  {
+    "task_id": "P1-06",
+    "cases": [
+      {
+        "input": {
+          "a": [],
+          "b": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "a": [
+            1,
+            3
+          ],
+          "b": [
+            2,
+            4
+          ]
+        },
+        "expected": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "input": {
+          "a": [
+            1,
+            1
+          ],
+          "b": [
+            1
+          ]
+        },
+        "expected": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "input": {
+          "a": [
+            -9,
+            0
+          ],
+          "b": [
+            -4,
+            5
+          ]
+        },
+        "expected": [
+          -9,
+          -4,
+          0,
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-07",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "nums": [
+            1
+          ]
+        },
+        "expected": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            -2,
+            -1,
+            0,
+            4,
+            5
+          ]
+        },
+        "expected": [
+          [
+            -2,
+            0
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            3,
+            5
+          ]
+        },
+        "expected": [
+          [
+            1,
+            1
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            5,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-08",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "text": "aaaa"
+        },
+        "expected": [
+          [
+            "a",
+            4
+          ]
+        ]
+      },
+      {
+        "input": {
+          "text": "aaabcc"
+        },
+        "expected": [
+          [
+            "a",
+            3
+          ],
+          [
+            "b",
+            1
+          ],
+          [
+            "c",
+            2
+          ]
+        ]
+      },
+      {
+        "input": {
+          "text": "AaA"
+        },
+        "expected": [
+          [
+            "A",
+            1
+          ],
+          [
+            "a",
+            1
+          ],
+          [
+            "A",
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-09",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": null
+      },
+      {
+        "input": {
+          "nums": [
+            3,
+            3
+          ]
+        },
+        "expected": null
+      },
+      {
+        "input": {
+          "nums": [
+            5,
+            3,
+            5,
+            2
+          ]
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "nums": [
+            -1,
+            -2,
+            -3
+          ]
+        },
+        "expected": -2
+      }
+    ]
+  },
+  {
+    "task_id": "P1-10",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": ""
+      },
+      {
+        "input": {
+          "text": " \n  hello  world\t"
+        },
+        "expected": "hello world"
+      },
+      {
+        "input": {
+          "text": "a\tb\n c"
+        },
+        "expected": "a b c"
+      },
+      {
+        "input": {
+          "text": "no change"
+        },
+        "expected": "no change"
+      }
+    ]
+  },
+  {
+    "task_id": "P1-11",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "([{}])"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "([)]"
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "text": "hello{(a+b)}!"
+        },
+        "expected": true
+      }
+    ]
+  },
+  {
+    "task_id": "P1-12",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            -3
+          ]
+        },
+        "expected": -3
+      },
+      {
+        "input": {
+          "nums": [
+            -5,
+            -2,
+            -7
+          ]
+        },
+        "expected": -2
+      },
+      {
+        "input": {
+          "nums": [
+            5,
+            -10,
+            4,
+            7
+          ]
+        },
+        "expected": 11
+      },
+      {
+        "input": {
+          "nums": [
+            0,
+            0,
+            0
+          ]
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "task_id": "P1-13",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "abcabcbb"
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "text": "bbbb"
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "text": "pwwkew"
+        },
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "task_id": "P1-14",
+    "cases": [
+      {
+        "input": {
+          "words": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "words": [
+            "eat",
+            "tea",
+            "tan",
+            "ate",
+            "nat",
+            "bat"
+          ]
+        },
+        "expected": [
+          [
+            "eat",
+            "tea",
+            "ate"
+          ],
+          [
+            "tan",
+            "nat"
+          ],
+          [
+            "bat"
+          ]
+        ]
+      },
+      {
+        "input": {
+          "words": [
+            "a",
+            "a"
+          ]
+        },
+        "expected": [
+          [
+            "a",
+            "a"
+          ]
+        ]
+      },
+      {
+        "input": {
+          "words": [
+            "ab",
+            "ba",
+            "abc"
+          ]
+        },
+        "expected": [
+          [
+            "ab",
+            "ba"
+          ],
+          [
+            "abc"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-15",
+    "cases": [
+      {
+        "input": {
+          "intervals": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              9,
+              10
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1,
+            5
+          ],
+          [
+            9,
+            10
+          ]
+        ]
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              2,
+              8
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1,
+            8
+          ]
+        ]
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-16",
+    "cases": [
+      {
+        "input": {
+          "grid": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "grid": [
+            "0"
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "grid": [
+            "1"
+          ]
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "grid": [
+            "101",
+            "010",
+            "101"
+          ]
+        },
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "task_id": "P1-17",
+    "cases": [
+      {
+        "input": {
+          "n": 1,
+          "edges": [],
+          "source": 0,
+          "target": 0
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "source": 0,
+          "target": 2
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              1,
+              0
+            ]
+          ],
+          "source": 0,
+          "target": 1
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "n": 4,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "source": 0,
+          "target": 2
+        },
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "task_id": "P1-18",
+    "cases": [
+      {
+        "input": {
+          "coins": [
+            1,
+            3
+          ],
+          "amount": 0
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "coins": [
+            1,
+            3,
+            4
+          ],
+          "amount": 6
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "coins": [
+            2
+          ],
+          "amount": 3
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "coins": [],
+          "amount": 4
+        },
+        "expected": -1
+      }
+    ]
+  },
+  {
+    "task_id": "P1-19",
+    "cases": [
+      {
+        "input": {
+          "s": "",
+          "t": "A"
+        },
+        "expected": ""
+      },
+      {
+        "input": {
+          "s": "ADOBECODEBANC",
+          "t": "ABC"
+        },
+        "expected": "BANC"
+      },
+      {
+        "input": {
+          "s": "aa",
+          "t": "aa"
+        },
+        "expected": "aa"
+      },
+      {
+        "input": {
+          "s": "abc",
+          "t": ""
+        },
+        "expected": ""
+      }
+    ]
+  },
+  {
+    "task_id": "P1-20",
+    "cases": [
+      {
+        "input": {
+          "capacity": 0,
+          "ops": [
+            [
+              "put",
+              1,
+              2
+            ],
+            [
+              "get",
+              1
+            ]
+          ]
+        },
+        "expected": [
+          -1
+        ]
+      },
+      {
+        "input": {
+          "capacity": 1,
+          "ops": [
+            [
+              "put",
+              1,
+              4
+            ],
+            [
+              "put",
+              2,
+              5
+            ],
+            [
+              "get",
+              1
+            ],
+            [
+              "get",
+              2
+            ]
+          ]
+        },
+        "expected": [
+          -1,
+          5
+        ]
+      },
+      {
+        "input": {
+          "capacity": 2,
+          "ops": [
+            [
+              "put",
+              1,
+              1
+            ],
+            [
+              "put",
+              2,
+              2
+            ],
+            [
+              "get",
+              1
+            ],
+            [
+              "put",
+              3,
+              3
+            ],
+            [
+              "get",
+              2
+            ]
+          ]
+        },
+        "expected": [
+          1,
+          -1
+        ]
+      },
+      {
+        "input": {
+          "capacity": 2,
+          "ops": []
+        },
+        "expected": []
+      }
+    ]
+  },
+  {
+    "task_id": "P1-21",
+    "cases": [
+      {
+        "input": {
+          "text": "",
+          "pattern": "*"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "ab",
+          "pattern": "a?"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "abcdef",
+          "pattern": "a*f"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "abc",
+          "pattern": "a*d"
+        },
+        "expected": false
+      }
+    ]
+  },
+  {
+    "task_id": "P1-22",
+    "cases": [
+      {
+        "input": {
+          "intervals": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              0,
+              10
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "intervals": [
+            [
+              -3,
+              -1
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        },
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "task_id": "P1-23",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": ""
+      },
+      {
+        "input": {
+          "text": "3[a]"
+        },
+        "expected": "aaa"
+      },
+      {
+        "input": {
+          "text": "2[a2[b]]"
+        },
+        "expected": "abbabb"
+      },
+      {
+        "input": {
+          "text": "0[x]b3[c]"
+        },
+        "expected": "bccc"
+      }
+    ]
+  },
+  {
+    "task_id": "P1-24",
+    "cases": [
+      {
+        "input": {
+          "label": "A"
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "label": "Z"
+        },
+        "expected": 26
+      },
+      {
+        "input": {
+          "label": "AA"
+        },
+        "expected": 27
+      },
+      {
+        "input": {
+          "label": "ZZ"
+        },
+        "expected": 702
+      }
+    ]
+  },
+  {
+    "task_id": "P1-25",
+    "cases": [
+      {
+        "input": {
+          "nums": [],
+          "target": 3
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "nums": [
+            4,
+            5,
+            1,
+            2,
+            3
+          ],
+          "target": 2
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "target": 7
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "nums": [
+            1
+          ],
+          "target": 1
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "task_id": "P1-26",
+    "cases": [
+      {
+        "input": {
+          "tokens": [
+            "3",
+            "4",
+            "+"
+          ]
+        },
+        "expected": 7
+      },
+      {
+        "input": {
+          "tokens": [
+            "7",
+            "-3",
+            "/"
+          ]
+        },
+        "expected": -2
+      },
+      {
+        "input": {
+          "tokens": [
+            "4",
+            "2",
+            "5",
+            "*",
+            "+"
+          ]
+        },
+        "expected": 14
+      },
+      {
+        "input": {
+          "tokens": [
+            "-3",
+            "2",
+            "*"
+          ]
+        },
+        "expected": -6
+      }
+    ]
+  },
+  {
+    "task_id": "P1-27",
+    "cases": [
+      {
+        "input": {
+          "n": 0,
+          "edges": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "n": 4,
+          "edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        "expected": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "input": {
+          "n": 2,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        },
+        "expected": [
+          0,
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-28",
+    "cases": [
+      {
+        "input": {
+          "grid": []
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              0
+            ]
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              1
+            ]
+          ]
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "task_id": "P1-29",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            1
+          ],
+          "k": 1
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "nums": [
+            5,
+            5,
+            1
+          ],
+          "k": 2
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "nums": [
+            -1,
+            -4,
+            0
+          ],
+          "k": 3
+        },
+        "expected": -4
+      },
+      {
+        "input": {
+          "nums": [
+            8,
+            2,
+            9,
+            4
+          ],
+          "k": 3
+        },
+        "expected": 4
+      }
+    ]
+  },
+  {
+    "task_id": "P1-30",
+    "cases": [
+      {
+        "input": {
+          "temps": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "temps": [
+            4,
+            3,
+            2
+          ]
+        },
+        "expected": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "input": {
+          "temps": [
+            1,
+            2,
+            3
+          ]
+        },
+        "expected": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "input": {
+          "temps": [
+            73,
+            74,
+            75,
+            71,
+            69,
+            72,
+            76,
+            73
+          ]
+        },
+        "expected": [
+          1,
+          1,
+          4,
+          2,
+          1,
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-31",
+    "cases": [
+      {
+        "input": {
+          "a": "",
+          "b": ""
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "a": "kitten",
+          "b": "sitting"
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "a": "abc",
+          "b": ""
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "a": "a",
+          "b": "b"
+        },
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "task_id": "P1-32",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            7,
+            7,
+            7
+          ]
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "nums": [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "nums": [
+            -2,
+            -1,
+            0,
+            1
+          ]
+        },
+        "expected": 4
+      }
+    ]
+  },
+  {
+    "task_id": "P1-33",
+    "cases": [
+      {
+        "input": {
+          "text": "",
+          "words": []
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "leetcode",
+          "words": [
+            "leet",
+            "code"
+          ]
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "catsandog",
+          "words": [
+            "cats",
+            "dog",
+            "sand",
+            "and",
+            "cat"
+          ]
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "text": "aaaa",
+          "words": [
+            "a",
+            "aa"
+          ]
+        },
+        "expected": true
+      }
+    ]
+  },
+  {
+    "task_id": "P1-34",
+    "cases": [
+      {
+        "input": {
+          "text": "",
+          "pattern": ""
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "aa",
+          "pattern": "a*"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "ab",
+          "pattern": ".*"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "mississippi",
+          "pattern": "mis*is*p*."
+        },
+        "expected": false
+      }
+    ]
+  },
+  {
+    "task_id": "P1-35",
+    "cases": [
+      {
+        "input": {
+          "heights": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "heights": [
+            0,
+            1,
+            0,
+            2,
+            1,
+            0,
+            1,
+            3,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        "expected": 6
+      },
+      {
+        "input": {
+          "heights": [
+            4,
+            2,
+            0,
+            3,
+            2,
+            5
+          ]
+        },
+        "expected": 9
+      },
+      {
+        "input": {
+          "heights": [
+            1,
+            2,
+            3
+          ]
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "task_id": "P1-36",
+    "cases": [
+      {
+        "input": {
+          "n": 1,
+          "edges": [],
+          "source": 0
+        },
+        "expected": [
+          0
+        ]
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              2,
+              10
+            ]
+          ],
+          "source": 0
+        },
+        "expected": [
+          0,
+          2,
+          5
+        ]
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          "source": 0
+        },
+        "expected": [
+          0,
+          null,
+          null
+        ]
+      },
+      {
+        "input": {
+          "n": 2,
+          "edges": [
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "source": 0
+        },
+        "expected": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "task_id": "P1-37",
+    "cases": [
+      {
+        "input": {
+          "grid": []
+        },
+        "expected": null
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              2
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              -1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": null
+      }
+    ]
+  },
+  {
+    "task_id": "P1-38",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            5,
+            11,
+            5
+          ]
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "nums": [
+            0,
+            0,
+            0
+          ]
+        },
+        "expected": true
+      }
+    ]
+  },
+  {
+    "task_id": "P1-39",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            -1
+          ]
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "nums": [
+            2,
+            3,
+            -2,
+            4
+          ]
+        },
+        "expected": 6
+      },
+      {
+        "input": {
+          "nums": [
+            -2,
+            0,
+            -1
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            -2,
+            3,
+            -4
+          ]
+        },
+        "expected": 24
+      }
+    ]
+  },
+  {
+    "task_id": "P1-40",
+    "cases": [
+      {
+        "input": {
+          "n": 0,
+          "edges": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "n": 1,
+          "edges": []
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "n": 3,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "n": 4,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              3
+            ]
+          ]
+        },
+        "expected": 2
+      }
+    ]
+  }
+]

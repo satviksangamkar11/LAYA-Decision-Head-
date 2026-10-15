@@ -1,0 +1,3 @@
+907a7cb23ca46bfdafd0fa8ed14d956d73b7fe69c26a043b4a104672d3fe4fb2 *C:/Users/Satvik/.claude/uploads/7392300c-4d44-483f-b905-b620ef00cddb/70c0667c-Pilot1_Complete_Dev_Kit.zip
+aae289ed4c304a6e5308588328666cd89c1e88f3e48b6b46e49b162cac501a30 *C:/Users/Satvik/.claude/uploads/7392300c-4d44-483f-b905-b620ef00cddb/79f0b16f-Pilot1_Grader.zip
+db087d93a9f1edd545ca46ed53ca2a083fc00c24e58c9a935fbee4d2fbb9340f *C:/Users/Satvik/.claude/uploads/7392300c-4d44-483f-b905-b620ef00cddb/ac68178d-Pilot1_Worker.zip
