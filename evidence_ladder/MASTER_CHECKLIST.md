@@ -15,11 +15,11 @@ Rules in force: no push or merge without the user's approval; no model inference
 | Existing modules inspected | DONE | contract_lib_v1.py, grade_sandboxed_v2.py, runner_v2.py, grade_sandboxed_java_v1.py, tools/nvidia_keys.py (keys NOT read) |
 | Shared interface contract | DONE | evidence_ladder/common/interfaces.py (coordinator-owned) |
 | File ownership allocated | DONE | below |
-| Agents launched in separate worktrees | PENDING | |
+| Agents launched in separate worktrees | DONE | 4 agents, model alias "sonnet", effort medium, isolation worktree; each must self-report its model ID (actual configuration verified from the reports, not assumed) |
 | Persistent master checklist | DONE | this file |
 
 Known caveats carried into the build: protected development cases are public in Git history (not a sealed benchmark); D1, D7, NVIDIA credits and the pilot GO are not given; the oracle-adequacy gate (>= 0.80 measured) is unmet for 2 Python tasks (P1-19, P1-26), 2 Java tasks (J1-17, J1-27) on the raw count, and unmeasured for P1-05, P1-10, P1-14, J1-08, J1-10, J1-20; the dataset waiver does not waive it.
-Open policy question: may pure-logic unit tests (no model, seconds) run in WSL? Until the user answers, tests are executed only for the sandbox exception, plus `py_compile`.
+Compute policy ANSWERED by the user (2026-10-16): pure-logic unit tests run on **Kaggle only**; only isolated SANDBOX test runs stay in WSL under the 2026-10-13 exception. Consequence: controller, orchestrator, models and contract suites run in a Kaggle CPU kernel (kaggle/evidence_ladder_tests_v1.py, packed by tools/pack_evidence_ladder_tests_v1.py); uploading that code bundle to Kaggle needs the user's explicit yes (CLAUDE.md "Ask first"). Execution/sandbox tests cannot run on Kaggle (bubblewrap) and make no Kaggle security claim.
 
 ## File ownership (non-overlapping)
 | owner | paths |
