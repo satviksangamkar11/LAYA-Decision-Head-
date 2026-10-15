@@ -45,7 +45,7 @@ for tr, pre, n in (("python", "py1:P1-", 40), ("java", "java1:J1-", 40)):
 for tr, root in (("python", ROOT / "results/raw/codex-pilot1-20261016/fixed_v2/worker"), ("java", ROOT / "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker")):
     leak = [str(p.relative_to(root)) for p in root.rglob("*") if p.is_file() and any(w in p.name.lower() for w in ("protected", "oracle", "reference", "grade", "selftest"))]
     check(f"{tr}_worker_folder_has_no_grader_assets", not leak, leak)
-    pc = root.parent / "grader" / "protected_cases.json"
+    pc = (root.parent.parent.parent / "fixed_v1" / "grader" / "protected_cases.json") if tr == "java" else root.parent / "grader" / "protected_cases.json"
     check(f"{tr}_protected_file_outside_worker", pc.is_file() and root not in pc.parents, str(pc.relative_to(ROOT)))
 
 # Overlap of public and protected cases (informational: duplicates add no information)
@@ -56,7 +56,7 @@ def overlap(pub_p, prot_p, idk):
         n += sum(json.dumps(c["input"], sort_keys=True) in pk.get(t[idk], set()) for c in t["cases"])
     return n
 res["python_public_protected_input_overlap"] = {"pass": True, "detail": overlap(ROOT / "results/raw/codex-pilot1-20261016/fixed_v2/worker/public_cases.json", ROOT / "results/raw/codex-pilot1-20261016/fixed_v2/grader/protected_cases.json", "task_id")}
-res["java_public_protected_input_overlap"] = {"pass": True, "detail": overlap(ROOT / "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/public_cases.json", ROOT / "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/protected_cases.json", "id")}
+res["java_public_protected_input_overlap"] = {"pass": True, "detail": overlap(ROOT / "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/public_cases.json", ROOT / "results/raw/codex-pilot1-java-20261016/fixed_v1/grader/protected_cases.json", "id")}
 
 # Fable leakage
 G = lambda p: [json.loads(x) for x in gzip.open(ROOT / p, "rt", encoding="utf-8")]
@@ -83,7 +83,11 @@ wrong = sum(r["checks"]["mutation_adequacy"]["wrong_solutions"]["caught_after"] 
 wrong_b = sum(r["checks"]["mutation_adequacy"]["wrong_solutions"]["caught_with_original_cases"] for r in py)
 res["python_mutation_status"] = {"pass": True, "detail": {"unmeasured": un, "below_0.80_raw": lo, "wrong_solutions_caught": f"{wrong}/{wrong_n} (original cases: {wrong_b}/{wrong_n})",
         "note": "informational for the dataset; the S6 adequacy gate (>= 0.80 measured) is NOT yet met for these tasks"}}
-res["java_mutation_status"] = {"pass": True, "detail": "unmeasured for all 40 (kit has only trivial mutant checks)"}
+jv = by[("java", "dev_diagnostic_only")]
+res["java_mutation_status"] = {"pass": True, "detail": {"unmeasured": sorted(r["item_id"] for r in jv if r["checks"]["mutation_adequacy"]["status"] == "unmeasured"),
+        "below_0.80_raw": sorted(r["item_id"] for r in jv if r["checks"]["mutation_adequacy"]["status"] == "sampled_lower_bound" and not r["checks"]["mutation_adequacy"]["meets_0.80"]),
+        "note": "sampled; large sampling error; the S6 gate (>= 0.80 measured) is not met for the unmeasured tasks"}}
+check("graders_are_sandboxed_in_index", all("bubblewrap" in r["scorer"]["isolation"] for r in rows if r["track"] in ("python", "java")), None)
 
 out = {"index": str(D.name), "index_sha256": hashlib.sha256((D / "INDEX.jsonl").read_bytes()).hexdigest(), "checks": res, "failed": fails,
        "result": "PASS (structure)" if not fails else "FAIL", "scope": "structure, hashes and leakage only; graders were not run, models were not run"}

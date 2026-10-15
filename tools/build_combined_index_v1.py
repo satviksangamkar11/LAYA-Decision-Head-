@@ -9,6 +9,7 @@ RAW = ROOT / "results/raw"
 PY_FIX = RAW / "codex-pilot1-20261016/fixed_v2"
 PY_ORIG = RAW / "codex-pilot1-20261016/kit/Pilot1_Evidence_Ladder"
 JV = RAW / "codex-pilot1-java-20261016/kit/Pilot1_Java"
+JF = RAW / "codex-pilot1-java-20261016/fixed_v1"
 F3 = RAW / "laya-fullaction-set-v3-20261012T055420Z"
 FV = RAW / "laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean"
 FT = RAW / "laya-finetune-all-v1-20261012T080145Z/REPORT-20261012T080534Z.json"
@@ -86,33 +87,45 @@ for t in tasks:
                    "mutation_adequacy": mutation, "hidden_tests_runtime_visible": False},
         "oracle_type": "reference_solution_authored_together_with_tests",
         "scorer": {"name": "program_correctness", "rule": "all protected cases pass; missing/timeout/crash = fail",
-                   "grader": "results/raw/codex-pilot1-20261016/fixed_v2/grader/grade.py", "isolation": "NONE (unsafe, trusted code only); needs the S4 jail"},
+                   "grader": "results/raw/codex-pilot1-20261016/fixed_v2/grader/sandbox/grade_sandboxed_v2.py", "isolation": "bubblewrap jail (WSL), unprivileged user; red-team 7/7, reference 40/40, wrong solutions 0/37 pass; the kit grade.py is unsafe and must not be used"},
         "laya": {"valid_for_decision_type": False, "decision_type": "complete_program", "status": "transfer_test_exploratory"}})
 
 # ---------------------------------------------------------------- Java track
 jt = [json.loads(l) for l in (JV / "worker/tasks.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
-jp = {t["id"]: t["cases"] for t in json.loads((JV / "grader/protected_cases.json").read_text(encoding="utf-8"))}
+jp = {t["id"]: t["cases"] for t in json.loads((JF / "grader/protected_cases.json").read_text(encoding="utf-8"))}
+jp_o = {t["id"]: t["cases"] for t in json.loads((JV / "grader/protected_cases.json").read_text(encoding="utf-8"))}
+JM = json.loads((JF / "reports/java_mutation_after.json").read_text(encoding="utf-8"))["per_task"]
+JG = json.loads((JF / "reports/java_mutation_guided.json").read_text(encoding="utf-8"))
 for p in ["worker/tasks.jsonl", "worker/public_cases.json", "grader/protected_cases.json", "grader/ReferenceSolutions.java", "grader/grade.py",
           "grader/compare.py", "grader/SELFTEST.py", "grader/INDEPENDENT_CHECKS.py", "worker/support/Runner.java", "worker/support/Json.java"]:
     src(JV / p)
+for p in ["grader/protected_cases.json", "grader/grade_sandboxed_java_v1.py", "grader/java_mutation_v1.py", "grader/java_mutation_guided_v1.py",
+          "reports/java_mutation_after.json", "reports/java_mutation.json", "reports/java_mutation_guided.json", "reports/java_sandbox_reference.json", "reports/java_redteam_sandbox.json"]:
+    src(JF / p)
+for p in ["grader/sandbox/grade_sandboxed_v2.py", "grader/sandbox/runner_v2.py", "grader/sandbox/redteam_run_v2.py", "reports/redteam_sandbox.json", "reports/sandbox_reference_grade.json"]:
+    src(PY_FIX / p)
+src(ROOT / "specs/evidence_ladder_v1/contract_test_results.json")
 for t in jt:
     tid = t["id"]
     rows.append({
         "item_id": "java1:" + tid, "track": "java", "pack": "codex-pilot1-java", "pack_version": "kit_2026-10-16",
         "title": t.get("title"), "difficulty": t.get("difficulty"), "difficulty_basis": "curator heuristic, uncalibrated", "language": "java21",
         "source": {"files": ["results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/tasks.jsonl",
-                             "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/protected_cases.json"],
+                             "results/raw/codex-pilot1-java-20261016/fixed_v1/grader/protected_cases.json"],
                    "prompt_sha256": hashlib.sha256(t["prompt"].encode("utf-8")).hexdigest(),
-                   "public_tests_sha256": sha_obj(t["public_tests"]), "protected_tests_sha256": sha_obj(jp[tid])},
+                   "public_tests_sha256": sha_obj(t["public_tests"]), "protected_tests_sha256": sha_obj(jp[tid]), "protected_tests_orig_sha256": sha_obj(jp_o[tid])},
         "split": "dev_pilot1", "eval_role": "dev_diagnostic_only",
         "exposure": {"authored_with_oracle_and_tests": True, "post_2025_07_31": False,
                      "contamination": "authored for this pilot; model exposure unmeasured", "independent_oracle": "partial: kit cross-checked reference outputs with Python implementations written by the same author (claimed 1760/1760, not re-run by us)",
                      "protected_tests_seen_by_authors": True},
-        "checks": {"public_examples": len(t["public_tests"]), "protected_cases": len(jp[tid]),
-                   "mutation_adequacy": {"status": "unmeasured", "reason": "kit has only trivial mutant checks"}, "hidden_tests_runtime_visible": False},
+        "checks": {"public_examples": len(t["public_tests"]), "protected_cases": len(jp[tid]), "protected_cases_added_in_v1": len(jp[tid]) - len(jp_o[tid]),
+                   "mutation_adequacy": ({"status": "unmeasured", "reason": "no valid mutant could be generated (inline library call or only non-compiling mutants)"} if JM[tid]["valid_mutants_tested"] == 0 else
+                       {"status": "sampled_lower_bound", "mutants_tested": JM[tid]["valid_mutants_tested"], "killed": JM[tid]["killed"], "kill_rate": JM[tid]["kill_rate"], "meets_0.80": JM[tid]["kill_rate"] >= 0.80,
+                        "likely_equivalent_survivors": len(JG[tid]["likely_equivalent"]) if tid in JG else "not searched", "sample": "seeded, up to 14 valid mutants per task; large sampling error"}),
+                   "hidden_tests_runtime_visible": False},
         "oracle_type": "reference_solution_authored_together_with_tests",
         "scorer": {"name": "program_correctness", "rule": "all protected cases pass; missing/timeout/crash = fail",
-                   "grader": "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/grade.py", "isolation": "NONE (unsafe, trusted code only); needs the S4 jail",
+                   "grader": "results/raw/codex-pilot1-java-20261016/fixed_v1/grader/grade_sandboxed_java_v1.py", "isolation": "bubblewrap jail (WSL), unprivileged user; reference 40/40 and hostile-candidate test passed; the kit grade.py is unsafe and must not be used",
                    "toolchain_note": "kit asks for Java 21; the WSL sandbox has Temurin 26.0.1 (use --release 21); not yet qualified for grading"},
         "laya": {"valid_for_decision_type": False, "decision_type": "complete_program", "status": "transfer_test_exploratory"}})
 
