@@ -1,0 +1,158 @@
+{
+ "index": "combined-index-v1-20261015T220202Z",
+ "index_sha256": "030990c9703108baf4a5bd1f0a4ef94d83b9c4b87f1274041f514914337bc74c",
+ "checks": {
+  "unique_item_ids": {
+   "pass": true,
+   "detail": 461
+  },
+  "track_counts": {
+   "pass": true,
+   "detail": {
+    "('python', 'dev_diagnostic_only')": 40,
+    "('java', 'dev_diagnostic_only')": 40,
+    "('fable', 'primary_eval_recorded_action_agreement')": 46,
+    "('fable', 'exposed_reference_not_for_laya_evaluation')": 335
+   }
+  },
+  "source_files_exist_and_hash_match": {
+   "pass": true,
+   "detail": 35
+  },
+  "required_fields": {
+   "pass": true,
+   "detail": null
+  },
+  "scorers_supported": {
+   "pass": true,
+   "detail": [
+    "program_correctness",
+    "recorded_action_agreement"
+   ]
+  },
+  "track_scorer_match": {
+   "pass": true,
+   "detail": null
+  },
+  "laya_valid_only_for_next_action": {
+   "pass": true,
+   "detail": null
+  },
+  "no_pooled_score_field": {
+   "pass": true,
+   "detail": null
+  },
+  "python_ids_complete": {
+   "pass": true,
+   "detail": null
+  },
+  "python_public4_protected40plus": {
+   "pass": true,
+   "detail": {
+    "min_protected": 40,
+    "total_protected": 1810
+   }
+  },
+  "python_difficulty_mix": {
+   "pass": true,
+   "detail": null
+  },
+  "java_ids_complete": {
+   "pass": true,
+   "detail": null
+  },
+  "java_public4_protected40plus": {
+   "pass": true,
+   "detail": {
+    "min_protected": 40,
+    "total_protected": 1600
+   }
+  },
+  "java_difficulty_mix": {
+   "pass": true,
+   "detail": null
+  },
+  "python_worker_folder_has_no_grader_assets": {
+   "pass": true,
+   "detail": []
+  },
+  "python_protected_file_outside_worker": {
+   "pass": true,
+   "detail": "results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\protected_cases.json"
+  },
+  "java_worker_folder_has_no_grader_assets": {
+   "pass": true,
+   "detail": []
+  },
+  "java_protected_file_outside_worker": {
+   "pass": true,
+   "detail": "results\\raw\\codex-pilot1-java-20261016\\kit\\Pilot1_Java\\grader\\protected_cases.json"
+  },
+  "python_public_protected_input_overlap": {
+   "pass": true,
+   "detail": 19
+  },
+  "java_public_protected_input_overlap": {
+   "pass": true,
+   "detail": 0
+  },
+  "fable_val_decision_overlap_with_v3_is_zero": {
+   "pass": true,
+   "detail": 0
+  },
+  "fable_val_trajectory_overlap_with_v3_is_zero": {
+   "pass": true,
+   "detail": 0
+  },
+  "fable_val_not_in_finetune_all": {
+   "pass": true,
+   "detail": 0
+  },
+  "fable_v3_roles_sum_335": {
+   "pass": true,
+   "detail": {
+    "train": 120,
+    "heldout_transfer": 161,
+    "train_extension": 54
+   }
+  },
+  "fable_val_label_role_is_evaluation_only": {
+   "pass": true,
+   "detail": null
+  },
+  "fable_index_rows_match_label_files": {
+   "pass": true,
+   "detail": null
+  },
+  "fable_v3_exposure_flag_matches_finetune_list": {
+   "pass": true,
+   "detail": {
+    "in_finetune_all": 334,
+    "not_in": 1
+   }
+  },
+  "python_mutation_status": {
+   "pass": true,
+   "detail": {
+    "unmeasured": [
+     "py1:P1-05",
+     "py1:P1-10",
+     "py1:P1-14"
+    ],
+    "below_0.80_raw": [
+     "py1:P1-19",
+     "py1:P1-26"
+    ],
+    "wrong_solutions_caught": "37/37 (original cases: 20/37)",
+    "note": "informational for the dataset; the S6 adequacy gate (>= 0.80 measured) is NOT yet met for these tasks"
+   }
+  },
+  "java_mutation_status": {
+   "pass": true,
+   "detail": "unmeasured for all 40 (kit has only trivial mutant checks)"
+  }
+ },
+ "failed": [],
+ "result": "PASS (structure)",
+ "scope": "structure, hashes and leakage only; graders were not run, models were not run"
+}

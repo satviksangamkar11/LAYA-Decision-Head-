@@ -1,0 +1,142 @@
+{
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/compare.py": {
+  "bytes": 1738,
+  "sha256": "7b13ac29f6d703cd1f21d741289b66fb3b32f0ab5c2567087b5b661fb8b7c76b"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/grade.py": {
+  "bytes": 3610,
+  "sha256": "53a700b481af558d228b95171c82cdfcd570fe07a669579c1ae0caf75d04e572"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/mutation_guided_v2.py": {
+  "bytes": 7789,
+  "sha256": "3649b45cca09eb5fdea7230df1182172fc3d32c5c53a6250220606fcb07a337a"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/oracles.py": {
+  "bytes": 9889,
+  "sha256": "7b0a497d3acf4f867b09e855b5b8491e0e28404550a10f6545575d0edcc747e8"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/protected_cases.json": {
+  "bytes": 142978,
+  "sha256": "d220761bf1ec280f1b22ea3ebc59194755387f3a0f710c1053a165c54f0d3afb"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/protected_cases.orig.json": {
+  "bytes": 130919,
+  "sha256": "e44a1e17ecc059578d67e9e6029d4b082e9d0fdd07b9d474ac102d3006e7222c"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/grader/wrong_solutions_v2.py": {
+  "bytes": 10899,
+  "sha256": "80deeb93f73d6727f247145bf6d54e1f74c84fd7ed8695da0965f1913994b4fb"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/mutation_after.json": {
+  "bytes": 9483,
+  "sha256": "2af05982b0b8ccb8beb240d64d147d87ffed1334690ee82b20719f6de0d8ce7c"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/mutation_after2.json": {
+  "bytes": 8683,
+  "sha256": "e4c1afe31af9515e524ff5888942ae6dbac9a8e6d2ab85fc8620647d32fb66c2"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/mutation_before.json": {
+  "bytes": 10048,
+  "sha256": "a5cca9db989467ed71557e9dd25511be1b180f1599cfb70ee5450b2071591d88"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/mutation_guided.json": {
+  "bytes": 2347,
+  "sha256": "9f689ddf760b576618577dba5c735e7e43dc1b571fe03466891b34036b396291"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/wrong_after.json": {
+  "bytes": 1283,
+  "sha256": "553d8adfbb52a2b087619528bdc4e28d8367edaaa3ac5f357d335308e8b2bc93"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/reports/wrong_before.json": {
+  "bytes": 1751,
+  "sha256": "c9f86c44de9658c47423d053284e26359c06483323c75b1319c27d812221b705"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/worker/public_cases.json": {
+  "bytes": 28844,
+  "sha256": "6e8503712edd7d06b13706b80baebd727ced34032c6730a2be7f071aeb425d08"
+ },
+ "results/raw/codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl": {
+  "bytes": 33481,
+  "sha256": "dd5d945c85d7537da953c897f939d0958703252deb493b8091ce899c0bdcc2eb"
+ },
+ "results/raw/codex-pilot1-20261016/kit/Pilot1_Evidence_Ladder/grader/protected_cases.json": {
+  "bytes": 130919,
+  "sha256": "e44a1e17ecc059578d67e9e6029d4b082e9d0fdd07b9d474ac102d3006e7222c"
+ },
+ "results/raw/codex-pilot1-20261016/kit/Pilot1_Evidence_Ladder/worker/tasks.jsonl": {
+  "bytes": 32978,
+  "sha256": "dcb9c697ae042f3b81df05047138ed08174568063eac65dff77179ece43874a7"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/INDEPENDENT_CHECKS.py": {
+  "bytes": 7650,
+  "sha256": "d97d21ec02c26b413316e8e2435853fcf4c9d628aaa2cf51ebeffa5a69bc9c2e"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/ReferenceSolutions.java": {
+  "bytes": 15132,
+  "sha256": "0f9a179b3c98156ab74f9c407c4f9014c6c171fada406667388c03577042f912"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/SELFTEST.py": {
+  "bytes": 1992,
+  "sha256": "5c1a22fa19467d95fef946f65a0e87a567bf72f76e2986a42f69fcecfd3943c9"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/compare.py": {
+  "bytes": 1364,
+  "sha256": "2c1e31c2e222312cb240ffee98c1412bbc950906649e049aa38bce8ebac58871"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/grade.py": {
+  "bytes": 4452,
+  "sha256": "d6b6dd4828cfbd10be72e6992a00c4672d6d5f481affe9aa888dc59f58490115"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/grader/protected_cases.json": {
+  "bytes": 888758,
+  "sha256": "721097952fdeaea70a3c0963f61498e23576d7536a6ddfe65bfaf96f49bdb1a5"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/public_cases.json": {
+  "bytes": 28897,
+  "sha256": "5bdbc23fcef7997e9656ab3bc986b324dc1fc5763a53b6163c0ca842dab54c97"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/support/Json.java": {
+  "bytes": 3734,
+  "sha256": "e4374d910dbde3020604a6a2797a08c4118ea7680e8f0f885cdae74e7feacdbd"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/support/Runner.java": {
+  "bytes": 582,
+  "sha256": "201e5a44a1d5d8759edd022972add3299f411a14e20d78bae3a3a27d97f3b316"
+ },
+ "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/tasks.jsonl": {
+  "bytes": 25241,
+  "sha256": "3211290a072a07ca656902b3ea6e00e899e9398f0a5810ec6358ea3821b5e064"
+ },
+ "results/raw/laya-finetune-all-v1-20261012T080145Z/REPORT-20261012T080534Z.json": {
+  "bytes": 23012,
+  "sha256": "677af965ae261b0cfcf320519f7ae51648c9b3d6ce3c410569dd1bcc8d76a6e8"
+ },
+ "results/raw/laya-fullaction-clean-v4-20261012T130553Z/CLEAN_REPORT.json": {
+  "bytes": 1962,
+  "sha256": "7568bd8404184d5d46a2e2249b37eda25a4224c6062d0fc4f6a7aa07dd8d7bf6"
+ },
+ "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean/REMOVED.json": {
+  "bytes": 4287,
+  "sha256": "98fa37fad5bd583ceb3242376f6b2051e19f23576b1ce93e0e31817d897614b1"
+ },
+ "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean/private_labels.jsonl.gz": {
+  "bytes": 4133,
+  "sha256": "8aedf21446c01721bd2ad4754c02684bae8eb77bba0fcb998ec635ee16437d93"
+ },
+ "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean/requests.jsonl.gz": {
+  "bytes": 147338,
+  "sha256": "be0a7757581a7e7128e9c1bcfffe4b44dba2b3302f1e3f8da34e732aea165005"
+ },
+ "results/raw/laya-fullaction-set-v3-20261012T055420Z/FROZEN_SET.json": {
+  "bytes": 11230,
+  "sha256": "725cd39dd27f0232de9ebd700a91042cec993505e8fedd8117aa024ceed4d8f4"
+ },
+ "results/raw/laya-fullaction-set-v3-20261012T055420Z/private_labels.jsonl.gz": {
+  "bytes": 23535,
+  "sha256": "87b1424757a6e0bd2dd2cbe5cd14f19ed0e2c4f649524c6bfb7f5b0e17b61539"
+ },
+ "results/raw/laya-fullaction-set-v3-20261012T055420Z/requests.jsonl.gz": {
+  "bytes": 1956867,
+  "sha256": "f8addc405ba5eb6f87eddd8ea4bba5504ddda24c34dfa454048e02bf0b237c27"
+ }
+}

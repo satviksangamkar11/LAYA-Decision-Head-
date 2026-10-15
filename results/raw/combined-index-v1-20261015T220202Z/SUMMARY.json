@@ -1,0 +1,12 @@
+{
+ "created_utc": "2026-10-15T22:02:02Z",
+ "rows": 461,
+ "counts": {
+  "('python', 'dev_diagnostic_only')": 40,
+  "('java', 'dev_diagnostic_only')": 40,
+  "('fable', 'primary_eval_recorded_action_agreement')": 46,
+  "('fable', 'exposed_reference_not_for_laya_evaluation')": 335
+ },
+ "index_sha256": "030990c9703108baf4a5bd1f0a4ef94d83b9c4b87f1274041f514914337bc74c",
+ "sources": 35
+}
