@@ -483,6 +483,17 @@ def existing_receipts_intact():
 def isolation_receipt_contents():
     r = isolation_receipt(CFG)
     j = r["python_jail"]
+    if os.environ.get("EL_JAIL") == "kaggle":       # Kaggle jail (chroot + uid + seccomp + rlimits): its own honest receipt test, no namespaces claimed
+        assert j["uid"] == 65534 and j["euid"] == 65534 and j["gid"] == 65534 and j["groups"] == [], j
+        assert j["proc_visible"].startswith("blocked") and j["kaggle_visible"].startswith("blocked") and j["write_usr"].startswith("blocked") and j["write_etc"].startswith("blocked"), j
+        assert j["network"] == "blocked:PermissionError:1" and j["unix_socket"] == "blocked:PermissionError:1", j        # seccomp EPERM for every socket family
+        assert j["setuid0"].startswith("blocked") and j["chroot_escape"].startswith("blocked"), j
+        assert j["x32_syscall_killed_by_signal"] == 31, j                                                              # SIGSYS from the seccomp KILL action
+        assert j["write_tmp"] == "ALLOWED" and set(j["env_keys"]) <= {"PATH", "PYTHONHASHSEED"}, j
+        assert j["rlimits"]["NPROC"] == [32, 32] and j["rlimits"]["AS"] == [1 << 30, 1 << 30], j["rlimits"]
+        assert r["java_toolchain"]["javac"] and "error" not in str(r["java_toolchain"]).lower(), r["java_toolchain"]
+        NOTES["isolation_receipt_kaggle"] = {"uid": j["uid"], "mechanisms": r["kaggle_mechanisms"]}
+        return
     assert j["uid"] == 65534 and j["write_usr"].startswith("blocked") and j["write_etc"].startswith("blocked") and j["network"].startswith("blocked"), j
     assert j["write_tmp"] == "ALLOWED" and set(j["env_keys"]) <= {"PATH", "PYTHONHASHSEED", "LC_CTYPE", "PWD"}, j      # only the empty tmpfs is writable
     assert all(j["namespaces_differ_from_host"][n] for n in ("user", "pid", "net", "ipc", "uts")), j["namespaces_differ_from_host"]

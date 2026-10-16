@@ -1,0 +1,3 @@
+def solve(data):
+    text = data["text"]
+    return ' '.join(text.strip().split())

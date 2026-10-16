@@ -75,12 +75,15 @@ def test_extract_edge_cases():
 
 
 def test_template_hashes_stable():
-    assert set(qwen.TEMPLATES) == {"qwen_sample_v1", "qwen_repair_v1", "qwen_tests_v1"}
+    assert set(qwen.TEMPLATES) == {"qwen_sample_v1", "qwen_sample_v2", "qwen_repair_v1", "qwen_tests_v1"}
     hs = set()
     for k, v in qwen.TEMPLATES.items():
         assert qwen.template_hash(k) == hashlib.sha256(v.encode("utf-8")).hexdigest()
         hs.add(qwen.template_hash(k))
-    assert len(hs) == 3
+    assert len(hs) == 4
+    for lang in ("python", "java"):
+        p2_, _ = qwen.render("qwen_sample_v2", task_prompt="T", examples="E", solution_format=qwen.SOLUTION_FORMATS[lang], language=lang)
+        assert "Required solution format:" in p2_ and ("def solve(data)" in p2_ if lang == "python" else "public final class Solution" in p2_)
     kw = dict(task_prompt="T", examples=qwen.format_examples([{"input": "1", "expected": "2"}]), language="python")
     p1, h1 = qwen.render("qwen_sample_v1", **kw)
     p2, h2 = qwen.render("qwen_sample_v1", **kw)

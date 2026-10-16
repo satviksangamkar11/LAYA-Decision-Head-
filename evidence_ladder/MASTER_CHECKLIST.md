@@ -87,3 +87,14 @@ Evidence root: results/raw/evidence-ladder-stage0-{probe,cpu-run1..6,gpu-run1}-*
 
 ## Stage 0 update (after the fix runs; full record HANDOFF_2026_10_16_STAGE0.md)
 FC-1 Kaggle: PASS on its tests (run6: self-check, red-team 7/7 executed and blocked, 40/40 py refs, 37/37 wrong, java refs), but the layered jail (chroot+uid+seccomp+rlimits, no namespaces) is weaker than the approved bubblewrap design; hardening running. FC-1 WSL: 21/21 PASS. FC-2 PASS. FC-3 MEASURED (8.2 tok/s single, 42.7 batch-4, T4). FC-4 PASS. Critic isolation PASS (current version). **Stage 0: BLOCKED** (jail hardening + user acceptance, prompt v2, T/k1/backend).
+
+### Stage 0 addendum: jail gaps closed (cpu-run7, results/raw/evidence-ladder-stage0-cpu-run7-20261016T141604Z, STAGE0_RESULTS.json sha256 1338589e...)
+| item | status | evidence |
+|---|---|---|
+| seccomp: arch check KILL, x32 bit KILL | DONE | extra probes: x32 syscall in a forked child killed by signal 31 (SIGSYS); in the main process launcher exit 159 = 128+31 |
+| AF_UNIX denied | DONE | socket() of every family returns EPERM (errno 1): abstract connect, path connect, dgram, inet all blocked; host listeners saw 0 connections. Java suite still passes (no AF_UNIX need found) |
+| per-run private /tmp | DONE | /tmp is a symlink to a fresh nobody-owned 0700 dir under /runs (0711), removed after the run; flock serialises launchers; leftover uid-65534 daemons are reaped. Cross-run probe: run B sees empty /tmp, cannot list /runs (EACCES), no marker, daemon from run A did not write |
+| CPU rlimit | DONE | busy loop died at 30.2 s with exit 137, not by wall kill |
+| Kaggle receipt test | DONE | isolation_receipt_contents has a Kaggle branch (uid/gid/groups, no /proc, socket EPERM, x32 SIGSYS, rlimits, mechanisms recorded; "not_provided: namespaces"); the WSL branch is unchanged |
+| Re-run results | DONE | selfcheck PASS; redteam_run_v2 7/7; execution suite 21/21 (40 python refs, 37/37 wrong caught, 40 java refs); FC-4 PASS; models tests 30/30; extra probes PASS |
+| qwen_sample_v2 | DONE (code), see FC-3 v2 in the report | configs/qwen_sample_v2_reason.md |

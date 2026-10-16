@@ -2,8 +2,8 @@
 chroot (CAP_SYS_CHROOT), setuid/setgid to nobody, rlimits (bind a non-root uid), prctl NO_NEW_PRIVS, a user-installed seccomp-bpf filter, mknod.
 Layers built here, in order, by a root launcher: (1) chroot into a prebuilt root-owned rootfs that holds ONLY the interpreter/JDK + stdlib + the candidate and runner
 (no /proc, no host paths, no /kaggle/input, no secrets), (2) drop all groups, gid/uid 65534, all capabilities lost with the uid change, (3) NO_NEW_PRIVS,
-(4) seccomp-bpf: socket() for any family but AF_UNIX returns EPERM, ptrace denied, (5) rlimits, (6) minimal environment.
-NOT provided (unlike bwrap): pid/net/ipc/uts namespaces, a private tmpfs (the rootfs /tmp is wiped by the launcher before each run), hiding other processes except through the chroot's missing /proc.
+(4) seccomp-bpf: wrong arch or x32 syscall numbers KILL, socket() of ANY family (incl. AF_UNIX) EPERM, ptrace denied, (5) rlimits, (6) minimal environment.
+NOT provided (unlike bwrap): pid/net/ipc/uts namespaces. /tmp is a per-run private directory (symlink to /runs/<random>, removed after the run; launchers are serialized by flock; leftover uid-65534 processes are reaped).
 Network is therefore blocked by seccomp (+ the kernel having internet off), not by a network namespace. Use: engine.install_kaggle_jail() (flag EL_JAIL=kaggle).
 Launcher: python kaggle_jail.py <rootfs> <mode> ...  (mode py: <cand> <runner>; mode java: <workdir> <rw|ro> <JDK> -- cmd...)"""
 from __future__ import annotations
@@ -88,7 +88,7 @@ def build_rootfs(java_home: str = "") -> dict:
     for lib in sorted(libs | {"/lib64/ld-linux-x86-64.so.2"}):
         if os.path.exists(lib):
             _copy(lib, ROOTFS)
-    for d in ("tmp", "jail", "work", "dev", "etc"):
+    for d in ("jail", "work", "runs", "dev", "etc"):
         (ROOTFS / d).mkdir(exist_ok=True)
     os.mknod(ROOTFS / "dev/null", 0o666 | 0o020000, os.makedev(1, 3))
     os.mknod(ROOTFS / "dev/urandom", 0o444 | 0o020000, os.makedev(1, 9))
@@ -99,8 +99,9 @@ def build_rootfs(java_home: str = "") -> dict:
         except OSError:
             pass
     os.chmod(ROOTFS, 0o755)
-    for d in ("tmp", "jail", "work"):
+    for d in ("jail", "work"):
         os.chmod(ROOTFS / d, 0o755)
+    os.chmod(ROOTFS / "runs", 0o711)
     size = sum(f.stat().st_size for f in ROOTFS.rglob("*") if f.is_file() and not f.is_symlink())
     return {"rootfs": str(ROOTFS), "bytes": size, "python": py, "java_home": java_home or None, "libs": len(libs)}
 
@@ -117,26 +118,22 @@ def java_jail(workdir, cmd, rw=True, jdk=""):
 
 # ------------------------------------------------------------------ launcher (runs as root, forks the jailed child)
 def _seccomp_filter() -> bytes:
-    """x86_64 only. socket(family != AF_UNIX) -> EPERM; ptrace -> EPERM; everything else allowed. Limitation: x32-ABI syscall numbers are not filtered (receipt records this)."""
-    BPF_LD, BPF_W, BPF_ABS, BPF_JMP, BPF_JEQ, BPF_K, BPF_RET = 0x00, 0x00, 0x20, 0x05, 0x10, 0x00, 0x06
+    """x86_64 only. Wrong arch -> KILL; any syscall number with the x32 bit (0x40000000) -> KILL; socket() of ANY family (incl. AF_UNIX, path and abstract) -> EPERM;
+    ptrace -> EPERM; everything else allowed (socketpair stays allowed: an anonymous pair reaches nothing outside the process tree)."""
     ALLOW, EPERM, KILL = 0x7FFF0000, 0x00050000 | 1, 0x80000000
+    LD, JEQ, JSET, RET = 0x20, 0x15, 0x45, 0x06
     def ins(code, jt, jf, k): return struct.pack("HBBI", code, jt, jf, k)
-    LD = BPF_LD | BPF_W | BPF_ABS
-    JEQ = BPF_JMP | BPF_JEQ | BPF_K
-    RET = BPF_RET | BPF_K
-    # explicit layout (indexes):
-    prog = [ins(LD, 0, 0, 4),            # 0 load arch
-            ins(JEQ, 1, 0, 0xC000003E),  # 1 x86_64? skip next if yes
+    prog = [ins(LD, 0, 0, 4),            # 0 load seccomp_data.arch
+            ins(JEQ, 1, 0, 0xC000003E),  # 1 AUDIT_ARCH_X86_64? skip the KILL
             ins(RET, 0, 0, KILL),        # 2
             ins(LD, 0, 0, 0),            # 3 load nr
-            ins(JEQ, 0, 1, 101),         # 4 ptrace? else skip 1
-            ins(RET, 0, 0, EPERM),       # 5
-            ins(JEQ, 0, 4, 41),          # 6 socket? else jump to 11 (allow)
-            ins(LD, 0, 0, 16),           # 7 load args[0] (family)
-            ins(JEQ, 2, 0, 1),           # 8 AF_UNIX -> jump to 11 (allow)
+            ins(JSET, 0, 1, 0x40000000), # 4 x32 bit set? fall into KILL
+            ins(RET, 0, 0, KILL),        # 5
+            ins(JEQ, 0, 1, 101),         # 6 ptrace
+            ins(RET, 0, 0, EPERM),       # 7
+            ins(JEQ, 0, 1, 41),          # 8 socket (every family)
             ins(RET, 0, 0, EPERM),       # 9
-            ins(RET, 0, 0, ALLOW),       # 10 (unused landing)
-            ins(RET, 0, 0, ALLOW)]       # 11
+            ins(RET, 0, 0, ALLOW)]       # 10
     return b"".join(prog)
 
 
@@ -158,12 +155,37 @@ def _wipe(d: Path) -> None:
         shutil.rmtree(p) if p.is_dir() and not p.is_symlink() else p.unlink()
 
 
+def _reap() -> None:
+    """Kill every leftover process of the jail uid (daemonised candidates escape the parent's process-group kill). A child that setuid()s to nobody and kill(-1)s reaches only uid 65534."""
+    for _ in range(2):
+        pid = os.fork()
+        if pid == 0:
+            try:
+                os.setgroups([]); os.setgid(NOBODY); os.setuid(NOBODY); os.kill(-1, 9)
+            finally:
+                os._exit(0)
+        os.waitpid(pid, 0)
+
+
+def _clean(root: Path) -> None:
+    _reap()
+    for d in ("jail", "work", "runs"):
+        (root / d).mkdir(exist_ok=True)
+        _wipe(root / d)
+    t = root / "tmp"
+    if t.is_symlink() or t.exists():
+        t.unlink() if t.is_symlink() else shutil.rmtree(t)
+
+
 def _launch() -> int:
+    import fcntl, uuid
     root, mode = Path(sys.argv[1]), sys.argv[2]
+    lock = open(root / ".lock", "w"); fcntl.flock(lock, fcntl.LOCK_EX)      # one jailed run at a time: nothing is shared between concurrent runs
     try:
-        for d in ("tmp", "jail", "work"):
-            _wipe(root / d)
-        os.chmod(root / "tmp", 0o1777)
+        _clean(root)
+        run = root / "runs" / uuid.uuid4().hex                              # per-run private /tmp: fresh nobody-owned 0700 dir, removed after the run; /runs is 0711 (traverse, no listing)
+        run.mkdir(); os.chown(run, NOBODY, NOBODY); os.chmod(run, 0o700); os.chmod(root / "runs", 0o711)
+        os.symlink("/runs/" + run.name, root / "tmp")
         if mode == "py":
             cand, runner = sys.argv[3], sys.argv[4]
             shutil.copyfile(cand, root / "jail/cand.py"); shutil.copyfile(runner, root / "jail/runner.py")
@@ -209,6 +231,7 @@ def _launch() -> int:
         for f in (root / "work").iterdir():
             if f.is_file() and not f.is_symlink() and f.stat().st_size < (64 << 20):
                 shutil.copyfile(f, workdir / f.name)
+    _clean(root)                                             # kill leftovers, delete the private /tmp
     rc = os.waitstatus_to_exitcode(st)
     return rc if rc >= 0 else 128 - rc
 

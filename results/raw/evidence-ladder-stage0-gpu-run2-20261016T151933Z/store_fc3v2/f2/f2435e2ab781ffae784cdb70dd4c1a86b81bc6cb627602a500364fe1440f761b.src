@@ -1,0 +1,9 @@
+def solve(data):
+    text = data['text']
+    vowels = 'aeiou'
+    count = 0
+    for char in text:
+        lower_char = char.lower()
+        if lower_char in vowels:
+            count += 1
+    return count

@@ -1,0 +1,32 @@
+from collections import OrderedDict
+
+def solve(data):
+    capacity = data['capacity']
+    ops = data['ops']
+    results = []
+    if capacity == 0:
+        for op in ops:
+            if op[0] == 'get':
+                results.append(-1)
+        return results
+    else:
+        cache = OrderedDict()
+        for op in ops:
+            if op[0] == 'put':
+                key = op[1]
+                value = op[2]
+                if key in cache:
+                    cache.move_to_end(key)
+                    cache[key] = value
+                else:
+                    if len(cache) >= capacity:
+                        cache.popitem(last=False)
+                    cache[key] = value
+            elif op[0] == 'get':
+                key = op[1]
+                if key in cache:
+                    cache.move_to_end(key)
+                    results.append(cache[key])
+                else:
+                    results.append(-1)
+        return results

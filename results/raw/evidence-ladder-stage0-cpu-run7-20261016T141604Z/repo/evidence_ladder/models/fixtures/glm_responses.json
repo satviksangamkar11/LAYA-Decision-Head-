@@ -1,0 +1,55 @@
+{
+  "_note": "SYNTHETIC fixtures. No real GLM or NVIDIA response; written by hand to exercise parsing, classification and retry logic.",
+  "request": {
+    "request_id": "syn-req-1",
+    "model": "z-ai/glm-5.3-flash",
+    "decision_id": "syn-dec-1",
+    "candidate_ids": ["cand_a", "cand_b"],
+    "requirement_quotes": ["Print the sum of the numbers."],
+    "candidate_code": {"cand_a": "print(sum(map(int, input().split())))", "cand_b": "print(sum(map(int, input().split())) + 1)"},
+    "observed_outputs": {
+      "cand_a": [{"input": "1 2", "observed": "3", "status": "pass"}],
+      "cand_b": [{"input": "1 2", "observed": "4", "status": "pass", "public_expected": "3"}]
+    },
+    "question": "distinguish"
+  },
+  "cases": [
+    {"name": "valid_experiment", "http_status": 200, "expect_state": "ok",
+     "raw_response": {"choices": [{"message": {"role": "assistant", "reasoning_content": "SYNTHETIC reasoning: the candidates differ by one.",
+       "content": "{\"experiment\": {\"kind\": \"stdin_input\", \"payload\": \"3\\n1 2 3\\n\", \"expected_by_candidate\": {\"cand_a\": \"6\", \"cand_b\": \"7\"}}, \"implications\": \"Output 6 supports cand_a.\"}"}}],
+       "usage": {"prompt_tokens": 410, "completion_tokens": 900}}},
+    {"name": "valid_function_call_in_fence", "http_status": 200, "expect_state": "ok",
+     "raw_response": {"choices": [{"message": {"content": "Here you go:\n```json\n{\"experiment\": {\"kind\": \"function_call\", \"payload\": \"solve([1, 2])\"}, \"implications\": \"Distinguishes the off-by-one.\"}\n```"}}],
+       "usage": {"prompt_tokens": 100, "completion_tokens": 50}}},
+    {"name": "malformed_json", "http_status": 200, "expect_state": "malformed", "expect_reason": "not_json",
+     "raw_response": {"choices": [{"message": {"content": "{\"experiment\": {\"kind\": \"stdin_input\", \"payload\": "}}]}},
+    {"name": "schema_invalid", "http_status": 200, "expect_state": "malformed", "expect_reason": "schema_invalid",
+     "raw_response": {"choices": [{"message": {"content": "{\"experiment\": {\"kind\": \"stdin_input\"}, \"implications\": \"missing payload\"}"}}]}},
+    {"name": "unsupported_kind_command", "http_status": 200, "expect_state": "malformed", "expect_reason": "unsupported_kind",
+     "raw_response": {"choices": [{"message": {"content": "{\"experiment\": {\"kind\": \"command\", \"payload\": \"ls\"}, \"implications\": \"stage 1 forbids commands\"}"}}]}},
+    {"name": "null_content_reasoning_only", "http_status": 200, "expect_state": "malformed", "expect_reason": "empty_content",
+     "raw_response": {"choices": [{"message": {"content": null, "reasoning_content": "SYNTHETIC: {\"experiment\": {\"kind\": \"stdin_input\", \"payload\": \"1\"}, \"implications\": \"in reasoning only\"}"}}]}},
+    {"name": "rate_limited_retry_after", "http_status": 429, "expect_state": "retry", "expect_backoff_s": 17.0,
+     "raw_response": {"headers": {"Retry-After": "17"}, "body": {"error": "Too Many Requests"}}},
+    {"name": "rate_limited_no_header", "http_status": 429, "expect_state": "retry", "expect_backoff_s": 60.0,
+     "raw_response": {"headers": {}, "body": {"error": "rate limit"}}},
+    {"name": "server_error_500", "http_status": 500, "expect_state": "retry",
+     "raw_response": {"body": {"error": "internal"}}},
+    {"name": "timeout", "http_status": null, "expect_state": "retry",
+     "raw_response": {"error": "timeout"}},
+    {"name": "payment_required_402", "http_status": 402, "expect_state": "unavailable", "expect_stop": true,
+     "raw_response": {"body": {"error": "Payment Required"}}},
+    {"name": "forbidden_payment_text_403", "http_status": 403, "expect_state": "unavailable", "expect_stop": true,
+     "raw_response": {"body": {"error": "Account has insufficient credits; billing required"}}},
+    {"name": "quota_exceeded_text", "http_status": 429, "expect_state": "unavailable", "expect_stop": true,
+     "raw_response": {"body": {"error": "Quota exceeded for this account"}}},
+    {"name": "forbidden_plain_403", "http_status": 403, "expect_state": "unavailable", "expect_stop": false,
+     "raw_response": {"body": {"error": "Forbidden"}}},
+    {"name": "stream_chunks_valid", "http_status": 200, "expect_state": "ok",
+     "raw_response": [
+       {"choices": [{"delta": {"reasoning_content": "SYNTHETIC thinking "}}]},
+       {"choices": [{"delta": {"content": "{\"experiment\": {\"kind\": \"function_call\", "}}]},
+       {"choices": [{"delta": {"content": "\"payload\": \"f(0)\"}, \"implications\": \"edge case\"}"}}], "usage": {"prompt_tokens": 7, "completion_tokens": 9}}
+     ]}
+  ]
+}

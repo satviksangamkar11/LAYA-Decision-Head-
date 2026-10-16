@@ -1,0 +1,461 @@
+{
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "uid": 0,
+ "phases": {
+  "FC1_rootfs": {
+   "rootfs": "/tmp/kjail-root",
+   "bytes": 379768651,
+   "python": "/usr/bin/python3.13",
+   "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+   "libs": 51,
+   "status": "BUILT",
+   "seconds": 4.8
+  },
+  "FC1_selfcheck": {
+   "rootfs_paths_exist": {
+    "usr/bin/python3": true,
+    "usr/bin/python3.13": true,
+    "lib64/ld-linux-x86-64.so.2": true,
+    "usr/bin/prlimit": true,
+    "/usr/lib/jvm/java-21-openjdk-amd64/bin/javac": true,
+    "/usr/lib/jvm/java-21-openjdk-amd64/lib/libjli.so": true,
+    "/usr/lib/jvm/java-21-openjdk-amd64/lib/server/libjvm.so": true,
+    "tmp": false,
+    "jail": true,
+    "dev/null": true
+   },
+   "rootfs_symlink_targets": {
+    "lib": "usr/lib",
+    "lib64": "usr/lib64",
+    "bin": "usr/bin"
+   },
+   "trivial_python": {
+    "returncode": 0,
+    "stdout": "{\"ok\": true, \"value\": 1}\n",
+    "stderr": "1\n"
+   },
+   "status": "PASS",
+   "libjli": {
+    "lexists": true,
+    "islink": false,
+    "readlink": null,
+    "exists": true
+   },
+   "javac_version_in_jail": {
+    "returncode": 0,
+    "stdout": "javac 21.0.12\n",
+    "stderr": ""
+   },
+   "seconds": 0.5
+  },
+  "FC1_layers_python": {
+   "phase_status": "ran",
+   "term": null,
+   "stderr_tail": "",
+   "probe": {
+    "uid": 65534,
+    "euid": 65534,
+    "gid": 65534,
+    "groups": [],
+    "cwd": "/runs/323cfdd14be34275b5217a4a0ca323d5",
+    "env": [
+     "PATH",
+     "PYTHONHASHSEED"
+    ],
+    "root_ls": [
+     ".lock",
+     "bin",
+     "dev",
+     "etc",
+     "jail",
+     "lib",
+     "lib64",
+     "runs",
+     "sbin",
+     "tmp",
+     "usr",
+     "work"
+    ],
+    "dev_null_w": "ALLOWED:1",
+    "dev_urandom_r": "ALLOWED:4",
+    "proc": "blocked:FileNotFoundError:2",
+    "kaggle": "blocked:FileNotFoundError:2",
+    "tmp_w": "ALLOWED:1",
+    "usr_w": "blocked:PermissionError:13",
+    "etc_w": "blocked:PermissionError:13",
+    "jail_w": "blocked:PermissionError:13",
+    "host_canary": "blocked:FileNotFoundError:2",
+    "setuid0": "blocked:PermissionError:1",
+    "chroot_escape": "blocked:PermissionError:1",
+    "mknod": "blocked:PermissionError:1",
+    "mount": "blocked:PermissionError:1",
+    "inet_socket": "blocked:PermissionError:1",
+    "inet6_socket": "blocked:PermissionError:1",
+    "raw_socket": "blocked:PermissionError:1",
+    "netlink_socket": "blocked:PermissionError:1",
+    "unix_socketpair": "ALLOWED:(<socket.socket fd=4, family=1, type=1, proto=0>, <socket.so",
+    "ptrace": -1,
+    "ptrace_errno": 1,
+    "rlimits": {
+     "AS": [
+      1073741824,
+      1073741824
+     ],
+     "FSIZE": [
+      1048576,
+      1048576
+     ],
+     "NOFILE": [
+      64,
+      64
+     ],
+     "NPROC": [
+      32,
+      32
+     ],
+     "CORE": [
+      0,
+      0
+     ]
+    }
+   },
+   "seconds": 0.3
+  },
+  "FC1_layers_java": {
+   "outcome": {
+    "check_id": "critic_experiment_v1",
+    "status": "pass",
+    "detail": "experiment executed; the output is an observation, not a correctness verdict",
+    "failure_class": "",
+    "duration_s": 0.215,
+    "stderr_tail": "",
+    "observed": "{user=?, host_canary=blocked:NoSuchFileException, socket=blocked:SocketException, write_usr=blocked:AccessDeniedException, list_kaggle=blocked:NoSuchFileException, proc=blocked:NoSuchFileException}"
+   },
+   "seconds": 1.5
+  },
+  "FC1_redteam_v2_original_script": {
+   "exit_code": 0,
+   "stdout_tail": "{\n \"all_pass\": true,\n \"T1_read_protected_cases\": [\n  true,\n  null,\n  []\n ],\n \"T2_proc_and_env\": [\n  true,\n  null,\n  []\n ],\n \"T3_network\": [\n  true,\n  null,\n  []\n ],\n \"T4a_limits\": [\n  true,\n  null,\n  []\n ],\n \"T4b_infinite_loop\": [\n  true,\n  \"TIMEOUT\",\n  []\n ],\n \"T5_write_outside\": [\n  true,\n  null,\n  []\n ],\n \"T6_forge_output\": [\n  true,\n  \"WRONG_ANSWER_OR_RUNTIME_ERROR\",\n  []\n ]\n}\n",
+   "stderr_tail": "",
+   "full_stdout_file": "stdout_redteam_run_v2.txt",
+   "report": {
+    "all_pass": true,
+    "tests": {
+     "T1_read_protected_cases": {
+      "pass": true,
+      "failure": null,
+      "escaped": [],
+      "blocked": 5,
+      "stderr_tail": "BLOCKED open protected_cases.json (FileNotFoundError)\nBLOCKED list /mnt (FileNotFoundError)\nBLOCKED list /home (FileNotFoundError)\nBLOCKED open /root (FileNotFoundError)\nBLOCKED open host CLAUDE.md (FileNotFoundError)\n"
+     },
+     "T2_proc_and_env": {
+      "pass": true,
+      "failure": null,
+      "escaped": [],
+      "blocked": 3,
+      "stderr_tail": "BLOCKED see grader process (FileNotFoundError)\nBLOCKED environment secrets (KeyError)\nBLOCKED read /proc/1/environ (FileNotFoundError)\n"
+     },
+     "T3_network": {
+      "pass": true,
+      "failure": null,
+      "escaped": [],
+      "blocked": 4,
+      "stderr_tail": "BLOCKED connect 1.1.1.1:80 (PermissionError)\nBLOCKED connect 127.0.0.1:22 (PermissionError)\nBLOCKED connect 8.8.8.8:53 (PermissionError)\nBLOCKED dns lookup (gaierror)\n"
+     },
+     "T4a_limits": {
+      "pass": true,
+      "failure": null,
+      "escaped": [],
+      "blocked": 3,
+      "stderr_tail": "BLOCKED 200 forks (OSError)\nBLOCKED allocate 4 GB (MemoryError)\nBLOCKED write 50 MB file (OSError)\n"
+     },
+     "T4b_infinite_loop": {
+      "pass": true,
+      "failure": "TIMEOUT",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": ""
+     },
+     "T5_write_outside": {
+      "pass": true,
+      "failure": null,
+      "escaped": [],
+      "blocked": 7,
+      "stderr_tail": "BLOCKED write /usr/x (PermissionError)\nBLOCKED write /etc/x (PermissionError)\nBLOCKED write /jail/cand.py (PermissionError)\nBLOCKED write /jail/runner.py (PermissionError)\nBLOCKED write /mnt/d/x (FileNotFoundError)\nBLOCKED write /proc/1/x (FileNotFoundError)\nBLOCKED modify protected cases (FileNotFoundError)\n"
+     },
+     "T6_forge_output": {
+      "pass": true,
+      "failure": "WRONG_ANSWER_OR_RUNTIME_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n"
+     }
+    }
+   },
+   "status": "PASS",
+   "protected_file_exists_on_host": true,
+   "seconds": 11.3
+  },
+  "FC1_FC4_execution_suite_through_kaggle_jail": {
+   "exit_code": 0,
+   "stdout_tail": "{\"tests\": 21, \"passed\": 21, \"failed\": {}, \"notes\": {\"seconds\": {\"py_reference_passes_public\": 10.3, \"py_wrong_fails_with_counterexample\": 9.0, \"py_known_wrong_exact_counterexample\": 0.5, \"py_compile_error_runtime_error_timeout_missing\": 5.2, \"strict_type_sensitivity\": 2.2, \"task_language_mismatch_is_invalid_spec\": 0.0, \"per_example_outcomes\": 6.9, \"java_reference_passes_public_and_wrong_fails\": 10.6, \"java_compile_runtime_timeout_missing_classes\": 13.6, \"java_utf8_pinned_and_non_ascii_task\": 3.2, \"hostile_python_cannot_escape\": 7.8, \"hostile_java_cannot_escape\": 8.9, \"hash_tamper_is_error_not_pass_or_fail\": 0.5, \"candidates_are_isolated_from_each_other\": 0.4, \"experiments\": 6.8, \"static_no_protected_import\": 0.1, \"gate_open_raises_closed_grades_and_shape\": 4.8, \"protected_python_40_references_and_all_wrong\": 20.4, \"protected_java_40_references\": 75.9, \"existing_receipts_intact\": 0.0, \"isolation_receipt_contents\": 0.8}, \"py_wrong_total\": 37, \"py_wrong_caught_by_public_examples\": 18, \"py_wrong_passing_public_but_caught_by_protected\": [\"P1-01:str_lower_first\", \"P1-05:str_lower_first\", \"P1-10:ascii_ws_only\", \"P1-10:ascii_class_sub\", \"P1-13:lowercase_first\", \"P1-14:drops_empty_words\", \"P1-16:no_up_neighbor\", \"P1-16:counts_ones\", \"P1-19:latest_start_on_ties\", \"P1-20:no_refresh_on_put_update\", \"P1-21:fnmatch\", \"P1-21:unescaped_regex\", \"P1-23:two_passes_only\", \"P1-25:bisect_ignores_rotation\", \"P1-25:strict_left_compare\", \"P1-26:sign_if_either_negative\", \"P1-27:string_keyed_heap\", \"P1-34:python_re_fullmatch\", \"P1-34:star_means_one_or_more\"], \"python_references_protected_passed\": 40, \"python_known_wrong_protected_caught\": \"37/37\", \"java_references_protected_passed\": 40, \"replayed_receipt_files\": 14, \"java_redteam_escaped_markers_in_old_receipt\": [\"ESCAPED list /mnt -> null\", \"ESCAPED list /home -> null\", \"ESCAPED exec -> 0\"], \"isolation_receipt_kaggle\": {\"uid\": 65534, \"mechanisms\": {\"filesystem\": \"chroot into a root-owned rootfs (no /proc, no host paths); read-only by uid/permissions\", \"privileges\": \"setgroups([]), setgid/setuid 65534; capabilities lost on setuid\", \"network\": \"seccomp-bpf: socket() of every family returns EPERM; kernel internet off\", \"syscall_abi\": \"seccomp-bpf: non-x86_64 arch or x32 syscall numbers kill with SIGSYS\", \"limits\": \"rlimits AS/FSIZE/NOFILE/NPROC/CORE/CPU + parent wall-clock process-group kill\", \"tmp\": \"per-run private /tmp (symlink to a fresh nobody-owned 0700 dir, removed after the run)\", \"not_provided\": \"pid/net/mount/ipc/uts namespaces (seccomp on the Kaggle host denies unshare)\"}}}, \"total_seconds\": 187.8}\n",
+   "stderr_tail": "",
+   "full_stdout_file": "stdout_run_tests.txt",
+   "summary": {
+    "tests": 21,
+    "passed": 21,
+    "failed": {},
+    "notes": {
+     "seconds": {
+      "py_reference_passes_public": 10.3,
+      "py_wrong_fails_with_counterexample": 9.0,
+      "py_known_wrong_exact_counterexample": 0.5,
+      "py_compile_error_runtime_error_timeout_missing": 5.2,
+      "strict_type_sensitivity": 2.2,
+      "task_language_mismatch_is_invalid_spec": 0.0,
+      "per_example_outcomes": 6.9,
+      "java_reference_passes_public_and_wrong_fails": 10.6,
+      "java_compile_runtime_timeout_missing_classes": 13.6,
+      "java_utf8_pinned_and_non_ascii_task": 3.2,
+      "hostile_python_cannot_escape": 7.8,
+      "hostile_java_cannot_escape": 8.9,
+      "hash_tamper_is_error_not_pass_or_fail": 0.5,
+      "candidates_are_isolated_from_each_other": 0.4,
+      "experiments": 6.8,
+      "static_no_protected_import": 0.1,
+      "gate_open_raises_closed_grades_and_shape": 4.8,
+      "protected_python_40_references_and_all_wrong": 20.4,
+      "protected_java_40_references": 75.9,
+      "existing_receipts_intact": 0.0,
+      "isolation_receipt_contents": 0.8
+     },
+     "py_wrong_total": 37,
+     "py_wrong_caught_by_public_examples": 18,
+     "py_wrong_passing_public_but_caught_by_protected": [
+      "P1-01:str_lower_first",
+      "P1-05:str_lower_first",
+      "P1-10:ascii_ws_only",
+      "P1-10:ascii_class_sub",
+      "P1-13:lowercase_first",
+      "P1-14:drops_empty_words",
+      "P1-16:no_up_neighbor",
+      "P1-16:counts_ones",
+      "P1-19:latest_start_on_ties",
+      "P1-20:no_refresh_on_put_update",
+      "P1-21:fnmatch",
+      "P1-21:unescaped_regex",
+      "P1-23:two_passes_only",
+      "P1-25:bisect_ignores_rotation",
+      "P1-25:strict_left_compare",
+      "P1-26:sign_if_either_negative",
+      "P1-27:string_keyed_heap",
+      "P1-34:python_re_fullmatch",
+      "P1-34:star_means_one_or_more"
+     ],
+     "python_references_protected_passed": 40,
+     "python_known_wrong_protected_caught": "37/37",
+     "java_references_protected_passed": 40,
+     "replayed_receipt_files": 14,
+     "java_redteam_escaped_markers_in_old_receipt": [
+      "ESCAPED list /mnt -> null",
+      "ESCAPED list /home -> null",
+      "ESCAPED exec -> 0"
+     ],
+     "isolation_receipt_kaggle": {
+      "uid": 65534,
+      "mechanisms": {
+       "filesystem": "chroot into a root-owned rootfs (no /proc, no host paths); read-only by uid/permissions",
+       "privileges": "setgroups([]), setgid/setuid 65534; capabilities lost on setuid",
+       "network": "seccomp-bpf: socket() of every family returns EPERM; kernel internet off",
+       "syscall_abi": "seccomp-bpf: non-x86_64 arch or x32 syscall numbers kill with SIGSYS",
+       "limits": "rlimits AS/FSIZE/NOFILE/NPROC/CORE/CPU + parent wall-clock process-group kill",
+       "tmp": "per-run private /tmp (symlink to a fresh nobody-owned 0700 dir, removed after the run)",
+       "not_provided": "pid/net/mount/ipc/uts namespaces (seccomp on the Kaggle host denies unshare)"
+      }
+     }
+    },
+    "total_seconds": 187.8
+   },
+   "seconds": 188.0
+  },
+  "FC4_separation_in_kaggle": {
+   "gate_open_raises": true,
+   "selection_stdin_lines": 5,
+   "selection_stdin_only_public_inputs": true,
+   "protected_inputs_not_public": 47,
+   "no_protected_input_in_selection_stdin": true,
+   "jail_scan_marker": "-1,-1,-1]},{\"input\":{\"capacity\":2,\"ops\":",
+   "jail_scan_hits_line": [
+    "SCAN_HITS []"
+   ],
+   "jail_fs_scan_ran_and_found_nothing": true,
+   "host_has_marker_file": true,
+   "graded_after_close": {
+    "passed": true,
+    "passed_tests": 47,
+    "total_tests": 47,
+    "failure": null
+   },
+   "grading_stdin_lines": 47,
+   "grading_stdin_equals_protected_inputs_only": true,
+   "grading_stdin_has_expected_key": false,
+   "hiddengrade_fields": [
+    "artifact_id",
+    "failure",
+    "passed",
+    "passed_tests",
+    "sha256_before_run",
+    "task_id",
+    "total_tests"
+   ],
+   "status": "PASS",
+   "seconds": 1.3
+  },
+  "FC1_redteam_kaggle_extra": {
+   "x32_child": {
+    "stderr": "BLOCKED x32 syscall: child killed by signal 31\n",
+    "blocked": true
+   },
+   "x32_main_process": {
+    "returncode": 159,
+    "stdout": "",
+    "stderr": "",
+    "blocked": true
+   },
+   "unix_connect": {
+    "stderr": "BLOCKED unix abstract connect PermissionError errno=1\nBLOCKED unix path connect PermissionError errno=1\nBLOCKED unix dgram PermissionError errno=1\nBLOCKED inet PermissionError errno=1\n",
+    "host_listener_connections": [],
+    "blocked": true,
+    "reason": "socket() returns EPERM from the seccomp filter (errno 1) before any connect"
+   },
+   "cross_run_tmp": {
+    "A_stderr": "",
+    "B_stderr": "CLEAN /tmp is empty\nBLOCKED list /runs errno=13\nCLEAN no marker_A\n",
+    "blocked": true,
+    "host_rootfs_after": {
+     "tmp_exists": false,
+     "runs_entries": []
+    }
+   },
+   "cpu_rlimit": {
+    "seconds": 30.1,
+    "returncode": 137,
+    "timed_out": false,
+    "blocked": true
+   },
+   "status": "PASS",
+   "seconds": 37.1
+  },
+  "MODELS_tests": {
+   "exit_code": 0,
+   "stdout_tail": "{\n \"tests\": 30,\n \"passed\": 30,\n \"failed\": {}\n}\n",
+   "stderr_tail": "",
+   "full_stdout_file": "stdout_run_tests.txt",
+   "summary": null,
+   "status": "PASS",
+   "seconds": 2.3
+  },
+  "FC3_qwen_throughput_v2": {
+   "template": "qwen_sample_v2",
+   "model_dir": "/kaggle/input/datasets/leminhhung0101/qwen3-4b-thinking-2507",
+   "gpu": "Tesla T4",
+   "torch": "2.11.0+cu128",
+   "gpus": 2,
+   "sha256_ok": {
+    "model-00001-of-00003.safetensors": true,
+    "model-00002-of-00003.safetensors": true,
+    "model-00003-of-00003.safetensors": true,
+    "tokenizer.json": true
+   },
+   "load_seconds": 34.3,
+   "batch5": {
+    "error": "OutOfMemoryError('CUDA out of memory. Tried to allocate 264.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 254.81 MiB is free. Including non-PyTorch memory, this process has 14.31 GiB memory in use. Of the allocated memory 12.45 GiB is allocated by PyTorch, and 1.73 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF",
+    "trace": "ackages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3/modeling_qwen3.py\", line 266, in forward\n    attn_output, attn_weights = attention_interface(\n                                ~~~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<7 lines>...\n        **kwargs,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/usr/local/lib/python3.13/dist-packages/transformers/integrations/sdpa_attention.py\", line 100, in sdpa_attention_forward\n    value = repeat_kv(value, module.num_key_value_groups)\n  File \"/usr/local/lib/python3.13/dist-packages/transformers/integrations/sdpa_attention.py\", line 24, in repeat_kv\n    return hidden_states.reshape(batch, num_key_value_heads * n_rep, slen, head_dim)\n           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 264.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 254.81 MiB is free. Including non-PyTorch memory, this process has 14.31 GiB memory in use. Of the allocated memory 12.45 GiB is allocated by PyTorch, and 1.73 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)\n"
+   },
+   "single": {
+    "rows": [
+     {
+      "task_id": "P1-01",
+      "tokens_prompt": 223,
+      "tokens_generated": 1280,
+      "wall_seconds": 88.22,
+      "tokens_per_s": 14.51,
+      "hit_max_new_tokens": false,
+      "thinking_closed": true,
+      "extract_status": "ok",
+      "public_examples_pass": 4,
+      "public_examples_total": 4,
+      "public_all_pass": true
+     },
+     {
+      "task_id": "P1-05",
+      "tokens_prompt": 265,
+      "tokens_generated": 1886,
+      "wall_seconds": 136.83,
+      "tokens_per_s": 13.78,
+      "hit_max_new_tokens": false,
+      "thinking_closed": true,
+      "extract_status": "ok",
+      "public_examples_pass": 4,
+      "public_examples_total": 4,
+      "public_all_pass": true
+     },
+     {
+      "task_id": "P1-10",
+      "tokens_prompt": 238,
+      "tokens_generated": 5097,
+      "wall_seconds": 543.4,
+      "tokens_per_s": 9.38,
+      "hit_max_new_tokens": false,
+      "thinking_closed": true,
+      "extract_status": "ok",
+      "public_examples_pass": 4,
+      "public_examples_total": 4,
+      "public_all_pass": true
+     },
+     {
+      "task_id": "P1-20",
+      "tokens_prompt": 354,
+      "tokens_generated": 6194,
+      "wall_seconds": 751.55,
+      "tokens_per_s": 8.24,
+      "hit_max_new_tokens": false,
+      "thinking_closed": true,
+      "extract_status": "ok",
+      "public_examples_pass": 4,
+      "public_examples_total": 4,
+      "public_all_pass": true
+     },
+     {
+      "task_id": "J1-09",
+      "tokens_prompt": 331,
+      "tokens_generated": 6834,
+      "wall_seconds": 875.66,
+      "tokens_per_s": 7.8,
+      "hit_max_new_tokens": false,
+      "thinking_closed": true,
+      "extract_status": "ok",
+      "public_examples_pass": 4,
+      "public_examples_total": 4,
+      "public_all_pass": true
+     }
+    ],
+    "problems": 5,
+    "tokens_generated_total": 21291,
+    "wall_total": 2395.7,
+    "mean_tokens_per_s": 8.89,
+    "mean_tokens_per_problem": 4258.2,
+    "mean_seconds_per_problem": 479.1,
+    "truncated_at_max_new_tokens": 0,
+    "public_all_pass": 5
+   },
+   "peak_gpu_mem_gb": 13.65,
+   "status": "MEASURED",
+   "seconds": 3777.8
+  }
+ },
+ "manifest_files": 130,
+ "hash_mismatches": [],
+ "seconds": 4025.9
+}

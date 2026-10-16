@@ -28,6 +28,30 @@ def solve(d):
             "host_mnt_listing": attempt(lambda: [p for p in os.listdir("/mnt") if True][0]), "host_home_listing": attempt(lambda: os.listdir("/home")[0])}
 '''
 
+KPROBE = r'''
+import os, sys, socket, resource, ctypes, signal
+def attempt(fn):
+    try:
+        fn(); return "ALLOWED"
+    except BaseException as e:
+        return "blocked:" + type(e).__name__ + ":" + str(getattr(e, "errno", ""))
+def x32():
+    libc = ctypes.CDLL(None, use_errno=True)
+    pid = os.fork()
+    if pid == 0:
+        libc.syscall(0x40000000 + 39)      # getpid through the x32 ABI number range
+        os._exit(0)
+    _, st = os.waitpid(pid, 0)
+    return os.WTERMSIG(st) if os.WIFSIGNALED(st) else -1
+def solve(d):
+    lim = {n: list(resource.getrlimit(getattr(resource, "RLIMIT_" + n))) for n in ("AS", "FSIZE", "NOFILE", "NPROC", "CORE")}
+    return {"uid": os.getuid(), "euid": os.geteuid(), "gid": os.getgid(), "groups": os.getgroups(), "rlimits": lim, "env_keys": sorted(os.environ), "python": sys.version.split()[0],
+            "root_listing": sorted(os.listdir("/")), "proc_visible": attempt(lambda: os.listdir("/proc")), "kaggle_visible": attempt(lambda: os.listdir("/kaggle")),
+            "write_usr": attempt(lambda: open("/usr/x", "w")), "write_etc": attempt(lambda: open("/etc/x", "w")), "write_tmp": attempt(lambda: open("/tmp/x", "w")),
+            "network": attempt(lambda: socket.socket(socket.AF_INET, socket.SOCK_STREAM)), "unix_socket": attempt(lambda: socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)),
+            "setuid0": attempt(lambda: os.setuid(0)), "chroot_escape": attempt(lambda: os.chroot("/")), "x32_syscall_killed_by_signal": x32()}
+'''
+
 
 def _host_ns() -> Dict[str, str]:
     try:
@@ -42,9 +66,16 @@ def isolation_receipt(cfg: K.SandboxConfig = K.SandboxConfig()) -> Dict[str, Any
                            "limits_config": {k: getattr(cfg, k) for k in ("py_timeout", "java_run_timeout", "java_compile_timeout", "max_source_bytes", "max_output_bytes", "jdk", "java_xmx",
                                                                             "java_compile_prlimit", "java_run_prlimit")},
                            "kaggle": "NOT verified: FC-1 (uid drop / bwrap on Kaggle) is a separate unrun feasibility test"}
-    r = engine.run_python(PROBE.encode(), [{}], cfg)
+    kaggle = os.environ.get("EL_JAIL") == "kaggle"
+    r = engine.run_python((KPROBE if kaggle else PROBE).encode(), [{}], cfg)
     items, term = engine._parse("python", r)
-    if r.phase_status == "ran" and items and items[0][0]:
+    if kaggle and r.phase_status == "ran" and items and items[0][0]:
+        rec["python_jail"] = items[0][1]
+        rec["kaggle_mechanisms"] = {"filesystem": "chroot into a root-owned rootfs (no /proc, no host paths); read-only by uid/permissions", "privileges": "setgroups([]), setgid/setuid 65534; capabilities lost on setuid",
+                                    "network": "seccomp-bpf: socket() of every family returns EPERM; kernel internet off", "syscall_abi": "seccomp-bpf: non-x86_64 arch or x32 syscall numbers kill with SIGSYS",
+                                    "limits": "rlimits AS/FSIZE/NOFILE/NPROC/CORE/CPU + parent wall-clock process-group kill", "tmp": "per-run private /tmp (symlink to a fresh nobody-owned 0700 dir, removed after the run)",
+                                    "not_provided": "pid/net/mount/ipc/uts namespaces (seccomp on the Kaggle host denies unshare)"}
+    elif r.phase_status == "ran" and items and items[0][0]:
         p = items[0][1]
         host = _host_ns()
         p["namespaces_differ_from_host"] = {n: (host.get(n) != v) for n, v in p["namespaces"].items()} if host else "host namespaces unreadable"

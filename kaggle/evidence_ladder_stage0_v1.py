@@ -167,11 +167,69 @@ def _():
     rec["status"] = "PASS" if ok else "FAIL"
     return rec
 
+@phase("FC1_redteam_kaggle_extra")
+def _():
+    """New probes for the closed gaps: x32 syscall, AF_UNIX connect (path + abstract) to listeners in the HOST, cross-run /tmp leak, CPU rlimit."""
+    import socket, threading
+    rec = {}
+    hits = []
+    abstract = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM); abstract.bind("\0el-canary-abstract"); abstract.listen(4)
+    sockpath = "/tmp/el-canary.sock"
+    if os.path.exists(sockpath): os.unlink(sockpath)
+    pathsock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM); pathsock.bind(sockpath); os.chmod(sockpath, 0o777); pathsock.listen(4)
+    def acc(s, name):
+        while True:
+            try:
+                c, _ = s.accept(); hits.append(name); c.close()
+            except OSError:
+                return
+    for s_, n_ in ((abstract, "abstract"), (pathsock, "path")):
+        threading.Thread(target=acc, args=(s_, n_), daemon=True).start()
+    PRE = "import os, sys, ctypes, socket, signal, time\ndef log(m):\n    sys.stderr.write(m + '\\n'); sys.stderr.flush()\n"
+    def run(src, cfg=CFG):
+        r = engine.run_python((PRE + src).encode(), [{}], cfg)
+        return r
+    # 1) x32 syscall: in a forked child (child must die by SIGSYS) and in the candidate itself (whole process killed, never a normal result)
+    r = run("libc = ctypes.CDLL(None, use_errno=True)\npid = os.fork()\nif pid == 0:\n    libc.syscall(0x40000000 + 39)\n    os._exit(0)\n_, st = os.waitpid(pid, 0)\n"
+            "log(('BLOCKED x32 syscall: child killed by signal %d' % os.WTERMSIG(st)) if os.WIFSIGNALED(st) else 'ESCAPED x32 syscall returned')\ndef solve(d): return 0\n")
+    rec["x32_child"] = {"stderr": r.stderr_tail, "blocked": "BLOCKED x32 syscall: child killed by signal 31" in r.stderr_tail}
+    r = run("libc = ctypes.CDLL(None, use_errno=True)\nlibc.syscall(0x40000000 + 39)\nlog('ESCAPED x32 syscall in main process returned')\ndef solve(d): return 0\n")
+    rec["x32_main_process"] = {"returncode": r.returncode, "stdout": r.stdout[:100], "stderr": r.stderr_tail, "blocked": r.returncode not in (0, None) and "ESCAPED" not in r.stderr_tail and r.returncode == 128 + 31}
+    # 2) AF_UNIX: create + connect to host listeners (abstract namespace and a world-accessible path socket)
+    r = run("def t(label, fn):\n    try:\n        r = fn(); log('ESCAPED ' + label + ' -> ' + str(r)[:60])\n    except BaseException as e:\n        log('BLOCKED ' + label + ' ' + type(e).__name__ + ' errno=' + str(getattr(e, 'errno', '')))\n"
+            "def c(addr):\n    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM); s.connect(addr); return 'connected'\n"
+            "t('unix abstract connect', lambda: c('\\0el-canary-abstract'))\nt('unix path connect', lambda: c('/tmp/el-canary.sock'))\n"
+            "t('unix dgram', lambda: socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM))\nt('inet', lambda: socket.socket(socket.AF_INET, socket.SOCK_STREAM))\ndef solve(d): return 0\n")
+    time.sleep(0.5)
+    rec["unix_connect"] = {"stderr": r.stderr_tail, "host_listener_connections": list(hits), "blocked": r.stderr_tail.count("BLOCKED") == 4 and r.stderr_tail.count("errno=1") == 4 and "ESCAPED" not in r.stderr_tail and not hits,
+                           "reason": "socket() returns EPERM from the seccomp filter (errno 1) before any connect"}
+    # 3) cross-run /tmp: run A leaves a file and a daemon that writes later; run B starts right after and must see nothing
+    ra = run("open('/tmp/marker_A', 'w').write('A')\nif os.fork() == 0:\n    os.setsid()\n    if os.fork() == 0:\n        time.sleep(3)\n        open('/tmp/late_A', 'w').write('late')\n        os._exit(0)\n    os._exit(0)\ndef solve(d): return 0\n")
+    rb = run("time.sleep(5)\nl = os.listdir('/tmp')\nlog('LEAK tmp not empty: %r' % l if l else 'CLEAN /tmp is empty')\n"
+             "try:\n    log('LEAK /runs listable: %r' % os.listdir('/runs'))\nexcept OSError as e:\n    log('BLOCKED list /runs errno=%s' % e.errno)\n"
+             "log('LEAK marker readable' if os.path.exists('/tmp/marker_A') else 'CLEAN no marker_A')\ndef solve(d): return 0\n", K.SandboxConfig(py_timeout=12.0))
+    rec["cross_run_tmp"] = {"A_stderr": ra.stderr_tail, "B_stderr": rb.stderr_tail,
+                            "blocked": "CLEAN /tmp is empty" in rb.stderr_tail and "BLOCKED list /runs" in rb.stderr_tail and "CLEAN no marker_A" in rb.stderr_tail and "LEAK" not in rb.stderr_tail,
+                            "host_rootfs_after": {"tmp_exists": os.path.lexists(KJ.ROOTFS / "tmp"), "runs_entries": os.listdir(KJ.ROOTFS / "runs")}}
+    # 4) CPU-time rlimit: a busy loop with a wall timeout longer than RLIMIT_CPU(30 s) must die by SIGXCPU (128+24), not by the parent's wall kill
+    t = time.time(); rc = run("def solve(d):\n    while True: pass\n", K.SandboxConfig(py_timeout=60.0))
+    rec["cpu_rlimit"] = {"seconds": round(time.time() - t, 1), "returncode": rc.returncode, "timed_out": rc.timed_out, "blocked": (not rc.timed_out) and rc.returncode in (128 + 24, 128 + 9) and (time.time() - t) < 50}
+    rec["status"] = "PASS" if all(rec[k]["blocked"] for k in ("x32_child", "x32_main_process", "unix_connect", "cross_run_tmp", "cpu_rlimit")) else "FAIL"
+    return rec
+
+@phase("MODELS_tests")
+def _():
+    r = run_script([sys.executable, "evidence_ladder/models/tests/run_tests.py"], 600)
+    try: r["summary"] = json.loads((OUT / r["full_stdout_file"]).read_text().split("\n---STDERR---")[0].strip().splitlines()[-1])
+    except Exception: r["summary"] = None
+    r["status"] = "PASS" if r["exit_code"] == 0 else "FAIL"
+    return r
+
 QWEN_SHA = {"model-00001-of-00003.safetensors": "98178c1cddbca8ad76102afdbf76e4df79b64b82377ad4dca34c755cac00571a",
             "model-00002-of-00003.safetensors": "57b5bd1f667d420350f169342a90b50e5ffc2aa202ba1819da1af3367ff2261f",
             "model-00003-of-00003.safetensors": "e3cccb84e8926f3f18c334465639939a68af310b0729938fccc2de66a9a31953",
             "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"}   # HF LFS oids of Qwen/Qwen3-4B-Thinking-2507 @ 768f209d9ea8 (HF tree API)
-@phase("FC3_qwen_throughput")
+@phase("FC3_qwen_throughput_v2")
 def _():
     import torch
     if not torch.cuda.is_available():
@@ -179,7 +237,7 @@ def _():
     dirs = [os.path.dirname(c) for c in glob.glob("/kaggle/input/**/config.json", recursive=True) if "4b-thinking-2507" in c.lower()]
     if not dirs:
         return {"status": "BLOCKED", "reason": "no mounted qwen3-4b-thinking-2507 snapshot"}
-    md = dirs[0]; rec = {"model_dir": md, "gpu": torch.cuda.get_device_name(0), "torch": torch.__version__, "gpus": torch.cuda.device_count(), "sha256_ok": {}}
+    md = dirs[0]; rec = {"template": "qwen_sample_v2", "model_dir": md, "gpu": torch.cuda.get_device_name(0), "torch": torch.__version__, "gpus": torch.cuda.device_count(), "sha256_ok": {}}
     for f, h in QWEN_SHA.items():
         x = hashlib.sha256()
         with open(Path(md, f), "rb") as fh:
@@ -193,38 +251,67 @@ def _():
     be = Q.HFQwenBackend(authorized=True, model_dir=md, log_path=str(OUT / "qwen_gen_log.jsonl"))
     t = time.time(); model, tok = be._load(); rec["load_seconds"] = round(time.time() - t, 1)
     tasks = {x.task_id: x for x in load_tasks("python")}; tasks.update({x.task_id: x for x in load_tasks("java")})
-    MAXNEW = int(os.environ.get("EL_MAXNEW", "8192")); rows = []
-    for tid in ("P1-01", "P1-05", "P1-10", "P1-20", "J1-09"):
-        tk = tasks[tid]; lang = tk.language
-        prompt, _ = Q.render("qwen_sample_v1", task_prompt=tk.prompt, examples=Q.format_examples(tk.public_tests), language=lang)
-        req = GenerationRequest(tid, prompt, 1, [1000], MAXNEW, "sample", True, "qwen_sample_v1")
-        be.language = lang
-        torch.cuda.synchronize(); t = time.time()
-        g = be.generate(req)[0]; torch.cuda.synchronize(); wall = time.time() - t
-        row = {"task_id": tid, "tokens_prompt": g.tokens_prompt, "tokens_generated": g.tokens_generated, "wall_seconds": round(wall, 2), "tokens_per_s": round(g.tokens_generated / wall, 2),
-               "thinking_closed": "</think>" in g.text, "hit_max_new_tokens": g.tokens_generated >= MAXNEW, "extract_status": g.extract_status}
-        if g.extract_status == "ok":
-            a = Artifact.make(tid, lang, g.code, origin="sample:1000")
-            ex = [o for o in SandboxExecutionBackend(ArtifactStore(OUT / "store_fc3"), CFG).run_public(a, tk) if o["check_id"] == "public_examples_v1"]
+    IDS = ("P1-01", "P1-05", "P1-10", "P1-20", "J1-09"); MAXNEW = int(os.environ.get("EL_MAXNEW", "8192"))
+    def prompt_of(tid):
+        tk = tasks[tid]
+        return Q.render("qwen_sample_v2", task_prompt=tk.prompt, examples=Q.format_examples(tk.public_tests), solution_format=Q.SOLUTION_FORMATS[tk.language], language=tk.language)[0]
+    fcstore = ArtifactStore(OUT / "store_fc3v2")
+    def grade(tid, text):
+        tk = tasks[tid]; code, st = Q.extract_code(text, tk.language)
+        row = {"thinking_closed": "</think>" in text, "extract_status": st}
+        if st == "ok":
+            ex = [o for o in SandboxExecutionBackend(fcstore, CFG).run_public(Artifact.make(tid, tk.language, code, origin="sample:1000"), tk) if o["check_id"] == "public_examples_v1"]
             row["public_examples_pass"] = sum(o["status"] == "pass" for o in ex); row["public_examples_total"] = len(ex)
-        rows.append(row); rec["rows"] = rows; RES["phases"]["FC3_qwen_throughput"] = rec; save()
-    try:
-        tok.padding_side = "left"; chats = []
-        for tid in ("P1-01", "P1-05", "P1-10", "P1-20"):
-            tk = tasks[tid]; prompt, _ = Q.render("qwen_sample_v1", task_prompt=tk.prompt, examples=Q.format_examples(tk.public_tests), language=tk.language)
-            chats.append(tok.apply_chat_template([{"role": "user", "content": prompt}], tokenize=False, add_generation_prompt=True))
+            row["public_all_pass"] = row["public_examples_pass"] == row["public_examples_total"]
+        else:
+            row["public_all_pass"] = False
+        return row
+    eos = model.generation_config.eos_token_id; eos = set(eos if isinstance(eos, list) else [eos])
+    # ---- batched generation first (left padding). gpu-run2: batch 5 at 8192 new tokens ran out of memory on the 15 GB T4 (HF dynamic KV cache), so smaller batches are tried in turn.
+    import gc
+    def run_batch(sub):
+        tok.padding_side = "left"
+        chats = [tok.apply_chat_template([{"role": "user", "content": prompt_of(i)}], tokenize=False, add_generation_prompt=True) for i in sub]
         enc = tok(chats, return_tensors="pt", padding=True).to(model.device); n_in = enc["input_ids"].shape[1]
-        torch.manual_seed(1); torch.cuda.synchronize(); t = time.time()
-        with torch.no_grad(): ids = model.generate(**enc, do_sample=True, max_new_tokens=2048, pad_token_id=tok.eos_token_id, **Q.SAMPLING)
+        torch.cuda.reset_peak_memory_stats(); torch.manual_seed(1000); torch.cuda.synchronize(); t = time.time()
+        with torch.no_grad(): ids = model.generate(**enc, do_sample=True, max_new_tokens=MAXNEW, pad_token_id=tok.eos_token_id, **Q.SAMPLING)
         torch.cuda.synchronize(); wall = time.time() - t
-        ntok = int((ids[:, n_in:] != tok.eos_token_id).sum())
-        rec["batch4"] = {"max_new_tokens": 2048, "wall_seconds": round(wall, 2), "generated_tokens_total_nonpad": ntok, "aggregate_tokens_per_s": round(ntok / wall, 2)}
-    except BaseException as e:
-        rec["batch4"] = {"error": repr(e)[:300]}
-    rec["peak_gpu_mem_gb"] = round(torch.cuda.max_memory_allocated() / 1e9, 2)
+        new = ids[:, n_in:]; rows = []
+        for k, tid in enumerate(sub):
+            seq = new[k].tolist(); n = next((j + 1 for j, v in enumerate(seq) if v in eos), len(seq))
+            r_ = {"task_id": tid, "tokens_generated": n, "hit_max_new_tokens": n >= MAXNEW and seq[n - 1] not in eos}
+            r_.update(grade(tid, tok.decode(seq[:n], skip_special_tokens=True))); rows.append(r_)
+        tot = sum(r_["tokens_generated"] for r_ in rows)
+        return {"max_new_tokens": MAXNEW, "batch_size": len(sub), "tasks": list(sub), "wall_seconds": round(wall, 1), "latency_per_sample_seconds_all_finish_together": round(wall, 1),
+                "amortised_seconds_per_sample": round(wall / len(sub), 1), "tokens_generated_total": tot, "aggregate_tokens_per_s": round(tot / wall, 2),
+                "steps_run_tokens_per_s_incl_padding": round(len(sub) * new.shape[1] / wall, 2), "peak_gpu_mem_gb": round(torch.cuda.max_memory_allocated() / 1e9, 2), "rows": rows,
+                "public_all_pass": sum(r_["public_all_pass"] for r_ in rows), "samples": len(rows)}
+    rec["batches"] = []
+    for size in (5, 3, 2):
+        sub = IDS[:size] if size == 5 else IDS[:size]
+        try:
+            rec["batches"].append(run_batch(sub)); RES["phases"]["FC3_qwen_throughput_v2"] = rec; save()
+            if size in (5, 3):
+                break
+        except BaseException as e:
+            rec["batches"].append({"batch_size": size, "error": repr(e)[:300]})
+            gc.collect(); torch.cuda.empty_cache(); RES["phases"]["FC3_qwen_throughput_v2"] = rec; save()
+    # ---- single stream, same 5 tasks (measured in gpu-run2 with identical code; skipped in the batch re-run to save quota)
+    RUN_SINGLE = False
+    # ---- single stream, same 5 tasks
+    rows = []; tok.padding_side = "right"
+    for tid in (IDS if RUN_SINGLE else ()):
+        tk = tasks[tid]; be.language = tk.language
+        req = GenerationRequest(tid, prompt_of(tid), 1, [1000], MAXNEW, "sample", True, "qwen_sample_v2")
+        torch.cuda.synchronize(); t = time.time(); g = be.generate(req)[0]; torch.cuda.synchronize(); wall = time.time() - t
+        row = {"task_id": tid, "tokens_prompt": g.tokens_prompt, "tokens_generated": g.tokens_generated, "wall_seconds": round(wall, 2), "tokens_per_s": round(g.tokens_generated / wall, 2),
+               "hit_max_new_tokens": g.tokens_generated >= MAXNEW}
+        row.update(grade(tid, g.text)); rows.append(row); rec["single"] = {"rows": rows}; RES["phases"]["FC3_qwen_throughput_v2"] = rec; save()
     tot_t = sum(r["tokens_generated"] for r in rows); tot_s = sum(r["wall_seconds"] for r in rows)
-    rec["summary"] = {"problems": len(rows), "tokens_generated_total": tot_t, "wall_total": round(tot_s, 1), "mean_tokens_per_s": round(tot_t / tot_s, 2), "mean_tokens_per_problem": round(tot_t / len(rows), 1),
-                      "mean_seconds_per_problem": round(tot_s / len(rows), 1), "truncated_at_max_new_tokens": sum(r["hit_max_new_tokens"] for r in rows), "max_new_tokens": MAXNEW}
+    if rows: rec["single"] = {"rows": rows, "problems": len(rows), "tokens_generated_total": tot_t, "wall_total": round(tot_s, 1), "mean_tokens_per_s": round(tot_t / tot_s, 2),
+                     "mean_tokens_per_problem": round(tot_t / len(rows), 1), "mean_seconds_per_problem": round(tot_s / len(rows), 1), "truncated_at_max_new_tokens": sum(r["hit_max_new_tokens"] for r in rows),
+                          "public_all_pass": sum(r["public_all_pass"] for r in rows)}
+    rec["peak_gpu_mem_gb"] = round(torch.cuda.max_memory_allocated() / 1e9, 2)
     rec["status"] = "MEASURED"; return rec
 
 RES["seconds"] = round(time.time() - t0, 1); save()

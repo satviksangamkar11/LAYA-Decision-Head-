@@ -25,6 +25,15 @@ TEMPLATES: Dict[str, str] = {
         "Think step by step, then give your final complete solution in {language} as ONE fenced code block. "
         "The code block must be the last thing in your answer."
     ),
+    # qwen_sample_v2 (new, v1 untouched): v1 gave the model no solution format, so FC-3 samples were stdin programs (reason: configs/qwen_sample_v2_reason.md).
+    # {solution_format} is SOLUTION_FORMATS[language], the task kit's SOLUTION_FORMAT.md rule restated for the model.
+    "qwen_sample_v2": (
+        "{task_prompt}\n\n"
+        "Public examples (input and expected output):\n{examples}\n\n"
+        "Required solution format:\n{solution_format}\n\n"
+        "Think step by step, then give your final complete solution in {language} as ONE fenced code block. "
+        "The code block must be the last thing in your answer."
+    ),
     # Fixed repair template = architecture doc section 6, verbatim first block; the task and the previous source are appended because the model cannot repair code it cannot see.
     "qwen_repair_v1": (
         "Previous candidate: {candidate_id}.\n"
@@ -42,6 +51,13 @@ TEMPLATES: Dict[str, str] = {
         "Write {n_tests} additional test cases that follow from the statement. Do not copy the public examples. "
         "Output ONE fenced json code block: a list of objects with the keys \"input\" and \"expected\"."
     ),
+}
+SOLUTION_FORMATS: Dict[str, str] = {
+    "python": ("Write one Python file that defines `def solve(data):`. `data` is the task's input dictionary (the \"input\" value of an example). "
+               "Return a JSON-serializable Python value. Do NOT read standard input and do NOT print the answer: the grader imports your file and calls solve(data) once per case."),
+    "java": ("Write one complete Java 21 source file that defines exactly `import java.util.*;` and `public final class Solution { public static Object solve(Map<String,Object> data) { ... } }`. "
+             "JSON numbers arrive as `Number` (use `((Number) x).intValue()` or `.longValue()`), arrays as `List<?>`, objects as `Map<?,?>`. Return only JSON-serializable values. "
+             "Do NOT read standard input, print the answer, or write a `main` method: the grader calls Solution.solve(data) once per case. Standard library only."),
 }
 TEMPLATE_HASHES: Dict[str, str] = {k: sha256_text(v) for k, v in TEMPLATES.items()}
 

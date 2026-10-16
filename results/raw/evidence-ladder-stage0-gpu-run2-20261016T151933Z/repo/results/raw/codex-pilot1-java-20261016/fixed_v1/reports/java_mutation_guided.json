@@ -1,0 +1,124 @@
+{
+ "J1-01": {
+  "mutants_total": 13,
+  "survivors_before": 6,
+  "guided_cases_added": 3,
+  "likely_equivalent": [],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 24
+ },
+ "J1-06": {
+  "mutants_total": 31,
+  "survivors_before": 10,
+  "guided_cases_added": 4,
+  "likely_equivalent": [
+   {
+    "line": 63,
+    "orig": "1",
+    "mutant": "2"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ },
+ "J1-12": {
+  "mutants_total": 31,
+  "survivors_before": 3,
+  "guided_cases_added": 2,
+  "likely_equivalent": [
+   {
+    "line": 67,
+    "orig": "0",
+    "mutant": "1"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ },
+ "J1-17": {
+  "mutants_total": 8,
+  "survivors_before": 2,
+  "guided_cases_added": 0,
+  "likely_equivalent": [
+   {
+    "line": 72,
+    "orig": "0",
+    "mutant": "1"
+   },
+   {
+    "line": 72,
+    "orig": "1",
+    "mutant": "2"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ },
+ "J1-27": {
+  "mutants_total": 7,
+  "survivors_before": 3,
+  "guided_cases_added": 1,
+  "likely_equivalent": [
+   {
+    "line": 82,
+    "orig": "<",
+    "mutant": "<="
+   },
+   {
+    "line": 82,
+    "orig": "1",
+    "mutant": "0"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ },
+ "J1-29": {
+  "mutants_total": 25,
+  "survivors_before": 9,
+  "guided_cases_added": 2,
+  "likely_equivalent": [
+   {
+    "line": 84,
+    "orig": "<",
+    "mutant": "<="
+   },
+   {
+    "line": 84,
+    "orig": "-",
+    "mutant": "+"
+   },
+   {
+    "line": 84,
+    "orig": "1",
+    "mutant": "0"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ },
+ "J1-39": {
+  "mutants_total": 39,
+  "survivors_before": 4,
+  "guided_cases_added": 1,
+  "likely_equivalent": [
+   {
+    "line": 97,
+    "orig": ">",
+    "mutant": ">="
+   },
+   {
+    "line": 97,
+    "orig": "-",
+    "mutant": "+"
+   },
+   {
+    "line": 97,
+    "orig": "1",
+    "mutant": "0"
+   }
+  ],
+  "inputs_per_mutant": 3000,
+  "hand_cases": 0
+ }
+}

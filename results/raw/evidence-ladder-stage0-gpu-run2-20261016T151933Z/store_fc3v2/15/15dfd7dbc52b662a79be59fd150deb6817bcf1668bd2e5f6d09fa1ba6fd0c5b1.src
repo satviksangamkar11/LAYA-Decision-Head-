@@ -1,0 +1,31 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        int shift = ((Number) data.get("shift")).intValue();
+        String text = (String) data.get("text");
+        StringBuilder result = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if (c >= 'A' && c <= 'Z') {
+                int base = 'A';
+                int current = c - base;
+                int shifted = (current + shift) % 26;
+                if (shifted < 0) {
+                    shifted += 26;
+                }
+                result.append((char) (base + shifted));
+            } else if (c >= 'a' && c <= 'z') {
+                int base = 'a';
+                int current = c - base;
+                int shifted = (current + shift) % 26;
+                if (shifted < 0) {
+                    shifted += 26;
+                }
+                result.append((char) (base + shifted));
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+}
