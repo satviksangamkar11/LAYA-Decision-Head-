@@ -237,24 +237,27 @@ def _sandbox_toml(t):
     return Path(t) / "thr.toml"
 
 
-FULL = {k: True for k in authorization.APPROVALS}
+LOC = "kaggle_secrets_critic_kernel"
+FULL = {**{k: True for k in authorization.APPROVALS if k != "d7_critic_location"}, "d7_critic_location": LOC}
 
 
 @test
 def authorization_refuses_by_default_and_partial():
     with tempfile.TemporaryDirectory() as t:
         thr = _sandbox_toml(t)
-        raises(I.NotAuthorized, authorization.require_authorization, None, thr)
-        raises(I.NotAuthorized, authorization.require_authorization, Path(t) / "missing.json", thr)
-        p = authorization.write_authorization_manifest(None, t, thr)           # default state: nothing approved
-        assert json.loads(p.read_text())["approvals"] == {k: False for k in authorization.APPROVALS}
-        raises(I.NotAuthorized, authorization.require_authorization, p, thr)
-        for drop in authorization.APPROVALS:                                   # any three of four still refuse
-            p = authorization.write_authorization_manifest({k: True for k in authorization.APPROVALS if k != drop}, t, thr)
-            e = raises(I.NotAuthorized, authorization.require_authorization, p, thr)
+        raises(I.NotAuthorized, authorization.require_authorization, None, thr, critic_location=LOC)
+        raises(I.NotAuthorized, authorization.require_authorization, Path(t) / "missing.json", thr, critic_location=LOC)
+        p = authorization.write_authorization_manifest(None, t, thr)           # default state: nothing approved, d7 not selected
+        assert json.loads(p.read_text())["approvals"] == {"d1_waiver": False, "d7_critic_location": None, "nvidia_credits_confirmed": False, "pilot_go": False}
+        raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)
+        for drop in authorization.APPROVALS:                                   # dropping any one of the four still refuses
+            p = authorization.write_authorization_manifest({k: v for k, v in FULL.items() if k != drop}, t, thr)
+            e = raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)
             assert drop in str(e)
         raises(ValueError, authorization.write_authorization_manifest, {"bogus": True}, t, thr)
         raises(ValueError, authorization.write_authorization_manifest, {"pilot_go": "yes"}, t, thr)
+        raises(ValueError, authorization.write_authorization_manifest, {"d7_critic_location": True}, t, thr)
+        raises(ValueError, authorization.write_authorization_manifest, {"d7_critic_location": "pc"}, t, thr)
 
 
 @test
@@ -262,21 +265,22 @@ def authorization_hash_mismatch_refused_and_valid_accepted():
     with tempfile.TemporaryDirectory() as t:
         thr = _sandbox_toml(t)
         p = authorization.write_authorization_manifest(FULL, t, thr)
-        m = authorization.require_authorization(p, thr)
-        assert all(m["approvals"].values()) and len(m["manifest_sha256"]) == 64
+        m = authorization.require_authorization(p, thr, critic_location=LOC)
+        assert all(v is True for k, v in m["approvals"].items() if k != "d7_critic_location") and m["approvals"]["d7_critic_location"] == LOC
+        assert len(m["manifest_sha256"]) == 64
         good = p.read_text()
         d = json.loads(good)
         d["approvals"]["pilot_go"] = False
         p.write_text(json.dumps(d))
-        raises(I.NotAuthorized, authorization.require_authorization, p, thr)   # approvals edited, manifest hash stale
+        raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)   # approvals edited, manifest hash stale
         d = json.loads(authorization.write_authorization_manifest({**FULL, "pilot_go": False}, t, thr).read_text())
         d["approvals"]["pilot_go"] = True
         p.write_text(json.dumps(d))
-        raises(I.NotAuthorized, authorization.require_authorization, p, thr)   # flipped a False to True without recomputing the hash
+        raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)   # flipped a False to True without recomputing the hash
         p = authorization.write_authorization_manifest(FULL, t, thr)
-        authorization.require_authorization(p, thr)
+        authorization.require_authorization(p, thr, critic_location=LOC)
         thr.write_text(thr.read_text() + "\n# edited after approval\n")
-        raises(I.NotAuthorized, authorization.require_authorization, p, thr)   # thresholds toml no longer matches its .sha256
+        raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)   # thresholds toml no longer matches its .sha256
         raises(I.NotAuthorized, authorization.write_authorization_manifest, FULL, t, thr)
     with tempfile.TemporaryDirectory() as t:
         a = Path(t) / "a"
@@ -288,7 +292,26 @@ def authorization_hash_mismatch_refused_and_valid_accepted():
         import hashlib
         Path(str(tb) + ".sha256").write_text(hashlib.sha256(tb.read_bytes()).hexdigest() + "\n")
         p = authorization.write_authorization_manifest(FULL, t, ta)
-        raises(I.NotAuthorized, authorization.require_authorization, p, tb)    # approvals were given for a different thresholds file
+        raises(I.NotAuthorized, authorization.require_authorization, p, tb, critic_location=LOC)    # approvals were given for a different thresholds file
+
+
+@test
+def authorization_critic_location_must_match():
+    with tempfile.TemporaryDirectory() as t:
+        thr = _sandbox_toml(t)
+        p = authorization.write_authorization_manifest(FULL, t, thr)
+        authorization.require_authorization(p, thr, critic_location=LOC)                       # accepted
+        e = raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=None)
+        assert "d7_critic_location" in str(e)
+        e = raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location="pc_sender")
+        assert "d7_critic_location" in str(e)
+        d = json.loads(p.read_text())
+        d["approvals"]["d7_critic_location"] = "pc_sender"
+        p.write_text(json.dumps(d))
+        raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location="pc_sender")   # location edited, hash stale
+        p = authorization.write_authorization_manifest({**FULL, "pilot_go": False}, t, thr)
+        e = raises(I.NotAuthorized, authorization.require_authorization, p, thr, critic_location=LOC)
+        assert "pilot_go" in str(e)                                                             # unauthorized execution stays blocked
 
 
 # ---------------------------------------------------------------- stats
@@ -521,9 +544,9 @@ def pilot_refuses_without_T_k1_authorization():
         assert not r._rows_all
         thr = _sandbox_toml(t)
         p = authorization.write_authorization_manifest({**FULL, "nvidia_credits_confirmed": False}, t, thr)
-        raises(I.NotAuthorized, dryrun.make_runner(t, dry_run=False, authorization_manifest=p, thresholds_path=thr).run_selection)
+        raises(I.NotAuthorized, dryrun.make_runner(t, dry_run=False, authorization_manifest=p, thresholds_path=thr, critic_location=LOC).run_selection)
         p = authorization.write_authorization_manifest(FULL, t, thr)   # fabricated approvals, test sandbox only
-        r = dryrun.make_runner(t, dry_run=False, authorization_manifest=p, thresholds_path=thr)
+        r = dryrun.make_runner(t, dry_run=False, authorization_manifest=p, thresholds_path=thr, critic_location=LOC)
         r.run_selection()
         assert r._rows_all
 

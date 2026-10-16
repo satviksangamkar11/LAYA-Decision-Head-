@@ -132,7 +132,8 @@ class _Pending:
 class PilotRunner:
     def __init__(self, *, tasks: Dict[str, list], controller, generation, execution, grader, gate, out_dir, T: Optional[int], k1: Optional[int],
                  master_seed: int, n_total: Optional[int] = None, arms=ARMS, critic_factory: Callable = None, scorer=None, transport: Callable = None,
-                 authorization_manifest=None, thresholds_path=THRESHOLDS, dry_run: bool = False, clock: Callable = time.monotonic, synthetic: bool = False):
+                 authorization_manifest=None, thresholds_path=THRESHOLDS, dry_run: bool = False, clock: Callable = time.monotonic, synthetic: bool = False,
+                 critic_location: Optional[str] = None):
         if "fable" in tasks:
             raise NotImplementedError("Fable run support is NOT IMPLEMENTED for stage 1")
         self.tasks, self.controller, self.generation, self.execution = tasks, controller, generation, execution
@@ -140,6 +141,7 @@ class PilotRunner:
         self.T, self.k1, self.n_total, self.seed, self.arms = T, k1, n_total, master_seed, tuple(arms)
         self.critic_factory, self.scorer, self.transport = critic_factory, scorer, transport
         self.auth, self.thr, self.dry_run, self.clock, self.synthetic = authorization_manifest, thresholds_path, dry_run, clock, synthetic
+        self.critic_location = critic_location
         self.records = PairedRecords()
         self._artifacts: Dict[tuple, Artifact] = {}
         self._rows_all: List[dict] = []
@@ -156,7 +158,8 @@ class PilotRunner:
             if self.generation.model_info().get("fake") is not True:
                 raise ConfigError("dry_run is only allowed with scripted fake backends (model_info()['fake'] is True)")
         else:
-            require_authorization(self.auth, self.thr)   # NotAuthorized unless all four approvals + valid hashes
+            # NotAuthorized unless the three bool approvals are True, d7 names this runner's critic location, and the hashes are valid
+            require_authorization(self.auth, self.thr, critic_location=self.critic_location)
 
     # ------------------------------------------------------------ selection
     def _one(self, task, arm, passno, broker, tally) -> tuple:

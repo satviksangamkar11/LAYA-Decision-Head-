@@ -57,5 +57,6 @@ Covered: Python and Java correct and known-wrong solutions (real recorded sandbo
 GLM malformed / 429 / 500 / timeout / 402, budget exhaustion, irreversible refusal, unsupported LAYA decision, reproducibility (identical hashes on
 two runs), protected grading never influencing selection (flipped grader gives identical selections), authorization refusal, per-track separation and
 mutation flags. Full record: HANDOFF_2026_10_16_EVIDENCE_LADDER_RUNTIME.md.
-## Checkpoint 3: authorization: BLOCKED on the user (D1 waiver, D7, credits, GO)
+## Checkpoint 3: authorization: decisions RECORDED, pilot GO NOT given
+User confirmed 2026-10-16 ("yes go"): D1 dev-only waiver (does not waive grader adequacy), D7 = `kaggle_secrets_critic_kernel` (separate internet-on critic kernel, keys as Kaggle Secrets, never runs candidate code, no hidden grading material), NVIDIA credits confirmed by the user (not independently checked), pilot_go = false, spend Rs 0. Record: results/raw/evidence-ladder-decisions-20261016T090742Z/DECISIONS.json (sha256 0c80650f...). Schema v2: D7 stores the location string and must equal the runner's `critic_location`. Kaggle run 6: 127/127 (contract 23, controller 25, orchestrator 25 incl. new location test, models 28, replay 26). No authorization manifest written (pilot_go false). Critic kernel not built yet.
 ## Checkpoint 4: pilot execution: BLOCKED (needs Checkpoint 3)

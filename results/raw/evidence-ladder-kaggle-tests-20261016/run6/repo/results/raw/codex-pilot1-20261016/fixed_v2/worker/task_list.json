@@ -1,0 +1,202 @@
+[
+  {
+    "id": "P1-01",
+    "level": "easy",
+    "title": "Count vowels"
+  },
+  {
+    "id": "P1-02",
+    "level": "easy",
+    "title": "Sum even integers"
+  },
+  {
+    "id": "P1-03",
+    "level": "easy",
+    "title": "First non-repeating character"
+  },
+  {
+    "id": "P1-04",
+    "level": "easy",
+    "title": "Rotate array right"
+  },
+  {
+    "id": "P1-05",
+    "level": "easy",
+    "title": "Word frequencies"
+  },
+  {
+    "id": "P1-06",
+    "level": "easy",
+    "title": "Merge sorted arrays"
+  },
+  {
+    "id": "P1-07",
+    "level": "easy",
+    "title": "Compress consecutive ranges"
+  },
+  {
+    "id": "P1-08",
+    "level": "easy",
+    "title": "Run-length encoding"
+  },
+  {
+    "id": "P1-09",
+    "level": "easy",
+    "title": "Second distinct largest"
+  },
+  {
+    "id": "P1-10",
+    "level": "easy",
+    "title": "Normalize whitespace"
+  },
+  {
+    "id": "P1-11",
+    "level": "medium",
+    "title": "Balanced brackets"
+  },
+  {
+    "id": "P1-12",
+    "level": "medium",
+    "title": "Maximum nonempty subarray sum"
+  },
+  {
+    "id": "P1-13",
+    "level": "medium",
+    "title": "Longest unique-character substring"
+  },
+  {
+    "id": "P1-14",
+    "level": "medium",
+    "title": "Stable anagram groups"
+  },
+  {
+    "id": "P1-15",
+    "level": "medium",
+    "title": "Merge closed intervals"
+  },
+  {
+    "id": "P1-16",
+    "level": "medium",
+    "title": "Count islands"
+  },
+  {
+    "id": "P1-17",
+    "level": "medium",
+    "title": "Unweighted directed shortest-path length"
+  },
+  {
+    "id": "P1-18",
+    "level": "medium",
+    "title": "Fewest coins"
+  },
+  {
+    "id": "P1-19",
+    "level": "medium",
+    "title": "Minimum containing window"
+  },
+  {
+    "id": "P1-20",
+    "level": "medium",
+    "title": "LRU cache simulation"
+  },
+  {
+    "id": "P1-21",
+    "level": "medium",
+    "title": "Glob matcher"
+  },
+  {
+    "id": "P1-22",
+    "level": "medium",
+    "title": "Maximum nonoverlapping intervals"
+  },
+  {
+    "id": "P1-23",
+    "level": "medium",
+    "title": "Decode nested repetition"
+  },
+  {
+    "id": "P1-24",
+    "level": "medium",
+    "title": "Spreadsheet column number"
+  },
+  {
+    "id": "P1-25",
+    "level": "medium",
+    "title": "Search rotated distinct sorted array"
+  },
+  {
+    "id": "P1-26",
+    "level": "medium",
+    "title": "Reverse Polish notation"
+  },
+  {
+    "id": "P1-27",
+    "level": "medium",
+    "title": "Lexicographically smallest topological order"
+  },
+  {
+    "id": "P1-28",
+    "level": "medium",
+    "title": "Grid shortest walk"
+  },
+  {
+    "id": "P1-29",
+    "level": "medium",
+    "title": "Kth largest with duplicates"
+  },
+  {
+    "id": "P1-30",
+    "level": "medium",
+    "title": "Days until warmer temperature"
+  },
+  {
+    "id": "P1-31",
+    "level": "hard",
+    "title": "Levenshtein edit distance"
+  },
+  {
+    "id": "P1-32",
+    "level": "hard",
+    "title": "Longest strictly increasing subsequence"
+  },
+  {
+    "id": "P1-33",
+    "level": "hard",
+    "title": "Word break feasibility"
+  },
+  {
+    "id": "P1-34",
+    "level": "hard",
+    "title": "Simplified full regular expression match"
+  },
+  {
+    "id": "P1-35",
+    "level": "hard",
+    "title": "Trapped rainwater"
+  },
+  {
+    "id": "P1-36",
+    "level": "hard",
+    "title": "Dijkstra all-node distances"
+  },
+  {
+    "id": "P1-37",
+    "level": "hard",
+    "title": "Minimum-cost right/down grid"
+  },
+  {
+    "id": "P1-38",
+    "level": "hard",
+    "title": "Equal subset partition"
+  },
+  {
+    "id": "P1-39",
+    "level": "hard",
+    "title": "Maximum product of nonempty subarray"
+  },
+  {
+    "id": "P1-40",
+    "level": "hard",
+    "title": "Strongly connected components"
+  }
+]

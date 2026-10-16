@@ -1,0 +1,69 @@
+# Evidence-Ladder v1 thresholds. Written 2026-10-16 from specs/evidence_ladder_v1/S6_evaluation_protocol.md BEFORE any arm is run.
+# Frozen: sections [frozen.*]. Not yet frozen: [pending.*] (they need pilot measurements or a user decision). Never edit after a run;
+# add a new versioned file with a written reason. The sha256 of this file is stored next to it (thresholds_evidence_ladder_v1.toml.sha256).
+
+[meta]
+version = "evidence_ladder_v1"
+spec = "specs/evidence_ladder_v1"
+status = "partly frozen: evaluation rules frozen; budget, sample size and dataset pending"
+
+[frozen.arms]
+list = ["A", "B", "C", "D0", "D1", "E"]
+critic_model = "z-ai/glm-5.3-flash"
+nvidia_in_flight_per_key = 5
+nvidia_sends_per_key_per_minute = 39
+nvidia_cooldown_seconds_default = 60
+critic_reasoning_effort = "maximum (parameter name checked in pilot stage 0, FC-2; never lowered)"
+stage1_laya_role = "exploratory transfer test; no keep/drop decision"
+stage2_laya_role = "confirmatory: next-action ranking, with probe and random-head controls"
+
+[frozen.metric]
+primary = "verified task completion: all hidden tests pass; missing, timeout and crash count as failure"
+secondary = ["false_approval_rate", "false_block_rate", "repair_success_rate", "critic_challenge_precision", "stop_cause_distribution", "cost_per_solved_problem"]
+hidden_tests_select_anything_at_runtime = false
+
+[frozen.budget]
+matching = "total generated tokens across all models (Qwen + GLM output); B gets GLM tokens back as extra Qwen samples"
+also_report = ["model_calls", "gpu_seconds", "wall_seconds", "tool_runs", "api_usage"]
+sensitivity = "repeat B vs D1 matched on wall time"
+label = "matched-token experiment, not an equal-cost experiment"
+
+[frozen.statistics]
+design = "paired by problem; cluster resampling by contest or task family"
+confirmatory_contrasts = ["C_vs_B", "D0_vs_C", "D1_vs_D0"]
+multiplicity = "Holm, family alpha 0.05"
+test = "exact McNemar per contrast"
+bootstrap_resamples = 2000
+interval = 0.95
+reported_without_gate = ["B_vs_A", "E_vs_D1", "each arm vs simplest arm that beat B"]
+seeds = "fixed per problem; arms share the same first k1 samples"
+headroom_screen_points = 5   # heuristic, not a verdict
+
+[frozen.gates]
+stage1_controller = "D0 > C: Holm-adjusted p < 0.05 and interval lower bound > 0"
+stage1_critic = "D1 > D0: same rule; reported as external-model assistance"
+stage1_safety = "false-approval rate of D0 and D1 not above C"
+stage1_laya = "exploratory only"
+stage2_laya = "E > D1 (or D0), and E > probe, E > random-head in the same slot"
+
+[frozen.oracle_adequacy]
+mutation_kill_rate_min = 0.80          # per task, measured; survivors judged likely-equivalent are reported separately
+flaky_tests_exclude_problem = true
+reference_solution_passes_all = true
+known_wrong_solutions_fail = true
+
+[frozen.eligibility]
+post_cutoff_required_for_headline_claims = true
+waiver_for_development_banks = "pending user confirmation (D1)"
+
+[frozen.safety]
+invariants = 8
+grader_isolation = "bubblewrap jail as unprivileged user; red-team tests must all pass before any model-written code is graded"
+spend = "Rs 0; stop all critic calls on any payment or quota error"
+
+[pending.values]
+token_cap_T = "set from pilot stage 0b measurements, then frozen in a new toml"
+main_run_sample_size = "set from the pilot's measured discordant share (estimate: about 470 problems for a 5-point gain at discordant share 0.15; unmeasured)"
+operational_parameters = ["k1", "sample_more_rule", "repair_lineages", "critic_trigger", "budget_split"]  # tuned on development data, then frozen before the holdout
+stage1_dataset = "D1 unresolved: no external post-2025-07-31 set with offline tests found (see research-20261016-verify/D_stage1_dataset.md and the CF date check); development banks used under a proposed waiver"
+critic_call_location = "D7: proposed (a) staged loop, calls from the PC; user to confirm"

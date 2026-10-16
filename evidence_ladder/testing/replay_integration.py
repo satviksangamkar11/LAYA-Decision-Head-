@@ -573,10 +573,14 @@ def pilot_records(plan):
     return recs
 
 
+CRITIC_LOC = "kaggle_secrets_critic_kernel"   # the runner's configured critic location; the approval must name the same one
+
+
 def valid_manifest(root):
     """Fabricated approvals, written ONLY inside the test's own temp directory. Never a real approval."""
     assert any(p.startswith("el-replay") for p in Path(root).resolve().parts)
-    return authorization.write_authorization_manifest({k: True for k in authorization.APPROVALS}, out_dir=Path(root) / "auth")
+    return authorization.write_authorization_manifest({**{k: True for k in authorization.APPROVALS if k != "d7_critic_location"},
+                                                       "d7_critic_location": CRITIC_LOC}, out_dir=Path(root) / "auth")
 
 
 def make_pilot(root, flip=False, arms=ARMS, plan=PILOT_PLAN, auth="valid", transport=None, T=10 ** 6, k1=K1, dry_run=False, sub=None):
@@ -591,7 +595,7 @@ def make_pilot(root, flip=False, arms=ARMS, plan=PILOT_PLAN, auth="valid", trans
                                out_dir=root / "out", T=T, k1=k1, master_seed=MASTER, n_total=K1, arms=arms,
                                critic_factory=lambda t, a: StagedCriticBroker(root / "ledgers" / ("%s-%s.jsonl" % (t.task_id, a)),
                                                                               config=glm.GlmConfig(reasoning_params={"x_test_only": "max"}), clock=Clock()),
-                               scorer=None, transport=transport, authorization_manifest=mf, dry_run=dry_run, clock=FakeClock())
+                               scorer=None, transport=transport, authorization_manifest=mf, dry_run=dry_run, clock=FakeClock(), critic_location=CRITIC_LOC)
     return runner, grader, gen
 
 
@@ -670,7 +674,7 @@ def k_protected_grading_never_influences_selection():
 @test
 def l_pilot_refuses_without_a_complete_valid_manifest():
     root = tmp("el-replay-auth-sandbox-")
-    inc = authorization.write_authorization_manifest({"d1_waiver": True, "d7_critic_location": True, "nvidia_credits_confirmed": True}, out_dir=root / "inc")
+    inc = authorization.write_authorization_manifest({"d1_waiver": True, "d7_critic_location": CRITIC_LOC, "nvidia_credits_confirmed": True}, out_dir=root / "inc")
     good = valid_manifest(root)
     tam = root / "tampered.json"
     m = json.loads(good.read_text(encoding="utf-8"))
@@ -681,7 +685,8 @@ def l_pilot_refuses_without_a_complete_valid_manifest():
         raises(NotAuthorized, runner.run_selection)
         assert gen.requests == [] and grader.calls == [] and not (runner.out / "selection").exists(), i                   # nothing started
     raises(ValueError, authorization.write_authorization_manifest, {"bogus": True}, root / "x")
-    assert authorization.require_authorization(good)["approvals"] == {k: True for k in authorization.APPROVALS}
+    assert authorization.require_authorization(good, critic_location=CRITIC_LOC)["approvals"] == {
+        **{k: True for k in authorization.APPROVALS if k != "d7_critic_location"}, "d7_critic_location": CRITIC_LOC}
     assert str(good).startswith(str(root)) and "el-replay" in str(good)
     runner, grader, gen = make_pilot(root / "ok")
     info = runner.run_selection()
