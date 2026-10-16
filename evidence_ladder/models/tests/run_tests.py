@@ -18,7 +18,7 @@ from evidence_ladder.common.contract_import import C  # noqa: E402
 from evidence_ladder.common.interfaces import (BudgetExhausted, Generation, GenerationRequest, NotAuthorized, UnsupportedDecisionType)  # noqa: E402
 from evidence_ladder.models import broker as B, glm, laya, qwen  # noqa: E402
 from evidence_ladder.models.pc_sender import KeyScheduler, PcSender  # noqa: E402
-from evidence_ladder.models.kaggle_keys import split_keys  # noqa: E402
+from evidence_ladder.models.kaggle_keys import load_kaggle_keys, split_keys  # noqa: E402
 
 GLM_FX = json.loads((MODELS / "fixtures" / "glm_responses.json").read_text(encoding="utf-8"))
 QWEN_FX = json.loads((MODELS / "fixtures" / "qwen_generations.json").read_text(encoding="utf-8"))
@@ -559,6 +559,31 @@ def test_kaggle_keys_split():
     bad = "a" * 3 + " 1"
     e = raises(ValueError, split_keys, "ok" + "1" * 3 + "\n" + bad)
     assert "line 2" in str(e) and bad not in str(e) and "aaa" not in str(e)                          # message never carries key text
+
+
+def test_kaggle_keys_numbered_secrets():
+    class FakeClient:
+        def __init__(self, store):
+            self.store = store
+
+        def get_secret(self, label):
+            if label not in self.store:
+                raise KeyError("missing")
+            return self.store[label]
+
+    k1, k2, k3, k4 = "x" * 3 + "1", "y" * 3 + "2", "z" * 3 + "3", "w" * 3 + "4"
+    L = "NVIDIA_API_KEYS"
+    # (a) numbered secrets _1.._3 present, read in order
+    got = load_kaggle_keys(client=FakeClient({L + "_1": k1, L + "_2": k2, L + "_3": k3}))
+    assert got == {"key_1": k1, "key_2": k2, "key_3": k3}
+    # (b) gap at _3: stops at the first missing label, _4 is ignored
+    got = load_kaggle_keys(client=FakeClient({L + "_1": k1, L + "_2": k2, L + "_4": k4}))
+    assert got == {"key_1": k1, "key_2": k2}
+    # (c) no numbered labels: fallback to the combined secret
+    got = load_kaggle_keys(client=FakeClient({L: k1 + "\n" + k2}))
+    assert got == {"key_1": k1, "key_2": k2}
+    # (d) nothing at all: raises
+    raises(Exception, load_kaggle_keys, client=FakeClient({}))
 
 
 # ================================================================= static
