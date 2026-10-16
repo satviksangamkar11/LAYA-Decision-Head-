@@ -214,7 +214,7 @@ class _Run:
             return
         try:
             scores = list(sc.score("complete_program", [c.art.source for c in live], exploratory))
-        except UnsupportedDecisionType as ex:
+        except Exception as ex:      # noqa: BLE001 UnsupportedDecisionType, NotAuthorized, ScorerDisabled: refuse the scorer, never crash the run
             self.scorer_off = True
             self.note("scorer", {"state": "refused", "reason": str(ex)[:200]})
             return
@@ -263,7 +263,15 @@ class _Run:
                                            for e in c.summary["examples"]] for c in live},
                "question": "distinguish" if len(clusters) >= 2 else "challenge_requirement"}
         C.validate("critic_request", req)
-        packet = self.ctx.critic.build_packet(req)
+        try:
+            packet = self.ctx.critic.build_packet(req)
+        except Exception as ex:      # noqa: BLE001 CriticStopped after a payment/quota error: continue without the critic, never retry
+            if type(ex).__name__ != "CriticStopped":
+                raise
+            self.critic_done = True
+            self.wasted_critic += 1
+            self.note("critic", {"state": "unavailable", "packet_id": None, "ids": ids, "reason": str(ex)[:200]})
+            return None
         pid = packet.get("packet_id", rid)
         raw = None
         done = getattr(self.ctx.critic, "completed", None)
@@ -272,6 +280,13 @@ class _Run:
         raw = raw if raw is not None else (self.cfg.get("critic_responses") or {}).get(pid)
         raw = raw if raw is not None else (self.cfg.get("critic_responses") or {}).get(rid)
         raw = raw if raw is not None else packet.get("response")
+        if raw is None:              # a packet that already ended malformed/unavailable is final, not pending
+            term = getattr(self.ctx.critic, "terminal_state", None)
+            ts = term(pid) if term is not None else None
+            if ts == "malformed":
+                raw = {"__malformed__": True}
+            elif ts == "unavailable":
+                raw = {"state": "unavailable"}
         if isinstance(raw, dict) and "state" in raw and "experiment" not in raw:
             if raw["state"] == "ok":
                 raw = raw.get("response")
@@ -288,7 +303,8 @@ class _Run:
             else:
                 raw = None
         if raw is None:
-            self.note("critic", {"state": "pending", "packet_id": pid, "ids": ids, "waiting": len(self.ctx.critic.export_pending())})
+            ps = getattr(self.ctx.critic, "pending_summary", None)
+            self.note("critic", {"state": "pending", "packet_id": pid, "ids": ids, "waiting": (ps().get("ready") if ps is not None else None)})
             return ("api_unavailable", "critic_pending")
         self.critic_done = True
         try:

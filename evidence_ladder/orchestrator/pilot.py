@@ -80,6 +80,14 @@ class _Exec:
     def backend_info(self):
         return self._i.backend_info()
 
+def _has_pending(broker) -> bool:
+    """Read-only pending check: the real broker's export_pending() marks packets exported, so it is only called when the broker has no summary."""
+    ps = getattr(broker, "pending_summary", None)
+    if ps is not None:
+        s = ps()
+        return bool(s.get("ready") or s.get("waiting_until") or s.get("exported_unresolved"))
+    return bool(broker.export_pending())
+
 
 class _Critic:
     def __init__(self, inner, tally):
@@ -90,6 +98,18 @@ class _Critic:
 
     def export_pending(self):
         return self._i.export_pending()
+
+    def completed(self, packet_id):
+        f = getattr(self._i, "completed", None)
+        return f(packet_id) if f is not None else None
+
+    def terminal_state(self, packet_id):
+        f = getattr(self._i, "terminal_state", None)
+        return f(packet_id) if f is not None else None
+
+    def pending_summary(self):
+        f = getattr(self._i, "pending_summary", None)
+        return f() if f is not None else None
 
     def ingest(self, packet_id, http_status, raw_response):
         r = self._i.ingest(packet_id, http_status, raw_response)
@@ -156,7 +176,7 @@ class PilotRunner:
         budget.note_call("glm_calls", tally.glm_calls)
         budget.note_call("api_errors", tally.api_errors)
         rec = budget.record()
-        pending = bool(broker is not None and res.stop_cause == "api_unavailable" and broker.export_pending())
+        pending = bool(broker is not None and res.stop_cause == "api_unavailable" and _has_pending(broker))
         row = {"label": DEV_LABEL, "task_id": task.task_id, "track": task.track, "arm": arm, "pass": passno, "budget_record": rec,
                "budget_sidecar": budget.sidecar(), "wall_seconds": rec["wall_seconds"], "gpu_seconds": rec["gpu_seconds"], "tool_calls": rec["tool_runs"],
                "api_calls": rec["glm_calls"], "api_errors": rec["api_errors"], "stop_cause": res.stop_cause, "journal_hash": res.journal_hash,

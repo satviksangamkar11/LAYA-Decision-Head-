@@ -136,6 +136,11 @@ class StagedCriticBroker:
         p = self.packets.get(packet_id)
         return p["response"] if p is not None and p["state"] == "ok" else None
 
+    def terminal_state(self, packet_id: str) -> Optional[str]:
+        """Read-only: "malformed" or "unavailable" when the packet ended in that state, else None (pending, retry, ok or unknown)."""
+        p = self.packets.get(packet_id)
+        return p["state"] if p is not None and p["state"] in ("malformed", "unavailable") else None
+
     def pending_summary(self) -> Dict[str, Any]:
         now = self.clock()
         return {"ready": len(self._ready(False)),

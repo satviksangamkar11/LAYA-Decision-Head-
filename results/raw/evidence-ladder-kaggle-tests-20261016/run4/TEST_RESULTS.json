@@ -1,0 +1,84 @@
+{
+ "bundle_found": true,
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "suites": {
+  "contract": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 23,
+    "passed": 23,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 23,\n \"passed\": 23,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "controller": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "orchestrator": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 24,
+    "passed": 24,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 24,\n \"passed\": 24,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "models": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 28,
+    "passed": 28,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 28,\n \"passed\": 28,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "replay": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 26,
+    "passed": 22,
+    "failed": {},
+    "open_defects": {
+     "f5_malformed_critic_output_continues_without_critic": {
+      "where": "evidence_ladder/controller/controller.py:269-272 + models/broker.py:133-137",
+      "fix": "completed() returns None for malformed/unavailable packets, so the controller cannot tell them from pending and returns api_unavailable forever. Add a non-mutating StagedCriticBroker.terminal_state(pid) and, in critic_stage after done(pid) is None, map 'malformed' -> {'__malformed__':True} and 'unavailable' -> {'state':'unavailable'} (both branches already exist at controller.py:276-285)",
+      "error": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 772, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 441, in f5_malformed_critic_output_continues_without_critic\n    assert r.res.stop_cause == \"decided\" and stop_entry(r)[\"wasted_critic\"] == 1\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+     },
+     "f6_payment_error_second_pass_continues_without_critic": {
+      "where": "evidence_ladder/controller/controller.py:266 (build_packet) + models/broker.py:101-103",
+      "fix": "after a 402 the broker sets stop_all_critic_calls and build_packet raises CriticStopped on the controller's second pass, which propagates out of run_problem. Wrap controller.py:266 in try/except CriticStopped (compare by class name to avoid an import): note critic state 'unavailable', critic_done=True, wasted_critic+=1, return None",
+      "error": "dder/testing/replay_integration.py\", line 772, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 449, in f6_payment_error_second_pass_continues_without_critic\n    r = two_pass(402, {\"body\": {\"error\": \"Payment Required\"}})\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 432, in two_pass\n    return critic_pass(b)\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 336, in critic_pass\n    return run_ctl(py1(), list(samples), cfg=D1_CFG, arm=\"D1\", critic=b)\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 134, in run_ctl\n    r.ctx, r.res = ctx, r.ctl.run_problem(task, ctx)\n                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 548, in run_problem\n    return run.execute()\n           ~~~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 497, in execute\n    cause, details = self.loop()\n                     ~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 407, in loop\n    r = self.critic_stage()\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 266, in critic_stage\n    packet = self.ctx.critic.build_packet(req)\n  File \"/kaggle/working/repo/evidence_ladder/models/broker.py\", line 107, in build_packet\n    self._check_open()\n    ~~~~~~~~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/models/broker.py\", line 103, in _check_open\n    raise CriticStopped(\"stop_all_critic_calls is set (payment/quota error); no further critic calls\")\nevidence_ladder.models.broker.CriticStopped: stop_all_critic_calls is set (payment/quota error); no further critic calls\n"
+     },
+     "i4_exploratory_laya_without_forward_pass_must_not_crash_the_run": {
+      "where": "evidence_ladder/controller/controller.py:217",
+      "fix": "with exploratory=True the real LayaScorer raises NotAuthorized (no forward pass in this build) or ScorerDisabled, and apply_scorer only catches UnsupportedDecisionType, so arm E crashes the pilot on any task with two live candidates. Catch Exception there: journal {'state':'refused'}, set scorer_off, continue",
+      "error": "/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 554, in i4_exploratory_laya_without_forward_pass_must_not_crash_the_run\n    r = run_ctl(py1(), [\"py_ref\", \"py_timeout\"], arm=\"E\", cfg={\"scorer\": True, \"exploratory\": True}, scorer=laya.LayaScorer())\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 134, in run_ctl\n    r.ctx, r.res = ctx, r.ctl.run_problem(task, ctx)\n                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 548, in run_problem\n    return run.execute()\n           ~~~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 497, in execute\n    cause, details = self.loop()\n                     ~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 400, in loop\n    self.route(\"samples\")\n    ~~~~~~~~~~^^^^^^^^^^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 196, in route\n    c = c or (self.ranked()[0] if self.cands else None)\n              ~~~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 233, in ranked\n    self.apply_scorer()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/controller.py\", line 216, in apply_scorer\n    scores = list(sc.score(\"complete_program\", [c.art.source for c in live], exploratory))\n                  ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/working/repo/evidence_ladder/models/laya.py\", line 122, in score\n    raise ScorerDisabled(\"%s disabled: %s\" % (self.scorer_id, self.meta.disabled_reason))\nevidence_ladder.models.laya.ScorerDisabled: laya_adapter_v1 disabled: baseline MANIFEST missing or unreadable\n"
+     },
+     "n_pilot_critic_two_pass_with_the_real_broker": {
+      "where": "evidence_ladder/orchestrator/pilot.py:84-100 (_Critic) + controller/controller.py:269,291",
+      "fix": "(1) _Critic does not forward completed(pid), so pass 2 never sees the ingested response (controller.py:269 uses getattr(ctx.critic,'completed',None)); add `def completed(self, pid): return self._i.completed(pid)`. (2) the controller's own export_pending() call (controller.py:291, journal count) marks the packet 'exported', so pilot.py:159/186 export_pending() returns [] and nothing is ever transported; make _Critic.export_pending() call self._i.export_pending(include_exported=True) (and pilot.py:159/186 use the proxy), or have the controller use pending_summary()",
+      "error": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 772, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\", line 733, in n_pilot_critic_two_pass_with_the_real_broker\n    assert info[\"pending_packets\"] >= 1 and info[\"transport_used\"] is True, info\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'rows': 1, 'pending_packets': 0, 'transport_used': False}\n"
+     }
+    },
+    "fixed_defects": []
+   },
+   "stdout_tail": "\\\"%s disabled: %s\\\" % (self.scorer_id, self.meta.disabled_reason))\\nevidence_ladder.models.laya.ScorerDisabled: laya_adapter_v1 disabled: baseline MANIFEST missing or unreadable\\n\"\n  },\n  \"n_pilot_critic_two_pass_with_the_real_broker\": {\n   \"where\": \"evidence_ladder/orchestrator/pilot.py:84-100 (_Critic) + controller/controller.py:269,291\",\n   \"fix\": \"(1) _Critic does not forward completed(pid), so pass 2 never sees the ingested response (controller.py:269 uses getattr(ctx.critic,'completed',None)); add `def completed(self, pid): return self._i.completed(pid)`. (2) the controller's own export_pending() call (controller.py:291, journal count) marks the packet 'exported', so pilot.py:159/186 export_pending() returns [] and nothing is ever transported; make _Critic.export_pending() call self._i.export_pending(include_exported=True) (and pilot.py:159/186 use the proxy), or have the controller use pending_summary()\",\n   \"error\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\\\", line 772, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/testing/replay_integration.py\\\", line 733, in n_pilot_critic_two_pass_with_the_real_broker\\n    assert info[\\\"pending_packets\\\"] >= 1 and info[\\\"transport_used\\\"] is True, info\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError: {'rows': 1, 'pending_packets': 0, 'transport_used': False}\\n\"\n  }\n },\n \"fixed_defects\": []\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "manifest_files": 78,
+ "hash_mismatches": [],
+ "all_exit_zero": true,
+ "seconds": 15.3
+}

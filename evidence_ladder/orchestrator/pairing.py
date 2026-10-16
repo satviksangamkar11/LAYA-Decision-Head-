@@ -34,6 +34,7 @@ def fresh_context(task: TaskSpec, arm: str, *, generation, execution, budget, cr
     """A new context object per task and arm, built only from the same inputs. It holds no reference to anything evaluated after selection."""
     cfg = dict(arm_config(arm, k=(n_total or k1) if arm == "B" else None))
     cfg.update(k1=k1, n_total=n_total or k1, arm_label=arm_label(arm), task_id=task.task_id)
+    cfg.setdefault("k", k1)      # arms C/D0/D1/E sample k1 candidates; arm B keeps its own k from arm_config
     return ControllerContext(generation=generation, execution=execution, budget=budget, arm=arm, critic=critic, scorer=scorer,
                              seeds=tuple(arm_seeds(master_seed, task.task_id, arm, k1, n_total)), config=cfg)
 

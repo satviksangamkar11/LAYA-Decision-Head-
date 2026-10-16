@@ -20,12 +20,14 @@ if bad:
 repo = OUT / "repo"
 if repo.exists():
     shutil.rmtree(repo)
-shutil.copytree(src, repo, ignore=shutil.ignore_patterns("MANIFEST.json"))
+shutil.copytree(src, repo)
+(repo / "MANIFEST.json").unlink()  # drop only the bundle's top-level manifest; nested MANIFEST.json files (e.g. the LAYA baseline manifest) must stay
 SUITES = {
     "contract": [sys.executable, "specs/evidence_ladder_v1/contract/test_contracts_v1.py", str(OUT / "contract_test_results.json")],
     "controller": [sys.executable, "evidence_ladder/controller/tests/run_tests.py"],
     "orchestrator": [sys.executable, "evidence_ladder/orchestrator/tests/run_tests.py"],
     "models": [sys.executable, "evidence_ladder/models/tests/run_tests.py"],
+    "replay": [sys.executable, "evidence_ladder/testing/replay_integration.py"],
 }
 env = dict(os.environ, PYTHONHASHSEED="0", PYTHONDONTWRITEBYTECODE="1")
 for name, cmd in SUITES.items():
