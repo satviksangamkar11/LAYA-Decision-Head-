@@ -68,3 +68,6 @@ Required before final acceptance:
 3. **T6 real multi-step decision:** >= 2 steps where LAYA's ranking influences an allowed choice (compare with id-order fallback), WSL sandbox execution and feedback, plus a step where trusted evidence conflicts with LAYA's top choice and the trusted option wins (real scorer output).
 Random-head control is labelled "mismatch control, NOT a valid performance comparison"; fixing it belongs to the later performance experiment.
 Freeze LAYA-INT-1 only when T1-T7 pass with these three addressed. No new generation workload, no training.
+
+## Handoff
+HANDOFF_2026_10_17_LAYA_INT_1.md written 2026-10-17 (full state, decisions, audit blockers, next steps). LAYA-INT-1: smoke PASS; full integration PENDING; performance NOT TESTED.
