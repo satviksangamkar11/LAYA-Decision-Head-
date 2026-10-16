@@ -53,3 +53,18 @@ Qwen 4B proposes candidate next actions
 
 - Stage-1 performance pilot (arms A–E, GLM critic, k candidates per task): later.
 - GLM batch critic: built and tested with fake data (Kaggle 157/157, commit `7c5099be`); live batch not run.
+
+## Status and required corrections (user 2026-10-17)
+
+| item | status |
+|---|---|
+| 3-pool smoke (S1-S6, Kaggle T4) | **PASS** (receipts `results/raw/laya-integration-20261016T184816Z/smoke/`, commit c76a1423) |
+| Full T1-T7 integration | **PENDING** |
+| Performance | NOT TESTED |
+
+Required before final acceptance:
+1. **Capture-code mismatch:** pin the implementation actually used for training (capture/capture.py + capture_resident.py) via a documented, versioned correction (new pins file + correction note + evidence); no silent bypass.
+2. **T7 replay-mode re-capture covers 100%** of the stored records used in the integration tests (sampling only as an option for large batches); a test proves one fabricated record anywhere is caught.
+3. **T6 real multi-step decision:** >= 2 steps where LAYA's ranking influences an allowed choice (compare with id-order fallback), WSL sandbox execution and feedback, plus a step where trusted evidence conflicts with LAYA's top choice and the trusted option wins (real scorer output).
+Random-head control is labelled "mismatch control, NOT a valid performance comparison"; fixing it belongs to the later performance experiment.
+Freeze LAYA-INT-1 only when T1-T7 pass with these three addressed. No new generation workload, no training.
