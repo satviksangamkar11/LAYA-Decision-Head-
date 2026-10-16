@@ -1,0 +1,18 @@
+{
+ "arm": "RED",
+ "status": "SANDBOXED_BWRAP_JAVA",
+ "tasks": 1,
+ "solved": 0,
+ "duration_seconds": 1.1,
+ "results": [
+  {
+   "status": "RUNTIME_ERROR",
+   "passed": 0,
+   "total": 40,
+   "sha256_before_run": "701c3cdafbe31b6a136aaf227db1ee678719732c0b8c5f30436420fee0a470ec",
+   "stderr_tail": "BLOCKED read protected cases (NoSuchFileException)\nESCAPED list /mnt -> null\nESCAPED list /home -> null\nBLOCKED socket (SocketException)\nBLOCKED write /usr (FileSystemException)\nBLOCKED write /work/Runner.java (AccessDeniedException)\nBLOCKED secret env (RuntimeException)\nESCAPED exec -> 0\n",
+   "outputs_provided": 80,
+   "task_id": "J1-01"
+  }
+ ]
+}

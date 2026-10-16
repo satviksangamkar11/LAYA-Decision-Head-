@@ -1,0 +1,2 @@
+def solve(data):
+    return sum(1 for c in data['text'] if c.lower() in 'aeiou')

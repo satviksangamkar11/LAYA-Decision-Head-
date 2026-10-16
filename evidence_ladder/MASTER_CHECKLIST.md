@@ -98,3 +98,5 @@ FC-1 Kaggle: PASS on its tests (run6: self-check, red-team 7/7 executed and bloc
 | Kaggle receipt test | DONE | isolation_receipt_contents has a Kaggle branch (uid/gid/groups, no /proc, socket EPERM, x32 SIGSYS, rlimits, mechanisms recorded; "not_provided: namespaces"); the WSL branch is unchanged |
 | Re-run results | DONE | selfcheck PASS; redteam_run_v2 7/7; execution suite 21/21 (40 python refs, 37/37 wrong caught, 40 java refs); FC-4 PASS; models tests 30/30; extra probes PASS |
 | qwen_sample_v2 | DONE (code), see FC-3 v2 in the report | configs/qwen_sample_v2_reason.md |
+
+FC-3 batch run (gpu-run3, dca5125a6ac0fa62): batch 5 OOM on T4; batch 3 = 16.74 tok/s aggregate, 174.5 s amortised per sample (523 s wall for the batch), 3/3 public pass; batch 2 not recorded. HF generate batching gives about 2x, not 4x (padding to the longest sample).

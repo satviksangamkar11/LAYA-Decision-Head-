@@ -1,0 +1,7 @@
+{
+ "tests": 30,
+ "passed": 30,
+ "failed": {}
+}
+
+---STDERR---

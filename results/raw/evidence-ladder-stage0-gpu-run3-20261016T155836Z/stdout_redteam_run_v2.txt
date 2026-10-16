@@ -1,0 +1,40 @@
+{
+ "all_pass": true,
+ "T1_read_protected_cases": [
+  true,
+  null,
+  []
+ ],
+ "T2_proc_and_env": [
+  true,
+  null,
+  []
+ ],
+ "T3_network": [
+  true,
+  null,
+  []
+ ],
+ "T4a_limits": [
+  true,
+  null,
+  []
+ ],
+ "T4b_infinite_loop": [
+  true,
+  "TIMEOUT",
+  []
+ ],
+ "T5_write_outside": [
+  true,
+  null,
+  []
+ ],
+ "T6_forge_output": [
+  true,
+  "WRONG_ANSWER_OR_RUNTIME_ERROR",
+  []
+ ]
+}
+
+---STDERR---
