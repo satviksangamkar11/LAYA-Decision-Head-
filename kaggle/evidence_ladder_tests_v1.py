@@ -27,6 +27,7 @@ SUITES = {
     "controller": [sys.executable, "evidence_ladder/controller/tests/run_tests.py"],
     "orchestrator": [sys.executable, "evidence_ladder/orchestrator/tests/run_tests.py"],
     "models": [sys.executable, "evidence_ladder/models/tests/run_tests.py"],
+    "critic_batch": [sys.executable, "evidence_ladder/critic_batch/tests/run_tests.py"],
     "replay": [sys.executable, "evidence_ladder/testing/replay_integration.py"],
 }
 env = dict(os.environ, PYTHONHASHSEED="0", PYTHONDONTWRITEBYTECODE="1")

@@ -24,6 +24,7 @@ for p in sorted((CODE / "evidence_ladder").rglob("*")):
         put(p.relative_to(CODE), CODE)
 for rel in ["specs/evidence_ladder_v1/schemas_v1.json", "specs/evidence_ladder_v1/contract/contract_lib_v1.py", "specs/evidence_ladder_v1/contract/test_contracts_v1.py",
             "configs/thresholds_evidence_ladder_v1.toml", "configs/thresholds_evidence_ladder_v1.toml.sha256",
+            "configs/critic_concurrency_v1.toml", "kaggle/evidence_ladder_critic_v2/kernel-metadata.json",
             # LAYA metadata checks hash these two files (they are untracked in git, so they must travel in the bundle); adapter hashes come from the baseline manifest
             "tools/fable_capture.py", "decision_head/fable_features.py", "results/raw/laya-baseline-v1-20261012T215242Z/MANIFEST.json"]:
     put(rel, ROOT)

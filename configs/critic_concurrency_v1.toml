@@ -1,0 +1,33 @@
+# Critic batch concurrency, version 1. Written 2026-10-16 for Step 4 (GLM Kaggle batch critic).
+# The batch sender reads its limits ONLY from this file and refuses to start if it is missing or disagrees with
+# evidence_ladder.models.broker.LIMITS. This file does NOT edit the frozen thresholds file.
+#
+# WHY THIS FILE EXISTS (reconciliation, not a threshold change):
+#   configs/thresholds_evidence_ladder_v1.toml [frozen.arms] says nvidia_in_flight_per_key = 5 (user rule of 2026-10-11, late).
+#   The user then changed it. CLAUDE.md, "Call logic update (user, 2026-10-16, chat)":
+#     "up to 10 requests in flight per key (replaces 5; the 2026-10-11 measurement at 10 saw about half rejected with 429),
+#      <= 39 sends per key per minute and a 1-minute cooldown on a rate-limit response are unchanged"
+#   broker.LIMITS already holds 10. The frozen file stays at 5 (it is hashed and never edited); this versioned file records the
+#   later user rule and is the single source the batch sender uses. The 10 is a CEILING, not a starting point: the 2026-10-11
+#   measurement saw about half of the requests rejected at 10, and 14 keys x 10 would be 140 calls opened at once.
+#   So a live run starts low and ramps per key (below).
+
+[meta]
+version = "critic_concurrency_v1"
+date = "2026-10-16"
+frozen_thresholds_sha256 = "8b5e17cd0ad48382709f397403169fdb2d29e3faeaf45b393d80e5b21b8f644d"   # checked when the frozen file is present
+frozen_value_in_frozen_file_in_flight_per_key = 5                                                  # recorded, superseded by the user rule below
+
+[limits]                      # must equal broker.LIMITS exactly
+max_in_flight_per_key = 10    # user rule 2026-10-16 (CLAUDE.md, Call logic update)
+max_sends_per_key_per_minute = 39
+rate_limit_cooldown_s = 60    # a 429 uses Retry-After when present (longer wins), else this
+
+[ramp]
+start_level = 2               # per-key in-flight level at the start: 14 keys x 2 = 28 calls at most, never 140
+step = 1                      # raise by 1 per key
+raise_after_completions = 5   # a key must finish this many calls at its current level since the last change before it may rise
+recent_window = 20            # last N outcomes of that key are the "recent" 429 rate
+max_recent_429_rate = 0.10    # raise only while recent 429 count / recent outcomes is below this (with a full window: at most 1 in 20)
+drop_on_429 = "halve"         # on a 429 the key's level becomes max(floor_level, level // 2) (the key also cools for the cooldown)
+floor_level = 1

@@ -82,6 +82,9 @@ class StagedCriticBroker:
             self.packets[pid] = {"request": ev["request"], "state": "pending", "attempts": 0, "not_before": 0.0, "response": None, "reason": "", "created": ev["ts"]}
         elif kind == "exported":
             self.packets[pid]["state"] = "exported"
+        elif kind == "requeued":     # exported but never answered (crash while in flight): back to pending, bounded by the caller's policy
+            if self.packets[pid]["state"] == "exported":
+                self.packets[pid]["state"] = "pending"
         elif kind == "send":
             self.counters["sends"] += 1
         elif kind == "duplicate_ingest":
@@ -146,6 +149,13 @@ class StagedCriticBroker:
         return {"ready": len(self._ready(False)),
                 "waiting_until": sorted(p["not_before"] for p in self.packets.values() if p["state"] == "retry" and p["not_before"] > now),
                 "exported_unresolved": sum(1 for p in self.packets.values() if p["state"] == "exported")}
+
+    def requeue_exported(self, packet_id: str) -> bool:
+        """At-least-once recovery: an exported packet with no answer becomes sendable again (ledger event "requeued"). False if it is not exported."""
+        if self.packets[packet_id]["state"] != "exported":
+            return False
+        self._emit({"event": "requeued", "packet_id": packet_id})
+        return True
 
     def log_send(self, packet_id: str, key_label: str) -> None:
         """Audit line for every send; key_label is an opaque label (e.g. "k3"), never a credential."""
