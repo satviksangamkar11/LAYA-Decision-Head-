@@ -35,14 +35,20 @@ for name, cmd in SUITES.items():
         res["suites"][name] = {"status": "MISSING"}; continue
     p = subprocess.run(cmd, cwd=repo, capture_output=True, text=True, timeout=600, env=env)
     last = None
-    for line in reversed(p.stdout.strip().splitlines() or [""]):
-        try:
-            last = json.loads(line); break
-        except ValueError:
-            continue
-    if last is None:  # multi-line pretty JSON: parse the whole stdout
-        try: last = json.loads(p.stdout)
-        except ValueError: last = None
+    try:                                  # suites may pretty-print one JSON object over many lines
+        cand = json.loads(p.stdout)
+        last = cand if isinstance(cand, dict) else None
+    except ValueError:
+        pass
+    if last is None:                      # otherwise: the last line that is a JSON object
+        for line in reversed(p.stdout.strip().splitlines() or [""]):
+            try:
+                cand = json.loads(line)
+            except ValueError:
+                continue
+            if isinstance(cand, dict):
+                last = cand
+                break
     res["suites"][name] = {"exit_code": p.returncode, "summary": last, "stdout_tail": p.stdout[-1500:], "stderr_tail": p.stderr[-1500:]}
 res["all_exit_zero"] = all(v.get("exit_code") == 0 for v in res["suites"].values())
 res["seconds"] = round(time.time() - t0, 1)

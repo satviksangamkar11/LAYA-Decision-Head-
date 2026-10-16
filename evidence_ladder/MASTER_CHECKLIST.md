@@ -51,6 +51,11 @@ Integration gaps found at review (all assigned): (a) controller expects per-exam
 Bundle integrity: 71 file hashes verified in every Kaggle run; Python 3.13.15 on Kaggle. Receipts: results/raw/evidence-ladder-kaggle-tests-20261016/run{1,2,3}/.
 Models actually used (self-reported by each agent): all four build agents and the replay agent claude-sonnet-5-5 at medium effort; the small-edit agents claude-haiku-5-5.
 
-## Checkpoint 2: integrated deterministic replay: IN PROGRESS (agent writing evidence_ladder/testing/; sandbox recording in WSL, replay on Kaggle)
+## Checkpoint 2: integrated deterministic replay: DONE
+Kaggle run 5: replay 26/26 (run 4 had 22/26: four real defects, all fixed), plus contract 23, controller 25, orchestrator 24, models 28 = 126/126.
+Covered: Python and Java correct and known-wrong solutions (real recorded sandbox outcomes), failed check then repair, stale and conflicting evidence,
+GLM malformed / 429 / 500 / timeout / 402, budget exhaustion, irreversible refusal, unsupported LAYA decision, reproducibility (identical hashes on
+two runs), protected grading never influencing selection (flipped grader gives identical selections), authorization refusal, per-track separation and
+mutation flags. Full record: HANDOFF_2026_10_16_EVIDENCE_LADDER_RUNTIME.md.
 ## Checkpoint 3: authorization: BLOCKED on the user (D1 waiver, D7, credits, GO)
 ## Checkpoint 4: pilot execution: BLOCKED (needs Checkpoint 3)

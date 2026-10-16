@@ -1,0 +1,12 @@
+[{"stream_name":"stderr","time":12.22164081,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":12.222057129,"data":"  File \"/kaggle/src/script.py\", line 50, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":12.222078832,"data":"    print(json.dumps({k: (v.get(\"exit_code\"), (v.get(\"summary\") or {}).get(\"passed\"), (v.get(\"summary\") or {}).get(\"tests\")) for k, v in res[\"suites\"].items()}), \"all_exit_zero:\", res[\"all_exit_zero\"])\n"}
+,{"stream_name":"stderr","time":12.222087856,"data":"                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":12.222100914,"data":"AttributeError: 'str' object has no attribute 'get'\n"}
+,{"stream_name":"stderr","time":14.624982809,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":14.625015239,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":14.999868931,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":14.999895239,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16.629419589,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.75071681,"data":"[NbConvertApp] Writing 290730 bytes to __results__.html\n"}
+]
