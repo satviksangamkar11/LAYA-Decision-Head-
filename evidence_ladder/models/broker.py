@@ -14,7 +14,7 @@ from evidence_ladder.models import glm
 from evidence_ladder.models._util import canonical_json, redact
 
 # Call-logic limits (user, FIXED NVIDIA CALL LOGIC). Configuration constants only; enforced by pc_sender.KeyScheduler.
-LIMITS = {"max_in_flight_per_key": 5, "max_sends_per_key_per_minute": 39, "rate_limit_cooldown_s": 60}
+LIMITS = {"max_in_flight_per_key": 10, "max_sends_per_key_per_minute": 39, "rate_limit_cooldown_s": 60}  # user 2026-10-16: 10 in flight per key (2026-10-11 measurement: at 10, about half got 429; 39/min and 60 s cooldown unchanged)
 TERMINAL = ("ok", "malformed", "unavailable")
 QUOTA_RE = re.compile(r"payment|billing|insufficient[ _-]*(credit|quota|balance|fund)|out of credits|quota[ _-]*(exceeded|exhausted)|exceeded.{0,40}quota|subscription", re.I)
 

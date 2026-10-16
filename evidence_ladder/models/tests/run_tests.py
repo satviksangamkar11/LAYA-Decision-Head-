@@ -18,6 +18,7 @@ from evidence_ladder.common.contract_import import C  # noqa: E402
 from evidence_ladder.common.interfaces import (BudgetExhausted, Generation, GenerationRequest, NotAuthorized, UnsupportedDecisionType)  # noqa: E402
 from evidence_ladder.models import broker as B, glm, laya, qwen  # noqa: E402
 from evidence_ladder.models.pc_sender import KeyScheduler, PcSender  # noqa: E402
+from evidence_ladder.models.kaggle_keys import split_keys  # noqa: E402
 
 GLM_FX = json.loads((MODELS / "fixtures" / "glm_responses.json").read_text(encoding="utf-8"))
 QWEN_FX = json.loads((MODELS / "fixtures" / "qwen_generations.json").read_text(encoding="utf-8"))
@@ -337,7 +338,7 @@ def test_broker_ledger_append_only_and_keyless():
         assert [x["seq"] for x in lines] == list(range(1, len(lines) + 1))
         assert "nv" + "api-ABCDEF" not in after and "abc.def-123" not in after and "[REDACTED]" in after
         cfg = lines[0]
-        assert cfg["event"] == "config" and cfg["limits"] == {"max_in_flight_per_key": 5, "max_sends_per_key_per_minute": 39, "rate_limit_cooldown_s": 60}
+        assert cfg["event"] == "config" and cfg["limits"] == {"max_in_flight_per_key": 10, "max_sends_per_key_per_minute": 39, "rate_limit_cooldown_s": 60}
         b2 = B.StagedCriticBroker(path, config=CFG)                                                  # replay restores state without writing
         assert b2.packets[pid]["state"] == b.packets[pid]["state"] and path.read_text(encoding="utf-8") == after
         assert b2.counters == b.counters
@@ -374,8 +375,8 @@ def test_broker_completed_and_replay():
 # ================================================================= pc sender
 def test_scheduler_limits_fake_clock():
     s = KeyScheduler(["k1"])
-    got = [s.acquire(0.0) for _ in range(6)]
-    assert got == ["k1"] * 5 + [None]                                                               # 5 in flight
+    got = [s.acquire(0.0) for _ in range(11)]
+    assert got == ["k1"] * 10 + [None]                                                              # 10 in flight
     s.release("k1", 0.0)
     assert s.acquire(0.0) == "k1"
     s2 = KeyScheduler(["k1"])
@@ -433,11 +434,11 @@ def test_sender_in_flight_wave_limit():
             return [fn(i) for i in items]
     with tempfile.TemporaryDirectory() as tmp:
         ex = Rec()
-        b, clk, sender = _loaded_sender(tmp, 12, ["k1", "k2"], executor=ex)
+        b, clk, sender = _loaded_sender(tmp, 25, ["k1", "k2"], executor=ex)
         res = sender.send_pending(lambda p, k: (200, GOOD))
-        assert res["sent"] == 12 and ex.waves
+        assert res["sent"] == 25 and ex.waves and len(ex.waves) >= 2                                  # 2 keys x 10 per wave: 25 needs 2+ waves
         for w in ex.waves:
-            assert all(w.count(k) <= 5 for k in set(w)), w
+            assert all(w.count(k) <= 10 for k in set(w)), w
 
 
 def test_sender_rate_limit_cools_key_and_requeues():
@@ -467,7 +468,7 @@ def test_sender_stops_on_payment_and_survives_transport_errors():
             n.append(1)
             return 402, {"body": {"error": "Payment Required"}}
         res = sender.send_pending(transport)
-        assert res["stopped"] and len(n) <= 5 and b.stop_all_critic_calls
+        assert res["stopped"] and len(n) <= 10 and b.stop_all_critic_calls                            # one wave of up to 10 in flight
     with tempfile.TemporaryDirectory() as tmp:
         b, clk, sender = _loaded_sender(tmp, 1, ["k1"])
         calls = []
@@ -546,6 +547,18 @@ def test_probe_and_random_head_interfaces():
         assert laya.RandomHeadScorer(repo_root=root, manifest_path=man, expected_capture=exp).scorer_def["status"] == "transfer_test"
         # the three share one compatibility block (same Qwen features)
         assert p.scorer_def["compatibility"] == laya.LayaScorer(repo_root=root, manifest_path=man, expected_capture=exp).scorer_def["compatibility"]
+
+
+# ================================================================= kaggle keys
+def test_kaggle_keys_split():
+    a, b, c = "a" * 3 + "1", "b" * 3 + "2", "c" * 3 + "3"
+    text = "# note\n" + a + "\n\n  " + b + " , " + a + "\n" + c + "\n"
+    assert split_keys(text) == {"key_1": a, "key_2": b, "key_3": c}                                  # comma + newline, blanks and # skipped, dup dropped
+    raises(ValueError, split_keys, "# only\n\n")
+    raises(ValueError, split_keys, "")
+    bad = "a" * 3 + " 1"
+    e = raises(ValueError, split_keys, "ok" + "1" * 3 + "\n" + bad)
+    assert "line 2" in str(e) and bad not in str(e) and "aaa" not in str(e)                          # message never carries key text
 
 
 # ================================================================= static

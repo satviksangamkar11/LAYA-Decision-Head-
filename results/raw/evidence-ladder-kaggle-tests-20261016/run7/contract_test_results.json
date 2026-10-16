@@ -1,0 +1,29 @@
+{
+ "tests": 23,
+ "passed": 23,
+ "results": {
+  "S1-T1 explicit requirement with a wrong quote becomes a derived hypothesis": "PASS",
+  "S1-T2 a derived hypothesis cannot gate approval": "PASS",
+  "S1-T3 evidence for requirement version 1 is ignored after version 2": "PASS",
+  "S1-T4 contradictory hard requirements are reported": "PASS",
+  "S2-T1 stale evidence: a repaired candidate inherits nothing": "PASS",
+  "S2-T2 conflicting trusted checks never approve": "PASS",
+  "S2-T3 a model-written test passing never makes VERIFIED": "PASS",
+  "S2-T4 timeout/error/unknown records never count as a pass": "PASS",
+  "S2-T5 'never negative' proved, 'implements policy' open -> answer not VERIFIED": "PASS",
+  "S2-T6 a check that does not cover the requirement cannot approve it": "PASS",
+  "S2-T7 irreversible action needs the user's confirmation": "PASS",
+  "S3-T1 a check missing from the registry cannot produce evidence": "PASS",
+  "S3-T2 LAYA refused for an unsupported decision type unless exploratory": "PASS",
+  "S3-T3 a registry or scorer change during a run aborts it": "PASS",
+  "S3-T4 grader-only hidden tests are unreachable from runtime code": "PASS",
+  "S3-T5 schema rejects a grader-only check marked runtime visible": "PASS",
+  "S5-T1 identical failure on parent and child stops the lineage": "PASS",
+  "S5-T2 progress then none for two rounds -> no_progress_2": "PASS",
+  "S5-T3 a scorer preferring fewer trusted passes does not reorder": "PASS",
+  "S5-T4 budget reached -> budget, never decided": "PASS",
+  "S5-T5 sandbox error is tool_failure, separate from candidate failure": "PASS",
+  "S4-T7 a failed commit leaves the base byte-identical": "PASS",
+  "SCHEMA examples validate and bad records are rejected": "PASS"
+ }
+}

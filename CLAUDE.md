@@ -31,6 +31,7 @@ disagrees with this file, this file wins.
   "one worker per key"); stay at or below 39 sends per key per minute; on any rate-limit response that key cools for one minute and
   then resumes. Measured: non-streamed requests are cut at 300 s, so long calls must be streamed.
 - **Fixed call logic (user, 2026-10-11, late):** up to 5 requests in flight per key (10 was tried and half were rejected), <= 39 sends per key per minute, a rate-limit response cools that key one minute and the request is re-queued; full text in AGENT_README.md "FIXED NVIDIA CALL LOGIC".
+- **Call logic update (user, 2026-10-16, chat):** up to 10 requests in flight per key (replaces 5; the 2026-10-11 measurement at 10 saw about half rejected with 429), <= 39 sends per key per minute and a 1-minute cooldown on a rate-limit response are unchanged; all NVIDIA keys go into ONE Kaggle Secret `NVIDIA_API_KEYS` (one key per line) read only by the separate critic kernel (`evidence_ladder/models/kaggle_keys.py`).
 - **Outside judges:** GLM-5.3, Gemma 4 31B and Kimi K3 on the same NVIDIA endpoints may review blinded packets (no labels sent).
   "Use max quality": do not lower reasoning effort to gain speed. No judge is qualified yet
   (`results/raw/judge-qual-v1-20261010T192150Z`); generated pools are not accepted for training until the review process is.

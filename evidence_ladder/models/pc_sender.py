@@ -1,6 +1,6 @@
 """PC-side sender: a pure per-key scheduler plus a loop that drains the broker through an INJECTED transport.
 No key handling and no key tooling here: the transport callable (owned by the PC operator) picks the credential for an opaque key label.
-transport(packet, key_label) -> (http_status | None, raw_response). Limits: <= 5 in flight per key, <= 39 sends per key per rolling minute, 429 cools the key."""
+transport(packet, key_label) -> (http_status | None, raw_response). Limits: <= 10 in flight per key, <= 39 sends per key per rolling minute, 429 cools the key."""
 from __future__ import annotations
 
 import time
