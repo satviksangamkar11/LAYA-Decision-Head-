@@ -60,3 +60,14 @@ mutation flags. Full record: HANDOFF_2026_10_16_EVIDENCE_LADDER_RUNTIME.md.
 ## Checkpoint 3: authorization: decisions RECORDED, pilot GO NOT given
 User confirmed 2026-10-16 ("yes go"): D1 dev-only waiver (does not waive grader adequacy), D7 = `kaggle_secrets_critic_kernel` (separate internet-on critic kernel, keys as Kaggle Secrets, never runs candidate code, no hidden grading material), NVIDIA credits confirmed by the user (not independently checked), pilot_go = false, spend Rs 0. Record: results/raw/evidence-ladder-decisions-20261016T090742Z/DECISIONS.json (sha256 0c80650f...). Schema v2: D7 stores the location string and must equal the runner's `critic_location`. Kaggle run 6: 127/127 (contract 23, controller 25, orchestrator 25 incl. new location test, models 28, replay 26). No authorization manifest written (pilot_go false). Critic kernel not built yet.
 ## Checkpoint 4: pilot execution: BLOCKED (needs Checkpoint 3)
+
+## Stage 0 checkpoint (2026-10-16, after pilot GO; verified from saved outputs only)
+| gate | status | evidence | blocker | next |
+|---|---|---|---|---|
+| FC-1 Kaggle jail | **ERROR** (not PASS) | results/raw/evidence-ladder-stage0-cpu-run3-20261016T123727Z/STAGE0_RESULTS.json (sha256 e3da5c7f...), redteam_v2_kaggle.json (34c32f59...) | custom jail (evidence_ladder/execution/kaggle_jail.py, no bubblewrap on Kaggle) fails at child setup: FileNotFoundError; 0 of 7 attacks actually executed (all PROCESS_ERROR); 0/40 references ran (SANDBOX_ERROR); Java rootfs lacks libjli.so | fix + rerun (in progress, Stage 0 agent) |
+| FC-2 GLM reasoning/API | **PASS** | results/raw/evidence-ladder-critic-v1-run8-20261016/FC2.json (a6cda193...), KEY_CHECK.json (59ee3f74...) | none; note ~108-134 s per tiny call | use reasoning_effort="max", streamed |
+| FC-3 Qwen speed | **NOT RUN** | run3 FC3_qwen_throughput = SKIPPED (no CUDA in that kernel) | needs a GPU kernel | separate free GPU kernel |
+| FC-4 hidden-test isolation | **ERROR** (reported FAIL by the kernel because jailed grading crashed) | run3 FC4_separation_in_kaggle | partial evidence holds (selection stdin = public inputs only; grading stdin = protected inputs only, no expected values) but jailed grading returned SANDBOX_ERROR and the jail fs scan did not run | rerun after FC-1 works |
+Kaggle: stage0 kernel `evidence-ladder-stage0-run-v1` and dataset `evidence-ladder-stage0-bundle-v1` (COMPLETE at checkpoint); critic `evidence-ladder-critic-v1` v8 COMPLETE (14 keys, 2 NVIDIA calls).
+Uncommitted agent code at checkpoint: evidence_ladder/execution/{config.py, engine.py} (modified), evidence_ladder/execution/kaggle_jail.py, evidence_ladder/models/qwen.py (modified), kaggle/evidence_ladder_stage0_v1.py, kaggle/el_stage0_probe_push/, tools/pack_evidence_ladder_stage0_v1.py. The WSL execution suite (21/21) has NOT been re-run against the modified engine/config.
+**Stage 0: BLOCKED.** No coding pilot while FC-1 is unverified. Spend Rs 0.

@@ -1,0 +1,442 @@
+{
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "uid": 0,
+ "phases": {
+  "FC1_rootfs": {
+   "rootfs": "/tmp/kjail-root",
+   "bytes": 371531101,
+   "python": "/usr/bin/python3.13",
+   "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+   "libs": 51,
+   "status": "BUILT",
+   "seconds": 4.3
+  },
+  "FC1_layers_python": {
+   "phase_status": "sandbox_error",
+   "term": "crash",
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n",
+   "probe": null,
+   "seconds": 0.2
+  },
+  "FC1_layers_java": {
+   "outcome": {
+    "check_id": "critic_experiment_v1",
+    "status": "fail",
+    "detail": "javac failed",
+    "failure_class": "compile_error",
+    "duration_s": 0.166,
+    "stderr_tail": "/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\n",
+    "observed": null
+   },
+   "seconds": 0.2
+  },
+  "FC1_redteam_v2_original_script": {
+   "exit_code": 0,
+   "stdout_tail": "{\n \"all_pass\": false,\n \"T1_read_protected_cases\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T2_proc_and_env\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T3_network\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T4a_limits\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T4b_infinite_loop\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T5_write_outside\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T6_forge_output\": [\n  true,\n  \"PROCESS_ERROR\",\n  []\n ]\n}\n",
+   "stderr_tail": "",
+   "full_stdout_file": "stdout_redteam_run_v2.txt",
+   "report": {
+    "all_pass": false,
+    "tests": {
+     "T1_read_protected_cases": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T2_proc_and_env": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T3_network": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T4a_limits": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T4b_infinite_loop": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T5_write_outside": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T6_forge_output": {
+      "pass": true,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     }
+    }
+   },
+   "status": "FAIL",
+   "protected_file_exists_on_host": true,
+   "seconds": 1.9
+  },
+  "FC1_FC4_execution_suite_through_kaggle_jail": {
+   "exit_code": 1,
+   "stdout_tail": "te_open_raises_closed_grades_and_shape\\n    assert set(h) == set(HiddenGrade.__annotations__) and h[\\\"passed\\\"] is True and h[\\\"passed_tests\\\"] == h[\\\"total_tests\\\"] == 47 and h[\\\"failure\\\"] is None, h\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError: {'passed': False, 'passed_tests': 0, 'total_tests': 47, 'failure': 'SANDBOX_ERROR', 'artifact_id': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd', 'task_id': 'P1-01', 'sha256_before_run': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd'}\\n\", \"protected_python_40_references_and_all_wrong\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 502, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 441, in protected_python_40_references_and_all_wrong\\n    assert len(ok) == 40, sorted(set(PY_TASKS) - set(ok))\\n           ^^^^^^^^^^^^^\\nAssertionError: ['P1-01', 'P1-02', 'P1-03', 'P1-04', 'P1-05', 'P1-06', 'P1-07', 'P1-08', 'P1-09', 'P1-10', 'P1-11', 'P1-12', 'P1-13', 'P1-14', 'P1-15', 'P1-16', 'P1-17', 'P1-18', 'P1-19', 'P1-20', 'P1-21', 'P1-22', 'P1-23', 'P1-24', 'P1-25', 'P1-26', 'P1-27', 'P1-28', 'P1-29', 'P1-30', 'P1-31', 'P1-32', 'P1-33', 'P1-34', 'P1-35', 'P1-36', 'P1-37', 'P1-38', 'P1-39', 'P1-40']\\n\", \"protected_java_40_references\": \"\\n    assert len(ok) == 40, NOTES.get(\\\"java_ref_failures\\\")\\n           ^^^^^^^^^^^^^\\nAssertionError: [('J1-01', 'COMPILE_ERROR', 0, 67), ('J1-02', 'COMPILE_ERROR', 0, 40), ('J1-03', 'COMPILE_ERROR', 0, 40), ('J1-04', 'COMPILE_ERROR', 0, 40), ('J1-05', 'COMPILE_ERROR', 0, 40), ('J1-06', 'COMPILE_ERROR', 0, 44), ('J1-07', 'COMPILE_ERROR', 0, 40), ('J1-08', 'COMPILE_ERROR', 0, 40), ('J1-09', 'COMPILE_ERROR', 0, 40), ('J1-10', 'COMPILE_ERROR', 0, 40), ('J1-11', 'COMPILE_ERROR', 0, 40), ('J1-12', 'COMPILE_ERROR', 0, 42), ('J1-13', 'COMPILE_ERROR', 0, 40), ('J1-14', 'COMPILE_ERROR', 0, 40), ('J1-15', 'COMPILE_ERROR', 0, 40), ('J1-16', 'COMPILE_ERROR', 0, 40), ('J1-17', 'COMPILE_ERROR', 0, 40), ('J1-18', 'COMPILE_ERROR', 0, 40), ('J1-19', 'COMPILE_ERROR', 0, 40), ('J1-20', 'COMPILE_ERROR', 0, 40), ('J1-21', 'COMPILE_ERROR', 0, 40), ('J1-22', 'COMPILE_ERROR', 0, 40), ('J1-23', 'COMPILE_ERROR', 0, 40), ('J1-24', 'COMPILE_ERROR', 0, 40), ('J1-25', 'COMPILE_ERROR', 0, 40), ('J1-26', 'COMPILE_ERROR', 0, 40), ('J1-27', 'COMPILE_ERROR', 0, 41), ('J1-28', 'COMPILE_ERROR', 0, 40), ('J1-29', 'COMPILE_ERROR', 0, 42), ('J1-30', 'COMPILE_ERROR', 0, 40), ('J1-31', 'COMPILE_ERROR', 0, 40), ('J1-32', 'COMPILE_ERROR', 0, 40), ('J1-33', 'COMPILE_ERROR', 0, 40), ('J1-34', 'COMPILE_ERROR', 0, 40), ('J1-35', 'COMPILE_ERROR', 0, 40), ('J1-36', 'COMPILE_ERROR', 0, 40), ('J1-37', 'COMPILE_ERROR', 0, 40), ('J1-38', 'COMPILE_ERROR', 0, 40), ('J1-39', 'COMPILE_ERROR', 0, 41), ('J1-40', 'COMPILE_ERROR', 0, 40)]\\n\", \"isolation_receipt_contents\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 502, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 486, in isolation_receipt_contents\\n    assert j[\\\"uid\\\"] == 65534 and j[\\\"write_usr\\\"].startswith(\\\"blocked\\\") and j[\\\"write_etc\\\"].startswith(\\\"blocked\\\") and j[\\\"network\\\"].startswith(\\\"blocked\\\"), j\\n           ~^^^^^^^\\nKeyError: 'uid'\\n\"}, \"notes\": {\"seconds\": {\"py_reference_passes_public\": 0.2, \"py_wrong_fails_with_counterexample\": 5.8, \"py_known_wrong_exact_counterexample\": 0.1, \"py_compile_error_runtime_error_timeout_missing\": 0.1, \"strict_type_sensitivity\": 0.2, \"task_language_mismatch_is_invalid_spec\": 0.0, \"per_example_outcomes\": 0.2, \"java_reference_passes_public_and_wrong_fails\": 0.2, \"java_compile_runtime_timeout_missing_classes\": 0.3, \"java_utf8_pinned_and_non_ascii_task\": 0.2, \"hostile_python_cannot_escape\": 0.1, \"hostile_java_cannot_escape\": 0.2, \"hash_tamper_is_error_not_pass_or_fail\": 0.2, \"candidates_are_isolated_from_each_other\": 0.3, \"experiments\": 0.2, \"static_no_protected_import\": 0.1, \"gate_open_raises_closed_grades_and_shape\": 0.3, \"protected_python_40_references_and_all_wrong\": 11.5, \"protected_java_40_references\": 6.8, \"existing_receipts_intact\": 0.0, \"isolation_receipt_contents\": 0.5}, \"java_ref_failures\": [[\"J1-01\", \"COMPILE_ERROR\", 0, 67], [\"J1-02\", \"COMPILE_ERROR\", 0, 40], [\"J1-03\", \"COMPILE_ERROR\", 0, 40], [\"J1-04\", \"COMPILE_ERROR\", 0, 40], [\"J1-05\", \"COMPILE_ERROR\", 0, 40], [\"J1-06\", \"COMPILE_ERROR\", 0, 44], [\"J1-07\", \"COMPILE_ERROR\", 0, 40], [\"J1-08\", \"COMPILE_ERROR\", 0, 40], [\"J1-09\", \"COMPILE_ERROR\", 0, 40], [\"J1-10\", \"COMPILE_ERROR\", 0, 40], [\"J1-11\", \"COMPILE_ERROR\", 0, 40], [\"J1-12\", \"COMPILE_ERROR\", 0, 42], [\"J1-13\", \"COMPILE_ERROR\", 0, 40], [\"J1-14\", \"COMPILE_ERROR\", 0, 40], [\"J1-15\", \"COMPILE_ERROR\", 0, 40], [\"J1-16\", \"COMPILE_ERROR\", 0, 40], [\"J1-17\", \"COMPILE_ERROR\", 0, 40], [\"J1-18\", \"COMPILE_ERROR\", 0, 40], [\"J1-19\", \"COMPILE_ERROR\", 0, 40], [\"J1-20\", \"COMPILE_ERROR\", 0, 40], [\"J1-21\", \"COMPILE_ERROR\", 0, 40], [\"J1-22\", \"COMPILE_ERROR\", 0, 40], [\"J1-23\", \"COMPILE_ERROR\", 0, 40], [\"J1-24\", \"COMPILE_ERROR\", 0, 40], [\"J1-25\", \"COMPILE_ERROR\", 0, 40], [\"J1-26\", \"COMPILE_ERROR\", 0, 40], [\"J1-27\", \"COMPILE_ERROR\", 0, 41], [\"J1-28\", \"COMPILE_ERROR\", 0, 40], [\"J1-29\", \"COMPILE_ERROR\", 0, 42], [\"J1-30\", \"COMPILE_ERROR\", 0, 40], [\"J1-31\", \"COMPILE_ERROR\", 0, 40], [\"J1-32\", \"COMPILE_ERROR\", 0, 40], [\"J1-33\", \"COMPILE_ERROR\", 0, 40], [\"J1-34\", \"COMPILE_ERROR\", 0, 40], [\"J1-35\", \"COMPILE_ERROR\", 0, 40], [\"J1-36\", \"COMPILE_ERROR\", 0, 40], [\"J1-37\", \"COMPILE_ERROR\", 0, 40], [\"J1-38\", \"COMPILE_ERROR\", 0, 40], [\"J1-39\", \"COMPILE_ERROR\", 0, 41], [\"J1-40\", \"COMPILE_ERROR\", 0, 40]], \"replayed_receipt_files\": 14, \"java_redteam_escaped_markers_in_old_receipt\": [\"ESCAPED list /mnt -> null\", \"ESCAPED list /home -> null\", \"ESCAPED exec -> 0\"]}, \"total_seconds\": 27.4}\n",
+   "stderr_tail": "",
+   "full_stdout_file": "stdout_run_tests.txt",
+   "summary": {
+    "tests": 21,
+    "passed": 3,
+    "failed": {
+     "py_reference_passes_public": "ples_v1', 'example_index': 0, 'duration_s': 0.166, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 1, 'duration_s': 0.166, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 2, 'duration_s': 0.166, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 3, 'duration_s': 0.166, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''}])\n",
+     "py_wrong_fails_with_counterexample": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 111, in py_wrong_fails_with_counterexample\n    assert failing, \"no known-wrong solution was caught by public examples\"\n           ^^^^^^^\nAssertionError: no known-wrong solution was caught by public examples\n",
+     "py_known_wrong_exact_counterexample": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 126, in py_known_wrong_exact_counterexample\n    assert p[\"status\"] == \"fail\" or p[\"status\"] == \"pass\"     # whichever; counterexample must be the FIRST failing public case if it fails\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "py_compile_error_runtime_error_timeout_missing": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 137, in py_compile_error_runtime_error_timeout_missing\n    assert pub(o, \"parse_v1\")[\"status\"] == \"fail\" and pub(o, \"parse_v1\")[\"failure_class\"] == \"compile_error\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "strict_type_sensitivity": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 160, in strict_type_sensitivity\n    assert p[\"status\"] == want, (src, p)\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError: ('def solve(d): return 1', {'check_id': 'public_examples_v1', 'example_index': 0, 'duration_s': 0.165, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''})\n",
+     "per_example_outcomes": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 177, in per_example_outcomes\n    assert len(ex) == n and all(o[\"status\"] == \"pass\" and \"counterexample\" not in o for o in ex)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "java_reference_passes_public_and_wrong_fails": "or directory\\n', 'duration_s': 0.165}, {'check_id': 'public_examples_v1', 'example_index': 0, 'duration_s': 0.165, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'status': 'missing_evidence', 'failure_class': 'compile_error', 'detail': 'not run: javac failed', 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 1, 'duration_s': 0.165, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'status': 'missing_evidence', 'failure_class': 'compile_error', 'detail': 'not run: javac failed', 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 2, 'duration_s': 0.165, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'status': 'missing_evidence', 'failure_class': 'compile_error', 'detail': 'not run: javac failed', 'observed': ''}, {'check_id': 'public_examples_v1', 'example_index': 3, 'duration_s': 0.165, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'status': 'missing_evidence', 'failure_class': 'compile_error', 'detail': 'not run: javac failed', 'observed': ''}])\n",
+     "java_compile_runtime_timeout_missing_classes": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 223, in java_compile_runtime_timeout_missing_classes\n    assert p[\"status\"] == \"fail\" and p[\"failure_class\"] == \"runtime_error\", p\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'check_id': 'public_examples_v1', 'example_index': 0, 'duration_s': 0.166, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'status': 'missing_evidence', 'failure_class': 'compile_error', 'detail': 'not run: javac failed', 'observed': ''}\n",
+     "java_utf8_pinned_and_non_ascii_task": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 239, in java_utf8_pinned_and_non_ascii_task\n    assert o[\"status\"] == \"pass\" and o[\"observed\"] == \"UTF-8|UTF-8|UTF-8|C.UTF-8\", o\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'check_id': 'critic_experiment_v1', 'status': 'fail', 'detail': 'javac failed', 'failure_class': 'compile_error', 'duration_s': 0.165, 'stderr_tail': '/usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\\n', 'observed': None}\n",
+     "hostile_python_cannot_escape": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 302, in hostile_python_cannot_escape\n    assert \"BLOCKED\" in p[\"stderr_tail\"], (name, p[\"stderr_tail\"])\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('read_host_files', \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\")\n",
+     "hostile_java_cannot_escape": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 317, in hostile_java_cannot_escape\n    assert p[\"stderr_tail\"].count(\"BLOCKED\") >= 7, p[\"stderr_tail\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: /usr/lib/jvm/java-21-openjdk-amd64/bin/javac: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory\n\n",
+     "hash_tamper_is_error_not_pass_or_fail": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 327, in hash_tamper_is_error_not_pass_or_fail\n    assert pub(be.run_public(a, task), \"public_examples_v1\")[\"status\"] == \"pass\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "candidates_are_isolated_from_each_other": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 359, in candidates_are_isolated_from_each_other\n    assert pb[\"status\"] == \"pass\" and \"ESCAPED\" not in pb[\"stderr_tail\"] and pb[\"stderr_tail\"].count(\"BLOCKED\") == 2, pb\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'check_id': 'public_examples_v1', 'example_index': 0, 'duration_s': 0.166, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'status': 'error', 'failure_class': 'sandbox_error', 'detail': \"not run: sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'observed': ''}\n",
+     "experiments": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 370, in experiments\n    assert o[\"status\"] == \"pass\" and o[\"observed\"] == 3 and o[\"check_id\"] == \"critic_experiment_v1\", o\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'check_id': 'critic_experiment_v1', 'status': 'error', 'detail': \"sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\", 'failure_class': 'sandbox_error', 'duration_s': 0.165, 'stderr_tail': \"bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\\n\"}\n",
+     "gate_open_raises_closed_grades_and_shape": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 425, in gate_open_raises_closed_grades_and_shape\n    assert set(h) == set(HiddenGrade.__annotations__) and h[\"passed\"] is True and h[\"passed_tests\"] == h[\"total_tests\"] == 47 and h[\"failure\"] is None, h\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'passed': False, 'passed_tests': 0, 'total_tests': 47, 'failure': 'SANDBOX_ERROR', 'artifact_id': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd', 'task_id': 'P1-01', 'sha256_before_run': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd'}\n",
+     "protected_python_40_references_and_all_wrong": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 441, in protected_python_40_references_and_all_wrong\n    assert len(ok) == 40, sorted(set(PY_TASKS) - set(ok))\n           ^^^^^^^^^^^^^\nAssertionError: ['P1-01', 'P1-02', 'P1-03', 'P1-04', 'P1-05', 'P1-06', 'P1-07', 'P1-08', 'P1-09', 'P1-10', 'P1-11', 'P1-12', 'P1-13', 'P1-14', 'P1-15', 'P1-16', 'P1-17', 'P1-18', 'P1-19', 'P1-20', 'P1-21', 'P1-22', 'P1-23', 'P1-24', 'P1-25', 'P1-26', 'P1-27', 'P1-28', 'P1-29', 'P1-30', 'P1-31', 'P1-32', 'P1-33', 'P1-34', 'P1-35', 'P1-36', 'P1-37', 'P1-38', 'P1-39', 'P1-40']\n",
+     "protected_java_40_references": "\n    assert len(ok) == 40, NOTES.get(\"java_ref_failures\")\n           ^^^^^^^^^^^^^\nAssertionError: [('J1-01', 'COMPILE_ERROR', 0, 67), ('J1-02', 'COMPILE_ERROR', 0, 40), ('J1-03', 'COMPILE_ERROR', 0, 40), ('J1-04', 'COMPILE_ERROR', 0, 40), ('J1-05', 'COMPILE_ERROR', 0, 40), ('J1-06', 'COMPILE_ERROR', 0, 44), ('J1-07', 'COMPILE_ERROR', 0, 40), ('J1-08', 'COMPILE_ERROR', 0, 40), ('J1-09', 'COMPILE_ERROR', 0, 40), ('J1-10', 'COMPILE_ERROR', 0, 40), ('J1-11', 'COMPILE_ERROR', 0, 40), ('J1-12', 'COMPILE_ERROR', 0, 42), ('J1-13', 'COMPILE_ERROR', 0, 40), ('J1-14', 'COMPILE_ERROR', 0, 40), ('J1-15', 'COMPILE_ERROR', 0, 40), ('J1-16', 'COMPILE_ERROR', 0, 40), ('J1-17', 'COMPILE_ERROR', 0, 40), ('J1-18', 'COMPILE_ERROR', 0, 40), ('J1-19', 'COMPILE_ERROR', 0, 40), ('J1-20', 'COMPILE_ERROR', 0, 40), ('J1-21', 'COMPILE_ERROR', 0, 40), ('J1-22', 'COMPILE_ERROR', 0, 40), ('J1-23', 'COMPILE_ERROR', 0, 40), ('J1-24', 'COMPILE_ERROR', 0, 40), ('J1-25', 'COMPILE_ERROR', 0, 40), ('J1-26', 'COMPILE_ERROR', 0, 40), ('J1-27', 'COMPILE_ERROR', 0, 41), ('J1-28', 'COMPILE_ERROR', 0, 40), ('J1-29', 'COMPILE_ERROR', 0, 42), ('J1-30', 'COMPILE_ERROR', 0, 40), ('J1-31', 'COMPILE_ERROR', 0, 40), ('J1-32', 'COMPILE_ERROR', 0, 40), ('J1-33', 'COMPILE_ERROR', 0, 40), ('J1-34', 'COMPILE_ERROR', 0, 40), ('J1-35', 'COMPILE_ERROR', 0, 40), ('J1-36', 'COMPILE_ERROR', 0, 40), ('J1-37', 'COMPILE_ERROR', 0, 40), ('J1-38', 'COMPILE_ERROR', 0, 40), ('J1-39', 'COMPILE_ERROR', 0, 41), ('J1-40', 'COMPILE_ERROR', 0, 40)]\n",
+     "isolation_receipt_contents": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 502, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\", line 486, in isolation_receipt_contents\n    assert j[\"uid\"] == 65534 and j[\"write_usr\"].startswith(\"blocked\") and j[\"write_etc\"].startswith(\"blocked\") and j[\"network\"].startswith(\"blocked\"), j\n           ~^^^^^^^\nKeyError: 'uid'\n"
+    },
+    "notes": {
+     "seconds": {
+      "py_reference_passes_public": 0.2,
+      "py_wrong_fails_with_counterexample": 5.8,
+      "py_known_wrong_exact_counterexample": 0.1,
+      "py_compile_error_runtime_error_timeout_missing": 0.1,
+      "strict_type_sensitivity": 0.2,
+      "task_language_mismatch_is_invalid_spec": 0.0,
+      "per_example_outcomes": 0.2,
+      "java_reference_passes_public_and_wrong_fails": 0.2,
+      "java_compile_runtime_timeout_missing_classes": 0.3,
+      "java_utf8_pinned_and_non_ascii_task": 0.2,
+      "hostile_python_cannot_escape": 0.1,
+      "hostile_java_cannot_escape": 0.2,
+      "hash_tamper_is_error_not_pass_or_fail": 0.2,
+      "candidates_are_isolated_from_each_other": 0.3,
+      "experiments": 0.2,
+      "static_no_protected_import": 0.1,
+      "gate_open_raises_closed_grades_and_shape": 0.3,
+      "protected_python_40_references_and_all_wrong": 11.5,
+      "protected_java_40_references": 6.8,
+      "existing_receipts_intact": 0.0,
+      "isolation_receipt_contents": 0.5
+     },
+     "java_ref_failures": [
+      [
+       "J1-01",
+       "COMPILE_ERROR",
+       0,
+       67
+      ],
+      [
+       "J1-02",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-03",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-04",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-05",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-06",
+       "COMPILE_ERROR",
+       0,
+       44
+      ],
+      [
+       "J1-07",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-08",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-09",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-10",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-11",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-12",
+       "COMPILE_ERROR",
+       0,
+       42
+      ],
+      [
+       "J1-13",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-14",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-15",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-16",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-17",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-18",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-19",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-20",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-21",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-22",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-23",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-24",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-25",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-26",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-27",
+       "COMPILE_ERROR",
+       0,
+       41
+      ],
+      [
+       "J1-28",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-29",
+       "COMPILE_ERROR",
+       0,
+       42
+      ],
+      [
+       "J1-30",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-31",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-32",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-33",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-34",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-35",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-36",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-37",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-38",
+       "COMPILE_ERROR",
+       0,
+       40
+      ],
+      [
+       "J1-39",
+       "COMPILE_ERROR",
+       0,
+       41
+      ],
+      [
+       "J1-40",
+       "COMPILE_ERROR",
+       0,
+       40
+      ]
+     ],
+     "replayed_receipt_files": 14,
+     "java_redteam_escaped_markers_in_old_receipt": [
+      "ESCAPED list /mnt -> null",
+      "ESCAPED list /home -> null",
+      "ESCAPED exec -> 0"
+     ]
+    },
+    "total_seconds": 27.4
+   },
+   "seconds": 27.6
+  },
+  "FC4_separation_in_kaggle": {
+   "gate_open_raises": true,
+   "selection_stdin_lines": 5,
+   "selection_stdin_only_public_inputs": true,
+   "protected_inputs_not_public": 47,
+   "no_protected_input_in_selection_stdin": true,
+   "jail_scan_marker": "{\"text\": \"xyz\\n\\t\"}",
+   "jail_scan_hits_line": [],
+   "jail_fs_scan_ran_and_found_nothing": false,
+   "host_has_marker_file": false,
+   "graded_after_close": {
+    "passed": false,
+    "passed_tests": 0,
+    "total_tests": 47,
+    "failure": "SANDBOX_ERROR"
+   },
+   "grading_stdin_lines": 47,
+   "grading_stdin_equals_protected_inputs_only": true,
+   "grading_stdin_has_expected_key": false,
+   "hiddengrade_fields": [
+    "artifact_id",
+    "failure",
+    "passed",
+    "passed_tests",
+    "sha256_before_run",
+    "task_id",
+    "total_tests"
+   ],
+   "status": "FAIL",
+   "seconds": 0.8
+  },
+  "FC3_qwen_throughput": {
+   "status": "SKIPPED",
+   "reason": "no CUDA device in this kernel",
+   "seconds": 5.1
+  }
+ },
+ "manifest_files": 130,
+ "hash_mismatches": [],
+ "seconds": 40.9
+}

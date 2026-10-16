@@ -1,0 +1,7 @@
+{
+ "check": "FC-2",
+ "model": "z-ai/glm-5.3-flash",
+ "calls": [],
+ "nvidia_calls": 0,
+ "accepted": {}
+}

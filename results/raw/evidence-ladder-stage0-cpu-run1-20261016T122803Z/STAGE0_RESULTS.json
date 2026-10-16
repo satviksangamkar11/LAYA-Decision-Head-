@@ -1,0 +1,117 @@
+{
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "uid": 0,
+ "phases": {
+  "FC1_rootfs": {
+   "rootfs": "/tmp/kjail-root",
+   "bytes": 371531101,
+   "python": "/usr/bin/python3.13",
+   "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+   "libs": 51,
+   "status": "BUILT",
+   "seconds": 4.2
+  },
+  "FC1_layers_python": {
+   "phase_status": "sandbox_error",
+   "term": "crash",
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n",
+   "probe": null,
+   "seconds": 0.2
+  },
+  "FC1_layers_java": {
+   "outcome": {
+    "check_id": "critic_experiment_v1",
+    "status": "error",
+    "detail": "sandbox failed to start: bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n",
+    "failure_class": "sandbox_error",
+    "duration_s": 0.115,
+    "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+   },
+   "seconds": 0.1
+  },
+  "FC1_redteam_v2_original_script": {
+   "exit_code": 0,
+   "stdout_tail": "{\n \"all_pass\": false,\n \"T1_read_protected_cases\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T2_proc_and_env\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T3_network\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T4a_limits\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T4b_infinite_loop\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T5_write_outside\": [\n  false,\n  \"PROCESS_ERROR\",\n  []\n ],\n \"T6_forge_output\": [\n  true,\n  \"PROCESS_ERROR\",\n  []\n ]\n}\n",
+   "stderr_tail": "",
+   "report": {
+    "all_pass": false,
+    "tests": {
+     "T1_read_protected_cases": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T2_proc_and_env": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T3_network": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T4a_limits": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T4b_infinite_loop": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T5_write_outside": {
+      "pass": false,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     },
+     "T6_forge_output": {
+      "pass": true,
+      "failure": "PROCESS_ERROR",
+      "escaped": [],
+      "blocked": 0,
+      "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+     }
+    }
+   },
+   "status": "FAIL",
+   "protected_file_exists_on_host": true,
+   "seconds": 1.7
+  },
+  "FC1_FC4_execution_suite_through_kaggle_jail": {
+   "exit_code": 1,
+   "stdout_tail": "te_open_raises_closed_grades_and_shape\\n    assert set(h) == set(HiddenGrade.__annotations__) and h[\\\"passed\\\"] is True and h[\\\"passed_tests\\\"] == h[\\\"total_tests\\\"] == 47 and h[\\\"failure\\\"] is None, h\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError: {'passed': False, 'passed_tests': 0, 'total_tests': 47, 'failure': 'SANDBOX_ERROR', 'artifact_id': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd', 'task_id': 'P1-01', 'sha256_before_run': '6727f54f1995e163f976a13c808d5a53dd945b7c69dee8f11ea582d76314f9dd'}\\n\", \"protected_python_40_references_and_all_wrong\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 502, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 441, in protected_python_40_references_and_all_wrong\\n    assert len(ok) == 40, sorted(set(PY_TASKS) - set(ok))\\n           ^^^^^^^^^^^^^\\nAssertionError: ['P1-01', 'P1-02', 'P1-03', 'P1-04', 'P1-05', 'P1-06', 'P1-07', 'P1-08', 'P1-09', 'P1-10', 'P1-11', 'P1-12', 'P1-13', 'P1-14', 'P1-15', 'P1-16', 'P1-17', 'P1-18', 'P1-19', 'P1-20', 'P1-21', 'P1-22', 'P1-23', 'P1-24', 'P1-25', 'P1-26', 'P1-27', 'P1-28', 'P1-29', 'P1-30', 'P1-31', 'P1-32', 'P1-33', 'P1-34', 'P1-35', 'P1-36', 'P1-37', 'P1-38', 'P1-39', 'P1-40']\\n\", \"protected_java_40_references\": \"\\n    assert len(ok) == 40, NOTES.get(\\\"java_ref_failures\\\")\\n           ^^^^^^^^^^^^^\\nAssertionError: [('J1-01', 'SANDBOX_ERROR', 0, 67), ('J1-02', 'SANDBOX_ERROR', 0, 40), ('J1-03', 'SANDBOX_ERROR', 0, 40), ('J1-04', 'SANDBOX_ERROR', 0, 40), ('J1-05', 'SANDBOX_ERROR', 0, 40), ('J1-06', 'SANDBOX_ERROR', 0, 44), ('J1-07', 'SANDBOX_ERROR', 0, 40), ('J1-08', 'SANDBOX_ERROR', 0, 40), ('J1-09', 'SANDBOX_ERROR', 0, 40), ('J1-10', 'SANDBOX_ERROR', 0, 40), ('J1-11', 'SANDBOX_ERROR', 0, 40), ('J1-12', 'SANDBOX_ERROR', 0, 42), ('J1-13', 'SANDBOX_ERROR', 0, 40), ('J1-14', 'SANDBOX_ERROR', 0, 40), ('J1-15', 'SANDBOX_ERROR', 0, 40), ('J1-16', 'SANDBOX_ERROR', 0, 40), ('J1-17', 'SANDBOX_ERROR', 0, 40), ('J1-18', 'SANDBOX_ERROR', 0, 40), ('J1-19', 'SANDBOX_ERROR', 0, 40), ('J1-20', 'SANDBOX_ERROR', 0, 40), ('J1-21', 'SANDBOX_ERROR', 0, 40), ('J1-22', 'SANDBOX_ERROR', 0, 40), ('J1-23', 'SANDBOX_ERROR', 0, 40), ('J1-24', 'SANDBOX_ERROR', 0, 40), ('J1-25', 'SANDBOX_ERROR', 0, 40), ('J1-26', 'SANDBOX_ERROR', 0, 40), ('J1-27', 'SANDBOX_ERROR', 0, 41), ('J1-28', 'SANDBOX_ERROR', 0, 40), ('J1-29', 'SANDBOX_ERROR', 0, 42), ('J1-30', 'SANDBOX_ERROR', 0, 40), ('J1-31', 'SANDBOX_ERROR', 0, 40), ('J1-32', 'SANDBOX_ERROR', 0, 40), ('J1-33', 'SANDBOX_ERROR', 0, 40), ('J1-34', 'SANDBOX_ERROR', 0, 40), ('J1-35', 'SANDBOX_ERROR', 0, 40), ('J1-36', 'SANDBOX_ERROR', 0, 40), ('J1-37', 'SANDBOX_ERROR', 0, 40), ('J1-38', 'SANDBOX_ERROR', 0, 40), ('J1-39', 'SANDBOX_ERROR', 0, 41), ('J1-40', 'SANDBOX_ERROR', 0, 40)]\\n\", \"isolation_receipt_contents\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 502, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/execution/tests/run_tests.py\\\", line 486, in isolation_receipt_contents\\n    assert j[\\\"uid\\\"] == 65534 and j[\\\"write_usr\\\"].startswith(\\\"blocked\\\") and j[\\\"write_etc\\\"].startswith(\\\"blocked\\\") and j[\\\"network\\\"].startswith(\\\"blocked\\\"), j\\n           ~^^^^^^^\\nKeyError: 'uid'\\n\"}, \"notes\": {\"seconds\": {\"py_reference_passes_public\": 0.1, \"py_wrong_fails_with_counterexample\": 4.5, \"py_known_wrong_exact_counterexample\": 0.1, \"py_compile_error_runtime_error_timeout_missing\": 0.1, \"strict_type_sensitivity\": 0.1, \"task_language_mismatch_is_invalid_spec\": 0.0, \"per_example_outcomes\": 0.1, \"java_reference_passes_public_and_wrong_fails\": 0.1, \"java_compile_runtime_timeout_missing_classes\": 0.1, \"java_utf8_pinned_and_non_ascii_task\": 0.1, \"hostile_python_cannot_escape\": 0.1, \"hostile_java_cannot_escape\": 0.1, \"hash_tamper_is_error_not_pass_or_fail\": 0.1, \"candidates_are_isolated_from_each_other\": 0.2, \"experiments\": 0.1, \"static_no_protected_import\": 0.1, \"gate_open_raises_closed_grades_and_shape\": 0.2, \"protected_python_40_references_and_all_wrong\": 9.4, \"protected_java_40_references\": 10.7, \"existing_receipts_intact\": 0.0, \"isolation_receipt_contents\": 0.3}, \"java_ref_failures\": [[\"J1-01\", \"SANDBOX_ERROR\", 0, 67], [\"J1-02\", \"SANDBOX_ERROR\", 0, 40], [\"J1-03\", \"SANDBOX_ERROR\", 0, 40], [\"J1-04\", \"SANDBOX_ERROR\", 0, 40], [\"J1-05\", \"SANDBOX_ERROR\", 0, 40], [\"J1-06\", \"SANDBOX_ERROR\", 0, 44], [\"J1-07\", \"SANDBOX_ERROR\", 0, 40], [\"J1-08\", \"SANDBOX_ERROR\", 0, 40], [\"J1-09\", \"SANDBOX_ERROR\", 0, 40], [\"J1-10\", \"SANDBOX_ERROR\", 0, 40], [\"J1-11\", \"SANDBOX_ERROR\", 0, 40], [\"J1-12\", \"SANDBOX_ERROR\", 0, 42], [\"J1-13\", \"SANDBOX_ERROR\", 0, 40], [\"J1-14\", \"SANDBOX_ERROR\", 0, 40], [\"J1-15\", \"SANDBOX_ERROR\", 0, 40], [\"J1-16\", \"SANDBOX_ERROR\", 0, 40], [\"J1-17\", \"SANDBOX_ERROR\", 0, 40], [\"J1-18\", \"SANDBOX_ERROR\", 0, 40], [\"J1-19\", \"SANDBOX_ERROR\", 0, 40], [\"J1-20\", \"SANDBOX_ERROR\", 0, 40], [\"J1-21\", \"SANDBOX_ERROR\", 0, 40], [\"J1-22\", \"SANDBOX_ERROR\", 0, 40], [\"J1-23\", \"SANDBOX_ERROR\", 0, 40], [\"J1-24\", \"SANDBOX_ERROR\", 0, 40], [\"J1-25\", \"SANDBOX_ERROR\", 0, 40], [\"J1-26\", \"SANDBOX_ERROR\", 0, 40], [\"J1-27\", \"SANDBOX_ERROR\", 0, 41], [\"J1-28\", \"SANDBOX_ERROR\", 0, 40], [\"J1-29\", \"SANDBOX_ERROR\", 0, 42], [\"J1-30\", \"SANDBOX_ERROR\", 0, 40], [\"J1-31\", \"SANDBOX_ERROR\", 0, 40], [\"J1-32\", \"SANDBOX_ERROR\", 0, 40], [\"J1-33\", \"SANDBOX_ERROR\", 0, 40], [\"J1-34\", \"SANDBOX_ERROR\", 0, 40], [\"J1-35\", \"SANDBOX_ERROR\", 0, 40], [\"J1-36\", \"SANDBOX_ERROR\", 0, 40], [\"J1-37\", \"SANDBOX_ERROR\", 0, 40], [\"J1-38\", \"SANDBOX_ERROR\", 0, 40], [\"J1-39\", \"SANDBOX_ERROR\", 0, 41], [\"J1-40\", \"SANDBOX_ERROR\", 0, 40]], \"replayed_receipt_files\": 14, \"java_redteam_escaped_markers_in_old_receipt\": [\"ESCAPED list /mnt -> null\", \"ESCAPED list /home -> null\", \"ESCAPED exec -> 0\"]}, \"total_seconds\": 26.9}\n",
+   "stderr_tail": "",
+   "summary": null,
+   "seconds": 27.1
+  },
+  "FC4_separation_in_kaggle": {
+   "status": "CRASH",
+   "error": "AttributeError(\"'dict' object has no attribute 'passed'\")",
+   "trace": "Traceback (most recent call last):\n  File \"/kaggle/src/script.py\", line 14, in deco\n    RES[\"phases\"][name] = f()\n                          ~^^\n  File \"/kaggle/src/script.py\", line 137, in _\n    rec[\"graded_after_close\"] = {\"passed\": g.passed, \"passed_tests\": g.passed_tests, \"total_tests\": g.total_tests, \"failure\": g.failure}\n                                           ^^^^^^^^\nAttributeError: 'dict' object has no attribute 'passed'\n",
+   "seconds": 0.6
+  },
+  "FC3_qwen_throughput": {
+   "status": "SKIPPED",
+   "reason": "no CUDA device in this kernel",
+   "seconds": 4.6
+  }
+ },
+ "manifest_files": 130,
+ "hash_mismatches": [],
+ "seconds": 39.7
+}

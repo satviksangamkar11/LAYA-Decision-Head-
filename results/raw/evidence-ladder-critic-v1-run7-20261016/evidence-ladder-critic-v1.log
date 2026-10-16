@@ -1,0 +1,9 @@
+[{"stream_name":"stdout","time":1.638337827,"data":"{\"kernel\": \"evidence_ladder_critic_v1\", \"check\": \"key_count_only\", \"nvidia_calls\": 0, \"expected_keys\": 8, \"internet\": true, \"secret_env_present\": true, \"label_1\": \"ConnectionError: Connection error trying to communicate with service.\", \"label_1_cause\": \"HTTPError 400 Bad Request\", \"ok\": false, \"error_type\": \"ConnectionError\"}\n"}
+,{"stream_name":"stdout","time":1.6385845890000001,"data":"{\"check\": \"FC-2\", \"model\": \"z-ai/glm-5.3-flash\", \"calls\": [], \"nvidia_calls\": 0, \"accepted\": {}}\n"}
+,{"stream_name":"stderr","time":4.552574847,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4.552614883,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":5.06737677,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":5.067404507,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":7.182948861,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":8.582930804,"data":"[NbConvertApp] Writing 302693 bytes to __results__.html\n"}
+]

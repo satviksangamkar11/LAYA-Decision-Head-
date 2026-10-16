@@ -1,0 +1,12 @@
+{
+ "kernel": "evidence_ladder_critic_v1",
+ "check": "key_count_only",
+ "nvidia_calls": 0,
+ "expected_keys": 8,
+ "internet": true,
+ "secret_env_present": true,
+ "label_1": "ConnectionError: Connection error trying to communicate with service.",
+ "label_1_cause": "HTTPError 400 Bad Request",
+ "ok": false,
+ "error_type": "ConnectionError"
+}
