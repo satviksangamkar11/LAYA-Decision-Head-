@@ -1,0 +1,29 @@
+{
+ "check": "FC-2",
+ "model": "z-ai/glm-5.3-flash",
+ "calls": [
+  {
+   "reasoning_effort": "max",
+   "reasoning_chars": 261,
+   "answer_chars": 2,
+   "finish_reason": "stop",
+   "usage": null,
+   "status": 200,
+   "seconds": 133.9
+  },
+  {
+   "reasoning_effort": "low",
+   "reasoning_chars": 0,
+   "answer_chars": 2,
+   "finish_reason": "stop",
+   "usage": null,
+   "status": 200,
+   "seconds": 107.9
+  }
+ ],
+ "nvidia_calls": 2,
+ "accepted": {
+  "max": true,
+  "low": true
+ }
+}

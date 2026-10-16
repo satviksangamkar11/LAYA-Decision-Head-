@@ -1,0 +1,29 @@
+{
+ "kernel": "evidence_ladder_critic_v1",
+ "check": "key_count_only",
+ "nvidia_calls": 0,
+ "expected_keys": 8,
+ "internet": true,
+ "secret_env_present": true,
+ "label_1": "readable",
+ "ok": true,
+ "n_keys": 14,
+ "labels": [
+  "key_1",
+  "key_2",
+  "key_3",
+  "key_4",
+  "key_5",
+  "key_6",
+  "key_7",
+  "key_8",
+  "key_9",
+  "key_10",
+  "key_11",
+  "key_12",
+  "key_13",
+  "key_14"
+ ],
+ "all_nonempty": true,
+ "distinct": true
+}

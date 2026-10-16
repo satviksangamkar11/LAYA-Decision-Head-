@@ -1,0 +1,12 @@
+{
+ "record": "evidence_ladder_decisions_v2",
+ "supersedes": "results/raw/evidence-ladder-decisions-20261016T090742Z/DECISIONS.json (only pilot_go changes; D1, D7, credits, spend unchanged)",
+ "date": "2026-10-16",
+ "source": "user, in chat: 'just start now. Do not ask more questions.'",
+ "pilot_go": true,
+ "scope_of_go": "pilot Stage 0 then the pilot as specified (Stage 0 FC-1..FC-4 first; a mandatory Stage 0 failure stops the pilot)",
+ "critic_keys": "Kaggle Secrets NVIDIA_API_KEYS_1..n (8 added as of this record; user reports 14 keys); NOT hard-coded (declined: .secrets deny rule and no keys in code)",
+ "call_logic": "10 in flight per key, <= 39 sends per key per minute, 60 s cooldown on 429 then re-queue",
+ "max_spend_inr": 0,
+ "still_pending_values": ["T (from FC-3)", "k1", "FC-2 GLM reasoning parameter"]
+}
