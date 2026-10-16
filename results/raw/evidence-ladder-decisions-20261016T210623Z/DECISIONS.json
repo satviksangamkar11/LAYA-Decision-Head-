@@ -1,0 +1,8 @@
+{
+ "record": "evidence_ladder_decisions_v6",
+ "supersedes": "the 'compute' and 'device_class_rule' parts of evidence_ladder_decisions_v5 (20261016T210547Z); v4 (local NVIDIA calls) stays",
+ "date": "2026-10-17",
+ "source": "user, in chat: 'Use Kaggle gpu'",
+ "compute": "Qwen proposals, state capture, adapters and LAYA head on the Kaggle T4 (default account sangeetasangamkar; same device class as the head's training features, so no new device parity gate and no RTX 3050 registration); WSL sandbox, controller and trusted checks local; GLM critic calls local via PcSender + tools/nvidia_keys.py; pure-logic tests local or Kaggle",
+ "max_spend_inr": 0
+}

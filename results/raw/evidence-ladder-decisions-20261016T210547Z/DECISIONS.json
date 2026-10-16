@@ -1,0 +1,11 @@
+{
+ "record": "evidence_ladder_decisions_v5",
+ "supersedes": "the 'compute on Kaggle' rules (CLAUDE.md 2026-10-13) for the LAYA-INT-1 3-example pipeline test only; extends decisions_v4 (local NVIDIA calls)",
+ "date": "2026-10-17",
+ "source": "user, in chat: 'we want to test if the full pipeline works 100%. NVIDIA calls local. Do as much as you can locally. Use the local GPU and complete the three examples and give the results. Is the pipeline working or not? Any shortcuts? Recheck with the architecture.'",
+ "compute": "local RTX 3050 6GB for Qwen proposals and state capture (per-layer streaming: fp16 8 GB does not fit); local WSL sandbox for execution; local sender for NVIDIA; Kaggle only for what cannot run locally (existing pure-logic test kernel may stay on Kaggle)",
+ "device_class_rule": "CLAUDE.md: features from two devices are not mixed without a parity check. The head was trained on Tesla T4 fp16 features. Local capture needs (1) a pre-registered parity check against the stored T4 training features (cos >= 0.9999, max_abs <= 0.5, all records, thresholds already frozen in configs/laya_int1_thresholds_v1.toml unless a new versioned file with a reason is written BEFORE the run) and (2) a versioned device-class addendum for this test only; the provenance guard keeps refusing unregistered devices. No silent bypass.",
+ "cpu_torch_note": "any CPU-side torch job sets ATEN_CPU_CAPABILITY=avx2 before importing torch (CLAUDE.md); ask the user to close Ableton before long runs if memory is short",
+ "also": "independent architecture conformance audit (shortcuts check) requested by the user",
+ "max_spend_inr": 0
+}

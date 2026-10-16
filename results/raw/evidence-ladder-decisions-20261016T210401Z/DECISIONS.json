@@ -1,0 +1,13 @@
+{
+ "record": "evidence_ladder_decisions_v4",
+ "supersedes": "D7 location in evidence-ladder-decisions-20261016T090742Z for the LAYA-INT-1 3-example pipeline test only",
+ "date": "2026-10-17",
+ "source": "user, in chat: 'Do nvidea calls locally and completely test full pipe line for the 3 examples'",
+ "plan": "LAYA-INT-1 (PLAN_LAYA_INT_1.md): full pipeline on the 3 T6 examples including the GLM critic",
+ "critic_location_for_this_test": "local PC sender (PcSender + project key system tools/nvidia_keys.py); keys are never printed, logged or read by the coordinator",
+ "scope": "only the blinded critic packets of the 3 T6 examples (a handful of calls); no other NVIDIA traffic; model z-ai/glm-5.3-flash, reasoning_effort max, streamed",
+ "call_logic": "configs/critic_concurrency_v1.toml: ramp from 2 in flight per key, cap 10, <= 39 sends/key/minute, 60 s cooldown on 429; 402/quota stops all",
+ "packets": "validated by evidence_ladder/critic_batch/validator.py: no hidden tests, reference solutions, labels, LAYA picks, Qwen reasoning, secrets",
+ "if_keys_blocked": "if the harness or deny rules block the key loader, stop and report; do not work around",
+ "max_spend_inr": 0
+}
