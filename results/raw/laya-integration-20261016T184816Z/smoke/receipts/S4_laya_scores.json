@@ -1,0 +1,227 @@
+{
+ "rows": [
+  {
+   "decision_id": "fable5:bash-dotlink:2",
+   "options_sha256": [
+    "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+    "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+    "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+    "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+   ],
+   "per_adapter": {
+    "final-s0": {
+     "scores_recaptured": [
+      -3.930405855178833,
+      0.929482102394104,
+      -4.521454334259033,
+      -3.9289002418518066
+     ],
+     "scores_stored": [
+      -3.930405855178833,
+      0.929482102394104,
+      -4.521454334259033,
+      -3.9289002418518066
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 1,
+     "top_stored": 1,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    },
+    "final-s1": {
+     "scores_recaptured": [
+      -4.17775821685791,
+      10.975818634033203,
+      -4.157189846038818,
+      -3.9343905448913574
+     ],
+     "scores_stored": [
+      -4.17775821685791,
+      10.975818634033203,
+      -4.157189846038818,
+      -3.9343905448913574
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 1,
+     "top_stored": 1,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    },
+    "final-s2": {
+     "scores_recaptured": [
+      -1.7435847520828247,
+      1.0392361879348755,
+      -3.543532371520996,
+      -3.031214714050293
+     ],
+     "scores_stored": [
+      -1.7435847520828247,
+      1.0392361879348755,
+      -3.543532371520996,
+      -3.031214714050293
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 1,
+     "top_stored": 1,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    }
+   }
+  },
+  {
+   "decision_id": "fable5:py-klondike:1",
+   "options_sha256": [
+    "579e3261e9f2c20efaed8c2034c6583e59bf2ec7e6f70903511c1e60a160e708",
+    "6f138fd34e33bda0f8f4ffbeed1dbe4c968805f2431513e189b6d6773f30cf84",
+    "e0c3e23b699e016ff4960a3f8e890a7f1b58022eb5a4af2227d1492704479053"
+   ],
+   "per_adapter": {
+    "final-s0": {
+     "scores_recaptured": [
+      0.7583175897598267,
+      0.15349847078323364,
+      0.375735878944397
+     ],
+     "scores_stored": [
+      0.7583175897598267,
+      0.15349847078323364,
+      0.375735878944397
+     ],
+     "finite": true,
+     "n_scores": 3,
+     "n_options": 3,
+     "top_recaptured": 0,
+     "top_stored": 0,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 0
+    },
+    "final-s1": {
+     "scores_recaptured": [
+      0.03457176685333252,
+      -0.972732663154602,
+      -0.7600192427635193
+     ],
+     "scores_stored": [
+      0.03457176685333252,
+      -0.972732663154602,
+      -0.7600192427635193
+     ],
+     "finite": true,
+     "n_scores": 3,
+     "n_options": 3,
+     "top_recaptured": 0,
+     "top_stored": 0,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 0
+    },
+    "final-s2": {
+     "scores_recaptured": [
+      0.7062622904777527,
+      0.00921560823917389,
+      0.2998959422111511
+     ],
+     "scores_stored": [
+      0.7062622904777527,
+      0.00921560823917389,
+      0.2998959422111511
+     ],
+     "finite": true,
+     "n_scores": 3,
+     "n_options": 3,
+     "top_recaptured": 0,
+     "top_stored": 0,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 0
+    }
+   }
+  },
+  {
+   "decision_id": "fable5:go-dashfeed:4",
+   "options_sha256": [
+    "bb13da3b864fc3fe85e7be10e0f08de6531e064e9cc0c8b974d4b5397fa14750",
+    "dfec1bc6041a0f4f5b6d92f6a8b44974e0061af1397e53c56c34a65554349ea9",
+    "d8961f2b82c85c99c1c9c243c86febb435c03958beb8dd857662e3b252eb87bb",
+    "ec47b707fa81787901a66e42a57752f345e7ac01070028bf616b0b81b08a6be8"
+   ],
+   "per_adapter": {
+    "final-s0": {
+     "scores_recaptured": [
+      -3.612466812133789,
+      3.9080252647399902,
+      1.9650025367736816,
+      -3.002958297729492
+     ],
+     "scores_stored": [
+      -3.612466812133789,
+      3.9080252647399902,
+      1.9650025367736816,
+      -3.002958297729492
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 1,
+     "top_stored": 1,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    },
+    "final-s1": {
+     "scores_recaptured": [
+      -3.821176767349243,
+      0.47593629360198975,
+      1.572745442390442,
+      -2.771766424179077
+     ],
+     "scores_stored": [
+      -3.821176767349243,
+      0.47593629360198975,
+      1.572745442390442,
+      -2.771766424179077
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 2,
+     "top_stored": 2,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    },
+    "final-s2": {
+     "scores_recaptured": [
+      -3.3179244995117188,
+      -0.8852643370628357,
+      -3.9333529472351074,
+      -2.9724981784820557
+     ],
+     "scores_stored": [
+      -3.3179244995117188,
+      -0.8852643370628357,
+      -3.9333529472351074,
+      -2.9724981784820557
+     ],
+     "finite": true,
+     "n_scores": 4,
+     "n_options": 4,
+     "top_recaptured": 1,
+     "top_stored": 1,
+     "max_abs_diff": 0.0,
+     "recorded_reference_index": 1
+    }
+   }
+  }
+ ],
+ "note": "one score per option, each adapter separately, scores are logits of the pretrained head (no NONE class)",
+ "capture_provenance": "S2 live recaptures on Tesla T4",
+ "stage": "S4_laya_scores",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "seconds_since_start": 130.0,
+ "gpu_peak_gib": 7.86,
+ "created_utc": "2026-10-16T18:46:36Z"
+}

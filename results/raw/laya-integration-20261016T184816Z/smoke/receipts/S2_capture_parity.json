@@ -1,0 +1,223 @@
+{
+ "thresholds": {
+  "depths": [
+   18,
+   24,
+   30
+  ],
+  "min_cosine": 0.9999,
+  "max_abs_diff": 0.5,
+  "records_required": "all"
+ },
+ "rows": [
+  {
+   "decision_id": "fable5:bash-dotlink:2",
+   "status": "ok",
+   "n_options": 4,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "dtype": "torch.float16",
+   "device": "Tesla T4",
+   "cos_min": 0.9999999999999998,
+   "max_abs_diff": 0.0,
+   "passed": true,
+   "bit_identical": true,
+   "per_depth": [
+    {
+     "depth": 18,
+     "hq_cos": 0.9999999999999999,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 24,
+     "hq_cos": 1.0,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 30,
+     "hq_cos": 0.9999999999999999,
+     "ho_cos_min": 0.9999999999999998,
+     "max_abs": 0.0
+    }
+   ],
+   "info": {
+    "prefix_tokens": 4674,
+    "option_tokens": [
+     30,
+     16,
+     16,
+     14
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 3.51,
+    "peak_gib": 7.93,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ],
+    "lm_head_calls": 0
+   }
+  },
+  {
+   "decision_id": "fable5:py-klondike:1",
+   "status": "ok",
+   "n_options": 3,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    3,
+    3,
+    2560
+   ],
+   "dtype": "torch.float16",
+   "device": "Tesla T4",
+   "cos_min": 0.9999999999999999,
+   "max_abs_diff": 0.0,
+   "passed": true,
+   "bit_identical": true,
+   "per_depth": [
+    {
+     "depth": 18,
+     "hq_cos": 0.9999999999999999,
+     "ho_cos_min": 0.9999999999999999,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 24,
+     "hq_cos": 1.0,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 30,
+     "hq_cos": 1.0,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    }
+   ],
+   "info": {
+    "prefix_tokens": 1260,
+    "option_tokens": [
+     17,
+     14,
+     14
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 0.52,
+    "peak_gib": 7.65,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ],
+    "lm_head_calls": 0
+   }
+  },
+  {
+   "decision_id": "fable5:go-dashfeed:4",
+   "status": "ok",
+   "n_options": 4,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "dtype": "torch.float16",
+   "device": "Tesla T4",
+   "cos_min": 0.9999999999999998,
+   "max_abs_diff": 0.0,
+   "passed": true,
+   "bit_identical": true,
+   "per_depth": [
+    {
+     "depth": 18,
+     "hq_cos": 1.0,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 24,
+     "hq_cos": 0.9999999999999998,
+     "ho_cos_min": 1.0,
+     "max_abs": 0.0
+    },
+    {
+     "depth": 30,
+     "hq_cos": 0.9999999999999998,
+     "ho_cos_min": 0.9999999999999998,
+     "max_abs": 0.0
+    }
+   ],
+   "info": {
+    "prefix_tokens": 3872,
+    "option_tokens": [
+     15,
+     23,
+     28,
+     38
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 2.03,
+    "peak_gib": 7.86,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ],
+    "lm_head_calls": 0
+   }
+  }
+ ],
+ "reference": "stored fp16 training features (Tesla T4, torch 2.11.0+cu128, transformers 5.16.1: level12/v3 capture runs)",
+ "capture_provenance": {
+  "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+  "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+  "recipe_id": "fable_capture_v1",
+  "depths": [
+   18,
+   24,
+   30
+  ],
+  "dtype": "float16",
+  "hidden": 2560,
+  "query_cue": "\n\nNext action:",
+  "option_prefix": " ",
+  "device": "Tesla T4",
+  "capture_code_sha256": {
+   "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+   "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+  },
+  "context_sha256": "10d6f8f249ae26930d9d2c1254f2153f301530e2bc401a084495b8bebc879b92",
+  "option_sha256": [
+   "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+   "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+   "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+   "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+  ]
+ },
+ "stage": "S2_capture_parity",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "seconds_since_start": 127.0,
+ "gpu_peak_gib": 7.86,
+ "created_utc": "2026-10-16T18:46:33Z"
+}

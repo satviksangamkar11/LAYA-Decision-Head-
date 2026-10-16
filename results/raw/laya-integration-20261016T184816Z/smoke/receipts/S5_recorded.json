@@ -1,0 +1,105 @@
+{
+ "a_recaptured_vs_stored_training_features": {
+  "same_top_choice_and_max_abs_logit_diff_ok": true,
+  "threshold": 0.1,
+  "rows": [
+   {
+    "decision_id": "fable5:bash-dotlink:2",
+    "per_adapter": {
+     "final-s0": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s1": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s2": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     }
+    }
+   },
+   {
+    "decision_id": "fable5:py-klondike:1",
+    "per_adapter": {
+     "final-s0": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s1": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s2": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     }
+    }
+   },
+   {
+    "decision_id": "fable5:go-dashfeed:4",
+    "per_adapter": {
+     "final-s0": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s1": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     },
+     "final-s2": {
+      "max_abs_diff": 0.0,
+      "same_top": true
+     }
+    }
+   }
+  ]
+ },
+ "b_recorded_val_outputs": [
+  {
+   "decision_id": "fable5:bash-logtop:2",
+   "picks": {
+    "final-s0": 0,
+    "final-s1": 1,
+    "final-s2": 1
+   },
+   "ref": 0,
+   "mean_hit": 0.3333333333333333,
+   "recorded_mean_hit": 0.3333333333333333,
+   "match": true
+  },
+  {
+   "decision_id": "fable5:bash-retryrun:3",
+   "picks": {
+    "final-s0": 1,
+    "final-s1": 1,
+    "final-s2": 1
+   },
+   "ref": 1,
+   "mean_hit": 1.0,
+   "recorded_mean_hit": 1.0,
+   "match": true
+  },
+  {
+   "decision_id": "fable5:bash-retryrun:4",
+   "picks": {
+    "final-s0": 2,
+    "final-s1": 2,
+    "final-s2": 2
+   },
+   "ref": 2,
+   "mean_hit": 1.0,
+   "recorded_mean_hit": 1.0,
+   "match": true
+  }
+ ],
+ "source": "results/raw/val-eval-v1-20261012T082055Z/REPORT-20261012T111926Z.json",
+ "caveat": "recorded per-pool scorer outputs exist only for VAL pools; TRAIN pools were fitted by the final adapters",
+ "stage": "S5_recorded",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "seconds_since_start": 130.1,
+ "gpu_peak_gib": 7.86,
+ "created_utc": "2026-10-16T18:46:36Z"
+}

@@ -1,0 +1,31 @@
+{
+ "kernel": "evidence_ladder_laya_smoke_v1",
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "started_utc": "2026-10-16T18:44:26Z",
+ "stages": {
+  "S1_load_qwen": true,
+  "S2_capture_parity": true,
+  "S3_weights": true,
+  "S4_laya_scores": true,
+  "S5_recorded": true,
+  "S6_controller": true
+ },
+ "gpu_mem_gib": {
+  "S1_load_qwen": 7.55,
+  "S2_capture_parity": 7.86,
+  "S3_weights": 7.86,
+  "S4_laya_scores": 7.86,
+  "S5_recorded": 7.86,
+  "S6_controller": 7.93
+ },
+ "versions": {
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.16.1",
+  "cuda": "12.8"
+ },
+ "gpu": "Tesla T4",
+ "thresholds_sha256": "759a6fed8e008d789a258697775d55c9dd0e60546ebb00069b0949deaea4713a",
+ "verdict": "SMOKE_PASS",
+ "total_seconds": 132.9
+}

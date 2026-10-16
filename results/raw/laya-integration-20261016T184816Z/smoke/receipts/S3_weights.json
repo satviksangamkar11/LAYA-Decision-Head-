@@ -1,0 +1,27 @@
+{
+ "adapter_sha256": {
+  "final-s0": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2",
+  "final-s1": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e",
+  "final-s2": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+ },
+ "manifest_sha256": {
+  "final-s0": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2",
+  "final-s1": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e",
+  "final-s2": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+ },
+ "adapter_trainable_params": {
+  "final-s0": 5246982,
+  "final-s1": 5246982,
+  "final-s2": 5246982
+ },
+ "pretrained_tensors": 31,
+ "pretrained_tensors_match_pack_time_hashes": true,
+ "pretrained_source_sha256": "e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a",
+ "pretrained_source_note": "the 842 MB source file was sha256-verified against the MANIFEST at pack time; here the 31 byte-copied tensors are verified against the hashes recorded then",
+ "stage": "S3_weights",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "seconds_since_start": 129.6,
+ "gpu_peak_gib": 7.86,
+ "created_utc": "2026-10-16T18:46:36Z"
+}

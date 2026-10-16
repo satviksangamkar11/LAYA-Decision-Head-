@@ -1,6 +1,6 @@
 """LAYA / probe / random-head scorer metadata and gates (S3 compatibility contract).
 
-The forward pass is NOT implemented in this build: score() either refuses (unsupported decision type, disabled scorer) or raises NotAuthorized
+The forward pass runs only on Kaggle (evidence_ladder/models/laya_forward.py, kaggle/evidence_ladder_laya_gen_v1.py); here score() either refuses (unsupported decision type, disabled scorer) or raises NotAuthorized
 because no feature extraction or head execution exists here. Nothing in this module loads or modifies weights, adapters or the pretrained head;
 it only hashes files and reads the baseline MANIFEST JSON."""
 from __future__ import annotations
@@ -101,10 +101,11 @@ class _BaseScorer:
     SCORER_ID = ""
     VERSION = "v1"
 
-    def __init__(self, *, repo_root=None, manifest_path=None, expected_capture=EXPECTED_CAPTURE_CODE, authorized: bool = False):
+    def __init__(self, *, repo_root=None, manifest_path=None, expected_capture=EXPECTED_CAPTURE_CODE, authorized: bool = False, backend=None):
         self.meta = build_meta(self.SCORER_ID, self.VERSION, self.KIND, repo_root=repo_root, manifest_path=manifest_path, expected_capture=expected_capture)
         self.scorer_id = self.SCORER_ID
         self._authorized = authorized is True
+        self._backend = backend   # e.g. laya_forward.SavedScoreBackend: scores a Kaggle kernel already computed; L0 only, returns scores, never an approval
 
     @property
     def scorer_def(self) -> Dict[str, Any]:
@@ -123,6 +124,8 @@ class _BaseScorer:
         if not self.allowed(decision_type, exploratory):
             raise UnsupportedDecisionType("%s is not validated for %r (validated: %s); pass exploratory=True only for a flagged exploratory run"
                                           % (self.scorer_id, decision_type, self.scorer_def["decision_types_validated"]))
+        if self._authorized and self._backend is not None:
+            return [float(x) for x in self._backend.score(decision_type, pool)]   # the backend refuses anything that is not frozen-Qwen features (laya_runtime)
         if self._authorized:
             raise NotImplementedError("%s forward pass is not implemented in this build" % self.scorer_id)
         raise NotAuthorized("%s scoring needs a Kaggle run with an explicit authorization; no feature extraction exists in this build" % self.scorer_id)

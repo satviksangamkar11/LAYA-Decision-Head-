@@ -1,0 +1,545 @@
+{
+ "scorer_def_status": "validated",
+ "scorer_disabled": false,
+ "scorer_disabled_reason": "",
+ "capture_code_report": {
+  "tools/fable_capture.py": {
+   "sha256": "9d8dd3790b73503646243ea897ed4bb6f4a47cebab20463cb324aba7fc63bd72",
+   "expected": "9d8dd3790b73503646243ea897ed4bb6f4a47cebab20463cb324aba7fc63bd72",
+   "match": true
+  },
+  "decision_head/fable_features.py": {
+   "sha256": "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+   "expected": "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+   "match": true
+  }
+ },
+ "scores_via_LayaScorer_next_action": [
+  -3.2839162747065225,
+  4.314845641454061,
+  -4.074058850606282,
+  -3.631501833597819
+ ],
+ "laya_top": 1,
+ "laya_lowest": 2,
+ "decisions": {
+  "a_no_trusted_evidence": {
+   "decision_id": "S6a",
+   "selected_id": "S6a#1",
+   "selected_index": 1,
+   "order": [
+    "S6a#1",
+    "S6a#0",
+    "S6a#3",
+    "S6a#2"
+   ],
+   "blocked": [],
+   "approved": false,
+   "level": "L0_ordering_only",
+   "derived_by": "controller"
+  },
+  "b_top_laya_fails_L5": {
+   "decision_id": "S6b",
+   "selected_id": "S6b#0",
+   "selected_index": 0,
+   "order": [
+    "S6b#0",
+    "S6b#3",
+    "S6b#2",
+    "S6b#1"
+   ],
+   "blocked": [
+    "S6b#1"
+   ],
+   "approved": false,
+   "level": "L0_ordering_only",
+   "derived_by": "controller"
+  },
+  "c_lowest_laya_has_trusted_passes": {
+   "decision_id": "S6c",
+   "selected_id": "S6c#2",
+   "selected_index": 2,
+   "order": [
+    "S6c#2",
+    "S6c#1",
+    "S6c#0",
+    "S6c#3"
+   ],
+   "blocked": [],
+   "approved": false,
+   "level": "L0_ordering_only",
+   "derived_by": "controller"
+  },
+  "d_scorer_unavailable": {
+   "decision_id": "S6d",
+   "selected_id": "S6d#0",
+   "selected_index": 0,
+   "order": [
+    "S6d#0",
+    "S6d#1",
+    "S6d#2",
+    "S6d#3"
+   ],
+   "blocked": [],
+   "approved": false,
+   "level": "L0_ordering_only",
+   "derived_by": "controller"
+  }
+ },
+ "check_i2": "ok",
+ "journal_hash": "82c032597c2d5a079b62bdd37e49cae178dec319c0645dfcd102c8fcf40c42b2",
+ "journal_entries": [
+  {
+   "data": {
+    "decision_id": "S6a",
+    "ids": [
+     "S6a#0",
+     "S6a#1",
+     "S6a#2",
+     "S6a#3"
+    ],
+    "level": "L0",
+    "provenance": {
+     "capture_code_sha256": {
+      "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+      "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+     },
+     "context_sha256": "10d6f8f249ae26930d9d2c1254f2153f301530e2bc401a084495b8bebc879b92",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device": "Tesla T4",
+     "dtype": "float16",
+     "hidden": 2560,
+     "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+     "option_prefix": " ",
+     "option_sha256": [
+      "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+      "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+      "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+      "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+     ],
+     "query_cue": "\n\nNext action:",
+     "recipe_id": "fable_capture_v1"
+    },
+    "scorer_id": "laya_adapter_v1",
+    "scores": [
+     -3.2839162747065225,
+     4.314845641454061,
+     -4.074058850606282,
+     -3.631501833597819
+    ],
+    "state": "scored"
+   },
+   "kind": "scorer",
+   "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+   "seq": 0
+  },
+  {
+   "data": {
+    "items": [
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6a#0",
+      "scorer": -3.2839162747065225,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6a#1",
+      "scorer": 4.314845641454061,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6a#2",
+      "scorer": -4.074058850606282,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6a#3",
+      "scorer": -3.631501833597819,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     }
+    ],
+    "order": [
+     "S6a#1",
+     "S6a#0",
+     "S6a#3",
+     "S6a#2"
+    ],
+    "step": "S6a"
+   },
+   "kind": "ranking",
+   "prev": "669c9d7a66438a715ee0b4e29596c5cf5d4ea2ca96420fa5249a2fc811dec46d",
+   "seq": 1
+  },
+  {
+   "data": {
+    "approved": false,
+    "blocked": [],
+    "decision_id": "S6a",
+    "derived_by": "controller",
+    "level": "L0_ordering_only",
+    "order": [
+     "S6a#1",
+     "S6a#0",
+     "S6a#3",
+     "S6a#2"
+    ],
+    "selected_id": "S6a#1",
+    "selected_index": 1
+   },
+   "kind": "action_decision",
+   "prev": "50c576a5331e44aad95d85cbb8a9f662339bfffcea3f796c8ebd787e3df69716",
+   "seq": 2
+  },
+  {
+   "data": {
+    "decision_id": "S6b",
+    "ids": [
+     "S6b#0",
+     "S6b#1",
+     "S6b#2",
+     "S6b#3"
+    ],
+    "level": "L0",
+    "provenance": {
+     "capture_code_sha256": {
+      "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+      "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+     },
+     "context_sha256": "10d6f8f249ae26930d9d2c1254f2153f301530e2bc401a084495b8bebc879b92",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device": "Tesla T4",
+     "dtype": "float16",
+     "hidden": 2560,
+     "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+     "option_prefix": " ",
+     "option_sha256": [
+      "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+      "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+      "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+      "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+     ],
+     "query_cue": "\n\nNext action:",
+     "recipe_id": "fable_capture_v1"
+    },
+    "scorer_id": "laya_adapter_v1",
+    "scores": [
+     -3.2839162747065225,
+     4.314845641454061,
+     -4.074058850606282,
+     -3.631501833597819
+    ],
+    "state": "scored"
+   },
+   "kind": "scorer",
+   "prev": "42bec8bdfe6fda91172f69fb2cbf9d9dd9c8a17d066afbdf834f5060f2971954",
+   "seq": 3
+  },
+  {
+   "data": {
+    "items": [
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6b#0",
+      "scorer": -3.2839162747065225,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6b#2",
+      "scorer": -4.074058850606282,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6b#3",
+      "scorer": -3.631501833597819,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     }
+    ],
+    "order": [
+     "S6b#0",
+     "S6b#3",
+     "S6b#2"
+    ],
+    "step": "S6b"
+   },
+   "kind": "ranking",
+   "prev": "75584f23ac1819bf45cde7f8cd4f797eddd0ab0066bfa9aab5fdee2311ba9d53",
+   "seq": 4
+  },
+  {
+   "data": {
+    "approved": false,
+    "blocked": [
+     "S6b#1"
+    ],
+    "decision_id": "S6b",
+    "derived_by": "controller",
+    "level": "L0_ordering_only",
+    "order": [
+     "S6b#0",
+     "S6b#3",
+     "S6b#2",
+     "S6b#1"
+    ],
+    "selected_id": "S6b#0",
+    "selected_index": 0
+   },
+   "kind": "action_decision",
+   "prev": "e4ff048b7b83bb23b665e7dd035bdc87907db84eb8b2ec598c0856766eee53d9",
+   "seq": 5
+  },
+  {
+   "data": {
+    "decision_id": "S6c",
+    "ids": [
+     "S6c#0",
+     "S6c#1",
+     "S6c#2",
+     "S6c#3"
+    ],
+    "level": "L0",
+    "provenance": {
+     "capture_code_sha256": {
+      "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+      "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+     },
+     "context_sha256": "10d6f8f249ae26930d9d2c1254f2153f301530e2bc401a084495b8bebc879b92",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device": "Tesla T4",
+     "dtype": "float16",
+     "hidden": 2560,
+     "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+     "option_prefix": " ",
+     "option_sha256": [
+      "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+      "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+      "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+      "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+     ],
+     "query_cue": "\n\nNext action:",
+     "recipe_id": "fable_capture_v1"
+    },
+    "scorer_id": "laya_adapter_v1",
+    "scores": [
+     -3.2839162747065225,
+     4.314845641454061,
+     -4.074058850606282,
+     -3.631501833597819
+    ],
+    "state": "scored"
+   },
+   "kind": "scorer",
+   "prev": "2ab67e901ff952130ce1872f65948c34b80c0d970f0654e2be7d8a76d049eaa7",
+   "seq": 6
+  },
+  {
+   "data": {
+    "items": [
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6c#0",
+      "scorer": -3.2839162747065225,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6c#1",
+      "scorer": 4.314845641454061,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6c#2",
+      "scorer": -4.074058850606282,
+      "trusted_passes": 2,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6c#3",
+      "scorer": -3.631501833597819,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     }
+    ],
+    "order": [
+     "S6c#2",
+     "S6c#1",
+     "S6c#0",
+     "S6c#3"
+    ],
+    "step": "S6c"
+   },
+   "kind": "ranking",
+   "prev": "34a356861aa8873a257226265305872928dfa951c47452cf1b1c940ae3dcd755",
+   "seq": 7
+  },
+  {
+   "data": {
+    "approved": false,
+    "blocked": [],
+    "decision_id": "S6c",
+    "derived_by": "controller",
+    "level": "L0_ordering_only",
+    "order": [
+     "S6c#2",
+     "S6c#1",
+     "S6c#0",
+     "S6c#3"
+    ],
+    "selected_id": "S6c#2",
+    "selected_index": 2
+   },
+   "kind": "action_decision",
+   "prev": "84d157f41b83e071ac767c3e7c5ca8c1ac28e449d589fdc685a164e5954c0faa",
+   "seq": 8
+  },
+  {
+   "data": {
+    "items": [
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6d#0",
+      "scorer": 0.0,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6d#1",
+      "scorer": 0.0,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6d#2",
+      "scorer": 0.0,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     },
+     {
+      "cluster": 0,
+      "deepconf": 0.0,
+      "id": "S6d#3",
+      "scorer": 0.0,
+      "trusted_passes": 0,
+      "validated_passes": 0
+     }
+    ],
+    "order": [
+     "S6d#0",
+     "S6d#1",
+     "S6d#2",
+     "S6d#3"
+    ],
+    "step": "S6d"
+   },
+   "kind": "ranking",
+   "prev": "3a5c2abc554e49250006ddfa7739291f3fad5d4d8220296c72bbcf02773c725c",
+   "seq": 9
+  },
+  {
+   "data": {
+    "approved": false,
+    "blocked": [],
+    "decision_id": "S6d",
+    "derived_by": "controller",
+    "level": "L0_ordering_only",
+    "order": [
+     "S6d#0",
+     "S6d#1",
+     "S6d#2",
+     "S6d#3"
+    ],
+    "selected_id": "S6d#0",
+    "selected_index": 0
+   },
+   "kind": "action_decision",
+   "prev": "1d7cbaba2130065d8abf8bc1b3165327873be48f32e76363db66fd2b540f8420",
+   "seq": 10
+  }
+ ],
+ "checks": {
+  "a_order_follows_L0": true,
+  "b_top_laya_never_selected_when_L5_fails": true,
+  "c_trusted_evidence_outranks_L0": true,
+  "d_approved_false_always": true
+ },
+ "scorer_provenance": {
+  "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+  "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+  "recipe_id": "fable_capture_v1",
+  "depths": [
+   18,
+   24,
+   30
+  ],
+  "dtype": "float16",
+  "hidden": 2560,
+  "query_cue": "\n\nNext action:",
+  "option_prefix": " ",
+  "device": "Tesla T4",
+  "capture_code_sha256": {
+   "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+   "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+  },
+  "context_sha256": "10d6f8f249ae26930d9d2c1254f2153f301530e2bc401a084495b8bebc879b92",
+  "option_sha256": [
+   "f82e205e30319faf9cea1c55b9c1b6ce2346b09f37bd87e027454f04bbc1439d",
+   "49651c0d13d0aa2bccb1b562bf9b52dcdb82f89e555b84ce21359419b1577203",
+   "cdb18dc06b09dfe1d062ec6c988c5e85038bfc81b54b288e9c52bdd5918b04f9",
+   "65898227073fab8e994b352aea75a0f4e34f5fed63b85ab495b0f1848cfc906c"
+  ]
+ },
+ "scorer_origin": "live_capture_same_process",
+ "text_only_refusal": "refused: the scorer needs {context_text, options} to capture from the frozen Qwen; bare candidates/text are refused (no text-only fallback)",
+ "stage": "S6_controller",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "seconds_since_start": 132.9,
+ "gpu_peak_gib": 7.93,
+ "created_utc": "2026-10-16T18:46:39Z"
+}

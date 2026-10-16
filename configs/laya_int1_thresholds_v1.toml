@@ -1,0 +1,37 @@
+# [LAYA-INT-1 · Aim: integration, not performance] Pre-registered thresholds for T1, T3, T4, T7. Written 2026-10-17 BEFORE any run of the integration kernel.
+# T2 (capture parity) uses configs/laya_head_gate_v1.toml [a_feature_recapture] and [b/c/d] unchanged (also written before any run). Performance (LAYA vs probe) is NOT a gate.
+# Never edited after results are seen: a change is a new versioned file with a written reason.
+
+[t1_real_capture]
+device_prefix = "Tesla T4"       # the training device class (kernel metas of the TRAIN and VAL captures)
+dtype = "float16"
+depths = [18, 24, 30]
+hidden = 2560
+hq_shape = [3, 2560]
+ho_shape_tail = [3, 2560]        # ho is [N, 3, 2560]
+min_options = 2
+require_finite = true
+# timing, peak memory, torch/transformers versions are RECORDED (no threshold)
+
+[t3_adapter_inputs]
+# The scorer path (laya_forward.head_logits) must feed each adapter the same tensors as the training path (decision_head/fable_train.collate + logits_of):
+# hq [1,3,2560], ho [1,N,3,2560], mask [1,N] all true, prim = 0 (choice). Both paths on the same stored rows:
+max_abs_logit_diff = 1e-6        # same CPU fp32 ops, same weights: expected exactly 0
+option_order = "ho[i] is the pooled vector of options[i]; checked by swapping two options and requiring their logits to swap"
+order_swap_max_abs_diff = 1e-4
+
+[t4_head]
+require_finite = true
+score_shape = "N floats per adapter"
+recorded_reproduction = "configs/laya_head_gate_v1.toml [b_stored_feature_forward]"
+permutation_trials = 4           # reversed order + 3 seeded random permutations, per stored pool
+permutation_max_abs_logit_diff = 1e-4   # the head has no positional encoding; fp32 CPU re-ordering noise only
+permutation_ranking = "identical rankings except between options whose logits differ by less than the tolerance"
+
+[t7_provenance_rejection]
+# Replay mode re-captures a random subset (laya_runtime.score_stored): at least 25% of the batch and at least min(3, batch). The tests below use batches small enough to verify EVERY record.
+must_refuse = ["wrong model revision", "wrong dtype", "wrong depths", "wrong recipe id", "wrong device", "wrong capture-code hash", "fabricated random tensors with valid metadata",
+               "real features of another text with valid metadata", "tensors perturbed by 5% of their scale with valid metadata", "text or embedding input"]
+fabricated_must_be_caught_by = "re-capture comparison (cosine/max-abs of [a_feature_recapture]), not by metadata"
+accept_control = "a genuine stored record (unchanged) is accepted and scored"
+reason = "Metadata cannot prove origin. A scorer that trusts stored hashes would accept any tensor with plausible fields; only re-running the frozen Qwen on the recorded text proves the tensors."

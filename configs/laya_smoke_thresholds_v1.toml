@@ -1,0 +1,42 @@
+# [LAYA-INT-1 · Aim: integration, not performance] FROZEN thresholds of the SMALL SMOKE RUN (kaggle/evidence_ladder_laya_smoke_v1.py). Written 2026-10-17 BEFORE any run.
+# SMOKE PASS means only: the connection works in these tested cases. It is NOT integration PASS (T1-T7 follow) and says nothing about performance.
+# Never edited after results are seen; a change is a new versioned file with a written reason. The stop rule: the kernel stops at the first failed stage and reports it as it is.
+
+[sample]
+train_ids = ["fable5:bash-dotlink:2", "fable5:py-klondike:1", "fable5:go-dashfeed:4"]   # 3 stored TRAIN pools of the 12 in local-capture-parity-20261012T110722Z (decision_head set v3, canonical TRAIN)
+val_recorded_ids = "the first 3 decision_ids of results/raw/val-eval-v1-20261012T082055Z/REPORT-20261012T111926Z.json per_pool.decision_id"
+val_reason = "recorded per-pool scorer outputs exist ONLY for the 53 VAL pools (the final adapters were fitted on every TRAIN pool, so no held-out TRAIN output was ever recorded); S5b uses 3 of them"
+
+[s1_load]
+model_revision = "768f209d9ea81521153ed38c47d515654e938aea"
+device_prefix = "Tesla T4"
+dtype = "float16"
+shard_sha256 = "the three Qwen shards and tokenizer.json must equal tools/fable_capture.py PIN"
+
+[s2_capture_parity]
+# same numbers as configs/laya_head_gate_v1.toml [a_feature_recapture]: each sampled record, hq and every ho, 3 depths
+depths = [18, 24, 30]
+min_cosine = 0.9999        # float64 per vector; the earlier cross-device bar was 0.999 (worst 0.99999, RTX 3050 vs T4); same device class is held tighter
+max_abs_diff = 0.5         # fp16 spacing at the largest stored magnitude (~146) is 0.125; 0.5 = 4 spacings
+records_required = "all"
+
+[s3_weights]
+adapter_sha256 = "equal to results/raw/laya-baseline-v1-20261012T215242Z/MANIFEST.json adapters.final-s0/s1/s2"
+adapter_trainable_params = 5246982
+pretrained_tensors = 31
+pretrained_tensor_sha256 = "each of the 31 byte-copied tensors equals the per-tensor sha256 recorded at pack time from the MANIFEST-verified source file (e316f15e...)"
+
+[s4_scores]
+require_finite = true
+shape = "one score per option, per adapter, for every pool"
+
+[s5_recorded]
+# a: forward on RECAPTURED features vs forward on the STORED training features (the recorded training-time inputs), per adapter separately
+a_same_top_choice = "all pools, all three adapters"
+a_max_abs_logit_diff = 0.1     # reason: cosine >= 0.9999 and max-abs <= 0.5 bound the input change to ~1e-4 relative; head logits are O(1-10); 0.1 is generous but still catches wrong routing
+# b: stored VAL features -> the 3 adapters reproduce the recorded per-pool mean hit of those 3 pools
+b_hit_tolerance = 1e-9
+
+[s6_controller]
+checks = ["without trusted evidence the order follows the LAYA scores (L0 tie-break)", "a top-LAYA option failing a trusted L5 check is never selected (I2) -- the real scores of a real pool",
+          "a lower-LAYA option with more trusted passes ranks above the top-LAYA option", "output approved = false always (a score never approves)", "invariant check_i2 passes on the journal"]

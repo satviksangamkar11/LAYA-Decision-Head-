@@ -1,0 +1,43 @@
+# Pre-registered thresholds of the LAYA head gate (arm E of the Evidence-Ladder). Written 2026-10-16 BEFORE any run of the gate.
+# Never edited after results are seen: a change is a new versioned file with a written reason (CLAUDE.md, quality gate rules).
+# Evaluated inside kaggle/evidence_ladder_laya_gen_v1.py on a Kaggle Tesla T4 (fp16), the device class and dtype of the TRAIN and VAL feature captures
+# (results/raw/level12-run-v2-cancelled-20261011T175252Z, v3-context-capture-run-20261012T065106Z, val-capture-run-20261012T111837Z: meta.json device "Tesla T4",
+# dtype float16, torch 2.11.0+cu128, transformers 5.16.1). The kernel records its own versions; a version difference is reported, not hidden.
+# If any criterion fails the kernel writes RUN_SUMMARY.json with verdict GATE_FAILED and generates NOTHING (arm E stops).
+
+[sample]
+# TRAIN: the 12 decisions of results/raw/local-capture-parity-20261012T110722Z/PARITY.json (fixed earlier, before this gate existed).
+# VAL: all 53 canonical-VAL pools scored in results/raw/val-eval-v1-20261012T082055Z (the only pools with RECORDED per-pool head and probe hits).
+train_ids = ["fable5:bash-dotlink:2", "fable5:go-dashfeed:4", "fable5:py-klondike:1", "fable5:rs-postrate:2", "fable5:csharp-okta-systemlog-after:1",
+             "fable5:go-dashfeed:3", "fable5:go-statuspoll:3", "fable5:java-gcp-operations-poller:8", "fable5:ps-togglecard:1", "fable5:py-habit-streaks:3",
+             "fable5:py-retention-lint:3", "fable5:py-wiki-compiler:6"]
+val_pools = 53
+
+[a_feature_recapture]
+# Every hq (3 depths) and every ho (options x 3 depths) of every sampled decision, recaptured, against the stored fp16 features.
+min_cosine = 0.9999        # per vector, float64. The previous cross-device parity bar was 0.999 (worst observed 0.99999 between an RTX 3050 and the T4); same device class must be tighter.
+max_abs_diff = 0.5         # fp16 ULP at the largest stored magnitude (about 146) is 0.125; the previous cross-device worst was 0.125; 0.5 = 4 ULP for a different cuDNN/torch minor.
+records_required = "all"   # every sampled record must pass both limits; no record may be excluded after looking
+
+[b_stored_feature_forward]
+# Frozen adapters final-s0..s2 + pretrained head, run on the STORED VAL features, against the recorded per-pool head hit (mean of the 3 per-seed hits).
+# each adapter separately: its top-1 on the 53 stored VAL pools must equal the recorded one (0.7925, 0.8113, 0.7736 = 42, 43, 41 of 53;
+# results/raw/val-eval-v1-20261012T082055Z/REPORT-20261012T111926Z.json question_1.each_seed)
+per_seed_top1_equal = true
+max_pools_differing = 1    # one near-tie argmax may flip with another torch build; 2 or more differing pools of 53 fails
+hit_tolerance = 1e-9
+
+[c_recaptured_feature_forward]
+# The same forward on the RECAPTURED VAL features: per-seed top choice against the per-seed top choice on the stored features.
+min_same_top_choice = 0.95 # fraction of (pool, seed) pairs
+# per-seed top-1 on recaptured features is reported for each adapter; the criteria below are on pairs and on the mean
+max_head_top1_delta = 0.04 # |recaptured head top-1 (mean of 3 seeds) - recorded 0.7925| (about two pools of 53)
+
+[d_probe]
+# Linear probe refitted on the 334 TRAIN pools (C pinned to the recorded 0.01), against the recorded per-pool probe hit on the 53 VAL pools.
+probe_C = 0.01
+max_pools_differing = 1
+
+[verdict]
+rule = "PASS only if a, b, c and d all pass. Any failure -> GATE_FAILED, no generation."
+reason = "The adapters were trained on Kaggle-T4 fp16 features. A scorer fed features that differ from those (other device class, dtype, library path, rendering or hook placement) has no evidence behind it. Criteria a-d check the capture path, the forward path and the probe separately so a failure names its cause."
