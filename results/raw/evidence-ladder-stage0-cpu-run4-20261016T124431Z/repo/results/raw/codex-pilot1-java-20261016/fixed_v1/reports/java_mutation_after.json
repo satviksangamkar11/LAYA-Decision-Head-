@@ -1,0 +1,626 @@
+{
+ "summary": {
+  "per_task_sample": 14,
+  "mutants_tested": 460,
+  "killed": 423,
+  "kill_rate_overall": 0.9196,
+  "seconds": 149,
+  "tasks_without_mutable_code": [
+   "J1-08",
+   "J1-10",
+   "J1-20"
+  ],
+  "tasks_below_0.80": [
+   "J1-17",
+   "J1-27"
+  ],
+  "note": "sampled, seeded; survivors include equivalent mutants; kill rate is a lower bound; sampling error is large for small per-task samples"
+ },
+ "per_task": {
+  "J1-01": {
+   "valid_mutants_tested": 13,
+   "killed": 13,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 13,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-02": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 14,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-03": {
+   "valid_mutants_tested": 12,
+   "killed": 10,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 12,
+   "kill_rate": 0.833,
+   "survivors": [
+    {
+     "line": 60,
+     "orig": "10",
+     "mutant": "9",
+     "context": "long n){int c=0;while(n>=10){long p=1;while(n>0){p*="
+    },
+    {
+     "line": 60,
+     "orig": "0",
+     "mutant": "1",
+     "context": "(n>=10){long p=1;while(n>0){p*=n%10;n/=10;}n=p;c++;"
+    }
+   ]
+  },
+  "J1-04": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 29,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-05": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 16,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-06": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 31,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-07": {
+   "valid_mutants_tested": 8,
+   "killed": 7,
+   "survived": 1,
+   "invalid_discarded": 2,
+   "available_sites": 10,
+   "kill_rate": 0.875,
+   "survivors": [
+    {
+     "line": 64,
+     "orig": "0",
+     "mutant": "1",
+     "context": "a){int r=a.length,c=r==0?0:a[0].length;int[][] b=ne"
+    }
+   ]
+  },
+  "J1-08": {
+   "valid_mutants_tested": 0,
+   "killed": 0,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 0,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "J1-09": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 18,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 65,
+     "orig": "<=",
+     "mutant": "<",
+     "context": "CharArray()){if(c>='a'&&c<='z')c=(char)('a'+(c-'a'+k"
+    },
+    {
+     "line": 65,
+     "orig": "-",
+     "mutant": "+",
+     "context": "'&&c<='Z')c=(char)('A'+(c-'A'+k)%26);b.append(c);}r"
+    }
+   ]
+  },
+  "J1-10": {
+   "valid_mutants_tested": 0,
+   "killed": 0,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 0,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "J1-11": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 4,
+   "available_sites": 20,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 66,
+     "orig": "1",
+     "mutant": "2",
+     "context": ");if(c=='\"'){if(quote&&i+1<s.length()&&s.charAt(i+1"
+    }
+   ]
+  },
+  "J1-12": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 6,
+   "available_sites": 31,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 67,
+     "orig": "0",
+     "mutant": "1",
+     "context": "a=ip.split(\"\\\\.\");long v=0;for(String x:a)v=(v<<8)|"
+    }
+   ]
+  },
+  "J1-13": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 3,
+   "available_sites": 25,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-14": {
+   "valid_mutants_tested": 8,
+   "killed": 8,
+   "survived": 0,
+   "invalid_discarded": 2,
+   "available_sites": 10,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-15": {
+   "valid_mutants_tested": 2,
+   "killed": 2,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 2,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-16": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 0,
+   "available_sites": 25,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 71,
+     "orig": "1",
+     "mutant": "2",
+     "context": "ounts=new int[s.length()+1];int top=0;for(char c:s."
+    }
+   ]
+  },
+  "J1-17": {
+   "valid_mutants_tested": 8,
+   "killed": 6,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 8,
+   "kill_rate": 0.75,
+   "survivors": [
+    {
+     "line": 72,
+     "orig": "0",
+     "mutant": "1",
+     "context": "ephus(int n,int k){int x=0;for(int i=1;i<=n;i++)x=("
+    },
+    {
+     "line": 72,
+     "orig": "1",
+     "mutant": "2",
+     "context": "int k){int x=0;for(int i=1;i<=n;i++)x=(x+k)%i;retur"
+    }
+   ]
+  },
+  "J1-18": {
+   "valid_mutants_tested": 3,
+   "killed": 3,
+   "survived": 0,
+   "invalid_discarded": 2,
+   "available_sites": 5,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-19": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 34,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 74,
+     "orig": "0",
+     "mutant": "1",
+     "context": "long[c];dp[0]=a[0][0]==1?0:1;for(int i=0;i<r;i++)fo"
+    },
+    {
+     "line": 74,
+     "orig": "0",
+     "mutant": "1",
+     "context": "0].length;if(c==0)return 0;long[] dp=new long[c];dp"
+    }
+   ]
+  },
+  "J1-20": {
+   "valid_mutants_tested": 0,
+   "killed": 0,
+   "survived": 0,
+   "invalid_discarded": 10,
+   "available_sites": 10,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "J1-21": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 1,
+   "available_sites": 18,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 76,
+     "orig": "0",
+     "mutant": "1",
+     "context": "b){int r=a.length,c=r==0?0:a[0].length,z=b.length=="
+    },
+    {
+     "line": 76,
+     "orig": "0",
+     "mutant": "1",
+     "context": "[0].length,z=b.length==0?0:b[0].length;int[][] v=ne"
+    }
+   ]
+  },
+  "J1-22": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 2,
+   "available_sites": 41,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 77,
+     "orig": "9",
+     "mutant": "8",
+     "context": "0;r<9;r+=3)for(int c=0;c<9;c+=3){Set<Character> s=n"
+    },
+    {
+     "line": 77,
+     "orig": "9",
+     "mutant": "8",
+     "context": "rn false;}}for(int r=0;r<9;r+=3)for(int c=0;c<9;c+="
+    }
+   ]
+  },
+  "J1-23": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 3,
+   "available_sites": 19,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 78,
+     "orig": "<",
+     "mutant": "<=",
+     "context": "rayList<>();for(int i=0;i<n;i++)g.add(new ArrayList"
+    },
+    {
+     "line": 78,
+     "orig": "0",
+     "mutant": "1",
+     "context": "i]=duration[i];}long ans=0;while(!q.isEmpty()){int "
+    }
+   ]
+  },
+  "J1-24": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 31,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-25": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 1,
+   "available_sites": 46,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 80,
+     "orig": "3",
+     "mutant": "4",
+     "context": ";b<=3;b++)for(int c=1;c<=3;c++){int d=s.length()-a-"
+    },
+    {
+     "line": 80,
+     "orig": "255",
+     "mutant": "256",
+     "context": "'0'||Integer.parseInt(z)>255)ok=false;if(ok)out.add(S"
+    }
+   ]
+  },
+  "J1-26": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 2,
+   "available_sites": 28,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 81,
+     "orig": "1",
+     "mutant": "0",
+     "context": "string(i,j+1));for(int c=1;c<s.length();c++)for(int"
+    },
+    {
+     "line": 81,
+     "orig": "1",
+     "mutant": "2",
+     "context": "string(i,j+1));for(int c=1;c<s.length();c++)for(int"
+    }
+   ]
+  },
+  "J1-27": {
+   "valid_mutants_tested": 7,
+   "killed": 5,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 7,
+   "kill_rate": 0.714,
+   "survivors": [
+    {
+     "line": 82,
+     "orig": "<",
+     "mutant": "<=",
+     "context": "{int best=0;for(int i=0;i<a.length;i++)for(int j=i+"
+    },
+    {
+     "line": 82,
+     "orig": "1",
+     "mutant": "0",
+     "context": "a.length;i++)for(int j=i+1;j<a.length;j++)best=Math"
+    }
+   ]
+  },
+  "J1-28": {
+   "valid_mutants_tested": 7,
+   "killed": 7,
+   "survived": 0,
+   "invalid_discarded": 8,
+   "available_sites": 15,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-29": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 25,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 84,
+     "orig": "1",
+     "mutant": "0",
+     "context": "0;for(int i=0;i<a.length-1;i++){if(i>far)return -1;"
+    },
+    {
+     "line": 84,
+     "orig": "-",
+     "mutant": "+",
+     "context": "=0;for(int i=0;i<a.length-1;i++){if(i>far)return -1"
+    }
+   ]
+  },
+  "J1-30": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 0,
+   "available_sites": 50,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 85,
+     "orig": "0",
+     "mutant": "1",
+     "context": "y=ys.toArray(new Integer[0]);long v=0;for(int i=0;i"
+    }
+   ]
+  },
+  "J1-31": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 0,
+   "available_sites": 35,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 86,
+     "orig": "<",
+     "mutant": "<=",
+     "context": "Builder();int i=0;while(i<out.length&&out[i]==0)i++"
+    }
+   ]
+  },
+  "J1-32": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 20,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-33": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 3,
+   "available_sites": 61,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 89,
+     "orig": "1",
+     "mutant": "2",
+     "context": "ew BIT(n+1),b2=new BIT(n+1);for(int i=0;i<n;i++)bit"
+    },
+    {
+     "line": 88,
+     "orig": ">",
+     "mutant": ">=",
+     "context": ",int r){return pref(r)-(l>0?pref(l-1):0);}}"
+    }
+   ]
+  },
+  "J1-34": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 4,
+   "available_sites": 18,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 91,
+     "orig": "1",
+     "mutant": "2",
+     "context": "ight];Arrays.fill(match,-1);int count=0;for(int i=0"
+    },
+    {
+     "line": 91,
+     "orig": "<",
+     "mutant": "<=",
+     "context": "rayList<>();for(int i=0;i<left;i++)g.add(new ArrayL"
+    }
+   ]
+  },
+  "J1-35": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 0,
+   "available_sites": 49,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 93,
+     "orig": "2",
+     "mutant": "3",
+     "context": "h;long[][] dp=new long[n+2][n+2];int[] b=new int[n+"
+    }
+   ]
+  },
+  "J1-36": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 28,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-37": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 6,
+   "available_sites": 23,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 95,
+     "orig": "0",
+     "mutant": "1",
+     "context": " ArrayList<>();for(int i=0;i<s.length();i++){char o"
+    }
+   ]
+  },
+  "J1-38": {
+   "valid_mutants_tested": 14,
+   "killed": 14,
+   "survived": 0,
+   "invalid_discarded": 0,
+   "available_sites": 15,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "J1-39": {
+   "valid_mutants_tested": 14,
+   "killed": 12,
+   "survived": 2,
+   "invalid_discarded": 0,
+   "available_sites": 39,
+   "kill_rate": 0.857,
+   "survivors": [
+    {
+     "line": 97,
+     "orig": ">",
+     "mutant": ">=",
+     "context": "At(i)==s.charAt(j)?2+(j-i>1?dp[i+1][j-1]:0):Math.ma"
+    },
+    {
+     "line": 97,
+     "orig": "-",
+     "mutant": "+",
+     "context": "arAt(i)==s.charAt(j)?2+(j-i>1?dp[i+1][j-1]:0):Math."
+    }
+   ]
+  },
+  "J1-40": {
+   "valid_mutants_tested": 14,
+   "killed": 13,
+   "survived": 1,
+   "invalid_discarded": 0,
+   "available_sites": 20,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "line": 98,
+     "orig": "<",
+     "mutant": "<=",
+     "context": ";i<n;i++){int j=0;while(j<i&&a[j][1]<=a[i][0])j++;d"
+    }
+   ]
+  }
+ }
+}

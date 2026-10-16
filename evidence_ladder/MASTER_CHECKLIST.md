@@ -71,3 +71,16 @@ User confirmed 2026-10-16 ("yes go"): D1 dev-only waiver (does not waive grader 
 Kaggle: stage0 kernel `evidence-ladder-stage0-run-v1` and dataset `evidence-ladder-stage0-bundle-v1` (COMPLETE at checkpoint); critic `evidence-ladder-critic-v1` v8 COMPLETE (14 keys, 2 NVIDIA calls).
 Uncommitted agent code at checkpoint: evidence_ladder/execution/{config.py, engine.py} (modified), evidence_ladder/execution/kaggle_jail.py, evidence_ladder/models/qwen.py (modified), kaggle/evidence_ladder_stage0_v1.py, kaggle/el_stage0_probe_push/, tools/pack_evidence_ladder_stage0_v1.py. The WSL execution suite (21/21) has NOT been re-run against the modified engine/config.
 **Stage 0: BLOCKED.** No coding pilot while FC-1 is unverified. Spend Rs 0.
+
+## Stage 0 (pilot GO 2026-10-16): kernel A, internet off, no secrets, no NVIDIA calls
+Evidence root: results/raw/evidence-ladder-stage0-{probe,cpu-run1..6,gpu-run1}-*. Runs 1-5 are kept failure receipts (jail did not start; java libjli; /dev/null mode; test-marker self-hit).
+| item | status | evidence |
+|---|---|---|
+| FC-1 probe | DONE | evidence-ladder-stage0-probe-20261016T120934Z/PROBE.json: root, seccomp filter present, unshare(user/net/pid/mount) = EPERM, no bwrap, apt offline; setuid/runuser nobody OK, chroot capability present |
+| FC-1 jail on Kaggle | **PASS (chroot + uid 65534 + seccomp + rlimits; NO namespaces)** | cpu-run6-20261016T130550Z/STAGE0_RESULTS.json (sha256 69f84d31...): selfcheck PASS, python and java jails start, redteam_run_v2 7/7 (redteam_v2_kaggle.json eb3dbe6e...), 40/40 python references, 37/37 known-wrong caught, java 40 references, 20/21 execution tests |
+| FC-1 residual gaps | RECORDED | no pid/net/mount/ipc namespace: network blocked by seccomp socket() EPERM (AF_INET/INET6/RAW/NETLINK) plus kernel internet off; AF_UNIX allowed (abstract host sockets reachable); x32-ABI syscalls not filtered; /tmp inside the rootfs is shared between runs (wiped before each); `isolation_receipt_contents` test (expects bwrap namespaces, reads /proc) FAILS by design here |
+| FC-2 | not mine (done by coordinator) | |
+| FC-3 Qwen throughput | **MEASURED** | gpu-run1-20261016T135840Z/STAGE0_RESULTS.json (sha256 82ca0235...): Tesla T4, shards sha256 match HF pins; 8.24 tok/s mean single stream (14.6 -> 7.2 as length grows), 42.7 tok/s batch 4, 5593 tokens/sample mean, 7968 max, 678 s/sample. Proposed T: configs/thresholds_evidence_ladder_v1_T.toml (not frozen) |
+| FC-3 defect found | OPEN | prompt template qwen_sample_v1 has no solution-format instructions: 4/5 samples were stdin programs, public examples pass 1/5 |
+| FC-4 separation | **PASS in Kaggle (cpu-run6)** | gate-open grading raises; selection stdin only public inputs; no protected input in selection stdin; in-jail filesystem scan for 40 raw bytes of the hidden-case file finds nothing; grading stdin = protected inputs only, no expected values; HiddenGrade has counts/boolean only; 47/47 reference graded after gate close. The flipped-grader check is in the replay suite (Kaggle run 5/6, 26/26), not re-run here |
+| Contract + red-team tests in this environment | DONE | execution suite 20/21 (the one failure is the bwrap-namespace receipt test) |

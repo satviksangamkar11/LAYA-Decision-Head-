@@ -1,0 +1,8 @@
+import json
+import re
+
+input_json = input().strip()
+data = json.loads(input_json)
+text = data['text'].strip()
+text = re.sub(r'\s+', ' ', text)
+print(text)

@@ -1,0 +1,54 @@
+{
+ "all_pass": true,
+ "tests": {
+  "T1_read_protected_cases": {
+   "pass": true,
+   "failure": null,
+   "escaped": [],
+   "blocked": 5,
+   "stderr_tail": "BLOCKED open protected_cases.json (FileNotFoundError)\nBLOCKED list /mnt (FileNotFoundError)\nBLOCKED list /home (FileNotFoundError)\nBLOCKED open /root (FileNotFoundError)\nBLOCKED open host CLAUDE.md (FileNotFoundError)\n"
+  },
+  "T2_proc_and_env": {
+   "pass": true,
+   "failure": null,
+   "escaped": [],
+   "blocked": 3,
+   "stderr_tail": "BLOCKED see grader process (FileNotFoundError)\nBLOCKED environment secrets (KeyError)\nBLOCKED read /proc/1/environ (FileNotFoundError)\n"
+  },
+  "T3_network": {
+   "pass": true,
+   "failure": null,
+   "escaped": [],
+   "blocked": 4,
+   "stderr_tail": "BLOCKED connect 1.1.1.1:80 (PermissionError)\nBLOCKED connect 127.0.0.1:22 (PermissionError)\nBLOCKED connect 8.8.8.8:53 (PermissionError)\nBLOCKED dns lookup (gaierror)\n"
+  },
+  "T4a_limits": {
+   "pass": true,
+   "failure": null,
+   "escaped": [],
+   "blocked": 3,
+   "stderr_tail": "BLOCKED 200 forks (OSError)\nBLOCKED allocate 4 GB (MemoryError)\nBLOCKED write 50 MB file (OSError)\n"
+  },
+  "T4b_infinite_loop": {
+   "pass": true,
+   "failure": "TIMEOUT",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": ""
+  },
+  "T5_write_outside": {
+   "pass": true,
+   "failure": null,
+   "escaped": [],
+   "blocked": 7,
+   "stderr_tail": "BLOCKED write /usr/x (PermissionError)\nBLOCKED write /etc/x (PermissionError)\nBLOCKED write /jail/cand.py (PermissionError)\nBLOCKED write /jail/runner.py (PermissionError)\nBLOCKED write /mnt/d/x (FileNotFoundError)\nBLOCKED write /proc/1/x (FileNotFoundError)\nBLOCKED modify protected cases (FileNotFoundError)\n"
+  },
+  "T6_forge_output": {
+   "pass": true,
+   "failure": "WRONG_ANSWER_OR_RUNTIME_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n{\"ok\": true, \"value\": 0}\n"
+  }
+ }
+}

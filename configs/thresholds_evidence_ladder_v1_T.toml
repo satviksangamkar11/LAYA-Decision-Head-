@@ -1,0 +1,24 @@
+# Evidence-Ladder v1: PROPOSED token cap T. New versioned file; thresholds_evidence_ladder_v1.toml is untouched (its [pending.values] token_cap_T says "set from pilot stage 0b measurements, then frozen in a new toml").
+# Status: PROPOSAL from the FC-3 measurement only (5 public tasks, 1 sample each, free Kaggle Tesla T4, HF transformers generate, fp16). Not frozen. Written 2026-10-16.
+# Evidence: results/raw/evidence-ladder-stage0-gpu-run1-20261016T135840Z/STAGE0_RESULTS.json (phase FC3_qwen_throughput).
+[meta]
+version = "evidence_ladder_v1_T_proposal1"
+frozen = false
+
+[measured_fc3]
+gpu = "Tesla T4 (2 visible, 1 used)"
+backend = "transformers generate, fp16, thinking mode, T=0.6 top_p=0.95 top_k=20, max_new_tokens 8192"
+tokens_generated_per_sample = [1933, 4152, 5995, 7919, 7968]
+mean_tokens_per_sample = 5593
+max_tokens_per_sample = 7968
+samples_truncated_at_8192 = 0
+single_stream_tokens_per_s = [14.6, 10.8, 8.8, 7.2, 7.3]     # decays with length (no static KV cache); mean 8.24
+batch4_aggregate_tokens_per_s = 42.7                          # 4 prompts in one generate call, 2048 new tokens each
+seconds_per_sample_mean = 678.5
+caveat = "prompt template qwen_sample_v1 carries no solution-format instructions: 4 of 5 samples were written as stdin programs and failed the public examples (1/5 passed). Token lengths are valid; quality is not representative."
+
+[proposed]
+per_sample_max_new_tokens = 8192          # observed max 7968 and no truncation at 8192; a lower cap would cut thinking before </think> for harder tasks
+per_problem_generated_token_cap_T = 32768 # = 4 full-length Qwen samples (or fewer samples plus GLM output tokens), matched across arms (S6 section on budget)
+reason = "mean sample 5.6k tokens, max 8.0k: 32,768 allows about 5 mean-length or 4 worst-case samples per problem. At the measured batched 42.7 tok/s this is about 770 s of GPU per problem per arm, so 40 DEV problems x 6 arms is about 51 GPU-hours with HF generate: too slow for the free quota. A faster backend (vLLM) is unmeasured and would be required, or the pilot uses fewer arms/problems. T itself is a token count, independent of speed."
+decision_needed = ["freeze T and per-sample cap", "choose the generation backend (HF measured; vLLM unmeasured)", "fix the prompt template to include the solution format before any pilot sample"]

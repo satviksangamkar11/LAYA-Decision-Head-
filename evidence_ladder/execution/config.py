@@ -2,6 +2,7 @@
 Paths below point at the EXISTING, unmodified scripts and the public worker support files; nothing here names hidden-test data."""
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -24,7 +25,7 @@ class SandboxConfig:
     max_source_bytes: int = 131072      # existing OVERSIZED_SUBMISSION limit
     max_output_bytes: int = 4 << 20     # stdout cap; exceeding it kills the jail (invalid_output)
     max_observed_chars: int = 2000      # per observed/counterexample string
-    jdk: str = "/opt/toolchains/jdk-26.0.1"
+    jdk: str = os.environ.get("EL_KJAIL_JDK") or "/opt/toolchains/jdk-26.0.1"      # EL_KJAIL_JDK: the Kaggle system JDK (FC-1 jail)
     java_xmx: str = "-Xmx128m"
     # prlimit flags exactly as the existing java grader
     java_compile_prlimit: tuple = ("--nproc=256", "--fsize=4194304", "--cpu=40")

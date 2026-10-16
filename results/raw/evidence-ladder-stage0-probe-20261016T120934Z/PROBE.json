@@ -1,0 +1,169 @@
+{
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "uname": [
+  "Linux",
+  "ac7e1febb2be",
+  "6.18.48+",
+  "#1 SMP Sun Sep 27 17:32:16 UTC 2026",
+  "x86_64"
+ ],
+ "uid": 0,
+ "gid": 0,
+ "id": {
+  "rc": 0,
+  "out": "uid=0(root) gid=0(root) groups=0(root)\n",
+  "err": ""
+ },
+ "status": {
+  "CapEff": "00000000a80425fb",
+  "CapBnd": "00000000a80425fb",
+  "NoNewPrivs": "0",
+  "Seccomp": "2",
+  "Seccomp_filters": "1"
+ },
+ "which": {
+  "bwrap": null,
+  "unshare": "/usr/bin/unshare",
+  "nsenter": "/usr/bin/nsenter",
+  "runuser": "/usr/sbin/runuser",
+  "su": "/usr/bin/su",
+  "setpriv": "/usr/bin/setpriv",
+  "chroot": "/usr/sbin/chroot",
+  "prlimit": "/usr/bin/prlimit",
+  "firejail": null,
+  "nsjail": null,
+  "apt-get": "/usr/bin/apt-get",
+  "sudo": "/usr/bin/sudo",
+  "nvidia-smi": null,
+  "java": "/usr/bin/java",
+  "javac": "/usr/bin/javac",
+  "mount": "/usr/bin/mount",
+  "python3": "/usr/bin/python3"
+ },
+ "/proc/sys/kernel/unprivileged_userns_clone": "ERR FileNotFoundError",
+ "/proc/sys/user/max_user_namespaces": "128361\n",
+ "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": "ERR FileNotFoundError",
+ "/proc/version": "Linux version 6.18.48+ (builder@97c9dd15289d) (Chromium OS 20.0_pre547379 clang version 20.0.0git (/var/cache/chromeos-cache/distfiles/egit-src/external/github.com/llvm/llvm-project 7f7a97ac699a296d80dc54efb267187c2609dacb), LLD 20.0.0 (/var/cache/chromeos-cache/distfiles/egit-src/external/github.co",
+ "/proc/self/cgroup": "0::/\n",
+ "dmesg_gvisor": {
+  "rc": 0,
+  "out": "",
+  "err": "dmesg: read kernel buffer failed: Operation not permitted\n"
+ },
+ "mounts": "overlay / overlay rw,relatime,lowerdir=l/W2WE6YT5IYEIEMHCKZH3VVX2E7:l/JSXZ46KG2GXAAFLXSZK2BMKNT3:l/X27SGSER2Y25EYMF7WH4TCHPRD:l/GEZ7MNHHXUC73AY22TA2H7CBQI:l/Q2P5KD7KGIIJ7BYZYZ6HGGDOR6:l/LCVOS4LNPBGUBKIKJT7QMSZB7E:l/FWUE7KNPQCVNVMZCN3B2LITW4J:l/E7NJZQNJIICY54C5A3CO4SECYM:l/YBOZAEAKC6NI6TH3CEFPNXMUXY:l/YENQRCLE5H5BNJPBPCNELBTVSZ:l/HQXRSPOUKD2N36T6B6HD25IGD5:l/SDD62ARV2OZULAUQBXZPJADOPS:l/TB2DSZ6KMDARDV7BBZSE5HF3WO:l/PQHW6TBQK7H2WJLYWIKHUT3UCS:l/LJZNO6ZRUDW4QTWTPX4NCNAZE5:l/WHJHYVQBFCVHRUMUXAM56HKZYU:l/OQLICMSNLQFLG3UBDVGIEW7HJC:l/SLJTNS5SOGZXBC4HSEIAEMIITU:l/UTR5Y2TS7GGP5LYVQ5VXBJLYO7:l/MYKVMX3CN7BFNCV7N25OQWCQLU:l/TCBCIRWLTGP34NQNZSJPM7UKYP:l/EFY5AVLTPMSKGCL6GDIT6J6L53:l/3AT3VBLHQEN7HILGRFULOB5XU6:l/N7TIL4BOGAG42Q3RSDOKGIQETQ:l/TVWYKO5CAUZCLGVVQTAKHHS6OR:l/UPJVJAFI4OMOZMSTENULPN6LN4:l/G553EGYXTOR5Q7L3HHONJM3JT4:l/S5KEEPDISA73WDUYUEC6LPF562:l/RPQFHKM47C2PRJT75TXJR22VNG:l/PFUSAEIIDDMG5PRJKKRMCNVMVQ:l/FK5FJXY6OVIQRVKKKSHAR5TDUG:l/L23OCEZ6DO7KBST6JPCZH36GIB:l/FKFS4RQXRS6GOMSDTCFEH63GS3:l/UPDQAU4MINGZDXEXGH7ASQRRPU:l/RAJDNXOKSWJWHT6N73OXAJ5BV3:l/BWAZ4X2I3RQCTY6LFMQ2AFW7ND:l/YLFZYI22FMQKAULMZPL2TIOZSK:l/EDEZM6KVRLAC3DSNZMTD6PDONC:l/J4ILIWXAX4YW4NUO4ZW6RQUGFW:l/HLWQSLS4BEDAHW2DWHTY4XLGPV:l/LUHHQ4J2Z53H3JFEP32RPPRBRR:l/MQO57U2OHPTYK52JM4D2O2QRYB:l/SUYA3RIBGUVV3Q4YASGGEMMGGA:l/MVFLROV4KUZ7GLTBCHTTTRKD7T:l/YHKDFSJ2CE6JASLAX4KUHEAU4W:l/AZR2DLAWXPEEQIIPTW4SY764QD:l/B4K2QISSRLHCCXXS4MIN27ZLRD:l/TSSCYM7HOEQN254FZJUY3357EX:l/XQMLPXEI7BYHKIU4DZF57DGMHL:l/MKJHIUQRZABDUOLZ73H4N2HXTN:l/H5WM35MGSEXKK6IUUY2HK57DAU:l/IOLSRJ4EPEKARZEI7RRNIVZT6Q:l/MYFLBWJ5NR6E23JDSXCWVVF6YK:l/FM43XYAXWYNL2JGCBNEHMVPJQK:l/DF765ENDH3POBF3RM4VVT2W7I3:l/NSXT5ZQXAASLNOGTN47BBXMOZC:l/HEWDW5KFTJEYUERHYUMWEHIEYF:l/6SKRHN2Q42AXOF4GXJ7PRSI6OF:l/UNNZBMGCI5U3B75NRFHROQ5QI3:l/DIHXKAHCNDHW6QO7KRUEEYDGJE:l/DNHSHJXKGKKRJIXYL2OBFEXLPE:l/M5OLAKB67UZ47TRLYSFXAF5RAN:l/LSLI62WDH3ZNZHP33NECYY6KSK:l/LHQLYQ6US5CJIUNBIJB4MRISBX:l/HRI6LFYPB63UK66NH7VQZTCUP4:l/VDZPGLYFJ3LPPWBRM4O226G6LL:l/ACNBVXW437AEGKIM7T6JXV7AQJ:l/JHDOR4QD6TS2TXTYBWJXEKERR5:l/DJ4FT42B2UQA6YW7NR3PIHAXRS:l/OJKU7CP6OJFFPUJCEVA2QZJYOE:l/I3RLD6UZDEAHT5YQY6HAFLF7AO:l/Q2BIXBLPHCV3LBUOIXXHIFVAWP:l/XYW7INVZWGRDTN7XNCNWBLM6OG:l/MKS3X3TBACL7GS6GO6TXUBK6S6:l/GGUPQGTJJBWOJWTO7OGS6NE225:l/QNMCZ3ZJE5VYCZFWURGH2HY2Z4:l/ON7I3RMVVYOFW2WBV6VVDYNRZW:l/Q27ILM6NCNHH4TFS2DHWTOG4HQ:l/SKLZM7YXU2MLUEHRN6FWX6WSUJ,upperdir=88aac36ef48783db1a0f5381590db6d10548bb3db02e4832bd5dde0c44fd120e/diff,workdir=88aac36ef48783db1a0f5381590db6d10548bb3db02e4832bd5dde0c44fd120e/work 0 0\nproc /proc proc rw,nosuid,nodev,noexec,relatime 0 0\ntmpfs /dev tmpfs rw,nosuid,size=65536k,mode=755 0 0\ndevpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=666 0 0\nsysfs /sys sysfs ro,nosuid,nodev,noexec,relatime 0 0\ncgroup /sys/fs/cgroup cgroup2 ro,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot 0 0\nmqueue /dev/mqueue mqueue rw,nosuid,nodev,noexec,relatime 0 0\nshm /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,size=14680064k 0 0\n/dev/loop2 /kaggle/huggingface ext4 rw,re",
+ "unshare_user": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_user_net": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_pid": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_all": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_user_nonroot": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_root_net": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "unshare_root_pid_mount": {
+  "rc": 1,
+  "out": "",
+  "err": "unshare: unshare failed: Operation not permitted\n"
+ },
+ "chroot_test": {
+  "rc": 0,
+  "out": "rc=127\n",
+  "err": "chroot: failed to run command \u2018/bin/true\u2019: No such file or directory\n"
+ },
+ "setuid_nobody": {
+  "rc": 0,
+  "out": "65534\n",
+  "err": ""
+ },
+ "runuser_nobody": {
+  "rc": 0,
+  "out": "uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)\n",
+  "err": ""
+ },
+ "setpriv_nobody": {
+  "rc": 0,
+  "out": "uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)\n",
+  "err": ""
+ },
+ "rlimit_nproc_existing": [
+  -1,
+  -1
+ ],
+ "rlimits": {
+  "RLIMIT_AS": [
+   -1,
+   -1
+  ],
+  "RLIMIT_CPU": [
+   -1,
+   -1
+  ],
+  "RLIMIT_FSIZE": [
+   -1,
+   -1
+  ],
+  "RLIMIT_NOFILE": [
+   1048576,
+   1048576
+  ],
+  "RLIMIT_NPROC": [
+   -1,
+   -1
+  ]
+ },
+ "prctl_no_new_privs": [
+  0,
+  0
+ ],
+ "unshare_syscall_in_child": {
+  "exit": 1
+ },
+ "internet": "blocked: TimeoutError",
+ "listdir_input": {
+  "rc": 0,
+  "out": "/kaggle:\ntotal 32\ndrwxr-xr-x 8 root root 4096 Oct 16 11:43 .\ndrwxr-xr-x 1 root root 4096 Oct 16 11:43 ..\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 huggingface\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 input\ndrwxr-xr-x 3 root root 4096 Oct 16 11:43 lib\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 nbdev\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 src\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 working\n\n/kaggle/input:\ntotal 8\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 .\ndrwxr-xr-x 8 root root 4096 Oct 16 11:43 ..\n\n/kaggle/working:\ntotal 8\ndrwxr-xr-x 2 root root 4096 Oct 16 11:43 .\ndrwxr-xr-x 8 root root 4096 Oct 16 11:43 ..\n",
+  "err": ""
+ },
+ "apt_cache": {
+  "rc": 0,
+  "out": "lock\npartial\nbubblewrap:\n  Installed: (none)\n  Candidate: 0.9.0-1ubuntu0.3\n  Version table:\n",
+  "err": ""
+ },
+ "find_bwrap": {
+  "exc": "TimeoutExpired(\"find / -xdev \\\\( -name 'bwrap' -o -name 'nsjail' -o -name 'bubblewrap*' \\\\) 2>/dev/null | head\", 20)"
+ },
+ "cpu": {
+  "nproc": 4,
+  "mem": [
+   "MemTotal:       32869452 kB",
+   "MemFree:        27286576 kB"
+  ]
+ },
+ "nvidia": {
+  "rc": 0,
+  "out": "/bin/sh: 1: nvidia-smi: not found\n",
+  "err": ""
+ }
+}

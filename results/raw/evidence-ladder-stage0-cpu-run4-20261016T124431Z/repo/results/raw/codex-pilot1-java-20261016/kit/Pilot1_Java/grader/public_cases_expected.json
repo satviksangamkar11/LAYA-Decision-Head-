@@ -1,0 +1,1900 @@
+[
+  {
+    "id": "J1-01",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "A man, a plan, a canal: Panama!"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "text": "java 21"
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "text": "0P0"
+        },
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "J1-02",
+    "cases": [
+      {
+        "input": {
+          "year": 2000
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "year": 1900
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "year": 2024
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "year": 2025
+        },
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "J1-03",
+    "cases": [
+      {
+        "input": {
+          "n": 0
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "n": 39
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "n": 999
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "n": 77
+        },
+        "expected": 4
+      }
+    ]
+  },
+  {
+    "id": "J1-04",
+    "cases": [
+      {
+        "input": {
+          "n": 1
+        },
+        "expected": "I"
+      },
+      {
+        "input": {
+          "n": 4
+        },
+        "expected": "IV"
+      },
+      {
+        "input": {
+          "n": 944
+        },
+        "expected": "CMXLIV"
+      },
+      {
+        "input": {
+          "n": 3999
+        },
+        "expected": "MMMCMXCIX"
+      }
+    ]
+  },
+  {
+    "id": "J1-05",
+    "cases": [
+      {
+        "input": {
+          "time": "00:00"
+        },
+        "expected": "12:00 AM"
+      },
+      {
+        "input": {
+          "time": "12:00"
+        },
+        "expected": "12:00 PM"
+      },
+      {
+        "input": {
+          "time": "23:59"
+        },
+        "expected": "11:59 PM"
+      },
+      {
+        "input": {
+          "time": "09:07"
+        },
+        "expected": "09:07 AM"
+      }
+    ]
+  },
+  {
+    "id": "J1-06",
+    "cases": [
+      {
+        "input": {
+          "code": "0-306-40615-2"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "code": "0-8044-2957-X"
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "code": "0-306-40615-3"
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "code": "abc"
+        },
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "J1-07",
+    "cases": [
+      {
+        "input": {
+          "matrix": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [],
+            []
+          ]
+        },
+        "expected": []
+      }
+    ]
+  },
+  {
+    "id": "J1-08",
+    "cases": [
+      {
+        "input": {
+          "bits": "0"
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "bits": "1"
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "bits": "00001010"
+        },
+        "expected": 10
+      },
+      {
+        "input": {
+          "bits": "111111111111111111111111111111111111111111111111111111111111"
+        },
+        "expected": 1152921504606846975
+      }
+    ]
+  },
+  {
+    "id": "J1-09",
+    "cases": [
+      {
+        "input": {
+          "text": "Abc Zz!",
+          "shift": 2
+        },
+        "expected": "Cde Bb!"
+      },
+      {
+        "input": {
+          "text": "xyz XYZ",
+          "shift": -1
+        },
+        "expected": "wxy WXY"
+      },
+      {
+        "input": {
+          "text": "123 äΩ",
+          "shift": 26
+        },
+        "expected": "123 äΩ"
+      },
+      {
+        "input": {
+          "text": "A",
+          "shift": 1000
+        },
+        "expected": "M"
+      }
+    ]
+  },
+  {
+    "id": "J1-10",
+    "cases": [
+      {
+        "input": {
+          "date": "2000-01-01"
+        },
+        "expected": "SATURDAY"
+      },
+      {
+        "input": {
+          "date": "2024-02-29"
+        },
+        "expected": "THURSDAY"
+      },
+      {
+        "input": {
+          "date": "1900-01-01"
+        },
+        "expected": "MONDAY"
+      },
+      {
+        "input": {
+          "date": "2100-12-31"
+        },
+        "expected": "FRIDAY"
+      }
+    ]
+  },
+  {
+    "id": "J1-11",
+    "cases": [
+      {
+        "input": {
+          "row": ""
+        },
+        "expected": [
+          ""
+        ]
+      },
+      {
+        "input": {
+          "row": "a,b,c"
+        },
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      {
+        "input": {
+          "row": "\"a,b\",c"
+        },
+        "expected": [
+          "a,b",
+          "c"
+        ]
+      },
+      {
+        "input": {
+          "row": "\"ab\"\"cd\",,\"\""
+        },
+        "expected": [
+          "ab\"cd",
+          "",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-12",
+    "cases": [
+      {
+        "input": {
+          "ip": "10.17.2.9",
+          "prefix": 8
+        },
+        "expected": "10.0.0.0/8"
+      },
+      {
+        "input": {
+          "ip": "192.168.2.15",
+          "prefix": 24
+        },
+        "expected": "192.168.2.0/24"
+      },
+      {
+        "input": {
+          "ip": "1.2.3.4",
+          "prefix": 0
+        },
+        "expected": "0.0.0.0/0"
+      },
+      {
+        "input": {
+          "ip": "255.255.255.255",
+          "prefix": 32
+        },
+        "expected": "255.255.255.255/32"
+      }
+    ]
+  },
+  {
+    "id": "J1-13",
+    "cases": [
+      {
+        "input": {
+          "matrix": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ]
+        },
+        "expected": [
+          1,
+          2,
+          3,
+          6,
+          5,
+          4
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              3
+            ],
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ]
+        },
+        "expected": [
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        },
+        "expected": [
+          1,
+          2,
+          3,
+          6,
+          9,
+          8,
+          7,
+          4,
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-14",
+    "cases": [
+      {
+        "input": {
+          "matrix": []
+        },
+        "expected": []
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1
+            ]
+          ]
+        },
+        "expected": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "expected": [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ]
+      },
+      {
+        "input": {
+          "matrix": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        },
+        "expected": [
+          [
+            7,
+            4,
+            1
+          ],
+          [
+            8,
+            5,
+            2
+          ],
+          [
+            9,
+            6,
+            3
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-15",
+    "cases": [
+      {
+        "input": {
+          "coeff": [],
+          "x": 5
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "coeff": [
+            5
+          ],
+          "x": 3
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "coeff": [
+            1,
+            -2,
+            3
+          ],
+          "x": -4
+        },
+        "expected": 27
+      },
+      {
+        "input": {
+          "coeff": [
+            0,
+            0,
+            9
+          ],
+          "x": 0
+        },
+        "expected": 9
+      }
+    ]
+  },
+  {
+    "id": "J1-16",
+    "cases": [
+      {
+        "input": {
+          "text": "",
+          "k": 3
+        },
+        "expected": ""
+      },
+      {
+        "input": {
+          "text": "deeedbbcccbdaa",
+          "k": 3
+        },
+        "expected": "aa"
+      },
+      {
+        "input": {
+          "text": "aaaaa",
+          "k": 2
+        },
+        "expected": "a"
+      },
+      {
+        "input": {
+          "text": "abbba",
+          "k": 1
+        },
+        "expected": ""
+      }
+    ]
+  },
+  {
+    "id": "J1-17",
+    "cases": [
+      {
+        "input": {
+          "n": 1,
+          "k": 1
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "n": 7,
+          "k": 3
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "n": 5,
+          "k": 1
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "n": 10,
+          "k": 10
+        },
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "J1-18",
+    "cases": [
+      {
+        "input": {
+          "nums": [],
+          "k": 0
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            0,
+            0,
+            0
+          ],
+          "k": 0
+        },
+        "expected": 6
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            -1,
+            2
+          ],
+          "k": 3
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "nums": [
+            -1,
+            -1,
+            1
+          ],
+          "k": -1
+        },
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "J1-19",
+    "cases": [
+      {
+        "input": {
+          "grid": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              0
+            ]
+          ]
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              1
+            ]
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "grid": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "J1-20",
+    "cases": [
+      {
+        "input": {
+          "words": [],
+          "queries": [
+            {
+              "type": "prefix",
+              "word": ""
+            }
+          ]
+        },
+        "expected": [
+          false
+        ]
+      },
+      {
+        "input": {
+          "words": [
+            "cat",
+            "car"
+          ],
+          "queries": [
+            {
+              "type": "prefix",
+              "word": "ca"
+            },
+            {
+              "type": "exact",
+              "word": "ca"
+            }
+          ]
+        },
+        "expected": [
+          true,
+          false
+        ]
+      },
+      {
+        "input": {
+          "words": [
+            "a",
+            "ab"
+          ],
+          "queries": [
+            {
+              "type": "exact",
+              "word": "a"
+            }
+          ]
+        },
+        "expected": [
+          true
+        ]
+      },
+      {
+        "input": {
+          "words": [
+            "aaa"
+          ],
+          "queries": [
+            {
+              "type": "prefix",
+              "word": "b"
+            }
+          ]
+        },
+        "expected": [
+          false
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-21",
+    "cases": [
+      {
+        "input": {
+          "a": [
+            [
+              1
+            ]
+          ],
+          "b": [
+            [
+              2
+            ]
+          ]
+        },
+        "expected": [
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "input": {
+          "a": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "b": [
+            [
+              3,
+              4
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        },
+        "expected": [
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      {
+        "input": {
+          "a": [
+            [
+              -1,
+              2,
+              0
+            ]
+          ],
+          "b": [
+            [
+              1
+            ],
+            [
+              5
+            ],
+            [
+              -9
+            ]
+          ]
+        },
+        "expected": [
+          [
+            9
+          ]
+        ]
+      },
+      {
+        "input": {
+          "a": [
+            [
+              0,
+              0
+            ]
+          ],
+          "b": [
+            [
+              3,
+              4
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        },
+        "expected": [
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-22",
+    "cases": [
+      {
+        "input": {
+          "board": [
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            "........."
+          ]
+        },
+        "expected": true
+      },
+      {
+        "input": {
+          "board": [
+            "11.......",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            "........."
+          ]
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "board": [
+            "1........",
+            "1........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            "........."
+          ]
+        },
+        "expected": false
+      },
+      {
+        "input": {
+          "board": [
+            "1........",
+            ".1.......",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            ".........",
+            "........."
+          ]
+        },
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "J1-23",
+    "cases": [
+      {
+        "input": {
+          "duration": [],
+          "edges": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "duration": [
+            5
+          ],
+          "edges": []
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "duration": [
+            3,
+            4,
+            5
+          ],
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": 12
+      },
+      {
+        "input": {
+          "duration": [
+            2,
+            5,
+            9
+          ],
+          "edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": 14
+      }
+    ]
+  },
+  {
+    "id": "J1-24",
+    "cases": [
+      {
+        "input": {
+          "expression": "0"
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "expression": "-(-5+3)"
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "expression": "1 - (2 - (3-4))"
+        },
+        "expected": -2
+      },
+      {
+        "input": {
+          "expression": " +12-(+3 + -2) "
+        },
+        "expected": 11
+      }
+    ]
+  },
+  {
+    "id": "J1-25",
+    "cases": [
+      {
+        "input": {
+          "digits": "0000"
+        },
+        "expected": [
+          "0.0.0.0"
+        ]
+      },
+      {
+        "input": {
+          "digits": "25525511135"
+        },
+        "expected": [
+          "255.255.11.135",
+          "255.255.111.35"
+        ]
+      },
+      {
+        "input": {
+          "digits": "1111"
+        },
+        "expected": [
+          "1.1.1.1"
+        ]
+      },
+      {
+        "input": {
+          "digits": "123"
+        },
+        "expected": []
+      }
+    ]
+  },
+  {
+    "id": "J1-26",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "aaa"
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "text": "ababa"
+        },
+        "expected": 5
+      },
+      {
+        "input": {
+          "text": "abcd"
+        },
+        "expected": 4
+      }
+    ]
+  },
+  {
+    "id": "J1-27",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            0,
+            0
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2
+          ]
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "nums": [
+            2,
+            8,
+            16,
+            31
+          ]
+        },
+        "expected": 29
+      },
+      {
+        "input": {
+          "nums": [
+            1023,
+            0,
+            1
+          ]
+        },
+        "expected": 1023
+      }
+    ]
+  },
+  {
+    "id": "J1-28",
+    "cases": [
+      {
+        "input": {
+          "events": [],
+          "start": 0,
+          "end": 1
+        },
+        "expected": {}
+      },
+      {
+        "input": {
+          "events": [
+            {
+              "user": "a",
+              "minute": 0
+            }
+          ],
+          "start": 1,
+          "end": 2
+        },
+        "expected": {}
+      },
+      {
+        "input": {
+          "events": [
+            {
+              "user": "a",
+              "minute": 1
+            },
+            {
+              "user": "b",
+              "minute": 1
+            }
+          ],
+          "start": 1,
+          "end": 1
+        },
+        "expected": {
+          "a": 1,
+          "b": 1
+        }
+      },
+      {
+        "input": {
+          "events": [
+            {
+              "user": "z",
+              "minute": 3
+            },
+            {
+              "user": "z",
+              "minute": 2
+            }
+          ],
+          "start": 2,
+          "end": 3
+        },
+        "expected": {
+          "z": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "J1-29",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            0
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            2,
+            3,
+            1,
+            1,
+            4
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "nums": [
+            3,
+            2,
+            1,
+            0,
+            4
+          ]
+        },
+        "expected": -1
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            0
+          ]
+        },
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "J1-30",
+    "cases": [
+      {
+        "input": {
+          "rectangles": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "rectangles": [
+            [
+              0,
+              0,
+              2,
+              2
+            ]
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "rectangles": [
+            [
+              0,
+              0,
+              2,
+              2
+            ],
+            [
+              1,
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "expected": 7
+      },
+      {
+        "input": {
+          "rectangles": [
+            [
+              0,
+              0,
+              2,
+              1
+            ],
+            [
+              2,
+              0,
+              4,
+              1
+            ]
+          ]
+        },
+        "expected": 4
+      }
+    ]
+  },
+  {
+    "id": "J1-31",
+    "cases": [
+      {
+        "input": {
+          "a": "0",
+          "b": "123"
+        },
+        "expected": "0"
+      },
+      {
+        "input": {
+          "a": "0012",
+          "b": "003"
+        },
+        "expected": "36"
+      },
+      {
+        "input": {
+          "a": "99",
+          "b": "99"
+        },
+        "expected": "9801"
+      },
+      {
+        "input": {
+          "a": "123456789",
+          "b": "987654321"
+        },
+        "expected": "121932631112635269"
+      }
+    ]
+  },
+  {
+    "id": "J1-32",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            3,
+            2,
+            1
+          ]
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "nums": [
+            2,
+            2,
+            2
+          ]
+        },
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "J1-33",
+    "cases": [
+      {
+        "input": {
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "operations": [
+            [
+              "sum",
+              0,
+              2
+            ],
+            [
+              "add",
+              0,
+              1,
+              4
+            ],
+            [
+              "sum",
+              1,
+              2
+            ]
+          ]
+        },
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            0
+          ],
+          "operations": [
+            [
+              "add",
+              0,
+              0,
+              -1
+            ],
+            [
+              "sum",
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": [
+          -1
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            5,
+            5
+          ],
+          "operations": [
+            [
+              "sum",
+              1,
+              1
+            ]
+          ]
+        },
+        "expected": [
+          5
+        ]
+      },
+      {
+        "input": {
+          "nums": [
+            3,
+            -2,
+            10
+          ],
+          "operations": []
+        },
+        "expected": []
+      }
+    ]
+  },
+  {
+    "id": "J1-34",
+    "cases": [
+      {
+        "input": {
+          "left": 0,
+          "right": 0,
+          "edges": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "left": 2,
+          "right": 2,
+          "edges": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "left": 2,
+          "right": 1,
+          "edges": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "left": 3,
+          "right": 3,
+          "edges": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "J1-35",
+    "cases": [
+      {
+        "input": {
+          "nums": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "nums": [
+            7
+          ]
+        },
+        "expected": 7
+      },
+      {
+        "input": {
+          "nums": [
+            3,
+            1,
+            5,
+            8
+          ]
+        },
+        "expected": 167
+      },
+      {
+        "input": {
+          "nums": [
+            0,
+            0,
+            2
+          ]
+        },
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "J1-36",
+    "cases": [
+      {
+        "input": {
+          "n": 1,
+          "blocked": []
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "n": 2,
+          "blocked": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "n": 4,
+          "blocked": []
+        },
+        "expected": 2
+      },
+      {
+        "input": {
+          "n": 8,
+          "blocked": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 88
+      }
+    ]
+  },
+  {
+    "id": "J1-37",
+    "cases": [
+      {
+        "input": {
+          "expression": "5"
+        },
+        "expected": [
+          5
+        ]
+      },
+      {
+        "input": {
+          "expression": "2-1-1"
+        },
+        "expected": [
+          0,
+          2
+        ]
+      },
+      {
+        "input": {
+          "expression": "2*3-4*5"
+        },
+        "expected": [
+          -34,
+          -14,
+          -10,
+          -10,
+          10
+        ]
+      },
+      {
+        "input": {
+          "expression": "1+2+3"
+        },
+        "expected": [
+          6,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": "J1-38",
+    "cases": [
+      {
+        "input": {
+          "source": "",
+          "target": ""
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "source": "abc",
+          "target": ""
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "source": "rabbbit",
+          "target": "rabbit"
+        },
+        "expected": 3
+      },
+      {
+        "input": {
+          "source": "aaaa",
+          "target": "aa"
+        },
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "J1-39",
+    "cases": [
+      {
+        "input": {
+          "text": ""
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "text": "bbbab"
+        },
+        "expected": 4
+      },
+      {
+        "input": {
+          "text": "abcd"
+        },
+        "expected": 1
+      },
+      {
+        "input": {
+          "text": "agbdba"
+        },
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "id": "J1-40",
+    "cases": [
+      {
+        "input": {
+          "jobs": []
+        },
+        "expected": 0
+      },
+      {
+        "input": {
+          "jobs": [
+            [
+              1,
+              2,
+              9
+            ]
+          ]
+        },
+        "expected": 9
+      },
+      {
+        "input": {
+          "jobs": [
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              3,
+              5,
+              8
+            ],
+            [
+              2,
+              4,
+              10
+            ]
+          ]
+        },
+        "expected": 13
+      },
+      {
+        "input": {
+          "jobs": [
+            [
+              0,
+              2,
+              5
+            ],
+            [
+              0,
+              2,
+              8
+            ],
+            [
+              2,
+              3,
+              1
+            ]
+          ]
+        },
+        "expected": 9
+      }
+    ]
+  }
+]

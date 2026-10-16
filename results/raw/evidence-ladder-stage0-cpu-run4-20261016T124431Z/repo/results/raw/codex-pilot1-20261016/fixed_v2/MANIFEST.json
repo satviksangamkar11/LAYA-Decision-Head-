@@ -1,0 +1,16 @@
+{
+  "pilot": "P1",
+  "status": "development",
+  "task_count": 40,
+  "mix": {
+    "easy": 10,
+    "medium": 20,
+    "hard": 10
+  },
+  "public_cases_per_task": 4,
+  "protected_cases_per_task": 40,
+  "seed": 20261016,
+  "original_tasks": true,
+  "unseen_test_claim": false,
+  "model_calls": 0
+}

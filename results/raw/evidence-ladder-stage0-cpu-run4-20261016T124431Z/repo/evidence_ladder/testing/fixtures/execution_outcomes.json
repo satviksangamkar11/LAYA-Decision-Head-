@@ -1,0 +1,1275 @@
+{
+ "_note": "REAL sandbox outcomes recorded in WSL (bubblewrap jail); duration_s and stderr_tail stripped.",
+ "backend_info": {
+  "backend": "bubblewrap (existing receipted python/java sandboxes, unmodified)",
+  "host_uid": 0,
+  "jail_user": "nobody via runuser when host uid is 0 (rlimits only bind a non-root uid)",
+  "java_encoding_pins": [
+   "LC_ALL=C.UTF-8",
+   "-Dfile.encoding=UTF-8",
+   "-Dstdout.encoding=UTF-8",
+   "-Dstdin.encoding=UTF-8",
+   "javac -encoding UTF-8"
+  ],
+  "java_toolchain": {
+   "java": [
+    "openjdk version \"26.0.1\" 2026-04-21"
+   ],
+   "javac": [
+    "javac 26.0.1"
+   ]
+  },
+  "kaggle": "NOT verified: FC-1 (uid drop / bwrap on Kaggle) is a separate unrun feasibility test",
+  "limits_config": {
+   "java_compile_prlimit": [
+    "--nproc=256",
+    "--fsize=4194304",
+    "--cpu=40"
+   ],
+   "java_compile_timeout": 60.0,
+   "java_run_prlimit": [
+    "--nproc=256",
+    "--fsize=1048576",
+    "--nofile=256",
+    "--cpu=30"
+   ],
+   "java_run_timeout": 6.0,
+   "java_xmx": "-Xmx128m",
+   "jdk": "/opt/toolchains/jdk-26.0.1",
+   "max_output_bytes": 4194304,
+   "max_source_bytes": 131072,
+   "py_timeout": 4.0
+  },
+  "python_jail": {
+   "env_keys": [
+    "LC_CTYPE",
+    "PATH",
+    "PWD",
+    "PYTHONHASHSEED"
+   ],
+   "gid": 65534,
+   "host_home_listing": "blocked:FileNotFoundError",
+   "host_mnt_listing": "blocked:FileNotFoundError",
+   "namespaces": {
+    "ipc": "ipc:[4026532229]",
+    "mnt": "mnt:[4026532227]",
+    "net": "net:[4026532233]",
+    "pid": "pid:[4026532230]",
+    "user": "user:[4026532299]",
+    "uts": "uts:[4026532228]"
+   },
+   "namespaces_differ_from_host": {
+    "ipc": true,
+    "mnt": true,
+    "net": true,
+    "pid": true,
+    "user": true,
+    "uts": true
+   },
+   "network": "blocked:OSError",
+   "python": "3.12.3",
+   "rlimits": {
+    "AS": [
+     1073741824,
+     1073741824
+    ],
+    "CORE": [
+     0,
+     0
+    ],
+    "FSIZE": [
+     1048576,
+     1048576
+    ],
+    "NOFILE": [
+     64,
+     64
+    ],
+    "NPROC": [
+     32,
+     32
+    ]
+   },
+   "uid": 65534,
+   "write_etc": "blocked:FileNotFoundError",
+   "write_tmp": "ALLOWED",
+   "write_usr": "blocked:OSError"
+  }
+ },
+ "cases": {
+  "java_compile_error": {
+   "artifact_id": "7536ec591b8337a8fe7fbd3022e6c619026807668dbda3e8f5ba0c876480c332",
+   "case": "java_compile_error",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "javac failed",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{\"year\": 2000}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "javac failed",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{\"year\": 1900}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "javac failed",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "java",
+   "note": "compile error",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "javac failed",
+     "failure_class": "compile_error",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: javac failed",
+     "example_index": 0,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: javac failed",
+     "example_index": 1,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: javac failed",
+     "example_index": 2,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: javac failed",
+     "example_index": 3,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    }
+   ],
+   "public_tests_sha256": "0977a7aa6cde49febd21c8329d304e25490578f33b4110e0551239eaaf1befce",
+   "source": "public final class Solution { broken",
+   "task_id": "J1-02"
+  },
+  "java_ref": {
+   "artifact_id": "07b75d8a80909fb7556cd2a5015019535865619cd2d4d1df578ecc31227094b4",
+   "case": "java_ref",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 2000}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": false,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 1900}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<runtime_error>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "java",
+   "note": "correct (hand-written leap-year rule)",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 1: matched",
+     "example_index": 1,
+     "failure_class": "",
+     "observed": "false",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "false",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "0977a7aa6cde49febd21c8329d304e25490578f33b4110e0551239eaaf1befce",
+   "source": "import java.util.*;\npublic final class Solution { public static Object solve(Map<String,Object> d){ int y=((Number)d.get(\"year\")).intValue(); return (y%400==0)||(y%4==0&&y%100!=0); } }",
+   "task_id": "J1-02"
+  },
+  "java_wrong": {
+   "artifact_id": "626d245c81c62271736461b3aa4b2256f64c0a764e4ef1fa0f6f54b0e1b67c41",
+   "case": "java_wrong",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 2000}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 1900}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<runtime_error>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "java",
+   "note": "known wrong: no century rule",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "false",
+      "input": "{\"year\": 1900}",
+      "observed": "true"
+     },
+     "detail": "example 1: wrong_answer",
+     "example_index": 1,
+     "failure_class": "wrong_answer",
+     "observed": "true",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "false",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "0977a7aa6cde49febd21c8329d304e25490578f33b4110e0551239eaaf1befce",
+   "source": "import java.util.*;\npublic final class Solution { public static Object solve(Map<String,Object> d){ int y=((Number)d.get(\"year\")).intValue(); return y%4==0; } }",
+   "task_id": "J1-02"
+  },
+  "java_wrong_v2": {
+   "artifact_id": "4c33ca952015c0228a8e6c8f6d77fb281dae7341f65bb6945a37e21cc5b2447d",
+   "case": "java_wrong_v2",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 2000}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 1900}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<runtime_error>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "java",
+   "note": "same failure, different source",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "false",
+      "input": "{\"year\": 1900}",
+      "observed": "true"
+     },
+     "detail": "example 1: wrong_answer",
+     "example_index": 1,
+     "failure_class": "wrong_answer",
+     "observed": "true",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "false",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "0977a7aa6cde49febd21c8329d304e25490578f33b4110e0551239eaaf1befce",
+   "source": "import java.util.*;\npublic final class Solution { public static Object solve(Map<String,Object> d){ int y=((Number)d.get(\"year\")).intValue(); return y%4==0; } }\n// variant 2",
+   "task_id": "J1-02"
+  },
+  "java_wrong_v3": {
+   "artifact_id": "6992c8c15221c900a41bf7e1f8d56e6324b89f3b21570e6e3194e54d71d8b814",
+   "case": "java_wrong_v3",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 2000}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": true,
+      "status": "pass"
+     },
+     "payload": "{\"year\": 1900}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<runtime_error>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "java",
+   "note": "same failure, different source",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "false",
+      "input": "{\"year\": 1900}",
+      "observed": "true"
+     },
+     "detail": "example 1: wrong_answer",
+     "example_index": 1,
+     "failure_class": "wrong_answer",
+     "observed": "true",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "true",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "false",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "0977a7aa6cde49febd21c8329d304e25490578f33b4110e0551239eaaf1befce",
+   "source": "import java.util.*;\npublic final class Solution { public static Object solve(Map<String,Object> d){ int y=((Number)d.get(\"year\")).intValue(); return y%4==0; } }\n// variant 3",
+   "task_id": "J1-02"
+  },
+  "py_const99": {
+   "artifact_id": "a3217ddfadb78f377e320943993cfd9bccedb329aae233ef6fe12a0e53875fe5",
+   "case": "py_const99",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 99,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 99,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 99,
+      "status": "pass"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "known wrong: constant",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"\"}",
+      "observed": "99"
+     },
+     "detail": "example 0: wrong_answer",
+     "example_index": 0,
+     "failure_class": "wrong_answer",
+     "observed": "99",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "5",
+      "input": "{\"text\": \"AEIOU\"}",
+      "observed": "99"
+     },
+     "detail": "example 1: wrong_answer",
+     "example_index": 1,
+     "failure_class": "wrong_answer",
+     "observed": "99",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"rhythm\"}",
+      "observed": "99"
+     },
+     "detail": "example 2: wrong_answer",
+     "example_index": 2,
+     "failure_class": "wrong_answer",
+     "observed": "99",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "3",
+      "input": "{\"text\": \"a!E_9u\"}",
+      "observed": "99"
+     },
+     "detail": "example 3: wrong_answer",
+     "example_index": 3,
+     "failure_class": "wrong_answer",
+     "observed": "99",
+     "status": "fail"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): return 99",
+   "task_id": "P1-01"
+  },
+  "py_crash": {
+   "artifact_id": "e2413608192e2b4dc61e78a63a11a5d282de17d2a5ac61719cec04475048cbe1",
+   "case": "py_crash",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: ValueError>",
+      "status": "fail"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: ValueError>",
+      "status": "fail"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: ValueError>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "runtime error",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"\"}",
+      "observed": "<error: ValueError>"
+     },
+     "detail": "example 0: runtime_error",
+     "example_index": 0,
+     "failure_class": "runtime_error",
+     "observed": "<error: ValueError>",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "5",
+      "input": "{\"text\": \"AEIOU\"}",
+      "observed": "<error: ValueError>"
+     },
+     "detail": "example 1: runtime_error",
+     "example_index": 1,
+     "failure_class": "runtime_error",
+     "observed": "<error: ValueError>",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"rhythm\"}",
+      "observed": "<error: ValueError>"
+     },
+     "detail": "example 2: runtime_error",
+     "example_index": 2,
+     "failure_class": "runtime_error",
+     "observed": "<error: ValueError>",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "3",
+      "input": "{\"text\": \"a!E_9u\"}",
+      "observed": "<error: ValueError>"
+     },
+     "detail": "example 3: runtime_error",
+     "example_index": 3,
+     "failure_class": "runtime_error",
+     "observed": "<error: ValueError>",
+     "status": "fail"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): raise ValueError('x')",
+   "task_id": "P1-01"
+  },
+  "py_lower_first": {
+   "artifact_id": "b404a24ee7c0e3b19ce325c9016715ac3104fd7d16d50442067088b4c6b6b33d",
+   "case": "py_lower_first",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 2,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: KeyError>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "passes public, fails protected",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 1: matched",
+     "example_index": 1,
+     "failure_class": "",
+     "observed": "5",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "3",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): return sum(c in 'aeiou' for c in d['text'].lower())",
+   "task_id": "P1-01"
+  },
+  "py_ref": {
+   "artifact_id": "e479532d33d45083f1a9b8f2ad1d37e9ece09a8481438c6ee7fdc1bea5eee0e0",
+   "case": "py_ref",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 2,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: KeyError>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "correct (oracle p01)",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 1: matched",
+     "example_index": 1,
+     "failure_class": "",
+     "observed": "5",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 2: matched",
+     "example_index": 2,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "3",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): return sum(c in 'aeiouAEIOU' for c in d['text'])",
+   "task_id": "P1-01"
+  },
+  "py_syntax": {
+   "artifact_id": "b4370565d83a847d8033bbb5a95308d11da133e5b8b0ba8c96acc04bd8b90444",
+   "case": "py_syntax",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+      "failure_class": "compile_error",
+      "observed": null,
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "syntax error",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+     "failure_class": "compile_error",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+     "example_index": 0,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+     "example_index": 1,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+     "example_index": 2,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "not run: module failed to load: SyntaxError: expected ':' (cand.py, line 1)",
+     "example_index": 3,
+     "failure_class": "compile_error",
+     "observed": "",
+     "status": "missing_evidence"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d) return 1",
+   "task_id": "P1-01"
+  },
+  "py_timeout": {
+   "artifact_id": "20d3d61234056af3eeef39080b13990a129f04a0abfb2e9d109b40d70aaca112",
+   "case": "py_timeout",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "case 0: timeout",
+      "failure_class": "timeout",
+      "status": "timeout"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "case 0: timeout",
+      "failure_class": "timeout",
+      "status": "timeout"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "case 0: timeout",
+      "failure_class": "timeout",
+      "status": "timeout"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "never returns",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"\"}",
+      "observed": "<timeout>"
+     },
+     "detail": "example 0: timeout",
+     "example_index": 0,
+     "failure_class": "timeout",
+     "observed": "<timeout>",
+     "status": "timeout"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "5",
+      "input": "{\"text\": \"AEIOU\"}",
+      "observed": "<timeout>"
+     },
+     "detail": "example 1: timeout",
+     "example_index": 1,
+     "failure_class": "timeout",
+     "observed": "<timeout>",
+     "status": "timeout"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"rhythm\"}",
+      "observed": "<timeout>"
+     },
+     "detail": "example 2: timeout",
+     "example_index": 2,
+     "failure_class": "timeout",
+     "observed": "<timeout>",
+     "status": "timeout"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "3",
+      "input": "{\"text\": \"a!E_9u\"}",
+      "observed": "<timeout>"
+     },
+     "detail": "example 3: timeout",
+     "example_index": 3,
+     "failure_class": "timeout",
+     "observed": "<timeout>",
+     "status": "timeout"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d):\n    while True: pass",
+   "task_id": "P1-01"
+  },
+  "py_wrong_y": {
+   "artifact_id": "e33858e79c9df41b705142de6144d49a5664ff64854987e871256de51c49f862",
+   "case": "py_wrong_y",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: KeyError>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "known wrong: counts y",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 1: matched",
+     "example_index": 1,
+     "failure_class": "",
+     "observed": "5",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"rhythm\"}",
+      "observed": "1"
+     },
+     "detail": "example 2: wrong_answer",
+     "example_index": 2,
+     "failure_class": "wrong_answer",
+     "observed": "1",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "3",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): return sum(c in 'aeiouyAEIOUY' for c in d['text'])",
+   "task_id": "P1-01"
+  },
+  "py_wrong_y_v2": {
+   "artifact_id": "7f41bad26849590568d87a6a364faae3d087fb8e3484b1f52841345ad941a762",
+   "case": "py_wrong_y_v2",
+   "experiments": [
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"hello world\"}"
+    },
+    {
+     "kind": "stdin_input",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "experiment executed; the output is an observation, not a correctness verdict",
+      "failure_class": "",
+      "observed": 3,
+      "status": "pass"
+     },
+     "payload": "{\"text\": \"yellow\"}"
+    },
+    {
+     "kind": "function_call",
+     "outcome": {
+      "check_id": "critic_experiment_v1",
+      "detail": "candidate raised on this input",
+      "failure_class": "runtime_error",
+      "observed": "<error: KeyError>",
+      "status": "fail"
+     },
+     "payload": "{}"
+    }
+   ],
+   "language": "python",
+   "note": "same failure, different source",
+   "public": [
+    {
+     "check_id": "parse_v1",
+     "detail": "source compiled/loaded in the jail",
+     "failure_class": "",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 0: matched",
+     "example_index": 0,
+     "failure_class": "",
+     "observed": "0",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 1: matched",
+     "example_index": 1,
+     "failure_class": "",
+     "observed": "5",
+     "status": "pass"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "counterexample": {
+      "expected": "0",
+      "input": "{\"text\": \"rhythm\"}",
+      "observed": "1"
+     },
+     "detail": "example 2: wrong_answer",
+     "example_index": 2,
+     "failure_class": "wrong_answer",
+     "observed": "1",
+     "status": "fail"
+    },
+    {
+     "check_id": "public_examples_v1",
+     "detail": "example 3: matched",
+     "example_index": 3,
+     "failure_class": "",
+     "observed": "3",
+     "status": "pass"
+    }
+   ],
+   "public_tests_sha256": "70cfac3b5958e66103e59fdc3abb07e8ce97ec84ef467ada7233e6cf239c6945",
+   "source": "def solve(d): return sum(c in 'aeiouyAEIOUY' for c in d['text'])\n# variant 2",
+   "task_id": "P1-01"
+  }
+ }
+}

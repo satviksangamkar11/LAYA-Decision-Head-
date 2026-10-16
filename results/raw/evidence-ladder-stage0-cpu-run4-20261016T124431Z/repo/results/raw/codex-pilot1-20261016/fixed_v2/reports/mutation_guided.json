@@ -1,0 +1,177 @@
+{
+ "P1-16": {
+  "mutants": 35,
+  "survivors_before": 8,
+  "guided_cases_added": 4,
+  "likely_equivalent": [
+   {
+    "kind": "const+",
+    "line": 72
+   },
+   {
+    "kind": "const-",
+    "line": 72
+   },
+   {
+    "kind": "const-",
+    "line": 72
+   }
+  ],
+  "tries_per_mutant": 20000
+ },
+ "P1-18": {
+  "mutants": 28,
+  "survivors_before": 7,
+  "guided_cases_added": 1,
+  "likely_equivalent": [
+   {
+    "kind": "const-",
+    "line": 95
+   },
+   {
+    "kind": "cmp",
+    "line": 94
+   },
+   {
+    "kind": "const+",
+    "line": 94
+   },
+   {
+    "kind": "const-",
+    "line": 94
+   },
+   {
+    "kind": "const+",
+    "line": 94
+   }
+  ],
+  "tries_per_mutant": 20000
+ },
+ "P1-19": {
+  "mutants": 56,
+  "survivors_before": 14,
+  "guided_cases_added": 0,
+  "likely_equivalent": [
+   {
+    "kind": "const+",
+    "line": 103
+   },
+   {
+    "kind": "const-",
+    "line": 103
+   },
+   {
+    "kind": "const+",
+    "line": 103
+   },
+   {
+    "kind": "const-",
+    "line": 103
+   },
+   {
+    "kind": "const+",
+    "line": 103
+   },
+   {
+    "kind": "const-",
+    "line": 103
+   },
+   {
+    "kind": "const+",
+    "line": 103
+   },
+   {
+    "kind": "const-",
+    "line": 103
+   },
+   {
+    "kind": "const+",
+    "line": 112
+   },
+   {
+    "kind": "const-",
+    "line": 112
+   },
+   {
+    "kind": "const+",
+    "line": 112
+   },
+   {
+    "kind": "const-",
+    "line": 112
+   },
+   {
+    "kind": "const+",
+    "line": 112
+   },
+   {
+    "kind": "const-",
+    "line": 112
+   }
+  ],
+  "tries_per_mutant": 20000
+ },
+ "P1-25": {
+  "mutants": 31,
+  "survivors_before": 8,
+  "guided_cases_added": 2,
+  "likely_equivalent": [
+   {
+    "kind": "const-",
+    "line": 162
+   },
+   {
+    "kind": "cmp",
+    "line": 165
+   },
+   {
+    "kind": "cmp",
+    "line": 168
+   },
+   {
+    "kind": "const-",
+    "line": 165
+   },
+   {
+    "kind": "const-",
+    "line": 168
+   },
+   {
+    "kind": "const-",
+    "line": 169
+   }
+  ],
+  "tries_per_mutant": 20000
+ },
+ "P1-26": {
+  "mutants": 24,
+  "survivors_before": 7,
+  "guided_cases_added": 1,
+  "likely_equivalent": [
+   {
+    "kind": "const-",
+    "line": 181
+   },
+   {
+    "kind": "cmp",
+    "line": 180
+   },
+   {
+    "kind": "cmp",
+    "line": 180
+   },
+   {
+    "kind": "const+",
+    "line": 180
+   },
+   {
+    "kind": "const+",
+    "line": 180
+   }
+  ],
+  "tries_per_mutant": 20000
+ },
+ "P1-34": {
+  "hand_cases_added": 5
+ }
+}

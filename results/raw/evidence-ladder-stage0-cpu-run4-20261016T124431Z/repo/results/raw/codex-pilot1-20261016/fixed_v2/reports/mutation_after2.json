@@ -1,0 +1,604 @@
+{
+ "summary": {
+  "cases_file": "protected_cases.json",
+  "tasks": 40,
+  "mutants": 735,
+  "killed": 669,
+  "kill_rate_overall": 0.9102,
+  "seconds": 32.8,
+  "note": "survivors include equivalent mutants; kill rate is a lower bound on adequacy",
+  "tasks_below_0.80": [
+   "P1-19",
+   "P1-26"
+  ]
+ },
+ "per_task": {
+  "P1-01": {
+   "mutants": 1,
+   "killed": 1,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-02": {
+   "mutants": 6,
+   "killed": 6,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-03": {
+   "mutants": 6,
+   "killed": 6,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-04": {
+   "mutants": 5,
+   "killed": 5,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-05": {
+   "mutants": 0,
+   "killed": 0,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "P1-06": {
+   "mutants": 14,
+   "killed": 13,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "kind": "cmp",
+     "line": 24,
+     "site": 31
+    }
+   ]
+  },
+  "P1-07": {
+   "mutants": 9,
+   "killed": 9,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-08": {
+   "mutants": 17,
+   "killed": 17,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-09": {
+   "mutants": 6,
+   "killed": 6,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-10": {
+   "mutants": 0,
+   "killed": 0,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "P1-11": {
+   "mutants": 7,
+   "killed": 7,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-12": {
+   "mutants": 5,
+   "killed": 5,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-13": {
+   "mutants": 12,
+   "killed": 10,
+   "kill_rate": 0.833,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 57,
+     "site": 14
+    },
+    {
+     "kind": "const+",
+     "line": 59,
+     "site": 79
+    }
+   ]
+  },
+  "P1-14": {
+   "mutants": 0,
+   "killed": 0,
+   "kill_rate": null,
+   "survivors": []
+  },
+  "P1-15": {
+   "mutants": 18,
+   "killed": 18,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-16": {
+   "mutants": 35,
+   "killed": 32,
+   "kill_rate": 0.914,
+   "survivors": [
+    {
+     "kind": "const+",
+     "line": 72,
+     "site": 34
+    },
+    {
+     "kind": "const-",
+     "line": 72,
+     "site": 34
+    },
+    {
+     "kind": "const-",
+     "line": 72,
+     "site": 74
+    }
+   ]
+  },
+  "P1-17": {
+   "mutants": 10,
+   "killed": 10,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-18": {
+   "mutants": 28,
+   "killed": 23,
+   "kill_rate": 0.821,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 95,
+     "site": 37
+    },
+    {
+     "kind": "cmp",
+     "line": 94,
+     "site": 49
+    },
+    {
+     "kind": "const+",
+     "line": 94,
+     "site": 54
+    },
+    {
+     "kind": "const-",
+     "line": 94,
+     "site": 78
+    },
+    {
+     "kind": "const+",
+     "line": 94,
+     "site": 81
+    }
+   ]
+  },
+  "P1-19": {
+   "mutants": 56,
+   "killed": 42,
+   "kill_rate": 0.75,
+   "survivors": [
+    {
+     "kind": "const+",
+     "line": 103,
+     "site": 52
+    },
+    {
+     "kind": "const-",
+     "line": 103,
+     "site": 52
+    },
+    {
+     "kind": "const+",
+     "line": 103,
+     "site": 53
+    },
+    {
+     "kind": "const-",
+     "line": 103,
+     "site": 53
+    },
+    {
+     "kind": "const+",
+     "line": 103,
+     "site": 90
+    },
+    {
+     "kind": "const-",
+     "line": 103,
+     "site": 90
+    },
+    {
+     "kind": "const+",
+     "line": 103,
+     "site": 92
+    },
+    {
+     "kind": "const-",
+     "line": 103,
+     "site": 92
+    },
+    {
+     "kind": "const+",
+     "line": 112,
+     "site": 161
+    },
+    {
+     "kind": "const-",
+     "line": 112,
+     "site": 161
+    },
+    {
+     "kind": "const+",
+     "line": 112,
+     "site": 163
+    },
+    {
+     "kind": "const-",
+     "line": 112,
+     "site": 163
+    },
+    {
+     "kind": "const+",
+     "line": 112,
+     "site": 165
+    },
+    {
+     "kind": "const-",
+     "line": 112,
+     "site": 165
+    }
+   ]
+  },
+  "P1-20": {
+   "mutants": 18,
+   "killed": 17,
+   "kill_rate": 0.944,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 122,
+     "site": 83
+    }
+   ]
+  },
+  "P1-21": {
+   "mutants": 42,
+   "killed": 39,
+   "kill_rate": 0.929,
+   "survivors": [
+    {
+     "kind": "const+",
+     "line": 127,
+     "site": 66
+    },
+    {
+     "kind": "const+",
+     "line": 129,
+     "site": 94
+    },
+    {
+     "kind": "const-",
+     "line": 132,
+     "site": 104
+    }
+   ]
+  },
+  "P1-22": {
+   "mutants": 12,
+   "killed": 10,
+   "kill_rate": 0.833,
+   "survivors": [
+    {
+     "kind": "const+",
+     "line": 139,
+     "site": 65
+    },
+    {
+     "kind": "const-",
+     "line": 139,
+     "site": 65
+    }
+   ]
+  },
+  "P1-23": {
+   "mutants": 22,
+   "killed": 21,
+   "kill_rate": 0.955,
+   "survivors": [
+    {
+     "kind": "cmp",
+     "line": 150,
+     "site": 86
+    }
+   ]
+  },
+  "P1-24": {
+   "mutants": 9,
+   "killed": 9,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-25": {
+   "mutants": 31,
+   "killed": 25,
+   "kill_rate": 0.806,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 162,
+     "site": 56
+    },
+    {
+     "kind": "cmp",
+     "line": 165,
+     "site": 64
+    },
+    {
+     "kind": "cmp",
+     "line": 168,
+     "site": 67
+    },
+    {
+     "kind": "const-",
+     "line": 165,
+     "site": 122
+    },
+    {
+     "kind": "const-",
+     "line": 168,
+     "site": 137
+    },
+    {
+     "kind": "const-",
+     "line": 169,
+     "site": 141
+    }
+   ]
+  },
+  "P1-26": {
+   "mutants": 24,
+   "killed": 19,
+   "kill_rate": 0.792,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 181,
+     "site": 69
+    },
+    {
+     "kind": "cmp",
+     "line": 180,
+     "site": 143
+    },
+    {
+     "kind": "cmp",
+     "line": 180,
+     "site": 145
+    },
+    {
+     "kind": "const+",
+     "line": 180,
+     "site": 154
+    },
+    {
+     "kind": "const+",
+     "line": 180,
+     "site": 157
+    }
+   ]
+  },
+  "P1-27": {
+   "mutants": 17,
+   "killed": 17,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-28": {
+   "mutants": 76,
+   "killed": 68,
+   "kill_rate": 0.895,
+   "survivors": [
+    {
+     "kind": "const+",
+     "line": 194,
+     "site": 38
+    },
+    {
+     "kind": "const-",
+     "line": 194,
+     "site": 38
+    },
+    {
+     "kind": "const-",
+     "line": 196,
+     "site": 82
+    },
+    {
+     "kind": "const-",
+     "line": 196,
+     "site": 83
+    },
+    {
+     "kind": "const-",
+     "line": 194,
+     "site": 107
+    },
+    {
+     "kind": "bin",
+     "line": 200,
+     "site": 139
+    },
+    {
+     "kind": "const+",
+     "line": 200,
+     "site": 179
+    },
+    {
+     "kind": "const-",
+     "line": 200,
+     "site": 179
+    }
+   ]
+  },
+  "P1-29": {
+   "mutants": 4,
+   "killed": 4,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-30": {
+   "mutants": 9,
+   "killed": 9,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-31": {
+   "mutants": 24,
+   "killed": 24,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-32": {
+   "mutants": 1,
+   "killed": 1,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-33": {
+   "mutants": 18,
+   "killed": 17,
+   "kill_rate": 0.944,
+   "survivors": [
+    {
+     "kind": "flip",
+     "line": 227,
+     "site": 49
+    }
+   ]
+  },
+  "P1-34": {
+   "mutants": 81,
+   "killed": 78,
+   "kill_rate": 0.963,
+   "survivors": [
+    {
+     "kind": "const-",
+     "line": 233,
+     "site": 48
+    },
+    {
+     "kind": "const+",
+     "line": 232,
+     "site": 112
+    },
+    {
+     "kind": "const+",
+     "line": 232,
+     "site": 145
+    }
+   ]
+  },
+  "P1-35": {
+   "mutants": 19,
+   "killed": 17,
+   "kill_rate": 0.895,
+   "survivors": [
+    {
+     "kind": "cmp",
+     "line": 243,
+     "site": 19
+    },
+    {
+     "kind": "cmp",
+     "line": 244,
+     "site": 37
+    }
+   ]
+  },
+  "P1-36": {
+   "mutants": 11,
+   "killed": 11,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-37": {
+   "mutants": 51,
+   "killed": 45,
+   "kill_rate": 0.882,
+   "survivors": [
+    {
+     "kind": "bool",
+     "line": 259,
+     "site": 16
+    },
+    {
+     "kind": "const+",
+     "line": 258,
+     "site": 34
+    },
+    {
+     "kind": "const-",
+     "line": 258,
+     "site": 34
+    },
+    {
+     "kind": "const-",
+     "line": 258,
+     "site": 98
+    },
+    {
+     "kind": "const+",
+     "line": 259,
+     "site": 106
+    },
+    {
+     "kind": "const+",
+     "line": 259,
+     "site": 111
+    }
+   ]
+  },
+  "P1-38": {
+   "mutants": 16,
+   "killed": 13,
+   "kill_rate": 0.812,
+   "survivors": [
+    {
+     "kind": "bin",
+     "line": 272,
+     "site": 64
+    },
+    {
+     "kind": "bin",
+     "line": 272,
+     "site": 66
+    },
+    {
+     "kind": "const-",
+     "line": 272,
+     "site": 72
+    }
+   ]
+  },
+  "P1-39": {
+   "mutants": 6,
+   "killed": 6,
+   "kill_rate": 1.0,
+   "survivors": []
+  },
+  "P1-40": {
+   "mutants": 9,
+   "killed": 9,
+   "kill_rate": 1.0,
+   "survivors": []
+  }
+ }
+}

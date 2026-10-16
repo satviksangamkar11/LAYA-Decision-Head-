@@ -1,0 +1,371 @@
+{
+ "arm": "REF",
+ "status": "SANDBOXED_BWRAP",
+ "tasks": 40,
+ "solved": 40,
+ "solve_rate": 1.0,
+ "duration_seconds": 1.13,
+ "results": [
+  {
+   "task_id": "P1-01",
+   "passed": true,
+   "passed_tests": 47,
+   "total_tests": 47,
+   "failure": null,
+   "sha256_before_run": "d0246500bbf6327f8b227f01fe03b2fc18b5ad60e414c9500491927488743102",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-02",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "df4cac554b106dc1693827c385286e3f6065a14d0527fdb4e122504069969696",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-03",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "9b425400000e8d7707ac2419d94d14cedbe87616592278ea0aea118915c5c413",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-04",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "4584c4067ae47402ae46fd83917efa787304185604b525d77390e9fde7fba405",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-05",
+   "passed": true,
+   "passed_tests": 46,
+   "total_tests": 46,
+   "failure": null,
+   "sha256_before_run": "4910823745ff4d7f8d1d6bbfb247ad578d9951670358f01ab7530cfc6c8b6fd5",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-06",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "efb7390d723b472e89e2a3a0f316433b9b1b66f6b1f1b53cba2b1fc5fee9a84f",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-07",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "905d00974bf9aa0e5545ca0170c560dbbd9e16402434ef73c2f8a2794a6fff42",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-08",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "62c03c8de75715619b84c9cf5ed52ea3a49cdb57e5473183348d79ab06488ca4",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-09",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "11671236e780b7b9aca1ca576b5bf98ac7e15392d03549b0b515847c42ca917e",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-10",
+   "passed": true,
+   "passed_tests": 49,
+   "total_tests": 49,
+   "failure": null,
+   "sha256_before_run": "4f78fc4605d8d19bea16b44d541f2056cea98633c92d9da4bd2cdb14868e2756",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-11",
+   "passed": true,
+   "passed_tests": 58,
+   "total_tests": 58,
+   "failure": null,
+   "sha256_before_run": "d13047f4c22b51ace51155b9458777041a4f4d51dc3e2fd4c1fa783bd3f7c6b9",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-12",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "8d195d3216225544cddb9ecacb6d496955d5fd38485882dd2696f980046bde32",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-13",
+   "passed": true,
+   "passed_tests": 51,
+   "total_tests": 51,
+   "failure": null,
+   "sha256_before_run": "bbd55316b9a7a6d54f6dd35bb331486754414eeddf6e5fb9fde7b7fd1dd18f84",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-14",
+   "passed": true,
+   "passed_tests": 48,
+   "total_tests": 48,
+   "failure": null,
+   "sha256_before_run": "4987cbb33a5053cedbf5787ac14c5f3ad51eca11421c427e62eadcd2600630d1",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-15",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "d28978ca04384f11c939c6f986935f59572bd0c9e1a764956b83d0a8fff95abf",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-16",
+   "passed": true,
+   "passed_tests": 51,
+   "total_tests": 51,
+   "failure": null,
+   "sha256_before_run": "e2a356292ae48733a66923b80d0be5247e49046815c5ef3a6eebd1bd39ce6d2a",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-17",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "498ff89a719e9a3005e11444d43f316610e2317f8ba4d51f08ad8f71b2326258",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-18",
+   "passed": true,
+   "passed_tests": 41,
+   "total_tests": 41,
+   "failure": null,
+   "sha256_before_run": "e8fbd37e94b70c484129dd2c593bae5fcaa1e250ab7cab20524ef6e0f180217d",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-19",
+   "passed": true,
+   "passed_tests": 54,
+   "total_tests": 54,
+   "failure": null,
+   "sha256_before_run": "8143522e562f263281bdd468d3c817ef6ed3518968c9af4771a111a4467bddd2",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-20",
+   "passed": true,
+   "passed_tests": 47,
+   "total_tests": 47,
+   "failure": null,
+   "sha256_before_run": "468ce3980fbe3f25a9915ba92d4a24e40838de91428698ac09ee21d329c24b3c",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-21",
+   "passed": true,
+   "passed_tests": 66,
+   "total_tests": 66,
+   "failure": null,
+   "sha256_before_run": "600ca3ed62789fd9163038330beda615a14e28fdb82af2a736682d968f404358",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-22",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "3b440a99a10b6fa28321d63be5bc066381e845f0f77f398ca40bfd89b4951bda",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-23",
+   "passed": true,
+   "passed_tests": 54,
+   "total_tests": 54,
+   "failure": null,
+   "sha256_before_run": "376ff2cc846434c4d365e556bc1db6207725b985e41fe261562332507ececec1",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-24",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "6e2690e0a49171d8b885b485ec39e8827aff8344ef0f5e9dda0bd3a6ca5d267f",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-25",
+   "passed": true,
+   "passed_tests": 50,
+   "total_tests": 50,
+   "failure": null,
+   "sha256_before_run": "6713e41e0ea6069ce97901e838349686acbe437915d4476219fff32004d02c4c",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-26",
+   "passed": true,
+   "passed_tests": 55,
+   "total_tests": 55,
+   "failure": null,
+   "sha256_before_run": "d5e9bd5e09c5eb8c20074ddfa1f65a8cd125f62103b37a42fe328d08ae4cd484",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-27",
+   "passed": true,
+   "passed_tests": 49,
+   "total_tests": 49,
+   "failure": null,
+   "sha256_before_run": "6e4f9a73133cd7d6600105c5cb8974b330873823dc386cf2de98f652dfe00aa9",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-28",
+   "passed": true,
+   "passed_tests": 58,
+   "total_tests": 58,
+   "failure": null,
+   "sha256_before_run": "fcab55f41a375bb4b8ecaab7ec579622485602e1a3d7a4622ecef3edd2c52afd",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-29",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "fb52ffa2b9c3c8629f477f23c0cfc0a564594ceeb9d6eb3cf96453a6a7303078",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-30",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "aa4ae56d6b81aebd36a0cfdc8b143071b0d5b5b66f968b08d1a23e74510f1eed",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-31",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "be3e5517351b75f23e24f206fde2c4fd6649a6cbad6c57fa36ede1ba59eb5079",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-32",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "f037f369299e4090d51e78ad2b4a6edd7a0514f1fc759f2318be62f9164efdba",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-33",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "a3af92c806a5b21e2e906a29a30fb6c42fcc1bf3d99f5cc9eec2c37382937fc4",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-34",
+   "passed": true,
+   "passed_tests": 66,
+   "total_tests": 66,
+   "failure": null,
+   "sha256_before_run": "af63a0bd8e23ac1572b4bd8dd8f7e63ca9fb3df9237358a0968aa1bdd9c6c26e",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-35",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "997604fd85921c85a33cdbce83251e7718c0e6b5c80ff7255932e5ab9e7913fb",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-36",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "38454d17c2a22d8e0b0d1e91f24b443b7c166a1680ff02bcf838d18bdc882741",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-37",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "1678af9f07b4cd0bade936f4b087285a9966b6ae511b6ae460a524bc0cb54a16",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-38",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "8140d940f89de3a276d476f7a179c81fa6d8754ef573e3ab45407ae6fb165289",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-39",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "4ac08b0e0ca2c49c65fe850eca0e8fd3d8981d668f3add61ed741e4cae07c6a3",
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "P1-40",
+   "passed": true,
+   "passed_tests": 40,
+   "total_tests": 40,
+   "failure": null,
+   "sha256_before_run": "e1f9b972ea0f8deb788eda10d99aaad61e2a94442788f045f5cb399a8866bc0d",
+   "stderr_tail": ""
+  }
+ ],
+ "isolation": "bubblewrap: user/pid/net/ipc/uts namespaces, uid 65534, ro /usr, tmpfs /tmp, no host mounts, rlimits, group kill"
+}

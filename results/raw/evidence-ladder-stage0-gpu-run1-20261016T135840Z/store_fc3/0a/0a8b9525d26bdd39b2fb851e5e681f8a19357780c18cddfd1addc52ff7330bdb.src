@@ -1,0 +1,10 @@
+import json
+import re
+from collections import Counter
+
+data = json.loads(input().strip())
+text = data['text']
+words = re.findall(r'[A-Za-z]+', text)
+words = [word.lower() for word in words]
+counts = Counter(words)
+print(json.dumps(dict(counts)))

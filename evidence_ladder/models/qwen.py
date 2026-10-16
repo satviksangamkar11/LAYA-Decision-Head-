@@ -232,7 +232,7 @@ class HFQwenBackend:
             n_prompt = int(enc["input_ids"].shape[1])
             t0 = time.time()
             with torch.no_grad():
-                ids = model.generate(**enc, do_sample=True, max_new_tokens=request.max_new_tokens, **SAMPLING)
+                ids = model.generate(**enc, do_sample=True, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, **SAMPLING)
             new = ids[0, n_prompt:]
             g = make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
                                 prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0)

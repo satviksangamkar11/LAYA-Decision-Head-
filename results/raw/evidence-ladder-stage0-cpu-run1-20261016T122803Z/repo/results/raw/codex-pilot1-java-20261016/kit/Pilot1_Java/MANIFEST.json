@@ -1,0 +1,38 @@
+{
+  "kit": "Evidence Ladder Java Pilot 1",
+  "status": "development fixture bank; no models run",
+  "language": "Java 21",
+  "task_count": 40,
+  "difficulty": {
+    "easy": 10,
+    "medium": 20,
+    "hard": 10
+  },
+  "public_tests_per_task": 4,
+  "grader_tests_per_task": 40,
+  "java_reference_replay": "1760/1760",
+  "independent_python_crosscheck": "1760/1760",
+  "created": "2026-10-16",
+  "files": {
+    "README.md": "b78f55b0e71438a6b88e4632dcaa5bc87eb0b56e5eada886597fc5a24b97fd9d",
+    "PROTOCOL.md": "5994c92aca1d5d77aa096eda9cbaa886f9cc3ccfd6674e460e7d1efc63d8b75a",
+    "VALIDATION_REPORT.md": "4395cb17570ec7321e863c557b5b8116a53f893ef2389cac47e5898e0ff532e1",
+    "worker/task_list.json": "bb15a0b980cfeb173b41b92785877ca7e8d2f762046bbb1516c2f6dfe43f1e1b",
+    "worker/public_cases.json": "5bdbc23fcef7997e9656ab3bc986b324dc1fc5763a53b6163c0ca842dab54c97",
+    "worker/QUESTIONS.md": "06aa2a8fab1dff6c272a96aef2272c94240e296619026470337fd38518f9cadc",
+    "worker/SOLUTION_FORMAT.md": "290c117b1d9ccc00a39520495d99b00ff0949c6c40a11fb0d17586acd1a0471c",
+    "worker/tasks.jsonl": "3211290a072a07ca656902b3ea6e00e899e9398f0a5810ec6358ea3821b5e064",
+    "grader/SELFTEST.py": "5c1a22fa19467d95fef946f65a0e87a567bf72f76e2986a42f69fcecfd3943c9",
+    "grader/INDEPENDENT_CHECKS.py": "d97d21ec02c26b413316e8e2435853fcf4c9d628aaa2cf51ebeffa5a69bc9c2e",
+    "grader/public_cases_expected.json": "5bdbc23fcef7997e9656ab3bc986b324dc1fc5763a53b6163c0ca842dab54c97",
+    "grader/grade.py": "d6b6dd4828cfbd10be72e6992a00c4672d6d5f481affe9aa888dc59f58490115",
+    "grader/compare.py": "2c1e31c2e222312cb240ffee98c1412bbc950906649e049aa38bce8ebac58871",
+    "grader/ReferenceRunner.java": "ab69f350b4ca38bc8f215102c17300b2c5a1d9a2a52f0461d1e963898189b24b",
+    "grader/protected_cases.json": "721097952fdeaea70a3c0963f61498e23576d7536a6ddfe65bfaf96f49bdb1a5",
+    "grader/ReferenceSolutions.java": "0f9a179b3c98156ab74f9c407c4f9014c6c171fada406667388c03577042f912",
+    "grader/support/Json.java": "e4374d910dbde3020604a6a2797a08c4118ea7680e8f0f885cdae74e7feacdbd",
+    "grader/support/Runner.java": "201e5a44a1d5d8759edd022972add3299f411a14e20d78bae3a3a27d97f3b316",
+    "worker/support/Json.java": "e4374d910dbde3020604a6a2797a08c4118ea7680e8f0f885cdae74e7feacdbd",
+    "worker/support/Runner.java": "201e5a44a1d5d8759edd022972add3299f411a14e20d78bae3a3a27d97f3b316"
+  }
+}

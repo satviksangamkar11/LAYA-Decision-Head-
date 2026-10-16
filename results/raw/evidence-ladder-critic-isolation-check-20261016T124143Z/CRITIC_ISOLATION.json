@@ -1,0 +1,9 @@
+{
+ "check": "critic kernel cannot execute candidate code and has no protected data (static + live Kaggle metadata)",
+ "kernel": "sangeetasangamkar/evidence-ladder-critic-v1 (live metadata pulled 2026-10-16; current pushed source sha256 64090bc5c60c57caa985522f1446aa5b5abb26d7f3473961f2193bec641233f3)",
+ "no_exec_primitives": "no subprocess, os.system, exec, eval, compile, popen, ctypes, importlib, __import__ or open() in the kernel source; only network use is urllib.request.urlopen to https://integrate.api.nvidia.com",
+ "live_metadata": {"dataset_sources": [], "kernel_sources": [], "competition_sources": [], "model_sources": [], "enable_internet": true, "is_private": true},
+ "consequence": "the critic kernel mounts no dataset, so it cannot read the test bundle, the protected cases or hidden grades",
+ "limits": "applies to this version (key check + FC-2 probe). The pilot version that receives critic packets must be re-checked: packets must carry no hidden test data, and the kernel must still have no exec primitives",
+ "status": "PASS (current version)"
+}

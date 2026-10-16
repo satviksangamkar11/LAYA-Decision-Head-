@@ -1,0 +1,40 @@
+{
+ "all_pass": false,
+ "T1_read_protected_cases": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T2_proc_and_env": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T3_network": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T4a_limits": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T4b_infinite_loop": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T5_write_outside": [
+  false,
+  "PROCESS_ERROR",
+  []
+ ],
+ "T6_forge_output": [
+  true,
+  "PROCESS_ERROR",
+  []
+ ]
+}
+
+---STDERR---

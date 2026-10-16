@@ -1,0 +1,54 @@
+{
+ "all_pass": false,
+ "tests": {
+  "T1_read_protected_cases": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T2_proc_and_env": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T3_network": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T4a_limits": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T4b_infinite_loop": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T5_write_outside": {
+   "pass": false,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  },
+  "T6_forge_output": {
+   "pass": true,
+   "failure": "PROCESS_ERROR",
+   "escaped": [],
+   "blocked": 0,
+   "stderr_tail": "bwrap: kjail child setup failed: FileNotFoundError(2, 'No such file or directory')\n"
+  }
+ }
+}

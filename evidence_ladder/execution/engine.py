@@ -28,6 +28,12 @@ def _load(path: Path, name: str):
         spec = importlib.util.spec_from_file_location(name, path)
         m = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(m)     # these scripts only define functions at import (main guarded)
+        if os.environ.get("EL_JAIL") == "kaggle":      # FC-1: no bwrap on Kaggle; swap in the chroot+uid+seccomp jail (kaggle_jail.py)
+            from . import kaggle_jail
+            if hasattr(m, "bwrap_cmd"):
+                m.bwrap_cmd = kaggle_jail.bwrap_cmd
+            if hasattr(m, "jail"):
+                m.jail = lambda w, cmd, rw=True: kaggle_jail.java_jail(w, cmd, rw)
         _MODS[name] = m
     return _MODS[name]
 
