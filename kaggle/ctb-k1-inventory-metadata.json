@@ -1,0 +1,14 @@
+{
+  "id": "sangeetasangamkar/ctb-k1-inventory",
+  "title": "ctb-k1-inventory",
+  "code_file": "ctb_k1_inventory_v1.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}

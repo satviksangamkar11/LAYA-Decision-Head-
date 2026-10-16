@@ -1,0 +1,138 @@
+{
+ "runs": [
+  {
+   "head": "coding",
+   "seed": 0,
+   "file": "coding-s0.pt",
+   "sha256": "d9e9e90ccce2a7e307b3af97f25ddf0f7d1c63a75dbe64d897a9985f9ce7c317",
+   "best_step": 250,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "coding",
+   "seed": 1,
+   "file": "coding-s1.pt",
+   "sha256": "8e00a8978eb026c297e6bb661b7975f84af9624805623683b876fa8627f1cf34",
+   "best_step": 300,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "coding",
+   "seed": 2,
+   "file": "coding-s2.pt",
+   "sha256": "1d9cc1546f7e35cc074d65134ceaef6748cc6c165549fc9469c22670ac87f207",
+   "best_step": 200,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1001",
+   "seed": 0,
+   "file": "random_1001-s0.pt",
+   "sha256": "4d5e200b0348eb04395f3f0c09fec225eca6ba460b3d90673548e3d1d6dfbd58",
+   "best_step": 250,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1001",
+   "seed": 1,
+   "file": "random_1001-s1.pt",
+   "sha256": "2e86cc896269d8ffeb3df56ad4833557ce0180d121e4682c2a2e3c25ae70a643",
+   "best_step": 300,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1001",
+   "seed": 2,
+   "file": "random_1001-s2.pt",
+   "sha256": "a561cb3e5df3d1126415deee09e8b71ccf91fddb369a7c51fbd2e4b401dba222",
+   "best_step": 275,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1002",
+   "seed": 0,
+   "file": "random_1002-s0.pt",
+   "sha256": "f4a86d5ddb1868c70088c1bb5292639c89c1f4e316200b3f0d064f7987281c07",
+   "best_step": 250,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1002",
+   "seed": 1,
+   "file": "random_1002-s1.pt",
+   "sha256": "51e4ed0eeb1304b0310cb41e787dad00311a8306363f77a8f8140279c2ff8cb8",
+   "best_step": 300,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1002",
+   "seed": 2,
+   "file": "random_1002-s2.pt",
+   "sha256": "f2d532a093ba5f45ac02a27e9e574ac1519724d463b5a2d1393319ba5e1f1fdd",
+   "best_step": 275,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1003",
+   "seed": 0,
+   "file": "random_1003-s0.pt",
+   "sha256": "95120862050166041795e92f65f91011f0c4dcb25643afd793464e8f1840764a",
+   "best_step": 275,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1003",
+   "seed": 1,
+   "file": "random_1003-s1.pt",
+   "sha256": "4cc6c3d4fb17e85d4a893980918c91bc13e487ff09588c949f98b99c5f6139f2",
+   "best_step": 300,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  },
+  {
+   "head": "random_1003",
+   "seed": 2,
+   "file": "random_1003-s2.pt",
+   "sha256": "b058f4f7c2b3548451376d057fa2f748370b7ab01f7b4c698b3687cbba9e0ad8",
+   "best_step": 275,
+   "exact_match_46": true,
+   "picks_differing": 0,
+   "usable": true,
+   "head_tensors_identical": true
+  }
+ ],
+ "recorded_source": "results/raw/head-swap-run-20261012T222906Z/runs.jsonl",
+ "all_exact": true
+}

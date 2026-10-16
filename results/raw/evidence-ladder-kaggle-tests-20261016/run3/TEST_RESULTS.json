@@ -1,0 +1,51 @@
+{
+ "bundle_found": true,
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "suites": {
+  "contract": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 23,
+    "passed": 23,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 23,\n \"passed\": 23,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "controller": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "orchestrator": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 24,
+    "passed": 24,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 24,\n \"passed\": 24,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "models": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 28,
+    "passed": 28,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 28,\n \"passed\": 28,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "manifest_files": 71,
+ "hash_mismatches": [],
+ "all_exit_zero": true,
+ "seconds": 7.9
+}

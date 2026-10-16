@@ -1,0 +1,103 @@
+{
+ "version": "k2-2026-10-14a",
+ "mode": "smoke",
+ "note": "mechanical checks only; no performance metric computed",
+ "n_items": 44,
+ "n_scored": 44,
+ "by_ds_time": {
+  "rootse/pre": 16,
+  "rootse/post": 16,
+  "apb/pre": 6,
+  "apb/post": 6
+ },
+ "state_tokens": {
+  "min": 116,
+  "max": 1928,
+  "budget": 1969
+ },
+ "fixed_overflow_items": 0,
+ "cut_counts": {
+  "A": 6,
+  "O": 13,
+  "T": 32
+ },
+ "hist_kept_min_max": [
+  0,
+  9
+ ],
+ "library_truncated_items": 0,
+ "seqlen_max": 2007,
+ "finite": true,
+ "max_prob_diff_vs_library_rounded": 4.9942543026482156e-05,
+ "temperatures": {
+  "action": [
+   1.116161
+  ],
+  "outcome": [
+   1.116161
+  ],
+  "needs_review": [
+   1.116161
+  ],
+  "risk": [
+   1.091507
+  ]
+ },
+ "exclusions_leak": [],
+ "info_patch_hits": 0,
+ "meta": {
+  "version": "k2-2026-10-14a",
+  "mode": "smoke",
+  "kernel": "sangeetasangamkar/text-grader-k2-v1",
+  "stages": {
+   "prepare_seconds": 37,
+   "score": {
+    "gpus": 2,
+    "retries": 0,
+    "failures": [],
+    "seconds": 40
+   }
+  },
+  "failures": [],
+  "exclusions_leak": [],
+  "info_patch_hits": 0,
+  "state_token_budget": 1969,
+  "question_rooms": {
+   "action": 1982,
+   "outcome": 1981,
+   "needs_review": 2016,
+   "risk": 1969
+  },
+  "n_items": 44,
+  "apb_label_counts": {
+   "zero_dropped": 2,
+   "pos": 12,
+   "neg": 69
+  },
+  "n_scored": 44,
+  "workers": [
+   {
+    "shard": 0,
+    "device": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "agent_dtype": "torch.float16",
+    "items": 22,
+    "done_before": 0,
+    "seconds": 13,
+    "max_prob_diff_vs_library": 4.9942543026482156e-05,
+    "nonfinite_items": 0
+   },
+   {
+    "shard": 1,
+    "device": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "agent_dtype": "torch.float16",
+    "items": 22,
+    "done_before": 0,
+    "seconds": 13,
+    "max_prob_diff_vs_library": 4.987782617482672e-05,
+    "nonfinite_items": 0
+   }
+  ]
+ }
+}

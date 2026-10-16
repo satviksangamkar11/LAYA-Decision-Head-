@@ -1,0 +1,66 @@
+{
+ "label": "exploratory (no gate), small random sample via HF datasets-server",
+ "date": "2026-10-04",
+ "sample_file": "scratchpad sample.jsonl (not kept)",
+ "results": {
+  "nebius": {
+   "trajectories": 450,
+   "unresolved": 234,
+   "instances": 434,
+   "instances_multi": 15,
+   "instances_mixed": 2,
+   "steps": 29271,
+   "exact": {
+    "divergence_points": 3,
+    "T1": 0,
+    "T2": 3,
+    "normalised_equal_to_gold": 3,
+    "at_step0": 3,
+    "depth_median": 0
+   },
+   "normalised": {
+    "divergence_points": 3,
+    "T1": 0,
+    "T2": 3,
+    "normalised_equal_to_gold": 0,
+    "at_step0": 0,
+    "depth_median": 7
+   },
+   "unresolved_steps": 16308,
+   "unresolved_steps_err_after": 1594,
+   "unresolved_steps_revert": 43
+  },
+  "swesmith_tool": {
+   "trajectories": 447,
+   "unresolved": 268,
+   "instances": 427,
+   "instances_multi": 19,
+   "instances_mixed": 3,
+   "steps": 5158,
+   "exact": {
+    "divergence_points": 0,
+    "T1": 0,
+    "T2": 0,
+    "normalised_equal_to_gold": 0,
+    "at_step0": 0,
+    "depth_median": null
+   },
+   "normalised": {
+    "divergence_points": 0,
+    "T1": 0,
+    "T2": 0,
+    "normalised_equal_to_gold": 0,
+    "at_step0": 0,
+    "depth_median": null
+   },
+   "unresolved_steps": 3952,
+   "unresolved_steps_err_after": 358,
+   "unresolved_steps_revert": 9
+  }
+ },
+ "caveats": [
+  "divergence = first differing action text between a resolved and an unresolved run of the SAME instance (identical earlier actions; observations not compared)",
+  "T1/T2 flags use weak regexes; an error after an action does not prove it caused the failure",
+  "sample is small and random by row, so multi-trajectory instances are rare in it; counts are not scaled to the full data"
+ ]
+}

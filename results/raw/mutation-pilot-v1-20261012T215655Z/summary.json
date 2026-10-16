@@ -1,0 +1,98 @@
+{
+ "canonical_split_of_replayable_states": {
+  "train": 88,
+  "test": 31,
+  "cal": 9,
+  "val": 13
+ },
+ "canonical_train_population": 88,
+ "screened": 44,
+ "screen_reasons": {
+  "not_only_fable_write_edit_before_test": 21,
+  "selected": 20,
+  "action_only_not_exit_0": 1,
+  "oracle_not_useful": 1,
+  "unstable": 1
+ },
+ "selected": 20,
+ "selected_by_lang": {
+  "py": 10,
+  "ts": 9,
+  "go": 1
+ },
+ "mutants": 152,
+ "labels": {
+  "WORSE": 78,
+  "EQUAL_ON_TESTS": 36,
+  "UNKNOWN": 38
+ },
+ "labels_by_operator": {
+  "arith": {
+   "WORSE": 16,
+   "EQUAL_ON_TESTS": 4,
+   "UNKNOWN": 6
+  },
+  "bool": {
+   "WORSE": 15,
+   "EQUAL_ON_TESTS": 8,
+   "UNKNOWN": 4
+  },
+  "cmp": {
+   "WORSE": 29,
+   "EQUAL_ON_TESTS": 5,
+   "UNKNOWN": 14
+  },
+  "logic": {
+   "EQUAL_ON_TESTS": 12,
+   "WORSE": 5,
+   "UNKNOWN": 9
+  },
+  "num": {
+   "EQUAL_ON_TESTS": 7,
+   "WORSE": 13,
+   "UNKNOWN": 5
+  }
+ },
+ "labels_by_lang": {
+  "go": {
+   "WORSE": 6,
+   "UNKNOWN": 1,
+   "EQUAL_ON_TESTS": 1
+  },
+  "py": {
+   "WORSE": 51,
+   "EQUAL_ON_TESTS": 29
+  },
+  "ts": {
+   "WORSE": 21,
+   "EQUAL_ON_TESTS": 6,
+   "UNKNOWN": 37
+  }
+ },
+ "worse_crash_share": 0.0,
+ "non_crash_worse_per_state": {
+  "fable5:py-jsonpath-edit:2": 3,
+  "fable5:py-btree-pages:5": 4,
+  "fable5:py-ansi-paginate:1": 3,
+  "fable5:py-incident-cli:4": 5,
+  "fable5:ts-jsonrpc:1": 6,
+  "fable5:py-parking-garage:4": 6,
+  "fable5:py-htmlclean:2": 7,
+  "fable5:go-mazekit:2": 6,
+  "fable5:py-csv-sqlite:2": 6,
+  "fable5:ts-csv-mapper:2": 0,
+  "fable5:ts-recur-cal:5": 0,
+  "fable5:ts-config-merge3:5": 0,
+  "fable5:ts-notification-center:2": 8,
+  "fable5:ts-lru-ttl-cache:2": 0,
+  "fable5:py-ibantool:2": 7,
+  "fable5:ts-pong:1": 7,
+  "fable5:ts-memory:2": 0,
+  "fable5:py-config-migrate:6": 4,
+  "fable5:py-slide-splitter:1": 6,
+  "fable5:ts-msgfmt:3": 0
+ },
+ "states_with_2_or_more_non_crash_worse": 14,
+ "usable": false,
+ "usable_rule": "at least 15 of 20 states have >= 2 non-crash WORSE mutants AND crashes are at most half of all WORSE"
+}

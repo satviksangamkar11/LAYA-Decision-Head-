@@ -1,0 +1,329 @@
+{
+ "arm": "REF",
+ "status": "SANDBOXED_BWRAP_JAVA",
+ "tasks": 40,
+ "solved": 40,
+ "duration_seconds": 28.1,
+ "results": [
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "9925321f882bcd66e2a927ae2b967696b0409d9e1a61ea42ff2b015d146ccc13",
+   "stderr_tail": "",
+   "task_id": "J1-01"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "3fd502064aaf89177421474368da3ca8caee6e72b94116e4ae648612ea2bf18e",
+   "stderr_tail": "",
+   "task_id": "J1-02"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "04da08d4da863a5561c90ff16be0f603cf84e9fc0e461a4992a2feec96110b39",
+   "stderr_tail": "",
+   "task_id": "J1-03"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "3575bb7f9d82e2cc7a528642c52a1a840791ea1b34955fbbca7e97d1a26e5e35",
+   "stderr_tail": "",
+   "task_id": "J1-04"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "b84c2e8fd8973d5716eab1314914e15f85f3468967d1c9d7764c13e1acf4092b",
+   "stderr_tail": "",
+   "task_id": "J1-05"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "c9d1ba8b4b383c8e824c82e3bd9100389885fd53fe3c75437aa31c0638f9ab36",
+   "stderr_tail": "",
+   "task_id": "J1-06"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "f3780c67fa7d77d8a1e86f071cf94265a7d0b9c7953695b57ddcd4a0be2f67b7",
+   "stderr_tail": "",
+   "task_id": "J1-07"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "42d43a5b46b1ea53d8e5b8ef67a208dba499d86150c77965ac1c8b58d88cc6c3",
+   "stderr_tail": "",
+   "task_id": "J1-08"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "4d84a86fbb25a47783ed50090558bede203c6d74d28b61f8268cff6a6ed20229",
+   "stderr_tail": "",
+   "task_id": "J1-09"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "c4b6da7f23439450c41333e806a3a83203dec10a7e7e6115deff3966d7e000bd",
+   "stderr_tail": "",
+   "task_id": "J1-10"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "a19d63c4526715191349f3c1b39f07d90ce62a1c740b28a8c29f4a7da5ce6e51",
+   "stderr_tail": "",
+   "task_id": "J1-11"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "43f8b1d75612cb83ef0f5348a516d78745b809d21a7a985b16bde5eefd60a2d7",
+   "stderr_tail": "",
+   "task_id": "J1-12"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "2718e1309e6de42b932cf20c7729dae4920d591222c3012a9c35146f2ad28f95",
+   "stderr_tail": "",
+   "task_id": "J1-13"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "5c90e1ee3680deede5fe08b2f0bdaae4278bc11e93fb0eb82cf63bd602a0653c",
+   "stderr_tail": "",
+   "task_id": "J1-14"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "e7a1844780c62ef4e3c0c95c8b2929adda82bdd07c54eb9ed7eb0b9f4bff2dcc",
+   "stderr_tail": "",
+   "task_id": "J1-15"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "44ff95b7ce15192478cba5e1b924eb237e8aeaa78568cddb288194e3787ea496",
+   "stderr_tail": "",
+   "task_id": "J1-16"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "07b4d0992df1b85a4d5837fe4fdeb3fb24d06a8a5d2dc0ff1e1bb3b9c69dacef",
+   "stderr_tail": "",
+   "task_id": "J1-17"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "defd49a2f5d7c509082bac110767760f5bcd4ec5abf5a300485f3e6b6e7d767e",
+   "stderr_tail": "",
+   "task_id": "J1-18"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "29dc4ae4cf789ab76bffb2f5bd400b4839f5f56219306f30615301b473f6894d",
+   "stderr_tail": "",
+   "task_id": "J1-19"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "9ef6ee0527a5660f8f4fd6237b69315fa20d93e9a46d4a5f68bf9a46e0cff0b2",
+   "stderr_tail": "",
+   "task_id": "J1-20"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "35f880651d161d31715b3301d87c5bf8e67d92160c7fd1632a29648e213f49bc",
+   "stderr_tail": "",
+   "task_id": "J1-21"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "94de0d15145cc65b3ebff797160960bb371cef9fbd998b0fab9aab65f460a24c",
+   "stderr_tail": "",
+   "task_id": "J1-22"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "9564e6ee4e50d49adeceaa5e7a65399a18d91f35f4e98740b4456696d3917757",
+   "stderr_tail": "",
+   "task_id": "J1-23"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "aa62b7b5b2a739f6c2511799e1147f9b494541d12e18016242732d82bd0f407f",
+   "stderr_tail": "",
+   "task_id": "J1-24"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "90289346e0bdcbc91388edf5e8b19d262a6cbf3bdb51172422a15ce256a1bd44",
+   "stderr_tail": "",
+   "task_id": "J1-25"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "76404331b8450bf4989439d0a283c3d0afd2bdf1d2ac3109277453b06cf2c901",
+   "stderr_tail": "",
+   "task_id": "J1-26"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "e47dd228aa9a0d2fa36526053fe518ec61846d3ea742a8b0d3dc6b0e885f72e5",
+   "stderr_tail": "",
+   "task_id": "J1-27"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "949ea19aa6fb801344237a22bb961e4c32d79007b4be5da28da2e0c5797abaa5",
+   "stderr_tail": "",
+   "task_id": "J1-28"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "2677c78b5f54803b5f6c66f8468633c7bc61f68fd5e7ee7450d67d06550baebb",
+   "stderr_tail": "",
+   "task_id": "J1-29"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "5f34a7df90a7a9a99fc9a48a4311c32098a7c19596e866004bd703a9f65361a2",
+   "stderr_tail": "",
+   "task_id": "J1-30"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "a217da3b237a08425cd9c813fb2c7cf759174a6b645e6dcbc752be1ffad6ec23",
+   "stderr_tail": "",
+   "task_id": "J1-31"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "f3833730f78f9d7d90afde84f287da3d26e76c2f79da56dcfe4bcf46fdb224b0",
+   "stderr_tail": "",
+   "task_id": "J1-32"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "6a3c2220ec4b8ccc6923ec032da4cb164b752ee7d8dd72a404734b2f4920d5f0",
+   "stderr_tail": "",
+   "task_id": "J1-33"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "722faf235a33589d4b46f6714cd7c2a642bb054f75109a3af5422cbd4e5bdd86",
+   "stderr_tail": "",
+   "task_id": "J1-34"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "263258a1a9c844d25b6aa5194e696df0802a4177a6f4df2a4c8d4c2f646876e6",
+   "stderr_tail": "",
+   "task_id": "J1-35"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "aa31ebb939723a8d14deb8e32abf502a44647a29d072835479d80895632ae5b8",
+   "stderr_tail": "",
+   "task_id": "J1-36"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "43ea3091442129d4b2301d55c97c8627980a1abde6f439512d1c4c475453f237",
+   "stderr_tail": "",
+   "task_id": "J1-37"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "cf21d6985d591db12c8aacd0775e164581c329a9d4a70e94868c6a8905967736",
+   "stderr_tail": "",
+   "task_id": "J1-38"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "017cd5030584d2639ed2e70e59e0ace0048a5ec48cb4c9764df3c35185573876",
+   "stderr_tail": "",
+   "task_id": "J1-39"
+  },
+  {
+   "status": "PASS",
+   "passed": 40,
+   "total": 40,
+   "sha256_before_run": "49b30052a19ea9d018c1e506be808e444c4e48de5f6478e97f2f7cf8643d66f5",
+   "stderr_tail": "",
+   "task_id": "J1-40"
+  }
+ ]
+}

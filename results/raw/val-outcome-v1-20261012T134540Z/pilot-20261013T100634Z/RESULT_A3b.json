@@ -1,0 +1,161 @@
+{
+ "summary": {
+  "problems": 5,
+  "samples_valid": 5,
+  "informative": 1,
+  "oracle": 2,
+  "end_to_end": {
+   "raw_sample1": 0,
+   "first_valid": 1,
+   "random_valid": 1.5,
+   "uniform_all5": 0.6,
+   "laya_baseline_v1": 2.0,
+   "laya_v4": 2.0,
+   "linear_probe": 2.0,
+   "random_head_v4": 2.0
+  },
+  "informative_problem": {
+   "first_valid": [
+    false
+   ],
+   "random_valid": [
+    0.5
+   ],
+   "raw_sample1": [
+    false
+   ],
+   "laya_baseline_v1": [
+    1.0
+   ],
+   "laya_v4": [
+    1.0
+   ],
+   "linear_probe": [
+    1.0
+   ],
+   "random_head_v4": [
+    1.0
+   ],
+   "laya_baseline_v1_no_context": [
+    1.0
+   ],
+   "laya_v4_no_context": [
+    1.0
+   ],
+   "linear_probe_no_context": [
+    1.0
+   ],
+   "random_head_v4_no_context": [
+    1.0
+   ]
+  },
+  "expansion_gate": {
+   "rule": ">= 2 of 5 problems with >= 1 PASS and >= 1 FAIL among valid candidates",
+   "informative": 1,
+   "passed": false
+  },
+  "note": "OUTCOMES_A3b = amendment 3 with the single-call parsing bug fixed; OUTCOMES_A3 (buggy, one candidate wrongly 'not a code change') kept on record"
+ },
+ "per_problem": [
+  {
+   "decision_id": "fable5:py-event-sched:1",
+   "valid": 2,
+   "distinct_valid": 2,
+   "passing": 1,
+   "informative": true,
+   "oracle": true,
+   "raw_sample1": false,
+   "first_valid": false,
+   "random_valid": 0.5,
+   "uniform_all5": 0.2,
+   "laya_baseline_v1": 1.0,
+   "laya_baseline_v1_no_context": 1.0,
+   "laya_v4": 1.0,
+   "laya_v4_no_context": 1.0,
+   "linear_probe": 1.0,
+   "linear_probe_no_context": 1.0,
+   "random_head_v4": 1.0,
+   "random_head_v4_no_context": 1.0
+  },
+  {
+   "decision_id": "fable5:py-trie-suggest:1",
+   "valid": 2,
+   "distinct_valid": 2,
+   "passing": 2,
+   "informative": false,
+   "oracle": true,
+   "raw_sample1": false,
+   "first_valid": true,
+   "random_valid": 1.0,
+   "uniform_all5": 0.4,
+   "laya_baseline_v1": 1.0,
+   "laya_baseline_v1_no_context": 1.0,
+   "laya_v4": 1.0,
+   "laya_v4_no_context": 1.0,
+   "linear_probe": 1.0,
+   "linear_probe_no_context": 1.0,
+   "random_head_v4": 1.0,
+   "random_head_v4_no_context": 1.0
+  },
+  {
+   "decision_id": "fable5:ps-shiftbrief:2",
+   "valid": 1,
+   "distinct_valid": 1,
+   "passing": 0,
+   "informative": false,
+   "oracle": false,
+   "raw_sample1": false,
+   "first_valid": false,
+   "random_valid": 0.0,
+   "uniform_all5": 0.0,
+   "laya_baseline_v1": 0.0,
+   "laya_baseline_v1_no_context": 0.0,
+   "laya_v4": 0.0,
+   "laya_v4_no_context": 0.0,
+   "linear_probe": 0.0,
+   "linear_probe_no_context": 0.0,
+   "random_head_v4": 0.0,
+   "random_head_v4_no_context": 0.0
+  },
+  {
+   "decision_id": "fable5:ps-loadsheet:1",
+   "valid": 0,
+   "distinct_valid": 0,
+   "passing": 0,
+   "informative": false,
+   "oracle": false,
+   "raw_sample1": false,
+   "first_valid": false,
+   "random_valid": 0.0,
+   "uniform_all5": 0.0,
+   "laya_baseline_v1": 0.0,
+   "laya_baseline_v1_no_context": 0.0,
+   "laya_v4": 0.0,
+   "laya_v4_no_context": 0.0,
+   "linear_probe": 0.0,
+   "linear_probe_no_context": 0.0,
+   "random_head_v4": 0.0,
+   "random_head_v4_no_context": 0.0
+  },
+  {
+   "decision_id": "fable5:ps-fleetpatch:1",
+   "valid": 0,
+   "distinct_valid": 0,
+   "passing": 0,
+   "informative": false,
+   "oracle": false,
+   "raw_sample1": false,
+   "first_valid": false,
+   "random_valid": 0.0,
+   "uniform_all5": 0.0,
+   "laya_baseline_v1": 0.0,
+   "laya_baseline_v1_no_context": 0.0,
+   "laya_v4": 0.0,
+   "laya_v4_no_context": 0.0,
+   "linear_probe": 0.0,
+   "linear_probe_no_context": 0.0,
+   "random_head_v4": 0.0,
+   "random_head_v4_no_context": 0.0
+  }
+ ]
+}

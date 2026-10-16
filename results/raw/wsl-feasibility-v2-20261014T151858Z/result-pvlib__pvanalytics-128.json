@@ -1,0 +1,26 @@
+{
+ "instance_id": "pvlib__pvanalytics-128",
+ "repo": "pvlib/pvanalytics",
+ "base_commit": "31771dedb1afa641557dcdbaa11bc82c93f9adf1",
+ "trajectory_id": "chatcmpl-dad00381c9e93d22c4b17626b7c00408",
+ "workspace_dir": "/workspace/pvlib__pvanalytics__0.1",
+ "prefix_steps": 5,
+ "decision": {
+  "kind": "test",
+  "index": 5
+ },
+ "setup_task_dir_bytes_peak": 5204479,
+ "setup": {
+  "ok": false,
+  "exit": 2,
+  "seconds": 6.0,
+  "python": "3.7.16",
+  "pinned_requirements": 47,
+  "pip_freeze_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "pip_freeze_lines": 0,
+  "python_version_out": null
+ },
+ "qualified": false,
+ "reason": "setup failed (exit 2)",
+ "wall_seconds": 6.0
+}

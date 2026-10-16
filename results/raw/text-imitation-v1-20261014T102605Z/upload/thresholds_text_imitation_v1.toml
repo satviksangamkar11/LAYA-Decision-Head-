@@ -1,0 +1,75 @@
+# PRE-REGISTRATION: text-imitation v1. Create-only. Written 2026-10-14 (about 10:30 UTC) BEFORE any upload, smoke or training run.
+# User GO (chat, 2026-10-14): ONE head-only fine-tune of the pretrained LAYA Coding_Decision_Agent on its OWN frozen text encoder,
+# imitating Fable's recorded action on the frozen dataset v3 pools; private Kaggle upload of the TRAIN / VAL text after a secret scan.
+# Never edited after results are seen; any change is a new versioned file with a written reason.
+
+[meta]
+id = "text_imitation_v1"
+kernel_script = "kaggle/text_imitation_v1.py"
+kernel_slug = "sangeetasangamkar/text-imitation-v1"
+dataset_slug = "sangeetasangamkar/laya-text-imitation-v1 (private)"
+laya_package_dataset = "sangeetasangamkar/laya-align-v1 (laya 0.3.22 source, unchanged)"
+checkpoint = "S4MPL3BI4S/Coding_Decision_Agent @ fbc40c2e4b625519de1c1f617724449a636d08ff; model.safetensors sha256 e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a"
+compute = "ALL computation on Kaggle T4 (fp16 autocast). Locally only: code, py_compile, sha256, secret scan of the upload text, pack / upload / push, pull outputs, read small result files."
+no = ["Qwen", "new data", "generation", "NVIDIA calls", "WSL", "CAL or TEST pools / contexts (never uploaded or read)", "encoder training", "VAL for training, early stopping or tuning"]
+results_dir = "results/raw/text-imitation-v1-<UTC ts>/ (create-only)"
+
+[data]
+train_source = "results/raw/laya-fullaction-set-v3-20261012T055420Z (FROZEN_SET.json sha256 725cd39dd27f0232de9ebd700a91042cec993505e8fedd8117aa024ceed4d8f4; requests f8addc40..., labels 87b14247...)"
+train_pools = "ALL 335 pools of dataset v3. Every v3 pool is a canonical-TRAIN trajectory (split = train for all 335; VAL / CAL / TEST have no v3 pools). The v3 roles (train 120 / train_extension 54 / heldout_transfer 161) were adapter-train / extension / held-out-transfer roles of the Qwen route; here all 335 are used for trajectory-grouped CV training. 192 trajectories, 866 alternatives. Uncleaned v3 (the frozen set), not train_v4."
+val_source = "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean (46 pools, 113 alternatives, 32 trajectories; requests be0a7757..., labels 8aedf214...). 0 trajectories shared with TRAIN (checked)."
+val_use = "development evaluation only, scored ONCE by the final models; never trained on, never used for early stopping, selection or tuning"
+label = "imitation: Fable's recorded action (reference_index) = target; the other options are non-selected alternatives, NOT verified wrong"
+upload_fields = ["pool_id", "trajectory_id", "split (train|val)", "context_text without the [system] block", "options (candidate action texts, presented order)", "label_index"]
+secret_scan = "patterns of tools/secret_scan_parquet_v1.py (read from its PATTERNS dict) + jwt = eyJ...\\.eyJ...\\.<sig>; every hit is replaced by [REDACTED_SECRET] in the upload text; counts per pattern and field recorded"
+
+[render]
+renderer = "k2_render_v1 of kaggle/text_grader_k2_v2.py (norm, clip, Tok.clip_tokens, build_state, state_budget; budget must equal 1969)"
+state = "{family: agent_trace, proposed_action: A, task: T, recent_steps} -- PRE-ACTION: no observation of the candidate"
+candidate = "each candidate rendered SEPARATELY as proposed_action: 'call: Name(args_json) ; Name2(args_json)' (json separators , :), norm, char clip 8000, token clip 600"
+task = "first [user] block of the context, norm, char clip 6000, token clip 400"
+history = "units newest first; assistant unit = '[call: ... ; say: <assistant text>] -> [<tool results joined ' ## ', norm, 300 chars>]', action part clipped to 300 chars; a later [user] block = 'user said: [<300 chars>]'; the [system] block is not used; fitted to the budget by build_state"
+parse = "blocks split at lines '[system]' / '[user]' / '[assistant]' / '[call] {json}' / '[tool result: X]'"
+logged_per_item = ["tokens", "hist_kept", "hist_avail", "A_cut (candidate cut at 600 tokens)", "T_cut (task longer than 400 tokens)", "fixed_overflow", "library state_tokens_dropped"]
+survival = "candidate action intact = not A_cut and no library truncation and not fixed_overflow; task survived = its first min(len,400) tokens are in the sequence (no fixed_overflow and no library truncation). Both reported as shares of items."
+
+[score]
+question = "K2 question 'action' (sha256 of the 4-question set 21fea2eb5ac9a3377a9218694b1cfe4ef181a932f732f1a9711469f4f21cbc56), max_len 2048, head_max_len 320"
+scalar = "the raw scorer logit (before temperature) at the FIRST option marker ('continue: Let the agent proceed without interruption.') of question 'action'; the same scalar for every candidate, every arm that uses the model, before and after training"
+reason = "chosen by rule before training: 'continue' is the checkpoint's existing option meaning that the proposed step is fine to execute"
+
+[train]
+trainable = "model.head (2 pretrained transformer layers) and model.scorer, initialised from the checkpoint; fp32 master weights"
+frozen = "encoder (requires_grad False, forward under torch.no_grad, eval mode; its last_hidden_state is computed once and cached exactly), type_emb, act_head, temperature buffer"
+loss = "ONE listwise softmax cross-entropy per pool over the candidates' scalars (target = Fable's recorded action); mean over pools in a step"
+optimizer = "AdamW lr 2e-5 constant, weight_decay 0.01, betas (0.9, 0.999), eps 1e-8; grad clip 1.0; one optimizer step per 4 pools; fp16 autocast + GradScaler; head dropout 0.1 in train mode, eval mode for scoring"
+epochs_max = 6
+epoch_order = "pools shuffled each epoch with numpy seed (run seed * 1000 + epoch)"
+cv = "5 folds grouped by trajectory (greedy balanced assignment, fold seed 20261014, as make_folds of K2 v2)"
+early_stopping = "ONLY inner CV: inside each outer training set, 3 inner folds grouped by trajectory (seed 20261014 + outer fold); for epoch e in 0..6 the mean inner-held-out listwise log loss; selected epoch = argmin (ties -> fewer epochs; 0 = unchanged head allowed)"
+oof = "the outer model is trained on the outer training set for 6 epochs; its out-of-fold predictions AT THE SELECTED EPOCH are the CV result (per-epoch train and held-out-fold accuracy and loss reported as the overfitting guard, never used for selection)"
+final_epochs = "median of the 5 selected epochs (integer)"
+final = "trained on ALL 335 TRAIN pools for final_epochs, seeds 0, 1, 2; CV uses seed 0"
+val_head_score = "per VAL pool: mean over the 3 seeds of the top-1 indicator (and of the reciprocal rank)"
+
+[baselines]
+unchanged = "the unchanged checkpoint, same scalar"
+probe = "linear probe on frozen encoder CLS features (last_hidden_state[:,0] of each candidate's sequence), standardised on the training rows, listwise conditional logit with L2 (loss = mean pool CE + ||w||^2 / (2 C n_pools)), LBFGS; C in [0.001, 0.01, 0.1, 1, 10] by 3-fold grouped inner CV on mean held-out log loss"
+options_only = "no context: TF-IDF of the candidate option text alone (word 1-2 grams, sublinear tf, min_df 2, fitted on training candidates), listwise conditional logit, C in [0.01, 0.1, 1, 10, 100] by the same inner CV"
+action_prior = "features: one-hot of candidate action type (tool names joined '+'), candidate type x previous action type (last history unit's tool names, 'none' if none), candidate type x step bucket (assistant units in the context: 0-2, 3-5, 6-10, 11+); conditional logit, same C grid and inner CV as options_only; vocabulary from training rows only"
+random = "expected top-1 = 1/k, expected MRR = H_k/k per pool"
+fit_rule = "CV: every fitted arm is refitted inside each outer fold on the outer training pools only (nested); VAL: fitted on all TRAIN pools, C chosen by grouped inner CV on TRAIN"
+
+[metrics]
+top1 = "agreement with Fable's recorded action; ties at the max share credit 1/(number tied)"
+mrr = "1 / expected rank of Fable's action (rank = 1 + #higher + #tied-others/2)"
+per_size = "top-1 and chance per pool size (3, 4, 5)"
+bootstrap = "cluster bootstrap by trajectory, 2,000 resamples, seed 20261015, percentile 95% interval, for every arm and for the paired differences head-minus-probe and head-minus-options-only (also head-minus-unchanged, reported)"
+
+[gate]
+text = "The head passes only if on VAL its top-1 minus the linear probe AND its top-1 minus the options-only baseline both have 95% bootstrap CIs above 0. Otherwise imitation experiments stop; the next step is verified-outcome labels, not encoder fine-tuning."
+
+[smoke]
+pools = "20 TRAIN pools (random.Random(0).sample of sorted TRAIN pool ids); no VAL pool is loaded"
+checks = ["rendering of every candidate succeeds, markers present", "cached-encoder head path equals the library forward (max abs logit diff recorded) and agent.predict", "listwise loss finite", "after backward: gradients only in head + scorer, none on encoder / type_emb / act_head", "encoder sha256 identical before and after training", "head tensors changed after training"]
+no_metrics = "no accuracy or other performance number is computed in the smoke run"

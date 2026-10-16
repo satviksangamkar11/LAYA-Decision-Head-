@@ -1,0 +1,44 @@
+{
+ "label": "exploratory (no gate)",
+ "date": "2026-10-04",
+ "sources": [
+  {
+   "name": "nebius",
+   "rows": 35194,
+   "split_by": "repo",
+   "clean_repos": 1205,
+   "notes": "From nebius/SWE-rebench-openhands, 618 contaminated repos removed"
+  },
+  {
+   "name": "fable5",
+   "rows": 12490,
+   "split_by": "source_trajectory_id",
+   "trajectories": 2380,
+   "notes": "From DSFFGFG456 copy, frontier-only (no negatives), all accepted"
+  },
+  {
+   "name": "opus_arc",
+   "rows": 15221,
+   "split_by": "trajectory_id",
+   "trajectories": 25,
+   "notes": "From guanning/arc-agi-3-schema-traces-opus48, game domain (OOD), 22/25 won"
+  }
+ ],
+ "total_rows": 62905,
+ "proposed_split": {
+  "TRAIN": {
+   "frac": 0.74,
+   "rows_approx": 46590
+  },
+  "CAL": {
+   "frac": 0.16,
+   "rows_approx": 10065
+  },
+  "TEST": {
+   "frac": 0.1,
+   "rows_approx": 6290
+  }
+ },
+ "split_strategy": "Repo-level for Nebius (avoid instance-level leakage); trajectory-level for Fable and Opus (different dataset structure)",
+ "next_step": "Enumerate repos and trajectories, commit assignment manifest, then Qwen sampling on TRAIN"
+}

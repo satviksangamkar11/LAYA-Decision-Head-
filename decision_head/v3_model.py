@@ -56,7 +56,7 @@ class ResidualNet(nn.Module):
             kk = self.drop(self.wk[j]((cx[:, :, d] - self.mu_c[d]) / self.sd_c[d]))
             s.append((kk * qq.unsqueeze(1)).sum(-1) / self.proj ** 0.5)
         s = torch.stack(s)
-        w = torch.softmax(self.mix, 0) if self.mix is not None else torch.full((len(self.used),), 1.0 / len(self.used))
+        w = torch.softmax(self.mix, 0) if self.mix is not None else torch.full((len(self.used),), 1.0 / len(self.used), device=s.device, dtype=s.dtype)
         return (w.view(-1, 1, 1) * s).sum(0).masked_fill(~mask, 0.0)
 
 

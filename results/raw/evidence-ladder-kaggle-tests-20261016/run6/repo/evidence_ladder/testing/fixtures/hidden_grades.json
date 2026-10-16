@@ -1,0 +1,122 @@
+{
+ "_note": "REAL ProtectedGrader results (HiddenGrade fields only). Development oracle, public in git history, not a sealed benchmark.",
+ "grades": {
+  "java_compile_error": {
+   "artifact_id": "7536ec591b8337a8fe7fbd3022e6c619026807668dbda3e8f5ba0c876480c332",
+   "failure": "COMPILE_ERROR",
+   "passed": false,
+   "passed_tests": 0,
+   "sha256_before_run": "7536ec591b8337a8fe7fbd3022e6c619026807668dbda3e8f5ba0c876480c332",
+   "task_id": "J1-02",
+   "total_tests": 40
+  },
+  "java_ref": {
+   "artifact_id": "07b75d8a80909fb7556cd2a5015019535865619cd2d4d1df578ecc31227094b4",
+   "failure": null,
+   "passed": true,
+   "passed_tests": 40,
+   "sha256_before_run": "07b75d8a80909fb7556cd2a5015019535865619cd2d4d1df578ecc31227094b4",
+   "task_id": "J1-02",
+   "total_tests": 40
+  },
+  "java_wrong": {
+   "artifact_id": "626d245c81c62271736461b3aa4b2256f64c0a764e4ef1fa0f6f54b0e1b67c41",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 30,
+   "sha256_before_run": "626d245c81c62271736461b3aa4b2256f64c0a764e4ef1fa0f6f54b0e1b67c41",
+   "task_id": "J1-02",
+   "total_tests": 40
+  },
+  "java_wrong_v2": {
+   "artifact_id": "4c33ca952015c0228a8e6c8f6d77fb281dae7341f65bb6945a37e21cc5b2447d",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 30,
+   "sha256_before_run": "4c33ca952015c0228a8e6c8f6d77fb281dae7341f65bb6945a37e21cc5b2447d",
+   "task_id": "J1-02",
+   "total_tests": 40
+  },
+  "java_wrong_v3": {
+   "artifact_id": "6992c8c15221c900a41bf7e1f8d56e6324b89f3b21570e6e3194e54d71d8b814",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 30,
+   "sha256_before_run": "6992c8c15221c900a41bf7e1f8d56e6324b89f3b21570e6e3194e54d71d8b814",
+   "task_id": "J1-02",
+   "total_tests": 40
+  },
+  "py_const99": {
+   "artifact_id": "a3217ddfadb78f377e320943993cfd9bccedb329aae233ef6fe12a0e53875fe5",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 0,
+   "sha256_before_run": "a3217ddfadb78f377e320943993cfd9bccedb329aae233ef6fe12a0e53875fe5",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_crash": {
+   "artifact_id": "e2413608192e2b4dc61e78a63a11a5d282de17d2a5ac61719cec04475048cbe1",
+   "failure": "RUNTIME_ERROR",
+   "passed": false,
+   "passed_tests": 0,
+   "sha256_before_run": "e2413608192e2b4dc61e78a63a11a5d282de17d2a5ac61719cec04475048cbe1",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_lower_first": {
+   "artifact_id": "b404a24ee7c0e3b19ce325c9016715ac3104fd7d16d50442067088b4c6b6b33d",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 44,
+   "sha256_before_run": "b404a24ee7c0e3b19ce325c9016715ac3104fd7d16d50442067088b4c6b6b33d",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_ref": {
+   "artifact_id": "e479532d33d45083f1a9b8f2ad1d37e9ece09a8481438c6ee7fdc1bea5eee0e0",
+   "failure": null,
+   "passed": true,
+   "passed_tests": 47,
+   "sha256_before_run": "e479532d33d45083f1a9b8f2ad1d37e9ece09a8481438c6ee7fdc1bea5eee0e0",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_syntax": {
+   "artifact_id": "b4370565d83a847d8033bbb5a95308d11da133e5b8b0ba8c96acc04bd8b90444",
+   "failure": "COMPILE_ERROR",
+   "passed": false,
+   "passed_tests": 0,
+   "sha256_before_run": "b4370565d83a847d8033bbb5a95308d11da133e5b8b0ba8c96acc04bd8b90444",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_timeout": {
+   "artifact_id": "20d3d61234056af3eeef39080b13990a129f04a0abfb2e9d109b40d70aaca112",
+   "failure": "TIMEOUT",
+   "passed": false,
+   "passed_tests": 0,
+   "sha256_before_run": "20d3d61234056af3eeef39080b13990a129f04a0abfb2e9d109b40d70aaca112",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_wrong_y": {
+   "artifact_id": "e33858e79c9df41b705142de6144d49a5664ff64854987e871256de51c49f862",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 46,
+   "sha256_before_run": "e33858e79c9df41b705142de6144d49a5664ff64854987e871256de51c49f862",
+   "task_id": "P1-01",
+   "total_tests": 47
+  },
+  "py_wrong_y_v2": {
+   "artifact_id": "7f41bad26849590568d87a6a364faae3d087fb8e3484b1f52841345ad941a762",
+   "failure": "WRONG_ANSWER",
+   "passed": false,
+   "passed_tests": 46,
+   "sha256_before_run": "7f41bad26849590568d87a6a364faae3d087fb8e3484b1f52841345ad941a762",
+   "task_id": "P1-01",
+   "total_tests": 47
+  }
+ }
+}

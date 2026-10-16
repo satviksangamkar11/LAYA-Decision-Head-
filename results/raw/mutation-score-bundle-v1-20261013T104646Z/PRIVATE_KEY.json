@@ -1,0 +1,247 @@
+[
+ {
+  "decision_id": "fable5:go-mazekit:2",
+  "order": [
+   "FABLE",
+   "fable5:go-mazekit:2#m687cf75e95",
+   "fable5:go-mazekit:2#m2343febe2d",
+   "fable5:go-mazekit:2#m01d7532929",
+   "fable5:go-mazekit:2#m7d90409833"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-ansi-paginate:1",
+  "order": [
+   "fable5:py-ansi-paginate:1#m184fd9ca10",
+   "fable5:py-ansi-paginate:1#m861d14f94a",
+   "FABLE",
+   "fable5:py-ansi-paginate:1#m1558a88df1"
+  ],
+  "fable_index": 2,
+  "in_imitation_pools": true,
+  "n_options": 4
+ },
+ {
+  "decision_id": "fable5:py-csv-sqlite:2",
+  "order": [
+   "fable5:py-csv-sqlite:2#m15eaf6da88",
+   "FABLE",
+   "fable5:py-csv-sqlite:2#m0cd9235a8e",
+   "fable5:py-csv-sqlite:2#m2c378cd067",
+   "fable5:py-csv-sqlite:2#m3a04451892"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-htmlclean:2",
+  "order": [
+   "fable5:py-htmlclean:2#m4953f838e6",
+   "fable5:py-htmlclean:2#m6363b81815",
+   "FABLE",
+   "fable5:py-htmlclean:2#mec46aabe34",
+   "fable5:py-htmlclean:2#ma9ff9ad5fd"
+  ],
+  "fable_index": 2,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-parking-garage:4",
+  "order": [
+   "FABLE",
+   "fable5:py-parking-garage:4#m52afee87ea",
+   "fable5:py-parking-garage:4#m3d56b72a54",
+   "fable5:py-parking-garage:4#m7852482944",
+   "fable5:py-parking-garage:4#m17990f6742"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-config-merge3:5",
+  "order": [
+   "fable5:ts-config-merge3:5#m906b3e0e24",
+   "FABLE",
+   "fable5:ts-config-merge3:5#m8bfce3b3db",
+   "fable5:ts-config-merge3:5#m863764a859",
+   "fable5:ts-config-merge3:5#m9b685f9cff"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-csv-mapper:2",
+  "order": [
+   "fable5:ts-csv-mapper:2#m41b58ea742",
+   "FABLE",
+   "fable5:ts-csv-mapper:2#m16090f2317",
+   "fable5:ts-csv-mapper:2#m16085f688e",
+   "fable5:ts-csv-mapper:2#m20110489ba"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-jsonrpc:1",
+  "order": [
+   "FABLE",
+   "fable5:ts-jsonrpc:1#m69e09d9b5e",
+   "fable5:ts-jsonrpc:1#m10f3f2f13f",
+   "fable5:ts-jsonrpc:1#ma04770ed68",
+   "fable5:ts-jsonrpc:1#me60641d7cd"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-notification-center:2",
+  "order": [
+   "fable5:ts-notification-center:2#m1eefdc464e",
+   "fable5:ts-notification-center:2#m157ab513a9",
+   "fable5:ts-notification-center:2#m2b2afeaa51",
+   "FABLE",
+   "fable5:ts-notification-center:2#m3ee7744fda"
+  ],
+  "fable_index": 3,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-recur-cal:5",
+  "order": [
+   "FABLE",
+   "fable5:ts-recur-cal:5#m26b8da36a9",
+   "fable5:ts-recur-cal:5#mdb43c3c9ee",
+   "fable5:ts-recur-cal:5#m6c99ed7bd3",
+   "fable5:ts-recur-cal:5#m99a5b8bddb"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-slide-splitter:1",
+  "order": [
+   "fable5:py-slide-splitter:1#m2102727d01",
+   "fable5:py-slide-splitter:1#m4f9590c940",
+   "fable5:py-slide-splitter:1#m373f13ad1d",
+   "FABLE",
+   "fable5:py-slide-splitter:1#m6c5cafcd70"
+  ],
+  "fable_index": 3,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-lru-ttl-cache:2",
+  "order": [
+   "fable5:ts-lru-ttl-cache:2#m00dd94d0ae",
+   "FABLE",
+   "fable5:ts-lru-ttl-cache:2#m00ccb40e75",
+   "fable5:ts-lru-ttl-cache:2#m1ab9fcabd0",
+   "fable5:ts-lru-ttl-cache:2#m055b37c47c"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-memory:2",
+  "order": [
+   "FABLE",
+   "fable5:ts-memory:2#m2c8448542e",
+   "fable5:ts-memory:2#m5f0cbee085",
+   "fable5:ts-memory:2#m016093c95c",
+   "fable5:ts-memory:2#m2c8ee9b4fd"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:ts-pong:1",
+  "order": [
+   "fable5:ts-pong:1#m31b9cc8689",
+   "fable5:ts-pong:1#m01abfb206f",
+   "fable5:ts-pong:1#m0dec49d8ae",
+   "fable5:ts-pong:1#m2c0c066ffb",
+   "FABLE"
+  ],
+  "fable_index": 4,
+  "in_imitation_pools": false,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-btree-pages:5",
+  "order": [
+   "FABLE",
+   "fable5:py-btree-pages:5#m0d4bcbac97",
+   "fable5:py-btree-pages:5#m34a7e2ad45",
+   "fable5:py-btree-pages:5#m7d4a55ae9a",
+   "fable5:py-btree-pages:5#m3d165724b6"
+  ],
+  "fable_index": 0,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-config-migrate:6",
+  "order": [
+   "fable5:py-config-migrate:6#m364b8a27a2",
+   "FABLE",
+   "fable5:py-config-migrate:6#mf286b44178",
+   "fable5:py-config-migrate:6#m26603b3427",
+   "fable5:py-config-migrate:6#m562c3e5722"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-ibantool:2",
+  "order": [
+   "fable5:py-ibantool:2#m0f6315754e",
+   "FABLE",
+   "fable5:py-ibantool:2#m0f681f095f",
+   "fable5:py-ibantool:2#m0d3fa57725",
+   "fable5:py-ibantool:2#m0479c8ff7f"
+  ],
+  "fable_index": 1,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-incident-cli:4",
+  "order": [
+   "fable5:py-incident-cli:4#m661887367d",
+   "fable5:py-incident-cli:4#m0a5a42a25c",
+   "fable5:py-incident-cli:4#m48dacc7c7f",
+   "fable5:py-incident-cli:4#m2bdad5c7c7",
+   "FABLE"
+  ],
+  "fable_index": 4,
+  "in_imitation_pools": true,
+  "n_options": 5
+ },
+ {
+  "decision_id": "fable5:py-jsonpath-edit:2",
+  "order": [
+   "fable5:py-jsonpath-edit:2#m078ddcd63d",
+   "fable5:py-jsonpath-edit:2#m12d50400a5",
+   "FABLE",
+   "fable5:py-jsonpath-edit:2#m136d24d14e"
+  ],
+  "fable_index": 2,
+  "in_imitation_pools": true,
+  "n_options": 4
+ }
+]

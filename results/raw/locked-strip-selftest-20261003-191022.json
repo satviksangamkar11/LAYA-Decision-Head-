@@ -1,0 +1,13 @@
+{
+ "created": "2026-10-03T19:07:56",
+ "bundle": "C:\\Users\\Satvik\\AppData\\Local\\Temp\\claude\\D--local-model\\064187e2-96ae-4514-a160-301cc309cc33\\scratchpad\\locked_bundle",
+ "decisions": 2220,
+ "failures": [],
+ "label_like_keys_inside_events": [],
+ "rendered_identical": 2218,
+ "render_overflow_skipped_identically": 2,
+ "locked_only_texts": 21713,
+ "rows_sha256": "1d11de492f413258a58038f37af25c4d78e22dff287d67e86572e880991b5d33",
+ "texts_sha256": "35bdb50190d83a5c91f008716f9fc53c7addd76bb221b10897564f146bf72df8",
+ "verdict": "PASS"
+}

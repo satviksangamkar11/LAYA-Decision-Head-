@@ -1,0 +1,38 @@
+{
+ "version": "cd1-2026-10-15a",
+ "mode": "smoke",
+ "prereg_sha256": "291c9b5da053b777db7ff14b049faf6c21694a1bb05f758d7c7d9fa8a3262b37",
+ "n_pools": 40,
+ "n_trajectories": 35,
+ "pools_with_stored_nc": 20,
+ "adapter_reproduction": [
+  0.7826,
+  0.8043,
+  0.7609
+ ],
+ "phaseA_seconds": 59,
+ "nc_parity_cosine_min": 0.9999992741078304,
+ "nc_parity_pools": 20,
+ "qwen_mean_prob_by_letter_position_ctx": {
+  "A": 0.5666,
+  "B": 0.2039,
+  "C": 0.1541,
+  "D": 0.1203,
+  "E": 0.0815
+ },
+ "qwen_mean_prob_by_letter_position_nc": {
+  "A": 0.5515,
+  "B": 0.2382,
+  "C": 0.1049,
+  "D": 0.1713,
+  "E": 0.1034
+ },
+ "qwen_nonfinite": 0,
+ "qwen_prompt_tokens": {
+  "max": 16556,
+  "mean": 3338.3
+ },
+ "note": "smoke: mechanics only, no accuracy computed",
+ "probs_sum_to_one": true,
+ "probs_shapes_ok": true
+}

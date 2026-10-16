@@ -1,0 +1,17 @@
+{
+ "label": "exploratory (no gate)",
+ "supersedes": "overlap-nebius-vs-cases-20261004.json (repo overlap there was 0 only because of owner__repo vs owner/repo naming)",
+ "cases_nebius_repos": 858,
+ "cases_nebius_instances": 1843,
+ "ours_repos": 1823,
+ "ours_instances": 6306,
+ "repo_overlap": 618,
+ "repo_overlap_pct_of_ours": 33.9,
+ "our_rows_in_overlapping_repos": 31880,
+ "our_rows": 67074,
+ "instance_overlap": 677,
+ "our_rows_on_overlapping_instances": 7559,
+ "ours_repos_not_in_cases": 1205,
+ "cases_revision": "2ebe9040038897d8e3037c672d0dccb958a04a1c",
+ "note": "cases rows were built from a capped streaming scan of nebius/SWE-agent-trajectories; instance ids not seen there are not proof of no overlap with its unscanned rows"
+}

@@ -1,0 +1,51 @@
+{
+ "patterns": {
+  "aws_access_key": "\\bAKIA[0-9A-Z]{16}\\b",
+  "github_token": "\\b(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}\\b|\\bgithub_pat_[A-Za-z0-9_]{60,}",
+  "openai_style_key": "\\bsk-(proj-)?[A-Za-z0-9_-]{32,}",
+  "anthropic_key": "\\bsk-ant-[A-Za-z0-9_-]{20,}",
+  "slack_token": "\\bxox[abprs]-[A-Za-z0-9-]{10,}",
+  "huggingface_token": "\\bhf_[A-Za-z0-9]{30,}",
+  "nvidia_key": "\\bnvapi-[A-Za-z0-9_-]{20,}",
+  "google_api_key": "\\bAIza[0-9A-Za-z_-]{35}\\b",
+  "private_key_block": "-----BEGIN (RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----",
+  "stripe_live_key": "\\b(sk|rk)_live_[0-9a-zA-Z]{20,}",
+  "jwt": "\\beyJ[A-Za-z0-9_-]{10,}\\.eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}"
+ },
+ "characters_scanned": 8172481,
+ "pools": {
+  "train": 335,
+  "val": 46
+ },
+ "trajectories": {
+  "train": 192,
+  "val": 32
+ },
+ "hits": {},
+ "pools_with_hits": {},
+ "total_hits": 0,
+ "masked_with": "[REDACTED_SECRET]",
+ "residual_after_mask": 0,
+ "inputs_sha256": {
+  "results/raw/laya-fullaction-set-v3-20261012T055420Z/FROZEN_SET.json": "725cd39dd27f0232de9ebd700a91042cec993505e8fedd8117aa024ceed4d8f4",
+  "results/raw/laya-fullaction-set-v3-20261012T055420Z/requests.jsonl.gz": "f8addc405ba5eb6f87eddd8ea4bba5504ddda24c34dfa454048e02bf0b237c27",
+  "results/raw/laya-fullaction-set-v3-20261012T055420Z/private_labels.jsonl.gz": "87b1424757a6e0bd2dd2cbe5cd14f19ed0e2c4f649524c6bfb7f5b0e17b61539",
+  "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean/requests.jsonl.gz": "be0a7757581a7e7128e9c1bcfffe4b44dba2b3302f1e3f8da34e732aea165005",
+  "results/raw/laya-fullaction-clean-v4-20261012T130553Z/val_v1_clean/private_labels.jsonl.gz": "8aedf21446c01721bd2ad4754c02684bae8eb77bba0fcb998ec635ee16437d93"
+ },
+ "prereg_sha256": "50164361ca8b4dc72f9a90dcfb7a96513156c15203e85997711d4fe5c6dc82ba",
+ "upload_sha256": {
+  "dataset-metadata.json": "4e6c2a6611743c1dc6c0ec6d24a44c48f000f86846b975dbbf1d4e36efecfe2b",
+  "pools.jsonl.gz": "95176e4e3f2fc850672796ab1e08826dc963c3d56f84fb64174f36fb4596438e",
+  "thresholds_text_imitation_v1.toml": "50164361ca8b4dc72f9a90dcfb7a96513156c15203e85997711d4fe5c6dc82ba"
+ },
+ "fields": [
+  "pool_id",
+  "trajectory_id",
+  "split",
+  "context_text (no [system] block)",
+  "options",
+  "label_index"
+ ],
+ "not_uploaded": "CAL and TEST: not read, not uploaded; label metadata other than label_index; [system] block"
+}

@@ -1,0 +1,14 @@
+{
+ "record": "evidence_ladder_decisions_v1",
+ "date": "2026-10-16",
+ "source": "user, in chat: confirmed with 'yes go' to the three questions (1: these are my decisions; 2: write a fresh record here; 3: upload a code-only test bundle to Kaggle). The receipt pasted from another assistant is NOT this record; its receipt files were not found in this project.",
+ "d1_waiver": {"approved": true, "scope": "Python 40 + Java 40 Codex tasks used for development / practice testing only", "does_not_waive": ["oracle / grader adequacy gate (>= 0.80 measured mutation adequacy; P1-19, P1-26, J1-17, J1-27 below; P1-05, P1-10, P1-14, J1-08, J1-10, J1-20 unmeasured)", "any general accuracy claim (the protected cases are public in Git history; not a sealed benchmark)"]},
+ "d7_critic_location": {"selected": "kaggle_secrets_critic_kernel", "meaning": "a separate Kaggle kernel with internet ON that holds the NVIDIA keys as Kaggle Secrets, calls only z-ai/glm-5.3-flash, never runs candidate (model-written) code and holds no hidden grading material; the generation and grading kernel has internet OFF and no secrets", "not_done": "the critic kernel does not exist yet; no secret has been added to Kaggle by this session"},
+ "nvidia_free_credits": {"confirmed_by_user": true, "independently_checked": false},
+ "pilot_go": false,
+ "max_spend_inr": 0,
+ "still_blocked_until_user_go": ["pilot Stage 0", "any secret access or Kaggle Secrets setup", "any model or GLM call", "any inference"],
+ "code_change": "authorization schema v2: d7_critic_location stores the location string (one of CRITIC_LOCATIONS) and require_authorization refuses unless it equals the runner's configured critic_location (evidence_ladder/orchestrator/authorization.py)",
+ "authorization_manifest_written": false,
+ "why_no_manifest": "pilot_go is false; a real manifest would refuse anyway and is written only when the user gives the pilot GO"
+}

@@ -1,0 +1,552 @@
+[
+ {
+  "decision_id": "fable5:go-mazekit:2",
+  "mutant_ids": [
+   "fable5:go-mazekit:2#m23f88fba37",
+   "fable5:go-mazekit:2#m687cf75e95",
+   "fable5:go-mazekit:2#m11a7ccb958",
+   "fable5:go-mazekit:2#m2343febe2d",
+   "fable5:go-mazekit:2#m01d7532929",
+   "fable5:go-mazekit:2#m7d90409833",
+   "fable5:go-mazekit:2#m0bc91d7707"
+  ],
+  "passes": [
+   true,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "cmp",
+   "arith",
+   "bool",
+   "bool",
+   "num",
+   "arith",
+   "cmp"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "cmp"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-ansi-paginate:1",
+  "mutant_ids": [
+   "fable5:py-ansi-paginate:1#m18f3b3c3d2",
+   "fable5:py-ansi-paginate:1#m184fd9ca10",
+   "fable5:py-ansi-paginate:1#m03b0ae4fda",
+   "fable5:py-ansi-paginate:1#m0502d0103e",
+   "fable5:py-ansi-paginate:1#m861d14f94a",
+   "fable5:py-ansi-paginate:1#m16a7ecbc6f",
+   "fable5:py-ansi-paginate:1#m00e724b381",
+   "fable5:py-ansi-paginate:1#m1558a88df1"
+  ],
+  "passes": [
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   true,
+   false
+  ],
+  "operators": [
+   "arith",
+   "arith",
+   "logic",
+   "cmp",
+   "bool",
+   "cmp",
+   "num",
+   "bool"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "arith"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-csv-sqlite:2",
+  "mutant_ids": [
+   "fable5:py-csv-sqlite:2#m15eaf6da88",
+   "fable5:py-csv-sqlite:2#m19655065a5",
+   "fable5:py-csv-sqlite:2#m5e77c1afd8",
+   "fable5:py-csv-sqlite:2#m0cd9235a8e",
+   "fable5:py-csv-sqlite:2#m50909e2a93",
+   "fable5:py-csv-sqlite:2#m15fd0294aa",
+   "fable5:py-csv-sqlite:2#m2c378cd067",
+   "fable5:py-csv-sqlite:2#m3a04451892"
+  ],
+  "passes": [
+   false,
+   false,
+   true,
+   false,
+   true,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "cmp",
+   "cmp",
+   "logic",
+   "num",
+   "bool",
+   "bool",
+   "arith",
+   "arith"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "bool"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-htmlclean:2",
+  "mutant_ids": [
+   "fable5:py-htmlclean:2#m4953f838e6",
+   "fable5:py-htmlclean:2#m6b9426de20",
+   "fable5:py-htmlclean:2#m6363b81815",
+   "fable5:py-htmlclean:2#mec46aabe34",
+   "fable5:py-htmlclean:2#m13ba717f5b",
+   "fable5:py-htmlclean:2#ma9ff9ad5fd",
+   "fable5:py-htmlclean:2#m683f71b78a",
+   "fable5:py-htmlclean:2#m1b212332fc"
+  ],
+  "passes": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false
+  ],
+  "operators": [
+   "num",
+   "num",
+   "cmp",
+   "bool",
+   "logic",
+   "bool",
+   "logic",
+   "cmp"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "logic"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-parking-garage:4",
+  "mutant_ids": [
+   "fable5:py-parking-garage:4#m52afee87ea",
+   "fable5:py-parking-garage:4#m3d56b72a54",
+   "fable5:py-parking-garage:4#m7852482944",
+   "fable5:py-parking-garage:4#m255060e56e",
+   "fable5:py-parking-garage:4#m430154d1b4",
+   "fable5:py-parking-garage:4#m13635ab57d",
+   "fable5:py-parking-garage:4#m17990f6742",
+   "fable5:py-parking-garage:4#m204d4f67d7"
+  ],
+  "passes": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   true
+  ],
+  "operators": [
+   "cmp",
+   "num",
+   "cmp",
+   "num",
+   "logic",
+   "bool",
+   "logic",
+   "bool"
+  ],
+  "operator_matched": false,
+  "matched_operators": []
+ },
+ {
+  "decision_id": "fable5:ts-jsonrpc:1",
+  "mutant_ids": [
+   "fable5:ts-jsonrpc:1#md0ef3d2252",
+   "fable5:ts-jsonrpc:1#m69e09d9b5e",
+   "fable5:ts-jsonrpc:1#me4e07aecc5",
+   "fable5:ts-jsonrpc:1#m10f3f2f13f",
+   "fable5:ts-jsonrpc:1#m5b0454c59d",
+   "fable5:ts-jsonrpc:1#mc583fe89e8",
+   "fable5:ts-jsonrpc:1#ma04770ed68",
+   "fable5:ts-jsonrpc:1#me60641d7cd"
+  ],
+  "passes": [
+   true,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "num",
+   "cmp",
+   "cmp",
+   "cmp",
+   "logic",
+   "cmp",
+   "cmp",
+   "cmp"
+  ],
+  "operator_matched": false,
+  "matched_operators": []
+ },
+ {
+  "decision_id": "fable5:ts-recur-cal:5",
+  "mutant_ids": [
+   "fable5:ts-recur-cal:5#m7c2d3fcb44",
+   "fable5:ts-recur-cal:5#m1a733b398d",
+   "fable5:ts-recur-cal:5#m26b8da36a9",
+   "fable5:ts-recur-cal:5#mdb43c3c9ee",
+   "fable5:ts-recur-cal:5#m3fdca074e6",
+   "fable5:ts-recur-cal:5#m6c99ed7bd3",
+   "fable5:ts-recur-cal:5#m17838c00e1",
+   "fable5:ts-recur-cal:5#m99a5b8bddb"
+  ],
+  "passes": [
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   true,
+   false
+  ],
+  "operators": [
+   "cmp",
+   "arith",
+   "num",
+   "logic",
+   "arith",
+   "num",
+   "cmp",
+   "logic"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "arith",
+   "cmp"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-slide-splitter:1",
+  "mutant_ids": [
+   "fable5:py-slide-splitter:1#m036a0bd148",
+   "fable5:py-slide-splitter:1#m07e433fa79",
+   "fable5:py-slide-splitter:1#mcd7820d818",
+   "fable5:py-slide-splitter:1#m2102727d01",
+   "fable5:py-slide-splitter:1#m4f9590c940",
+   "fable5:py-slide-splitter:1#m373f13ad1d",
+   "fable5:py-slide-splitter:1#m0133c3910c",
+   "fable5:py-slide-splitter:1#m6c5cafcd70"
+  ],
+  "passes": [
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "bool",
+   "logic",
+   "bool",
+   "cmp",
+   "cmp",
+   "num",
+   "arith",
+   "arith"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "bool"
+  ]
+ },
+ {
+  "decision_id": "fable5:ts-lru-ttl-cache:2",
+  "mutant_ids": [
+   "fable5:ts-lru-ttl-cache:2#m00dd94d0ae",
+   "fable5:ts-lru-ttl-cache:2#m26078e3a19",
+   "fable5:ts-lru-ttl-cache:2#m96fa1d0cec",
+   "fable5:ts-lru-ttl-cache:2#m00ccb40e75",
+   "fable5:ts-lru-ttl-cache:2#mb875180d76",
+   "fable5:ts-lru-ttl-cache:2#m1ab9fcabd0",
+   "fable5:ts-lru-ttl-cache:2#m9a7c995365",
+   "fable5:ts-lru-ttl-cache:2#m055b37c47c"
+  ],
+  "passes": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false
+  ],
+  "operators": [
+   "logic",
+   "cmp",
+   "logic",
+   "cmp",
+   "arith",
+   "cmp",
+   "num",
+   "num"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "num"
+  ]
+ },
+ {
+  "decision_id": "fable5:ts-pong:1",
+  "mutant_ids": [
+   "fable5:ts-pong:1#m2111ac2d53",
+   "fable5:ts-pong:1#mb98aced839",
+   "fable5:ts-pong:1#m2c049109b1",
+   "fable5:ts-pong:1#m31b9cc8689",
+   "fable5:ts-pong:1#m01abfb206f",
+   "fable5:ts-pong:1#m0dec49d8ae",
+   "fable5:ts-pong:1#m2c0c066ffb",
+   "fable5:ts-pong:1#m008947b74d"
+  ],
+  "passes": [
+   false,
+   true,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "arith",
+   "bool",
+   "cmp",
+   "arith",
+   "cmp",
+   "logic",
+   "bool",
+   "num"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "bool"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-btree-pages:5",
+  "mutant_ids": [
+   "fable5:py-btree-pages:5#m20b42d4bf4",
+   "fable5:py-btree-pages:5#mac3b97f127",
+   "fable5:py-btree-pages:5#m0d4bcbac97",
+   "fable5:py-btree-pages:5#m34a7e2ad45",
+   "fable5:py-btree-pages:5#m367640f1ab",
+   "fable5:py-btree-pages:5#m7d4a55ae9a",
+   "fable5:py-btree-pages:5#m3d165724b6",
+   "fable5:py-btree-pages:5#m629932d88e"
+  ],
+  "passes": [
+   true,
+   true,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "operators": [
+   "num",
+   "logic",
+   "cmp",
+   "cmp",
+   "num",
+   "cmp",
+   "num",
+   "logic"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "num"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-config-migrate:6",
+  "mutant_ids": [
+   "fable5:py-config-migrate:6#m364b8a27a2",
+   "fable5:py-config-migrate:6#m7932b684d2",
+   "fable5:py-config-migrate:6#mf286b44178",
+   "fable5:py-config-migrate:6#m571c33e2a0",
+   "fable5:py-config-migrate:6#m25039f417b",
+   "fable5:py-config-migrate:6#m26603b3427",
+   "fable5:py-config-migrate:6#mbd341e418f",
+   "fable5:py-config-migrate:6#m562c3e5722"
+  ],
+  "passes": [
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false
+  ],
+  "operators": [
+   "num",
+   "logic",
+   "arith",
+   "num",
+   "logic",
+   "cmp",
+   "bool",
+   "cmp"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "num"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-ibantool:2",
+  "mutant_ids": [
+   "fable5:py-ibantool:2#m0f6315754e",
+   "fable5:py-ibantool:2#m5bef1de479",
+   "fable5:py-ibantool:2#m0c428530b0",
+   "fable5:py-ibantool:2#m31001140ff",
+   "fable5:py-ibantool:2#m0f681f095f",
+   "fable5:py-ibantool:2#m26b9bc72e0",
+   "fable5:py-ibantool:2#m0d3fa57725",
+   "fable5:py-ibantool:2#m0479c8ff7f"
+  ],
+  "passes": [
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   false,
+   false
+  ],
+  "operators": [
+   "cmp",
+   "bool",
+   "cmp",
+   "logic",
+   "bool",
+   "arith",
+   "arith",
+   "num"
+  ],
+  "operator_matched": false,
+  "matched_operators": []
+ },
+ {
+  "decision_id": "fable5:py-incident-cli:4",
+  "mutant_ids": [
+   "fable5:py-incident-cli:4#m45c1e79e6d",
+   "fable5:py-incident-cli:4#m661887367d",
+   "fable5:py-incident-cli:4#m4a8ad3258b",
+   "fable5:py-incident-cli:4#m0a5a42a25c",
+   "fable5:py-incident-cli:4#m0476fc138f",
+   "fable5:py-incident-cli:4#m48dacc7c7f",
+   "fable5:py-incident-cli:4#m2bdad5c7c7",
+   "fable5:py-incident-cli:4#m48e4bbfbdf"
+  ],
+  "passes": [
+   true,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "operators": [
+   "logic",
+   "arith",
+   "cmp",
+   "num",
+   "arith",
+   "cmp",
+   "bool",
+   "bool"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "arith",
+   "bool"
+  ]
+ },
+ {
+  "decision_id": "fable5:py-jsonpath-edit:2",
+  "mutant_ids": [
+   "fable5:py-jsonpath-edit:2#m078ddcd63d",
+   "fable5:py-jsonpath-edit:2#m02db84135b",
+   "fable5:py-jsonpath-edit:2#m12877d6eff",
+   "fable5:py-jsonpath-edit:2#m1e232167b1",
+   "fable5:py-jsonpath-edit:2#m12d50400a5",
+   "fable5:py-jsonpath-edit:2#m3ca8073adc",
+   "fable5:py-jsonpath-edit:2#m097c5c2062",
+   "fable5:py-jsonpath-edit:2#m136d24d14e"
+  ],
+  "passes": [
+   false,
+   true,
+   true,
+   true,
+   false,
+   true,
+   true,
+   false
+  ],
+  "operators": [
+   "arith",
+   "logic",
+   "arith",
+   "cmp",
+   "cmp",
+   "bool",
+   "num",
+   "bool"
+  ],
+  "operator_matched": true,
+  "matched_operators": [
+   "arith",
+   "bool",
+   "cmp"
+  ]
+ }
+]

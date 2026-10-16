@@ -1,0 +1,30 @@
+{
+ "label": "exploratory (no gate)",
+ "n_train": 3,
+ "n_cal": 3,
+ "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "tensors_loaded": 31,
+ "not_loaded": [],
+ "train_losses_5_steps": [
+  2.7521,
+  2.6733,
+  2.6075,
+  2.5317,
+  2.4319
+ ],
+ "grad_norm_last": 3.623194694519043,
+ "loss_finite": true,
+ "cal_logits_finite": true,
+ "cal_prob_sums": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "cal_options": [
+  14,
+  10,
+  6
+ ],
+ "cal_top1_correct": 0,
+ "gpu_peak_gb": 0.61
+}

@@ -1,0 +1,92 @@
+# Sandbox verified-label pilot v1: pre-registered criteria, label rules, continuation policy, budgets, seeds.
+# Written 2026-10-14 ~16:30 UTC BEFORE any pilot execution, task walk, GLM call or rollout. Never edited after results;
+# a change is a new versioned file with a written reason.
+# Approval: user, chat 2026-10-14 ("fidelity v3 + bounded 4-task WSL verified-label pilot"). Contract: SANDBOX_LABEL_PILOT_CONTRACT_v1.md
+# (this file replaces its 8-task size and its pass/stop numbers with the user's 4-task criteria below).
+
+[criteria]  # user's criteria, verbatim
+pass = "PASS (scale-up candidate) only if >= 3 qualified starting states, >= 3 defensible BETTER/WORSE comparisons including >= 1 non-edit comparison, and <= 20% environment-failure rollouts."
+stop = "STOP if reliable starting states cannot be established or the environment-failure limit is exceeded."
+min_qualified_states = 3
+min_better_worse = 3
+min_non_edit_better_worse = 1   # a BETTER/WORSE pair in which at least one side is a non-edit candidate (read/search or test, not an edit)
+max_env_failure_share = 0.20     # environment-failure rollouts / rollouts run
+recommendation = "GO = all PASS conditions hold; NO-GO = a STOP condition holds; HOLD = otherwise"
+
+[scope]
+tasks = 4
+candidates_per_state = 3
+rollouts_per_candidate = 3
+max_rollouts = 36   # never exceeded; no tasks, candidates or rollouts are added
+fixed_tasks = ["stephenhillier__starlette_exporter-89", "googleapis__python-storage-1357 (only if compare_v3 qualifies it)"]
+walk = """Continue the seeded v2 walk (tools/wsl_feasibility_select_v2.py rule, seed 20261014, same universe, exclusions, v1 checks, X1, X2,
+one task per repo; ids already visited by v2 are not revisited) with dwavesystems__dwave-system-373 (v2 reserve 2) first, then the next
+walk ids, each accepted id qualified with the v2 procedure under compare_v3, until 4 tasks qualify. Cap: 12 more ids including
+dwavesystems__dwave-system-373 (so at most 11 newly visited walk ids); then STOP and report. pvlib__pvanalytics-128 stays excluded
+(v2: exact Python 3.7.16 not available)."""
+rebuild = """The v2 environments were deleted at cleanup, so every pilot task's environment is rebuilt by the v2 setup and the v2
+qualification procedure is run on the rebuild under compare_v3 (QUALIFIED as in SELECTION_v2.md). The decision-point state is the
+replayed prefix workspace; its hash must equal the qualification hashes of replays B and C."""
+disk_guard = "as v2: abort a task stage if C: free < 4 GiB (or a setup task dir > 2 GiB); DISK.jsonl; cleanup of /var/lib/fable-runs/pilot-v1/<id> + fstrim after each task"
+
+[candidates]
+recorded = "candidate R: the recorded next action of the run (the decision-point action, unchanged)"
+generated = """candidate S (read/search) and candidate T (test-or-edit) are proposed by GLM-5.3 from ONLY what the agent saw before the
+decision point: the run's recorded system prompt and first user message (problem statement) + the prefix actions and their REPLAYED
+observations. Never the gold patch, test_patch, FAIL_TO_PASS / PASS_TO_PASS names, or any later step. The recorded next action is not shown."""
+read_search = "str_replace_editor view, or execute_bash whose every pipeline segment starts with a read-only command (ls cat head tail grep rg find sed -n wc tree file stat pwd git log/show/diff/status/grep awk(no redirect) nl less more echo which python -c with no write)"
+test_or_edit = "str_replace_editor create / str_replace / insert, or execute_bash matching the v1 TEST regex (pytest, unittest, tox, ... python *test*.py)"
+attempts = "up to 2 requests per candidate slot (distinct request ids); the first response that parses into one action of the required type is used; otherwise the candidate is INVALID"
+invalid = "a candidate that does not parse, has the wrong type after 2 attempts, or cannot execute (sandbox refuses it, editor error, path outside /workspace) is INVALID, never 'worse'"
+duplicate = "a generated candidate identical to the recorded action is kept and flagged duplicate_of_recorded"
+
+[continuation]  # fixed policy, identical for every rollout
+model = "z-ai/glm-5.3"
+settings = "glm_max64 from tools/judge_qual_v1.py: temperature 0.5, top_p 1.0, reasoning_effort max (full reasoning, not lowered), stream true, max_tokens 65536"
+prompt = "recorded OpenHands system prompt + a fixed tools appendix (execute_bash, str_replace_editor, think, finish; one action per reply as <action>{json}</action>; network is off) + the same transcript as candidate generation + candidate action and its observation; then each step appends action + observation"
+step_budget = 15          # continuation tool actions after the candidate; a reply without a parsable action counts as a step and gets an error observation
+env_time_cap_seconds = 1200
+wall_cap_interpretation = """The '20-min wall cap' is applied to ENVIRONMENT time (sandbox execution of the candidate and continuation actions).
+Reason, measured before this file: GLM-5.3 at reasoning_effort max took median 877 s per call (25 calls, results/raw/val-outcome-v1-20261012T134540Z/
+gen-glm-20261012T224831Z); a 20-min cap on total wall time would end nearly every rollout after 1-2 steps and turn it into a timeout (UNKNOWN) only because of
+model latency, while 'use max quality' forbids lowering reasoning effort. Total wall time per rollout (model + environment) is recorded for every rollout,
+and the report also states how many rollouts would have exceeded 20 min of total wall time. Hard safety ceiling: 4 h total wall per rollout -> timeout."""
+command_timeout_seconds = 300
+observation_chars_max = 20000   # longer observations keep the first 5,000 and last 15,000 chars with a marker
+model_call_attempts = 3         # a step whose request gets no HTTP 200 is retried under a new request id; after 3 -> environment failure (model unavailable)
+network = "off (bwrap --unshare-all); environment /opt/conda read-only; no secrets mounted"
+test_patch = "NOT present during candidate or continuation; applied only at evaluation"
+
+[evaluation]
+procedure = """On the final workspace: files touched by test_patch are restored to base_commit (deleted if new), test_patch is applied with git apply,
+then the task's test_cmd runs FAIL_TO_PASS + PASS_TO_PASS (P2P: all if <= 20, else random.Random(20261014).sample(P2P, 20), as v2), network off,
+1800 s, 4 GiB. Twice, each from a fresh copy of the final workspace."""
+resolved = "every FAIL_TO_PASS PASSED and every sampled PASS_TO_PASS PASSED, in both evaluation runs"
+flaky = "the per-test status differs between the two evaluation runs -> rollout outcome UNKNOWN (never a fail)"
+eval_setup_failure = "test_patch does not apply after the reset -> rollout outcome UNKNOWN (setup failure)"
+
+[labels]  # per candidate pair in a state; r = resolved rollouts / 3
+better_worse = "|r_a - r_b| >= 2/3 and none of the 6 rollouts has an environment failure, timeout, setup failure or flaky evaluation"
+equal = "EQUAL_ON_TESTED_OUTCOME: both 3/3 or both 0/3 (all 6 rollouts clean)"
+unknown = "anything else, including any timeout, setup failure, flaky test or environment failure among the 6 rollouts"
+invalid = "INVALID if either candidate is INVALID"
+note = "A label means better for resolving this task under this continuation policy, not an optimal action. UNKNOWN / INVALID are never turned into negatives."
+non_edit = "candidate kinds: R takes the recorded kind (edit or test); S is read/search; T is test or edit by its parsed action. Non-edit = read/search or test."
+
+[environment_failure]
+definition = "sandbox/infrastructure failure not caused by the agent's own action: bwrap/systemd-run error, runner exception, disk-guard abort, decision-point hash mismatch at restore, model unavailable after 3 attempts"
+
+[nvidia]
+call_logic = "AGENT_README.md FIXED NVIDIA CALL LOGIC: all .secrets/nvidia_api_key_<n>.txt (n >= 2); <= 5 in flight per key; <= 39 sends per key per rolling 60 s; HTTP 429 cools that key 60 s (or Retry-After) and re-queues; every send one ledger line (CALLS.jsonl); a saved response is never resent; .started markers block a restart"
+spend = "Rs 0"
+
+[seeds]
+walk = 20261014
+p2p_sample = 20261014
+run_choice = 20261014
+
+[data]
+source = "nebius/SWE-rebench (task rows, CC-BY-4.0) + nebius/SWE-rebench-openhands (recorded runs, on disk)"
+licence = "CC-BY-4.0"
+split = "sandbox-pilot-v1 (kept separate from RootSE / CAL / TEST / VAL; not used for training)"
+secret_scan = "every file written to the results folder is scanned (tools/wsl_feasibility_run_v2.SECRET)"

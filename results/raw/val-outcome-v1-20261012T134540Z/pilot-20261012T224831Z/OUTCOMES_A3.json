@@ -1,0 +1,390 @@
+[
+ {
+  "decision_id": "fable5:py-retry-policy:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_permits.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_flat_grants\nok   test_grants_for_and_roles_granting\nok   test_known_roles_sorted\nok   test_require_gate\nok   test_grants_flow_down_the_hierarchy\nok   test_deny_overrides_inherited_grant\nok   test_deny_beats_regrant_further_down\nok   test_deny_wins_across_combined_roles\nok   test_diamond_inheritance\nok   test_graph_validation\nok   test_graph_require_raises_permission_denied\n\nall 11 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_permits.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_flat_grants\nok   test_grants_for_and_roles_granting\nok   test_known_roles_sorted\nok   test_require_gate\nok   test_grants_flow_down_the_hierarchy\nok   test_deny_overrides_inherited_grant\nok   test_deny_beats_regrant_further_down\nok   test_deny_wins_across_combined_roles\nok   test_diamond_inheritance\nok   test_graph_validation\nok   test_graph_require_raises_permission_denied\n\nall 11 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 2,
+  "first_sample": 3,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_permits.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_flat_grants\nok   test_grants_for_and_roles_granting\nok   test_known_roles_sorted\nok   test_require_gate\nok   test_grants_flow_down_the_hierarchy\nok   test_deny_overrides_inherited_grant\nok   test_deny_beats_regrant_further_down\nok   test_deny_wins_across_combined_roles\nok   test_diamond_inheritance\nok   test_graph_validation\nok   test_graph_require_raises_permission_denied\n\nall 11 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 3,
+  "first_sample": 4,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_permits.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_flat_grants\nok   test_grants_for_and_roles_granting\nok   test_known_roles_sorted\nok   test_require_gate\nok   test_grants_flow_down_the_hierarchy\nok   test_deny_overrides_inherited_grant\nok   test_deny_beats_regrant_further_down\nok   test_deny_wins_across_combined_roles\nok   test_diamond_inheritance\nok   test_graph_validation\nok   test_graph_require_raises_permission_denied\n\nall 11 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 4,
+  "first_sample": 5,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_permits.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_flat_grants\nok   test_grants_for_and_roles_granting\nok   test_known_roles_sorted\nok   test_require_gate\nok   test_grants_flow_down_the_hierarchy\nok   test_deny_overrides_inherited_grant\nok   test_deny_beats_regrant_further_down\nok   test_deny_wins_across_combined_roles\nok   test_diamond_inheritance\nok   test_graph_validation\nok   test_graph_require_raises_permission_denied\n\nall 11 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 0,
+  "first_sample": 2,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_sitemap.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "   test_bad_root_raises_value_error\nok   test_cli_prints_the_tree\nok   test_include_keeps_matching_files_and_prunes_empty_dirs\nok   test_include_multiple_patterns_is_a_union\nok   test_exclude_directory_is_not_walked\nok   test_exclude_files_by_glob\nok   test_exclude_wins_over_include\nok   test_max_depth_caps_the_walk\nok   test_max_depth_must_be_at_least_one\nok   test_include_pruning_respects_the_depth_cap\nok   test_no_filters_matches_legacy_output\nok   test_cli_filter_flags\n\nall 16 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 1,
+  "first_sample": 3,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_sitemap.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "   test_bad_root_raises_value_error\nok   test_cli_prints_the_tree\nok   test_include_keeps_matching_files_and_prunes_empty_dirs\nok   test_include_multiple_patterns_is_a_union\nok   test_exclude_directory_is_not_walked\nok   test_exclude_files_by_glob\nok   test_exclude_wins_over_include\nok   test_max_depth_caps_the_walk\nok   test_max_depth_must_be_at_least_one\nok   test_include_pruning_respects_the_depth_cap\nok   test_no_filters_matches_legacy_output\nok   test_cli_filter_flags\n\nall 16 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 2,
+  "first_sample": 4,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_sitemap.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "   test_bad_root_raises_value_error\nok   test_cli_prints_the_tree\nok   test_include_keeps_matching_files_and_prunes_empty_dirs\nok   test_include_multiple_patterns_is_a_union\nok   test_exclude_directory_is_not_walked\nok   test_exclude_files_by_glob\nok   test_exclude_wins_over_include\nok   test_max_depth_caps_the_walk\nok   test_max_depth_must_be_at_least_one\nok   test_include_pruning_respects_the_depth_cap\nok   test_no_filters_matches_legacy_output\nok   test_cli_filter_flags\n\nall 16 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "protected": [
+   "test_sitemap.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "   test_bad_root_raises_value_error\nok   test_cli_prints_the_tree\nok   test_include_keeps_matching_files_and_prunes_empty_dirs\nok   test_include_multiple_patterns_is_a_union\nok   test_exclude_directory_is_not_walked\nok   test_exclude_files_by_glob\nok   test_exclude_wins_over_include\nok   test_max_depth_caps_the_walk\nok   test_max_depth_must_be_at_least_one\nok   test_include_pruning_respects_the_depth_cap\nok   test_no_filters_matches_legacy_output\nok   test_cli_filter_flags\n\nall 16 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_inventory.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_inventory.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 2,
+  "first_sample": 3,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_inventory.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_inventory.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Bash",
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_retry.sh"
+  ],
+  "kind": "executed",
+  "outcome": "FAIL",
+  "exits": [
+   1,
+   1
+  ],
+  "tail": "m in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: 5 of 75 checks failed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_retry.sh"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "em in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: all 75 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 2,
+  "first_sample": 4,
+  "calls": [
+   "Bash",
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_retry.sh"
+  ],
+  "kind": "executed",
+  "outcome": "FAIL",
+  "exits": [
+   1,
+   1
+  ],
+  "tail": "odes] -- cmd [args...]\n\n--- actual ---\n/work/retry.sh: line 180: unexpected EOF while looking for matching `\"'\n\n----------------\nFAIL unknown flag: exit code\n--- expected ---\n64\n--- actual ---\n2\n----------------\nPASS unknown flag: stdout\nFAIL unknown flag: stderr\n--- expected ---\nusage: retry.sh [--max N] [--retry-on codes] [--fatal-on codes] -- cmd [args...]\n\n--- actual ---\n/work/retry.sh: line 180: unexpected EOF while looking for matching `\"'\n\n----------------\nSUMMARY: 59 of 75 checks failed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_retry.sh"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "em in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: all 75 checks passed\n"
+ }
+]

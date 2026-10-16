@@ -1,0 +1,39 @@
+{
+ "passed": false,
+ "checks": [
+  {
+   "call": 1,
+   "http": 504,
+   "seconds": 302.36,
+   "finish_reason": null,
+   "answer_chars": 0,
+   "reasoning_chars": null,
+   "decodable": false,
+   "tools": [],
+   "why_not": "empty_response",
+   "answer_head": ""
+  },
+  {
+   "call": 2,
+   "http": 200,
+   "seconds": 185.32,
+   "finish_reason": "stop",
+   "answer_chars": 210,
+   "reasoning_chars": 0,
+   "decodable": true,
+   "tools": [
+    "Read",
+    "Bash"
+   ],
+   "why_not": null,
+   "answer_head": "{\"reply\":null,\"calls\":[{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_incidentctl.py\"}},{\"name\":\"Bash\",\"arguments\":{\"command\":\"git log --oneline -5 && git status\",\"description\":\"Check git history and status\"}}]}"
+  }
+ ],
+ "stats": {
+  "skipped_existing": 0,
+  "sends": 2,
+  "http_200": 1,
+  "http_504": 1,
+  "wall_seconds": 302.4
+ }
+}

@@ -1,0 +1,671 @@
+{
+ "mode": "smoke",
+ "blocked_formats": [],
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "repo": "NJU-LINK/CodeTraceBench",
+ "pinned_revision": "aa213b84ffb6690fc37ca15766d6ca174ec36d4d",
+ "codetracer_commit": "2d302191dd07e7c0c2da6f7a5e9451c7cbb62d34",
+ "api_head_sha_at_run": "aa213b84ffb6690fc37ca15766d6ca174ec36d4d",
+ "top_level_entries": [
+  [
+   "directory",
+   "bench_artifacts"
+  ],
+  [
+   "directory",
+   "swe_raw"
+  ],
+  [
+   "file",
+   ".gitattributes"
+  ],
+  [
+   "file",
+   "README.md"
+  ],
+  [
+   "file",
+   "backfill_swe_difficulty_report.json"
+  ],
+  [
+   "file",
+   "bench_manifest.full.jsonl"
+  ],
+  [
+   "file",
+   "bench_manifest.full.parquet"
+  ],
+  [
+   "file",
+   "bench_manifest.jsonl"
+  ],
+  [
+   "file",
+   "bench_manifest.parquet"
+  ],
+  [
+   "file",
+   "bench_manifest.verified.jsonl"
+  ],
+  [
+   "file",
+   "bench_manifest.verified.parquet"
+  ],
+  [
+   "file",
+   "bench_manifest_full_report.json"
+  ],
+  [
+   "file",
+   "bench_manifest_report.json"
+  ],
+  [
+   "file",
+   "bench_manifest_verified_report.json"
+  ],
+  [
+   "file",
+   "fill_swe_fields_report.json"
+  ],
+  [
+   "file",
+   "normalize_layout_report.json"
+  ],
+  [
+   "file",
+   "pack_artifacts_report.json"
+  ]
+ ],
+ "annotation_dir_in_repo": false,
+ "artifact_files_listed": 3291,
+ "artifact_bytes_listed": 451524800,
+ "codetracer_files_sha256": {
+  "models/trajectory.py": "a97dfbde393f7dcb281bb7e8f32e5981eeee3c9a37ed9f3ee2d7933e1e35cd77",
+  "skills/seed/miniswe/parser.py": "c5d539f5c9fdc8b5324fcbdd9cd8d0e81744fd6dcf4b63dbb0195fad9faaa3e6",
+  "skills/seed/openhands/parser.py": "70182a6a5080a5bc249d3cd0c1a2417ddb82644f577a291d9b88ca0ceaee5f8a",
+  "skills/seed/terminus2/parser.py": "866dd55953065ae30c5196ea3b78c56ae3122af14e18e8515776660dd9994515",
+  "scripts/backfill_step_refs.py": "fe16e5aa255d58b02b188dfc43c07a9810189728432ad36d6d3751e6874383d1"
+ },
+ "manifest_rows": 3316,
+ "manifest_step_entry_label_values": {
+  "[\"incorrect\"]": 17701,
+  "[\"unuseful\"]": 1468
+ },
+ "manifest_step_entry_key_sets": {
+  "action_ref,labels,observation_ref,step_id": 4039
+ },
+ "runs_selected": 37,
+ "table_format_x_evidence": {
+  "mini-SWE-agent|terminal": {
+   "REF_CONSISTENT": {
+    "runs": 4,
+    "flagged_incorrect": 12,
+    "flagged_unuseful": 3
+   },
+   "REF_CONFLICT": {
+    "runs": 2,
+    "flagged_incorrect": 39,
+    "flagged_unuseful": 8
+   },
+   "MISSING_SOURCE": {
+    "runs": 2,
+    "flagged_incorrect": 5,
+    "flagged_unuseful": 1
+   }
+  },
+  "mini-SWE-agent|swe": {
+   "COUNT_MATCH_ONLY": {
+    "runs": 6,
+    "flagged_incorrect": 17,
+    "flagged_unuseful": 0
+   }
+  },
+  "OpenHands|terminal": {
+   "REF_CONFLICT": {
+    "runs": 5,
+    "flagged_incorrect": 63,
+    "flagged_unuseful": 1
+   },
+   "COUNT_MISMATCH": {
+    "runs": 1,
+    "flagged_incorrect": 2,
+    "flagged_unuseful": 0
+   }
+  },
+  "OpenHands|swe": {
+   "COUNT_MISMATCH": {
+    "runs": 6,
+    "flagged_incorrect": 11,
+    "flagged_unuseful": 0
+   }
+  },
+  "SWE-agent|swe": {
+   "COUNT_MATCH_ONLY": {
+    "runs": 6,
+    "flagged_incorrect": 13,
+    "flagged_unuseful": 0
+   }
+  },
+  "Terminus2|terminal": {
+   "REF_CONFLICT": {
+    "runs": 4,
+    "flagged_incorrect": 24,
+    "flagged_unuseful": 5
+   },
+   "COUNT_MATCH_ONLY": {
+    "runs": 1,
+    "flagged_incorrect": 3,
+    "flagged_unuseful": 0
+   }
+  }
+ },
+ "runs_processed_per_format": {
+  "mini-SWE-agent|terminal": 8,
+  "mini-SWE-agent|swe": 6,
+  "OpenHands|terminal": 6,
+  "OpenHands|swe": 6,
+  "SWE-agent|swe": 6,
+  "Terminus2|terminal": 5
+ },
+ "exclusions": {
+  "mini-SWE-agent|terminal: no_trajectory_file": 1,
+  "mini-SWE-agent|terminal: stub_no_files": 1
+ },
+ "failures": [],
+ "unit_equals_step_count_per_format": {
+  "mini-SWE-agent|terminal": {
+   "commands_txt_str": {
+    "computed": 7,
+    "equals_step_count": 0
+   },
+   "commands_txt_enter_lists": {
+    "computed": 7,
+    "equals_step_count": 0
+   },
+   "mini_traj_assistant_msgs": {
+    "computed": 6,
+    "equals_step_count": 5
+   },
+   "upstream_parser": {
+    "computed": 7,
+    "equals_step_count": 6
+   }
+  },
+  "mini-SWE-agent|swe": {
+   "swe_traj_json_assistant": {
+    "computed": 6,
+    "equals_step_count": 6
+   }
+  },
+  "OpenHands|terminal": {
+   "commands_txt_str": {
+    "computed": 6,
+    "equals_step_count": 0
+   },
+   "commands_txt_enter_lists": {
+    "computed": 6,
+    "equals_step_count": 0
+   },
+   "oh_all_agent_actions": {
+    "computed": 6,
+    "equals_step_count": 5
+   },
+   "oh_run_only_backfill": {
+    "computed": 6,
+    "equals_step_count": 0
+   },
+   "upstream_parser": {
+    "computed": 6,
+    "equals_step_count": 0
+   }
+  },
+  "OpenHands|swe": {
+   "oh_llm_call_files": {
+    "computed": 6,
+    "equals_step_count": 0
+   },
+   "oh_llm_call_files_with_toolcall": {
+    "computed": 6,
+    "equals_step_count": 0
+   }
+  },
+  "SWE-agent|swe": {
+   "swe_traj_entries": {
+    "computed": 6,
+    "equals_step_count": 6
+   }
+  },
+  "Terminus2|terminal": {
+   "commands_txt_str": {
+    "computed": 5,
+    "equals_step_count": 2
+   },
+   "commands_txt_enter_lists": {
+    "computed": 5,
+    "equals_step_count": 0
+   },
+   "t2_episodes": {
+    "computed": 5,
+    "equals_step_count": 0
+   },
+   "t2_response_commands": {
+    "computed": 5,
+    "equals_step_count": 5
+   },
+   "upstream_parser": {
+    "computed": 5,
+    "equals_step_count": 0
+   }
+  }
+ },
+ "secret_scan": {
+  "totals": {
+   "files": 4205,
+   "text_scanned": 4205,
+   "binary_skipped": 0,
+   "scan_truncated": 0,
+   "files_with_hits": 6,
+   "runs_with_hits": 6,
+   "runs_with_secret_filenames": 6
+  },
+  "hits_by_pattern": {
+   "openai_style_key": 6
+  },
+  "masked_samples": [
+   {
+    "traj_id": "miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-initramfs-qemu-4d6aad60",
+    "pattern": "openai_style_key",
+    "file": "miniswe/Anthropic__Claude-Sonnet-4-20250514-Thinking/miniswe-claude/build-initramfs-qemu/build-initramfs-qemu.1-of-1.claude-sonnet-4-20250514-thinking/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   },
+   {
+    "traj_id": "miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-linux-kernel-qemu-504a7c57",
+    "pattern": "openai_style_key",
+    "file": "miniswe/Anthropic__Claude-Sonnet-4-20250514-Thinking/miniswe-claude/build-linux-kernel-qemu/build-linux-kernel-qemu.1-of-1.claude-sonnet-4-20250514-thinking/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   },
+   {
+    "traj_id": "miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-break-filter-js-from-html-2393609c",
+    "pattern": "openai_style_key",
+    "file": "miniswe/Anthropic__Claude-Sonnet-4-20250514-Thinking/miniswe-claude/break-filter-js-from-html/break-filter-js-from-html.1-of-1.claude-sonnet-4-20250514-thinking/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   },
+   {
+    "traj_id": "miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-add-benchmark-lm-eval-harness-54ac67f0",
+    "pattern": "openai_style_key",
+    "file": "miniswe/Anthropic__Claude-Sonnet-4-20250514-Thinking/miniswe-claude/add-benchmark-lm-eval-harness/add-benchmark-lm-eval-harness.1-of-1.claude-sonnet-4-20250514-thinking/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   },
+   {
+    "traj_id": "miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-pov-ray-c1e2e1b8",
+    "pattern": "openai_style_key",
+    "file": "miniswe/Anthropic__Claude-Sonnet-4-20250514-Thinking/miniswe-claude/build-pov-ray/build-pov-ray.1-of-1.claude-sonnet-4-20250514-thinking/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   },
+   {
+    "traj_id": "miniswe-DeepSeek__DeepSeek-V3.2-polyglot-rust-c-f689845d",
+    "pattern": "openai_style_key",
+    "file": "miniswe/DeepSeek__DeepSeek-V3.2/miniswe-deepseek/polyglot-rust-c/agent-logs/mini.traj.json",
+    "masked": "sk-V...[len 51]"
+   }
+  ],
+  "secret_filename_hits": [
+   {
+    "traj_id": "openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-add-benchmark-lm-eval-harness-9f75877e",
+    "path": "openhands/Anthropic__Claude-Sonnet-4-20250514-Thinking/openhands_claude/add-benchmark-lm-eval-harness/add-benchmark-lm-eval-harness.1-of-1.2025-12-19__14-58-35/sessions/.jwt_secret"
+   },
+   {
+    "traj_id": "openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-blind-maze-explorer-5x5-db993968",
+    "path": "openhands/Anthropic__Claude-Sonnet-4-20250514-Thinking/openhands_claude/blind-maze-explorer-5x5/blind-maze-explorer-5x5.1-of-1.2025-12-19__14-58-35/sessions/.jwt_secret"
+   },
+   {
+    "traj_id": "openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-break-filter-js-from-html-05ef5f96",
+    "path": "openhands/Anthropic__Claude-Sonnet-4-20250514-Thinking/openhands_claude/break-filter-js-from-html/break-filter-js-from-html.1-of-1.2025-12-19__14-58-35/sessions/.jwt_secret"
+   },
+   {
+    "traj_id": "openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-cython-ext-c00c8af1",
+    "path": "openhands/Anthropic__Claude-Sonnet-4-20250514-Thinking/openhands_claude/build-cython-ext/build-cython-ext.1-of-1.2025-12-19__14-58-35/sessions/.jwt_secret"
+   },
+   {
+    "traj_id": "openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-initramfs-qemu-45e922c2",
+    "path": "openhands/Anthropic__Claude-Sonnet-4-20250514-Thinking/openhands_claude/build-initramfs-qemu/build-initramfs-qemu.1-of-1.2025-12-19__14-58-35/sessions/.jwt_secret"
+   },
+   {
+    "traj_id": "openhands-DeepSeek__DeepSeek-V3.2-ilp-solver-bb0fa0b9",
+    "path": "openhands/DeepSeek__DeepSeek-V3.2/openhands_dpv3/2025-12-31__04-24-21/ilp-solver/ilp-solver.1-of-1.2025-12-31__04-24-21/sessions/.jwt_secret"
+   }
+  ],
+  "n_secret_filename_hits": 6,
+  "patterns": [
+   "aws_access_key",
+   "github_token",
+   "anthropic_key",
+   "openai_style_key",
+   "slack_token",
+   "huggingface_token",
+   "nvidia_key",
+   "google_api_key",
+   "private_key_block",
+   "stripe_live_key",
+   "jwt"
+  ]
+ },
+ "extraction_rejections": {},
+ "extraction_errors": 0,
+ "size_mismatch_runs": 0,
+ "sha_mismatch_runs": 0,
+ "fetched_files": [
+  {
+   "path": "bench_manifest.full.parquet",
+   "bytes": 10780719,
+   "sha256": "0c25108022f518d09505d66cee7a8baeaa2d64708c98e8a66a061819c0b3da6d",
+   "listed": 10780719,
+   "listed_oid": "0c25108022f518d09505d66cee7a8baeaa2d64708c98e8a66a061819c0b3da6d"
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-initramfs-qemu-4d6aad60.tar.zst",
+   "bytes": 49147,
+   "sha256": "cc388b9d03c6e4deb024730ab11b3f78c77b62d560b5834ff860c767bf50177b",
+   "listed": 49147,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-linux-kernel-qemu-504a7c57.tar.zst",
+   "bytes": 111012,
+   "sha256": "8f45c969cd7b8767b07a3c458306bd352b37026e3e9df8bbb17ed9dae6d881d4",
+   "listed": 111012,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-break-filter-js-from-html-2393609c.tar.zst",
+   "bytes": 89437,
+   "sha256": "d86c56c214b6cc9d3fe375f33b0384c778574d0dbb77d107e7ee87b04eec2428",
+   "listed": 89437,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-add-benchmark-lm-eval-harness-54ac67f0.tar.zst",
+   "bytes": 171866,
+   "sha256": "d53e311283f7b646f7b212fba445381af0351a84c3a18bbe054ad1a874a7fa04",
+   "listed": 171866,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-pov-ray-c1e2e1b8.tar.zst",
+   "bytes": 193906,
+   "sha256": "e2a5e54420ec02d7a471445790d9481f301b1890db4d4aac28141c98689cb840",
+   "listed": 193906,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-add-benchmark-lm-eval-harness-9f75877e.tar.zst",
+   "bytes": 108439,
+   "sha256": "4525ae01fbb1022ea78da19e8ca6773784f283426a6879cadae85ce17fc457eb",
+   "listed": 108439,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-blind-maze-explorer-5x5-db993968.tar.zst",
+   "bytes": 108111,
+   "sha256": "628cb3b4cc664faaa7fa6e5f693a8bead526447102b233eaad63ce3a1fb000fc",
+   "listed": 108111,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-break-filter-js-from-html-05ef5f96.tar.zst",
+   "bytes": 107189,
+   "sha256": "51aec13887692d6f94ab222c4a1b8079c624ec18fd88a4ee08a2bc037448e569",
+   "listed": 107189,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-cython-ext-c00c8af1.tar.zst",
+   "bytes": 59406,
+   "sha256": "067d5037a39f7c2a2c707ee7b255711b60fb482464518dcfbb06fabd8852358b",
+   "listed": 59406,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/terminus2-Anthropic__Claude-Sonnet-4-20250514-Thinking-accelerate-maximal-square-eca249fc.tar.zst",
+   "bytes": 24119,
+   "sha256": "41349409693578332d3f955c3c164ed8dbbc198a152139cbc25d3d3e895dbfe9",
+   "listed": 24119,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/terminus2-Anthropic__Claude-Sonnet-4-20250514-Thinking-aimo-airline-departures-904eb38f.tar.zst",
+   "bytes": 45747,
+   "sha256": "9e123e28a0f6008b9c35f44471605dfbe5b8d507c5e35f8039db80bcf1cc4f46",
+   "listed": 45747,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/terminus2-Anthropic__Claude-Sonnet-4-20250514-Thinking-broken-python-02d55149.tar.zst",
+   "bytes": 19856,
+   "sha256": "da5fe8b45c34502cf5eff0e39b4d31ba028f143e3ad9e47a6f03380a7068cf58",
+   "listed": 19856,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/terminus2-Anthropic__Claude-Sonnet-4-20250514-Thinking-bn-fit-modify-e23f783a.tar.zst",
+   "bytes": 93650,
+   "sha256": "85c2f1649d676e3855dcb5e0aa6b3dfe593bc915e8c3291c23d4326420cb1888",
+   "listed": 93650,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-Anthropic__Claude-Sonnet-4-20250514-Thinking-build-initramfs-qemu-45e922c2.tar.zst",
+   "bytes": 336280,
+   "sha256": "420282f3f5b9862fa73778d848aeb641e24be785462bc3e2475fdc44109e1a5e",
+   "listed": 336280,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-alibaba__fastjson2-2559-af974c9d.tar.zst",
+   "bytes": 38028,
+   "sha256": "496b9b7bc031d0799a738f859da4ec0b308c38c11a4c918198b22b433d0378c6",
+   "listed": 38028,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-astropy__astropy-14598-416c95db.tar.zst",
+   "bytes": 48391,
+   "sha256": "e7b889cd4aab0e41108cf2f3868b4a426e9b182a7e1f951b3aa23fbaa91f0ea6",
+   "listed": 48391,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-catchorg__Catch2-1608-bfc6d70b.tar.zst",
+   "bytes": 18490,
+   "sha256": "08d7bb471618fc23a3e13c675125a35e96ab0cb4379aaf04bd5406a56ccc0108",
+   "listed": 18490,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-clap-rs__clap-2529-0505b282.tar.zst",
+   "bytes": 26617,
+   "sha256": "17effbb5c9f4c03e15f9af1d3db9389d4ac2c57133a5d9cd1ddbcf0e40da5a7d",
+   "listed": 26617,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-clap-rs__clap-2501-1c7ee8f3.tar.zst",
+   "bytes": 40594,
+   "sha256": "498138f801fa80d04f1e8aa498b2d51ed6dab77d5754814b18d4966293638ca2",
+   "listed": 40594,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-astropy__astropy-7606-fed58415.tar.zst",
+   "bytes": 42952,
+   "sha256": "3f203b84a118a2fabf4a8a0f8ac55de7c8e4d9925507ec23907ff53b852d63b0",
+   "listed": 42952,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-django__django-11820-628d9793.tar.zst",
+   "bytes": 43437,
+   "sha256": "afb3263e2f038993eb163d9c710aa8f7e075300e32d8a3d898584f9c2a78371e",
+   "listed": 43437,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-django__django-13023-8e73db95.tar.zst",
+   "bytes": 39398,
+   "sha256": "446141ca1a632d58b5b79ddf9a0d3a34326c9e85edae532b4aa62da8a202c238",
+   "listed": 39398,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-django__django-12406-31e1b541.tar.zst",
+   "bytes": 80818,
+   "sha256": "00b2fea035f6f5869c3baf365473e6a3b0f61046ffd4ddc3bf5e699076f28be8",
+   "listed": 80818,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-clap-rs__clap-2758-594e09d1.tar.zst",
+   "bytes": 36465,
+   "sha256": "22c20b891d57c5093dc99c62ba4fb1d9f2e72fa9c41ea016887fa6e6e48813a4",
+   "listed": 36465,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-clap-rs__clap-2534-8e1e1407.tar.zst",
+   "bytes": 37301,
+   "sha256": "e23777357505695a8581e654535a4799130f70dd3785fbd1d3fdf9ea1f337516",
+   "listed": 37301,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-clap-rs__clap-3179-c9a2bc9d.tar.zst",
+   "bytes": 39149,
+   "sha256": "01ac10612b97e631ab22f5483f11de2dc010eaeb942c3314bbf7baf5b7f949df",
+   "listed": 39149,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-cli__cli-5019-51dee7c3.tar.zst",
+   "bytes": 59290,
+   "sha256": "fa7cab0f01e30e804b1acde361abff00f5fa57eb688f13aafcbd7a51a0975d1b",
+   "listed": 59290,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-facebook__zstd-1532-6f816f49.tar.zst",
+   "bytes": 27493,
+   "sha256": "5555459e3bae445327458b335532dfe2df5eb01da81630e3806baeb974086af0",
+   "listed": 27493,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-DeepSeek__DeepSeek-V3.2-ilp-solver-bb0fa0b9.tar.zst",
+   "bytes": 45212,
+   "sha256": "1b592ce9d70179f18a20024bb7861bca1368b1b77bfa46226917f0a0a7b3440d",
+   "listed": 45212,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-django__django-12663-bd7310c4.tar.zst",
+   "bytes": 124994,
+   "sha256": "71d63d47887e617e3b746c1ce6652f0d3fd0b24ac1a997b73d8f331d48496216",
+   "listed": 124994,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-DeepSeek__DeepSeek-V3.2-polyglot-rust-c-f689845d.tar.zst",
+   "bytes": 96310,
+   "sha256": "45f87a70beac976bab1524a0d6397edb299318e49ea04618ff4fb26e2f0d915a",
+   "listed": 96310,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-hf-train-lora-adapter-2d013ce9.tar.zst",
+   "bytes": 45102,
+   "sha256": "9e751565d7815df51e4c6894ae00a43c24dbaf14f0a93ed7d716e69910e3233a",
+   "listed": 45102,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-Anthropic__Claude-Sonnet-4-20250514-Thinking-simple-sheets-put-f60a0568.tar.zst",
+   "bytes": 244,
+   "sha256": "b8aa33e02277b5b8729a4a20a58d7ffa3e784bc62c3cfd897771f98431326647",
+   "listed": 244,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/sweagent-OpenAI__GPT-5-iamkun__dayjs-1725-4fa6a2e1.tar.zst",
+   "bytes": 26494,
+   "sha256": "c8d38c150c7eedaf2c31cab9aff450163f1ea1b216825d156b62d6ec2ac05be3",
+   "listed": 26494,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/miniswe-OpenAI__GPT-5-facebook__zstd-1532-f4d50598.tar.zst",
+   "bytes": 13243,
+   "sha256": "f063e589771ecb9b1477a3d6080224b699e3eb9205cbc896008b13b687251ba5",
+   "listed": 13243,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/openhands-OpenAI__GPT-5-django__django-16485-3e4d6956.tar.zst",
+   "bytes": 32889,
+   "sha256": "790e202f9bc18b3d236bcb357abbf4ad3f59320dc83bb06b3dde7d0cbb3fedab",
+   "listed": 32889,
+   "size_ok": true,
+   "sha_ok": true
+  },
+  {
+   "path": "bench_artifacts/full/terminus2-Anthropic__Claude-Sonnet-4-20250514-Thinking-break-filter-js-from-html-4096e492.tar.zst",
+   "bytes": 166339,
+   "sha256": "38baea91623c5f18523d2a3ab9c207577461f08d2dbfecb80ce459b976c33d0d",
+   "listed": 166339,
+   "size_ok": true,
+   "sha_ok": true
+  }
+ ],
+ "fetched_total_bytes": 13428134,
+ "fetched_file_count": 38,
+ "INDEPENDENTLY_VERIFIED": {
+  "runs": 0,
+  "flagged_incorrect": 0,
+  "flagged_unuseful": 0,
+  "reason": "No anchor independent of positional ref assignment exists in the published data: the repo has no annotation files (annotation_dir_in_repo=False), manifest step entries carry only the keys listed in manifest_step_entry_key_sets and labels listed in manifest_step_entry_label_values (no reasoning/annotation text quoting a command); action_refs come from backfill_step_refs.py (positional) or are raw event/message excerpts."
+ },
+ "wall_seconds": 58.0
+}

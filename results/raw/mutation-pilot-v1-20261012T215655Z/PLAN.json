@@ -1,0 +1,22 @@
+{
+ "written": "2026-10-13, before any state was screened or any mutant was executed",
+ "approved_by": "user, chat 2026-10-13: GO steps 0, 1, 2; step 2 = mutation pilot on 20 canonical TRAIN states in isolated WSL sandboxes on this PC",
+ "purpose": "diagnostic of execution-verified, same-style alternatives. These states were trained on (imitation pools), so nothing here is evidence about unseen decisions.",
+ "population": "replayable states (both fidelity runs MATCH) whose trajectory is canonical TRAIN in the imitation set's split map; never CAL / TEST / VAL",
+ "selection (outcome-blind order)": "ascending sha256(decision_id); screen each: the recorded test on the untouched state (baseline) and with Fable's own action only (action_only), twice each. Selected iff both pairs are stable, Fable's own calls are all Write / Edit, no other file change sits between Fable's action and the recorded test, baseline differs from action_only, and action_only exits 0. Stop at 20.",
+ "mutants": "single-site text-span replacement inside Fable's new text (Write content, Edit new_string); comment lines, trailing comments and quoted strings skipped. Operators: cmp (== != === !== and spaced < <= > >=), bool (True/False, true/false), logic (and/or, &&/||), num (integer +1), arith (spaced + / -). Sites ordered by sha256(decision_id|operator|offset), taken round-robin over operators, at most 8 per state, duplicates dropped. No formatting change outside the site.",
+ "execution": "each mutant: Fable's calls with the mutated text, then the recorded test, twice, each from a fresh copy of the state; time limit 60 s",
+ "labels (vs Fable's own action on the same state)": {
+  "WORSE": "both runs agree, the mutant's test exits non-zero, Fable's action_only exits 0",
+  "EQUAL_ON_TESTS": "both runs agree and match action_only (exit and normalised output); NOT proof of equivalence (weak tests, uncovered code)",
+  "UNKNOWN": "unstable, killed / timed out, unreplayable, or anything else"
+ },
+ "flag": "crash = SyntaxError / IndentationError / compile error text in the test output: trivially detectable, counted separately",
+ "quality measures (reported, no threshold moved later)": [
+  "share of mutants WORSE / EQUAL_ON_TESTS / UNKNOWN, overall, by operator and by language",
+  "share of WORSE that are crashes",
+  "states with >= 2 non-crash WORSE mutants (enough for a pool of Fable's action + 2 alternatives)"
+ ],
+ "usable_if (pre-registered)": "at least 15 of 20 states have >= 2 non-crash WORSE mutants AND crashes are at most half of all WORSE",
+ "next (separate GO)": "pools of Fable's action + up to 4 non-crash WORSE mutants scored by the frozen baseline (laya-baseline-v1, each adapter alone), the linear probe and an options-only control; needs a Kaggle feature capture and upload, which need the user's GO"
+}

@@ -1,0 +1,8 @@
+{"t": "2026-10-14T21:06:26Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "qualify-start", "c_free_gib": 27.151, "wsl_root_free_gib": 949.329, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:06:30Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-A", "c_free_gib": 27.151, "wsl_root_free_gib": 949.329, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:06:31Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-B", "c_free_gib": 27.151, "wsl_root_free_gib": 949.329, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:06:32Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-C", "c_free_gib": 27.151, "wsl_root_free_gib": 949.329, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:07:13Z", "instance_id": "googleapis__python-storage-1357", "stage": "qualify-start", "c_free_gib": 27.139, "wsl_root_free_gib": 949.32, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:07:16Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-A", "c_free_gib": 27.139, "wsl_root_free_gib": 949.32, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:07:18Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-B", "c_free_gib": 27.139, "wsl_root_free_gib": 949.32, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T21:07:19Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-C", "c_free_gib": 27.139, "wsl_root_free_gib": 949.32, "source": "statvfs /mnt/c (runner)", "ok": true}

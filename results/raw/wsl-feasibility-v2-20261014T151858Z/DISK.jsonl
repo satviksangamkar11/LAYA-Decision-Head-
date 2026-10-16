@@ -1,0 +1,25 @@
+{"t":"2026-10-14T15:23:51Z","instance_id":"googleapis__python-storage-1357","stage":"before-task","c_free_bytes":9016254464,"source":"PowerShell (Get-PSDrive C).Free"}
+{"t": "2026-10-14T15:24:02Z", "instance_id": "googleapis__python-storage-1357", "stage": "setup", "c_free_gib": 8.362, "wsl_root_free_gib": 949.682, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:01Z", "instance_id": "googleapis__python-storage-1357", "stage": "setup-end", "c_free_gib": 8.299, "wsl_root_free_gib": 949.55, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:01Z", "instance_id": "googleapis__python-storage-1357", "stage": "test-1", "c_free_gib": 8.299, "wsl_root_free_gib": 949.563, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:02Z", "instance_id": "googleapis__python-storage-1357", "stage": "test-2", "c_free_gib": 8.3, "wsl_root_free_gib": 949.563, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:04Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-A", "c_free_gib": 8.3, "wsl_root_free_gib": 949.563, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:04Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-B", "c_free_gib": 8.3, "wsl_root_free_gib": 949.563, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:04Z", "instance_id": "googleapis__python-storage-1357", "stage": "replay-C", "c_free_gib": 8.3, "wsl_root_free_gib": 949.563, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:05Z", "instance_id": "googleapis__python-storage-1357", "stage": "after-cleanup", "c_free_gib": 8.302, "wsl_root_free_gib": 949.682, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t":"2026-10-14T15:33:30Z","instance_id":"googleapis__python-storage-1357","stage":"after-task","c_free_bytes":8995549184,"source":"PowerShell (Get-PSDrive C).Free"}
+{"t":"2026-10-14T15:33:30Z","instance_id":"pvlib__pvanalytics-128","stage":"before-task","c_free_bytes":8995135488,"source":"PowerShell (Get-PSDrive C).Free"}
+{"t": "2026-10-14T15:33:39Z", "instance_id": "pvlib__pvanalytics-128", "stage": "setup", "c_free_gib": 8.377, "wsl_root_free_gib": 949.674, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:45Z", "instance_id": "pvlib__pvanalytics-128", "stage": "setup-end", "c_free_gib": 8.374, "wsl_root_free_gib": 949.669, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:33:45Z", "instance_id": "pvlib__pvanalytics-128", "stage": "after-cleanup", "c_free_gib": 8.374, "wsl_root_free_gib": 949.674, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t":"2026-10-14T15:34:16Z","instance_id":"pvlib__pvanalytics-128","stage":"after-task","c_free_bytes":8988741632,"source":"PowerShell (Get-PSDrive C).Free"}
+{"t":"2026-10-14T15:34:16Z","instance_id":"stephenhillier__starlette_exporter-89","stage":"before-task","c_free_bytes":8988741632,"source":"PowerShell (Get-PSDrive C).Free"}
+{"t": "2026-10-14T15:34:25Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "setup", "c_free_gib": 8.372, "wsl_root_free_gib": 949.666, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:56Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "setup-end", "c_free_gib": 8.309, "wsl_root_free_gib": 949.576, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:56Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "test-1", "c_free_gib": 8.309, "wsl_root_free_gib": 949.582, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:57Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "test-2", "c_free_gib": 8.309, "wsl_root_free_gib": 949.582, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:58Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-A", "c_free_gib": 8.309, "wsl_root_free_gib": 949.582, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:58Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-B", "c_free_gib": 8.309, "wsl_root_free_gib": 949.582, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:58Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "replay-C", "c_free_gib": 8.309, "wsl_root_free_gib": 949.582, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t": "2026-10-14T15:37:59Z", "instance_id": "stephenhillier__starlette_exporter-89", "stage": "after-cleanup", "c_free_gib": 8.309, "wsl_root_free_gib": 949.666, "source": "statvfs /mnt/c (runner)", "ok": true}
+{"t":"2026-10-14T15:38:10Z","instance_id":"stephenhillier__starlette_exporter-89","stage":"after-task","c_free_bytes":8968818688,"source":"PowerShell (Get-PSDrive C).Free"}

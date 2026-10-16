@@ -1,0 +1,9 @@
+[{"stream_name":"stdout","time":2.369296836,"data":"{\"kernel\": \"evidence_ladder_critic_v1\", \"check\": \"key_count_only\", \"nvidia_calls\": 0, \"expected_keys\": 8, \"internet\": true, \"secret_env_present\": true, \"label_1\": \"readable\", \"ok\": true, \"n_keys\": 14, \"labels\": [\"key_1\", \"key_2\", \"key_3\", \"key_4\", \"key_5\", \"key_6\", \"key_7\", \"key_8\", \"key_9\", \"key_10\", \"key_11\", \"key_12\", \"key_13\", \"key_14\"], \"all_nonempty\": true, \"distinct\": true}\n"}
+,{"stream_name":"stdout","time":244.236758325,"data":"{\"check\": \"FC-2\", \"model\": \"z-ai/glm-5.3-flash\", \"calls\": [{\"reasoning_effort\": \"max\", \"reasoning_chars\": 261, \"answer_chars\": 2, \"finish_reason\": \"stop\", \"usage\": null, \"status\": 200, \"seconds\": 133.9}, {\"reasoning_effort\": \"low\", \"reasoning_chars\": 0, \"answer_chars\": 2, \"finish_reason\": \"stop\", \"usage\": null, \"status\": 200, \"seconds\": 107.9}], \"nvidia_calls\": 2, \"accepted\": {\"max\": true, \"low\": true}}\n"}
+,{"stream_name":"stderr","time":247.211963048,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":247.212015451,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":247.698281467,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":247.698323525,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":249.681079431,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":251.086246699,"data":"[NbConvertApp] Writing 302729 bytes to __results__.html\n"}
+]

@@ -1,146 +1,540 @@
-﻿# jev-airllm: a decision head for local LLMs
+# jev-airllm
 
-Goal: one internal decision head (a Laya/Jeeves-style pointer head) that reads the hidden states of a **local, frozen
-language model** and picks among candidate actions with calibrated probabilities. It is **backbone-agnostic**: the
-head takes the hidden size as a parameter and is fitted per model. **Current experiment backbone (user, 2026-10-01): `Qwen3-4B-Thinking-2507`**
-(frozen, 8.05 GB, revision `768f209d9e`). `gpt-oss-20b-heretic` and the 120B are parked. Laya is a baseline and in-lane helper, never the ACTION teacher.
+A decision head for local coding models. A small trained scorer reads the hidden states of a **frozen** local language model and ranks candidate
+next actions (run a command, edit a file, write a file, ...). The aim is a local coding agent that makes better next-step choices on a 6 GB GPU.
 
-Rules: [CLAUDE.md](CLAUDE.md). Design record and survey: [DECISION_HEAD.md](DECISION_HEAD.md). Step list and closure path: [PLAN.md](PLAN.md) section 11.
-Tags: **[M]** measured here, **[A]** reported by an author and not reproduced, **[E]** estimate.
-Last updated: 2026-10-02 (CAL capture done; research and plan update).
+**Status (2026-10-13, 03:30 IST):** research prototype. The Qwen model only supplies features and is never trained. On 53 pools from trajectories it
+never saw, the head with a trained adapter picks the teacher's action 79.2% of the time (chance 29.3%) and loses 15 points when the coding context is
+removed; this is a development result. Training only the head's own 31 tensors reaches at most about 50% out of fold (section 2i), and adding a small
+linear read path raises agreement to 71% but the gain sits in the new layer, not in the 31 tensors, and much of it does not need the context (section 2j).
+A simple linear probe on the same states scores 85.8 to 94.3% throughout. Behind the same trained adapter, randomly initialised heads beat every pretrained
+LAYA head (83% against 77%, section 2k). The first execution test (section 2l) found only 1 informative problem out of 5, so no result yet shows better
+coding-task outcomes; the next generator (gpt-oss-20b) failed its API verification and was stopped.
 
-## Current plan (2026-10-02, full detail in [PLAN.md](PLAN.md) section 12)
+**Update 2026-10-13, 13:40 IST:** see sections 2k-2l and HANDOFF_2026_10_11_STATUS.md 16.15-16.20.
 
-Goal: the best internal Laya-style decision head on frozen `Qwen3-4B-Thinking-2507`, as cheaply and quickly as possible, with a stop rule before every paid step.
-Status: CAL captured (569/569, audited). TRAIN (1,986) and LOCKED (2,220) not captured. No head trained, so **nothing is known yet about head quality**; the pilot
-risk is that the frozen state adds nothing over candidate/history features for next-action imitation (0.663 vs 0.667 [M]).
+All numbers in this file were measured in this repository unless marked otherwise. Each has a row-level file under `results/raw/`.
 
-| Phase | What | Compute | Stop rule |
-|---|---|---|---|
-| 0 | resident-weights capture mode; amendment (e) (3-seed selection, GPU-numerics clause, TRAIN-CV screen); dataset metadata scan; Laya-style proper-scoring loss | local, free | scan or amendment fails |
-| 1 | 20-decision smoke with all hard gates, real speed, CAL duplicate spot-check, fp16 check | Kaggle T4 free, else rented Ada/4090 | any gate fails or cost over 2x model |
-| 2 | capture TRAIN, LOCKED, CAL recapture; registered H0 vs H2 test; one LOCKED read; baselines (Laya models, Qwen3-Reranker-4B) | Kaggle free or Ada | failure routes to Phase 3 |
-| 3 | outcome-label probe (SWE-rebench-openhands) on TRAIN grouped CV | free or Ada | lower bound not above 0: stop spending |
-| 4 | scale to about 10k outcome-labelled decisions; LoRA plus pointer head; fresh LOCKED-2 | LoRA on RTX 6000 Ada | ship LoRA only if it beats the frozen head |
-| 5 | three-arm SWE comparison with and without the head | needs Docker | not budgeted |
-
-**Status 2026-10-03:** Phase 2 capture is COMPLETE and VERIFIED on Kaggle T4 x2: TRAIN 1,986 and CAL 569 (7.19 s and 7.03 s per decision per GPU, 192 min wall), all files present and finite, Kaggle-manifest sha256 2,555 of 2,555 equal, smoke decisions 0-19 bit-identical across sessions, T4 vs 3050 states mean cosine >= 0.9999 (worst vector 0.998742; informational). Per the user's Path A, every role stays on the T4: the state-free text embeddings of the TRAIN+CAL pool texts (12,602) are being recaptured on the T4 (notebook v8, gate 0.9999 on every shard); LOCKED states and the LOCKED-pool texts wait for the user's written approval. **Amendment (e) is REGISTERED** (`configs/a5_v3_spec.toml` [amendment_2026_10_03_e], `configs/thresholds.toml` [amendment_e_thresholds]) before any head is trained. No head has been trained and LOCKED has not been touched. Next steps: PLAN.md 12.7. Head-only benchmarks and external references: `BENCHMARKS.md`.
-Budget [E]: Rs 0 for Phases 1-3 if fp16 passes on Kaggle; LoRA about Rs 2,000-3,500; proposed cap Rs 6,000 in two steps (pending). **Pending approvals:** provider, cap and
-uploads; downloads over 1 GB (SWE-rebench-openhands, Qwen3-Reranker-4B); the private push; whether to lift the "no Laya fine-tuning" rule. Measured so far: 8,163 tokens and
-10.2 s per decision on the RTX 3050, compute-bound; consecutive decisions share only 35.4% of prompt tokens, so KV reuse is rejected (`results/raw/capture-cost-model-*.json`,
-`prefix-overlap-train-*.json`). Research survey, papers, Laya weights and repos: [DECISION_HEAD.md](DECISION_HEAD.md) section 13.
-
-## Benchmark increments (one row per major step; full ledger: [results/increments.md](results/increments.md))
-
-The fixed benchmark is the locked A5 set (`data/benchmark/a5-v1.jsonl`, 4,396 test and OOD decisions, read-only, hash in `results/raw/`). The headline
-metric is accuracy on **covered** decisions against the best baseline there (state-blind TF-IDF, **0.323**). A step that does not move it is recorded as
-such. No head has been trained yet, so every row after the baselines shows no change.
-
-| # | Step | Result [M] | A5 covered accuracy | Delta | Evidence |
-|---|---|---|---|---|---|
-| 0 | Locked benchmark and baselines | random 0.125, first 0.148, longest text 0.257, TF-IDF 0.398 all / **0.323 covered**; laya-typed baseline 0.228 all / 0.239 covered | 0.323 (best baseline) | baseline | `results/raw/a5-baselines-a5-v1.json`, `a5-typed-baseline-a5-v1.json` |
-| G2 | 120B expert-read speed (runtime feasibility, not a head step) | best mode 0.87 s per simulated token, 2.18 GB/s, GO (line 1.0 s); I/O only | unchanged | none | `results/raw/g2-expert-read-20261001-132735.json` |
-| 1 | Qwen3-4B-Thinking-2507 downloaded; equivalence | v1 rule **FAIL** (top-1 at near-ties, floor was 0); v2 (registered after seeing v1, reason written) **PASS**: streamed vs resident bit-exact on 12 layers, CPU vs GPU-streamed KL 5.5e-4 to 6.6e-4, cosines at least 0.9998 | 0.323 | none | `equiv-qwen3-4b-20261001-145454.json` (v1), `equiv-v2-qwen3-4b-20261001-145942.json` (v2) |
-| 2 | Capture throughput | 1,017.6 tok/s at 1x8192 tokens (GO line 1,000, passes by 1.8%); 1,128.9 at 2x4096; peak VRAM 0.8 GiB; weight-transfer share 8% | 0.323 | none | `capture-qwen3-4b-20261001-150329.json` |
-| 3 | Capture plumbing on one real decision | all five gates PASS: repeat bit-identical, plain-forward cosine query 1.0 and options at least 0.99993, spans exact, order independence at least 0.99996, lm_head never run | 0.323 | none | `capture-one-20261001-151152.json` |
-| 4 | Pilot manifest and Laya per-row fields | 980 decisions (600 train, 380 cal; cal 20 short of target, recorded), test and OOD excluded; Laya-typed on the pilot rows 0.217 all / **0.178 covered**, all states cut by its 640-token window | 0.323 | none | `pilot-manifest-v1.json` (+ `.sha256`), `laya-fields-v1.sha256` |
-| 5 | Pilot capture complete and validated | 980 of 980, 0 skips, depths 12/18/24/30/36, 2.98 GPU hours, mean 10.96 s per decision, 670 tok/s mean; 3 recaptured decisions bit-identical | 0.323 | none | `pilot-capture-validation-20261001-182625.json` |
-| 6 | Tier-1 closed-form head (`next_action_kind`, sanity arm) | rule registered first; trained on 600 train rows; depth 24 chosen on the 380 pilot-cal rows (lowest NLL); cal accuracy 0.516 vs label-prior 0.213, delta +0.303, 95% trajectory-cluster CI [+0.233, +0.368] excludes 0. All five depths recorded (cal acc 0.500 to 0.539). Not an A5 measurement. | 0.323 | none | `tier1-next-action-kind-20261001-182958.json` |
-| 7 | Tier-2 pointer head on ACTION, **pilot only** (rule registered first, `[tier2_action_pointer]` v1) | trained on 600 train rows, 6-cell grid x 5 seeds, selected depth 24 / D 128 on pilot-cal NLL; temperature from out-of-fold train (T = 1.377). **Pilot-cal accuracy 0.616 all / 0.667 covered (n=120 covered)**, NLL 1.254 (1.235 calibrated, ECE 0.095). Baselines on the same rows: TF-IDF full-train 0.384 / 0.308, TF-IDF data-matched (600 rows) 0.290 / 0.333, first 0.118, random 0.121. **Not an A5 measurement and not yet a claim:** the locked benchmark has not been evaluated, and the shortcut audit (row 8) shows a no-model rule already reaches 0.49 on covered rows. | 0.323 | not measured | `tier2-action-pointer-20261001-183544.json` |
-| 8 | Shortcut and leakage controls on the pilot (diagnostic) | label-shuffled training 0.108 (chance, no train-time leak); state-shuffled eval 0.616 to 0.234 (the head uses the state-option interaction); metadata-only 0.258; query-zeroed control is degenerate (identical to metadata-only, invalid); **option-only linear scorer with no query reaches 0.821 / 0.775 covered, above the pointer head**, so the query is not what carries the signal. No-model **most-recent-in-pool rule: 0.492 on cal covered, 0.447 on train covered** (true action median pool rank 5 vs 21 for distractors). Word-overlap rules 0.32 (recency-weighted), 0.16 (novelty). **The A5 bar of 0.323 (candidate-only TF-IDF) is too low: a state-aware no-model baseline already exceeds it.** | 0.323 | none | `tier2-controls-20261001-183813.json`, `tier2-control-option-only-20261001-183902.json`, `shortcut-state-overlap-20261001-184015.json`, `shortcut-pool-rank-20261001-184102.json` |
-| 9 | Benchmark integrity gate registered; A5-v1 frozen as diagnostic | strongest no-model baseline on pilot cal covered rows is most-frequent-in-history 0.550 (most-recent 0.492, TF-IDF 0.333, metadata-only 0.258, random 0.127; limit random + 0.10 = 0.227): A5-v1 FAILS | 0.323 (historical) | none | `integrity-gate-A5v1-20261001-184428.json` |
-| 10 | A5-v2 rules registered; pool audit on the A5-v1 sampler (3,907 train / 816 cal covered rows) | within-decision AUC of the true action: pool rank 0.212, history frequency 0.762, lexical overlap 0.673; an adversarial MLP over eight trivial features reaches 0.663 on cal covered (random 0.149), equal to the pilot pointer head 0.667 | 0.323 (historical) | none | `pool-audit-A5v1-20261001-184836.json` |
-| 11 | Pool feasibility for balanced distractors (registered first) | existing pool cannot support per-decision matching: with 3 matches needed, frequency-only 100% (first-time) / 67.7% (repeat), plus action kind 32.4% / 22.2%, plus rank window 1.1% / 3.0%; bar 70% | 0.323 (historical) | none | `pool-feasibility-20261001-185056.json` |
-| 12 | A5-v2 sampler `a5v2-odds-1` (spec `a5_v2_spec.toml`, TRAIN only through the firewall, out-of-fold, 5 trajectory-grouped folds) | FAILS the registered gate, not loosened: feature-only attackers on the generated sets A 0.443, B 0.344 (A5-v1 sets: A 0.652, B 0.524; random 0.149; limit 0.249); four AUC violations remain | 0.323 (historical) | none | `a5v2-train-cv-audit-20261001-194503.json` |
-| 13 | A5-v3 specification registered; v1 and v2 frozen with their failures | new question: does the frozen state add decision value BEYOND candidate/history features on identical candidate sets (arms H0, H1, H2, Y, S, R) | 0.323 (historical) | none | `configs/a5_v3_spec.toml` |
-| 14 | Spec amendment before anything was scored; CPU power simulation | primary claim now **H2 minus H0_matched** (success: lower 95% bound > 0, estimate >= 0.05, half-width <= 0.04, else INCONCLUSIVE); conservative scenario power 0.955 at 400 clusters for a true effect 0.08, 0.46 to 0.53 for exactly 0.05 | 0.323 (historical) | none | `power-sim-v3-20261001-195023.json` |
-| 15 | Fresh A5-v3 data downloaded and split by repository hash | 562 fresh rows (438 dropped for already-used repositories); F-dev 118 trajectories / 87 repositories; LOCKED 444 trajectories / 324 repositories, hashed, read-only, unopened | 0.323 (historical) | none | `fresh-v3-provenance.json`, `fresh-v3-locked.sha256` |
-| 16 | F-dev CPU feasibility of the frozen sampler (criteria registered first) | USABLE on fresh data: 2,454 covered F-dev decisions, retention 1.000, covered and repeat shares within 1 point of old train; feature-only attackers on F-dev v2 sets A 0.405 / B 0.324 (old 0.443 / 0.344); frozen odds models saved, sha256 20d5d2b8... | 0.323 (historical) | none | `fdev-feasibility-20261001-200544.json` |
-| 17 | v3 training design registered; decision manifests built; full-pool capture pipeline built and smoke-tested (not started) | H0 state-free branch vs primary H2 = frozen H0 + residual state branch on cross-fitted scores; 9 registered cells, selection inside TRAIN, 5 paired seeds at the end. Manifests: TRAIN 1,986 / CAL 569 / LOCKED 2,220 (5 per each of 444 trajectories). Smoke test: all hard capture gates pass (independence >= 0.9999 even at a 79-candidate pool); pilot cross-check worst cosine 0.999945 | 0.323 (historical) | none | `v3-manifests.json`, `v3-pilot-crosscheck-20261001-202311.json` |
-| 18 | Sampler unified; v3 trainer built and audited (13/14 checks, 1 pending); independence gate stopped the smoke capture (bf16 noise floor, candidates bit-identical when content changes at fixed shape) | No benchmark change. Gate threshold unchanged; amendment awaits the user. Long capture not started. See results/increments.md row 18. |
-| 19 | Independence gate amended (content-swap bit-identity + numerical sanity); NONE and early-stopping locks; trainer audit 16/16 | No benchmark change. Capture estimate now roughly 20-24 h (extrapolated from 10 smoke decisions). Awaiting the user's go for the full capture. See results/increments.md row 19. |
-| 20 | v3 CAL capture complete (569/569), audited twice | audit PASS twice, same hash 8717cd11...; Gate A max diff 0.0 (62 targets), Gate B min cosine 0.999906. Incident: two capture processes ran at once (42 ids logged twice); files unique and stable, duplicates' bit-identity unprovable (spot-check planned). | 0.323 (historical) | none | `capture-cal-checkpoint-20261002-020211.json`, `-125613.json`, `capture-interruptions.jsonl` |
-| 21 | Cost model and plan update | 8,163 tokens and 10.2 s per decision on the 3050 [M], compute-bound; prompt overlap between consecutive decisions 35.4% [M]; GPU costs are estimates. No benchmark change. | 0.323 (historical) | none | `capture-cost-model-20261002-205000.json`, `prefix-overlap-train-20261002-205012.json` |
-
-> **A5-v2 and A5-v3 (2026-10-02):** A5-v2 FAILED the registered gate and was not loosened. Some history/candidate predictability is legitimate behavioural information, so `configs/a5_v3_spec.toml` registers a new question: does the frozen state add value beyond a state-free candidate/history baseline trained on the same rows (primary claim H2 minus H0_matched, minimum effect +0.05, locked set of fresh repository-disjoint trajectories). Fresh data is downloaded and the locked part is closed (row 15). F-dev feasibility passed (row 16). Training design is registered (row 17). Next: the full-pool capture (about 14 to 15 GPU hours, an estimate).
-
-> **A5-v1 status (2026-10-02): FROZEN, DIAGNOSTIC ONLY.** It fails the benchmark-integrity gate (`configs/thresholds.toml` `[benchmark_integrity_gate]`): on pilot cal covered rows a no-model
-> *most-frequent-in-history* rule scores 0.550 and *most-recent-in-pool* 0.492, against random 0.127 and a limit of 0.227. The 0.323 TF-IDF reference is historical and is not the bar for any
-> head claim. No head result on A5-v1 counts as evidence of decision quality. Next: build A5-v2 with rank- and kind-matched distractors, capture each decision's full pool once, pass the gate on
-> train/cal rows only, then register the model family and run the locked evaluation.
-> Pool audit on 3,907 train / 816 cal covered rows (`results/raw/pool-audit-A5v1-*.json`): eight trivial candidate/history features with no model and no state predict the true action with 0.663
-> accuracy (random 0.149), which equals the pilot pointer head's 0.667. The pilot head showed no signal beyond candidate-pool structure.
-
-## What exists
-
-| Item | State |
+| Document | What it is |
 |---|---|
-| `decision_head/head.py` | The trained head: 34.53M parameters at full size, any hidden size, 9 decision kinds including `CODE_RELEVANCE`. |
-| `decision_head/closed_form.py` | Closed-form head (AnyJev's method: shrunk LDA or ridge, 5-fold choice, out-of-fold temperature). The no-gradient baseline arm. |
-| `decision_head/selfcheck.py` | 22 checks pass **on synthetic data only** (`uv run python -m decision_head.selfcheck`): maths, masking, order-equivariance, scaler, calibration, losses, learning, closed-form (0.956 from 200 rows, ECE 0.014, chance on random labels). Says nothing about any real LLM. |
-| `state/schema.py` | A1: candidate, state and teacher-output contracts. NONE enforced, 2 to 16 options, no outcome without execution, head metadata excludes the candidate source. `TeacherOutput` has two exclusive forms (DISTRIBUTION, INDEPENDENT_SCORES) and a lane registry. |
-| `policy/hard_rules.py` | A2: deterministic hard policy and completion invariants. Pattern lists, so they catch what they list; extend, never loosen. |
-| `policy/selfcheck.py` | 8 table-driven checks (`uv run python -m policy.selfcheck`): 23 unsafe candidates blocked, 8 safe allowed, lanes name real kinds, teacher forms validated. |
-| `teachers/laya_teachers.py`, `teachers/selfcheck.py` | A3, three of five teachers: the judge (COMPLETION), the conductor (CONTINUE, ESCALATE effort) and laya-code (CODE_RELEVANCE: independent per-chunk scores, no softmax, truncation explicit and recorded). Offline, sha256-pinned, out-of-lane returns `applicable=False`. 18 checks pass on the real checkpoints; run with `laya-audit/.venv/Scripts/python.exe -m teachers.selfcheck` from the project root. **A3 is closed:** teachers are the judge, the conductor and laya-code; `teachers/baselines.py` holds `laya-typed` as a BASELINE adapter (never a training target, enforced by `usable_as_target`); cortex-1 is rejected. |
-| `capture/render.py`, `capture/capture.py` | Capture records (`capture-record-v1`, frozen): shared prefix plus one independent suffix per candidate, block-masked packed forward, depths 12/18/24/30/36, lm_head never run. Model-independent. |
-| `decision_head/pilot_data.py` | Loads the pilot capture into head tensors; asserts the frozen manifest, train and cal only. |
-| `compiler/pilot.py`, `configs/pilot_manifest_v1.toml` | The pilot sampling rule (registered before sampling) and the hashed manifest. |
-| `configs/thresholds.toml` | Every gate threshold, registered before the run it governs (G2, equivalence v1 and v2, capture throughput, capture-one-record). |
-| `tools/` | `verify_hf_download.py`, `eval_laya_typed_decisions.py`, `_manifest.py`, plus the equivalence, throughput, capture, annotation and validation runners. Outputs are create-only. |
-| `configs/models.yaml` | Pinned revisions and sha256 for the models we hold. |
-| `results/raw/` | Row-level evidence: G0 CUDA pass, download verifications, Laya evaluations. |
-| `DECISION_HEAD.md` | Survey of about 35 repos and cards, 16 lessons, parameter inventory, ablation plan, risks, GitHub cross-check. |
+| [AGENT_README.md](AGENT_README.md) | Dated working log: status reports, frozen plans, the fixed API call logic |
+| [HANDOFF_2026_10_11_STATUS.md](HANDOFF_2026_10_11_STATUS.md) | Full record of the current data and training work, with file paths |
+| [CLAUDE.md](CLAUDE.md) | Project rules (what may and may not be done, and by whose decision) |
+| [DECISION_HEAD.md](DECISION_HEAD.md) | Design record and literature survey for the head |
+| [PLAN.md](PLAN.md) | Runtime plan and step lists |
+| [results/increments.md](results/increments.md) | Ledger: one row per major step |
 
-## What has been shown
+## Contents
 
-- **G0 passed [M]:** torch 2.14.0+cu126 sees the RTX 3050 6GB.
-- **Models on disk, verified [M]:** gpt-oss-120b (15 shards) and gpt-oss-20b-heretic (9 shards) are complete and sha256-verified, both untouched. The five Laya-family teachers are downloaded and verified (`laya-typed-decisions`, `laya-conductor`, `laya-stop-completion-judge`, `laya-code`, `cortex-1-large`).
-- **Laya reproduced [M]:** `laya-typed-decisions` scores 0.771 on all 2,000 typed-decisions test decisions against 0.766 published. The conductor scores 0.340 on the same test (random 0.318): each specialist is useful only inside its own lane.
-- **Laya's act head is dead [M]:** `act_probability` is exactly 1.0 on every answer. Our abstain/escalate gate must beat plain confidence to ship.
-- **Teachers behave as their cards say [M, sanity only]:** conductor 6/6 printed routing examples; judge 0.75 vs 0.05 for announced next step vs direct answer; laya-code relevant chunk 0.43 vs unrelated 0.16, and a chunk scores 0.432 alone and 0.427 in a batch of 5.
-- **Frozen-decoder head-only has precedent [A]:** AnyJev (Nokia) fits a closed-form head at about 2/3 depth: Qwen3-4B reaches 0.786 on typed-decisions with 300 labels per question. Heads there do not transfer across questions; our shared head over variable candidate lists is the unproven part.
-- **Datasets by recorded outcome [M]:** R2E-Gym SFT has no outcome flag; SWE-rebench-openhands (`resolved`, `exit_status`) and SWE-smith (`resolved`) do. No Docker here, so execution-based checks rely on recorded results.
-- **Machine [M]:** AVX-512 torch CPU kernels crash on this CPU (use `ATEN_CPU_CAPABILITY=avx2`); the Hub CLI exits 0 after a `MemoryError`, so downloads are size-checked; D: has about 33 GB free.
+- [How it works](#how-it-works)
+- [Models](#models)
+- [Dataset](#dataset)
+- [Results](#results)
+- [What is not shown](#what-is-not-shown)
+- [Reproducing](#reproducing)
+- [Repository layout](#repository-layout)
+- [Earlier work](#earlier-work)
+- [Roadmap](#roadmap)
 
-- **State builder built and tested [M]** (`compiler/state_builder.py`, `compiler/selfcheck.py`, 17 checks pass): twin trajectories with different labels and futures give identical state, hash and cut manifest at three budgets; the label event and future never enter and `events[t:]` is never read (also true on 1,264 real decisions); episode fields, unknown roles and missing keys are rejected; cuts follow a fixed declared order with visible markers; overflow raises. Budget needs a decision: on 2,147 real decisions the share needing the last-resort core trimming (issue and latest events cut) is 33.5% at 8,000 chars, 3.8% at 12,000, 1.4% at 16,000 and 24,000, 0% at 32,000; oldest-event dropping is needed for 59% to 78% of decisions up to 16,000 chars. The budget is fixed before compilation, not tuned on results.
+## How it works
 
-- **Compiler stage 1 built and run on the 300-row pilot sample [M]** (`compiler/`: state builder, `candidates.py`, `tiers.py`, `split.py`, `run.py`; `configs/compile.toml` fixes the 32,000-character state budget; `uv run python -m compiler.selfcheck` all checks pass). Output `data/decisions/action-swerebench-sample-v1.jsonl` (not in git): 18,894 ACTION records, none skipped, 42 MB; splits by repository train 11,941 / cal 2,557 / test 2,231 / OOD 2,165 (142 / 32 / 29 / 27 repositories); tiers STRONG 706, WEAK 7,138, UNKNOWN 10,807, NEGATIVE 243; cut stage none 2,977, caps 9,747, drop 6,168, core 2. Reports and the split manifest hash are in `results/raw/` (`compile-report-*`, `split-manifest-*`). Known shortcuts to quantify in A5: the true action is the longest candidate text in 24.7% of decisions (chance about 14.9%), and 25.7% of view/edit labels name a file that never appears in the state. Position of the true action is uniform (chi-square 84.6, df 90). **Candidate coverage [M]: only 6,118 of 18,894 true actions (32.4%) are in the pool a state-only generator could propose** (the rest are novel files or commands), so A5 reports accuracy next to coverage. Tier use, the NONE-position axis (first, middle, last), shuffling that includes NONE, and the 12k/16k/24k/32k budget ablation are pre-registered in ``configs/compile.toml``.
+```
+coding session so far ──┐
+                        ├─► frozen Qwen3-4B ──► hidden states ──► adapter ──► pretrained LAYA head ──► one score per option
+candidate next actions ─┘      (never trained)   (layers 18/24/30)  (trained)     (31 tensors, frozen)
+```
 
-- **A5 locked benchmark and baselines [M]** (`compiler/benchmark.py`, `compiler/baselines.py`). `data/benchmark/a5-v1.jsonl`: 4,396 decisions (test 2,231 plus OOD 2,165), read-only, sha256 `f385e40b5f7a5e0b...` in `results/raw/a5-benchmark-a5-v1.sha256`, with every pre-registered variant (shuffle including NONE, NONE first/middle/last, +3/+6/+10 distractors, state hashes at 12k/16k/24k/32k). Baselines in `results/raw/a5-baselines-a5-v1.json`, accuracy = agreement with the trajectory action: random 0.125, first 0.148 (0.000 when NONE is first), last item 0.150, longest text 0.257, **TF-IDF on candidate text only 0.398**. Coverage of true actions by a state-only generator: 31.7% (test), 31.8% (OOD). **The state-blind TF-IDF model reaches 0.398, over 3x random: shortcut signal in the candidates.** It is stronger on uncovered decisions (0.433, the true action is the one candidate not drawn from the pool) than on covered ones (0.323, still 2.6x random; longest-text falls to 0.097). So the primary head metric is accuracy on **covered** decisions, per evidence tier, against the best baseline there (TF-IDF 0.323), with uncovered decisions reported separately; end-to-end is covered accuracy times coverage. Head claims need a paired-bootstrap interval that excludes zero against the best baseline.
+1. **Capture.** The session context and each candidate action are run through the frozen language model once. Hidden states at three depths are
+   saved: one vector set for the context (`[3, 2560]`) and one per option (`[N, 3, 2560]`). The model's output layer is never run.
+2. **Adapter.** A small trainable module maps those states into the input space of a pretrained decision head.
+3. **Head.** The pretrained head (two context layers and a scorer) gives one score per option. The highest score is the head's choice.
+4. **Baseline.** A linear probe (logistic regression on the option states) is trained on the same data and reported next to every head result.
 
-- **Step 1 of the A6/A7 plan [M]:** baselines now save per-decision predictions (`results/raw/a5-baselines-a5-v1-perdecision.json`, 1.8 MB) for paired bootstrap; the rerun reproduces the earlier TF-IDF figure exactly (0.3983). The `laya-typed` baseline over all eight axes is run by `compiler/typed_baseline.py` (state rebuilt tail-first at 2,400 characters or the smallest budget whose core fits; any remaining explicit cut is counted); results in `results/raw/a5-typed-baseline-a5-v1.json`.
+In the model that is kept, only the adapter is trained. The language model is never trained. The head's own tensors were trained only in controlled
+experiments (results 2b and 2d), saved as separate files; the released checkpoint file is never written and its hash is checked after every run.
 
-- **Qwen3-4B equivalence [M]:** rule v1 failed as written (top-1 agreement 0.961 to 0.992 against a 0.99 cap; every disagreement at a reference top-2 gap of at most 0.125; the noise floor was exactly 0, so the rule reduced to absolute caps). v2 was registered afterwards with the reason written; v1 stays recorded as FAIL. v2 passes: streamed equals resident exactly on 12 layers, and CPU vs GPU-streamed KL is 5.5e-4 to 6.6e-4.
-- **Capture [M]:** 1,017.6 tok/s on 8,192-token sequences (1.8% above the 1,000 GO line); the real 980-decision run averaged 670 tok/s (longer states, thermal throttling at 86 to 87 C). 2.98 GPU hours, 0 skips.
-- **Pilot capture validated [M]:** 980 of 980 files equal the manifest in id and order; all five depths consistent, finite, hidden size 2,560; 3 recaptured decisions bit-identical; lm_head never run. Hidden-state norms grow with depth (query mean 34 at layer 12, 658 at layer 36), so heads must normalise per layer.
-- **Laya on the pilot rows [M]:** laya-typed scores 0.217 on all 980 and 0.178 on the 449 covered rows, below the TF-IDF 0.323; all 980 states exceed its 640-token window. It stays a baseline for ACTION.
-- **120B read speed [M]:** G2 passed at 0.87 s per simulated token (I/O only).
-- **Audit (2026-10-01):** splits are repository-disjoint, no pilot decision or trajectory is in the locked benchmark, all hash sidecars verify, all 33 project `.py` files compile. Open items: RB0 env manifest and experiment id not recorded; `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` still name gpt-oss as primary and heretic as first backbone; `configs/models.yaml` has no Qwen3-4B entry; `autojev/` holds 16.8 GB of dead partial downloads.
+## Models
 
-## Not done
+| Component | Model | Parameters | Trained here |
+|---|---|---|---|
+| Language model | `Qwen3-4B-Thinking-2507` (revision `768f209d9e`), hidden size 2,560 | about 4 billion | No, frozen |
+| Decision head | Laya `Coding_Decision_Agent` (`models/coding-decision-agent`), 31 tensors | 26,248,193 | In experiments only (2b, 2d) |
+| Adapter | New, 8 tensors | 5,246,982 | Yes |
+| Fixed parts | Kind embedding and gate | 273,154 | No |
+| Candidate generator | Nemotron-3-Super 120B (hosted) | n/a | No |
+| Review judges | GLM-5.3 (full reasoning) with Gemma 4 31B or Muse Glimmer 30B (hosted) | n/a | No |
 
-Evaluation of any head on the locked benchmark, final calibration on a larger frozen calibration split, a recency/pool-rank baseline on the locked benchmark, CONTINUE and COMPLETION decision compilation, and the in-lane teacher outputs for those kinds. **Nothing is known yet about how well the head works on real states.** The benchmark has not moved from 0.323.
+The head was originally trained on a different encoder (ModernBERT-large). Feeding it Qwen states is the reason an adapter is needed.
 
-## Order (user, 2026-10-01)
+## Dataset
 
-Track A first, no model touched: A3 (finish the teachers) then A4 (compiler) then A5 (locked benchmark) then A6 (baselines). Then Track B on heretic: capture at a depth chosen by a sweep, closed-form heads for fixed-layout decisions, then the pointer head for variable candidate lists.
+The teacher is **Fable**: recorded coding-agent sessions. For each decision, the pool holds Fable's recorded action plus 2 to 4 alternative actions.
 
-## Next
+- **Labels.** Fable's action is the positive. Alternatives are labelled *unknown*, never *wrong*: the data teaches "choose like Fable", not
+  "this action is verified best".
+- **Canonical splits.** TRAIN, VAL, CAL and TEST are separated by trajectory. Only TRAIN has been used for training. VAL is used for evaluation and has
+  been inspected closely. CAL (309 decisions): no model has seen it; its edit decisions were replayed in the sandbox once to count usable tests, and a
+  guard that keeps CAL and TEST contexts out of model requests was left in place. TEST (713 decisions): never used; one research report quoted three
+  short example lines from TEST trajectories, which were redacted.
+- **Teacher identity.** 1,294 of the 11,436 rows in the trace file's train portion are marked as attested Fable 5; for the rest it is the uploader's claim.
 
-**Superseded by the current plan above (PLAN.md section 12): Phase 0 first.** The older list below is kept as history.
+### Pipeline
 
-1. Tier-1 closed-form head on `next_action_kind` at all five depths: fit on train only, pick depth on the 380 pilot calibration rows (pilot-only, not the final calibration), report against the baselines.
-2. Tier-2 set-attention pointer head on ACTION (about 34M parameters, frozen backbone, 600 train decisions: strong regularisation and early stopping), compared with TF-IDF 0.323 covered by a paired bootstrap on the locked benchmark. That needs the benchmark decisions captured too (up to about 15 GPU hours for 4,396).
-3. After each step, rerun the locked benchmark and add a row to the increments table above and to `results/increments.md`.
+| Step | What happens |
+|---|---|
+| 1. Generate | 8 generator calls per decision (3 conditioned on the tool, 5 blind). The generator never sees Fable's action; a leak check runs on every request. |
+| 2. Objective screen | Tool contract, grounding in the session, duplicates, and syntax parsers in a sandbox (Python, Go, Java, PowerShell, JavaScript, TypeScript, Bash, Zsh, Ruby, Rust, C#, C++). |
+| 3. Blinded review | Two judges see the pool without labels, with hidden control options. **Both must accept** an alternative. |
+| 4. Assembly | Alternatives that equal Fable's action (after normalising the command) are removed. A pool needs Fable's action + 2 to 4 alternatives, one using the same tool. |
+| 5. Verification | Every kept alternative is re-checked one by one against both judges' verdicts and the screen. |
+| 6. Hand audit | A blind sample is read by hand. |
+| 7. Freeze | Hashed manifest with a role per pool. Create-only. |
 
-## Open decisions for the user
+### Dataset v3 (frozen)
 
-**Plan approvals (2026-10-02):** (1) provider, cap (proposed Rs 6,000) and upload scope for Kaggle/Colab or a rental; (2) downloads over 1 GB: SWE-rebench-openhands, Qwen3-Reranker-4B; (3) lift the "no Laya fine-tuning" rule (only a free side track)? (4) questions for AIC: billing granularity, billing while stopped, disk, Docker, GST. CLAUDE.md, PLAN.md, `configs/p0.toml` and `configs/models.yaml` were updated for the Qwen3-4B backbone on 2026-10-02.
+`results/raw/laya-fullaction-set-v3-20261012T055420Z`, manifest sha256 `725cd39d...d8f4`.
 
-Older items: delete the 16.8 GB of dead `autojev/` partial downloads, the JDownloader installer (`GPT OSS 20 B.exe`) and the partial downloads in the model caches? Record the RB0 env manifest and experiment id now? Update `CLAUDE.md`, `PLAN.md` and `configs/p0.toml` to the Qwen3-4B experiment backbone (they are frozen documents, so this needs your approval)? Add a pinned Qwen3-4B entry to `configs/models.yaml`? Commit the new files and push?
+| Quantity | Value |
+|---|---|
+| Eligible TRAIN decisions (coding, tool action) | 1,342 |
+| Sent to the generator | 1,074 |
+| First-step decisions, **not processed** | 268 |
+| Qualified pools | 335 |
+| Alternatives, all individually verified | 866 of 866 |
+| Yield (pools per generated decision) | 31% |
+| Pools reviewed by GLM + Gemma / GLM + Muse | 68 / 267 |
+| Pools with captured features | 334 (one exceeds the 24,000-token context limit) |
+| Trajectories | 192 |
 
+Roles recorded per pool: `train` 120 pools (94 trajectories), `train_extension` 54 pools (35 trajectories), `heldout_transfer` 161 pools
+(98 trajectories that appear in no train pool).
 
+**Where the other decisions were lost** (995 decisions of the five TRAIN batches, `results/raw/research-20261012/C_pool_failure_funnel.md`): 260 before a pool
+could be built (114 with too few candidates, 103 with no candidate using the teacher's tool), 23 at the objective screen, 377 at review or assembly.
+150 ended with exactly one jointly accepted alternative, one short of a pool.
 
+**Cleaned version (v4)**, `results/raw/laya-fullaction-clean-v4-20261012T130553Z`: 59 of the 866 alternatives (6.8%) were the teacher's action plus only
+read-only steps and were removed by a deterministic rule; 31 pools then fell below the pool rule. 304 pools and 779 alternatives remain (303 with
+features). The same rule leaves 46 of the 53 VAL pools. Dataset v3 is unchanged. Counting looser cases (a set-up, lint or timing step added or
+dropped), about a quarter of alternatives are the teacher's action in effect (24% on VAL, 25.5% in a 60-pool training sample).
 
+**Gate record.** 52 training pools come from two review runs whose own reports mark the pair gate as failed for accounting reasons (the second judge's
+replies were saved under the retry name; one batch had only 24 known-bad controls). No known-bad option was accepted by both judges in either. The v3
+manifest lists an exception only for the last batch; this gap is recorded in the handoff, not yet in a manifest.
 
+One batch was accepted under a documented **infrastructure exception**: a network outage and an endpoint outage made 42% to 47% of first judge
+replies unusable, which fails the written 5% limit. The original check stays recorded as failed. Judge-caused failures were 0 of 352 (GLM) and
+5 of 309 (Muse); every reply was recovered by resending.
 
+## Results
+
+"Accuracy" below means: the scorer ranks Fable's recorded action first. It is agreement with the teacher, not task success. Intervals are 95%,
+from 2,000 bootstrap resamples of whole trajectories.
+
+### 1. Evaluation on new trajectories (VAL, pre-registered)
+
+The three saved adapters, the probe and a text baseline were scored once on 53 pools from 36 VAL trajectories that were never used for anything.
+Chance 29.3%. Source: `results/raw/val-eval-v1-20261012T082055Z`.
+
+| Scorer | Real context | No context |
+|---|---|---|
+| Head, mean of the three saved adapters | 79.2% (67.9 to 89.3) | 64.2% (52.0 to 76.3) |
+| Linear probe | 94.3% (87.3 to 100) | 81.1% (69.0 to 90.9) |
+| Options text only | 67.9% (53.9 to 81.1) | n/a |
+
+- **Accuracy holds:** 79.2% on new trajectories against 80.2% inside the dataset. Per seed: 79.2%, 81.1%, 77.4%.
+- **Context helps:** real context minus no context is +15.1 points (+6.3 to +24.1) for the head and +13.2 (+5.6 to +22.5) for the probe.
+  The models were fitted with context, so part of the drop can be a train/test mismatch.
+- **Probe ahead:** probe minus head is +15.1 points (+6.2 to +24.5).
+- **Head against text only:** +11.3 points (-4.1 to +28.7), not significant at this size.
+- **Audit caveat:** in a blind sample, 5 of 18 kept alternatives were Fable's action in effect (for example the same test command with an extra
+  file read). Picking one counts as a miss for every scorer.
+- **Diagnosis of the gap (read-only, `results/raw/val-gap-diag-v1-20261012`):** 32 of 134 VAL alternatives (24%) are Fable's action in effect. Counting
+  them as correct moves the head to 83.6% and leaves the probe at 94.3%. The probe never picks one of them, so part of its score is recognising the
+  teacher's exact wording. In 9 of the 13 pools where the probe wins, at least one of the three adapters is right.
+
+### 2. Fine-tuned head on all pools (in-dataset, 5-fold by trajectory)
+
+334 pools, 192 trajectories, adapter only, chance 28.9%. Source: `results/raw/laya-finetune-all-v1-20261012T080145Z`.
+
+| Pools | Head | Linear probe | Probe minus head |
+|---|---|---|---|
+| All 334 | 80.2% (75.5 to 84.8) | 86.2% (82.4 to 89.8) | +6.0 (+1.9 to +10.1) |
+| Former `train` role, 120 | 84.2% | 89.2% | +5.0 (0.0 to +10.9) |
+| Former `heldout_transfer` role, 160 | 81.3% | 83.8% | +2.5 (-2.0 to +6.8) |
+| `train_extension`, 54 | 68.5% | 87.0% | +18.5 (+5.6 to +33.3) |
+
+Three final adapters (seeds 0 to 2) are saved in `adapters/`. Each was fitted on 277 pools with 57 used only to pick the stopping point; they
+reach 91% to 93% on their fitting pools and 82.5% on the stopping pools. Training took about 4 minutes on a CPU.
+
+The weak `train_extension` figure comes mostly from one fold (20 pools: head 40%, probe 70%); tool type, step, judge pair and context length
+do not explain it.
+
+### 2b. Training the head's own tensors (controlled, pre-registered)
+
+Labels were first cleaned in a separate version: 59 of 866 alternatives that strictly equal Fable's action (its steps plus read-only steps) were
+removed, leaving 304 training pools and 46 VAL pools. Then two methods were trained on identical data, features, folds, seeds and steps.
+Source: `results/raw/laya-joint-v1-20261012T130647Z`.
+
+| Test | Adapter only | Adapter + head tensors | Difference |
+|---|---|---|---|
+| Cleaned VAL, 46 pools (primary) | 76.1% | 75.4% | -0.7 (-5.9 to +4.3) |
+| Original VAL, 53 pools | 75.5% | 76.1% | +0.6 (-4.5 to +5.8) |
+| In-dataset 5-fold, 303 pools | 77.9% | 78.9% | +1.0 (-1.8 to +3.8) |
+
+Updating the head's 26 million pretrained parameters gave no measurable gain at this data size, so the adapter-only model is kept.
+
+### 2c. Outcome pilot: can the scorers pick a Qwen-written fix? (pre-registered)
+
+Edit and write decisions were replayed twice in an isolated sandbox: 44 CAL and 39 VAL decisions have a test whose result changes with the teacher's
+own action; 27 and 23 of them go cleanly from fail to pass. The pilot used VAL. For the first five decisions the frozen Qwen model wrote four
+candidate actions each without seeing the teacher's action. Source: `results/raw/val-outcome-v1-20261012T134540Z`.
+
+| Measure | Result |
+|---|---|
+| Samples that finished within 6,144 new tokens | 5 of 20 (the other 15 never closed their thinking block) |
+| Valid decoded actions | 1 of 20 (a file read); 4 finished samples were rejected by the decoder |
+| Code-change candidates | 0 |
+| Decisions where any candidate makes the tests pass | 0 of 5 |
+| GPU time | 3.75 hours of worker time on 2 x T4 (about 4.0 hours counting start-up) |
+
+No scorer comparison was possible: there was nothing to choose between. On these one-step fix decisions the bottleneck is candidate generation,
+not ranking. The pilot was stopped before the remaining 18 decisions. This measures deployment with this particular small model, not the head.
+
+### 2d. Training only the head, with the bridge frozen (pre-registered)
+
+The decisive test for "is the knowledge in the head": the adapter is frozen (bit-identical before and after, checked by hash) and only the head's
+31 pretrained tensors train. Source: `results/raw/laya-headonly-v1-20261012T161940Z`. Cleaned VAL, 46 pools, 3 seeds.
+
+| Frozen bridge | Head learning rate | Before | After | Change | Native items before -> after |
+|---|---|---|---|---|---|
+| Aligned on LAYA's native items only (never saw Fable) | 2e-5 | 39.1% | 54.3% | +15.2 (+6.3 to +24.9) | 71.5% -> 69% |
+| Same | 2e-4 (chosen on TRAIN; registered primary) | 39.1% | 52.2% | +13.0 (-2.5 to +26.7) | 71.5% -> 44-58% |
+| Fable-trained adapter | 2e-5 | 76.1% | 74.6% | -1.4 (-6.7 to +3.0) | about 30% -> about 30% |
+| Same | 2e-4 | 76.1% | 76.1% | 0.0 (-5.1 to +4.9) | about 30% -> about 31% |
+
+The head can absorb part of the teacher's choices through a fixed bridge, but it stays about 22 points below adapter-only training on the same
+pools, and a high learning rate destroys its native skill.
+
+### 2e. Where the signal is lost (probes on identical inputs, and two controlled runs)
+
+Source: `results/raw/laya-headonly-diag-v2-20261012T170830Z`. Same 303 training pools and 46 cleaned VAL pools for everything.
+
+| A linear probe reading... | Accuracy |
+|---|---|
+| raw Qwen option states | 89.1% |
+| the output of the bridge that never saw the teacher | 87.0% |
+| the same, after the head's pretrained context layers | 58.7% |
+| (the head trained through that bridge) | 54.3% |
+
+| Head-only run (same bridge, learning rate 2e-5) | Accuracy | Change |
+|---|---|---|
+| Reference: 251 pools, 300 steps | 54.3% | - |
+| Four times more steps | 55.8% | +1.4 (-8.2 to +11.3) |
+| Half the pools | 48.6% | -5.8 (-12.4 to +0.7) |
+
+The bridge passes the signal; the head's own context layers lose it, and at a learning rate that preserves the head's native skill the head fits only
+61% of its training pools. More steps do not help; the effect of more data is a trend that this test cannot establish.
+
+### 2f. Audit of the head's input path (read-only)
+
+Source: `results/raw/laya-head-audit-v1-20261012T173011Z`.
+
+| A linear probe reading... (bridge that never saw the teacher) | Accuracy |
+|---|---|
+| what the head's context layers receive | 87.0% |
+| after context layer 1 | 56.5% |
+| after context layer 2 | 56.5% |
+| the scorer's input | 58.7% |
+| what the layers receive and the scorer's input, joined | 84.8% |
+
+After the context layers the options of one pool are nearly the same vector (cosine 0.97; 0.88 in the original model on its own data). No error was
+found in masks, shapes or checkpoint handling, and the input scale matches the original model's. Removing the two small differences from the original path (an extra normalisation layer; a kind embedding that turned out to be exactly zero)
+changes nothing. The structural difference is the input itself: the
+original layers run over hundreds of tokens and build each option's representation from its text, while here each option arrives as one vector.
+
+### 2g. Sequence-input test (prediction written before the data)
+
+Source: `results/raw/laya-seq-v1-20261012T185241Z`. The released head was fed a sequence per decision (16 context slices, 4 slices and a marker per option)
+through a new bridge, against the single-vector path, both bridges aligned on the same 600 native items.
+
+| Measure | Sequence input | Single-vector control |
+|---|---|---|
+| Probe on the bridge output | 80.4% | 89.1% |
+| Probe after context layer 1 | 60.9% | 54.3% |
+| Cosine between the options of a pool after the layers | 0.985 | 0.980 |
+| Native items, accuracy | 56.5% | 62.0% |
+
+The prediction (options stay apart, no drop at layer 1) was not met: this coarse sequence does not stop the collapse. A token-level sequence was not tested.
+
+### 2h. Where the head loses the signal (read-only review)
+
+Source: `results/raw/head-review-run-20261012T192308Z/REPORT-20261012T192246Z.json`. Released head tensors, bridge aligned on native items only, 46 cleaned VAL pools.
+
+| Point inside the head | Linear probe | Mean vector norm |
+|---|---|---|
+| Bridge output | 87.0% | 42 |
+| Layer 1 after attention | 76.1% | 56 |
+| Layer 1 after feed-forward | 56.5% | 4,046 |
+| Scorer input | 58.7% | 30 |
+
+Blocking attention between tokens changes nothing (probes 54-59%; native accuracy 71.5% to 68.8%). The 0.97 cosine between options is mostly a common
+vector (0.48 with it removed). On the fit pools the released head scores worse than equal scores (loss 1.064 against 0.813); head-only training lowered the
+loss to 0.751 mainly by flattening its scores (spread 0.73 to 0.28).
+
+### 2i. Four-arm head-only experiment (5-fold cross-validation, Kaggle GPU)
+
+Source: `results/raw/head-exp4-run-20261012T201525Z/REPORT.json`. Bridge frozen and never trained on Fable; only the 31 head tensors train; 3 seeds; 303 TRAIN pools scored out of fold.
+
+| Arm | Out of fold (303) | Minus reference | Native accuracy | Cleaned VAL (46) |
+|---|---|---|---|---|
+| Released head, no training | 39.9% | - | 71.5% | 39.1% |
+| A reference (all tensors 2e-5) | 45.5% | - | 69.0% | 55.1% |
+| B+ temperature-scaled start | 47.4% | +1.9 (-5.7 to +9.7) | 44.9% | 49.3% |
+| C higher rate on context layer 1 (1e-4) | 50.3% | +4.7 (-0.8 to +10.5) | 63.9% | 48.6% |
+| D = C + native replay | 50.4% | +4.8 (+0.9 to +8.7) | 69.7% | 52.9% |
+| Linear probe on raw Qwen states | 85.8% | +40.3 | - | 89.1% |
+
+Replay keeps the native skill while layer 1 trains faster, and D is the only arm that meets the registered rule, but the gain is small and the 46 VAL pools do
+not confirm it. A single fitted temperature has no finite optimum for the released head on these pools (its loss only reaches the equal-score value).
+
+### 2j. Direct read path: a modified head (5-fold cross-validation, Kaggle GPU)
+
+Source: `results/raw/head-exp5-run-20261012T211558Z/REPORT.json`; full record HANDOFF_2026_10_11_STATUS.md 16.15. One linear layer (1,024 weights, starting at 0)
+reads each option's bridge output and adds to the head's score. Bridge frozen; 3 seeds; 303 TRAIN pools scored out of fold. The reproduction gate passed exactly
+(previous arm D: 50.4%, native 69.7%).
+
+| Arm | Out of fold (303) | Minus previous D | Native accuracy | Cleaned VAL (46) |
+|---|---|---|---|---|
+| Previous D: 31 tensors trained, no path | 50.4% | - | 69.7% | 52.9% |
+| Read path only, 31 tensors frozen | 71.1% | +20.7 (+15.3 to +26.1) | 68.7% | 68.1% |
+| Read path and 31 tensors trained together | 68.4% | +18.0 (+13.3 to +23.1) | 68.8% | 63.8% |
+| The same 31 tensors with the path switched off | 41.5% | -8.9 (-13.9 to -4.0) | 69.1% | 45.7% |
+| Read path only, half the data | 68.6% | +18.3 | 68.2% | - |
+| Linear probe on raw Qwen states | 85.8% | - | - | 89.1% |
+
+- The read path raises agreement with Fable, but **the gain belongs to the new layer**: trained jointly, the 31 pretrained tensors end up worse than without the path
+  (-7.5 points against the same recipe without it), close to the released head.
+- **Much of the gain does not need the coding context:** trained without context the path scores 75.6% against 71.1% with it on the same 112 pools.
+- Native-task accuracy stays at 67-72% in every arm. Half the data is as good as all of it. No checkpoint was saved or adopted.
+- These are agreement-with-Fable figures, not coding-task success, and say nothing about other models.
+
+### 2k. Head swap: pretrained LAYA heads against random heads (5-fold cross-validation, Kaggle GPU)
+
+Source: `results/raw/head-swap-run-20261012T222906Z/REPORT.json`; record HANDOFF_2026_10_11_STATUS.md 16.17. Every head frozen, only the adapter trained
+(same recipe, folds, seeds); both reproduction gates passed.
+
+| Head | Out of fold (303) | Cleaned VAL (46) |
+|---|---|---|
+| coding-decision-agent (reference) | 77.2% | 78.3% |
+| laya-typed-decisions / laya-code / laya-conductor | 79.0% / 76.9% / 79.6% | 73.9% / 72.5% / 75.4% |
+| Same architecture, random weights (3 seeds) | 83.8% / 83.2% / 83.3% | 80.4% / 82.6% / 81.9% |
+| Linear probe on raw Qwen states | 85.8% | 89.1% |
+
+- **Random heads beat the pretrained reference by 6.2 points** (99.17% interval -9.0 to -3.7 for coding minus random): under this interface the pretrained
+  LAYA head gives no advantage and is a handicap. It does not show that a better-trained general head could never help.
+- No specialisation effect (the four pretrained heads are fine-tunes of a common base, within 2.4 points). The probe still beats the reference by 8.6 points.
+
+### 2l. Execution test: do the scorers pick test-passing fixes? (VAL, development-exposed)
+
+Sources: `results/raw/val-outcome-v1-20261012T134540Z/pilot-20261012T224831Z` (OUTCOMES_A3.json, RESULT_A3.json), scores
+`results/raw/glm-pilot-score-run-20261013T074323Z`; record HANDOFF_2026_10_11_STATUS.md 16.18-16.20. GLM-5.3 wrote 5 candidate fixes for each of 5 VAL
+problems whose recorded test fails before the fix; every candidate ran twice in the isolated sandbox; the frozen scorers ranked the valid candidates.
+
+| | Result |
+|---|---|
+| Valid candidates / passing among valid | 17 of 25 / 15 of 17 |
+| Problems with at least one passing candidate (oracle) | 4 of 5 |
+| Problems with both passing and failing valid candidates | **1 of 5** |
+| Solved end to end: every learned scorer (LAYA, random head, baseline, probe) / first valid candidate / random among valid / uniform random / GLM sample 1 | 3 / 3 / 3.5 / 3.0 / 2 of 5 |
+
+On the one informative problem every scorer run picked a failing fix: one problem, no conclusion either way. The pilot was not expanded. A second
+pilot with gpt-oss-20b stopped at API verification (one gateway timeout, one empty answer), and a third with GLM-5.3 at low reasoning effort stopped the
+same way (one gateway timeout, one valid answer); in both, the failing call was the second of two simultaneous calls on one key. A sequential re-check
+had no timeout but one of its two answers wrapped the action in a list, which the decoder rejects, so that pilot also stopped.
+
+A registered v3 of the low-effort pilot then ran (strict unwrap of a single-object list, local feature capture after a parity check, no Kaggle):
+25 of 25 answered with no timeouts, but only 5 of 25 answers were valid (genuine model format errors), the oracle solved 2 of 5 problems, and only
+1 problem was informative, so the expansion gate failed. On that problem every learned scorer picked the passing fix; end to end every learned
+scorer solved 2 of 5 against 1 for the first valid candidate. Across both pilots there are two informative problems, one going each way: no
+selector, LAYA included, is shown to help or to hurt.
+
+**Mutation diagnostic (2026-10-13, 16.24):** given Fable's verified-passing fix and up to 4 copies broken by a single token, every learned scorer
+(LAYA, random head, baseline, probe; with or without context) picked the passing fix 0-2% of the time against 20.5% for a random pick, with
+probabilities within ~0.02 of uniform. **Corrected by the diff-focused diagnostic (16.25):** a linear probe trained on the pass / fail labels
+(leave one state out) picks the passing fix in 89.5% of states with edit-site features and 100% with the existing whole-option features (random 20.5%,
+permutation p = 0.001): the features carry the signal; the imitation-trained scorers do not use it. Open question: correctness or "this text was
+mechanically edited". **Settled by the edited-only control (16.26):** the 89.5% / 100% came from the original being the centre of its pool (an
+untrained similarity rule finds it 19/19); with only edited candidates the probe (73%) is no better than the changed tokens alone (67%) or the mutation
+operator alone (60%) and needs no context. Code correctness comes from execution;
+the re-plan is in LAYA_DECISION_BRAIN_PLAN_2026_10_13.md section 8, all numbers in ALL_NUMBERS_2026_10_13.md. The sandbox now also replays Go,
+C# and Rust (`results/raw/wsl-toolchains-20261013/MANIFEST.md`).
+
+### 3. Transfer to new trajectories (held-out, pre-registered)
+
+Scorers fitted on the 120 `train` pools only, scored once on 160 held-out pools. Five seeds, chance 28.1%.
+Source: `results/raw/align-transfer-v1-20261012T055725Z`.
+
+| Scorer | Held-out accuracy | Interval | Per seed |
+|---|---|---|---|
+| Linear probe | 75.6% | not computed | single fit |
+| Head, fresh adapter | 63.1% | 56.8 to 69.4 | 60.0, 61.3, 66.9, 62.5, 65.0 |
+| Head, adapter aligned to the original encoder's option distribution | 58.4% | 51.2 to 65.4 | 51.9, 56.3, 60.6, 62.5, 60.6 |
+| Head, adapter aligned to the original encoder's vectors | 54.9% | 47.9 to 61.6 | 57.5, 50.0, 47.5, 60.0, 59.4 |
+
+- **Alignment hurts:** aligned minus fresh is -4.75 points (-9.6 to -0.3). The fresh adapter is kept.
+- **Probe ahead:** probe minus fresh head is +12.5 points (+7.3 to +17.6).
+- **More data helps:** the same 160 pools score 81.3% (table 2) once other pools from the same batches are in training. The two setups differ,
+  so this is not a clean 18-point gain.
+
+### 4. Pilot on the first 123 pools (in-dataset, 3-seed means, chance 29.6%)
+
+Source: `results/raw/fullaction-pilot-v1-20261011T182942Z`.
+
+| Scorer | Accuracy | Interval |
+|---|---|---|
+| Action-history prior | 37.2% | 27 to 46 |
+| Pretrained head, no training | 36.6% | 32 to 42 |
+| Options text only (no model state) | 62.6% | 54 to 72 |
+| Head, adapter only | 77.2% | 71 to 83 |
+| Head, adapter + pretrained layers | 76.7% | 70 to 83 |
+| Head trained and tested with no context: adapter / joint | 76.7% / 78.3% | 70 to 85 |
+| Linear probe, real context | 84.6% | 78 to 91 |
+| Linear probe, no context | 84.6% | 78 to 91 |
+| Linear probe, context from another state / another trajectory | 89.4% / 85.4% | 79 to 94 |
+
+- Training the pretrained layers as well gave no gain (-0.5 points), so they stay frozen.
+- **Context made no measurable difference** on these pools for any scorer.
+- Scorers fitted on these 123 pools dropped about 20 points on 48 pools from new trajectories: probe 62.5%, head 57.6%, options text 47.9%
+  (chance 26.9%).
+
+### 5. Aligning the adapter to the head's original encoder
+
+Training only the adapter on the head's own native dataset (2,988 items; 600 held out) makes the frozen head work on Qwen states for its native
+questions: 71.5% gold accuracy against 78.3% for the original model, up from 19% to 26% unaligned. It did not help on the coding decisions
+(table 3).
+
+### 6. Judges
+
+A judge pair must pass a gate on hidden controls before its verdicts count.
+
+| Pair | Known-bad options accepted by both | Fable's action accepted by both | Near-duplicates caught |
+|---|---|---|---|
+| GLM-5.3 + Gemma 4 31B (28-pool pilot) | 0 of 46 | 86% | 11 of 11 |
+| GLM-5.3 + Muse Glimmer 30B (same pilot) | 0 of 46 | 24 of 28 (85.7%) | 10 of 11 |
+| GLM-5.3 + Muse, last TRAIN batch | 0 of 316 | 88.4% | 136 of 137 |
+| GLM-5.3 + Muse, VAL batch | 0 of 114 | 94 of 104 (90.4%) | 50 of 51 |
+
+Gemma's endpoint went down; of seven substitutes tried, only Muse passed the same gate. Results are reported per judge pair where it matters.
+
+### 7. Known shortcut
+
+A detector that sees **only the option texts** picks Fable's action 65% to 70% of the time (chance 28% to 30%). Alternatives are written by a
+different model than the teacher, so part of any score here can come from recognising the teacher's style.
+
+### 8. Other data sources examined (metadata only, by subagents; not independently re-checked)
+
+Reports in `results/raw/research-20261012/`.
+
+| Source or method | Finding |
+|---|---|
+| Other public repositories of the teacher's sessions | Mostly copies of each other; the distinct originals hold a few hundred sessions (18, 63, 79, 244), some without tool results; four need a login |
+| Ready-made decision datasets with alternatives | One 50,000-row set converts without a language model; others partly; useful for general skills, not coding |
+| Recorded branches inside our traces (failed action, then retry) | 51 pairs in 11,436 decisions, 11 clearly from the same state: too rare |
+| Borrowing alternatives from similar decisions | Plenty of volume, only a surface check of relevance |
+| Programmatic mutations of the teacher's code, judged by tests | 118 replayable TRAIN states, 87% with at least five mutation sites; not yet run |
+
+## What is not shown
+
+- **The independent test is small.** 53 pools on 36 trajectories (46 after cleaning): enough to rule out a collapse, too few to rank scorers finely.
+- **No evidence about coding-task success.** Everything measures agreement with the teacher. The one outcome pilot produced no usable candidates.
+- **The head has not beaten the linear probe** in any comparison.
+- **The knowledge mostly sits in the adapter.** Head-only training reaches about 54% where adapter training reaches 76% on the same pools. Adding a read path
+  (section 2j) puts the gain in the new layer; the 31 pretrained tensors did not get stronger in any tested recipe.
+- **Portability is untested.** Only one language model has been used, so nothing shows the head helps a different model.
+- **Value of context is only partly shown.** Removing the context at test time costs 13 to 15 points on VAL, but models trained without
+  context matched models trained with it in the 123-pool pilot.
+- **Part of every score can be style recognition.** Alternatives are written by a different model than the teacher.
+- The locked A5 benchmark from the earlier phase was not run on this head.
+
+## Reproducing
+
+Python 3.12 through `uv`. CPU jobs set `ATEN_CPU_CAPABILITY=avx2` (the scripts do this themselves).
+
+```bash
+uv sync
+```
+
+Fine-tune on all pools and write the report and adapters (about 4 minutes on a CPU; needs the captured features under `results/raw/`):
+
+```bash
+PYTHONPATH=. .venv/Scripts/python.exe tools/laya_finetune_all_v1.py results/raw/laya-fullaction-set-v3-20261012T055420Z results/raw/level12-run-v2-cancelled-20261011T175252Z results/raw/level12-bundle-20261011T151731Z results/raw/v3-context-capture-run-20261012T065106Z results/raw/level12-bundle-20261012T060047Z results/raw/laya-finetune-all-v1-<new stamp>
+```
+
+| Task | Script |
+|---|---|
+| Select decisions and build generator requests | `tools/hard_batch_v3_conv.py` |
+| Send generator requests (parallel, rate-limited, logged) | `tools/nemotron_candidate_pilot.py` |
+| Build pools, sandbox syntax check, objective screen | `tools/hard_batch_v2_build.py`, `tools/hard_qualify_v2_syntax.py` |
+| Blinded review and per-option scoring | `tools/pair_pilot_v1.py`, `tools/judge_qual_v1.py` |
+| Assemble strict pools | `tools/hard_batch_v2_assemble.py` |
+| Freeze a dataset version | `tools/laya_fullaction_freeze_v3.py` |
+| Bundle and capture features on Kaggle | `tools/level12_bundle.py`, `kaggle/level12_t4.py` |
+| Baselines and pilot | `tools/fullaction_pilot_v1.py` |
+| Adapter alignment and held-out comparison | `tools/adapter_align_v1.py`, `tools/align_transfer_v1.py` |
+| Fine-tune on all pools | `tools/laya_finetune_all_v1.py` |
+| Score saved models on VAL pools | `tools/val_eval_v1.py` |
+| Capture features on a local 6 GB GPU (weights streamed from disk) | `tools/val_capture_local.py` |
+| Diagnose the head-versus-probe gap; clean strict equivalents | `tools/val_gap_diag_v1.py`, `tools/laya_clean_v4.py` |
+| Adapter-only against adapter + head; head-only with a frozen bridge | `tools/laya_joint_v1.py`, `tools/laya_headonly_v1.py` |
+| Sandbox replay check and outcome evaluation | `tools/fable_materialize_states.py`, `tools/fable_wsl_runner.py`, `tools/cal_oracle_check.py`, `tools/cal_outcome_v1.py` |
+| Unattended generation-to-scoring chain | `tools/stage2_chain.sh` |
+
+Generation and review need hosted-model API keys in `.secrets/` (not in git). Outputs are create-only: scripts refuse to overwrite a result.
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `decision_head/` | Head, frozen trainer (`fable_train.py`), feature protocol, pool contracts |
+| `capture/` | Hidden-state capture (shared prefix, one independent suffix per option) |
+| `tools/` | Pipeline, training and evaluation scripts |
+| `kaggle/` | Notebook scripts run on Kaggle GPUs |
+| `configs/` | Pinned models and pre-registered thresholds |
+| `policy/`, `state/`, `compiler/`, `teachers/` | Hard safety rules, schemas, state builder, teacher adapters from the earlier phase |
+| `results/raw/` | Row-level evidence for every reported number (not in git where large) |
+| `models/`, `data/` | Model files and datasets (not in git) |
+| `progress_ui/` | Small read-only progress page |
+
+## Earlier work
+
+Before the Fable imitation work, the project built and tested (details in [AGENT_README.md](AGENT_README.md) and the ledger):
+
+- **Runtime checks.** Qwen3-4B streamed and resident runs are bit-exact on 12 layers; CPU against GPU KL 5.5e-4 to 6.6e-4. Capture speed
+  1,017.6 tokens per second on 8,192-token inputs. The 120B model's expert read passed at 0.87 seconds per simulated token (I/O only).
+- **A5 benchmark (4,396 decisions), now diagnostic only.** A text-only baseline reached 0.398 (0.323 on covered decisions), and a rule with no
+  model (most frequent action in history) reached 0.550, so the benchmark failed its own integrity gate and was frozen.
+- **Pilot pointer head.** 0.667 on covered pilot rows, matched by eight trivial features with no model (0.663): no signal beyond pool structure.
+- **Laya baselines.** `laya-typed-decisions` reproduced at 0.771 on its own test (0.766 published) and scored 0.178 on covered pilot rows.
+
+These results are why the current work uses reviewed pools, a mandatory probe baseline and shortcut checks.
+
+## Roadmap
+
+**Status of the plan below (2026-10-13, 13:40 IST):** steps 0-2 done (exp5 documented, baseline frozen, mutation pilot v1.1 usable 19/20); step 3 ran
+with GLM-5.3 (section 2l: 1 informative problem of 5, not expanded); the gpt-oss-20b pilot stopped at API verification. Head-specialisation research is
+paused (section 2k). Next: the user's decision on a generator that yields mixed passing / failing pools, or the labelled mutant diagnostic.
+
+**Current (user, 2026-10-13):** head-only training and new Fable generation are stopped. (0) document exp5; (1) freeze a research baseline (pretrained head,
+three Fable-trained adapters, linear probe, with hashes); (2) mutation pilot on 20 TRAIN states in the local WSL sandbox (a diagnostic: these states were trained
+on); (3) next priority, needs a GO for generation: score candidates written by another agent on the 23 fail-to-pass VAL decisions against sandbox test results,
+with the probe, random choice and the agent's own first candidate as baselines. Not approved: a second bridge, CAL / TEST use, more Fable data.
+
+Earlier list, proposed on 2026-10-12 (steps 1 and 2 were done as sections 2i and 2j):
+
+1. Longer head-only run with the never-trained-on-teacher bridge at the low learning rate: is 54% a ceiling or was it undertrained?
+2. Head-only training with general decisions mixed in (the head's 2,988 native items, already captured): does replay stop forgetting?
+3. Mutation pilot on 20 TRAIN states (approved): verified, same-style alternatives without a generator or judges.
+4. Recovery pilot on 25 of the 150 near-miss decisions (approved); the full 150 only after the yield is measured.
+5. If 1 and 2 are positive: 3,000 rows of an outside decision dataset, captured locally, in the same head-only comparison.
+6. A second small language model, to test whether the trained head carries over. Canonical TEST stays untouched until a final evaluation.

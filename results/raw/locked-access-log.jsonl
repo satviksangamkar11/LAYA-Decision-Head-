@@ -2,3 +2,9 @@
 {"at": "2026-10-01T20:17:56.105708+00:00", "purpose": "v3_manifests: read the locked fresh trajectories to select covered decisions by id order; no outcomes"}
 {"at": "2026-10-01T20:23:57.789731+00:00", "purpose": "capture_textemb_v3: rebuild locked candidate pools to collect candidate TEXTS; no outcomes"}
 {"at": "2026-10-01T21:21:01.468450+00:00", "purpose": "capture_textemb_v3: rebuild locked candidate pools to collect candidate TEXTS; no outcomes"}
+{"at": "2026-10-03T13:34:59.304932+00:00", "purpose": "make_kaggle_locked_bundle: read LOCKED decision rows and trajectories to build the label-stripped capture bundle (state_hash and events only); no model outputs, no accuracies"}
+{"at": "2026-10-03T13:35:44.526253+00:00", "purpose": "audit_locked_secret_hits: classify secret-scan matches in LOCKED trajectory text (masked, hashes only); no outcomes, no model outputs"}
+{"at": "2026-10-03T13:36:02.252924+00:00", "purpose": "audit_locked_secret_hits2: shape-only classification of secret-scan matches in LOCKED trajectory text; no outcomes, no model outputs"}
+{"at": "2026-10-03T13:36:28.966476+00:00", "purpose": "audit_locked_secret_hits: classify secret-scan matches in LOCKED trajectory text (masked, hashes only); no outcomes, no model outputs"}
+{"at": "2026-10-03T13:36:54.527438+00:00", "purpose": "make_kaggle_locked_bundle: read LOCKED decision rows and trajectories to build the label-stripped capture bundle (state_hash and events only); no model outputs, no accuracies"}
+{"at": "2026-10-03T13:37:55.002424+00:00", "purpose": "locked_strip_selftest: compare the label-stripped bundle with the full LOCKED files by hashes of rendered capture inputs; no model outputs, no accuracies"}

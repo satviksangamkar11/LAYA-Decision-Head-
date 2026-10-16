@@ -1,0 +1,16 @@
+{
+  "id": "satviksangamkar54321/laya-head-rows-builder",
+  "title": "Laya Head Rows Builder",
+  "code_file": "laya-training-data-builder.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "satviksangamkar54321/fable5-coding-traces"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

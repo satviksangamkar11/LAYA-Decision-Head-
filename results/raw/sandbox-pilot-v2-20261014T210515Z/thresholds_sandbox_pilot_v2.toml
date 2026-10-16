@@ -1,0 +1,114 @@
+# Sandbox verified-label pilot v2 ("option B: late decision points"): pre-registered rules, criteria, budgets, seeds.
+# Written 2026-10-14 ~21:05 UTC (2026-10-15 IST) BEFORE any v2 execution, replay, GLM call or rollout. Never edited after results;
+# a change is a new versioned file with a written reason. Contract: SANDBOX_LABEL_PILOT_CONTRACT_v2.md. Fidelity: configs/fidelity_v4.toml.
+# Approval: user GO (chat, 2026-10-15), then NARROWED by the user (chat, 2026-10-15, before any execution) to a one-task feasibility test;
+# the narrowing is written into this file ([scope], [staging]) because nothing had run yet.
+
+reason = """v1 (results/raw/sandbox-pilot-v1-20261014T162937Z): no labels because the 15-step continuation started ~65 steps before solved runs
+ended (decision points at step ~7; solving runs used 37-86 actions; all 12 rollouts 0/3) and the GLM test-or-edit candidate came back as a
+read action twice (wrong type, counted unparsable)."""
+
+[decision_point]
+rule = """In ONE seeded RESOLVED recorded run of the task (nebius/SWE-rebench-openhands; run choice = random.Random(20261014).choice(sorted resolved
+trajectory ids), the same rule as v1), list every assistant tool call in order (execute_bash, str_replace_editor, think, task_tracker, finish):
+n_actions = their number. The decision point is the state just BEFORE the recorded action at 0-based position n_actions - 10 (10 recorded
+actions remain, including the final finish). Prefix = actions 0 .. n_actions-11; recorded remaining = actions n_actions-10 .. n_actions-1."""
+min_actions = 20   # a run with fewer than 20 actions is not used (prefix would be shorter than 10)
+
+[qualification]  # QUALIFIED only if (a), (b), (c) hold
+a_prefix = """The whole prefix replays offline (network off) in the qualified sandbox: execute_bash and str_replace_editor `view` observations match
+the recorded ones under fidelity v3 (configs/fidelity_v3.toml), or under fidelity v4 (configs/fidelity_v4.toml) for a test-runner command whose
+v3 mismatch is in duration tokens only; str_replace_editor create / str_replace / insert / undo_edit are applied by emulation
+(tools/sandbox_pilot_v1.Env.editor) and match when the emulated success/error agrees with the recorded one (recorded text starting with
+'ERROR' = error); think / task_tracker / finish have no environment effect. is_input steps = MISMATCH. Three replays A, B, C from fresh copies
+of the setup snapshot; all must match. Setup reuse: an environment from pilot v1 under /var/lib/fable-runs/pilot-v1/<id> is reused only if
+intact (repo HEAD == base_commit, `git status --porcelain` empty, pip freeze inside the sandbox has the sha256 recorded by v1); else rebuilt
+by the v2 setup (tools/wsl_feasibility_run_v2.py). The initial test condition (FAIL_TO_PASS fail, PASS_TO_PASS sample pass at base_commit +
+test_patch, twice, identical) and the network-off probe are re-run on the reused or rebuilt environment."""
+b_oracle = """ORACLE: from a fresh copy of the decision-point state, the recorded remaining 10 actions are applied (bash executed, editor edits
+emulated, think/task_tracker/finish skipped; no observation comparison), then the evaluation of [evaluation] runs (test_patch applied only
+here, twice): every FAIL_TO_PASS and every sampled PASS_TO_PASS must pass in both runs."""
+c_hash = "replays B and C give identical decision-point workspace hashes (tools/wsl_feasibility_run_v2.ws_hash), and the kept state equals them"
+presolved_diagnostic = """Recorded for information (not a qualification condition, the user's rule fixes the decision point): the evaluation
+run on the decision-point state itself with no further action ('resolved_at_decision_point'). If true, labels from that state can only show
+whether a candidate breaks an already-passing state; the report says so."""
+behaviour_grep = "as v1 (owner/mtime readers in repo and test_patch), recorded"
+
+[candidates]
+recorded = "R: the recorded action at the decision point, unchanged"
+generated = """S (read/search) and T (test-or-edit) from GLM-5.3 given ONLY what the original agent saw before the decision point: the run's recorded
+system prompt + first user message (problem statement) + prefix actions with their REPLAYED observations (each truncated as v1: > 20,000 chars ->
+first 5,000 + last 15,000). Never test_patch, gold patch, FAIL_TO_PASS/PASS_TO_PASS names unless they appear in what the agent saw, never later
+steps, never the recorded decision action."""
+schema = """The request ends with an explicit one-line JSON action schema and an example for the required type, e.g.
+T: <action>{"tool": "execute_bash", "command": "cd /workspace/<dir> && python -m pytest tests/ -q"}</action> or
+<action>{"tool": "str_replace_editor", "command": "str_replace", "path": "/workspace/<dir>/<file>", "old_str": "...", "new_str": "..."}</action>"""
+attempts = """Up to 4 attempts per slot, one conversation: after a reply that does not parse, or parses to the wrong type, the reply and a one-line
+error ('could not parse: ...' / 'that is a READ action; required: TEST-OR-EDIT ...') are appended and the model is asked again. Every attempt is
+recorded (request id, status, parsed, kind). Each attempt is one model step (up to 3 HTTP tries on non-200, as v1)."""
+equivalence = """If a GLM candidate equals R after whitespace normalisation (execute_bash: command with runs of whitespace collapsed and trimmed;
+editor: command, path, and old_str/new_str/file_text/insert_line/view_range with whitespace collapsed), it is recorded as equivalent_to_recorded
+and the model is re-asked ONCE (counts within the 4 attempts) for a different action; if the re-ask is still equivalent, the candidate is kept
+and flagged duplicate (its pair with R is reported, not counted as a defensible comparison)."""
+validity = "dry run on a fresh restore as v1; unparsable after 4 attempts, wrong type, or cannot execute -> INVALID (never 'worse')"
+kinds = "edit / test / read / other by tools/sandbox_pilot_v1.kind_of; non-edit = read or test"
+
+[continuation]  # identical to v1
+model = "z-ai/glm-5.3"
+settings = "glm_max64: temperature 0.5, top_p 1.0, reasoning_effort max, stream true, max_tokens 65536"
+prompt = "as v1 (recorded system prompt + v1 tools appendix + same transcript as candidate generation + candidate action and its observation)"
+step_budget = 15
+env_time_cap_seconds = 1200   # v1 interpretation: environment time; total wall recorded; 4 h ceiling -> timeout
+command_timeout_seconds = 300
+model_call_attempts = 3
+network = "off; no secrets mounted; test_patch only at evaluation"
+
+[evaluation]  # identical to v1
+procedure = "v1: restore test_patch files to base_commit, git apply test_patch, test_cmd on FAIL_TO_PASS + PASS_TO_PASS (<= 20, else seeded sample of 20), twice from fresh copies"
+resolved = "all FAIL_TO_PASS and sampled PASS_TO_PASS PASSED in both runs"
+flaky = "status differs between the two runs -> UNKNOWN"
+
+[labels]  # identical to v1
+better_worse = "|r_a - r_b| >= 2/3 with all 6 rollouts clean"
+equal = "EQUAL_ON_TESTED_OUTCOME: both 3/3 or both 0/3 (all clean). Wording (user): 'equal on the measured test outcome', never 'equally good'"
+unknown = "anything else"
+invalid = "either candidate INVALID"
+scope_note = "Every result concerns LATE-task decisions only (10 recorded actions before the end of a solving run)."
+
+[scope]  # user narrowing, chat 2026-10-15 (before execution)
+tasks = 1
+order = ["stephenhillier__starlette_exporter-89", "googleapis__python-storage-1357"]
+rule = """ONE qualified late state. Try starlette_exporter-89 first, then python-storage-1357; the first that qualifies is the task. If neither
+qualifies, at most 2 more ids from the seeded v1/v2 walk (tools/sandbox_pilot_select_v1.py rule, same exclusions), then STOP. No further walk."""
+min_valid_candidates = 2   # from the identical state, including a meaningful non-edit action where possible
+max_rollouts = 9           # 3 candidates x 3; never exceeded
+
+[staging]  # user narrowing, chat 2026-10-15
+round1 = "1 rollout per VALID candidate, each from a fresh restore (hash checked)"
+early_stop = "If NO candidate resolves in round 1, STOP: no further rollouts (0/3 outcomes are not repeated); report"
+round2 = "If at least one candidate resolves in round 1, complete to 3 rollouts per valid candidate, then compute the labels"
+
+[criteria]
+original_v2 = "PASS only if >= 3 qualified states, >= 3 BETTER/WORSE incl. >= 1 non-edit, <= 20% environment-failure rollouts (superseded by the narrowing; reported for reference)"
+narrowed_go = """GO (feasibility of late-state labels) = 1 qualified late state (a)-(c), >= 2 valid candidates, round 1 has >= 1 resolving candidate,
+and after round 2 >= 1 BETTER/WORSE pair with all rollouts clean and <= 20% environment-failure rollouts."""
+narrowed_nogo = "NO-GO = no qualified late state within the cap, or > 20% environment-failure rollouts, or < 2 valid candidates"
+narrowed_hold = "HOLD = otherwise (e.g. early stop in round 1, or only EQUAL/UNKNOWN labels)"
+
+[nvidia]
+call_logic = """User override for this pilot: all .secrets/nvidia_api_key_<n>.txt (n >= 2); up to 10 in flight per key; <= 39 sends per key per
+rolling 60 s; HTTP 429 cools that key 60 s (or Retry-After) and re-queues; every send one ledger line (CALLS.jsonl); a saved response is never
+resent; .started markers block a restart (tools/sandbox_pilot_v1.Pool)."""
+spend = "Rs 0"
+
+[robustness]
+detached = "qualification, candidates and rollouts run as detached processes inside WSL (setsid nohup), logging to files in the results folder; resumable from files (completed ids skipped; saved responses never resent)"
+
+[seeds]
+run_choice = 20261014
+p2p_sample = 20261014
+
+[data]
+source = "nebius/SWE-rebench (task rows) + nebius/SWE-rebench-openhands (recorded runs, on disk); CC-BY-4.0"
+split = "sandbox-pilot-v2 (kept apart from RootSE / CAL / TEST / VAL; not used for training)"
+secret_scan = "every file written to the results folder (tools/wsl_feasibility_run_v2.SECRET)"

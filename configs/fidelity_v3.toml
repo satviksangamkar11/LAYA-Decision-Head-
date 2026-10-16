@@ -1,0 +1,30 @@
+# Trace-fidelity rule v3 (written 2026-10-14 ~16:30 UTC, BEFORE any v3 evaluation or pilot execution).
+# Approved by the user (chat, 2026-10-14) together with the bounded 4-task sandbox label pilot.
+# Versioned addition: compare_v2 (tools/fable_wsl_runner.py) is NOT edited; v2 results stay as recorded.
+
+name = "compare_v3"
+implementation = "tools/sandbox_pilot_v1.py: compare_v3()"
+base_rule = "compare_v2 (exit codes equal AND (normalised output equal OR pass/fail signature lines equal as a multiset))"
+
+change = """Only in `ls -l`-style lines (regex LS_LINE below, both texts), the owner, group and timestamp fields are replaced by
+fixed placeholders before compare_v2 runs. File type + permission string, link count, size, name (and symlink target) stay
+strict. Every other line (including the `total N` line), every command, file content and exit code stays strict."""
+
+ls_line_regex = '^([-dlcbps][rwxsStT-]{9}[.+@]?)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+(?:,\s*\d+)?)\s+([A-Z][a-z]{2}\s+\d{1,2}\s+(?:\d{1,2}:\d{2}|\d{4})|\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:\s+[+-]\d{4})?)\s+(.+)$'
+normalised_to = "<perm> <links> <OWNER> <GROUP> <size> <MTIME> <name>"
+
+reason = """WSL feasibility v2: googleapis__python-storage-1357 step 6 `ls -la tests/` differed ONLY in owner/group (root root recorded,
+replay systemd-journal in the sandbox: files are owned by the unprivileged replay user by design) and mtime (image build time vs
+clone time). Names, modes, sizes and link counts were equal. These fields are properties of how the environment was built, not of
+the repository state the agent acts on."""
+
+requalification = """v2 results are untouched. Re-qualification under v3 is recorded in the pilot folder (FEASIBILITY_v3.json).
+googleapis__python-storage-1357: its v2 checks that passed (setup, network probe, tests x2, prefix steps 1-5 in A/B/C, hash B==C)
+are not re-run for the v3 decision; the recorded step-6 output and the replayed step-6 text reconstructed from the saved
+REPLAY.jsonl unified diff (complete: 19 lines, below the 24-line / 1,500-char cut) are re-evaluated with compare_v3.
+If the saved diff were incomplete, only the replay stage would be re-run."""
+
+behaviour_check = """Owner/mtime must not affect behaviour or tests. Recorded how: (1) the v2 test condition (FAIL_TO_PASS fail,
+PASS_TO_PASS pass) held identically in two runs with the replay-owned, clone-time files; (2) grep of the repository at the
+decision-point state (source + tests) for owner/mtime readers: st_mtime|getmtime|st_ctime|getctime|st_uid|st_gid|getuid|getgid|
+getpwuid|chown|utime|os.stat|lstat|Path(...).stat|.owner()|.group(); each hit is listed and judged in FEASIBILITY_v3.json."""

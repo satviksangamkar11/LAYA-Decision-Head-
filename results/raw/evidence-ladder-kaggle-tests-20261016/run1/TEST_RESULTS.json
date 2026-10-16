@@ -1,0 +1,56 @@
+{
+ "bundle_found": true,
+ "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+ "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+ "suites": {
+  "contract": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 23,
+    "passed": 23,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 23,\n \"passed\": 23,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "controller": {
+   "exit_code": 1,
+   "summary": {
+    "tests": 25,
+    "passed": 23,
+    "failed": {
+     "critic_experiment_demotes_and_records_breakage": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\", line 498, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\", line 335, in critic_experiment_demotes_and_records_breakage\n    assert all(e[\"status\"] != \"fail\" for e in j.evidence(H(\"OK:b\")))                # the critic alone never records a candidate failure\n           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "critic_pending_gives_api_unavailable_then_second_pass_decides": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\", line 498, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\", line 360, in critic_pending_gives_api_unavailable_then_second_pass_decides\n    assert res2.stop_cause == \"decided\" and res2.stop_details == \"\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 23,\n \"failed\": {\n  \"critic_experiment_demotes_and_records_breakage\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\\\", line 498, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\\\", line 335, in critic_experiment_demotes_and_records_breakage\\n    assert all(e[\\\"status\\\"] != \\\"fail\\\" for e in j.evidence(H(\\\"OK:b\\\")))                # the critic alone never records a candidate failure\\n           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError\\n\",\n  \"critic_pending_gives_api_unavailable_then_second_pass_decides\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\\\", line 498, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/controller/tests/run_tests.py\\\", line 360, in critic_pending_gives_api_unavailable_then_second_pass_decides\\n    assert res2.stop_cause == \\\"decided\\\" and res2.stop_details == \\\"\\\"\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError\\n\"\n }\n}\n",
+   "stderr_tail": ""
+  },
+  "orchestrator": {
+   "exit_code": 1,
+   "summary": {
+    "tests": 24,
+    "passed": 23,
+    "failed": {
+     "two_phase_critic_flow": "Traceback (most recent call last):\n  File \"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\", line 546, in main\n    f()\n    ~^^\n  File \"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\", line 427, in two_phase_critic_flow\n    assert len(rep) == 2 and rep[0][3] == rep[1][3] and rep[1][2] != \"api_unavailable\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+   },
+   "stdout_tail": "{\n \"tests\": 24,\n \"passed\": 23,\n \"failed\": {\n  \"two_phase_critic_flow\": \"Traceback (most recent call last):\\n  File \\\"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\\\", line 546, in main\\n    f()\\n    ~^^\\n  File \\\"/kaggle/working/repo/evidence_ladder/orchestrator/tests/run_tests.py\\\", line 427, in two_phase_critic_flow\\n    assert len(rep) == 2 and rep[0][3] == rep[1][3] and rep[1][2] != \\\"api_unavailable\\\"\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nAssertionError\\n\"\n }\n}\n",
+   "stderr_tail": ""
+  },
+  "models": {
+   "exit_code": 0,
+   "summary": {
+    "tests": 28,
+    "passed": 28,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 28,\n \"passed\": 28,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "manifest_files": 71,
+ "hash_mismatches": [],
+ "all_exit_zero": false,
+ "seconds": 8.6
+}

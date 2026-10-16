@@ -1,0 +1,168 @@
+[{"stream_name":"stdout","time":12.135499247,"data":"torch 2.11.0+cu128 | CUDA available: True | Tesla T4\n"}
+,{"stream_name":"stderr","time":16.989689369,"data":"/usr/lib/python3.13/contextlib.py:141: UserWarning: CUDA reports that you have 2 available devices, and you have used fork_rng without explicitly specifying which devices are being used. For safety, we initialize *every* CUDA device by default, which can be quite slow if you have a lot of CUDAs. If you know that you are only making use of a few CUDA devices, set the environment variable CUDA_VISIBLE_DEVICES or the 'devices' keyword argument of fork_rng with the set of devices you are actually using. For example, if you are using CPU only, set device.upper()_VISIBLE_DEVICES= or devices=[]; if you are using device 0 only, set CUDA_VISIBLE_DEVICES=0 or devices=[0].  To initialize all devices and suppress this warning, set the 'devices' keyword argument to `range(torch.cuda.device_count())`.\n"}
+,{"stream_name":"stderr","time":16.989733304,"data":"  return next(self.gen)\n"}
+,{"stream_name":"stdout","time":17.462238124,"data":"NORMS {\"coding\": {\"context_layers\": 134.85, \"scorer\": 36.67, \"type_embedding\": 51.59}, \"typed\": {\"context_layers\": 133.48, \"scorer\": 36.76, \"type_embedding\": 51.93}, \"code\": {\"context_layers\": 134.4, \"scorer\": 36.74, \"type_embedding\": 51.9}, \"conductor\": {\"context_layers\": 133.47, \"scorer\": 36.76, \"type_embedding\": 51.94}, \"random_1001\": {\"type_embedding\": 55.83, \"context_layers\": 106.14, \"scorer\": 36.96}, \"random_1002\": {\"type_embedding\": 56.2, \"context_layers\": 106.14, \"scorer\": 36.95}, \"random_1003\": {\"type_embedding\": 55.47, \"context_layers\": 106.12, \"scorer\": 36.96}}\n"}
+,{"stream_name":"stdout","time":19.938972193,"data":"ZEROSWAP coding       VAL 0.783 native 0.338\n"}
+,{"stream_name":"stdout","time":21.34989517,"data":"ZEROSWAP typed        VAL 0.768 native 0.331\n"}
+,{"stream_name":"stdout","time":22.796130227,"data":"ZEROSWAP code         VAL 0.746 native 0.327\n"}
+,{"stream_name":"stdout","time":24.184122255,"data":"ZEROSWAP conductor    VAL 0.768 native 0.332\n"}
+,{"stream_name":"stdout","time":26.077191737,"data":"ZEROSWAP random_1001  VAL 0.065 native 0.327\n"}
+,{"stream_name":"stdout","time":27.990160696,"data":"ZEROSWAP random_1002  VAL 0.333 native 0.205\n"}
+,{"stream_name":"stdout","time":29.857128193,"data":"ZEROSWAP random_1003  VAL 0.493 native 0.282\n"}
+,{"stream_name":"stdout","time":40.294716027,"data":"RUN coding       s0 fit 192 best 125 | dev 0.848 fit 0.922 native 0.373 | head frozen True | 10s\n"}
+,{"stream_name":"stdout","time":44.379648328,"data":"RUN coding       s1 fit 192 best 125 | dev 0.814 fit 0.938 native 0.347 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":48.505118018,"data":"RUN coding       s2 fit 192 best 125 | dev 0.780 fit 0.917 native 0.275 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":52.738983156,"data":"RUN coding       s0 fit 190 best 100 | dev 0.796 fit 0.926 native 0.318 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":56.885054697,"data":"RUN coding       s1 fit 190 best 125 | dev 0.759 fit 0.926 native 0.327 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":61.046596369,"data":"RUN coding       s2 fit 190 best  75 | dev 0.759 fit 0.905 native 0.348 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":65.418326006,"data":"RUN coding       s0 fit 173 best 225 | dev 0.789 fit 0.948 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":69.627951385,"data":"RUN coding       s1 fit 173 best 100 | dev 0.737 fit 0.936 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":73.918492103,"data":"RUN coding       s2 fit 173 best  50 | dev 0.750 fit 0.873 native 0.340 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":77.963926296,"data":"RUN coding       s0 fit 165 best 300 | dev 0.887 fit 0.958 native 0.373 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":82.07520012,"data":"RUN coding       s1 fit 165 best 100 | dev 0.823 fit 0.915 native 0.358 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":86.114225856,"data":"RUN coding       s2 fit 165 best 300 | dev 0.903 fit 0.964 native 0.388 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":90.229013383,"data":"RUN coding       s0 fit 189 best 150 | dev 0.846 fit 0.936 native 0.378 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":94.524534799,"data":"RUN coding       s1 fit 189 best 275 | dev 0.865 fit 0.968 native 0.362 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":98.66305812,"data":"RUN coding       s2 fit 189 best 100 | dev 0.808 fit 0.894 native 0.353 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":98.663951677,"data":"GATE oof seed 0 {\"now\": 0.7789, \"recorded\": 0.7789, \"allowed\": 0.04, \"passed\": true}\n"}
+,{"stream_name":"stdout","time":102.852845463,"data":"RUN typed        s0 fit 192 best 300 | dev 0.814 fit 0.958 native 0.380 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":106.903943768,"data":"RUN typed        s1 fit 192 best 300 | dev 0.848 fit 0.979 native 0.340 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":110.932842598,"data":"RUN typed        s2 fit 192 best 300 | dev 0.780 fit 0.974 native 0.335 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":115.051644361,"data":"RUN typed        s0 fit 190 best 175 | dev 0.778 fit 0.947 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":119.071849842,"data":"RUN typed        s1 fit 190 best 300 | dev 0.778 fit 0.963 native 0.302 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":123.142644715,"data":"RUN typed        s2 fit 190 best 125 | dev 0.778 fit 0.932 native 0.315 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":127.342895097,"data":"RUN typed        s0 fit 173 best 100 | dev 0.750 fit 0.884 native 0.277 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":131.425621986,"data":"RUN typed        s1 fit 173 best 225 | dev 0.803 fit 0.960 native 0.303 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":135.694000311,"data":"RUN typed        s2 fit 173 best  75 | dev 0.763 fit 0.913 native 0.337 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":139.777007206,"data":"RUN typed        s0 fit 165 best 175 | dev 0.871 fit 0.939 native 0.367 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":143.886510281,"data":"RUN typed        s1 fit 165 best 150 | dev 0.887 fit 0.933 native 0.367 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":148.017346935,"data":"RUN typed        s2 fit 165 best 100 | dev 0.887 fit 0.939 native 0.367 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":152.108117219,"data":"RUN typed        s0 fit 189 best 200 | dev 0.827 fit 0.942 native 0.370 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":156.116596932,"data":"RUN typed        s1 fit 189 best 200 | dev 0.846 fit 0.958 native 0.348 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":160.207190526,"data":"RUN typed        s2 fit 189 best 300 | dev 0.827 fit 0.958 native 0.378 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":164.380670883,"data":"RUN code         s0 fit 192 best 225 | dev 0.881 fit 0.953 native 0.247 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":168.513005109,"data":"RUN code         s1 fit 192 best 150 | dev 0.814 fit 0.906 native 0.387 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":172.626576263,"data":"RUN code         s2 fit 192 best 300 | dev 0.831 fit 0.974 native 0.260 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":176.850320643,"data":"RUN code         s0 fit 190 best 300 | dev 0.815 fit 0.932 native 0.288 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":180.896425764,"data":"RUN code         s1 fit 190 best 150 | dev 0.722 fit 0.910 native 0.375 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":184.983509404,"data":"RUN code         s2 fit 190 best 125 | dev 0.796 fit 0.910 native 0.378 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":189.120218777,"data":"RUN code         s0 fit 173 best 275 | dev 0.711 fit 0.925 native 0.263 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":193.340556463,"data":"RUN code         s1 fit 173 best 200 | dev 0.750 fit 0.936 native 0.307 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":197.60479739,"data":"RUN code         s2 fit 173 best 200 | dev 0.763 fit 0.913 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":201.807205519,"data":"RUN code         s0 fit 165 best 200 | dev 0.887 fit 0.915 native 0.373 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":205.820906305,"data":"RUN code         s1 fit 165 best 300 | dev 0.806 fit 0.952 native 0.357 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":209.981874011,"data":"RUN code         s2 fit 165 best 125 | dev 0.871 fit 0.909 native 0.333 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":214.136180763,"data":"RUN code         s0 fit 189 best 250 | dev 0.808 fit 0.936 native 0.333 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":218.243386535,"data":"RUN code         s1 fit 189 best 200 | dev 0.808 fit 0.910 native 0.312 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":222.345414486,"data":"RUN code         s2 fit 189 best 275 | dev 0.788 fit 0.952 native 0.383 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":226.395089635,"data":"RUN conductor    s0 fit 192 best  50 | dev 0.780 fit 0.839 native 0.298 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":230.462794906,"data":"RUN conductor    s1 fit 192 best  50 | dev 0.729 fit 0.865 native 0.330 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":234.638794163,"data":"RUN conductor    s2 fit 192 best 300 | dev 0.848 fit 0.948 native 0.357 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":238.620394953,"data":"RUN conductor    s0 fit 190 best 100 | dev 0.796 fit 0.910 native 0.350 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":242.673607571,"data":"RUN conductor    s1 fit 190 best  75 | dev 0.741 fit 0.916 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":246.705036642,"data":"RUN conductor    s2 fit 190 best  75 | dev 0.815 fit 0.905 native 0.267 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":250.889627859,"data":"RUN conductor    s0 fit 173 best 225 | dev 0.737 fit 0.936 native 0.310 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":255.064084237,"data":"RUN conductor    s1 fit 173 best 200 | dev 0.763 fit 0.931 native 0.307 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":259.171120792,"data":"RUN conductor    s2 fit 173 best  25 | dev 0.711 fit 0.838 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":263.247939893,"data":"RUN conductor    s0 fit 165 best 150 | dev 0.806 fit 0.903 native 0.372 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":267.417216315,"data":"RUN conductor    s1 fit 165 best  75 | dev 0.823 fit 0.891 native 0.325 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":271.590545685,"data":"RUN conductor    s2 fit 165 best  75 | dev 0.871 fit 0.909 native 0.312 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":275.737706567,"data":"RUN conductor    s0 fit 189 best 250 | dev 0.846 fit 0.926 native 0.380 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":279.815965107,"data":"RUN conductor    s1 fit 189 best 225 | dev 0.865 fit 0.952 native 0.362 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":283.844436877,"data":"RUN conductor    s2 fit 189 best 225 | dev 0.827 fit 0.952 native 0.368 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":288.044150457,"data":"RUN random_1001  s0 fit 192 best 300 | dev 0.915 fit 0.995 native 0.362 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":292.239621263,"data":"RUN random_1001  s1 fit 192 best 150 | dev 0.915 fit 0.995 native 0.312 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":296.443326946,"data":"RUN random_1001  s2 fit 192 best 200 | dev 0.898 fit 0.995 native 0.280 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":300.741412238,"data":"RUN random_1001  s0 fit 190 best 150 | dev 0.796 fit 0.995 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":304.943409666,"data":"RUN random_1001  s1 fit 190 best 100 | dev 0.815 fit 0.995 native 0.302 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":309.074000481,"data":"RUN random_1001  s2 fit 190 best 275 | dev 0.796 fit 0.995 native 0.320 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":313.49304932,"data":"RUN random_1001  s0 fit 173 best 150 | dev 0.816 fit 0.977 native 0.302 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":317.932966995,"data":"RUN random_1001  s1 fit 173 best 225 | dev 0.776 fit 0.988 native 0.307 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":322.356331033,"data":"RUN random_1001  s2 fit 173 best 125 | dev 0.776 fit 0.994 native 0.310 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":326.560164556,"data":"RUN random_1001  s0 fit 165 best 125 | dev 0.903 fit 0.994 native 0.373 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":330.724990403,"data":"RUN random_1001  s1 fit 165 best 100 | dev 0.855 fit 0.976 native 0.368 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":334.983899291,"data":"RUN random_1001  s2 fit 165 best 150 | dev 0.903 fit 0.994 native 0.360 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":339.117585029,"data":"RUN random_1001  s0 fit 189 best 300 | dev 0.865 fit 1.000 native 0.425 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":343.33987429,"data":"RUN random_1001  s1 fit 189 best 300 | dev 0.885 fit 1.000 native 0.397 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":347.633822529,"data":"RUN random_1001  s2 fit 189 best 300 | dev 0.865 fit 1.000 native 0.375 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":351.876820002,"data":"RUN random_1002  s0 fit 192 best 100 | dev 0.881 fit 0.953 native 0.327 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":356.189183405,"data":"RUN random_1002  s1 fit 192 best 100 | dev 0.915 fit 0.990 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":360.463045279,"data":"RUN random_1002  s2 fit 192 best 175 | dev 0.864 fit 0.995 native 0.272 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":364.715944158,"data":"RUN random_1002  s0 fit 190 best 150 | dev 0.796 fit 0.995 native 0.308 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":368.883655352,"data":"RUN random_1002  s1 fit 190 best 100 | dev 0.815 fit 0.995 native 0.310 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":373.193477851,"data":"RUN random_1002  s2 fit 190 best 275 | dev 0.796 fit 0.995 native 0.322 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":377.585461713,"data":"RUN random_1002  s0 fit 173 best 150 | dev 0.816 fit 0.977 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":382.109045448,"data":"RUN random_1002  s1 fit 173 best 125 | dev 0.776 fit 0.988 native 0.298 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":386.503494489,"data":"RUN random_1002  s2 fit 173 best 125 | dev 0.776 fit 0.994 native 0.307 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":390.663470876,"data":"RUN random_1002  s0 fit 165 best 125 | dev 0.903 fit 1.000 native 0.375 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":395.001468334,"data":"RUN random_1002  s1 fit 165 best  75 | dev 0.903 fit 0.970 native 0.375 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":399.197588743,"data":"RUN random_1002  s2 fit 165 best 150 | dev 0.887 fit 0.994 native 0.340 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":403.401074752,"data":"RUN random_1002  s0 fit 189 best 300 | dev 0.865 fit 1.000 native 0.418 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":407.606971308,"data":"RUN random_1002  s1 fit 189 best 300 | dev 0.885 fit 1.000 native 0.397 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":411.823340273,"data":"RUN random_1002  s2 fit 189 best 300 | dev 0.865 fit 1.000 native 0.380 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":416.061838977,"data":"RUN random_1003  s0 fit 192 best 100 | dev 0.881 fit 0.958 native 0.338 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":420.307268651,"data":"RUN random_1003  s1 fit 192 best 150 | dev 0.915 fit 0.995 native 0.298 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":424.543216137,"data":"RUN random_1003  s2 fit 192 best 175 | dev 0.898 fit 0.995 native 0.273 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":428.819520418,"data":"RUN random_1003  s0 fit 190 best 150 | dev 0.796 fit 0.990 native 0.315 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":433.112409744,"data":"RUN random_1003  s1 fit 190 best 100 | dev 0.815 fit 0.995 native 0.305 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":437.260394584,"data":"RUN random_1003  s2 fit 190 best 100 | dev 0.796 fit 0.990 native 0.313 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":441.577257419,"data":"RUN random_1003  s0 fit 173 best 150 | dev 0.803 fit 0.977 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":445.991188599,"data":"RUN random_1003  s1 fit 173 best 225 | dev 0.829 fit 0.988 native 0.277 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":450.355131733,"data":"RUN random_1003  s2 fit 173 best  75 | dev 0.789 fit 0.971 native 0.330 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":454.69919188,"data":"RUN random_1003  s0 fit 165 best  75 | dev 0.887 fit 0.970 native 0.360 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":459.034905214,"data":"RUN random_1003  s1 fit 165 best  75 | dev 0.903 fit 0.976 native 0.378 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":463.325041932,"data":"RUN random_1003  s2 fit 165 best 100 | dev 0.919 fit 0.988 native 0.367 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":467.491059924,"data":"RUN random_1003  s0 fit 189 best 300 | dev 0.865 fit 1.000 native 0.422 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":471.808064187,"data":"RUN random_1003  s1 fit 189 best 300 | dev 0.885 fit 1.000 native 0.388 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":476.05266374,"data":"RUN random_1003  s2 fit 189 best 300 | dev 0.885 fit 1.000 native 0.382 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":564.908455602,"data":"CV coding       0.772 [0.728, 0.8126] seeds [0.7789, 0.769, 0.769] | no context 0.7649 vs 0.8095 | fit 0.9284 native 0.3439\n"}
+,{"stream_name":"stdout","time":565.102629129,"data":"CV typed        0.790 [0.7455, 0.8333] seeds [0.7756, 0.8251, 0.769] | no context 0.7351 vs 0.8095 | fit 0.9453 native 0.3401\n"}
+,{"stream_name":"stdout","time":565.298528379,"data":"CV code         0.769 [0.7224, 0.8134] seeds [0.7822, 0.7624, 0.7624] | no context 0.7202 vs 0.7976 | fit 0.929 native 0.3276\n"}
+,{"stream_name":"stdout","time":565.495639671,"data":"CV conductor    0.796 [0.755, 0.8355] seeds [0.7921, 0.8119, 0.7855] | no context 0.744 vs 0.8274 | fit 0.9081 native 0.3302\n"}
+,{"stream_name":"stdout","time":565.693129241,"data":"CV random_1001  0.838 [0.7952, 0.8792] seeds [0.8416, 0.8383, 0.835] | no context 0.8214 vs 0.8571 | fit 0.9928 native 0.3395\n"}
+,{"stream_name":"stdout","time":565.883630857,"data":"CV random_1002  0.832 [0.7874, 0.8738] seeds [0.8317, 0.8218, 0.8416] | no context 0.8155 vs 0.8542 | fit 0.9896 native 0.3363\n"}
+,{"stream_name":"stdout","time":566.073370098,"data":"CV random_1003  0.833 [0.7884, 0.8744] seeds [0.8284, 0.8284, 0.8416] | no context 0.7976 vs 0.8482 | fit 0.9861 native 0.3376\n"}
+,{"stream_name":"stdout","time":566.218044592,"data":"CV random_mean  0.834 [0.7908, 0.8752] seeds None | no context None vs 0.8532 | fit None native None\n"}
+,{"stream_name":"stdout","time":567.269190837,"data":"PRIMARY coding minus random (mean of 3)                      -0.0620 corrected [-0.0897, -0.037] 95% [-0.0835, -0.042] meets rule True\n"}
+,{"stream_name":"stdout","time":567.269253416,"data":"PRIMARY typed minus coding                                   +0.0176 corrected [-0.0132, 0.0476] 95% [-0.0044, 0.0408] meets rule False\n"}
+,{"stream_name":"stdout","time":567.269260172,"data":"PRIMARY code minus coding                                    -0.0033 corrected [-0.0361, 0.0292] 95% [-0.0282, 0.021] meets rule False\n"}
+,{"stream_name":"stdout","time":567.269264539,"data":"PRIMARY conductor minus coding                               +0.0242 corrected [0.0012, 0.0473] 95% [0.0075, 0.0426] meets rule False\n"}
+,{"stream_name":"stdout","time":567.269269223,"data":"PRIMARY coding: real context minus no context (same pools)   +0.0446 corrected [-0.0275, 0.1228] 95% [-0.0139, 0.1032] meets rule False\n"}
+,{"stream_name":"stdout","time":567.269273439,"data":"PRIMARY probe minus coding                                   +0.0858 corrected [0.0439, 0.1316] 95% [0.0523, 0.119] meets rule True\n"}
+,{"stream_name":"stdout","time":571.423662611,"data":"RUN coding       s0 fit 251 best 250 | dev 0.865 fit 0.932 native 0.263 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":575.638147925,"data":"RUN coding       s1 fit 251 best 300 | dev 0.808 fit 0.956 native 0.318 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":579.672394927,"data":"RUN coding       s2 fit 251 best 200 | dev 0.865 fit 0.932 native 0.283 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":583.76351148,"data":"RUN typed        s0 fit 251 best 300 | dev 0.865 fit 0.956 native 0.353 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":587.76635888,"data":"RUN typed        s1 fit 251 best 150 | dev 0.846 fit 0.928 native 0.273 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":591.787738775,"data":"RUN typed        s2 fit 251 best 200 | dev 0.865 fit 0.936 native 0.293 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":595.843180214,"data":"RUN code         s0 fit 251 best 250 | dev 0.808 fit 0.936 native 0.340 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":599.91596508,"data":"RUN code         s1 fit 251 best 250 | dev 0.846 fit 0.916 native 0.322 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":604.083308142,"data":"RUN code         s2 fit 251 best 275 | dev 0.885 fit 0.936 native 0.337 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":608.152848941,"data":"RUN conductor    s0 fit 251 best 225 | dev 0.846 fit 0.948 native 0.332 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":612.245605582,"data":"RUN conductor    s1 fit 251 best  75 | dev 0.865 fit 0.884 native 0.278 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":616.28169265,"data":"RUN conductor    s2 fit 251 best 150 | dev 0.865 fit 0.896 native 0.347 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":620.538275696,"data":"RUN random_1001  s0 fit 251 best 250 | dev 0.865 fit 0.992 native 0.332 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":624.871991691,"data":"RUN random_1001  s1 fit 251 best 300 | dev 0.885 fit 0.996 native 0.322 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":629.098085058,"data":"RUN random_1001  s2 fit 251 best 275 | dev 0.865 fit 0.996 native 0.293 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":633.358814508,"data":"RUN random_1002  s0 fit 251 best 250 | dev 0.885 fit 0.992 native 0.312 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":637.51247624,"data":"RUN random_1002  s1 fit 251 best 300 | dev 0.865 fit 0.996 native 0.272 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":641.697272519,"data":"RUN random_1002  s2 fit 251 best 275 | dev 0.846 fit 0.996 native 0.297 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":646.006943436,"data":"RUN random_1003  s0 fit 251 best 275 | dev 0.885 fit 0.992 native 0.317 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":650.306556158,"data":"RUN random_1003  s1 fit 251 best 300 | dev 0.885 fit 0.996 native 0.272 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":654.51320857,"data":"RUN random_1003  s2 fit 251 best 275 | dev 0.865 fit 0.996 native 0.300 | head frozen True | 4s\n"}
+,{"stream_name":"stdout","time":654.575936544,"data":"VAL coding       0.783 [0.6583, 0.8864] seeds [0.8261, 0.7826, 0.7391] | no context 0.601 | minus coding None | native [0.2633, 0.3183, 0.2833]\n"}
+,{"stream_name":"stdout","time":654.654740642,"data":"VAL typed        0.739 [0.5897, 0.8681] seeds [0.7174, 0.7826, 0.7174] | no context 0.659 | minus coding (-0.0435, [-0.1057, 0.0079]) | native [0.3533, 0.2733, 0.2933]\n"}
+,{"stream_name":"stdout","time":654.734837056,"data":"VAL code         0.725 [0.5816, 0.8527] seeds [0.7174, 0.7391, 0.7174] | no context 0.601 | minus coding (-0.058, [-0.1429, 0.0145]) | native [0.34, 0.3217, 0.3367]\n"}
+,{"stream_name":"stdout","time":654.812973875,"data":"VAL conductor    0.754 [0.6098, 0.8794] seeds [0.6957, 0.7609, 0.8043] | no context 0.623 | minus coding (-0.029, [-0.1, 0.029]) | native [0.3317, 0.2783, 0.3467]\n"}
+,{"stream_name":"stdout","time":654.890468317,"data":"VAL random_1001  0.804 [0.6591, 0.9333] seeds [0.8043, 0.8043, 0.8043] | no context 0.688 | minus coding (0.0217, [-0.0476, 0.0877]) | native [0.3317, 0.3217, 0.2933]\n"}
+,{"stream_name":"stdout","time":654.969871413,"data":"VAL random_1002  0.826 [0.6905, 0.9487] seeds [0.8261, 0.8261, 0.8261] | no context 0.681 | minus coding (0.0435, [-0.0217, 0.1088]) | native [0.3117, 0.2717, 0.2967]\n"}
+,{"stream_name":"stdout","time":655.049485739,"data":"VAL random_1003  0.819 [0.6818, 0.9333] seeds [0.8261, 0.8043, 0.8261] | no context 0.688 | minus coding (0.0362, [-0.0303, 0.1032]) | native [0.3167, 0.2717, 0.3]\n"}
+,{"stream_name":"stdout","time":675.893517343,"data":"GATES True {\"now\": 0.7826, \"recorded\": 0.7609, \"allowed\": 0.044, \"passed\": true}\n"}
+,{"stream_name":"stdout","time":675.893717084,"data":"DONE\n"}
+,{"stream_name":"stderr","time":682.152619738,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":682.152654506,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":682.45603706,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":682.456090027,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":683.315080132,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":684.506423618,"data":"[NbConvertApp] Writing 395266 bytes to __results__.html\n"}
+]

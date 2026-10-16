@@ -1,0 +1,5 @@
+{"purpose": "frozen-Qwen3-4B features (variants B real context, A neutral prefix) of the GLM-5.3 candidates for the 4 VAL pilot problems with >= 2 distinct valid candidates (user GO 2026-10-13)",
+ "uploaded": "pre-decision contexts + candidate action texts only; no outcomes, no labels, no Fable action, no CAL / TEST",
+ "kernel": "results/raw/level12-bundle-20261012T104251Z/kernel_val/laya-val-capture-run.py unchanged (VARIANTS BA, RUN_LEVEL2 False); Qwen downloaded inside Kaggle at revision 768f209d9e",
+ "change": "requests rows get same_trajectory_context='' and other_trajectory_from=<own id> because the kernel builds all four variant prefixes eagerly; unused for B and A",
+ "source_bundle": "results/raw/val-outcome-v1-20261012T134540Z/pilot-20261012T224831Z/capture_bundle/upload"}

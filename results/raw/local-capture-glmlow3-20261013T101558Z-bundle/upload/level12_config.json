@@ -1,0 +1,30 @@
+{
+ "protocol": {
+  "id": "fable_capture_v1",
+  "model": "Qwen3-4B-Thinking-2507",
+  "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+  "depths": [
+   18,
+   24,
+   30
+  ],
+  "hidden": 2560,
+  "feature_dtype": "float16",
+  "query_cue": "\n\nNext action:",
+  "option_prefix": " ",
+  "suffix_mode": "shared_prefix_independent_suffix",
+  "query_position": "last_prefix_token",
+  "option_pool": "mean_over_option_tokens",
+  "renderer": "fable_render_v1",
+  "context_policy": "fable_ctx_v1",
+  "dtype_note": "record device/dtype/torch/transformers in the capture sidecar; one device class for every split"
+ },
+ "protocol_sha256": "97d168aa2fcd26d519240ab070c710b9b7fa1c274a77b60893e785b2b485970d",
+ "neutral_prefix": "Candidate next actions for a coding task:",
+ "limits": {
+  "max_prefix_tokens": 24000,
+  "max_option_tokens": 4096,
+  "max_total_tokens": 24576,
+  "max_options": 8
+ }
+}

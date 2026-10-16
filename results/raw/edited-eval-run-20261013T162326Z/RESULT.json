@@ -1,0 +1,554 @@
+{
+ "plan": {
+  "written": "2026-10-13, before this evaluation ran",
+  "pools": "15 states (= 15 trajectories), every candidate an edited copy (36 PASS, 83 FAIL); the original is not in any pool",
+  "co_primary": [
+   "whole_c: existing whole-option mean features, pool-centred over the edited candidates",
+   "w8c: edit sites +- 8 tokens, pool-centred"
+  ],
+  "probe": "standardise + logistic regression (class_weight balanced) on per-option PASS / FAIL; leave one state out (15 folds); C from (0.001, 0.01, 0.1) by inner grouped 3-fold CV on the training states (highest mean top-choice pass, ties -> smaller C)",
+  "metric": "per state: 1 if the highest-scoring candidate PASSES the recorded tests; chance per state = share of passing candidates; reported: mean over the 15 states, mean chance, paired difference (top choice minus chance) with a 2000-run bootstrap over states (95%), and the 12 operator-matched states separately (also with pools restricted to the operators that occur with both outcomes)",
+  "baselines": {
+   "chance": "share passing",
+   "no_context": "A features, same probe",
+   "lexical": "bag of the candidate's site token ids, same probe",
+   "operator": "one-hot mutation operator, same probe",
+   "consensus": "unsupervised: the candidate with the highest mean difflib similarity of its text to the other candidates (no training)",
+   "consensus_on_original_pools": "same rule on the earlier 19 pools that INCLUDE the original: share of states where it picks the original (size of the original-as-centre shortcut)"
+  },
+  "permutation": "1000 runs per co-primary feature; PASS labels shuffled within each pool keeping the number of passing candidates; C fixed to the real run's modal C; p = (1 + #runs with mean top-choice pass >= observed) / (1 + runs); Holm over the 2 co-primary features",
+  "readings (fixed now)": {
+   "BEATS BASELINES": "a co-primary feature: bootstrap CI of (top choice - chance) above 0 AND Holm-adjusted permutation p < 0.05 AND at least 15 points above every one of lexical, operator and consensus -> evidence of test-outcome discrimination within synthetic mutations",
+   "ONLY WITH ORIGINAL": "no co-primary feature beats baselines here while 16.25 passed -> original-versus-mutant shortcut",
+   "OPERATOR": "beats baselines on all 15 but not on the 12 operator-matched states (restricted pools) -> likely mutation-operator shortcut",
+   "FAILS": "no co-primary feature beats chance -> this representation and probe show no generalising pass / fail signal"
+  }
+ },
+ "results": {
+  "whole_c": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.7333,
+    "chance": 0.3012,
+    "minus_chance": 0.4321,
+    "ci95": [
+     0.2083,
+     0.6381
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.0938,
+     0.5818
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.5833,
+    "chance": 0.3244,
+    "minus_chance": 0.2589,
+    "ci95": [
+     0.0104,
+     0.5074
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 1.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 0.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 1.0,
+    "fable5:ts-jsonrpc:1": 1.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 0.0
+   },
+   "C_chosen": [
+    0.001,
+    0.001,
+    0.1,
+    0.01,
+    0.01,
+    0.1,
+    0.01,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "w8c": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.6,
+    "chance": 0.3012,
+    "minus_chance": 0.2988,
+    "ci95": [
+     0.075,
+     0.5417
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.5833,
+    "chance": 0.3244,
+    "minus_chance": 0.2589,
+    "ci95": [
+     0.0104,
+     0.5074
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.5,
+    "chance": 0.3244,
+    "minus_chance": 0.1756,
+    "ci95": [
+     -0.0833,
+     0.4449
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 1.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 0.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 0.0,
+    "fable5:ts-jsonrpc:1": 0.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 0.0
+   },
+   "C_chosen": [
+    0.1,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.01,
+    0.001,
+    0.001
+   ]
+  },
+  "w32c": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3012,
+    "minus_chance": 0.3655,
+    "ci95": [
+     0.1155,
+     0.6048
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.5833,
+    "chance": 0.3244,
+    "minus_chance": 0.2589,
+    "ci95": [
+     -0.0327,
+     0.5417
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.5,
+    "chance": 0.3244,
+    "minus_chance": 0.1756,
+    "ci95": [
+     -0.1042,
+     0.4583
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 1.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 0.0,
+    "fable5:py-jsonpath-edit:2": 0.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 1.0,
+    "fable5:ts-jsonrpc:1": 1.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 0.0
+   },
+   "C_chosen": [
+    0.01,
+    0.01,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "no_context_whole_c": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.8,
+    "chance": 0.3012,
+    "minus_chance": 0.4988,
+    "ci95": [
+     0.3,
+     0.6798
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.75,
+    "chance": 0.3244,
+    "minus_chance": 0.4256,
+    "ci95": [
+     0.2173,
+     0.6324
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.0833,
+     0.5923
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 1.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 1.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 1.0,
+    "fable5:ts-jsonrpc:1": 1.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 0.0
+   },
+   "C_chosen": [
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.01,
+    0.001,
+    0.01,
+    0.01,
+    0.1,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "no_context_w8c": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.7333,
+    "chance": 0.3012,
+    "minus_chance": 0.4321,
+    "ci95": [
+     0.2143,
+     0.6381
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.1012,
+     0.5789
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.0193,
+     0.6324
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 1.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 0.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 0.0,
+    "fable5:ts-jsonrpc:1": 1.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 1.0
+   },
+   "C_chosen": [
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.01,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.01,
+    0.01
+   ]
+  },
+  "lexical": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3012,
+    "minus_chance": 0.3655,
+    "ci95": [
+     0.1417,
+     0.5738
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.75,
+    "chance": 0.3244,
+    "minus_chance": 0.4256,
+    "ci95": [
+     0.1875,
+     0.6429
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.0104,
+     0.6235
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 1.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 0.0,
+    "fable5:py-ibantool:2": 0.0,
+    "fable5:py-incident-cli:4": 0.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 1.0,
+    "fable5:py-slide-splitter:1": 1.0,
+    "fable5:ts-jsonrpc:1": 0.0,
+    "fable5:ts-lru-ttl-cache:2": 1.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 1.0
+   },
+   "C_chosen": [
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "operator": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.6,
+    "chance": 0.3012,
+    "minus_chance": 0.2988,
+    "ci95": [
+     0.0881,
+     0.4917
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.5833,
+    "chance": 0.3244,
+    "minus_chance": 0.2589,
+    "ci95": [
+     0.0506,
+     0.4583
+    ]
+   },
+   "operator_matched12_restricted_pools": {
+    "states": 12,
+    "top_choice_pass": 0.6667,
+    "chance": 0.3244,
+    "minus_chance": 0.3423,
+    "ci95": [
+     0.0521,
+     0.6042
+    ]
+   },
+   "per_state": {
+    "fable5:go-mazekit:2": 0.0,
+    "fable5:py-ansi-paginate:1": 1.0,
+    "fable5:py-btree-pages:5": 1.0,
+    "fable5:py-config-migrate:6": 1.0,
+    "fable5:py-csv-sqlite:2": 1.0,
+    "fable5:py-htmlclean:2": 0.0,
+    "fable5:py-ibantool:2": 1.0,
+    "fable5:py-incident-cli:4": 1.0,
+    "fable5:py-jsonpath-edit:2": 1.0,
+    "fable5:py-parking-garage:4": 0.0,
+    "fable5:py-slide-splitter:1": 1.0,
+    "fable5:ts-jsonrpc:1": 1.0,
+    "fable5:ts-lru-ttl-cache:2": 0.0,
+    "fable5:ts-pong:1": 0.0,
+    "fable5:ts-recur-cal:5": 0.0
+   },
+   "C_chosen": [
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "consensus": {
+   "all15": {
+    "states": 15,
+    "top_choice_pass": 0.214,
+    "chance": 0.3012,
+    "minus_chance": -0.0872,
+    "ci95": [
+     -0.2067,
+     0.036
+    ]
+   },
+   "operator_matched12": {
+    "states": 12,
+    "top_choice_pass": 0.2556,
+    "chance": 0.3244,
+    "minus_chance": -0.0688,
+    "ci95": [
+     -0.2125,
+     0.0805
+    ]
+   }
+  },
+  "consensus_on_original_pools": {
+   "states": 19,
+   "picks_original": 1.0,
+   "chance": 0.2053
+  }
+ },
+ "permutation": {
+  "whole_c": {
+   "C_fixed": 0.001,
+   "null_mean": 0.2977,
+   "null_95th": 0.5333,
+   "observed": 0.7333,
+   "p": 0.003,
+   "p_holm": 0.006
+  },
+  "w8c": {
+   "C_fixed": 0.001,
+   "null_mean": 0.3065,
+   "null_95th": 0.5333,
+   "observed": 0.6,
+   "p": 0.026,
+   "p_holm": 0.026
+  }
+ },
+ "reading": {
+  "whole_c": {
+   "ci_above_0": true,
+   "p_holm_lt_005": true,
+   "margin_over_best_baseline": 0.0666,
+   "beats_baselines": false,
+   "matched_restricted_ci_above_0": true
+  },
+  "w8c": {
+   "ci_above_0": true,
+   "p_holm_lt_005": true,
+   "margin_over_best_baseline": -0.0667,
+   "beats_baselines": false,
+   "matched_restricted_ci_above_0": false
+  }
+ },
+ "verdict": "ONLY WITH ORIGINAL",
+ "seconds": 2090.8
+}

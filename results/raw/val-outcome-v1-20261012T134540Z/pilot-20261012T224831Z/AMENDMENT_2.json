@@ -1,0 +1,7 @@
+{
+ "written": "2026-10-13, after decoding the GLM candidates and BEFORE any candidate was executed",
+ "approved_by": "user, chat 2026-10-13: 'decode them, run them in the sandbox, then the Kaggle capture'",
+ "reason": "the cal_outcome_v1 rule counts a candidate as a code change only if EVERY call is Write / Edit (written for single Qwen actions). All 17 valid GLM candidates bundle the fix with Bash calls, and every one of those Bash calls is a test run, a syntax check (bash -n) or chmod +x; under the old rule all 17 would be FAIL and the pilot uninformative",
+ "rule": "each candidate's calls run IN ORDER inside the qualified sandbox (Write / Edit applied as before, Bash executed like a replay shell step), then the decision's recorded test command; twice, each from a fresh copy of the pre-action state. PASS = the recorded test exits 0 both times. A candidate with no Write / Edit is `not a code change` (FAIL). TAMPERING (FAIL): a Write / Edit to a protected file, or a Bash call naming a protected file together with a write operation (>, >>, tee, sed -i, mv, cp, rm, truncate). Unstable or not applicable = FAIL. Each problem's untouched state must reproduce the recorded failure (baseline exit non-zero, twice) or the problem is reported as invalid",
+ "limit": "Bash side effects beyond the patterns above are not detected; PASS means the recorded test command passes, not a proven correct fix"
+}

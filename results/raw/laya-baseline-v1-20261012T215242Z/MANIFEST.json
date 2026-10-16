@@ -1,0 +1,38 @@
+{
+ "name": "LAYA research baseline v1",
+ "frozen_utc": "20261012T215242Z",
+ "approved_by": "user, chat 2026-10-13: GO steps 0, 1, 2 (step 1 = freeze a research baseline: pretrained head, three Fable-trained adapters, linear probe, with hashes)",
+ "status": "research baseline, not a proven model-enhancement product. Files are referenced in place and never modified; nothing was copied or retrained.",
+ "feature_encoder": {"model": "Qwen/Qwen3-4B-Thinking-2507", "revision": "768f209d9ea81521153ed38c47d515654e938aea", "path": "models/qwen3-4b-thinking-2507",
+                     "shard_hashes": "results/raw/qwen3-4b-thinking-2507.manifest.json", "role": "frozen feature provider, never trained"},
+ "pretrained_head": {"path": "models/coding-decision-agent/model.safetensors", "sha256": "e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a",
+                     "note": "Laya Coding_Decision_Agent, Apache-2.0; 31 decision tensors, 26,248,193 parameters; never written"},
+ "adapters": {
+  "final-s0": {"path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s0.pt", "sha256": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2"},
+  "final-s1": {"path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s1.pt", "sha256": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e"},
+  "final-s2": {"path": "results/raw/laya-finetune-all-v1-20261012T080145Z/adapters/final-s2.pt", "sha256": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"},
+  "trained_on": "all 334 pools of laya-fullaction-set-v3 with features (canonical TRAIN only), fit folds 1-4, checkpoint fold 0, seeds 0-2; adapter only, 5,246,982 parameters each",
+  "scoring_rule": "each adapter scored alone; the reported figure is the mean of the three top-1 values (VAL 79.25, 81.13, 77.36). Any new evaluation uses this rule; an ensemble of scores is a different model.",
+  "verification": "results/raw/laya-finetune-all-v1-20261012T080145Z/ADAPTER_VERIFICATION.json (loads cleanly, 31 pretrained tensors identical to the checkpoint)"},
+ "linear_probe": {"what": "logistic regression on the raw frozen-Qwen option states, standardised, class_weight balanced, C chosen from (1e-3, 1e-2, 1e-1) by 3-fold grouped CV over trajectories",
+                  "code": "kaggle/head_exp4_gpu.py probe_scores (sha256 7e30b63d208acb3522548e0e80ad1c740a690e396ccd1c8dba311bdf6e8cf30e)",
+                  "frozen_as": "recipe + training data (the same 334 v3 TRAIN pools); deterministic, refitted at scoring time, no weights file. The mandatory baseline for every head result."},
+ "training_data": {"pools": "results/raw/laya-fullaction-set-v3-20261012T055420Z",
+                   "features": ["results/raw/level12-run-v2-cancelled-20261011T175252Z", "results/raw/v3-context-capture-run-20261012T065106Z"]},
+ "code": {
+  "decision_head/fable_train.py": "d37f31cb3518b8f30ca36f02921c0312add6801f310293ded3dd1b53c64102cf",
+  "decision_head/fable_features.py": "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+  "decision_head/head.py": "d9f1281c5254adac53ec667420add526a431ebd752933da27e1a9a858c347eed",
+  "tools/laya_finetune_all_v1.py": "6b76ea81646b6f5e319abe518b66f025c4541cb73b61530facab56648f98f5bf",
+  "tools/align_transfer_v1.py": "7b68b629e81c511a59f95aefb12d3934a9748f183d56843242a99497754d5e97",
+  "tools/fullaction_pilot_v1.py": "ee09016c8bdf1f071919508a8e4886738b44bef72414532b5ece08ab4e8a2489",
+  "tools/adapter_align_v1.py": "d34684b2ac14044095f87b4e27bac02eced748015726d23da751939e16910176"},
+ "measured": {
+  "val_53_pools": {"baseline_top1": 0.792, "interval": [0.679, 0.893], "no_context": 0.642, "probe": 0.943, "text_only": 0.679, "chance": 0.293,
+                   "source": "results/raw/val-eval-v1-20261012T082055Z", "caveat": "development set, inspected many times"},
+  "in_dataset_5fold_334": {"top1": 0.802, "probe": 0.862, "source": "results/raw/laya-finetune-all-v1-20261012T080145Z/REPORT-20261012T080534Z.json",
+                           "caveat": "in-dataset, not unbiased"},
+  "coding_task_success": "not measured"},
+ "limits": ["agreement with Fable's recorded choice, not task success", "the linear probe was stronger on every Fable test", "alternatives written by other models: authorship shortcut",
+            "one backbone; no portability evidence", "no untouched Fable TRAIN pool remains; CAL / TEST protected and never used"]
+}

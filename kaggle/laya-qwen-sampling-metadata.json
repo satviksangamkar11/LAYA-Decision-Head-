@@ -1,0 +1,17 @@
+{
+  "id": "satviksangamkar54321/laya-qwen-sampling",
+  "title": "Laya Qwen Sampling",
+  "code_file": "laya-qwen-sampling.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "satviksangamkar54321/laya-head-rows-v1",
+    "satviksangamkar54321/qwen3-4b-thinking-2507"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

@@ -1,0 +1,119 @@
+{
+ "label": "exploratory (no gate)",
+ "date": "20261004-143841",
+ "counts": {
+  "nebius": {
+   "trajectories": 67074,
+   "instances": 6306,
+   "instances_multi": 6282,
+   "instances_mixed": 1741,
+   "runs_per_instance_hist": {
+    "1": 24,
+    "2": 18,
+    "3": 39,
+    "4": 77,
+    "5": 124,
+    "6": 321,
+    "7": 966,
+    "8": 602,
+    "9": 595,
+    "10": 580,
+    "11": 654,
+    "12": 650
+   },
+   "skipped_unparseable": 0,
+   "real_option_same_generator_model": 0,
+   "real_options": 5752,
+   "T1_signs": {
+    "error": 24
+   },
+   "mean_chars_by_tier": {
+    "GOLD": 330.2,
+    "T3": 314.3,
+    "T2": 384.5,
+    "T1": 115.5
+   },
+   "rows_real_only_excluding_near_dup": 2988,
+   "repos_with_real_rows": 627,
+   "rows": 35888,
+   "rows_with_T1": 24,
+   "rows_with_T2_no_T1": 2964,
+   "rows_T3_only": 32900,
+   "rows_at_step0": 27444,
+   "options_GOLD": 35888,
+   "options_T3_near_dup": 223705,
+   "options_T3": 125475,
+   "options_T2": 5728,
+   "options_T2_near_dup": 25750,
+   "options_T1_near_dup": 17,
+   "options_T1": 24,
+   "depth_median": 0
+  },
+  "swesmith_tool": {
+   "trajectories": 9116,
+   "instances": 5215,
+   "instances_multi": 1764,
+   "instances_mixed": 474,
+   "runs_per_instance_hist": {
+    "1": 3451,
+    "2": 1072,
+    "3": 218,
+    "4": 206,
+    "5": 52,
+    "6": 26,
+    "7": 31,
+    "8": 102,
+    "9": 9,
+    "10": 28,
+    "11": 11,
+    "12": 5
+   },
+   "skipped_unparseable": 14984,
+   "real_option_same_generator_model": 465,
+   "real_options": 912,
+   "T1_signs": {
+    "error": 12,
+    "retry": 1
+   },
+   "mean_chars_by_tier": {
+    "GOLD": 103.5,
+    "T2": 75.3,
+    "T3": 94.4,
+    "T1": 64.3
+   },
+   "rows_real_only_excluding_near_dup": 700,
+   "repos_with_real_rows": 72,
+   "rows": 2079,
+   "rows_with_T1": 13,
+   "rows_with_T2_no_T1": 687,
+   "rows_T3_only": 1379,
+   "rows_at_step0": 918,
+   "options_GOLD": 2079,
+   "options_T2_near_dup": 335,
+   "options_T3": 6242,
+   "options_T3_near_dup": 1944,
+   "options_T2": 899,
+   "options_T1": 13,
+   "options_T1_near_dup": 5,
+   "depth_median": 1
+  }
+ },
+ "scan_seconds": 634.4,
+ "build_seconds": 35.8,
+ "revisions": {
+  "nebius": "35455389ab51bf5e2306bfd436ef72d0f98bf882",
+  "swesmith_tool": "08e109b4a59eaeebf80e4675cd125d42e7ac99a4"
+ },
+ "tier_weights": {
+  "GOLD": 1.0,
+  "T1": 0.02,
+  "T2": 0.1,
+  "T3": 0.25
+ },
+ "caveats": [
+  "a state = identical earlier ACTION text across runs of the same instance; observations are not compared",
+  "T1/T2 flags come from weak regexes; an error after an action does not prove it caused the failure",
+  "near_duplicate_of_gold options are reported separately and are excluded from the real-wrong counts",
+  "soft_target is a fixed evidence prior, not an outcome"
+ ]
+}

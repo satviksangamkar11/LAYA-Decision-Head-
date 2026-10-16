@@ -10,7 +10,10 @@ AUDITED = {"27ad5f3557d72992eedde7fb48d5476b2a801d2c204b65fc13804b6303eff9cb": "
            "d6cbb053abf2933889a0ccbf6ac244623a63a2e3397e991dde09266bdaa932d1": "tornadoweb/tornado"}
 
 
-def scan_tree(root):
+def scan_tree(root, extra_audited=None):
+    """extra_audited: optional {(pattern name, sha256 of the matched value): note}. The matched value is the quoted value for 'generic secret assignment' and the whole match for every other pattern.
+    Default None keeps the earlier behaviour exactly (only the AUDITED generic values are skipped)."""
+    extra_audited = extra_audited or {}
     root, hits, files, seen = Path(root), [], [], set()
     for p in sorted(x for x in root.rglob("*") if x.is_file()):
         rel = p.relative_to(root).as_posix()
@@ -25,6 +28,11 @@ def scan_tree(root):
                         if h in AUDITED:
                             seen.add(h)
                             continue
+                    else:
+                        h = hashlib.sha256(m.group(0).encode()).hexdigest()
+                    if (name, h) in extra_audited:
+                        seen.add(h)
+                        continue
                     hits.append((rel, i, name))
         files.append(dict(path=rel, bytes=p.stat().st_size, sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
     return hits, files, seen

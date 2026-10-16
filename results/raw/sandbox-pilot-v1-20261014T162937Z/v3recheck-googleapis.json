@@ -1,0 +1,55 @@
+{
+ "instance_id": "googleapis__python-storage-1357",
+ "rule": "compare_v3",
+ "v2_result_reason": "prefix replay mismatch",
+ "replays": {
+  "A": {
+   "earlier_steps_matched": 5,
+   "step6_diff_complete": true,
+   "step6_v2_match": false,
+   "step6_v3": {
+    "exit_match": true,
+    "exact": true,
+    "signature": false,
+    "match": true,
+    "rule": "v3"
+   },
+   "step6_is_last_prefix_step": true
+  },
+  "B": {
+   "earlier_steps_matched": 5,
+   "step6_diff_complete": true,
+   "step6_v2_match": false,
+   "step6_v3": {
+    "exit_match": true,
+    "exact": true,
+    "signature": false,
+    "match": true,
+    "rule": "v3"
+   },
+   "step6_is_last_prefix_step": true
+  },
+  "C": {
+   "earlier_steps_matched": 5,
+   "step6_diff_complete": true,
+   "step6_v2_match": false,
+   "step6_v3": {
+    "exit_match": true,
+    "exact": true,
+    "signature": false,
+    "match": true,
+    "rule": "v3"
+   },
+   "step6_is_last_prefix_step": true
+  }
+ },
+ "other_v2_checks": {
+  "setup": true,
+  "network_probe_failed": true,
+  "tests_ok": true,
+  "hash_equal_BC": true
+ },
+ "prefix_env_steps": 6,
+ "qualified_v3": true,
+ "method": "re-evaluated from saved records; no execution (diff complete, so the replay stage was not re-run)"
+}

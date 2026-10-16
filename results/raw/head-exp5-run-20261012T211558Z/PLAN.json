@@ -1,0 +1,55 @@
+{
+ "written": "2026-10-13, before the job ran",
+ "approved_by": "user, chat 2026-10-13: GO versioned direct read-path experiment, five-fold cross-validation, native replay, Kaggle GPU; REQUIRED: the trained head scored with the read path disabled; no-context and options-only controls; checkpoints chosen on TRAIN folds only; stop after reporting; new Fable generation and outside datasets on hold",
+ "read_path": "score_i = score of the pretrained head for option i + w . LayerNorm(bridge output of option i); w has 1,024 weights, starts at 0 (so the model starts exactly as the head it is attached to), LayerNorm has no parameters, the bridge output is detached (the path trains nothing but w). The user's review asked for a pool-centred variant next to a raw one: for a LINEAR path under a softmax over the pool the two are the same model (centring subtracts the same number from every option's score), so one path is run.",
+ "arms (2 x 2: are the 31 tensors trained? is there a read path?)": {
+  "released": "no training (39.9% out of fold in results/raw/head-exp4-run-20261012T201525Z)",
+  "Dprev": "the previous arm D repeated unchanged (31 tensors train, context layer 1 at 1e-4, others 2e-5, temperature-scaled start, native replay); recorded 50.4%",
+  "D0": "the same without the temperature-scaled start; this is the 'head trained, no path' cell, so that B and C differ from it in one thing each",
+  "B": "31 tensors FROZEN, read path trained (rates (0.0001, 0.001); the rate with the higher mean top-1 on the inner development folds is 'B chosen'; both reported), replay",
+  "C": "D0 plus the read path at B's chosen rate: both train",
+  "C, path off": "REQUIRED ABLATION: the trained C models scored with the read path switched off = what the 31 tensors alone do after joint training. A lower bound for them, because they were trained together with the path",
+  "E": "the stronger of B chosen and C (inner development top-1) on half of each run's fit trajectories (lower half of sha256 order)",
+  "Bsub / Bnc": "options-only control in the same space: on the TRAIN pools that have no-context features, B chosen fitted and tested with the real context (Bsub) and fitted and tested with the no-context features (Bnc)"
+ },
+ "replay": "8 native TRAIN items per step, weight 1.0, target = the ORIGINAL model's predicted distribution (KL). The read path scores native items too, so replay trains it; the gradient norm of the replay term on the path is recorded at the first training step of every run with a path",
+ "training": {
+  "steps": 300,
+  "warmup_steps": 1,
+  "eval_every": 25,
+  "batch_size": 8,
+  "lr_adapter": 0.0,
+  "lr_pretrained": 2e-05,
+  "weight_decay": 0.01,
+  "grad_clip": 1.0,
+  "lr_floor": 0.1,
+  "unknown_weight": 0.5,
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "checkpoint": "lowest loss on the inner development fold, every 25 steps"
+ },
+ "evaluation": "5-fold cross-validation on the 303 train_v4 pools exactly as in the four-arm run (test fold k, development fold (k+1) mod 5); per pool the mean over 3 seeds; paired differences with 2,000 bootstrap resamples of whole trajectories. Then every arm in the reference configuration (fit folds 1-4, development fold 0) on the 46 cleaned VAL pools with and without context, and on the 600 native validation items.",
+ "shortcut_controls": [
+  "out-of-fold accuracy with the no-context features on the TRAIN pools that have them, for every arm",
+  "cleaned VAL without context, for every arm",
+  "Bnc (trained without context)",
+  "linear probe on raw Qwen states with and without context",
+  "cleaned VAL with loose equivalents of Fable's action counted as correct (strict ones were removed by cleaning)"
+ ],
+ "key_comparisons (three; intervals are given at 95% and at 98.3% = corrected for three)": [
+  "C minus Dprev",
+  "C minus B chosen",
+  "C with the path off minus Dprev"
+ ],
+ "development_acceptance (user)": "a paired out-of-fold improvement over Dprev with native accuracy at or above 66%. VAL (46 pools) is confirmation only: an interval that includes 0 is reported as inconclusive, not as success or failure",
+ "what_would_convince (user)": "the joint model C above BOTH the standalone probe and B, native skill kept, AND the 31 tensors still better than Dprev with the path off",
+ "agent_prediction (written before the run)": "B lands near the probe; C is not distinguishable from B; C with the path off is at or below Dprev. That would mean the new layer does the work and the 31 tensors did not get stronger",
+ "diagnostics_only": [
+  "bridge swap: the VAL-configuration models scored through a second bridge trained on the same native items with a different loss (align-transfer-v1 adapters/A.pt). Same Qwen: says nothing about another base model",
+  "the review's untrained residual: the released head with each option's deviation from the pool mean (bridge output) added after context layer 1 at (0.3, 1.0, 3.0) times the stream's norm; own top-1 on TRAIN, VAL and native"
+ ],
+ "limits": "agreement with Fable, not task success; TRAIN pools share the generation and review pipeline; VAL is development-exposed; one backbone; no portability claim; the A5 benchmark is not run"
+}

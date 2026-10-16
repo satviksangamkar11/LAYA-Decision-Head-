@@ -4,7 +4,7 @@ import torch
 import torch.nn.functional as F
 
 from compiler import a5v2
-from decision_head.v3_training import CFG, fit_residual, h0_bundle, nested_subsets
+from decision_head.v3_training import CFG, FINAL_SEEDS, SELECTION_SEEDS, fit_residual, h0_bundle, nested_subsets
 
 PROJ = [128, 256, 512]
 TREATMENTS = ["single", "mean", "learned"]          # simplest first: the tie-break order
@@ -29,6 +29,17 @@ def dev_scores(train_decs, cfg=CFG, seed=0, device="cpu", cells=CELLS, log=print
                 tot[(p, t)][1] += len(te)
                 log(f"fold {f} proj {p} {t}: running mean NLL {tot[(p, t)][0] / tot[(p, t)][1]:.4f}")
     return {c: v[0] / v[1] for c, v in tot.items()}
+
+
+def dev_scores_multi(train_decs, seeds=SELECTION_SEEDS, cfg=CFG, device="cpu", cells=CELLS, log=print):
+    """amendment_2026_10_03_e e8: cell selection over the registered seeds {0,1,2}. dev score = mean over seeds of the mean held-out NLL (dev_scores per seed, unchanged procedure).
+    Returns {"per_seed": {seed: {cell: nll}}, "mean": {cell: nll}, "seeds": [...]}. TRAIN rows only (the H0/residual trainers assert it); CAL and LOCKED are not reachable from here."""
+    assert tuple(seeds) == tuple(SELECTION_SEEDS), "selection seeds are registered as (0, 1, 2)"
+    per = {}
+    for s in seeds:
+        per[s] = dev_scores(train_decs, cfg, s, device, cells, log)
+    mean = {c: sum(per[s][c] for s in seeds) / len(seeds) for c in cells}
+    return dict(per_seed=per, mean=mean, seeds=list(seeds), final_seeds=list(FINAL_SEEDS))
 
 
 def choose(scores):

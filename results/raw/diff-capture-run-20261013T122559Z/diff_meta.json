@@ -1,0 +1,859 @@
+{
+ "protocol": "diff_capture_v1",
+ "depths": [
+  18,
+  24,
+  30
+ ],
+ "windows": [
+  8,
+  32
+ ],
+ "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+ "device": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "checks": {
+  "hashes_identical": true,
+  "whole_option_cos_min": 1.0,
+  "whole_option_reproduces": true,
+  "spans_nonempty": true,
+  "finite": true,
+  "repeat_identical": true,
+  "plain_pools": [
+   "fable5:py-incident-cli:4"
+  ],
+  "key_file_mounted": false,
+  "all_passed": true
+ },
+ "rows": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 18.95,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "sites": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "seconds": 4.27,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 15.02,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 9.5,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 16.47,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 7130,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 9.64,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3122,
+   "option_tokens": [
+    1033,
+    1033,
+    1033,
+    1033,
+    1033
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 7.96,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3716,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 7.09,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3479,
+   "option_tokens": [
+    775,
+    775,
+    775,
+    775,
+    775
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 6.36,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 14.64,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2605,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 8.13,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2596,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 7.28,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2840,
+   "option_tokens": [
+    1552,
+    1552,
+    1552,
+    1552,
+    1552
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 10.89,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3632,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 9.12,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 18.78,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 8.74,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 3523,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 13.82,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "B",
+   "mode": "plain_per_option",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 69.97,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "B",
+   "mode": "packed",
+   "prefix_tokens": 2588,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "sites": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "seconds": 10.69,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 13.45,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "sites": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "seconds": 2.64,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 10.25,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 4.37,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 5.87,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 1.32,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1033,
+    1033,
+    1033,
+    1033,
+    1033
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 3.66,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 2.6,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    775,
+    775,
+    775,
+    775,
+    775
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 2.52,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 1.57,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 4.68,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 4.34,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1552,
+    1552,
+    1552,
+    1552,
+    1552
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 6.89,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 4.32,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 3.83,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 2.34,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 7.57,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "sites": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "seconds": 13.29,
+   "whole_vs_existing_cos": 1.0
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "A",
+   "mode": "packed",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "sites": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "seconds": 6.88,
+   "whole_vs_existing_cos": 1.0
+  }
+ ],
+ "seconds": 470.4
+}

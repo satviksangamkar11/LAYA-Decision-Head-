@@ -1,0 +1,10 @@
+{
+ "written": "2026-10-13, before any feature of these pools was captured or scored",
+ "approved_by": "user, chat 2026-10-13: 'complete scoring first then move ahead as no shortcuts and scoring will tell us ... finish it first'; the mutation diagnostic itself was approved in the user's pasted plan (frozen scorers, no-context and option-only baselines, per-state reporting, TRAIN diagnostic only); all computation on Kaggle (standing rule)",
+ "states": "the 19 valid states of mutation pilot v1.1 (canonical TRAIN; ts-msgfmt:3 invalid and excluded)",
+ "pool": "Fable's recorded action (verified PASS: the test fails before it and passes after it, stable) + up to 4 mutants labelled WORSE in v1.1 with no crash flag, chosen by ascending sha256(mutant id); EQUAL_ON_TESTS and UNKNOWN mutants are excluded",
+ "presentation": "context = FP.select_context(trace prefix, V.MAX_CONTEXT_CHARS), options = V.render(calls, None): the imitation builder's own functions; a mutant differs from Fable's action only at its mutation site. Checked: Fable's rendered option equals the imitation set's option text for every state that is in the imitation set. Option order: ascending sha256(decision_id|option text). No label is uploaded",
+ "scorers (frozen)": "laya_v4 (rebuilt coding head x3), random_head_v4 (rebuilt x9), laya_baseline_v1 (x3), linear_probe (refit on the 303 TRAIN pools), each with the real context (B) and with a neutral prefix (A, no context); option-only baselines computed locally from the option texts: shortest, longest, uniform random",
+ "measure": "per state: 1 if the scorer's top choice is Fable's (passing) action; mean over a family's runs; reported over all states and over the states NOT in any scorer's training pools; context effect = B minus A per state; paired comparisons by state (19 states, not mutants)",
+ "limits": "TRAIN states: Fable's action was a positive training example for the states in the imitation pools (memorisation possible); mutants are synthetic single-site changes (not natural agent errors); 19 states only"
+}

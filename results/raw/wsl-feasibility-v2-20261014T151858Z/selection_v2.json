@@ -1,0 +1,25 @@
+{
+ "mixed": 1741,
+ "excluded_repo": {
+  "rootse": 39,
+  "codetracebench": 2,
+  "laya": 862
+ },
+ "eligible": 838,
+ "visited": 15,
+ "walk_counts": {
+  "v1_other": 4,
+  "docker_or_system_packages": 6,
+  "x1": 1,
+  "accepted": 4
+ },
+ "accepted": [
+  "googleapis__python-storage-1357",
+  "pvlib__pvanalytics-128"
+ ],
+ "reserves": [
+  "stephenhillier__starlette_exporter-89",
+  "dwavesystems__dwave-system-373"
+ ],
+ "seed": 20261014
+}

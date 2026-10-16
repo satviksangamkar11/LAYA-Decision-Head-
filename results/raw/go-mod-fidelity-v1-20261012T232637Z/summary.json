@@ -1,0 +1,16 @@
+{
+ "go_states_train_val": 43,
+ "repaired": 41,
+ "match_both_runs": 38,
+ "by_split": {
+  "train": 25,
+  "val": 13
+ },
+ "verdicts": {
+  "MATCH/MATCH": 38,
+  "MISMATCH:exit/MISMATCH:exit": 3
+ },
+ "not_repaired": {
+  "go.mod already present": 2
+ }
+}

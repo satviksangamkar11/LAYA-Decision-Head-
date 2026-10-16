@@ -1,0 +1,299 @@
+[
+ {
+  "decision_id": "fable5:py-retry-policy:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 2,
+  "first_sample": 3,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 3,
+  "first_sample": 4,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-role-hierarchy:1",
+  "cid": 4,
+  "first_sample": 5,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 0,
+  "first_sample": 2,
+  "calls": [
+   "Bash",
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 1,
+  "first_sample": 3,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 2,
+  "first_sample": 4,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-tree-filters:3",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Edit",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 2,
+  "first_sample": 3,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all inventory checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-inventory-log:2",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "tampering",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 0,
+  "first_sample": 1,
+  "calls": [
+   "Bash",
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "FAIL",
+  "exits": [
+   1,
+   1
+  ],
+  "tail": "m in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: 5 of 75 checks failed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 1,
+  "first_sample": 2,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "em in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: all 75 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 2,
+  "first_sample": 4,
+  "calls": [
+   "Bash",
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "FAIL",
+  "exits": [
+   1,
+   1
+  ],
+  "tail": "odes] -- cmd [args...]\n\n--- actual ---\n/work/retry.sh: line 180: unexpected EOF while looking for matching `\"'\n\n----------------\nFAIL unknown flag: exit code\n--- expected ---\n64\n--- actual ---\n2\n----------------\nPASS unknown flag: stdout\nFAIL unknown flag: stderr\n--- expected ---\nusage: retry.sh [--max N] [--retry-on codes] [--fatal-on codes] -- cmd [args...]\n\n--- actual ---\n/work/retry.sh: line 180: unexpected EOF while looking for matching `\"'\n\n----------------\nSUMMARY: 59 of 75 checks failed\n"
+ },
+ {
+  "decision_id": "fable5:bash-retryrun:2",
+  "cid": 3,
+  "first_sample": 5,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "em in a code list: stdout\nPASS blank item in a code list: stderr\nPASS non-numeric code in a list: exit code\nPASS non-numeric code in a list: stdout\nPASS non-numeric code in a list: stderr\nPASS zero in a code list: exit code\nPASS zero in a code list: stdout\nPASS zero in a code list: stderr\nPASS code in both lists: exit code\nPASS code in both lists: stdout\nPASS code in both lists: stderr\nPASS unknown flag: exit code\nPASS unknown flag: stdout\nPASS unknown flag: stderr\nSUMMARY: all 75 checks passed\n"
+ }
+]

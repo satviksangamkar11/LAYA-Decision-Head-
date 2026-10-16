@@ -357,13 +357,199 @@ def _():
     return f"{len(tr)} real TRAIN decisions: pipeline ran ({rec['h0']['epochs']} H0 epochs, {rec['residual']['epochs']} residual epochs); blind-H0, state-using H2 and permutation checks hold on real tensors (no accuracy is read)"
 
 
+# ---------------------------------------------------------------- E. amendment (e): 3-seed selection, Brier arm, CAL-only temperature, screen, no LOCKED read
+import re
+from decision_head import v3_selection as SEL
+from decision_head import v3_screen as SCR
+LOCKED_LOG = ROOT / "results/raw/locked-access-log.jsonl"
+locked_lines_before = len(LOCKED_LOG.read_text().splitlines()) if LOCKED_LOG.exists() else 0
+SMALL = dict(T.CFG, max_epochs=6, min_epochs=2, patience=2, batch=16)
+
+
+@check("E1 selection runs all three registered seeds (0,1,2); the mean is the average of the per-seed scores; other seed sets are refused")
+def _():
+    seen = []
+    orig = T.fit_h0
+
+    def spy(fit_decs, val_decs, cfg, seed, proj, device="cpu", loss="ce"):
+        seen.append(seed)
+        return orig(fit_decs, val_decs, cfg, seed, proj, device, loss)
+    T.fit_h0 = spy
+    try:
+        small = synth(20, 3, True, 21)
+        r = SEL.dev_scores_multi(small, cfg=SMALL, cells=[(16, "single"), (16, "mean")], log=lambda *a: None)
+    finally:
+        T.fit_h0 = orig
+    assert sorted(set(seen)) == [0, 1, 2], sorted(set(seen))
+    assert sorted(r["per_seed"]) == [0, 1, 2] and r["seeds"] == [0, 1, 2] and r["final_seeds"] == [0, 1, 2, 3, 4]
+    for c in r["mean"]:
+        assert abs(r["mean"][c] - sum(r["per_seed"][s][c] for s in (0, 1, 2)) / 3) < 1e-12
+    expect_raises(AssertionError, lambda: SEL.dev_scores_multi(small, seeds=(0, 1), cfg=SMALL, cells=[(16, "single")], log=lambda *a: None))
+    assert SEL.choose(r["mean"]) in r["mean"]
+    return f"seeds executed {sorted(set(seen))}; mean = per-seed average for {len(r['mean'])} cells; seeds (0,1) refused; final seeds stay {list(T.FINAL_SEEDS)}"
+
+
+@check("E2 deterministic ordering: the inner split and the folds do not depend on the seed; the epoch order depends on the seed and is reproducible")
+def _():
+    a1, v1 = T.inner_split(train_s, T.CFG["val_frac"])
+    a2, v2 = T.inner_split(train_s, T.CFG["val_frac"])
+    assert [d["did"] for d in v1] == [d["did"] for d in v2] and [d["did"] for d in a1] == [d["did"] for d in a2]
+    assert a5v2.folds_by_trajectory(train_s) == a5v2.folds_by_trajectory(train_s)
+    b0, b1, b0b = T.h0_bundle(train_s, SMALL, 0, 16), T.h0_bundle(train_s, SMALL, 1, 16), T.h0_bundle(train_s, SMALL, 0, 16)
+    assert b0["info"]["first_epoch_order_hash"] == b0b["info"]["first_epoch_order_hash"], "same seed must give the same epoch order"
+    assert b0["info"]["first_epoch_order_hash"] != b1["info"]["first_epoch_order_hash"], "different seeds must give different epoch orders"
+    assert b0["info"]["fit_keys_hash"] == b1["info"]["fit_keys_hash"], "the fit rows must not depend on the seed"
+    return "inner split and folds are seed-free; epoch order differs between seeds 0 and 1 and repeats for seed 0; fit rows identical across seeds"
+
+
+@check("E3 Brier: closed-form values, loss equals the score at T=1, masked candidates carry no mass")
+def _():
+    K = 5
+    uni = [torch.zeros(K)]
+    assert abs(T.brier_score(uni, [2]) - (K - 1) / K) < 1e-6
+    sharp = [torch.tensor([50.0, 0, 0, 0, 0])]
+    assert T.brier_score(sharp, [0]) < 1e-9 and abs(T.brier_score(sharp, [1]) - 2.0) < 1e-6
+    lg = torch.tensor([[1.0, 2.0, -1e9, -1e9], [0.3, -0.2, 0.9, -1e9]]).masked_fill(torch.tensor([[0, 0, 1, 1], [0, 0, 0, 1]], dtype=torch.bool), float("-inf"))
+    y = torch.tensor([1, 2])
+    manual = T.brier_score([lg[0, :2], lg[1, :3]], [1, 2])
+    assert abs(float(T._brier_loss(lg, y)) - manual) < 1e-6
+    t2 = T.brier_score([lg[0, :2]], [1], temperature=2.0)
+    assert t2 != T.brier_score([lg[0, :2]], [1])
+    return "uniform = (K-1)/K, perfect = 0, wrong-and-sharp = 2, _brier_loss == brier_score on a masked batch, temperature changes it"
+
+
+@check("E4 CAL-only temperature: CAL rows only, the network is untouched, both arms use the same procedure; the Brier arm is a separate path and the primary stays cross-entropy")
+def _():
+    cal = synth(30, 3, True, 31, role="cal")
+    h0_hash = hashlib.sha256(b"".join(v.numpy().tobytes() for v in sysm.h0.state_dict().values())).hexdigest()
+    res_hash = hashlib.sha256(b"".join(v.numpy().tobytes() for v in sysm.res.state_dict().values())).hexdigest()
+    temps = T.cal_temperature(sysm, cal)
+    assert set(temps) == {"H0", "H2"} and all(isinstance(x, float) and x > 0 for x in temps.values())
+    assert hashlib.sha256(b"".join(v.numpy().tobytes() for v in sysm.h0.state_dict().values())).hexdigest() == h0_hash
+    assert hashlib.sha256(b"".join(v.numpy().tobytes() for v in sysm.res.state_dict().values())).hexdigest() == res_hash
+    expect_raises(AssertionError, lambda: T.cal_temperature(sysm, train_s[:6]))
+    expect_raises(AssertionError, lambda: T.cal_temperature(sysm, synth(6, 2, True, 32, role="locked")))
+    assert sysm.record["h0"]["loss"] == "ce" and sysm.record["residual"]["loss"] == "ce", "the primary arm must be cross-entropy"
+    sb = T.fit_system(train_s, SMALL, 0, 16, "mean", loss="brier")
+    assert sb.record["h0"]["loss"] == "brier" and sb.record["residual"]["loss"] == "brier"
+    assert any(not torch.equal(v, sb.h0.state_dict()[k]) for k, v in T.fit_system(train_s, SMALL, 0, 16, "mean").h0.state_dict().items()), "the Brier arm must differ from the primary"
+    expect_raises(AssertionError, lambda: T.fit_system(synth(12, 2, True, 9, role="cal"), SMALL, 0, 16, "mean", loss="brier"))
+    return f"temperatures {temps['H0']:.3f}/{temps['H2']:.3f} fitted on CAL rows only; weights hash-identical after fitting; TRAIN and LOCKED rows refused; primary loss ce, secondary brier; CAL rows refused by the Brier path too"
+
+
+@check("E5 screen: produces the registered record; the stop rule reads the registered 0.02 from thresholds.toml; the boundary behaves exactly")
+def _():
+    import tomllib
+    th = tomllib.load(open(ROOT / "configs/thresholds.toml", "rb"))["amendment_e_thresholds"]
+    assert SCR.stop_threshold() == th["pre_locked_screen_point_estimate_min"] == 0.02
+    assert SCR.pre_locked_stop(0.0199) is True and SCR.pre_locked_stop(0.02) is False and SCR.pre_locked_stop(0.05) is False and SCR.pre_locked_stop(-0.1) is True
+    old = dict(T.CFG)
+    T.CFG.update(max_epochs=6, min_epochs=2, patience=2, batch=16)
+    try:
+        r = SCR.run_screen(synth(25, 3, True, 41), (16, "mean"), T.SELECTION_SEEDS, log=lambda *a: None)
+    finally:
+        T.CFG.clear(); T.CFG.update(old)
+    for k in ("point", "ci95", "pre_locked_stop", "seeds", "cell", "n_decisions", "n_clusters", "h0_acc", "h2_acc"):
+        assert k in r, k
+    assert r["seeds"] == [0, 1, 2] and r["n_decisions"] == 75 and r["n_clusters"] == 25 and isinstance(r["pre_locked_stop"], bool)
+    assert r["pre_locked_stop"] == (r["point"] < 0.02) and r["point"] > 0.02, "a planted state signal must clear the screen"
+    expect_raises(AssertionError, lambda: SCR.run_screen(synth(8, 2, True, 42, role="cal"), (16, "mean")))
+    return f"synthetic planted signal: point {r['point']:+.3f}, CI [{r['ci95'][0]:+.3f}, {r['ci95'][1]:+.3f}], PRE_LOCKED_STOP={r['pre_locked_stop']}; boundary 0.0199/0.02/0.05/-0.1 correct; CAL rows refused"
+
+
+@check("E6 provenance: every required field present and correct (commit, trainer/spec hashes, datasets, embeddings, model revision, libraries, seeds)")
+def _():
+    cap = sorted((ROOT / "results/raw").glob("phase2-capture-verify-*.json"))[-1]
+    emb = sorted((ROOT / "results/raw").glob("textemb-t4-verify-*.json"))[-1]
+    pv = SCR.provenance(cap, emb)
+    assert re.fullmatch(r"[0-9a-f]{40}", pv["git"]["commit"]) and pv["git"]["dirty"] in (True, False)
+    assert set(pv["trainer_sha256"]) == {"v3_data", "v3_model", "v3_training", "v3_selection", "v3_screen"}
+    for m, h in pv["trainer_sha256"].items():
+        assert h == hashlib.sha256((ROOT / f"decision_head/{m}.py").read_bytes()).hexdigest()
+    assert set(pv["spec_sha256"]) == {"a5_v3_spec.toml", "thresholds.toml"}
+    assert set(pv["datasets"]["capture_all_files_sha256"]) == {"train", "cal"} and len(pv["datasets"]["manifest_train"]) == 64 and len(pv["datasets"]["decisions"]) == 64
+    assert len(pv["embedding"]["shard_hashes_sha256"]) == 64 and pv["embedding"]["texts"] == 12602 and pv["embedding"]["device"]["torch"] == "2.10.0+cu128"
+    assert pv["model_revision"].startswith("768f209d9e")
+    assert {"python", "torch", "cuda", "platform", "device"} <= set(pv["libraries"]) and pv["selection_seeds"] == [0, 1, 2] and pv["final_seeds"] == [0, 1, 2, 3, 4]
+    assert pv["schedule"]["lr"] == T.CFG["lr"] and pv["stop_threshold"] == 0.02
+    json.dumps(pv)
+    return f"provenance complete; commit {pv['git']['commit'][:8]} (dirty={pv['git']['dirty']}); trainer hashes equal the files; machine-readable"
+
+
+@check("E7 no accidental LOCKED read: no trainer, selection or screen source references the locked data; the locked access log did not grow during the audit")
+def _():
+    for m in ("v3_training", "v3_selection", "v3_screen", "v3_data", "v3_model"):
+        src = (ROOT / f"decision_head/{m}.py").read_text(encoding="utf-8")
+        code = "\n".join(l for l in src.splitlines() if not l.lstrip().startswith(("#", '"""')))
+        if m != "v3_data":
+            for bad in ("load_locked", "fresh-locked", "locked-v3", "locked_v3", "log_locked_access"):
+                assert bad not in code, (m, bad)
+    scr = (ROOT / "decision_head/v3_screen.py").read_text(encoding="utf-8")
+    assert re.findall(r"from decision_head\.v3_evaluation import (.*)", scr) == ["bootstrap"], "the screen may import only the pure bootstrap function from the evaluator"
+    after = len(LOCKED_LOG.read_text().splitlines()) if LOCKED_LOG.exists() else 0
+    assert after == locked_lines_before, (locked_lines_before, after)
+    return f"no locked reference in 5 trainer/screen sources; screen imports only 'bootstrap'; locked access log unchanged ({after} lines)"
+
+
+@check("E8 registered numbers agree with the code: 0.9999 text gate, 0.02 screen, tie 0.01, primary 0.05 and 0.04, repeat 0.0 and 0.999")
+def _():
+    import tomllib
+    th = tomllib.load(open(ROOT / "configs/thresholds.toml", "rb"))["amendment_e_thresholds"]
+    from decision_head import v3_evaluation as EV
+    assert th["text_embedding_batch_vs_alone_cos_min"] == 0.9999 and th["selection_tie_nll"] == SEL.TIE == 0.01
+    assert th["primary_min_effect"] == EV.MIN_EFFECT == 0.05 and th["primary_max_half_width"] == EV.MAX_HALF == 0.04
+    assert th["repeat_max_abs_diff"] == 0.0 and th["repeat_fallback_cos_min"] == 0.999 and th["screen_seeds"] == list(T.SELECTION_SEEDS)
+    return "thresholds.toml [amendment_e_thresholds] equals the constants the code uses"
+
+
+@check("E9 job-split runs (what the two-GPU workers do) give exactly the single-process results: selection per (seed, projection) and the screen per (fold, seed)")
+def _():
+    cells = [(16, "single"), (16, "mean")]
+    small = synth(20, 3, True, 51)
+    ref = SEL.dev_scores_multi(small, cfg=SMALL, cells=cells, log=lambda *a: None)
+    per = {s_: SEL.dev_scores(small, SMALL, s_, "cpu", [c for c in cells if c[0] == 16], lambda *a: None) for s_ in (0, 1, 2)}
+    assert per == {s_: ref["per_seed"][s_] for s_ in (0, 1, 2)}, "per-seed job results must equal dev_scores_multi"
+    mean = {c: sum(per[s_][c] for s_ in (0, 1, 2)) / 3 for c in cells}
+    assert mean == ref["mean"]
+    old = dict(T.CFG)
+    T.CFG.update(max_epochs=6, min_epochs=2, patience=2, batch=16)
+    try:
+        sc = synth(25, 3, True, 52)
+        one = SCR.run_screen(sc, (16, "mean"), T.SELECTION_SEEDS, log=lambda *a: None)
+        jobs = {(f, s_): SCR.screen_job(sc, f, s_, (16, "mean")) for f in range(a5v2.S["cv_folds"]) for s_ in T.SELECTION_SEEDS}
+        agg = SCR.screen_aggregate(jobs, T.SELECTION_SEEDS, (16, "mean"))
+        expect_raises(AssertionError, lambda: SCR.screen_aggregate({k: v for k, v in jobs.items() if k != (0, 0)}, T.SELECTION_SEEDS, (16, "mean")))
+    finally:
+        T.CFG.clear(); T.CFG.update(old)
+    assert agg == one, "job-split screen must equal the single-process screen"
+    return f"selection per-seed jobs equal dev_scores_multi (cells {len(cells)}); {len(jobs)} screen jobs aggregate to the identical record (point {agg['point']:+.3f}); a missing job is refused"
+
+
+@check("E10 device placement without a GPU: every forward and loss path runs with the modules and inputs on the meta device (a tensor created without a device raises)")
+def _():
+    from decision_head import v3_model as M
+    dv = "meta"
+    n = 0
+    h0 = M.H0Net(T.NF if hasattr(T, "NF") else 80, 16, 3, 8, 0.1).to(dv)
+    x, te, mask = torch.zeros(2, 5, 80, device=dv), torch.zeros(2, 5, 3, 16, device=dv), torch.ones(2, 5, dtype=torch.bool, device=dv)
+    s0 = h0(x, te, mask); n += 1
+    y = torch.zeros(2, dtype=torch.long, device=dv)
+    for t_ in ("single", "mean", "learned"):
+        res = M.ResidualNet(16, 3, 8, t_, 0.1, 1).to(dv)
+        r = res(torch.zeros(2, 3, 16, device=dv), torch.zeros(2, 5, 3, 16, device=dv), mask)
+        lg = M.h2_logits(s0, r, mask)
+        torch.nn.functional.cross_entropy(lg, y); T._brier_loss(lg, y); n += 1
+    return f"H0Net, ResidualNet (single, mean, learned), h2_logits, cross-entropy and Brier ran on the meta device ({n} forward paths): no tensor is created on the wrong device"
+
+
 # ---------------------------------------------------------------- result
-srcs = {m: hashlib.sha256((ROOT / f"decision_head/{m}.py").read_bytes()).hexdigest() for m in TRAINER + ["v3_evaluation"]}
+srcs = {m: hashlib.sha256((ROOT / f"decision_head/{m}.py").read_bytes()).hexdigest() for m in TRAINER + ["v3_evaluation", "v3_screen"]}
 out = dict(created=datetime.now(timezone.utc).isoformat(), passed=all(r["passed"] for r in report if r["passed"] is not None) and not any(r["passed"] is None for r in report),
            complete=not any(r["passed"] is None for r in report), pending=[r["check"] for r in report if r["passed"] is None], n_checks=len(report), checks=report, trainer_sha256=srcs,
            interpretation_notes=["early stopping monitors NLL on an inner trajectory-grouped 10% split of the training rows (not in the spec)",
                                  "the scored candidate sets exclude the NONE option (it is captured; the registered sampler never contains it)",
-                                 "H2_secondary (H0 and H2 trained from scratch together) is not implemented in this step"])
+                                 "H2_secondary (H0 and H2 trained from scratch together) is not implemented in this step",
+                                 "amendment e9 temperature: one scalar per arm fitted by the same procedure on that arm's CAL logits (the amendment says one scalar applied identically to H0 and H2; accuracy is invariant to it)"])
 p = ROOT / ("results/raw/v3-trainer-audit-%s.json" % datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S"))
 with open(p, "x", encoding="utf-8") as f:
     json.dump(out, f, indent=1, default=str)

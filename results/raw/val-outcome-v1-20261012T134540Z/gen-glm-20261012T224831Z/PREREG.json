@@ -1,0 +1,28 @@
+{
+ "written": "2026-10-13, before any GLM-5.3 request for a VAL decision was sent",
+ "approved_by": "user, chat 2026-10-13: GO GLM-5.3 generation for the five pilot problems (existing blind VAL prompts, full reasoning, five independent candidates per problem; generator, prompt, sampling settings and budget fixed); WSL execution; Kaggle feature capture of the five problems' contexts and candidates only; no automatic expansion beyond five",
+ "pilot": "the 5 pilot decisions of MANIFEST.json (hash order, at most one per trajectory), unchanged from the Qwen pilot",
+ "prompt": "requests_all_23_not_uploaded.jsonl.gz messages unchanged (system + user, protocol v3t blind next-turn request; Fable's action not in it)",
+ "generation": {
+  "model": "z-ai/glm-5.3",
+  "temperature": 0.5,
+  "top_p": 1.0,
+  "reasoning_effort": "max",
+  "stream": true,
+  "max_tokens": 65536,
+  "samples": 5,
+  "why": "the project's glm_max64 setting (tools/judge_qual_v1.py): full reasoning, streamed past the gateway's 300 s non-streaming limit, 65,536 tokens because 32,768 truncated 11 of 131 reasoning answers on 2026-10-11"
+ },
+ "call_logic": "user's fixed NVIDIA logic via judge_qual_v1.run_jobs: up to 5 requests in flight per key, <= 39 sends per key per minute, a rate-limit response cools that key 60 s and re-queues the request; every send logged; a completed id is never resent",
+ "budget": "25 samples (5 decisions x 5); a sample whose attempt gets no HTTP 200 is retried under a new attempt id (user: do not stop until done; hard stop 20 attempts); rate-limit rejections re-queued; a 200 answer is final; spend Rs 0",
+ "candidate / validity / execution / outcome": "exactly as tools/cal_outcome_v1.py PREREG (decoded by the v3t decoder from the answer text; finish_reason other than stop = not finished = INVALID)",
+ "selectors (fixed now; none chosen on VAL)": {
+  "glm_first": "the candidate from sample 1",
+  "laya_v4": "coding head + adapter, the 3 VAL-configuration runs of the head-swap experiment rebuilt with saved weights (pick-for-pick gate); mean selection success over the 3 seeds",
+  "random_head_v4": "the 9 VAL-configuration random-head runs rebuilt likewise; mean selection success over all 9 (no run chosen)",
+  "laya_baseline_v1": "secondary: the 3 frozen Fable-trained adapters (334 v3 pools); mean over the 3",
+  "linear_probe": "refitted deterministically on TRAIN pools only (the 303 v4 pools for the primary comparison)",
+  "random_pick": "exact expectation of a uniform pick"
+ },
+ "report": "valid candidate rate, oracle rate (>= 1 passing candidate), first-candidate success, each selector's success; informative decisions (>= 1 pass and >= 1 fail) separately. Feasibility pilot: no expansion decision from accuracy on five problems"
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "J1-01",
+    "difficulty": "easy",
+    "title": "ASCII palindrome filter"
+  },
+  {
+    "id": "J1-02",
+    "difficulty": "easy",
+    "title": "Gregorian leap year"
+  },
+  {
+    "id": "J1-03",
+    "difficulty": "easy",
+    "title": "Multiplicative persistence"
+  },
+  {
+    "id": "J1-04",
+    "difficulty": "easy",
+    "title": "Integer to Roman numeral"
+  },
+  {
+    "id": "J1-05",
+    "difficulty": "easy",
+    "title": "24-hour clock to 12-hour clock"
+  },
+  {
+    "id": "J1-06",
+    "difficulty": "easy",
+    "title": "Validate ISBN-10"
+  },
+  {
+    "id": "J1-07",
+    "difficulty": "easy",
+    "title": "Transpose rectangular matrix"
+  },
+  {
+    "id": "J1-08",
+    "difficulty": "easy",
+    "title": "Parse unsigned binary number"
+  },
+  {
+    "id": "J1-09",
+    "difficulty": "easy",
+    "title": "ASCII Caesar cipher"
+  },
+  {
+    "id": "J1-10",
+    "difficulty": "easy",
+    "title": "Weekday of ISO date"
+  },
+  {
+    "id": "J1-11",
+    "difficulty": "medium",
+    "title": "Parse one CSV record"
+  },
+  {
+    "id": "J1-12",
+    "difficulty": "medium",
+    "title": "IPv4 CIDR network address"
+  },
+  {
+    "id": "J1-13",
+    "difficulty": "medium",
+    "title": "Clockwise spiral matrix traversal"
+  },
+  {
+    "id": "J1-14",
+    "difficulty": "medium",
+    "title": "Rotate square matrix clockwise"
+  },
+  {
+    "id": "J1-15",
+    "difficulty": "medium",
+    "title": "Evaluate polynomial in descending coefficient order"
+  },
+  {
+    "id": "J1-16",
+    "difficulty": "medium",
+    "title": "Repeatedly remove adjacent K-groups"
+  },
+  {
+    "id": "J1-17",
+    "difficulty": "medium",
+    "title": "Josephus circle winner"
+  },
+  {
+    "id": "J1-18",
+    "difficulty": "medium",
+    "title": "Count subarrays with target sum"
+  },
+  {
+    "id": "J1-19",
+    "difficulty": "medium",
+    "title": "Count obstacle-avoiding right/down paths"
+  },
+  {
+    "id": "J1-20",
+    "difficulty": "medium",
+    "title": "Exact-word and prefix queries"
+  },
+  {
+    "id": "J1-21",
+    "difficulty": "medium",
+    "title": "Multiply integer matrices"
+  },
+  {
+    "id": "J1-22",
+    "difficulty": "medium",
+    "title": "Validate partially filled Sudoku"
+  },
+  {
+    "id": "J1-23",
+    "difficulty": "medium",
+    "title": "Critical path duration in a DAG"
+  },
+  {
+    "id": "J1-24",
+    "difficulty": "medium",
+    "title": "Evaluate plus/minus parentheses expression"
+  },
+  {
+    "id": "J1-25",
+    "difficulty": "medium",
+    "title": "Restore possible dotted IPv4 addresses"
+  },
+  {
+    "id": "J1-26",
+    "difficulty": "medium",
+    "title": "Count distinct palindromic substrings"
+  },
+  {
+    "id": "J1-27",
+    "difficulty": "medium",
+    "title": "Maximum XOR of two elements"
+  },
+  {
+    "id": "J1-28",
+    "difficulty": "medium",
+    "title": "Count per-user events in an inclusive time window"
+  },
+  {
+    "id": "J1-29",
+    "difficulty": "medium",
+    "title": "Minimum jumps to last index"
+  },
+  {
+    "id": "J1-30",
+    "difficulty": "medium",
+    "title": "Area covered by axis-aligned rectangles"
+  },
+  {
+    "id": "J1-31",
+    "difficulty": "hard",
+    "title": "Multiply arbitrarily long decimal strings"
+  },
+  {
+    "id": "J1-32",
+    "difficulty": "hard",
+    "title": "Count array inversions"
+  },
+  {
+    "id": "J1-33",
+    "difficulty": "hard",
+    "title": "Range additions and range sums"
+  },
+  {
+    "id": "J1-34",
+    "difficulty": "hard",
+    "title": "Maximum bipartite matching size"
+  },
+  {
+    "id": "J1-35",
+    "difficulty": "hard",
+    "title": "Burst balloons for maximum coins"
+  },
+  {
+    "id": "J1-36",
+    "difficulty": "hard",
+    "title": "Count constrained N-Queens placements"
+  },
+  {
+    "id": "J1-37",
+    "difficulty": "hard",
+    "title": "All parenthesized arithmetic results"
+  },
+  {
+    "id": "J1-38",
+    "difficulty": "hard",
+    "title": "Count distinct subsequence embeddings"
+  },
+  {
+    "id": "J1-39",
+    "difficulty": "hard",
+    "title": "Longest palindromic subsequence length"
+  },
+  {
+    "id": "J1-40",
+    "difficulty": "hard",
+    "title": "Max-profit nonoverlapping job schedule"
+  }
+]

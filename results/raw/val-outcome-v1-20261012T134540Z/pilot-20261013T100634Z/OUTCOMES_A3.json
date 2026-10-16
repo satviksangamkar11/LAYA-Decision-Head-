@@ -1,0 +1,145 @@
+[
+ {
+  "decision_id": "fable5:py-event-sched:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-event-sched:1",
+  "cid": 0,
+  "first_sample": 2,
+  "calls": [],
+  "protected": [
+   "test_scheduler.py"
+  ],
+  "kind": "not_a_code_change",
+  "outcome": "FAIL",
+  "exits": null
+ },
+ {
+  "decision_id": "fable5:py-event-sched:1",
+  "cid": 1,
+  "first_sample": 3,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_scheduler.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "all scheduler checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-trie-suggest:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:py-trie-suggest:1",
+  "cid": 0,
+  "first_sample": 2,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_autocomplete.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_suggest_ranked_by_weight\nok   test_suggest_limit_and_default\nok   test_exact_term_is_its_own_match\nok   test_weights_accumulate\nok   test_case_and_whitespace_normalization\nok   test_insert_validation\nok   test_delete_exact_only\nok   test_delete_then_reinsert_starts_fresh\nok   test_suggest_unknown_prefix\n\nall 9 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:py-trie-suggest:1",
+  "cid": 1,
+  "first_sample": 4,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_autocomplete.py"
+  ],
+  "kind": "executed",
+  "outcome": "PASS",
+  "exits": [
+   0,
+   0
+  ],
+  "tail": "ok   test_suggest_ranked_by_weight\nok   test_suggest_limit_and_default\nok   test_exact_term_is_its_own_match\nok   test_weights_accumulate\nok   test_case_and_whitespace_normalization\nok   test_insert_validation\nok   test_delete_exact_only\nok   test_delete_then_reinsert_starts_fresh\nok   test_suggest_unknown_prefix\n\nall 9 checks passed\n"
+ },
+ {
+  "decision_id": "fable5:ps-shiftbrief:2",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:ps-shiftbrief:2",
+  "cid": 0,
+  "first_sample": 5,
+  "calls": [
+   "Write",
+   "Bash"
+  ],
+  "protected": [
+   "test_briefkit.ps1"
+  ],
+  "kind": "executed",
+  "outcome": "FAIL",
+  "exits": [
+   1,
+   1
+  ],
+  "tail": "isk-slow\n0000005 INFO  ams/kiosk-007 9ms ok\n0000006 WARN  lis/kiosk-118 77ms fan-high\nentries: 6\nskipped: 2\nlevel FAIL: 1\nlevel INFO: 2\nlevel WARN: 2\nlevel warn: 1\n--- empty count=1 type=String ---\nshift brief\nentries: 0\nskipped: 0\n--- missing ERR briefkit: log not found: /work/_t/no-such.log ---\n--- big count=1 len=21166347 sha256=d4286ab3b8e1c30e952d9a662bba8a40ddb2221bea9b06a495551f31bd566a51 ---\n\n--- actual ---\n\n----------------\n3 of 3 checks failed\n\nreal\t0m2.057s\nuser\t0m2.067s\nsys\t0m0.384s\n"
+ },
+ {
+  "decision_id": "fable5:ps-loadsheet:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ },
+ {
+  "decision_id": "fable5:ps-fleetpatch:1",
+  "cid": null,
+  "kind": "baseline",
+  "exits": [
+   1,
+   1
+  ],
+  "outcome": "FAIL",
+  "reproduces_recorded_failure": true
+ }
+]

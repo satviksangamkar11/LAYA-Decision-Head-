@@ -1,0 +1,26 @@
+{
+ "instance_id": "dwavesystems__dwave-system-373",
+ "repo": "dwavesystems/dwave-system",
+ "base_commit": "01d3c061440d94c22234dbf99ecd277def4259b9",
+ "trajectory_id": "chatcmpl-ddf49680b41d817a0f396d32874dc5ae",
+ "workspace_dir": "/workspace/dwavesystems__dwave-system__1.3",
+ "prefix_steps": 3,
+ "decision": {
+  "kind": "test",
+  "index": 3
+ },
+ "setup_task_dir_bytes_peak": 4040867,
+ "setup": {
+  "ok": false,
+  "exit": 2,
+  "seconds": 6.0,
+  "python": "3.6.13",
+  "pinned_requirements": 35,
+  "pip_freeze_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "pip_freeze_lines": 0,
+  "python_version_out": null
+ },
+ "qualified": false,
+ "reason": "setup failed (exit 2)",
+ "wall_seconds": 6.0
+}

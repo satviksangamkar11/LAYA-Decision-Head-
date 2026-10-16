@@ -1,0 +1,11 @@
+{
+ "shard": 1,
+ "device": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "agent_dtype": "torch.float16",
+ "items": 9387,
+ "done_before": 0,
+ "seconds": 4243,
+ "max_prob_diff_vs_library": 5.002017642541379e-05,
+ "nonfinite_items": 0
+}

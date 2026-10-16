@@ -1,0 +1,814 @@
+[
+ {
+  "instance": "PyCQA__pyflakes-754",
+  "repo": "PyCQA/pyflakes",
+  "depth": 3,
+  "n_runs": 13,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/PyCQA__pyflakes__3.0 && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 10,
+    "resolved": 5
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/PyCQA__pyflakes__3.0 && find . -name \\\"*test*\\\" -type d\"}",
+    "category": "search",
+    "runs": 3,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/PyCQA__pyflakes__3.0\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/PyCQA__pyflakes__3.0, excluding hidden items:\n/workspace/PyCQA__pyflakes__3.0/\n/workspace/PyCQA__pyflakes__3.0/AUTHORS\n/workspace/PyCQA__pyflakes__3.0/LICENSE\n/workspace/PyC"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/PyCQA__pyflakes__3.0/README.rst\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/PyCQA__pyflakes__3.0/README.rst:\n     1\t========\n     2\tPyflakes\n     3\t========\n     4\t\n     5\tA simple program which checks Python source files for errors.\n     6\t\n     7\tPyflakes analyz"
+   }
+  ]
+ },
+ {
+  "instance": "mwouts__itables-352",
+  "repo": "mwouts/itables",
+  "depth": 1,
+  "n_runs": 21,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/mwouts__itables__2.2\"}",
+    "category": "read",
+    "runs": 17,
+    "resolved": 11
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/mwouts__itables__2.2 && pwd\"}",
+    "category": "other",
+    "runs": 4,
+    "resolved": 4
+   }
+  ],
+  "types": [
+   "other",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/mwouts__itables__2.2/\n/workspace/mwouts__itables__2.2/LICENSE\n/workspace/mwouts__itables__2.2/README.md\n/workspace/mwouts__it"
+   }
+  ]
+ },
+ {
+  "instance": "iterative__dvc-1479",
+  "repo": "iterative/dvc",
+  "depth": 1,
+  "n_runs": 19,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/iterative__dvc__0.23 && pwd\"}",
+    "category": "other",
+    "runs": 10,
+    "resolved": 9
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/iterative__dvc__0.23\"}",
+    "category": "read",
+    "runs": 9,
+    "resolved": 4
+   }
+  ],
+  "types": [
+   "other",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/iterative__dvc__0.23/\n/workspace/iterative__dvc__0.23/=0.11.0\n/workspace/iterative__dvc__0.23/=1.14.18\n/workspace/iterative__"
+   }
+  ]
+ },
+ {
+  "instance": "tobymao__sqlglot-1340",
+  "repo": "tobymao/sqlglot",
+  "depth": 1,
+  "n_runs": 10,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/tobymao__sqlglot__11.4\"}",
+    "category": "read",
+    "runs": 7,
+    "resolved": 5
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/tobymao__sqlglot__11.4 && pwd\"}",
+    "category": "other",
+    "runs": 3,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "other",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/tobymao__sqlglot__11.4/\n/workspace/tobymao__sqlglot__11.4/CHANGELOG.md\n/workspace/tobymao__sqlglot__11.4/CONTRIBUTING.md\n/wor"
+   }
+  ]
+ },
+ {
+  "instance": "tobymao__sqlglot-784",
+  "repo": "tobymao/sqlglot",
+  "depth": 1,
+  "n_runs": 7,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/tobymao__sqlglot__10.1 && pwd\"}",
+    "category": "other",
+    "runs": 4,
+    "resolved": 0
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/tobymao__sqlglot__10.1\"}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "other",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/tobymao__sqlglot__10.1/\n/workspace/tobymao__sqlglot__10.1/CHANGELOG.md\n/workspace/tobymao__sqlglot__10.1/CONTRIBUTING.md\n/wor"
+   }
+  ]
+ },
+ {
+  "instance": "vertica__vertica-python-372",
+  "repo": "vertica/vertica-python",
+  "depth": 5,
+  "n_runs": 8,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/vertica__vertica-python__0.10/requirements-dev.txt\"}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 2
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/vertica__vertica-python__0.10 && find . -name \\\"*.py\\\" -path \\\"./vertica_python/tests/*\\\" | head -10\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/vertica__vertica-python__0.10 && python -m pytest vertica_python/tests/unit_tests/test_sql_literal.py -v\"}",
+    "category": "test",
+    "runs": 1,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/vertica__vertica-python__0.10 && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 3,
+    "resolved": 3
+   }
+  ],
+  "types": [
+   "read",
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/vertica__vertica-python__0.10/vertica_python/tests\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/vertica__vertica-python__0.10/vertica_python/tests, excluding hidden items:\n/workspace/vertica__vertica-python__0.10/vertica_python/tests/\n/workspace/vertica__vertica-python"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/vertica__vertica-python__0.10/tox.ini\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/vertica__vertica-python__0.10/tox.ini:\n     1\t[tox]\n     2\tenvlist = py27,py34,py35,py36,py37,py38\n     3\t\n     4\t[testenv]\n     5\tpassenv = *\n     6\tcommands =\n     7\t    pytest {posargs}"
+   }
+  ]
+ },
+ {
+  "instance": "skypyproject__skypy-301",
+  "repo": "skypyproject/skypy",
+  "depth": 3,
+  "n_runs": 10,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/skypyproject__skypy__0.2 && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 3,
+    "resolved": 0
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/skypyproject__skypy__0.2 && pytest --pyargs skypy -v\"}",
+    "category": "test",
+    "runs": 6,
+    "resolved": 2
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/skypyproject__skypy__0.2 && find . -name \\\"*test*\\\" -type f | head -10\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/skypyproject__skypy__0.2 && pwd\"}",
+    "obs": "/workspace/skypyproject__skypy__0.2\n[The command completed with exit code 0.]\n[Current working directory: /workspace/skypyproject__skypy__0.2]\n[Python interpreter: /opt/conda/envs/testbed/bin/python]\n[Command finished with exit code 0]"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/skypyproject__skypy__0.2/README.rst\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/skypyproject__skypy__0.2/README.rst:\n     1\t===========================================\n     2\tSkyPy: A package for modelling the Universe\n     3\t=========================================="
+   }
+  ]
+ },
+ {
+  "instance": "BlueBrain__NeuroM-990",
+  "repo": "BlueBrain/NeuroM",
+  "depth": 1,
+  "n_runs": 6,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/BlueBrain__NeuroM__3.1 && pwd\"}",
+    "category": "other",
+    "runs": 3,
+    "resolved": 1
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/BlueBrain__NeuroM__3.1\"}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "other",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/BlueBrain__NeuroM__3.1/\n/workspace/BlueBrain__NeuroM__3.1/AUTHORS.md\n/workspace/BlueBrain__NeuroM__3.1/CHANGELOG.rst\n/workspa"
+   }
+  ]
+ },
+ {
+  "instance": "tox-dev__tox-980",
+  "repo": "tox-dev/tox",
+  "depth": 0,
+  "n_runs": 15,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "category": "read",
+    "runs": 9,
+    "resolved": 1
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/tox-dev__tox__3.3\"}",
+    "category": "read",
+    "runs": 6,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "read"
+  ],
+  "multi_type": false,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": false,
+  "history_tail": []
+ },
+ {
+  "instance": "planetlabs__planet-client-python-989",
+  "repo": "planetlabs/planet-client-python",
+  "depth": 2,
+  "n_runs": 9,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/planetlabs__planet-client-python__2.11/noxfile.py\"}",
+    "category": "read",
+    "runs": 2,
+    "resolved": 0
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/planetlabs__planet-client-python__2.11/CONTRIBUTING.md\"}",
+    "category": "read",
+    "runs": 7,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read"
+  ],
+  "multi_type": false,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/planetlabs__planet-client-python__2.11\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/planetlabs__planet-client-python__2.11, excluding hidden items:\n/workspace/planetlabs__planet-client-python__2.11/\n/workspace/planetlabs__planet-client-python__2.11/CHANGES."
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/planetlabs__planet-client-python__2.11/README.md\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/planetlabs__planet-client-python__2.11/README.md:\n     1\t# Planet SDK for Python\n     2\t\n     3\t[![Build Status](https://github.com/planetlabs/planet-client-python/actions/workflows/test.y"
+   }
+  ]
+ },
+ {
+  "instance": "mir-dataset-loaders__mirdata-249",
+  "repo": "mir-dataset-loaders/mirdata",
+  "depth": 0,
+  "n_runs": 14,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "category": "read",
+    "runs": 11,
+    "resolved": 4
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/mir-dataset-loaders__mirdata__0.2\"}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "read"
+  ],
+  "multi_type": false,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": false,
+  "history_tail": []
+ },
+ {
+  "instance": "reata__sqllineage-494",
+  "repo": "reata/sqllineage",
+  "depth": 0,
+  "n_runs": 6,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/reata__sqllineage__1.4\"}",
+    "category": "read",
+    "runs": 4,
+    "resolved": 0
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "category": "read",
+    "runs": 2,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read"
+  ],
+  "multi_type": false,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": true,
+  "history_tail": []
+ },
+ {
+  "instance": "nipy__nipype-2757",
+  "repo": "nipy/nipype",
+  "depth": 2,
+  "n_runs": 5,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/nipy__nipype__1.1/README.rst\"}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 2
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/nipy__nipype__1.1/README.rst\", \"view_range\": [1, 50]}",
+    "category": "read",
+    "runs": 2,
+    "resolved": 2
+   }
+  ],
+  "types": [
+   "read"
+  ],
+  "multi_type": false,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace, excluding hidden items:\n/workspace/\n/workspace/nipy__nipype__1.1/\n/workspace/nipy__nipype__1.1/CODE_OF_CONDUCT.md\n/workspace/nipy__nipype__1.1/CONTRIBUTING.md\n/workspace/ni"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/nipy__nipype__1.1\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/nipy__nipype__1.1, excluding hidden items:\n/workspace/nipy__nipype__1.1/\n/workspace/nipy__nipype__1.1/CODE_OF_CONDUCT.md\n/workspace/nipy__nipype__1.1/CONTRIBUTING.md\n/worksp"
+   }
+  ]
+ },
+ {
+  "instance": "tox-dev__tox-2905",
+  "repo": "tox-dev/tox",
+  "depth": 0,
+  "n_runs": 12,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "category": "read",
+    "runs": 11,
+    "resolved": 3
+   },
+   {
+    "action": "task_tracker {\"command\": \"plan\", \"task_list\": [{\"id\": \"phase1\", \"notes\": \"Analyze the issue description to understand the core problem with indirect extra-dependencies\", \"status\": \"in_progress\", \"title\": \"Phase 1: Reading and Understanding ",
+    "category": "plan",
+    "runs": 1,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "plan",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": false,
+  "strong": false,
+  "overlap": false,
+  "history_tail": []
+ },
+ {
+  "instance": "tobymao__sqlglot-4355",
+  "repo": "tobymao/sqlglot",
+  "depth": 0,
+  "n_runs": 7,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/tobymao__sqlglot__25.29\"}",
+    "category": "read",
+    "runs": 2,
+    "resolved": 2
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace\"}",
+    "category": "read",
+    "runs": 4,
+    "resolved": 2
+   },
+   {
+    "action": "task_tracker {\"command\": \"plan\", \"task_list\": [{\"id\": \"phase1_reading\", \"notes\": \"Analyzing the issue description to understand what needs to be fixed\", \"status\": \"in_progress\", \"title\": \"Reading and understanding the problem\"}, {\"id\": \"pha",
+    "category": "plan",
+    "runs": 1,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "plan",
+   "read"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": true,
+  "history_tail": []
+ },
+ {
+  "instance": "iterative__datachain-387",
+  "repo": "iterative/datachain",
+  "depth": 2,
+  "n_runs": 7,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/iterative__datachain__0.3/src/datachain/cli.py\", \"view_range\": [840, 890]}",
+    "category": "read",
+    "runs": 3,
+    "resolved": 0
+   },
+   {
+    "action": "execute_bash {\"command\": \"find /workspace/iterative__datachain__0.3 -name \\\"*.py\\\" -exec grep -l \\\"metrics\\\" {} \\\\;\"}",
+    "category": "search",
+    "runs": 3,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"find /workspace/iterative__datachain__0.3 -name \\\"*.py\\\" | xargs grep -l \\\"metrics\\\" | head -10\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "read",
+   "search"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": true,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/iterative__datachain__0.3\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/iterative__datachain__0.3, excluding hidden items:\n/workspace/iterative__datachain__0.3/\n/workspace/iterative__datachain__0.3/CODE_OF_CONDUCT.rst\n/workspace/iterative__datac"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/iterative__datachain__0.3/src/datachain/cli.py\", \"view_range\": [860, 880]}",
+    "obs": "Here's the result of running `cat -n` on /workspace/iterative__datachain__0.3/src/datachain/cli.py:\n   860\t        catalog.metastore.set_job_status(\n   861\t            job_id,\n   862\t            JobStatus.FAILED,\n   863\t            error_me"
+   }
+  ]
+ },
+ {
+  "instance": "beetbox__beets-3982",
+  "repo": "beetbox/beets",
+  "depth": 3,
+  "n_runs": 3,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/beetbox__beets__1.4 && find . -name \\\"*test*\\\" -type f | head -10\"}",
+    "category": "search",
+    "runs": 2,
+    "resolved": 2
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/beetbox__beets__1.4 && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 1,
+    "resolved": 0
+   }
+  ],
+  "types": [
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": false,
+  "strong": false,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/beetbox__beets__1.4 && pwd\"}",
+    "obs": "/workspace/beetbox__beets__1.4\n[The command completed with exit code 0.]\n[Current working directory: /workspace/beetbox__beets__1.4]\n[Python interpreter: /opt/conda/envs/testbed/bin/python]\n[Command finished with exit code 0]"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/beetbox__beets__1.4/README.rst\", \"view_range\": [1, 50]}",
+    "obs": "Here's the result of running `cat -n` on /workspace/beetbox__beets__1.4/README.rst:\n     1\t.. image:: https://img.shields.io/pypi/v/beets.svg\n     2\t    :target: https://pypi.python.org/pypi/beets\n     3\t\n     4\t.. image:: https://img.shiel"
+   }
+  ]
+ },
+ {
+  "instance": "wireservice__csvkit-770",
+  "repo": "wireservice/csvkit",
+  "depth": 3,
+  "n_runs": 8,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/wireservice__csvkit__1.0/csvkit/utilities\"}",
+    "category": "read",
+    "runs": 4,
+    "resolved": 2
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/wireservice__csvkit__1.0 && find . -name \\\"*csvstat*\\\" -type f\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/wireservice__csvkit__1.0 && find . -name \\\"*.py\\\" | grep -E \\\"(test|spec)\\\" | head -10\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 0
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/wireservice__csvkit__1.0 && python -m pytest tests/ -v --tb=short | head -20\"}",
+    "category": "test",
+    "runs": 1,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/wireservice__csvkit__1.0 && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 1,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read",
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": false,
+  "strong": false,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/wireservice__csvkit__1.0\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/wireservice__csvkit__1.0, excluding hidden items:\n/workspace/wireservice__csvkit__1.0/\n/workspace/wireservice__csvkit__1.0/AUTHORS.rst\n/workspace/wireservice__csvkit__1.0/CH"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/wireservice__csvkit__1.0/README.rst\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/wireservice__csvkit__1.0/README.rst:\n     1\t.. image:: https://secure.travis-ci.org/wireservice/csvkit.png\n     2\t    :target: https://travis-ci.org/wireservice/csvkit\n     3\t    :alt: Bui"
+   }
+  ]
+ },
+ {
+  "instance": "ettoreleandrotognoli__python-cdi-28",
+  "repo": "ettoreleandrotognoli/python-cdi",
+  "depth": 7,
+  "n_runs": 5,
+  "children": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/ettoreleandrotognoli__python-cdi__0.1/pycdi/shortcuts.py\"}",
+    "category": "read",
+    "runs": 1,
+    "resolved": 0
+   },
+   {
+    "action": "execute_bash {\"command\": \"find /workspace/ettoreleandrotognoli__python-cdi__0.1/tests -name \\\"*.py\\\" | head -10\"}",
+    "category": "search",
+    "runs": 3,
+    "resolved": 3
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/ettoreleandrotognoli__python-cdi__0.1/tests\"}",
+    "category": "read",
+    "runs": 1,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read",
+   "search"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": false,
+  "strong": false,
+  "overlap": true,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/ettoreleandrotognoli__python-cdi__0.1/pycdi/core.py\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/ettoreleandrotognoli__python-cdi__0.1/pycdi/core.py:\n     1\t# -*- encoding: utf-8 -*-\n     2\timport collections\n     3\timport inspect\n     4\t\n     5\tfrom six import string_types\n     6\t\n  "
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/ettoreleandrotognoli__python-cdi__0.1/pycdi/utils.py\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/ettoreleandrotognoli__python-cdi__0.1/pycdi/utils.py:\n     1\t# -*- encoding: utf-8 -*-\n     2\timport glob\n     3\timport random\n     4\timport sys\n     5\t\n     6\timport os\n     7\tfrom six im"
+   }
+  ]
+ },
+ {
+  "instance": "florimondmanca__fountain-lang-7",
+  "repo": "florimondmanca/fountain-lang",
+  "depth": 4,
+  "n_runs": 5,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/florimondmanca__fountain-lang__unknown && python -m pytest --version\"}",
+    "category": "test",
+    "runs": 2,
+    "resolved": 0
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/florimondmanca__fountain-lang__unknown/scripts/test\"}",
+    "category": "read",
+    "runs": 2,
+    "resolved": 1
+   },
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/florimondmanca__fountain-lang__unknown && ls -la\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read",
+   "search",
+   "test"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": true,
+  "strong": false,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/florimondmanca__fountain-lang__unknown/README.md\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/florimondmanca__fountain-lang__unknown/README.md:\n     1\t# fountain-lang\n     2\t\n     3\t[![Build Status](https://dev.azure.com/florimondmanca/public/_apis/build/status/florimondmanca.fount"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/florimondmanca__fountain-lang__unknown/src/fountain\"}",
+    "obs": "Here's the files and directories up to 2 levels deep in /workspace/florimondmanca__fountain-lang__unknown/src/fountain, excluding hidden items:\n/workspace/florimondmanca__fountain-lang__unknown/src/fountain/\n/workspace/florimondmanca__fount"
+   }
+  ]
+ },
+ {
+  "instance": "vertexproject__synapse-381",
+  "repo": "vertexproject/synapse",
+  "depth": 3,
+  "n_runs": 2,
+  "children": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/vertexproject__synapse__0.0 && find . -name \\\"*.py\\\" -path \\\"*/test*\\\" | head -10\"}",
+    "category": "search",
+    "runs": 1,
+    "resolved": 0
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/vertexproject__synapse__0.0/setup.py\"}",
+    "category": "read",
+    "runs": 1,
+    "resolved": 1
+   }
+  ],
+  "types": [
+   "read",
+   "search"
+  ],
+  "multi_type": true,
+  "single": true,
+  "repeated": false,
+  "strong": false,
+  "overlap": false,
+  "history_tail": [
+   {
+    "action": "execute_bash {\"command\": \"cd /workspace/vertexproject__synapse__0.0 && pwd\"}",
+    "obs": "/workspace/vertexproject__synapse__0.0\n[The command completed with exit code 0.]\n[Current working directory: /workspace/vertexproject__synapse__0.0]\n[Python interpreter: /opt/conda/envs/testbed/bin/python]\n[Command finished with exit code 0"
+   },
+   {
+    "action": "str_replace_editor {\"command\": \"view\", \"path\": \"/workspace/vertexproject__synapse__0.0/README.rst\"}",
+    "obs": "Here's the result of running `cat -n` on /workspace/vertexproject__synapse__0.0/README.rst:\n     1\tsynapse\n     2\t=======\n     3\tDistributed Key-Value Hypergraph Analysis Framework\n     4\t\n     5\tBuilds\n     6\t------\n     7\t\n     8\t- Drone "
+   }
+  ]
+ }
+]

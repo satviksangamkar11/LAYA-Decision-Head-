@@ -1,0 +1,16 @@
+{
+ "id": "sangeetasangamkar/text-grader-k2-v1",
+ "title": "text-grader-k2-v1",
+ "code_file": "text_grader_k2_v1.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "dataset_sources": ["sangeetasangamkar/laya-align-v1"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

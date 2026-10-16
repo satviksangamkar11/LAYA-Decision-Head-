@@ -1,0 +1,1 @@
+{"id": "verify_1", "status": 504, "seconds": 302.35, "polls": 0, "alias": "KEY_2", "ts": "2026-10-13T08:11:32.255060+00:00", "settings": {"model": "openai/gpt-oss-20b", "temperature": 1.0, "top_p": 0.95, "reasoning_effort": "high", "stream": true, "max_tokens": 32768}, "raw": ""}

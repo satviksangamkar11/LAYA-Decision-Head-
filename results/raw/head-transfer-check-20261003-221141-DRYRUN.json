@@ -1,0 +1,169 @@
+{
+ "label": "exploratory (no gate)",
+ "dry_run": true,
+ "hp": {
+  "lr": 0.0001,
+  "wd": 0.01,
+  "batch": 16,
+  "max_epochs": 3,
+  "patience": 3,
+  "seeds": [
+   0
+  ],
+  "val_frac": 0.1
+ },
+ "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "checkpoint": "D:\\local model\\models\\coding-decision-agent\\model.safetensors",
+ "arms": {
+  "B": "random init",
+  "A": "pretrained all trainable",
+  "F": "pretrained frozen"
+ },
+ "n": {
+  "train": 80,
+  "fit": 72,
+  "val": 8,
+  "cal": 40
+ },
+ "results": [
+  {
+   "init": "B",
+   "seed": 0,
+   "epochs": 3,
+   "val": {
+    "nll": 1.7819597721099854,
+    "top1": 0.375,
+    "chance_top1": 0.11763583868741989,
+    "n": 8
+   },
+   "cal": {
+    "nll": 1.5813076734542846,
+    "top1": 0.625,
+    "chance_top1": 0.13080044984817504,
+    "n": 40
+   },
+   "history": [
+    {
+     "epoch": 0,
+     "val_nll": 2.0149009227752686,
+     "val_top1": 0.375
+    },
+    {
+     "epoch": 1,
+     "val_nll": 1.8667818307876587,
+     "val_top1": 0.5
+    },
+    {
+     "epoch": 2,
+     "val_nll": 1.7819597721099854,
+     "val_top1": 0.375
+    }
+   ],
+   "transfer_report": null
+  },
+  {
+   "init": "A",
+   "seed": 0,
+   "epochs": 3,
+   "val": {
+    "nll": 1.6342042684555054,
+    "top1": 0.5,
+    "chance_top1": 0.11763583868741989,
+    "n": 8
+   },
+   "cal": {
+    "nll": 1.6036260604858399,
+    "top1": 0.475,
+    "chance_top1": 0.13080044984817504,
+    "n": 40
+   },
+   "history": [
+    {
+     "epoch": 0,
+     "val_nll": 2.028088092803955,
+     "val_top1": 0.375
+    },
+    {
+     "epoch": 1,
+     "val_nll": 1.6342042684555054,
+     "val_top1": 0.5
+    },
+    {
+     "epoch": 2,
+     "val_nll": 1.7834982872009277,
+     "val_top1": 0.375
+    }
+   ],
+   "transfer_report": {
+    "loaded": 31,
+    "unexpected": [],
+    "not_loaded": [],
+    "new_modules": [
+     "gate",
+     "in_o",
+     "in_q",
+     "kind_emb",
+     "mix_o",
+     "mix_q",
+     "mu_o",
+     "mu_q",
+     "out_norm",
+     "sd_o",
+     "sd_q"
+    ]
+   }
+  },
+  {
+   "init": "F",
+   "seed": 0,
+   "epochs": 3,
+   "val": {
+    "nll": 2.122398614883423,
+    "top1": 0.375,
+    "chance_top1": 0.11763583868741989,
+    "n": 8
+   },
+   "cal": {
+    "nll": 1.9510812044143677,
+    "top1": 0.4,
+    "chance_top1": 0.13080044984817504,
+    "n": 40
+   },
+   "history": [
+    {
+     "epoch": 0,
+     "val_nll": 2.122398614883423,
+     "val_top1": 0.375
+    },
+    {
+     "epoch": 1,
+     "val_nll": 2.3412668704986572,
+     "val_top1": 0.5
+    },
+    {
+     "epoch": 2,
+     "val_nll": 2.454214572906494,
+     "val_top1": 0.625
+    }
+   ],
+   "transfer_report": {
+    "loaded": 31,
+    "unexpected": [],
+    "not_loaded": [],
+    "new_modules": [
+     "gate",
+     "in_o",
+     "in_q",
+     "kind_emb",
+     "mix_o",
+     "mix_q",
+     "mu_o",
+     "mu_q",
+     "out_norm",
+     "sd_o",
+     "sd_q"
+    ]
+   }
+  }
+ ]
+}

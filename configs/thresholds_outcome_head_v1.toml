@@ -1,0 +1,58 @@
+# Outcome-head v1: train the pretrained LAYA head (frozen original encoder) to predict whether a coding-agent run ends resolved.
+# User GO (chat, 2026-10-15): T4 x2 on Kaggle; goal = a trained head that beats the original head with real (test-executed) labels.
+# Written before any run. Never edited after a run; changes go to a new versioned file.
+
+[data]
+source = "Kaggle dataset sangeetasangamkar/laya-nebius-branch-v1 (nebius/SWE-rebench-openhands-trajectories, CC-BY-4.0): 1,741 tasks with >= 1 resolved and >= 1 unresolved run, 19,602 runs, 859 repos; sha256 487d1b6946863cfccbde70f486c9e413e6d2e591f25233b88934721a8c218652"
+label = "run-level `resolved` (from the dataset's test execution); the same label for every sampled step of a run"
+label_meaning = "the step occurred in a run that ended resolved; NOT a claim that the action itself was good"
+steps = "non-think tool calls, in order, 0-based"
+depths = [3, 10, 20]            # every run contributes the steps at these depths (fixed depths: no run-length leak through which steps exist)
+min_steps = 21                  # runs with fewer non-think tool calls are excluded (counted per label)
+
+[split]
+unit = "repo"
+seed = 20261015
+overlap_repos = "the 361 repos in laya_pretraining_overlap_repos.json go to TRAIN only"
+val_repos = 86                  # drawn from non-overlap repos
+test_repos = 172                # drawn from non-overlap repos
+val_max_tasks = 150
+test_max_tasks = 350            # all runs of the selected tasks
+train_max_runs = 4000           # seeded sample of train runs
+
+[render]
+renderer = "k2_render_v1 (kaggle/text_grader_k2_v2.py), pre-action: proposed action = the step's tool call; no observation of the step; task = <issue_description> text (fallback: user message), first 400 tokens; history newest first, observation clipped to 300 chars; budget 1969 tokens"
+never_rendered = ["later steps", "the step's own observation", "resolved / exit_status", "run length", "relative position", "agent / model names"]
+
+[model]
+checkpoint = "S4MPL3BI4S/Coding_Decision_Agent @ fbc40c2e4b625519de1c1f617724449a636d08ff, model.safetensors sha256 e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a"
+encoder = "frozen (requires_grad False, no_grad forward, fp16 autocast); sha256 of its tensors before and after must be equal"
+trainable = "head + scorer only (fp32 master weights); type_emb and act_head unchanged"
+question = "native agent_trace `outcome` (success / partial / failure / harmful), wording sha 21fea2eb... as K2"
+score = "logit(success vs rest) = lg[success] - logsumexp(lg[partial, failure, harmful])"
+loss = "class-weighted binary cross-entropy on that score: -(w1 * y * log p + (1 - y) * log(1 - p)), p = softmax(lg)[success], w1 = n_unresolved / n_resolved among TRAIN items (fixed before training)"
+optimizer = "AdamW, weight_decay 0.01, betas (0.9, 0.999), grad clip 1.0, effective batch 32 (accumulation of 32 items), fp16 GradScaler, linear warm-up over the first 10% of optimizer steps then linear decay to 0"
+lr_grid = [1e-4, 3e-4, 1e-3]    # frozen-encoder head range (web check 2026-10-15: ~1e-3 typical for a frozen-encoder head, sweep 1e-4..3e-3; 1e-5..5e-5 is the FULL fine-tuning range); text-imitation v1 at 2e-5 did not move the loss
+lr_rule = "1-batch overfit check on 32 fixed train items: 60 full-batch AdamW updates (no warm-up) from the original weights at each lr; the smallest lr whose loss falls by > 50% is used; if none passes, STOP (no full training)"
+max_epochs = 5
+early_stopping = "best validation AUROC epoch (validation repos only); test is scored once with that epoch's weights"
+seeds = [0]
+
+[baselines]
+unchanged_head = "same score from the original checkpoint weights (unfitted)"
+step_index = "logistic regression on the depth one-hot (fitted on train)"
+action_type = "logistic regression on action category and previous action category one-hots (fitted on train)"
+tfidf = "TF-IDF (1-2 grams, min_df 2, sublinear) + logistic regression on the rendered state text; C from [0.01, 0.1, 1, 10] by validation AUROC"
+probe = "standardised frozen-encoder CLS features + logistic regression; C from [0.001, 0.01, 0.1, 1] by validation AUROC"
+
+[metrics]
+test = ["AUROC", "accuracy at the validation-chosen threshold", "within-task pair AUROC: all (resolved, unresolved) item pairs of the same task at the same depth; ties count 0.5"]
+bootstrap = "cluster bootstrap over test repos, 2,000 resamples, seed 20261016"
+
+[gate]
+rule = "Trained head passes only if on the test repos its AUROC and its within-task pair AUROC both exceed the unchanged head AND the step-index baseline, with 95% bootstrap CIs of the differences above 0."
+also_reported = "trained head vs TF-IDF, probe and action type (not part of the gate)"
+
+[device]
+gpu = "Kaggle T4 x2 (same device class and fp16 path as K2 and text-imitation v1)"
+smoke = "mechanical only: rendering, library parity on 3 items, encoder hash, gradients only in head+scorer, lr overfit check, no performance metric"

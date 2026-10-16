@@ -1,0 +1,14 @@
+[{"stream_name":"stdout","time":38.03485932,"data":"RESULT B_w8c 0.8947 0.8571\n"}
+,{"stream_name":"stdout","time":83.192336514,"data":"RESULT B_w8u 0.9474 1.0\n"}
+,{"stream_name":"stdout","time":112.179313007,"data":"RESULT B_w32c 1.0 1.0\n"}
+,{"stream_name":"stdout","time":142.9892827,"data":"RESULT A_w8c 0.8947 1.0\n"}
+,{"stream_name":"stdout","time":168.927625161,"data":"RESULT B_wholec 1.0 1.0\n"}
+,{"stream_name":"stdout","time":170.368808776,"data":"RESULT lexical 0.2632 0.1429\n"}
+,{"stream_name":"stdout","time":594.01189085,"data":"VERDICT PASS {\"top1_ge_050\": true, \"p_lt_005\": true, \"lexical_margin\": 0.6315, \"lexical_margin_ge_015\": true, \"verdict\": \"PASS\"} {\"runs\": 1000, \"C_fixed\": 0.001, \"null_mean\": 0.2101, \"null_95th\": 0.4211, \"observed\": 0.8947, \"p\": 0.001}\n"}
+,{"stream_name":"stderr","time":598.291321174,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":598.291354607,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":598.763599736,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":598.763630289,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":599.902844504,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":601.430801982,"data":"[NbConvertApp] Writing 317610 bytes to __results__.html\n"}
+]

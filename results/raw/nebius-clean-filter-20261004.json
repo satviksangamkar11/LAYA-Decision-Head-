@@ -1,0 +1,11 @@
+{
+ "label": "exploratory (no gate)",
+ "date": "2026-10-04",
+ "source": "nebius/SWE-rebench-openhands",
+ "total_rows": 67074,
+ "contaminated_repos": 718,
+ "clean_rows": 39608,
+ "clean_resolved": 17313,
+ "clean_unresolved": 22295,
+ "note": "Phase 0: Contaminated repos removed for clean TRAIN/CAL/TEST split"
+}

@@ -23,19 +23,110 @@ the MXFP4 weights, the 6 GB streaming design and the expert loader stay as PLAN.
 Where the runbook and PLAN.md disagree on the decision layer, the runbook wins. Where either
 disagrees with this file, this file wins.
 
-## Current direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
+## User rules 2026-10-11 (chat) — override everything below where they differ
+
+- **NVIDIA calls:** the 800 / 1,000-call cap applied to the first hard-pool experiment only. There is no overall call cap now. Every
+  send is still logged, completed ids are never resent, and spend stays Rs 0.
+- **Throughput:** push every key to its limit while staying reliable: several requests may be in flight per key (this replaces
+  "one worker per key"); stay at or below 39 sends per key per minute; on any rate-limit response that key cools for one minute and
+  then resumes. Measured: non-streamed requests are cut at 300 s, so long calls must be streamed.
+- **Fixed call logic (user, 2026-10-11, late):** up to 5 requests in flight per key (10 was tried and half were rejected), <= 39 sends per key per minute, a rate-limit response cools that key one minute and the request is re-queued; full text in AGENT_README.md "FIXED NVIDIA CALL LOGIC".
+- **Call logic update (user, 2026-10-16, chat):** up to 10 requests in flight per key (replaces 5; the 2026-10-11 measurement at 10 saw about half rejected with 429), <= 39 sends per key per minute and a 1-minute cooldown on a rate-limit response are unchanged; all NVIDIA keys go into ONE Kaggle Secret `NVIDIA_API_KEYS` (one key per line) read only by the separate critic kernel (`evidence_ladder/models/kaggle_keys.py`).
+- **Outside judges:** GLM-5.3, Gemma 4 31B and Kimi K3 on the same NVIDIA endpoints may review blinded packets (no labels sent).
+  "Use max quality": do not lower reasoning effort to gain speed. No judge is qualified yet
+  (`results/raw/judge-qual-v1-20261010T192150Z`); generated pools are not accepted for training until the review process is.
+- **Nine-family menu (user, 2026-10-10):** nine action families with Web separate; versioned module `decision_head/fable_menu_v1.py`
+  and `configs/laya_action_family_menu_v1.json`; the frozen eight-option trainer and capture limits and the 31 pretrained tensors are
+  never modified. A single Bash command is never labelled by its last segment. Family routing is stage 1 only and is never reported
+  as concrete-action imitation.
+- **The linear probe on the frozen Qwen state is a mandatory baseline** for every head result (pilot: probe 67.1%, head 59.0%).
+- **Still need the user's GO:** any further Kaggle capture, any fine-tuning run, and using previously examined trajectories for training.
+- **Late 2026-10-11 decisions:** (1) GLM-5.3 full reasoning + Gemma 4 31B, both must accept, is the review pair; each judge's
+  individual gate failure stays on record; the pair passed its own gate on a 28-pool pilot. (2) Previously examined canonical TRAIN
+  trajectories MAY be used for training (trajectory and action-overlap safeguards), never for unbiased-evaluation claims. (3) Gemma
+  reviews first, GLM only eligible survivors with the same packets, plus sampled Gemma-rejected pools and controls. (4) Combined
+  fresh + reused generation is conditional on the current review results and audit, and runs in stages. (5) Development uses grouped
+  cross-validation; canonical VAL is kept for later independent evaluation; check development capacity before the large batch.
+  (6) Chance + 10 points on shortcut baselines is a warning level only. Remaining steps: AGENT_README.md "FROZEN NEXT PLAN".
+- **Second judge (user, 2026-10-11, chat: "try 5 6 models and fix second judge"):** Gemma's endpoint is down; `meta/muse-glimmer-30b`
+  (`muse_max`) passed the unchanged pair gate with GLM and reviews pools Gemma has not reviewed. Each pool records its actual judges; the set
+  is never described as reviewed by one pair, and results are reported per judge cohort. Dataset v2:
+  `results/raw/laya-fullaction-set-v2-20261011T134826Z` (123 pools). The Kaggle launch still needs the user's GO.
+- **STANDING RULE (user, 2026-10-13, chat, restated: "if any computation needed use kaggle, make rule"): ANY computation runs on Kaggle, not on this PC**:
+  feature capture, training, alignment, scoring, probes, smoke tests of model code, long analysis. This PC is for reading files, writing code and documents,
+  packing Kaggle bundles, Kaggle CLI calls and NVIDIA API calls. The only local exception is one the user names for a specific task (so far: the isolated
+  WSL sandbox test runs, approved 2026-10-13, because Kaggle has no equivalent sandbox). If Kaggle is queued or unavailable, say so and wait or ask;
+  never fall back to the PC silently. Uploads still need the data to be approved for upload.
+- **Compute on Kaggle (user, 2026-10-13, chat): when a job needs CPU or GPU compute (training, alignment, capture, long analysis), run it on Kaggle, not on this PC.**
+  This supersedes the 2026-10-12 local-GPU line below for compute-heavy work. A local run that was almost finished on 2026-10-13 was allowed to complete.
+  If Kaggle is queued or unavailable, say so and wait or ask; do not fall back to the PC silently. Uploads to Kaggle still need the data to be approved for upload.
+- **Local GPU (user, 2026-10-12, chat: "use GPU on PC, remove rule of not using GPU"):** the RTX 3050 may be used; this lifts "No GPU work on the
+  local RTX 3050" below. Qwen state capture still stays on one device class (features from two devices are not mixed without a parity check).
+- **Fine-tuning on all Fable pools (user, 2026-10-12, chat):** GO to fine-tune the pretrained head on every qualified pool of dataset v3
+  (`tools/laya_finetune_all_v1.py`); the open issues (no untouched test pools, authorship shortcut) are handled later and stay on record.
+- **Objective restated (user, 2026-10-12, chat):** the work is to strengthen the pretrained LAYA decision head ITSELF so it can help smaller models choose
+  better actions. Qwen is only a feature provider and is never trained. **No encoder is trained or touched for now** (encoders may change later; the user will
+  explore that separately). Fable is the teacher. Teacher-selected actions are never described as verified optimal.
+- **Evaluation data (user, 2026-10-12):** canonical CAL and TEST stay protected; the request builder's guard that keeps their contexts out of model requests stays
+  in place. VAL is the development evaluation set (inspected closely; never trained on). The outcome evaluation uses the 23 fail-to-pass VAL decisions.
+- **Approved, not started (2026-10-12):** mutation pilot on 20 TRAIN states (execution-verified labels, kept separate from imitation pools, with no-context and
+  options-only controls); near-miss recovery pilot on 20-30 decisions. NOT approved: the full 150-decision recovery, any further head fine-tuning run beyond
+  `tools/laya_headonly_v1.py` as run, any download of outside decision datasets (the Jev rule still needs the user's explicit decision), more Qwen generation.
+- **Docs:** `README.md` is the project overview; the dated working log is `AGENT_README.md`; consolidated findings: HANDOFF section 16.
+- Status and remaining steps: [HANDOFF_2026_10_11_STATUS.md](HANDOFF_2026_10_11_STATUS.md).
+
+## Primary training route (user, 2026-10-10, chat) — overrides everything below where they differ
+
+- **Supervised imitation of Fable** is the primary objective: fine-tune the EXISTING pretrained LAYA head (frozen Qwen,
+  trainable adapter, then adapter + pretrained head as validation justifies) to select the action Fable recorded.
+- **Two label kinds, never mixed up:** (1) *imitation label*: the recorded Fable action is the positive target; the other
+  3–5-pool options are non-selected alternatives, NOT verified wrong; this is "choose like Fable", not proof of optimality.
+  (2) *execution-verified preference*: BETTER/WORSE/EQUAL_ON_ORACLE/UNKNOWN from same-state sandbox runs
+  (tools/fable_wsl_runner.py, tools/fable_test_oracle.py); a separate, optional objective. The 2026-10-03 rule "labels come
+  from real outcomes" now applies only to kind (2).
+- Pools: 3–5 distinct options including the recorded action; versioned imitation builder/validator; frozen v2/v3 contracts,
+  diagnostic exclusions and canonical TRAIN/CAL/TEST boundaries unchanged. `objective="recorded"`, `unknown_weight=0.5`
+  provisional, compared with 1.0 on held-out validation only (never TEST). Measure candidate recall@3/@5 separately from
+  ranking accuracy; the teacher action is never assumed available at inference. No NVIDIA calls or fine-tuning until
+  cleaned counts and real-feature compatibility are in.
+- **NVIDIA keys (user, 2026-10-10, final rule):** all five keys (`.secrets/nvidia_api_key_2..6.txt`, several accounts) are used in
+  round-robin through `tools/nvidia_keys.py`. This replaces the earlier "one account" rule for NVIDIA only. **Update (user, 2026-10-10,
+  chat): a 429 no longer stops the run; it cools that key only and the request switches to the next key (`limit_scope="key"`); when every
+  key is cooling the runner waits for the earliest one. Provider limit 40 requests/minute per key (user, 2026-10-10): send 39 on a key,
+  then switch to the next; after the last key restart at the first (`KeyRotator(per_key_batch=39)`). Parallel runs (user, 2026-10-10): one worker per
+  key, <= 39 sends per key per rolling minute, a 429 cools that key 60 s; the key pool is every `.secrets/nvidia_api_key_<n>.txt` (n >= 2), 10 keys on 2026-10-10.** Global call cap and no-resend rules stay. User was told multi-account
+  use may conflict with the provider's terms.
+
+## Current direction (user, 2026-10-04, chat) — overrides everything below where they differ
+
+- **New head, same architecture as the internal head, started from the pretrained Laya `Coding_Decision_Agent`** (`models/coding-decision-agent`, no starting-point comparison), reading the frozen Qwen3-4B-Thinking-2507 states. This amends the 13.7 rule ("only the conductor is fine-tuned, the internal head is untouched") **for this new head only**; the old internal head code (`head.py`, `decision_head/`, `head_v3_t4`) stays untouched. Plan: PLAN.md sections 14–16, DECISION_HEAD.md section 20.
+- **Capture:** the Qwen sampler on Kaggle finished with **45,500 of 46,826 decisions** (91 shards, none dropped; `results/raw/pool-states-v1-final-20261004-185656.json`). The last 1,326 were not captured and will not be re-run. The set was uploaded as the private Kaggle dataset `laya-head-states-v1`.
+- **Negatives:** hybrid real options (tiers T1/T2/T3 plus Qwen proposals, soft targets, same renderer) are approved **to build and count**; recapture waits for the gates (`configs/thresholds_pool_v2.toml`). A generated proposal that equals or nearly equals the original choice is ignored and counted as a hit; a different one is kept with a middle score and never labelled wrong. Nothing is fabricated.
+- **Compute: TPU only** (Kaggle TPU v5e-8, vllm-tpu) for the new pipeline, including the state recapture once the TPU parity test passes (`configs/thresholds_tpu_capture_v1.toml`). Qwen3-30B-A3B in thinking mode (Kaggle Model `qwen-lm/qwen-3/transformers/30b-a3b/1`, Apache-2.0, mounted inside Kaggle, no local download) generates the option proposals; the 61 GB download inside Kaggle was approved by the user in chat. All rows (train, cal, test) of the new set must be captured the same way. Spend stays Rs 0. No GPU work on the local RTX 3050.
+- Status of every step and the remaining steps: PLAN.md ("Remaining steps") and RUNBOOK.md.
+
+## Earlier direction (user, 2026-10-03)
+
+**The live plan is PLAN.md section 13** (outcome-labelled one-week plan). A5-v3 imitation and the LOCKED capture are scrapped (never evaluate the 2,220-decision LOCKED set).
+Fixed rules: the Qwen3-4B-Thinking-2507 backbone is never fine-tuned; labels come from real outcomes; `policy/hard_rules.py` and real tests override the head; the head ships only if the
+three-arm agent test passes. **Still pending, so still blocked by the rules below until the user says yes in writing:** the frontier-trace downloads over 1 GB (SWE-rebench-openhands was approved and downloaded; Laya fine-tuning was approved; the agent runs on Kaggle),
+dropping per-step registration paperwork, the agent platform choice and the pass margin. (`autojev/` and the JDownloader installer were deleted on 2026-10-03 with the user's yes.) Spend stays Rs 0.
+**2026-10-04 (user, chat): the Laya conductor is the base and the only thing fine-tuned (PLAN.md 13.7); the internal head is not touched.**
+The 2026-10-02 direction below stays valid for backbone, Qwen-only and compute policy.
+
+## Earlier direction (user, 2026-10-02) — overrides the 120B-first and heretic-first wording below
 
 The decision head is **backbone-agnostic: it must work for any local model**. **Qwen models only for now; gpt-oss
 (120b and 20b-heretic) is parked and not touched** until the user says so. The experiment backbone is frozen
-`Qwen3-4B-Thinking-2507` (revision `768f209d9e`, `models/qwen3-4b-thinking-2507`). No shortcuts. README.md,
+`Qwen3-4B-Thinking-2507` (revision `768f209d9e`, `models/qwen3-4b-thinking-2507`). No shortcuts. AGENT_README.md,
 DECISION_HEAD.md and PLAN.md are updated as work lands, with what is done and what is not.
 **The live plan is PLAN.md section 12** (phases 0-5, gates, stop rules, budget): outcome-labelled targets, Laya's
 proper-scoring loss and temperature, free GPU first (Kaggle, Colab), staged paid GPU only as fallback and for LoRA.
 
 **Compute policy (user, 2026-10-02):** renting a GPU is allowed in principle and free Kaggle/Colab come first.
-**Update 2026-10-03 (user, in chat): Path A: every role (states AND state-free text embeddings) is captured on the Kaggle T4; amendment (e) is registered in configs/a5_v3_spec.toml and configs/thresholds.toml. Kaggle is the provider and the private upload of TRAIN and CAL decision rows and their trajectories (outcome fields stripped) to `laya-phase2-train-cal` is approved; the Phase-2 capture runs on Kaggle T4 x2 (`configs/phase2_device_rule_v1.toml`). Spend stays Rs 0. LOCKED raw data, the >1 GB output download, any paid GPU and any second account are NOT approved.** Original wording follows. **No cap, provider or upload has been approved yet, so spend stays Rs 0 and nothing leaves this machine until the user
-approves them in writing.** Proposed cap: Rs 6,000 in two steps (PLAN.md 12.4). Do not use several accounts to get
-more free quota.
+**Update 2026-10-03 (user, in chat): Path A: every role (states AND state-free text embeddings) is captured on the Kaggle T4; amendment (e) is registered in configs/a5_v3_spec.toml and configs/thresholds.toml. Kaggle is the provider and the private upload of TRAIN and CAL decision rows and their trajectories (outcome fields stripped) to `laya-phase2-train-cal` is approved; the Phase-2 capture runs on Kaggle T4 x2 (`configs/phase2_device_rule_v1.toml`). Spend stays Rs 0. LOCKED raw data, the >1 GB output download, and any paid GPU are NOT approved.** Original wording follows. **No cap, provider or upload has been approved yet, so spend stays Rs 0 and nothing leaves this machine until the user
+approves them in writing.** Proposed cap: Rs 6,000 in two steps (PLAN.md 12.4). (Multi-account rule removed by the user, 2026-10-10:
+several Kaggle accounts may be used.)
 
 ## Mission
 
@@ -63,7 +154,7 @@ pass the same gate as everything else.
   silently swap models.
 - Decision layer is the runbook's internal head. **User decision 2026-10-01: no AutoJev, no
   OpenJev/SemIf readout, no hosted Jev; Laya only.** `sarvam-jev/` stays in place, untouched.
-- **Laya checkpoints are used as released. No Laya training or fine-tuning** (user decision
+- **Laya fine-tuning is allowed from 2026-10-03 (user, chat); none is started.** Earlier rule, now lifted: Laya checkpoints used as released, no training (user decision
   2026-10-01; runbook phase 14, Coding-Laya, is dropped). Post-hoc temperature fitting on
   their outputs does not change weights and is allowed.
 - Runtime is AirLLM streaming plus our own expert loader. AirLLM's built-in
@@ -109,8 +200,9 @@ pass the same gate as everything else.
 - Never quote a number you did not measure. Label unmeasured figures
   `estimate (unmeasured)`.
 - Never modify `sarvam-jev/` or `reference/`. Copy what you need, keep the MIT notice.
-- Never run `git commit`, `git push`, `git tag`, `git merge`, `git rebase` or `git reset`
-  unless the user explicitly asks. Read-only git is fine.
+- Never run `git tag`, `git merge`, `git rebase` or `git reset` unless the user explicitly asks. Read-only git is fine.
+  **User decision 2026-10-16: the rule against `git commit` and `git push` is removed.** Commit and push to a new branch is allowed;
+  the secret scan on added lines (must be 0) still gates every push, and nothing is merged into `main` without the user's ask.
 
 ## Ask first (state name, source, size or cost, then wait for a clear yes)
 
@@ -122,7 +214,7 @@ pass the same gate as everything else.
 - Installing packages (use `uv add`, never ad hoc `pip install`).
 - Spending money (state provider, cap and hours first).
 - Uploading code or data to Kaggle, Colab or any rental (LOCKED raw data only when the LOCKED capture starts),
-  `git push`, `SWE-rebench-openhands` trajectories, `Qwen3-Reranker-4B` (about 8 GB).
+  `git push`, `SWE-rebench-openhands` trajectories, the `greghavens` Fable 5 / GPT-5.6 Sol trace datasets (size unmeasured), `Qwen3-Reranker-4B` (about 8 GB).
 - Anything that sends code or data off this machine. The DeepSeek Harness must be wired only
   to the local gpt-oss runtime; any configuration that calls a hosted model needs a yes.
 

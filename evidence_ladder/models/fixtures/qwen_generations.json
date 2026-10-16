@@ -1,0 +1,30 @@
+{
+  "_note": "SYNTHETIC fixtures. Hand-written; no Qwen inference produced these. task SYN-01 = sum of a list.",
+  "records": [
+    {"task_id": "SYN-01", "seed": 1, "purpose": "sample", "generation": {
+      "text": "Okay, sum the list.\n</think>\n\nHere is the solution:\n\n```python\ndef solve(xs):\n    return sum(xs)\n```\n",
+      "code": "def solve(xs):\n    return sum(xs)", "extract_status": "ok", "tokens_prompt": 120, "tokens_generated": 40, "seed": 1,
+      "model": "Qwen/Qwen3-4B-Thinking-2507", "model_revision": "768f209d9ea81521153ed38c47d515654e938aea", "prompt_template_id": "qwen_sample_v1",
+      "prompt_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "wall_seconds": 0.0, "logprob_summary": null}},
+    {"task_id": "SYN-01", "seed": 2, "purpose": "sample", "generation": {
+      "text": "Hmm.\n</think>\n\n```python\ndef solve(xs):\n    return sum(xs) + 1\n```",
+      "code": "def solve(xs):\n    return sum(xs) + 1", "extract_status": "ok", "tokens_prompt": 120, "tokens_generated": 38, "seed": 2,
+      "model": "Qwen/Qwen3-4B-Thinking-2507", "model_revision": "768f209d9ea81521153ed38c47d515654e938aea", "prompt_template_id": "qwen_sample_v1",
+      "prompt_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "wall_seconds": 0.0, "logprob_summary": null}},
+    {"task_id": "SYN-01", "seed": 3, "purpose": "sample", "generation": {
+      "text": "Thinking.\n</think>\n\nJust call the built-in sum on the list.",
+      "code": "", "extract_status": "no_code", "tokens_prompt": 120, "tokens_generated": 25, "seed": 3,
+      "model": "Qwen/Qwen3-4B-Thinking-2507", "model_revision": "768f209d9ea81521153ed38c47d515654e938aea", "prompt_template_id": "qwen_sample_v1",
+      "prompt_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "wall_seconds": 0.0, "logprob_summary": null}},
+    {"task_id": "SYN-01", "seed": 4, "purpose": "sample", "generation": {
+      "text": "Let me consider the edge cases of an empty list and negative numbers and also very large lists and",
+      "code": "", "extract_status": "no_code", "tokens_prompt": 120, "tokens_generated": 2048, "seed": 4,
+      "model": "Qwen/Qwen3-4B-Thinking-2507", "model_revision": "768f209d9ea81521153ed38c47d515654e938aea", "prompt_template_id": "qwen_sample_v1",
+      "prompt_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "wall_seconds": 0.0, "logprob_summary": null}},
+    {"task_id": "SYN-01", "seed": 5, "purpose": "sample", "generation": {
+      "text": "Done thinking.\n</think>\n\n```python\ndef solve(xs):\n    return su",
+      "code": "", "extract_status": "no_code", "tokens_prompt": 120, "tokens_generated": 2048, "seed": 5,
+      "model": "Qwen/Qwen3-4B-Thinking-2507", "model_revision": "768f209d9ea81521153ed38c47d515654e938aea", "prompt_template_id": "qwen_sample_v1",
+      "prompt_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "wall_seconds": 0.0, "logprob_summary": null}}
+  ]
+}

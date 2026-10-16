@@ -1,0 +1,1978 @@
+{
+ "device": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "transformers": "5.16.1",
+ "protocol_id": "fable_capture_v1",
+ "depths": [
+  18,
+  24,
+  30
+ ],
+ "limits": {
+  "max_prefix_tokens": 24000,
+  "max_option_tokens": 4096,
+  "max_total_tokens": 24576,
+  "max_options": 8
+ },
+ "dtype": "float16",
+ "pools": 19,
+ "rows": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "B",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 20.27,
+   "peak_gib": 8.15,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 137.5,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "B",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.68,
+   "peak_gib": 6.91,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 143.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "B",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 15.85,
+   "peak_gib": 7.77,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.875,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "B",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.71,
+   "peak_gib": 7.29,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 147.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "B",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 15.97,
+   "peak_gib": 7.76,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "B",
+   "prefix_tokens": 7130,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.1,
+   "peak_gib": 7.23,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 134.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "B",
+   "prefix_tokens": 3122,
+   "option_tokens": [
+    1033,
+    1033,
+    1033,
+    1033,
+    1033
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.31,
+   "peak_gib": 7.09,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "B",
+   "prefix_tokens": 3716,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 6.51,
+   "peak_gib": 7.04,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 143.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "B",
+   "prefix_tokens": 3479,
+   "option_tokens": [
+    775,
+    775,
+    775,
+    775,
+    775
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 6.0,
+   "peak_gib": 7.01,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "B",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 14.08,
+   "peak_gib": 7.63,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "B",
+   "prefix_tokens": 2605,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.9,
+   "peak_gib": 7.13,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 142.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "B",
+   "prefix_tokens": 2596,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.26,
+   "peak_gib": 7.1,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.125,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "B",
+   "prefix_tokens": 2840,
+   "option_tokens": [
+    1552,
+    1552,
+    1552,
+    1552,
+    1552
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 10.79,
+   "peak_gib": 7.3,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.125,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "B",
+   "prefix_tokens": 3632,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.89,
+   "peak_gib": 7.22,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "B",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 18.07,
+   "peak_gib": 7.96,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 146.0,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "B",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.39,
+   "peak_gib": 7.17,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 139.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "B",
+   "prefix_tokens": 3523,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 13.16,
+   "peak_gib": 7.56,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "B",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "status": "ok",
+   "mode": "plain_per_option",
+   "seconds": 65.63,
+   "peak_gib": 7.64,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.0,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "B",
+   "prefix_tokens": 2588,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 10.35,
+   "peak_gib": 7.28,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 142.5,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "S",
+   "status": "not_available"
+  },
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "X",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 20.23,
+   "peak_gib": 8.15,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 137.5,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "X",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.67,
+   "peak_gib": 6.91,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 143.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "X",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 15.79,
+   "peak_gib": 7.77,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.875,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "X",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.68,
+   "peak_gib": 7.29,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 147.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "X",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 15.91,
+   "peak_gib": 7.76,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "X",
+   "prefix_tokens": 7130,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.07,
+   "peak_gib": 7.23,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 134.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "X",
+   "prefix_tokens": 3122,
+   "option_tokens": [
+    1033,
+    1033,
+    1033,
+    1033,
+    1033
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.31,
+   "peak_gib": 7.09,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "X",
+   "prefix_tokens": 3716,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 6.51,
+   "peak_gib": 7.04,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 143.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "X",
+   "prefix_tokens": 3479,
+   "option_tokens": [
+    775,
+    775,
+    775,
+    775,
+    775
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 5.98,
+   "peak_gib": 7.01,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "X",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 14.11,
+   "peak_gib": 7.63,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.625,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "X",
+   "prefix_tokens": 2605,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.91,
+   "peak_gib": 7.13,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 142.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "X",
+   "prefix_tokens": 2596,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.28,
+   "peak_gib": 7.1,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.125,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "X",
+   "prefix_tokens": 2840,
+   "option_tokens": [
+    1552,
+    1552,
+    1552,
+    1552,
+    1552
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 10.83,
+   "peak_gib": 7.3,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.125,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "X",
+   "prefix_tokens": 3632,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.92,
+   "peak_gib": 7.22,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "X",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 18.11,
+   "peak_gib": 7.96,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 146.0,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "X",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.36,
+   "peak_gib": 7.17,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 139.75,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "X",
+   "prefix_tokens": 3523,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 13.15,
+   "peak_gib": 7.56,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "X",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "status": "ok",
+   "mode": "plain_per_option",
+   "seconds": 65.8,
+   "peak_gib": 7.64,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.0,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "X",
+   "prefix_tokens": 2588,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 10.38,
+   "peak_gib": 7.28,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 142.5,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 12.95,
+   "peak_gib": 7.54,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 2.48,
+   "peak_gib": 6.73,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 160.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.88,
+   "peak_gib": 7.3,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.23,
+   "peak_gib": 6.88,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 5.65,
+   "peak_gib": 6.99,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 1.23,
+   "peak_gib": 6.6,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-csv-mapper:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1033,
+    1033,
+    1033,
+    1033,
+    1033
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 3.58,
+   "peak_gib": 6.82,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-jsonrpc:1",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    794,
+    794,
+    794,
+    794,
+    794
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 2.44,
+   "peak_gib": 6.73,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-notification-center:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    775,
+    775,
+    775,
+    775,
+    775
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 2.38,
+   "peak_gib": 6.72,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.25,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 1.47,
+   "peak_gib": 6.61,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-slide-splitter:1",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1220,
+    1220,
+    1220,
+    1220,
+    1220
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.49,
+   "peak_gib": 6.9,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-lru-ttl-cache:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1144,
+    1144,
+    1144,
+    1144,
+    1144
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.17,
+   "peak_gib": 6.87,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-memory:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1552,
+    1552,
+    1552,
+    1552,
+    1552
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 6.67,
+   "peak_gib": 7.05,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:ts-pong:1",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1149,
+    1149,
+    1149,
+    1149,
+    1149
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.16,
+   "peak_gib": 6.87,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 3.66,
+   "peak_gib": 6.84,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 2.21,
+   "peak_gib": 6.7,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-ibantool:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1659,
+    1659,
+    1659,
+    1659,
+    1659
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 7.3,
+   "peak_gib": 7.09,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 12.71,
+   "peak_gib": 7.52,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  },
+  {
+   "decision_id": "fable5:py-jsonpath-edit:2",
+   "variant": "A",
+   "prefix_tokens": 11,
+   "option_tokens": [
+    1941,
+    1941,
+    1941,
+    1941
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 6.71,
+   "peak_gib": 7.05,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 160.375,
+   "finite_fp16": true
+  }
+ ],
+ "validation": [
+  {
+   "decision_id": "fable5:go-mazekit:2",
+   "variant": "B",
+   "prefix_tokens": 3617,
+   "option_tokens": [
+    2343,
+    2343,
+    2343,
+    2343,
+    2343
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 18.85,
+   "peak_gib": 8.15,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 137.5,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-ansi-paginate:1",
+   "variant": "B",
+   "prefix_tokens": 2209,
+   "option_tokens": [
+    1006,
+    1006,
+    1006,
+    1006
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 4.67,
+   "peak_gib": 6.91,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    4,
+    3,
+    2560
+   ],
+   "max_abs": 143.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 0.999997,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-csv-sqlite:2",
+   "variant": "B",
+   "prefix_tokens": 3168,
+   "option_tokens": [
+    1998,
+    1998,
+    1998,
+    1998,
+    1998
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 16.93,
+   "peak_gib": 7.77,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.875,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-htmlclean:2",
+   "variant": "B",
+   "prefix_tokens": 4114,
+   "option_tokens": [
+    1159,
+    1159,
+    1159,
+    1159,
+    1159
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.51,
+   "peak_gib": 7.29,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 147.75,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-parking-garage:4",
+   "variant": "B",
+   "prefix_tokens": 6041,
+   "option_tokens": [
+    1418,
+    1418,
+    1418,
+    1418,
+    1418
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 16.31,
+   "peak_gib": 7.76,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 144.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:ts-config-merge3:5",
+   "variant": "B",
+   "prefix_tokens": 7130,
+   "option_tokens": [
+    474,
+    474,
+    474,
+    474,
+    474
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 9.03,
+   "peak_gib": 7.23,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 134.25,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:ts-recur-cal:5",
+   "variant": "B",
+   "prefix_tokens": 9725,
+   "option_tokens": [
+    516,
+    516,
+    516,
+    516,
+    516
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 14.15,
+   "peak_gib": 7.63,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 141.625,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-btree-pages:5",
+   "variant": "B",
+   "prefix_tokens": 8998,
+   "option_tokens": [
+    1062,
+    1062,
+    1062,
+    1062,
+    1062
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 18.16,
+   "peak_gib": 7.96,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 146.0,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-config-migrate:6",
+   "variant": "B",
+   "prefix_tokens": 5352,
+   "option_tokens": [
+    733,
+    733,
+    733,
+    733,
+    733
+   ],
+   "status": "ok",
+   "mode": "packed",
+   "seconds": 8.39,
+   "peak_gib": 7.17,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 139.75,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true
+  },
+  {
+   "decision_id": "fable5:py-incident-cli:4",
+   "variant": "B",
+   "prefix_tokens": 14312,
+   "option_tokens": [
+    2306,
+    2306,
+    2306,
+    2306,
+    2306
+   ],
+   "status": "ok",
+   "mode": "plain_per_option",
+   "seconds": 65.79,
+   "peak_gib": 7.64,
+   "hq_shape": [
+    3,
+    2560
+   ],
+   "ho_shape": [
+    5,
+    3,
+    2560
+   ],
+   "max_abs": 145.0,
+   "finite_fp16": true,
+   "repeat_identical": true,
+   "plain_cos_min": 1.0,
+   "plain_ok": true,
+   "parity_scope": "plain_repeat"
+  }
+ ],
+ "lm_head_calls": 0,
+ "summary": {
+  "B": {
+   "ok": 19,
+   "excluded_over_limit": 0,
+   "skipped_oom": 0,
+   "not_available": 0
+  },
+  "S": {
+   "ok": 0,
+   "excluded_over_limit": 0,
+   "skipped_oom": 0,
+   "not_available": 19
+  },
+  "X": {
+   "ok": 19,
+   "excluded_over_limit": 0,
+   "skipped_oom": 0,
+   "not_available": 0
+  },
+  "A": {
+   "ok": 19,
+   "excluded_over_limit": 0,
+   "skipped_oom": 0,
+   "not_available": 0
+  }
+ }
+}

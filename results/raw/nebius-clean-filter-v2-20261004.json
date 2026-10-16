@@ -1,0 +1,14 @@
+{
+ "label": "exploratory (no gate)",
+ "date": "2026-10-04",
+ "source": "nebius/SWE-rebench-openhands",
+ "total_rows": 67074,
+ "contaminated_repos": 618,
+ "contaminated_repos_note": "Repos that trained Coding_Decision_Agent (from coding-decision-cases/SWE-agent-trajectories rows, measured across all 3 shards)",
+ "clean_rows": 35194,
+ "clean_resolved": "unmeasured (subset of 31020 resolved)",
+ "clean_unresolved": "unmeasured (subset of 29719 unresolved)",
+ "clean_fraction": 0.525,
+ "supersedes": "nebius-clean-filter-20261004.json (which read train shard only)",
+ "note": "Phase 0b: Corrected contamination count; ready for TRAIN/CAL/TEST split"
+}

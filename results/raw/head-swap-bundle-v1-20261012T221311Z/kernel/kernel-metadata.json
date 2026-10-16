@@ -1,0 +1,19 @@
+{
+ "id": "sangeetasangamkar/laya-head-swap-run",
+ "title": "laya-head-swap-run",
+ "code_file": "laya-head-swap-run.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": false,
+ "dataset_sources": [
+  "sangeetasangamkar/laya-head-exp5-v1",
+  "sangeetasangamkar/laya-head-swap-v1"
+ ],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

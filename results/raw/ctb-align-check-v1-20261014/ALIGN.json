@@ -1,0 +1,120 @@
+{
+ "codetracer_commit": "2d302191dd07e7c0c2da6f7a5e9451c7cbb62d34",
+ "runs": [
+  {
+   "traj_id": "miniswe-DeepSeek__DeepSeekChat-simple-sheets-put-b4688b28",
+   "agent": "mini-SWE-agent",
+   "manifest_step_count": 13,
+   "flagged": 3,
+   "format": "upstream_miniswe",
+   "can_parse": false,
+   "rebuilt": 0,
+   "count_match": false,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 3,
+   "ref_detail": [],
+   "admissible": false
+  },
+  {
+   "traj_id": "miniswe-OpenAI__GPT-5-facebook__zstd-1532-f4d50598",
+   "agent": "mini-SWE-agent",
+   "manifest_step_count": 9,
+   "flagged": 1,
+   "format": "miniswe_traj_json",
+   "rebuilt": 9,
+   "count_match": true,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 1,
+   "ref_detail": [],
+   "admissible": true
+  },
+  {
+   "traj_id": "miniswe-Qwen__Qwen3-Coder-480B-A35B-Instruct-polyglot-rust-c-20cc77a5",
+   "agent": "mini-SWE-agent",
+   "manifest_step_count": 61,
+   "flagged": 45,
+   "format": "upstream_miniswe",
+   "can_parse": true,
+   "rebuilt": 8,
+   "count_match": false,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 45,
+   "ref_detail": [],
+   "admissible": false
+  },
+  {
+   "traj_id": "openhands-Moonshot__Kimi-K2-250905-ilp-solver-73ad79cc",
+   "agent": "OpenHands",
+   "manifest_step_count": 15,
+   "flagged": 4,
+   "format": "upstream_openhands",
+   "can_parse": true,
+   "rebuilt": 7,
+   "count_match": false,
+   "ref_checks": 3,
+   "ref_matches": 3,
+   "unverifiable_refs": 1,
+   "ref_detail": [
+    {
+     "step_id": 2,
+     "match": true
+    },
+    {
+     "step_id": 3,
+     "match": true
+    },
+    {
+     "step_id": 5,
+     "match": true
+    }
+   ],
+   "admissible": false
+  },
+  {
+   "traj_id": "openhands-OpenAI__GPT-5-django__django-16485-3e4d6956",
+   "agent": "OpenHands",
+   "manifest_step_count": 23,
+   "flagged": 1,
+   "format": "openhands_llm_calls",
+   "rebuilt": 25,
+   "count_match": false,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 1,
+   "ref_detail": [],
+   "admissible": false
+  },
+  {
+   "traj_id": "sweagent-OpenAI__GPT-5-iamkun__dayjs-1725-4fa6a2e1",
+   "agent": "SWE-agent",
+   "manifest_step_count": 35,
+   "flagged": 2,
+   "format": "sweagent_traj",
+   "rebuilt": 35,
+   "count_match": true,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 2,
+   "ref_detail": [],
+   "admissible": true
+  },
+  {
+   "traj_id": "terminus2-Moonshot__Kimi-K2-250905-hf-train-lora-adapter-685faf4d",
+   "agent": "Terminus2",
+   "manifest_step_count": 59,
+   "flagged": 9,
+   "format": "upstream_terminus2",
+   "can_parse": true,
+   "rebuilt": 8,
+   "count_match": false,
+   "ref_checks": 0,
+   "ref_matches": 0,
+   "unverifiable_refs": 9,
+   "ref_detail": [],
+   "admissible": false
+  }
+ ]
+}
