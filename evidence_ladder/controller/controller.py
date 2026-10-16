@@ -104,7 +104,12 @@ class _Run:
             self.budget_hit = True
             return []
         seeds = self.next_seeds(n)
-        template = {"sample": "sample_v1", "repair": "repair_v1"}.get(purpose, purpose)
+        template = {"sample": "qwen_sample_v2", "repair": "repair_v1"}.get(purpose, purpose)
+        if purpose == "sample":
+            # F13 (audit): the generation prompt carries the required solution format (qwen_sample_v2, the template the FC-3 runs used); request_text stays the quoting base of the requirements
+            from evidence_ladder.models import qwen as _Q
+            prompt, _ = _Q.render("qwen_sample_v2", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests),
+                                  solution_format=_Q.SOLUTION_FORMATS[self.task.language], language=self.task.language)
         self.note("generation_request", {"purpose": purpose, "n": n, "seeds": seeds, "prompt_sha": sha256_text(prompt)})
         gens = list(self.ctx.generation.generate(GenerationRequest(self.task.task_id, prompt, n, tuple(seeds), int(self.cfg.get("max_new_tokens", 4096)),
                                                                      purpose, bool(self.cfg.get("thinking", True)), template)))
@@ -217,10 +222,12 @@ class _Run:
         except Exception as ex:      # noqa: BLE001 UnsupportedDecisionType, NotAuthorized, ScorerDisabled: refuse the scorer, never crash the run
             self.scorer_off = True
             self.note("scorer", {"state": "refused", "reason": str(ex)[:200]})
+            self.note("scorer_unavailable", {"reason": "%s: %s" % (type(ex).__name__, str(ex)[:200]), "fallback": "scorer_off_for_this_run", "exploratory": exploratory})   # F06: explicit, not silent
             return
         if len(scores) != len(live):
             self.scorer_off = True
             self.note("scorer", {"state": "ignored", "reason": "wrong number of scores"})
+            self.note("scorer_unavailable", {"reason": "wrong number of scores", "fallback": "scorer_off_for_this_run", "exploratory": exploratory})
             return
         self._scorer_key = key
         for c, s in zip(live, scores):

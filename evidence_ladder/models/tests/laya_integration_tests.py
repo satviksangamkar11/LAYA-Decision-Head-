@@ -116,11 +116,28 @@ def test_default_sampling_is_a_random_subset_and_limits_are_recorded():
     assert out2["verified_ids"] == out["verified_ids"]                                         # seeded -> reproducible receipt
 
 
+def test_single_fabricated_record_anywhere_is_caught_at_100_percent():
+    n = 6
+    for pos in range(n):
+        batch = [record(i) for i in range(n)]
+        batch[pos] = dict(batch[pos], hq=torch.randn(3, 2560).half(), ho=torch.randn(3, 3, 2560).half())     # perfect metadata, fabricated tensors
+        out = raises(RT.ProvenanceError, score, batch)                                                          # score() uses sample_n = len(batch)
+        assert "fresh capture" in str(out) and ("d%d" % pos) in str(out), (pos, str(out))
+
+
+def test_capture_pins_v2_are_versioned_and_consistent():
+    assert laya.EXPECTED_CAPTURE_CODE_V1[0]["path"] == "tools/fable_capture.py"                                 # history kept
+    v2 = laya.load_capture_pins("v2")
+    assert [e["path"] for e in v2] == ["capture/capture.py", "capture/capture_resident.py", "decision_head/fable_features.py"] and tuple(v2) == tuple(laya.EXPECTED_CAPTURE_CODE)
+    assert {e["path"]: e["sha256"] for e in v2}["capture/capture.py"] == RT.CAPTURE_CODE_SHA256["capture/capture.py"]
+    assert {e["path"]: e["sha256"] for e in v2}["capture/capture_resident.py"] == RT.CAPTURE_CODE_SHA256["capture/capture_resident.py"]
+    raises(ValueError, laya.load_capture_pins, "v9")
+
+
 # ------------------------------------------------------------------ scorer interface (laya.py)
 def test_laya_scorer_interface_wiring():
-    s = laya.LayaScorer()                                                                      # real repo manifest and capture-code hashes
-    if s.disabled:
-        return                                                                                 # bundle without the baseline files: covered by models/tests/run_tests.py
+    s = laya.LayaScorer()                                                                      # real repo manifest and capture-code hashes (v2 pins)
+    assert not s.disabled, "the real LayaScorer is disabled in this bundle: " + s.meta.disabled_reason      # never a silent pass
     live = RT.LiveScorer(fake_capture, FakeScorer(), DEV)
     a = laya.LayaScorer(authorized=True, backend=RT.LiveBackend(live))
     pool = {"context_text": "c", "options": ["x", "y", "z"]}
@@ -167,12 +184,31 @@ def test_trusted_evidence_outranks_any_laya_score():
     assert r["selected_index"] == 2 and [int(x.split("#")[1]) for x in r["order"]] == [2, 1, 0] and INV.check_i2(j) == ""
 
 
-def test_no_scorer_means_deterministic_id_order_and_journal_is_reproducible():
-    a = EvidenceJournal(); r = decide_next_action(a, "d", ["x", "y", "z"], None, None)
-    assert r["selected_index"] == 0 and r["approved"] is False and not a.entries("scorer")
+def test_scorer_unavailable_is_explicit_never_silent():
+    a = EvidenceJournal()
+    raises(ValueError, decide_next_action, a, "d", ["x", "y", "z"], None, None)                          # no scores and no stated reason: refused
+    r = decide_next_action(a, "d", ["x", "y", "z"], None, None, scorer_unavailable_reason="ProvenanceError: no verified score")
+    assert r["selected_index"] == 0 and r["approved"] is False and r["scorer_available"] is False
+    e = a.entries("scorer_unavailable")
+    assert len(e) == 1 and "no verified score" in e[0]["data"]["reason"] and e[0]["data"]["fallback"] == "id_order" and not a.entries("scorer")
+
+
+def test_journal_is_reproducible():
     h1 = _decide([0.3, 0.9, 0.1], [{}, {}, {"L5": "fail"}])[0].journal_hash()
     h2 = _decide([0.3, 0.9, 0.1], [{}, {}, {"L5": "fail"}])[0].journal_hash()
     assert h1 == h2
+
+
+def test_abstain_when_no_option_is_allowed_and_no_none_option_is_added():
+    j, r = _decide([1.0, 2.0], [{"policy": "fail"}, {"L5": "fail"}])
+    assert r["abstain"] is True and r["selected_id"] is None and r["next_step"] == "gather_evidence" and r["blocked"] == ["d#0", "d#1"]
+    e = j.entries("abstain")
+    assert len(e) == 1 and e[0]["data"]["n_options"] == 2                                                # the pool still has exactly the 2 proposed options (no NONE added)
+    j2 = EvidenceJournal()
+    r2 = decide_next_action(j2, "d", [], [], [])
+    assert r2["abstain"] is True and j2.entries("abstain")
+    j3, r3 = _decide([1.0, 2.0], [{"L5": "fail_nonblocking"}, {}])                                        # a non-blocking fail demotes but does not reject
+    assert r3["abstain"] is False and r3["selected_index"] == 1 and r3["order"] == ["d#1", "d#0"]
 
 
 def test_invariant_negative_control_detects_a_reordering_across_evidence():
@@ -187,8 +223,7 @@ def test_invariant_negative_control_detects_a_reordering_across_evidence():
 
 def test_real_scores_never_override_trusted_evidence():
     p = os.environ.get("LAYA_T4_SCORES") or (sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith(".json") else None)
-    if not p or not Path(p).exists():
-        return                                                                                  # real-score receipt not shipped in this bundle
+    assert p and Path(p).exists(), "T4_scores.json (real LAYA scores of the Kaggle T4 run) must ship with this suite; a missing file is a FAILURE, not a skip"
     pools = json.load(open(p, encoding="utf-8"))["pools"]
     assert len(pools) >= 3
     for pool in pools:
@@ -200,6 +235,133 @@ def test_real_scores_never_override_trusted_evidence():
         assert r1["selected_index"] != top and r1["approved"] is False and INV.check_i2(j) == ""
         low = min(range(n), key=sc.__getitem__); tr = [{} for _ in range(n)]; tr[low] = {"L3": "pass"}
         assert _decide(sc, tr, name=pool["decision_id"])[1]["selected_index"] == low
+
+
+# ------------------------------------------------------------------ per-action controller (agentic.py) with a fake sandbox
+import json as _json
+import shutil
+import tempfile
+from evidence_ladder.controller.agentic import AgenticContext, AgenticRun, AgenticTask
+
+_TEST = 'from slug import slugify\nassert slugify("Hello, World!") == "hello-world"\nprint("all tests passed")\n'
+_SLUG = 'import re\n\n\ndef slugify(text):\n    return re.sub(r"[^a-z0-9]+", "-", text.strip().lower())\n'
+_USER = "Fix slug.py so that `python3 test_slug.py` passes. Do not modify test_slug.py."
+
+
+class FakeSandbox:
+    """Deterministic stand-in for the WSL sandbox: the test passes iff slug.py strips hyphens; protected_unchanged compares test_slug.py."""
+    def __init__(self): self.calls = 0
+
+    def run(self, workspace, cmd, persist=False, timeout=60):
+        self.calls += 1
+        ws = Path(workspace)
+        fixed = '.strip("-")' in (ws / "slug.py").read_text()
+        is_test = cmd.startswith("python3 test_slug.py")
+        ok = is_test and fixed
+        return {"exit_code": 0 if (ok or not is_test) else 1, "killed": False, "stdout": "all tests passed\n" if ok else "", "stderr": "" if (ok or not is_test) else "AssertionError\n",
+                "protected_unchanged": (ws / "test_slug.py").read_text() == _TEST, "pre_tree_sha256": "x", "post_tree_sha256": "y"}
+
+
+FIX = _json.dumps({"name": "Edit", "arguments": {"file_path": "slug.py", "old_string": 'return re.sub(r"[^a-z0-9]+", "-", text.strip().lower())', "new_string": 'return re.sub(r"[^a-z0-9]+", "-", text.strip().lower()).strip("-")'}})
+WRONG = _json.dumps({"name": "Edit", "arguments": {"file_path": "slug.py", "old_string": ".strip().lower()", "new_string": ".lower()"}})
+PROT = _json.dumps({"name": "Edit", "arguments": {"file_path": "test_slug.py", "old_string": "hello-world", "new_string": "x"}})
+RMRF = _json.dumps({"name": "Bash", "arguments": {"command": "rm -rf /"}})
+READ = _json.dumps({"name": "Read", "arguments": {"file_path": "slug.py"}})
+
+
+class ScorePref:
+    """Scorer-interface stand-in whose order is fixed by the caller (the test decides which option the scorer likes best)."""
+    scorer_id = "pref_scorer"
+
+    def __init__(self, scores): self.scores = scores
+
+    def score(self, decision_type, pool, exploratory=False):
+        assert decision_type == "next_action" and set(pool) == {"context_text", "options"}
+        return list(self.scores[:len(pool["options"])])
+
+
+def _run(scorer, tmp, name="t"):
+    ws = Path(tmp) / name / "ws"
+    ws.mkdir(parents=True)
+    (ws / "slug.py").write_text(_SLUG); (ws / "test_slug.py").write_text(_TEST)
+    task = AgenticTask(name, _USER, ws, "python3 test_slug.py", ["test_slug.py"], "SYSTEM", 2)
+    r = AgenticRun(task, AgenticContext(sandbox=FakeSandbox(), scorer=scorer, arm="E"), lambda msgs: "\n\n".join(str(m.get("content")) for m in msgs))
+    r.begin()
+    return r
+
+
+def test_agentic_real_executed_evidence_outranks_the_laya_top_choice():
+    with tempfile.TemporaryDirectory() as tmp:
+        r = _run(ScorePref([9.0, 1.0, 5.0, 4.0, 0.0]), tmp)                 # the scorer likes READ (0) best and the fixing edit (4) least
+        s = r.step([READ, WRONG, PROT, RMRF, FIX])
+        assert s["laya_order"] == [0, 2, 3, 1, 4] and s["allowed_set"] == [0, 1, 4]
+        assert s["trusted"][2] == {"policy": "fail"} and s["trusted"][3] == {"policy": "fail"}                 # protected-file edit and rm -rf rejected by policy
+        assert s["trusted"][4]["L5_dry_run"] == "pass" and s["trusted"][1]["L5_dry_run"] == "fail_nonblocking"   # dry-runs went through the sandbox port, not injected
+        assert s["chosen_index"] == 4 and s["trusted_evidence_overrode_laya"] is True and s["laya_top_was_chosen"] is False
+        assert s["tests_pass"] and s["label"] == "VERIFIED" and s["authorized"]
+        res = r.finish()
+        assert res.answer_label == "VERIFIED" and res.stop_cause == "decided" and r.invariants_checked == ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8"]
+
+
+def test_agentic_laya_orders_what_trusted_evidence_leaves_and_may_change_the_id_order_choice():
+    with tempfile.TemporaryDirectory() as tmp:
+        r = _run(ScorePref([1.0, 3.0, 2.0]), tmp)
+        s = r.step([READ, _json.dumps({"name": "Bash", "arguments": {"command": "ls"}}), _json.dumps({"name": "Read", "arguments": {"file_path": "test_slug.py"}})])
+        assert s["id_order_choice"] == 0 and s["chosen_index"] == 1 and s["laya_changed_the_choice_vs_id_order"] is True and s["trusted_evidence_overrode_laya"] is False
+
+
+def test_agentic_missing_scorer_is_journaled_not_silent_and_step_limit_stops():
+    with tempfile.TemporaryDirectory() as tmp:
+        r = _run(None, tmp)
+        s = r.step([READ, WRONG])
+        assert s["scores"] is None and "AttributeError" in s["scorer_unavailable_reason"] and r.journal.entries("scorer_unavailable")
+        r.step([READ, WRONG])
+        res = r.finish()
+        assert res.stop_cause == "budget" and res.answer_label == "BLOCKED" and not res.decision["authorized_to_execute"]
+
+
+def test_agentic_abstains_when_everything_is_rejected():
+    with tempfile.TemporaryDirectory() as tmp:
+        r = _run(ScorePref([2.0, 1.0]), tmp)
+        s = r.step([PROT, RMRF])
+        assert s["chosen_index"] is None and s["decision"]["abstain"] is True and r.journal.entries("abstain") and s["tests_pass"] is False
+
+
+def test_agentic_replay_gives_identical_journal_hashes():
+    hs = []
+    for i in range(2):
+        with tempfile.TemporaryDirectory() as tmp:
+            r = _run(ScorePref([9.0, 1.0, 5.0, 4.0, 0.0]), tmp, name="same")
+            r.step([READ, WRONG, PROT, RMRF, FIX])
+            hs.append(r.finish().journal_hash)
+    assert hs[0] == hs[1]
+
+
+# ------------------------------------------------------------------ imported Kaggle scores (verified by an independent re-capture run)
+def _kres(scores=(1.0, 2.0), **over):
+    opts = ["opt a", "opt b"]
+    d = {"status": "ok", "origin": "live_capture_same_process", "provenance": RT.make_provenance(device=DEV, context_text="ctx", options=opts), "context_sha256": LF.sha256_text("ctx"),
+         "options": opts, "option_sha256": [LF.sha256_text(o) for o in opts], "raw_output_sha256": "r", "features_sha256": "f", "scores": {"laya": {"score": list(scores)}}}
+    d.update(over)
+    return d
+
+
+def test_verified_saved_scores_need_two_agreeing_runs_and_feed_the_laya_scorer():
+    be = RT.VerifiedSavedScoreBackend("laya")
+    assert be.add(_kres(), _kres(), live_run="live@v1", verify_run="verify@v2", verify_mode="replay") is True
+    pool = {"context_text": "ctx", "options": ["opt a", "opt b"]}
+    assert be.score("next_action", pool) == [1.0, 2.0] and be.last["origin"] == "saved_scores_verified_by_independent_recapture"
+    sc = laya.LayaScorer(authorized=True, backend=be)
+    assert not sc.disabled and sc.score("next_action", pool) == [1.0, 2.0]
+    raises(RT.ProvenanceError, be.score, "next_action", {"context_text": "other", "options": ["opt a", "opt b"]})       # never verified -> refused
+    raises(RT.ProvenanceError, be.score, "next_action", ["bare", "text"])
+    for kw, bad in (({"live_run": "x", "verify_run": "x"}, _kres()), ({"verify_mode": "propose"}, _kres()), ({}, _kres(scores=(9.0, 0.0))), ({}, _kres(features_sha256="g")),
+                    ({}, _kres(origin="kaggle_said_so")), ({}, _kres(provenance=dict(_kres()["provenance"], model_revision="0" * 40)))):
+        be2 = RT.VerifiedSavedScoreBackend("laya")
+        args = dict(live_run="live@v1", verify_run="verify@v2", verify_mode="replay")
+        args.update(kw)
+        assert be2.add(_kres(), bad, **args) is False and be2.refused, kw
+        raises(RT.ProvenanceError, be2.score, "next_action", pool)
 
 
 def main():

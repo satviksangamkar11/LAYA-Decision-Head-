@@ -1,0 +1,16 @@
+[
+ {
+  "step": 1,
+  "decision_id": "ex1_slug:step1",
+  "chosen_index": 1,
+  "tests_pass": false,
+  "label": "BLOCKED"
+ },
+ {
+  "step": 2,
+  "decision_id": "ex1_slug:step2",
+  "chosen_index": 2,
+  "tests_pass": false,
+  "label": "BLOCKED"
+ }
+]

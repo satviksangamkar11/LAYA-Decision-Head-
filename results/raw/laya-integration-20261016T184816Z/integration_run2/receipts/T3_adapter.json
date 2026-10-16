@@ -1,0 +1,44 @@
+{
+ "thresholds": {
+  "max_abs_logit_diff": 1e-06,
+  "option_order": "ho[i] is the pooled vector of options[i]; checked by swapping two options and requiring their logits to swap",
+  "order_swap_max_abs_diff": 0.0001
+ },
+ "weights": {
+  "adapter_sha256_bundle": {
+   "final-s0": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2",
+   "final-s1": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e",
+   "final-s2": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+  },
+  "adapter_sha256_manifest": {
+   "final-s0": "111a36161c00e1e7bbb499d913b5fa33c1eb4586c96fd452a2b1ae9a4d19d4f2",
+   "final-s1": "af43e2517040d9184fd94cd17349482bfaf6032d12c80156af65ee7c1bdbb36e",
+   "final-s2": "67ce37c29a1455d5ac3ee7a5d218f20aefc868c045c4da748b303da54e9a50d6"
+  },
+  "pretrained_source_sha256": "e316f15e1be381aee51ebfd5b9ccb1987395a20c31c103a42053e0f97c72810a",
+  "adapter_trainable_params": {
+   "final-s0": 5246982,
+   "final-s1": 5246982,
+   "final-s2": 5246982
+  },
+  "pretrained_tensor_params": 26248193,
+  "expected_adapter_params": 5246982,
+  "scorer_head_state_equals_training_build_head": {
+   "final-s0": true,
+   "final-s1": true,
+   "final-s2": true
+  }
+ },
+ "weights_ok": true,
+ "collate_shapes_ok": true,
+ "collate_equals_scorer_tensors": true,
+ "pools": 53,
+ "max_abs_logit_diff_scorer_vs_training_path": 0.0,
+ "order_swap_max_abs_diff": 1.9073486328125e-06,
+ "assertions": "hq [1,3,2560] = last-prefix-token state at depths 18/24/30; ho [1,N,3,2560] = per-option mean states, ho[i] belongs to options[i]; mask all True; prim=0 (choice); same tensors enter ft.logits_of and LF.head_logits",
+ "capture_provenance": "stored VAL features: Tesla T4 fp16 captures of results/raw/val-capture-run-20261012T111837Z (not re-captured in this test; see T2)",
+ "test": "T3_adapter",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "created_utc": "2026-10-16T19:35:24Z"
+}

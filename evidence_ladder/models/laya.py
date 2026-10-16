@@ -20,10 +20,36 @@ MANIFEST_REL = "results/raw/laya-baseline-v1-20261012T215242Z/MANIFEST.json"
 QWEN_REPO = "Qwen/Qwen3-4B-Thinking-2507"
 QWEN_REVISION = "768f209d9ea81521153ed38c47d515654e938aea"
 # S3 table, computed 2026-10-16 (both hashes re-computed from the main checkout the same day).
-EXPECTED_CAPTURE_CODE = (
+EXPECTED_CAPTURE_CODE_V1 = (
     {"path": "tools/fable_capture.py", "sha256": "9d8dd3790b73503646243ea897ed4bb6f4a47cebab20463cb324aba7fc63bd72"},
     {"path": "decision_head/fable_features.py", "sha256": "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9"},
 )
+# v2 (2026-10-17, [LAYA-INT-1]): the code that actually produced the training features. Literal kept here and cross-checked against configs/laya_capture_code_pins_v2.toml when present.
+_V2_LITERAL = (
+    {"path": "capture/capture.py", "sha256": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8"},
+    {"path": "capture/capture_resident.py", "sha256": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"},
+    {"path": "decision_head/fable_features.py", "sha256": "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9"},
+)
+
+
+def load_capture_pins(version: str = "v2", repo_root=None):
+    """Versioned pins. 'v1' = the historical table; 'v2' = configs/laya_capture_code_pins_v2.toml (checked against the embedded literal; a difference raises)."""
+    if version == "v1":
+        return EXPECTED_CAPTURE_CODE_V1
+    if version != "v2":
+        raise ValueError("unknown capture pin version %r" % (version,))
+    p = Path(repo_root or REPO) / "configs" / "laya_capture_code_pins_v2.toml"
+    if not p.exists():
+        return _V2_LITERAL
+    import tomllib
+    data = tomllib.loads(p.read_text(encoding="utf-8"))
+    got = tuple({"path": r["path"], "sha256": r["sha256"]} for r in data["required"])
+    if got != _V2_LITERAL:
+        raise ValueError("configs/laya_capture_code_pins_v2.toml differs from the pins embedded in laya.py")
+    return got
+
+
+EXPECTED_CAPTURE_CODE = load_capture_pins("v2")     # active table (v1 stays in EXPECTED_CAPTURE_CODE_V1)
 
 
 class ScorerDisabled(Exception):

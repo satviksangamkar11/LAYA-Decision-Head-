@@ -133,8 +133,7 @@ def score_stored(records: Sequence[Mapping[str, Any]], *, capture_fn: CaptureFn,
         if r["provenance"]["context_sha256"] != LF.sha256_text(r["context_text"]) or list(r["provenance"]["option_sha256"]) != [LF.sha256_text(o) for o in r["options"]]:
             raise ProvenanceError("record %r: recorded text does not match the provenance hashes" % r.get("decision_id"))
         check_tensors(r["hq"], r["ho"], len(r["options"]))
-    n = len(records) if sample_n is None else min(int(sample_n), len(records))
-    n = max(n, min(3, len(records)), math.ceil(0.25 * len(records))) if sample_n is None else n
+    n = max(min(3, len(records)), math.ceil(0.25 * len(records))) if sample_n is None else min(int(sample_n), len(records))   # integration tests pass sample_n=len(batch): 100%
     seed = secrets.randbits(32) if seed is None else int(seed)
     chosen = random.Random(seed).sample(range(len(records)), n)
     comps = []
@@ -169,4 +168,56 @@ class LiveBackend:
         sc = self.last["scores"].get(self.kind)
         if sc is None:
             raise ProvenanceError("scorer kind %r not available" % self.kind)
+        return [float(x) for x in sc["score"]]
+
+
+class VerifiedSavedScoreBackend:
+    """PC-side backend for scores computed on the Kaggle T4. Imported results are NOT trusted by label: a pool is loaded only if TWO independent Kaggle runs agree on it,
+    the live run (Qwen proposes, captures, scores) and a verification run (separate kernel version/process: re-captures the SAME saved proposals from the same context
+    text with the training recipe and re-scores). Required equal in both: context_sha256, option_sha256, raw_output_sha256, features_sha256 and every score vector
+    (laya per seed, probe, random head); both must carry origin live_capture_same_process, valid metadata provenance, and the verification run must be in replay mode.
+    Anything else is refused (ProvenanceError) and the controller records scorer_unavailable. Pool = {context_text, options}; keyed by the text hashes."""
+
+    def __init__(self, kind: str = "laya"):
+        assert kind in ("laya", "probe", "random_head"), kind
+        self.kind, self._pools, self.last, self.refused = kind, {}, None, []
+
+    def add(self, live: Mapping[str, Any], verify: Mapping[str, Any], *, live_run: str, verify_run: str, verify_mode: str) -> bool:
+        why = None
+        try:
+            if live_run == verify_run:
+                raise ProvenanceError("live and verification results come from the same run")
+            if verify_mode != "replay":
+                raise ProvenanceError("the verification run is not a replay of the saved proposals")
+            for r in (live, verify):
+                if r.get("status") != "ok" or r.get("origin") != "live_capture_same_process":
+                    raise ProvenanceError("a result lacks live-capture origin")
+                check_metadata(r.get("provenance"))
+            for k in ("context_sha256", "option_sha256", "raw_output_sha256", "features_sha256", "options"):
+                if live.get(k) != verify.get(k):
+                    raise ProvenanceError("live and verification runs disagree on %s" % k)
+            if live["scores"] != verify["scores"]:
+                raise ProvenanceError("live and verification runs disagree on the scores")
+            if [LF.sha256_text(o) for o in live["options"]] != list(live["option_sha256"]):
+                raise ProvenanceError("option texts do not match their hashes")
+        except ProvenanceError as e:
+            why = str(e)
+        if why:
+            self.refused.append({"context_sha256": live.get("context_sha256"), "reason": why}); return False
+        self._pools[(live["context_sha256"], tuple(live["option_sha256"]))] = {"live": live, "verify": verify, "live_run": live_run, "verify_run": verify_run}
+        return True
+
+    def score(self, decision_type: str, pool: Any) -> List[float]:
+        req = pool[0] if isinstance(pool, (list, tuple)) and len(pool) == 1 and isinstance(pool[0], Mapping) else pool
+        if not isinstance(req, Mapping) or "context_text" not in req or "options" not in req:
+            raise ProvenanceError("the scorer needs {context_text, options}; bare candidates/text are refused (no text-only fallback)")
+        key = (LF.sha256_text(req["context_text"]), tuple(LF.sha256_text(o) for o in req["options"]))
+        rec = self._pools.get(key)
+        if rec is None:
+            raise ProvenanceError("no verified score for this context/option pool (unverified or never scored): refused")
+        sc = rec["live"]["scores"].get(self.kind)
+        if sc is None:
+            raise ProvenanceError("scorer kind %r not available" % self.kind)
+        self.last = {"provenance": rec["live"]["provenance"], "origin": "saved_scores_verified_by_independent_recapture", "live_run": rec["live_run"], "verify_run": rec["verify_run"],
+                     "features_sha256": rec["live"]["features_sha256"]}
         return [float(x) for x in sc["score"]]

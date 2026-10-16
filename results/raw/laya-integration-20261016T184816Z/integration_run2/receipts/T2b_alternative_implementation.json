@@ -1,0 +1,40 @@
+{
+ "purpose": "evidence for CORRECTION_NOTE.md: tools/fable_capture.py (v1 pin) vs the stored training features",
+ "implementation_sha256": "9d8dd3790b73503646243ea897ed4bb6f4a47cebab20463cb324aba7fc63bd72",
+ "rows": [
+  {
+   "decision_id": "fable5:bash-dotlink:2",
+   "status": "ok",
+   "cos_min": 0.9999999997818008,
+   "max_abs_diff": 0.001953125,
+   "within_T2_thresholds": true,
+   "bit_identical": false
+  },
+  {
+   "decision_id": "fable5:py-klondike:1",
+   "status": "ok",
+   "cos_min": 0.9999978341971467,
+   "max_abs_diff": 0.0625,
+   "within_T2_thresholds": true,
+   "bit_identical": false
+  },
+  {
+   "decision_id": "fable5:go-dashfeed:4",
+   "status": "ok",
+   "cos_min": 0.9999999937468937,
+   "max_abs_diff": 0.00390625,
+   "within_T2_thresholds": true,
+   "bit_identical": false
+  }
+ ],
+ "thresholds": {
+  "min_cosine": 0.9999,
+  "max_abs_diff": 0.5,
+  "records_required": "all"
+ },
+ "note": "informational for the pin correction; the verdict on the scorer's capture path is T2 (capture/capture*.py, bit-identical)",
+ "test": "T2b_alternative_implementation",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "created_utc": "2026-10-16T19:36:13Z"
+}

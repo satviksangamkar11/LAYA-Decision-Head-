@@ -1,0 +1,1 @@
+{"task": "wordcount", "test_cmd": "python3 test_wc.py", "protected": ["test_wc.py"], "user": "The function count_words in wc.py miscounts words when the text has repeated spaces or newlines, so test_wc.py fails. Fix wc.py so that `python3 test_wc.py` passes. Do not modify test_wc.py."}

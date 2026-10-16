@@ -1,0 +1,17 @@
+{
+  "id": "sangeetasangamkar/evidence-ladder-laya-parity-v1",
+  "title": "evidence-ladder-laya-parity-v1",
+  "code_file": "evidence_ladder_laya_parity_v1.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "leminhhung0101/qwen3-4b-thinking-2507",
+    "sangeetasangamkar/evidence-ladder-laya-gen-bundle-v1"
+  ],
+  "kernel_sources": [],
+  "competition_sources": []
+}

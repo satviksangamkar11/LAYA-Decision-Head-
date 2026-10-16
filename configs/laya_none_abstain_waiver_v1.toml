@@ -1,0 +1,18 @@
+# [LAYA-INT-1] WAIVER v1: NONE option / abstain-below-margin rule of CLAUDE.md "Decision-layer rules" for the LAYA next-action scorer. Written 2026-10-17.
+# Audit finding F05. A waiver replaces the rule only where stated; everything else in the rule stays.
+
+[waiver]
+id = "laya_none_abstain_v1"
+rule_text = "Every decision includes a NONE / insufficient-evidence option and an abstain output. Abstain when the margin is below the calibrated threshold."
+scope = "the LAYA head (frozen Qwen3-4B-Thinking-2507 states -> Fable adapters final-s0..s2 -> pretrained Laya head) used as an L0 scorer of next actions"
+
+[reason]
+trained_recipe = "The adapters were trained on pools of 3-5 real Fable-recorded action options (positive = recorded action, alternatives UNKNOWN). No pool contains a NONE option, so the head has no trained NONE class and no calibrated abstain output (the abstain/escalate gate of the head is frozen and unused: no labels existed)."
+consequence = "Adding a NONE option to the LAYA pool would feed the head an input it never saw; its score for it would be meaningless, and a margin threshold cannot be calibrated without labelled abstentions. The head's probabilities are conditional on the options supplied (CLAUDE.md 'Never treat head probabilities as truth')."
+decision = "Do NOT add a NONE option to the LAYA pool and do NOT use a LAYA-margin abstain threshold."
+
+[replacement]
+controller_level_abstain = "The controller abstains when the allowed set is empty (no option survives the trusted checks, or no options were proposed): selected = None, next_step = gather_evidence, journal entry 'abstain'. Implemented and tested in evidence_ladder/controller/next_action.py."
+uncertainty = "Uncertainty about WHICH allowed option is better never selects an action by LAYA alone: trusted evidence (execution, policy, protected tests) is consulted first and LAYA only orders what that leaves (I2). Missing or failed scorer -> explicit journal entry 'scorer_unavailable' (no silent fallback)."
+limits = "A tie or a small LAYA margin among allowed options still resolves by the fixed id order; this is recorded in the journal ranking entry. It is not a calibrated abstention."
+review = "Revisit when a calibrated NONE/abstain head exists (needs labelled abstentions and a held-out calibration set)."

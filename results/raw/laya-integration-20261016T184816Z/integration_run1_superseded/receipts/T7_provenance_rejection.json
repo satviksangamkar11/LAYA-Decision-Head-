@@ -1,0 +1,107 @@
+{
+ "thresholds": {
+  "must_refuse": [
+   "wrong model revision",
+   "wrong dtype",
+   "wrong depths",
+   "wrong recipe id",
+   "wrong device",
+   "wrong capture-code hash",
+   "fabricated random tensors with valid metadata",
+   "real features of another text with valid metadata",
+   "tensors perturbed by 5% of their scale with valid metadata",
+   "text or embedding input"
+  ],
+  "fabricated_must_be_caught_by": "re-capture comparison (cosine/max-abs of [a_feature_recapture]), not by metadata",
+  "accept_control": "a genuine stored record (unchanged) is accepted and scored",
+  "reason": "Metadata cannot prove origin. A scorer that trusts stored hashes would accept any tensor with plausible fields; only re-running the frozen Qwen on the recorded text proves the tensors."
+ },
+ "cases": {
+  "control_genuine_accepted": {
+   "refused": false
+  },
+  "wrong_model_revision": {
+   "refused": true,
+   "message": "provenance model_revision = '0000000000000000000000000000000000000000', expected '768f209d9ea81521153ed38c47d515654e938aea' (not the frozen Qwen3-4B-Thinking-2507 training recipe)"
+  },
+  "wrong_model_repo": {
+   "refused": true,
+   "message": "provenance model_repo = 'Qwen/Qwen3-4B', expected 'Qwen/Qwen3-4B-Thinking-2507' (not the frozen Qwen3-4B-Thinking-2507 training recipe)"
+  },
+  "wrong_dtype_metadata": {
+   "refused": true,
+   "message": "provenance dtype = 'bfloat16', expected 'float16' (not the frozen Qwen3-4B-Thinking-2507 training recipe)"
+  },
+  "wrong_dtype_tensor_float32": {
+   "refused": true,
+   "message": "features must be float16 (training dtype), got torch.float32 / torch.float32"
+  },
+  "wrong_depths": {
+   "refused": true,
+   "message": "depths [12, 18, 24], expected [18, 24, 30]"
+  },
+  "wrong_recipe_id": {
+   "refused": true,
+   "message": "provenance recipe_id = 'other_recipe_v9', expected 'fable_capture_v1' (not the frozen Qwen3-4B-Thinking-2507 training recipe)"
+  },
+  "wrong_device": {
+   "refused": true,
+   "message": "captured on 'NVIDIA GeForce RTX 3050 6GB Laptop GPU'; the adapters were trained on Tesla T4 features"
+  },
+  "wrong_capture_code_hash": {
+   "refused": true,
+   "message": "capture code hashes differ from the code that produced the training features"
+  },
+  "fabricated_random_tensors_valid_metadata": {
+   "refused": true,
+   "message": "stored features of 'fable5:go-csv-report:1' differ from a fresh capture of the same text (cos_min -0.040968, max_abs 150.6816): whole batch refused"
+  },
+  "real_features_of_another_text_valid_metadata": {
+   "refused": true,
+   "message": "stored features of 'fable5:py-alert-rules:1' differ from a fresh capture of the same text (cos_min 0.683039, max_abs 20.9297): whole batch refused"
+  },
+  "perturbed_5pct_valid_metadata": {
+   "refused": true,
+   "message": "stored features of 'fable5:go-csv-report:1' differ from a fresh capture of the same text (cos_min 0.987496, max_abs 0.4419): whole batch refused"
+  },
+  "text_instead_of_tensor": {
+   "refused": true,
+   "message": "features must be tensors captured from the frozen Qwen (text, embeddings and TF-IDF are refused)"
+  },
+  "bare_text_candidates_live": {
+   "refused": true,
+   "message": "the scorer needs {context_text, options} to capture from the frozen Qwen; bare candidates/text are refused (no text-only fallback)"
+  }
+ },
+ "sampling_detection_one_fabricated_of_8_default_subset_20_seeds": {
+  "caught": 20,
+  "of": 20,
+  "note": "default replay verification re-captures a random subset (>=25%, min 3); a single fabricated record outside the subset is NOT caught (recorded limitation); sample_n=len(batch) verifies all"
+ },
+ "live_mode": [
+  {
+   "decision_id": "fable5:go-csv-report:1",
+   "origin": "live_capture_same_process",
+   "max_abs_diff_vs_stored_forward": 0.0,
+   "seconds": 0.364
+  },
+  {
+   "decision_id": "fable5:go-switchcase:1",
+   "origin": "live_capture_same_process",
+   "max_abs_diff_vs_stored_forward": 0.0,
+   "seconds": 0.388
+  },
+  {
+   "decision_id": "fable5:py-config-merge:1",
+   "origin": "live_capture_same_process",
+   "max_abs_diff_vs_stored_forward": 0.0,
+   "seconds": 0.78
+  }
+ ],
+ "verified_by": "runtime re-capture on the frozen Qwen (laya_runtime.score_stored / LiveScorer), not by stored metadata",
+ "capture_provenance": "live captures by this kernel on Tesla T4",
+ "test": "T7_provenance_rejection",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "created_utc": "2026-10-16T18:55:59Z"
+}

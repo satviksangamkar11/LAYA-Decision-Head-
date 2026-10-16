@@ -1,0 +1,61 @@
+{
+ "thresholds": {
+  "gate": {
+   "per_seed_top1_equal": true,
+   "max_pools_differing": 1,
+   "hit_tolerance": 1e-09
+  },
+  "recaptured": {
+   "min_same_top_choice": 0.95,
+   "max_head_top1_delta": 0.04
+  },
+  "t4": {
+   "require_finite": true,
+   "score_shape": "N floats per adapter",
+   "recorded_reproduction": "configs/laya_head_gate_v1.toml [b_stored_feature_forward]",
+   "permutation_trials": 4,
+   "permutation_max_abs_logit_diff": 0.0001,
+   "permutation_ranking": "identical rankings except between options whose logits differ by less than the tolerance"
+  }
+ },
+ "finite": true,
+ "shapes_ok": true,
+ "pools": 53,
+ "stored_features": {
+  "head_top1_mean_of_seeds": 0.7925,
+  "recorded": 0.7925,
+  "per_seed_top1": {
+   "final-s0": 0.7924528301886793,
+   "final-s1": 0.8113207547169812,
+   "final-s2": 0.7735849056603774
+  },
+  "recorded_per_seed": {
+   "final-s0": 0.7925,
+   "final-s1": 0.8113,
+   "final-s2": 0.7736
+  },
+  "pools_differing_from_recorded": [],
+  "pass": true
+ },
+ "recaptured_features": {
+  "same_top_choice_fraction": 1.0,
+  "head_top1": 0.7925,
+  "pass": true
+ },
+ "permutation": {
+  "trials": 636,
+  "max_abs_logit_diff": 5.7220458984375e-06,
+  "ranking_violations": 0
+ },
+ "controls_not_gates": {
+  "probe_top1_refit_C0.01": 0.9434,
+  "probe_recorded_top1": 0.9434,
+  "probe_pools_differing_from_recorded": 0,
+  "random_head_top1": 0.1698
+ },
+ "capture_provenance": "stored VAL features (Tesla T4 fp16) and their fresh T2 recaptures",
+ "test": "T4_laya",
+ "passed": true,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "created_utc": "2026-10-16T18:55:14Z"
+}

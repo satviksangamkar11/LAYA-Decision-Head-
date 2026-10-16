@@ -1,0 +1,31 @@
+{
+ "answer_label": "VERIFIED",
+ "stop_cause": "decided",
+ "journal_hash": "2434f9ad121f873e0862500b58d677ad590a2f74fe6453b03b479b697ae43dba",
+ "rounds": 1,
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "budget_record": {
+  "problem_id": "ex2_clamp",
+  "arm": "E",
+  "qwen_gen_tokens": 114,
+  "qwen_prefill_tokens": 403,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "glm_calls": 0,
+  "scorer_calls": 1,
+  "tool_runs": 3,
+  "gpu_seconds": 59.199999999999996,
+  "wall_seconds": 0.0,
+  "api_errors": 0
+ },
+ "steps": 1
+}

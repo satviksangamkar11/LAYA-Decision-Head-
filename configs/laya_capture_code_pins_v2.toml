@@ -1,0 +1,33 @@
+# [LAYA-INT-1] Capture-code pins v2 for the LAYA scorer (supersedes the v1 table in evidence_ladder/models/laya.py EXPECTED_CAPTURE_CODE_V1, kept there as history).
+# Written 2026-10-17. See results/raw/laya-integration-20261016T184816Z/CORRECTION_NOTE.md for the reason and the evidence.
+
+[meta]
+version = "v2"
+reason = "The TRAIN, TRAIN-extension and VAL features the adapters were trained/evaluated on were produced by capture/capture.py + capture/capture_resident.py driven by kaggle/level12_t4.py on a Kaggle Tesla T4, NOT by tools/fable_capture.py (the v1 pin). The v1 pin is a different implementation of the same protocol and was never run to produce those features."
+
+# Files whose sha256 MUST match at run time (they are the code path that produced the training features, byte-identical to the pkg/ copies of the three capture runs).
+[[required]]
+path = "capture/capture.py"
+sha256 = "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8"
+
+[[required]]
+path = "capture/capture_resident.py"
+sha256 = "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+
+[[required]]
+path = "decision_head/fable_features.py"      # protocol constants (depths, cue, option prefix, dtype); unchanged from v1
+sha256 = "fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9"
+
+# Recorded, not enforced at run time (the driver scripts that ran on Kaggle):
+[[informational]]
+path = "kaggle/level12_t4.py"                  # v3-context and VAL capture runs (results/raw/level12-bundle-20261012T060047Z, 20261012T104251Z kernel/)
+sha256 = "9c46095bf7ca42fc5dd5baed8baec4d7e5f04f68b099ae9acea76c475f3de133"
+
+[[informational]]
+path = "results/raw/level12-bundle-20261011T175011Z/kernel/laya-level12-v1-run.py"   # the earlier driver version of the first (v2-set) capture run
+sha256 = "b1becd8cb6031462ac253c3f5fbee9fa410bc1a46a540361f7ab375662b76225"
+
+[superseded_v1]
+path = "tools/fable_capture.py"
+sha256 = "9d8dd3790b73503646243ea897ed4bb6f4a47cebab20463cb324aba7fc63bd72"
+status = "alternative implementation of fable_capture_v1 (bucket-padded packed forward, stop-exception hooks); not used for the training features; equivalence on stored pools is measured in the integration kernel (receipt T2b_alternative_implementation)"

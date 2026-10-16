@@ -1,0 +1,29 @@
+{
+ "packets": {
+  "ex1_slug": {
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "first_state": "pending",
+   "validator": "ok",
+   "request_sha256": "de5aff0b740d1f4547f1989a83546379dcf4847c92bb0b96a7e02b695d77e047"
+  },
+  "ex2_clamp": {
+   "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+   "first_state": "pending",
+   "validator": "ok",
+   "request_sha256": "01cfbe9656b72773d213a3b092c2220959d4da4c84aa7add0db34674328e2a5b"
+  },
+  "ex3_wordcount": {
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "first_state": "pending",
+   "validator": "ok",
+   "request_sha256": "57ba72d9a8286b19064b934fd28598e8c6904ac16af8b7da95c81e1b98214abe"
+  }
+ },
+ "key_system": {
+  "status": "BLOCKED",
+  "error_type": "KeyConfigError",
+  "error": "missing environment variables: NVIDIA_API_KEY_1, NVIDIA_API_KEY_2, NVIDIA_API_KEY_3, NVIDIA_API_KEY_4, NVIDIA_API_KEY_5"
+ },
+ "sent": 0,
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]"
+}

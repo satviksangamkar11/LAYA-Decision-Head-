@@ -1,0 +1,9 @@
+[
+ {
+  "step": 1,
+  "decision_id": "ex2_clamp:step1",
+  "chosen_index": 3,
+  "tests_pass": true,
+  "label": "VERIFIED"
+ }
+]

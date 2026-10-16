@@ -1,0 +1,117 @@
+{
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "examples": {
+  "ex1_slug": {
+   "answer_label": "BLOCKED",
+   "stop_cause": "budget",
+   "journal_hash": "411a972ac9f0b87cd7bce8179d291c32a373310ff0378bc0c7d03f261218b379",
+   "rounds": 2,
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "budget_record": {
+    "problem_id": "ex1_slug",
+    "arm": "E",
+    "qwen_gen_tokens": 474,
+    "qwen_prefill_tokens": 963,
+    "glm_tokens_in": 0,
+    "glm_tokens_out": 0,
+    "glm_calls": 0,
+    "scorer_calls": 2,
+    "tool_runs": 5,
+    "gpu_seconds": 152.9,
+    "wall_seconds": 0.0,
+    "api_errors": 0
+   },
+   "steps": 2
+  },
+  "ex2_clamp": {
+   "answer_label": "VERIFIED",
+   "stop_cause": "decided",
+   "journal_hash": "120862b7f4442e5d9c5e4add3c6782af721c100d06443e8251fdbcf4cde6664d",
+   "rounds": 1,
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "budget_record": {
+    "problem_id": "ex2_clamp",
+    "arm": "E",
+    "qwen_gen_tokens": 114,
+    "qwen_prefill_tokens": 403,
+    "glm_tokens_in": 0,
+    "glm_tokens_out": 0,
+    "glm_calls": 0,
+    "scorer_calls": 1,
+    "tool_runs": 3,
+    "gpu_seconds": 59.199999999999996,
+    "wall_seconds": 0.0,
+    "api_errors": 0
+   },
+   "steps": 1
+  },
+  "ex3_wordcount": {
+   "answer_label": "BLOCKED",
+   "stop_cause": "budget",
+   "journal_hash": "42821c1cbebd0c8281cfefa77e58e76137f05b5a5b4075fc18f9c86d281b04c0",
+   "rounds": 2,
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "budget_record": {
+    "problem_id": "ex3_wordcount",
+    "arm": "E",
+    "qwen_gen_tokens": 1400,
+    "qwen_prefill_tokens": 926,
+    "glm_tokens_in": 0,
+    "glm_tokens_out": 0,
+    "glm_calls": 0,
+    "scorer_calls": 2,
+    "tool_runs": 3,
+    "gpu_seconds": 152.9,
+    "wall_seconds": 0.0,
+    "api_errors": 0
+   },
+   "steps": 2
+  }
+ },
+ "replay_pass": {
+  "ex1_slug": {
+   "journal_hash_run1": "411a972ac9f0b87cd7bce8179d291c32a373310ff0378bc0c7d03f261218b379",
+   "journal_hash_run2": "411a972ac9f0b87cd7bce8179d291c32a373310ff0378bc0c7d03f261218b379",
+   "identical": true
+  },
+  "ex2_clamp": {
+   "journal_hash_run1": "120862b7f4442e5d9c5e4add3c6782af721c100d06443e8251fdbcf4cde6664d",
+   "journal_hash_run2": "120862b7f4442e5d9c5e4add3c6782af721c100d06443e8251fdbcf4cde6664d",
+   "identical": true
+  },
+  "ex3_wordcount": {
+   "journal_hash_run1": "42821c1cbebd0c8281cfefa77e58e76137f05b5a5b4075fc18f9c86d281b04c0",
+   "journal_hash_run2": "42821c1cbebd0c8281cfefa77e58e76137f05b5a5b4075fc18f9c86d281b04c0",
+   "identical": true
+  }
+ },
+ "all_replay_identical": true,
+ "refused_imports": []
+}
