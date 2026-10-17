@@ -8,15 +8,15 @@ Status: DONE / RUNNING / TODO / BLOCKED. Evidence = path + hash. Mocks never cou
 - [ ] Source committed + secret-scanned BEFORE final run; receipts carry commit + content hashes
 - [ ] Fault-injection variants of the 3 tasks allowed for O2/O3, safety, budget branches
 
-## Phase A: foundation (RUNNING)
-- [ ] A1 GLM calls/retries/tokens from real ledgers
-- [ ] A2 transport error class recorded, no credentials
-- [ ] A3 wall/token/action/round limits enforced (new versioned config)
-- [ ] A4 model-derived evidence cannot raise approval/support
-- [ ] A5 I1-I8 real; missing component fails loudly
-- [ ] Existing suites stay green; coordinator verifies report
+## Phase A: foundation (DONE, commit 993367c4)
+- [x] A1 GLM calls/retries/tokens from real ledgers
+- [x] A2 transport error class recorded, no credentials
+- [x] A3 wall/token/action/round limits enforced (new versioned config)
+- [x] A4 model-derived evidence cannot raise approval/support
+- [x] A5 I1-I8 real; missing component fails loudly
+- [x] Existing suites stay green; coordinator verified (phaseA 16, controller 25, critic_batch 28, stepE 12, models 30, orchestrator 25 local; laya_integration 24/25 locally: needs T4_scores.json, to be run on Kaggle)
 
-## Phase B: controller (after A)
+## Phase B: controller (RUNNING; owner: controller/*, models/qwen.py)
 - [ ] B1 real O1/O2/O3 routing
 - [ ] B2 deterministic investigate stage (inspect source, run tests, locate failure)
 - [ ] B3 Qwen generation interface + frozen prompt strategies in controller
@@ -26,13 +26,13 @@ Status: DONE / RUNNING / TODO / BLOCKED. Evidence = path + hash. Mocks never cou
 - [ ] B7 final verification of actual end state
 - [ ] B8 every step journals inputs, decision, evidence, action, outcome
 
-## Phase C: supporting (parallel with B, separate files)
-- [ ] C1 linear probe + proper random-head control, identical pools, no retraining
-- [ ] C2 arm E wired into whole-program stage-1 controller (exploratory transfer only)
-- [ ] C3 LAYA monotonicity gate (ordering disabled unless supported; never overrides trusted evidence)
-- [ ] C4 behaviour clustering beyond public examples
-- [ ] C5 report + budget gates (3 examples -> INSUFFICIENT_DATA, never PASS)
-- [ ] C6 evaluation oracles inaccessible to runtime; dev cases not called sealed
+## Phase C: supporting (DONE, logic-only, commit see log; owner: orchestrator/*, new models/probe+gate files, next_action.py)
+- [x] C1 (LOGIC-ONLY; real probe refit + random-head scores need Kaggle) linear probe + proper random-head control, identical pools, no retraining
+- [x] C2 (LOGIC-ONLY; real LAYA on program candidates pending) arm E wired into whole-program stage-1 controller (exploratory transfer only)
+- [x] C3 LAYA monotonicity gate (ordering disabled unless supported; never overrides trusted evidence)
+- [ ] C4 behaviour clustering beyond public examples (MOVED to Phase B: B6)
+- [x] C5 report + budget gates (3 examples -> INSUFFICIENT_DATA, never PASS)
+- [x] C6 evaluation oracles inaccessible to runtime; dev cases not called sealed
 
 ## Phase D: verify 3 examples
 - [ ] D1 commit reviewed source (scan 0) -> record hash

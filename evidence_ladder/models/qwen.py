@@ -1,6 +1,6 @@
 """Qwen3-4B-Thinking-2507 connectors: prompt templates, code extraction, fixture replay backend, GATED HF backend, token budget accounting.
 
-HFQwenBackend is never executed in this build. It refuses unless authorized=True AND /kaggle exists AND EVIDENCE_LADDER_ALLOW_INFERENCE=1."""
+HFQwenBackend refuses unless authorized=True AND /kaggle exists AND EVIDENCE_LADDER_ALLOW_INFERENCE=1 (its GPU path has still never run on Kaggle: LOGIC-ONLY until the first Kaggle receipt)."""
 from __future__ import annotations
 
 import dataclasses
@@ -192,22 +192,30 @@ class FixtureGenerationBackend:
 
 
 # ------------------------------------------------------------------ gated HF backend
+class SnapshotMismatch(RuntimeError):
+    """[EL-ARCH-1 B3] a mounted model file does not match its pinned sha256."""
+
+
 class HFQwenBackend:
-    """Real Qwen3-4B-Thinking-2507 generation (fp16, thinking mode, T=0.6 top_p=0.95 top_k=20). NEVER EXECUTED IN THIS BUILD.
+    """Real Qwen3-4B-Thinking-2507 generation (fp16, thinking mode, T=0.6 top_p=0.95 top_k=20). Runs only on Kaggle.
     Gate (checked in __init__ and again in generate): authorized is True, path /kaggle exists, env EVIDENCE_LADDER_ALLOW_INFERENCE == "1".
-    Logs one JSONL line per generation (revision, template id, prompt sha256, token counts, seed). Model files are expected pre-mounted at model_dir
-    (the revision is a recorded claim, not verified here; the Kaggle runner must check the mounted snapshot)."""
+    Logs one JSONL line per generation (revision, template id, prompt sha256, token counts, seed). Model files are expected pre-mounted at model_dir; pass `verify_files`
+    ({relative file: sha256}) to refuse a snapshot that differs from the pinned one (the Kaggle entry does). [EL-ARCH-1 B3 review] Fixes by reading the never-executed original:
+    tokenize with add_special_tokens=False (the chat template already carries every special token, as in the T4 kernels), stop on <|im_end|> as well as eos, one seed per
+    sequence with the seed set before it, generation split into small functions so the non-GPU logic is unit-testable with a stub torch (tests/phaseB_tests.py)."""
     INFERENCE_ENV = "EVIDENCE_LADDER_ALLOW_INFERENCE"
 
     def __init__(self, *, authorized: bool = False, model_dir: Optional[str] = None, log_path: Optional[str] = None, language: str = "python",
-                 env: Optional[Mapping[str, str]] = None, path_exists=os.path.exists):
+                 env: Optional[Mapping[str, str]] = None, path_exists=os.path.exists, verify_files: Optional[Mapping[str, str]] = None):
         self._authorized = authorized is True
         self._env = os.environ if env is None else env
         self._exists = path_exists
         self.model_dir, self.log_path, self.language = model_dir, log_path, language
+        self.verify_files = dict(verify_files or {})
         self._gate()
         self._model = None
         self._tok = None
+        self.snapshot_verified = False
 
     def _gate(self) -> None:
         if not self._authorized:
@@ -219,50 +227,69 @@ class HFQwenBackend:
 
     def model_info(self) -> Dict[str, Any]:
         return {"backend": "hf", "repo": QWEN_REPO, "revision": QWEN_REVISION, "dtype": "fp16", "thinking": True, "sampling": dict(SAMPLING),
-                "templates": dict(TEMPLATE_HASHES)}
+                "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files)}
 
-    def _load(self):  # pragma: no cover - never run in this build
+    def _verify_snapshot(self) -> None:
+        import hashlib
+        for rel, want in sorted(self.verify_files.items()):
+            h = hashlib.sha256()
+            with open(os.path.join(self.model_dir or "", rel), "rb") as f:
+                for chunk in iter(lambda: f.read(1 << 24), b""):
+                    h.update(chunk)
+            if h.hexdigest() != want:
+                raise SnapshotMismatch("%s: sha256 %s != pinned %s" % (rel, h.hexdigest(), want))
+        self.snapshot_verified = bool(self.verify_files)
+
+    def _load(self):
         if self._model is None:
             import torch
             from transformers import AutoModelForCausalLM, AutoTokenizer
+            if self.verify_files:
+                self._verify_snapshot()
             src = self.model_dir or QWEN_REPO
             rev = None if self.model_dir else QWEN_REVISION
             self._tok = AutoTokenizer.from_pretrained(src, revision=rev)
             self._model = AutoModelForCausalLM.from_pretrained(src, revision=rev, torch_dtype=torch.float16).to("cuda").eval()
         return self._model, self._tok
 
-    def generate(self, request: GenerationRequest) -> List[Generation]:  # pragma: no cover - never run in this build
+    def _generate_one(self, torch, model, tok, request: GenerationRequest, seed: int, prompt_sha: str, lang: str) -> Generation:
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        chat = tok.apply_chat_template([{"role": "user", "content": request.prompt}], tokenize=False, add_generation_prompt=True)
+        enc = tok(chat, return_tensors="pt", add_special_tokens=False).to(model.device)
+        n_prompt = int(enc["input_ids"].shape[1])
+        stops = sorted(i for i in {tok.convert_tokens_to_ids("<|im_end|>"), tok.eos_token_id} if isinstance(i, int) and i >= 0)
+        t0 = time.time()
+        with torch.no_grad():
+            ids = model.generate(**enc, do_sample=True, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, eos_token_id=stops, **SAMPLING)
+        new = ids[0, n_prompt:]
+        return make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
+                               prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0)
+
+    def generate(self, request: GenerationRequest) -> List[Generation]:
         self._gate()
         if not request.thinking:
             raise ValueError("Qwen3-4B-Thinking-2507 is thinking-only")
+        if len(request.seeds) < request.n:
+            raise ValueError("request needs %d seeds, got %d" % (request.n, len(request.seeds)))
         import torch
         model, tok = self._load()
         lang = "json" if request.purpose == "tests" else self.language
         prompt_sha = sha256_text(request.prompt)
         out = []
         for seed in list(request.seeds)[:request.n]:
-            torch.manual_seed(seed)
-            torch.cuda.manual_seed_all(seed)
-            chat = tok.apply_chat_template([{"role": "user", "content": request.prompt}], tokenize=False, add_generation_prompt=True)
-            enc = tok(chat, return_tensors="pt").to(model.device)
-            n_prompt = int(enc["input_ids"].shape[1])
-            t0 = time.time()
-            with torch.no_grad():
-                ids = model.generate(**enc, do_sample=True, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, **SAMPLING)
-            new = ids[0, n_prompt:]
-            g = make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
-                                prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0)
+            g = self._generate_one(torch, model, tok, request, int(seed), prompt_sha, lang)
             self._log(request, g)
             out.append(g)
         return out
 
-    def _log(self, request: GenerationRequest, g: Generation) -> None:  # pragma: no cover
+    def _log(self, request: GenerationRequest, g: Generation) -> None:
         if self.log_path:
             rec = {"task_id": request.task_id, "purpose": request.purpose, "model": g.model, "model_revision": g.model_revision,
                    "template": g.prompt_template_id, "prompt_sha256": g.prompt_sha256, "tokens_prompt": g.tokens_prompt,
-                   "tokens_generated": g.tokens_generated, "seed": g.seed, "extract_status": g.extract_status, "ts": time.time()}
+                   "tokens_generated": g.tokens_generated, "seed": g.seed, "extract_status": g.extract_status}
             with open(self.log_path, "a", encoding="utf-8") as f:
-                f.write(canonical_json(rec) + "\n")
+                f.write(canonical_json(rec) + chr(10))
 
 
 # ------------------------------------------------------------------ budget accounting

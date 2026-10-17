@@ -18,6 +18,7 @@ ctx.critic usage contract (CriticBroker has no "get response" call, so):
   4. malformed responses are journaled, counted as a wasted call, and the run continues without the critic.
 Registry hash and scorer fingerprint are frozen for the run (I7): a change raises RuntimeError."""
 from __future__ import annotations
+import json
 
 from typing import Any, Dict, List, Optional
 
@@ -25,6 +26,8 @@ from evidence_ladder.common.contract_import import C
 from evidence_ladder.common.interfaces import (Artifact, BudgetExhausted, ControllerContext, GenerationRequest, ProblemResult, TaskSpec,
                                                UnsupportedDecisionType, sha256_text)
 from . import intake as intake_mod
+from . import l2 as L2
+from . import tiers as TIERS
 from . import router as router_mod
 from .decision import blocked_without_candidate, decide_stage1, with_next
 from .components import MissingComponentError, require
@@ -55,6 +58,10 @@ class _Cand:
         self.first_fail: Optional[Dict[str, str]] = None
         self.repaired = self.demoted = False
         self.scorer = self.deepconf = 0.0
+        self.ext_outs: List[Any] = []          # [EL-ARCH-1 B6] outputs on derived / L2 / critic inputs: behaviour clustering beyond the public examples
+        self.ext_sig = ""
+        self.l2_applied = False
+        self.l2_fail: Optional[Dict[str, str]] = None
 
 
 class _Run:
@@ -78,6 +85,12 @@ class _Run:
         self.started: set = set()
         self.seen_sigs: set = set()
         self.pending_cluster_progress = False
+        self.sample_idx = 0
+        self.tier: Optional[Dict[str, Any]] = None
+        self.l2_checks: List[Dict[str, Any]] = []
+        self.l2_done = False
+        self._disc_key = None
+        self._trig_key = None
         self._scorer_key = None
         self.limiter = Limiter(ctl.limits, ctl.clock)
         self.limit_detail = ""
@@ -121,15 +134,25 @@ class _Run:
             self.budget_hit = True
             return []
         seeds = self.next_seeds(n)
-        template = {"sample": "qwen_sample_v2", "repair": "repair_v1"}.get(purpose, purpose)
-        if purpose == "sample":
-            # F13 (audit): the generation prompt carries the required solution format (qwen_sample_v2, the template the FC-3 runs used); request_text stays the quoting base of the requirements
-            from evidence_ladder.models import qwen as _Q
-            prompt, _ = _Q.render("qwen_sample_v2", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests),
-                                  solution_format=_Q.SOLUTION_FORMATS[self.task.language], language=self.task.language)
-        self.note("generation_request", {"purpose": purpose, "n": n, "seeds": seeds, "prompt_sha": sha256_text(prompt)})
-        gens = list(self.ctx.generation.generate(GenerationRequest(self.task.task_id, prompt, n, tuple(seeds), int(self.cfg.get("max_new_tokens", 4096)),
-                                                                     purpose, bool(self.cfg.get("thinking", True)), template)))
+        template = {"sample": "qwen_sample_v2", "repair": "repair_v1", "tests": "qwen_tests_v1"}.get(purpose, purpose)
+        if purpose == "sample" and self.cfg.get("strategies"):
+            # [EL-ARCH-1 B3] the frozen prompt strategies (qwen_sample_v2 x2, qwen_sample_v2b x2, ... each with the solution-format block): one request per consecutive strategy run
+            from . import generation as GEN
+            reqs = GEN.plan_samples(self.task, n, seeds, self.sample_idx, tuple(self.cfg["strategies"]), int(self.cfg.get("max_new_tokens", 4096)))
+            self.sample_idx += n
+            self.note("generation_request", {"purpose": purpose, "n": n, "seeds": seeds, "templates": [r.prompt_template_id for r in reqs], "prompt_sha": [sha256_text(r.prompt) for r in reqs]})
+            gens = []
+            for rq in reqs:
+                gens += list(self.ctx.generation.generate(rq))
+        else:
+            if purpose == "sample":
+                # F13 (audit): the generation prompt carries the required solution format (qwen_sample_v2, the template the FC-3 runs used); request_text stays the quoting base of the requirements
+                from evidence_ladder.models import qwen as _Q
+                prompt, _ = _Q.render("qwen_sample_v2", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests),
+                                      solution_format=_Q.SOLUTION_FORMATS[self.task.language], language=self.task.language)
+            self.note("generation_request", {"purpose": purpose, "n": n, "seeds": seeds, "prompt_sha": sha256_text(prompt)})
+            gens = list(self.ctx.generation.generate(GenerationRequest(self.task.task_id, prompt, n, tuple(seeds), int(self.cfg.get("max_new_tokens", 4096)),
+                                                                         purpose, bool(self.cfg.get("thinking", True)), template)))
         out = []
         for g in gens:
             out.append(g)                       # the generation exists and cost tokens, so it is kept even if it crossed the cap
@@ -186,6 +209,8 @@ class _Run:
             self.tool_failure = True
         c.first_fail = self.first_failure(summary)
         self.relabel(c)
+        if self.l2_checks:
+            self.apply_l2(c)
 
     def first_failure(self, summary) -> Optional[Dict[str, str]]:
         for ex in summary["examples"]:
@@ -255,14 +280,14 @@ class _Run:
         """Lexicographic via C.rank: trusted passes, validated passes, cluster size, scorer, confidence, id. Arms A-C use trusted passes (public pass count) then id."""
         if self.ladder:
             self.apply_scorer()
-        size: Dict[str, int] = {}
+        size: Dict[Any, int] = {}
         for c in self.cands.values():
             if c.fails == 0:
-                size[c.summary["behaviour"]] = size.get(c.summary["behaviour"], 0) + 1
+                size[self.ckey(c)] = size.get(self.ckey(c), 0) + 1
         items = []
         for c in self.cands.values():
             items.append({"id": c.id, "trusted_passes": c.trusted, "validated_passes": c.validated if self.ladder else 0,
-                          "cluster": (-1 if c.demoted else size.get(c.summary["behaviour"], 0) if c.fails == 0 else 0) if self.ladder else 0,
+                          "cluster": (-1 if c.demoted else size.get(self.ckey(c), 0) if c.fails == 0 else 0) if self.ladder else 0,
                           "scorer": c.scorer if self.ladder else 0.0, "deepconf": c.deepconf if self.ladder else 0.0})
         order = [x["id"] for x in C.rank(items)]
         if log:
@@ -273,8 +298,15 @@ class _Run:
     def critic_stage(self):
         """-> None (continue) or (stop_cause, details)."""
         live = sorted((c for c in self.cands.values() if c.fails == 0), key=lambda c: c.id)
-        clusters = {c.summary["behaviour"] for c in live}
-        if not live or (len(clusters) < 2 and not self.cfg.get("critic_experiment")):
+        clusters = {self.ckey(c) for c in live}
+        trig = bool(live) and (len(clusters) >= 2 or bool(self.cfg.get("critic_experiment")))
+        tk = tuple(c.id for c in live)
+        if tk != self._trig_key:      # [EL-ARCH-1 B6] the critic-trigger decision is journaled (and counted on the controller) once per candidate set
+            self._trig_key = tk
+            rec = {"public_clusters": len({c.summary["behaviour"] for c in live}), "extended_clusters": len(clusters), "forced": bool(self.cfg.get("critic_experiment")), "triggered": trig, "live": len(live)}
+            self.note("critic_trigger", rec)
+            self.ctl.critic_log.append(dict(rec, task_id=self.task.task_id))
+        if not trig:
             return None
         ids = [c.id for c in live]
         rid = "crit-" + C.sha256(self.task.task_id + "|" + "|".join(ids))[:16]
@@ -373,6 +405,8 @@ class _Run:
                                                                 "critic input reproduces a quoted example; observed output differs", out, cx), trim(out))
                         touched.add(c.id)
             groups.setdefault((st, _s(out.get("observed", ""), 500)), []).append(c)
+            c.ext_outs.append(["critic:" + L2.canon(_s(payload)), L2.canon([st, _s(out.get("observed", ""), 500)])])      # [EL-ARCH-1 B6] the critic's input joins the clustering key
+            c.ext_sig = sha256_text(L2.canon(c.ext_outs))[:16]
         for cid in sorted(touched):
             self.relabel(self.cands[cid])
         demoted = []
@@ -388,6 +422,97 @@ class _Run:
                   if named in (None, target) else {"state": "applied", "packet_id": pid, "ids": [c.id for c in live], "demoted": sorted(demoted), "outcomes": outs, "clusters_after": len(groups),
                                                    "critic_named_requirement": str(named)[:40], "attached_to": target})
         self.route("critic")
+
+    # ------------------------------------------------------------ [EL-ARCH-1 B6] L2 checks, deterministic discrimination, clustering
+    def ckey(self, c: _Cand):
+        return (c.summary["behaviour"], c.ext_sig)
+
+    def runner(self):
+        def run(source: str, inp: Dict[str, Any]) -> Dict[str, Any]:
+            art = Artifact.make(self.task.task_id, self.task.language, source, None, "probe")
+            try:
+                out = dict(self.ctx.execution.run_experiment(art, {"kind": "function_call", "payload": json.dumps(inp, sort_keys=True, ensure_ascii=False)}))
+            except BudgetExhausted:
+                raise
+            except Exception as ex:      # noqa: BLE001  an infrastructure failure is a tool failure, never a verdict on the candidate
+                self.tool_failure = True
+                self.note("tool_failure", {"candidate": art.artifact_id, "error": type(ex).__name__ + ": " + str(ex)[:200]})
+                return {"status": "error", "failure_class": "sandbox_error"}
+            self.check_frozen()
+            return out
+        return run
+
+    def l2_stage(self) -> None:
+        """Ask for model-written checks (qwen_tests_v1), parse strictly, validate (quote span, L3, trusted-reference consistency, mutants), keep the survivors, apply them to every live candidate."""
+        if not (self.ladder and self.cfg.get("l2")) or self.l2_done:
+            return
+        refs = [{"id": c.id, "source": c.art.source} for c in sorted(self.cands.values(), key=lambda c: c.id) if c.fails == 0 and c.summary["all_pass"]]
+        if not refs:
+            return
+        self.l2_done = True
+        from evidence_ladder.models import qwen as _Q
+        prompt, _ = _Q.render("qwen_tests_v1", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests), n_tests=int(self.cfg.get("l2_n", 6)))
+        parsed, rejected = [], []
+        for g in self.generate("tests", prompt, 1):
+            pc = L2.parse_checks(g.text, int(self.cfg.get("l2_n", 6)))
+            parsed += pc["checks"]
+            rejected += pc["rejected"]
+        val = L2.validate_checks(parsed, self.intake.request_text, self.task.public_tests, refs, self.runner(), int(self.cfg.get("mutant_limit", 8)))
+        self.l2_checks = val["validated"]
+        keep = ("index", "quote", "char_start", "char_end", "reference", "kills_mutants", "beyond_examples", "passed_by", "failed_by")
+        self.note("l2_checks", {"parsed": len(parsed), "parse_rejected": rejected,
+                                "validated": [dict({k: v[k] for k in keep}, input_sha=sha256_text(L2.canon(v["input"]))[:16]) for v in val["validated"]],
+                                "dropped": val["dropped"], "mutants": val["mutants"], "references": [r["id"] for r in refs]})
+        for c in sorted(self.cands.values(), key=lambda c: c.id):
+            if c.fails == 0:
+                self.apply_l2(c)
+        self.route("l2")
+
+    def apply_l2(self, c: _Cand) -> None:
+        if c.l2_applied or not self.l2_checks:
+            return
+        c.l2_applied = True
+        run = self.runner()
+        res = [(ck, L2.passes(run, c.art.source, ck)) for ck in self.l2_checks]
+        bad = next(((ck, p) for ck, p in res if p is False), None)
+        st = "fail" if bad else ("pass" if all(p is True for _ck, p in res) else "unknown")
+        cx = None
+        if bad:
+            out = run(c.art.source, bad[0]["input"])
+            cx = {"input": _s(bad[0]["input"], 500), "expected": _s(bad[0]["expected"], 500), "observed": _s(out.get("observed", out.get("failure_class", out.get("status", ""))), 500)}
+            c.l2_fail = dict(cx, level="L2", quote=bad[0]["quote"])
+            if c.first_fail is None:
+                c.first_fail = c.l2_fail
+            c.sigs.add(sha256_text(L2.canon(["qwen_tests_v1", cx["input"], cx["observed"]]))[:16])
+        o = {"check_id": "qwen_tests_v1", "status": st, "detail": "%d validated L2 check(s)" % len(res)}
+        self.journal.add_evidence(self.fac.make(c.art, self.intake.all_inputs_id, "qwen_tests_v1", "model_test", "model_derived", st, "validated model-written checks (ranking and repair feedback only)", o, cx), trim(o))
+        self.relabel(c)
+
+    def discriminate_stage(self) -> None:
+        """Deterministic behaviour discrimination: run every live candidate on derived inputs (+ validated L2 inputs), cluster by outputs. Ranking evidence only (L1)."""
+        if not (self.ladder and self.cfg.get("discriminate")):
+            return
+        live = sorted((c for c in self.cands.values() if c.fails == 0), key=lambda c: c.id)
+        key = tuple(c.id for c in live) + (len(self.l2_checks),)
+        if len(live) < 2 or key == self._disc_key:
+            return
+        self._disc_key = key
+        inputs = L2.derive_inputs(self.task.public_tests, int(self.cfg.get("disc_inputs", 6)))
+        seen = {L2.canon(i) for i in inputs}
+        for ck in self.l2_checks:
+            if L2.canon(ck["input"]) not in seen:
+                seen.add(L2.canon(ck["input"]))
+                inputs.append(ck["input"])
+        run = self.runner()
+        for c in live:
+            c.ext_outs = [e for e in c.ext_outs if e[0].startswith("critic:")]       # a critic output survives re-clustering, the rest is recomputed
+            for inp in inputs:
+                out = run(c.art.source, inp)
+                c.ext_outs.append([L2.canon(inp), L2.canon([out.get("status"), _s(out.get("observed", out.get("failure_class", "")), 500)])])
+            c.ext_sig = sha256_text(L2.canon(c.ext_outs))[:16]
+        cl = L2.cluster({c.id: [c.summary["behaviour"], c.ext_sig] for c in live})
+        self.note("behaviour_clusters", {"inputs": [sha256_text(L2.canon(i))[:16] for i in inputs], "n_inputs": len(inputs), "public_clusters": len({c.summary["behaviour"] for c in live}),
+                                         "extended_clusters": cl["n"], "members": cl["clusters"]})
 
     # ------------------------------------------------------------ repair
     def repair_target(self) -> Optional[_Cand]:
@@ -446,6 +571,10 @@ class _Run:
                 return ("tool_failure", "sandbox")
             if self.budget_hit:
                 return ("budget", self.limit_detail or "token_cap")
+            self.l2_stage()
+            self.discriminate_stage()
+            if self.tool_failure or self.budget_hit:
+                continue
             if self.ladder and self.cfg.get("critic") and self.ctx.critic is not None and not self.critic_done:
                 r = self.critic_stage()
                 if r:
@@ -546,8 +675,15 @@ class _Run:
             if o is None:
                 self.note("component_missing", {"component": n, "why": "the arm config asks for it but the context has none; the run continues WITHOUT it", "arm": ctx.arm, "waived": True})
         self.route("intake")
+        facts = {"tests_given": False, "protected_test_files": [], "examples_in_request": len(task.public_tests), "type_or_compile_check": bool(self.cfg.get("compiler_cmd")),
+                 "type_config": [], "compiler_cmd": self.cfg.get("compiler_cmd"), "regression_suite": [], "regression_cmd": None}      # a function-level task has no executable oracle of its own: its examples are the partial oracle
+        routed = TIERS.route_tier(facts, task.prompt, None)      # [EL-ARCH-1 B1] tier from observable facts, journaled with its reason
+        TIERS.journal_tier(self.journal, "intake", routed, None)
+        self.tier = routed
         if self.intake.stop:
             cause, details = self.intake.stop, self.intake.stop_details
+        elif routed["blocked_until_answered"] and self.cfg.get("tier_gate", True):      # O3 with a blocking ambiguity: ask the user, generate nothing
+            cause, details = "missing_information", "tier O3: ask_user: " + "; ".join(routed["ambiguities"])[:280]
         else:
             for g in self.generate("sample", self.intake.request_text, self.k):
                 self.add_candidate(g)
@@ -568,7 +704,7 @@ class _Run:
                 d = with_next(d, "discriminate")
             elif d["answer_label"] != "BLOCKED" and not d["authorized_to_execute"]:
                 d = with_next(d, "report")
-        elif self.intake.stop:
+        elif self.intake.stop or cause == "missing_information":
             d = blocked_without_candidate(self.reqs, "d-intake-" + task.task_id)
         else:
             d = with_next(decide_stage1(self.reqs, [], "none", C.sha256(""), self.env, self.registry, self.risk, self.user_confirmed, "complete_program"), "report")
@@ -602,6 +738,11 @@ class EvidenceLadderController:
         self.last_journal: Optional[EvidenceJournal] = None
         self.last_run: Optional[_Run] = None
         self.finalize_hash: Optional[str] = None
+        self.critic_log: List[Dict[str, Any]] = []      # [EL-ARCH-1 B6] one record per critic-trigger decision, across problems
+
+    def critic_trigger_rate(self) -> Optional[float]:
+        """triggered / decisions over all problems this controller ran (None before any decision). The rate is data to report, not a target."""
+        return None if not self.critic_log else sum(1 for r in self.critic_log if r["triggered"]) / float(len(self.critic_log))
 
     def run_problem(self, task: TaskSpec, ctx: ControllerContext) -> ProblemResult:
         run = _Run(self, task, ctx)

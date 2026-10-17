@@ -62,6 +62,10 @@ class EvidenceJournal:
     def evidence(self, candidate_id: Optional[str] = None) -> List[Dict[str, Any]]:
         return copy.deepcopy([e for e in self._evidence if candidate_id is None or e["candidate_id"] == candidate_id])
 
+    def chain_hashes(self) -> List[str]:
+        """[EL-ARCH-1 B8] the chain hash after every entry (entry i's hash is the `prev` of entry i+1): lets a replay name the first entry that differs."""
+        return [C.sha256(l) for l in self._lines]
+
     def journal_hash(self) -> str:
         return self._head
 

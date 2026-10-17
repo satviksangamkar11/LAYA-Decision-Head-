@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -31,9 +32,12 @@ from evidence_ladder.common.contract_import import C
 from evidence_ladder.common.interfaces import ProblemResult
 from evidence_ladder.critic_batch import accounting as ACC
 from evidence_ladder.models import experiments as EXP
+from . import final_verify as FV
+from . import risk as RISK
 from . import router as router_mod
+from . import tiers as TIERS
 from .components import MissingComponentError, require
-from .decision import authorize, decide_stage1
+from .decision import authorize, blocked_without_candidate, decide_stage1
 from .evidence import Factory, trim
 from .invariants import assert_invariants, check_i2
 from .journal import EvidenceJournal, canon
@@ -41,7 +45,7 @@ from .limits import Limiter, load_limits
 from .next_action import decide_next_action
 
 TOOLS = {"Read": ("read_only", {"file_path"}), "Edit": ("reversible_write", {"file_path", "old_string", "new_string"}), "Bash": ("sandboxed_exec", {"command"})}
-DENY = re.compile(r"\brm\s+-[a-z]*r|\bsudo\b|\bcurl\b|\bwget\b|\bssh\b|\bscp\b|\bnc\b|git\s+push|pip\s+install|mkfs|\bdd\s+if=|>\s*/dev/|chmod\s+777|(>|>>|tee|sed\s+-i\S*|mv|cp|rm)\b[^|;&]*\btest_\w+\.py", re.I)
+# [EL-ARCH-1 B5] the regex deny-list is gone: controller/risk.py holds the fixed action-risk table (authorize_action in policy() and at the commit gate)
 
 
 def sha(b) -> str:
@@ -64,6 +68,7 @@ class AgenticTask:
     protected: List[str]
     system_text: str
     max_steps: int = 2
+    scope: Optional[List[str]] = None      # [EL-ARCH-1 B7] optional fnmatch patterns the diff may touch; when set, R3 'the diff stays inside the declared scope' is a hard requirement
 
 
 @dataclass
@@ -78,6 +83,10 @@ class AgenticContext:          # no field name may contain 'grader' or 'protecte
     limits: Any = None             # [EL-ARCH-1 A3] controller.limits.Limits; default = profile "agentic" of configs/el_arch1_limits_v1.toml
     clock: Any = None              # injected monotonic clock for the wall-time limit (default time.monotonic)
     # config["require"] = ["scorer", "critic"]: components this run needs; a missing one writes a journal entry and raises MissingComponentError (A5). Final acceptance runs set it.
+
+
+class NoOracle(Exception):
+    """[EL-ARCH-1 B1] the oracle-tier router found no executable test oracle for per-action mode (tier O2/O3): no action is taken; finish() reports BLOCKED (ask the user) or the tier's ceiling."""
 
 
 class LimitReached(Exception):
@@ -105,15 +114,16 @@ class _Art:
     def __init__(self, artifact_id): self.artifact_id = artifact_id
 
 
-def check_defs() -> List[dict]:
+def check_defs(with_scope: bool = False) -> List[dict]:
     def chk(cid, kind, trust, covers, limitations):
         return {"check_id": cid, "version": "1", "code_hash": C.sha256(cid + "@1"), "kind": kind, "trust_class": trust, "covers": list(covers), "runtime_visible": True,
                 "grader_only": False, "limitations": list(limitations)}
     return [chk("protected_tests_v1", "end_state", "authoritative", ["R1"], ["a single protected test file; passing it does not verify the task for all inputs"]),
             chk("protected_files_unchanged_v1", "certified_invariant", "authoritative", ["R2"], ["hash comparison inside the sandbox run; says nothing about behaviour"]),
             chk("action_dry_run_v1", "end_state", "authoritative", ["R1"], ["evidence about a HYPOTHETICAL end state of one candidate action, run in a scratch copy"]),
-            chk("action_policy_v1", "parse", "rejecting_only", [], ["fixed tool table + regex deny-list; the sandbox is the real boundary"]),
-            chk("critic_experiment_v1", "critic_experiment", "diagnostic", [], ["the critic's judgement is not truth"])]
+            chk("action_policy_v1", "parse", "rejecting_only", [], ["fixed tool table + fixed action-risk table (controller/risk.py); the sandbox is the real boundary"]),
+            chk("critic_experiment_v1", "critic_experiment", "diagnostic", [], ["the critic's judgement is not truth"])] + (
+        [chk("diff_scope_v1", "certified_invariant", "authoritative", ["R3"], ["compares the file set / hashes of the end state with the intake snapshot against the declared scope patterns; says nothing about behaviour"])] if with_scope else [])
 
 
 class AgenticRun:
@@ -127,7 +137,7 @@ class AgenticRun:
         self.actions = 0
         self.critic_pids: List[str] = []
         self.glm_accounting: Optional[Dict[str, Any]] = None
-        self.registry = C.Registry(check_defs())
+        self.registry = C.Registry(check_defs(with_scope=task.scope is not None))
         self.reg_hash0 = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.journal = EvidenceJournal(self.registry)
         self.budget = ctx.budget or AgenticBudget(task.task_id, ctx.arm)
@@ -148,6 +158,18 @@ class AgenticRun:
                 "source": {"type": "task_metadata", "artifact_ref": ",".join(task.protected)}}
         self.reqs = [C.check_requirement(req1, task.user_text), C.check_requirement(req2, task.user_text)]
         self.roles = {"R1": "example", "R2": "contract"}
+        if task.scope is not None:      # [EL-ARCH-1 B7] declared diff scope: a hard contract requirement with its own certified check
+            req3 = {"requirement_id": "R3", "version": 1, "kind": "contract", "text": "the diff stays inside the declared scope", "priority": "hard", "status": "active",
+                    "source": {"type": "task_metadata", "artifact_ref": ",".join(task.scope)}}
+            self.reqs.append(C.check_requirement(req3, task.user_text))
+            self.roles["R3"] = "contract"
+        self.baseline = TIERS.snapshot(task.workspace)       # intake snapshot: the trusted baseline for tier facts (B1) and the diff scope (B7)
+        self.tier_last: Optional[Dict[str, Any]] = None
+        self.no_oracle: Optional[Dict[str, Any]] = None
+        self.last_exec: Optional[Dict[str, Any]] = None
+        self.investigation: Optional[Dict[str, Any]] = None
+        self.denied = 0
+        self.final_report: Optional[Dict[str, Any]] = None
         self.fac = Factory(self.registry, self.reqs, self.env, self.roles)
 
     # ------------------------------------------------------------------ journal helpers
@@ -171,6 +193,19 @@ class AgenticRun:
         if self.ctx.scorer is None and self.ctx.arm == "E":      # not required by this run: stated, not silent (each step also journals scorer_unavailable)
             self.note("component_missing", {"component": "scorer", "why": "arm E has no scorer in the context; steps fall back to the id order", "arm": self.ctx.arm, "waived": True})
         self.route("intake", None)
+        self.note("risk_table", {"sha256": RISK.table_hash()})
+        routed = self.retier("intake")
+        if routed["tier"] != "O1":      # [EL-ARCH-1 B1] per-action mode needs an executable test oracle; O2 -> the ladder (examples) controller, O3 -> ask the user / best effort
+            self.no_oracle = routed
+
+    def retier(self, step: str) -> Dict[str, Any]:
+        """[EL-ARCH-1 B1/R1.2] observe the facts again (only intake-time, unmodified files count) and journal oracle_tier when it changed."""
+        t = self.task
+        facts = TIERS.observe_facts(t.workspace, t.user_text, t.test_cmd, t.protected, self.baseline, self.ctx.config.get("compiler_cmd"), self.ctx.config.get("regression_cmd"))
+        routed = TIERS.route_tier(facts, t.user_text, t.workspace)
+        if TIERS.journal_tier(self.journal, step, routed, self.tier_last):
+            self.tier_last = routed
+        return self.tier_last or routed
 
     def limit_check(self) -> Optional[Dict[str, Any]]:
         """[EL-ARCH-1 A3] None, or the exhausted resource {"resource","used","cap","details"}: wall time, Qwen tokens, GLM tokens (ledger-accounted), committed actions, rounds (steps)."""
@@ -224,15 +259,16 @@ class AgenticRun:
         p = (root / rel).resolve()
         return p if root.resolve() in p.parents else None
 
+    def risk_of(self, act: Dict[str, Any], trusted_precheck: bool = False) -> Dict[str, Any]:
+        return RISK.authorize_action(act, str(self.task.workspace), self.task.protected, bool(self.ctx.config.get("user_confirmed", False)), trusted_precheck)
+
     def policy(self, act: Dict[str, Any]) -> Dict[str, str]:
-        n, a = act["name"], act["arguments"]
-        if n in ("Read", "Edit") and self._safe(self.task.workspace, a["file_path"]) is None:
-            return {"status": "fail", "reason": "path outside the workspace"}
-        if n == "Edit" and Path(a["file_path"]).name in self.task.protected:
-            return {"status": "fail", "reason": "edit of a protected test file"}
-        if n == "Bash" and DENY.search(a["command"]):
-            return {"status": "fail", "reason": "command matches the deny-list"}
-        return {"status": "pass", "reason": ""}
+        """CHECK-stage policy from the fixed action-risk table: classes that can never be authorized fail; irreversible / outside-workspace / network classes fail unless the run was started
+        with user_confirmed (the trusted pre-check is demanded again at the commit gate)."""
+        r = self.risk_of(act, trusted_precheck=True)      # the pre-check is judged at commit; here only "never" classes and a missing user_confirmed are rejected
+        if r["allowed"]:
+            return {"status": "pass", "reason": ""}
+        return {"status": "fail", "reason": "%s: %s (missing %s)" % (r["class"], r["reason"], ",".join(r["missing"]))}
 
     def apply_edit(self, root: Path, a: Dict[str, str]):
         p = self._safe(root, a["file_path"])
@@ -255,6 +291,8 @@ class AgenticRun:
 
     # ------------------------------------------------------------------ one step
     def step(self, options: Sequence[str], qwen_meta: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        if self.no_oracle is not None:
+            raise NoOracle("tier %s: %s" % (self.no_oracle["tier"], self.no_oracle["reason"]))
         lim = self.limit_check()
         if lim is not None:
             raise LimitReached(lim["details"])
@@ -301,8 +339,11 @@ class AgenticRun:
         try:
             self.budget.add(scorer_calls=1)
             scores = [float(x) for x in self.ctx.scorer.score("next_action", {"context_text": ctx_text, "options": list(options)})]
+            if len(scores) != len(options) or not all(math.isfinite(x) for x in scores):      # [EL-ARCH-1 B4] a malformed hand-off is a recorded scorer failure, never a crash or a silent fallback
+                raise ValueError("scorer returned %d score(s) for %d option(s), finite=%s" % (len(scores), len(options), all(math.isfinite(x) for x in scores)))
             prov = getattr(getattr(self.ctx.scorer, "_backend", None), "last", None)
         except Exception as ex:      # noqa: BLE001  a missing/failed/refusing scorer is recorded, never swallowed
+            scores = None
             reason = "%s: %s" % (type(ex).__name__, str(ex)[:250])
         # --- DECIDE
         dec = decide_next_action(self.journal, did, list(options), scores, trusted, scorer_id=getattr(self.ctx.scorer, "scorer_id", None),
@@ -326,6 +367,19 @@ class AgenticRun:
             self.messages += [{"role": "assistant", "content": "(no allowed action)"}]
         else:
             act = acts[chosen]
+            cid_chosen = checks[chosen]["candidate_id"]
+            pre_ok = authorize(self.reqs, self.journal.evidence(cid_chosen), cid_chosen, cid_chosen, self.env, self.registry, "irreversible", bool(self.ctx.config.get("user_confirmed", False)))
+            gate = self.risk_of(act, trusted_precheck=pre_ok)
+            self.note("action_auth", {"decision_id": did, "candidate_id": cid_chosen, "class": gate["class"], "allowed": gate["allowed"], "requires": gate["requires"], "missing": gate["missing"],
+                                      "decision_risk": gate["decision_risk"]})
+            rec["action_auth"] = gate
+        if chosen is not None and not rec["action_auth"]["allowed"]:      # [EL-ARCH-1 B5] the gate in front of every execution; nothing below runs for a denied action
+            self.denied += 1
+            act = None
+            result_text = "denied by the action-risk table: %s (missing %s)" % (rec["action_auth"]["class"], ",".join(rec["action_auth"]["missing"]))
+            self.messages += [{"role": "assistant", "content": "(action denied)"}]
+            rec["commit_denied"] = True
+        elif chosen is not None:
             if act["name"] == "Read":
                 p = self._safe(ws, act["arguments"]["file_path"])
                 result_text = p.read_text("utf-8")[:1500] if p and p.is_file() else "error: no such file"
@@ -346,20 +400,44 @@ class AgenticRun:
         self.messages += [{"role": "user", "content": state["feedback"]}]
         self.entries.append({"failure_sigs": [] if state["tests_pass"] else [sha(state["feedback"])[:16]], "progress": bool(state["tests_pass"]), "regression": False, "lineage": "workspace"})
         self.steps.append(rec)
+        # [EL-ARCH-1 B8] one immutable record per step: inputs (context + options), decision (chosen option), evidence (the entries above), action (as executed), outcome (result + end state)
+        self.note("step_record", {"step": k, "decision_id": did, "inputs": {"context_sha256": sha(ctx_text), "option_sha256": [sha(o) for o in options], "pre_state": pre},
+                                  "decision": {"chosen_index": chosen, "scorer_available": scores is not None, "allowed_set": allowed, "abstain": chosen is None},
+                                  "action": {"executed": rec.get("executed_action"), "class": (rec.get("action_auth") or {}).get("class"), "allowed": (rec.get("action_auth") or {}).get("allowed"),
+                                             "denied": bool(rec.get("commit_denied"))},
+                                  "outcome": {"result_sha256": rec["execution_result_sha256"], "post_state": state["state_id"], "tests_pass": state["tests_pass"], "label": state["label"],
+                                              "authorized": state["authorized"], "protected_unchanged": state["protected_unchanged"]}})
         self.route("step%d_observed" % k, state["state_id"])
+        self.retier("step%d" % k)
         return rec
 
-    def _observe(self, tag: str) -> Dict[str, Any]:
+    def step_from_generation(self, proposer, seeds: Sequence[int] = (0,)) -> Dict[str, Any]:
+        """[EL-ARCH-1 B3] ask a generation backend (via controller.generation.ActionProposer) for next-action proposals with the frozen action template, journal what came back (hashes, status,
+        every rejection: prose is rejected, never repaired) and run one step on the parsed options. An empty proposal list is a step with no options: the decision abstains."""
+        out = proposer.propose(self.task.task_id, self.step_no + 1, self.context_text(), seeds)
+        self.note("proposals", {"step": self.step_no + 1, "status": out["status"], "prompt_sha256": out["prompt_sha256"], "raw_sha256": out["raw_sha256"], "option_sha256": [sha(o) for o in out["options"]],
+                                "rejected": out["rejected"], "generations": out["generations"]})
+        return self.step(out["options"], out["qwen_meta"])
+
+    def _observe(self, tag: str, detail_fn: Optional[Callable[[Dict[str, Any]], str]] = None) -> Dict[str, Any]:
         ws = self.task.workspace
         r = self._run(ws, self.task.test_cmd)
+        self.last_exec = r
         state_id = tree_hash(ws)
         fb = "Harness test run (`%s`): exit %d\n%s%s" % (self.task.test_cmd, r["exit_code"], r["stdout"][-600:], r["stderr"][-600:])
         st1 = "pass" if r["exit_code"] == 0 else "fail"
         out1 = {"check_id": "protected_tests_v1", "status": st1, "observed": fb[-600:]}
+        if detail_fn is not None and st1 != "pass":
+            out1["detail"] = detail_fn(r)      # B2: the parsed failing location is part of the L5 observation
         self._evidence(state_id, "R1", "protected_tests_v1", "user_test", "user_provided", st1, "the protected test command on the real end state", out1,
                        None if st1 == "pass" else {"input": self.task.test_cmd, "expected": "exit 0", "observed": fb[-300:]})
         st2 = "pass" if r["protected_unchanged"] else "fail"
         self._evidence(state_id, "R2", "protected_files_unchanged_v1", "certified_check", "independent", st2, "sha256 of the protected files before/after the test run", {"check_id": "protected_files_unchanged_v1", "status": st2})
+        if self.task.scope is not None:      # [EL-ARCH-1 B7] R3: the end-state diff against the intake snapshot stays inside the declared scope
+            ds = FV.diff_scope(self.baseline, TIERS.snapshot(ws), self.task.scope, self.task.protected)
+            self._evidence(state_id, "R3", "diff_scope_v1", "certified_check", "independent", "pass" if ds["ok"] else "fail", "files added/changed/removed since intake vs the declared scope",
+                           {"check_id": "diff_scope_v1", "status": "pass" if ds["ok"] else "fail", "detail": ",".join(ds["violations"])[:200]},
+                           None if ds["ok"] else {"input": ",".join(self.task.scope), "expected": "changes inside scope", "observed": ",".join(ds["violations"])[:200]})
         d = decide_stage1(self.reqs, self.journal.evidence(state_id), state_id, state_id, self.env, self.registry, "sandboxed", False, "commit")
         self.note("label", {"candidate_id": state_id, "tag": tag, "answer_label": d["answer_label"], "rows": d["requirement_rows"]})
         ok = authorize(self.reqs, self.journal.evidence(state_id), state_id, state_id, self.env, self.registry, "sandboxed", False)
@@ -436,7 +514,28 @@ class AgenticRun:
         return "applied"
 
     # ------------------------------------------------------------------ finish
+    def _finish_no_oracle(self) -> ProblemResult:
+        """[EL-ARCH-1 B1] tier O2/O3: no action was taken. BLOCKED, with the ask-user questions (O3) or the pointer to the ladder controller (O2) in the stop details."""
+        t = self.no_oracle
+        d = blocked_without_candidate(self.reqs, "d-tier-" + self.task.task_id)
+        details = ("tier %s: ask_user: %s" % (t["tier"], "; ".join(t["ambiguities"]) or "no blocking ambiguity, best effort only") if t["tier"] == "O3"
+                   else "tier %s: no executable test oracle for per-action mode; use the ladder (examples) controller" % t["tier"])
+        self.note("decision", d)
+        self.sync_glm_budget()
+        self.budget.set(wall_seconds=round(self.limiter.elapsed(), 3))
+        stop = {"problem_id": self.task.task_id, "arm": self.ctx.arm, "cause": "missing_information", "details": details[:300]}
+        C.validate("stop_record", stop)
+        self.note("stop", dict(stop, rounds=0, max_rounds=self.task.max_steps, attempts=0, max_attempts=self.task.max_steps, budget_hit=False, wasted_critic=0, mode="agentic"))
+        end = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
+        self.note("registry", {"phase": "end", "hash": end, "scorer": self._scorer_fp()})
+        C.assert_frozen(self.reg_hash0, end)
+        result = ProblemResult(self.task.task_id, self.ctx.arm, None, d["answer_label"], d, "missing_information", [], self.budget.record(), 0, self.journal.journal_hash(), None, details[:300])
+        self.invariants_checked = assert_invariants(result, self.journal, self.ctx, self.limiter.limits)
+        return result
+
     def finish(self) -> ProblemResult:
+        if self.last_state is None and self.no_oracle is not None:
+            return self._finish_no_oracle()
         if self.last_state is None:
             raise RuntimeError("no step ran")
         before = self.last_state
@@ -444,6 +543,8 @@ class AgenticRun:
         self.note("finalize", {"candidate_id": fin["state_id"], "ok": bool(fin["authorized"]) and fin["state_id"] == before, "reason": "" if fin["state_id"] == before else "state_changed", "answer_label": fin["label"]})
         sid = fin["state_id"]
         d = decide_stage1(self.reqs, self.journal.evidence(sid), sid, sid, self.env, self.registry, "sandboxed", False, "complete_program")
+        self.final_report = FV.final_report(self, fin, d, before)      # [EL-ARCH-1 B7] outcome and process fields of the ACTUAL end state
+        self.note("final_report", self.final_report)
         cause = C.stop_cause(self.entries, len(self.steps), self.task.max_steps, decided=bool(fin["authorized"]))
         details = ""
         if cause is None:

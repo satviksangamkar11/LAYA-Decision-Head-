@@ -47,6 +47,12 @@ def _first(journal, kind):
 
 def check_i1(result, journal) -> str:
     """Label comes from evidence only: recompute it from the journal and compare. VERIFIED needs a trusted covering check on every gating row."""
+    tiers = journal.entries("oracle_tier")      # [EL-ARCH-1 B1] the oracle tier's label ceiling is real: no answer above it (BLOCKED is never capped)
+    if tiers:
+        from .tiers import check_ceiling
+        msg = check_ceiling(result.answer_label, tiers[-1]["data"]["tier"])
+        if msg:
+            return msg
     reqs = (_first(journal, "requirements") or {}).get("reqs")
     if result.final_artifact_id is None or reqs is None:
         return "" if result.answer_label != "VERIFIED" else "VERIFIED without a candidate"
@@ -163,6 +169,10 @@ def check_i6(journal) -> str:
             return "decision for %s committed before any evidence" % d["candidate_id"]
         elif k == "finalize" and d["candidate_id"] not in seen:
             return "finalize for %s without earlier evidence" % d["candidate_id"]
+        elif k == "step_record" and d["action"].get("executed") and d["action"].get("allowed") is not True:      # [EL-ARCH-1 B5] nothing runs that authorize_action did not allow
+            return "step %s executed an action of class %s that the action-risk table did not authorize" % (d["step"], d["action"].get("class"))
+        elif k == "action_auth" and d["class"] in ("secret", "protected_write", "unknown") and d["allowed"]:
+            return "action class %s was authorized" % d["class"]
     return ""
 
 

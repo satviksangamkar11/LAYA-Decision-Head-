@@ -7,7 +7,7 @@
        protected-test evidence, labels) -> receipts -> finish() with assert_invariants I1-I8.
   Pass 2 (D): a fresh run over the same saved Kaggle outputs must give identical journal hashes.
 
-  PYTHONPATH=. .venv/Scripts/python.exe tools/laya_int1_e2e.py <out dir under results/raw/laya-integration-*/> [--steps 2]
+  PYTHONPATH=. .venv/Scripts/python.exe tools/laya_int1_e2e.py <out dir under results/raw/laya-integration-*/> [--steps 2] [--investigate] [--require scorer,critic]
 Everything is create-only below <out dir>. No key is read here; the critic (step E) is wired separately."""
 import hashlib, json, os, re, shutil, subprocess, sys, time, uuid
 from pathlib import Path
@@ -30,18 +30,7 @@ def write_new(path, text):
     with open(path, "x", encoding="utf-8") as f: f.write(text)
 
 
-class WslSandbox:
-    """Port of the controller to the qualified WSL sandbox (tools/fable_wsl_runner.py via tools/laya_int1_t6_sandbox.py). Protected files per task."""
-    def __init__(self, scratch: Path, protected):
-        self.scratch, self.protected = scratch, list(protected)
-
-    def run(self, workspace, cmd, persist=False, timeout=60):
-        req = self.scratch / (uuid.uuid4().hex + ".json"); req.parent.mkdir(parents=True, exist_ok=True)
-        req.write_text(json.dumps({"workspace": wslpath(workspace), "cmd": cmd, "protected": self.protected, "timeout": timeout, "persist": persist}), "utf-8")
-        p = subprocess.run(["wsl", "-d", "Ubuntu-24.04", "-u", "root", "--", "python3", "/mnt/d/local model/tools/laya_int1_t6_sandbox.py", wslpath(req)], capture_output=True, text=True, timeout=timeout + 180)
-        req.unlink()
-        if p.returncode != 0 or not p.stdout.strip(): raise RuntimeError("sandbox failed rc=%s %s" % (p.returncode, p.stderr[-400:]))
-        return json.loads(p.stdout.strip().splitlines()[-1])
+from evidence_ladder.controller.wsl_sandbox import WslSandbox  # noqa: E402  (shared class; documented WSL command lives there)
 
 
 def system_block():
@@ -96,6 +85,10 @@ def kaggle_round(out: Path, tag: str, mode: str, items):
 
 
 # ------------------------------------------------------------------ the controller run
+INVESTIGATE = False
+EXTRA_CONFIG = {}      # e.g. {"require": ["scorer", "critic"]} for final acceptance runs (a missing component then raises instead of being waived)
+
+
 def build_runs(out: Path, label: str):
     from evidence_ladder.controller.agentic import AgenticContext, AgenticRun, AgenticTask
     from evidence_ladder.models import laya, laya_runtime as RT
@@ -107,8 +100,12 @@ def build_runs(out: Path, label: str):
         T = TASKS[task]; ws = out / label / name / "workspace"
         for fn, c in T["files"].items(): write_new(ws / fn, c)
         at = AgenticTask(task_id=name, user_text=T["user"], workspace=ws, test_cmd=T["test_cmd"], protected=T["protected"], system_text=system_block(), max_steps=2)
-        ctx = AgenticContext(sandbox=WslSandbox(out / label / "_sandbox", T["protected"]), scorer=scorer, arm="E", seeds=(), config={"max_steps": 2})
-        r = AgenticRun(at, ctx, render); r.begin(); runs[name] = r
+        ctx = AgenticContext(sandbox=WslSandbox(out / label / "_sandbox", T["protected"]), scorer=scorer, arm="E", seeds=(), config={"max_steps": 2, **EXTRA_CONFIG})
+        r = AgenticRun(at, ctx, render); r.begin()
+        if INVESTIGATE:      # [EL-ARCH-1 B2] deterministic investigate stage (no model): baseline test run, parsed failure, report in the next context
+            from evidence_ladder.controller import investigate as INV
+            INV.investigate(r)
+        runs[name] = r
     return runs, backend
 
 
@@ -205,7 +202,10 @@ def drive(out: Path, label: str, max_steps: int, prior_critic=None):
 
 
 def main():
+    global INVESTIGATE
     out = Path(sys.argv[1]); steps = int(sys.argv[sys.argv.index("--steps") + 1]) if "--steps" in sys.argv else 2
+    INVESTIGATE = "--investigate" in sys.argv
+    if "--require" in sys.argv: EXTRA_CONFIG["require"] = sys.argv[sys.argv.index("--require") + 1].split(",")
     out.mkdir(parents=True, exist_ok=True)
     runs1, res1, be, crit1 = drive(out, "run1", steps)
     # pass 2 (D): same saved Kaggle outputs, fresh workspaces and controllers -> identical journal hashes
