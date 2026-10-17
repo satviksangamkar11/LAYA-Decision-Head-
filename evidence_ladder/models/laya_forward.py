@@ -93,7 +93,7 @@ def head_logits(head, hq, ho):
 
 
 # ------------------------------------------------------------------ linear probe (the mandatory baseline)
-def fit_probe(rows: Sequence[Mapping[str, Any]], C: float = 0.01):
+def fit_probe(rows: Sequence[Mapping[str, Any]], C: float = 0.01, random_state: Optional[int] = None):
     """Recipe of kaggle/head_exp4_gpu.py / tools/fullaction_pilot_v1.py probe_scores with C pinned: logistic regression on the standardised raw option states
     (3 depths x 2560 flattened), class_weight balanced, max_iter 2000. rows: {ho: tensor [N,K,H], pos: bool tensor [N]}. -> (scaler, model)."""
     import numpy as np
@@ -102,7 +102,11 @@ def fit_probe(rows: Sequence[Mapping[str, Any]], C: float = 0.01):
     X = np.concatenate([r["ho"].float().reshape(len(r["pos"]), -1).numpy() for r in rows])
     y = np.concatenate([r["pos"].numpy().astype(int) for r in rows])
     sc = StandardScaler().fit(X)
-    return sc, LogisticRegression(C=C, max_iter=2000, class_weight="balanced").fit(sc.transform(X), y)
+    return sc, LogisticRegression(C=C, max_iter=2000, class_weight="balanced", random_state=random_state).fit(sc.transform(X), y)
+
+
+# [EL-ARCH-1 C1] every scorer output is labelled with its role
+ROLES = {"laya": "scorer_under_test", "probe": "mandatory_baseline_linear_probe", "random_head": "untrained_random_init_floor_control"}
 
 
 def probe_decision(probe, ho) -> List[float]:

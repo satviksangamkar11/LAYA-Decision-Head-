@@ -10,6 +10,11 @@ CONFIRMATORY = (("C", "B"), ("D0", "C"), ("D1", "D0"))
 EXPLORATORY = (("B", "A"), ("E", "D1"))
 
 
+# [EL-ARCH-1 C2] Arm E: LAYA is the only scorer the controller sees (L0). The probe (mandatory baseline) and the random-head floor control score the SAME rendered pools and go to the report only.
+E_SELECTOR_KINDS = ("laya",)
+E_COMPARISON_KINDS = ("probe", "random_head")
+
+
 class StageOneLayaDecisionRefused(Exception):
     pass
 

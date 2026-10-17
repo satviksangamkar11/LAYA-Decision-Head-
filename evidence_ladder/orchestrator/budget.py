@@ -36,6 +36,10 @@ class MatchedTokenBudget:
     def generated(self) -> int:
         return self.c["qwen_gen"] + self.c["glm_out"]
 
+    def total_incl_inputs(self) -> int:
+        """[EL-ARCH-1 C5] Accounting only (the cap T stays on generated tokens): prefill and GLM input tokens are counted too, so equal-compute twins can be checked."""
+        return sum(self.c.values())
+
     def remaining(self) -> int:
         return max(0, self.T - self.generated())
 
@@ -68,7 +72,7 @@ class MatchedTokenBudget:
                 "wall_seconds": float(self.wall_seconds), "api_errors": self.n["api_errors"]}
 
     def sidecar(self) -> Dict[str, Any]:
-        return {"T": self.T, "generated_tokens": self.generated(), "remaining": self.remaining(), "exhausted": self.exhausted(),
+        return {"T": self.T, "generated_tokens": self.generated(), "remaining": self.remaining(), "exhausted": self.exhausted(), "total_tokens_incl_inputs": self.total_incl_inputs(),
                 "matching": MATCHING_LABEL, "gpu_seconds_basis": "sum of generation wall seconds reported by the generation backend (approximation)"}
 
 
@@ -77,3 +81,19 @@ def extra_qwen_samples_for_b(glm_out_tokens: int, mean_qwen_sample_tokens: float
     if mean_qwen_sample_tokens <= 0:
         raise ValueError("mean sample tokens must be positive")
     return int(glm_out_tokens // mean_qwen_sample_tokens)
+
+
+def extra_b_samples_plan(d1_records, b_records, b_k: int) -> dict:
+    """[EL-ARCH-1 C5] The rule, applied per task by the runner: arm B gets back as extra Qwen samples what D1 spent on GLM output tokens.
+    d1_records / b_records: budget_records ({problem_id, qwen_gen_tokens, glm_tokens_out, ...}). Mean sample size = B's own generated tokens / b_k.
+    -> {task_id: {extra_samples, glm_out_tokens, mean_qwen_sample_tokens, glm_in_tokens_not_matched}}. GLM input tokens are reported, not converted (T counts generated tokens only)."""
+    b = {r["problem_id"]: r for r in b_records}
+    out = {}
+    for r in d1_records:
+        t = r["problem_id"]
+        if t not in b or r["glm_tokens_out"] <= 0 or b[t]["qwen_gen_tokens"] <= 0:
+            continue
+        mean = b[t]["qwen_gen_tokens"] / b_k
+        out[t] = {"extra_samples": extra_qwen_samples_for_b(r["glm_tokens_out"], mean), "glm_out_tokens": r["glm_tokens_out"], "mean_qwen_sample_tokens": mean,
+                  "glm_in_tokens_not_matched": r["glm_tokens_in"]}
+    return out

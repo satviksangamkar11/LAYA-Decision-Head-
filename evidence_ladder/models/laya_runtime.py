@@ -90,7 +90,13 @@ class FeatureScorer:
         if self.probe is not None:
             out["probe"] = {"score": LF.probe_decision(self.probe, ho)}
         if self.random_head is not None:
-            out["random_head"] = {"score": LF.head_logits(self.random_head, hq, ho)}
+            if isinstance(self.random_head, Mapping):    # [EL-ARCH-1 C1] the proper control: several seeded untrained heads (evidence_ladder.models.random_head)
+                from evidence_ladder.models import random_head as RH
+                out["random_head"] = RH.random_head_scores(self.random_head, hq, ho)
+            else:                                        # the old single-head control (mismatch control when built on a trained adapter)
+                out["random_head"] = {"score": LF.head_logits(self.random_head, hq, ho)}
+        for k, v in out.items():
+            v.setdefault("role", LF.ROLES[k])
         return out
 
 

@@ -7,7 +7,7 @@ does not reach the goal, but it stays allowed). The scorer enters ONLY as `score
 No silent fallback (F06): scores are required unless the caller states `scorer_unavailable_reason`; then a "scorer_unavailable" journal entry is written and the order is the id order.
 Abstain (F05, waiver configs/laya_none_abstain_waiver_v1.toml): when no option is allowed the decision abstains (selected None, next_step gather_evidence) and an "abstain" entry is written;
 no NONE option is ever added to the LAYA pool.
-Journal entries: "scorer" | "scorer_unavailable", "ranking" (items + order, checkable by invariants.check_i2), "abstain" (optional), "action_decision"."""
+Journal entries: "scorer" | "scorer_unavailable", "scorer_comparison" (optional, probe / random head, never used for the order), "ranking" (items + order, checkable by invariants.check_i2), "abstain" (optional), "action_decision"."""
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Sequence
@@ -18,7 +18,8 @@ BLOCKING, NONBLOCKING_FAIL, PASS = "fail", "fail_nonblocking", "pass"
 
 
 def decide_next_action(journal, decision_id: str, option_texts: Sequence[str], l0_scores: Optional[Sequence[float]], trusted: Optional[Sequence[Dict[str, Optional[str]]]] = None,
-                       *, scorer_id: Optional[str] = None, scorer_provenance: Optional[Dict[str, Any]] = None, scorer_unavailable_reason: Optional[str] = None) -> Dict[str, Any]:
+                       *, scorer_id: Optional[str] = None, scorer_provenance: Optional[Dict[str, Any]] = None, scorer_unavailable_reason: Optional[str] = None,
+                       comparison_scores: Optional[Dict[str, Sequence[float]]] = None) -> Dict[str, Any]:
     n = len(option_texts)
     if l0_scores is None and not scorer_unavailable_reason:
         raise ValueError("no LAYA scores and no scorer_unavailable_reason: a silent id-order fallback is not allowed")
@@ -34,6 +35,13 @@ def decide_next_action(journal, decision_id: str, option_texts: Sequence[str], l
                                   "provenance": scorer_provenance or {}})
     else:
         journal.append("scorer_unavailable", {"decision_id": decision_id, "reason": str(scorer_unavailable_reason)[:300], "fallback": "id_order"})
+    if comparison_scores:      # [EL-ARCH-1 C1] probe / random-head scores on the SAME options, journaled with their role and NEVER passed to C.rank (comparison only, not selectors)
+        from evidence_ladder.models.laya_forward import ROLES
+        for k, v in comparison_scores.items():
+            if k not in ("probe", "random_head") or len(v) != n:
+                raise ValueError("comparison scores must be 'probe' or 'random_head' with one score per option")
+        journal.append("scorer_comparison", {"decision_id": decision_id, "ids": ids, "selector": False,
+                                             "scores": {k: {"role": ROLES[k], "score": [float(x) for x in v]} for k, v in sorted(comparison_scores.items())}})
     allowed_items = [it for it, b in zip(items, blocked) if not b]
     order = [x["id"] for x in C.rank(allowed_items)] + [ids[i] for i in range(n) if blocked[i]]
     journal.append("ranking", {"step": decision_id, "items": allowed_items, "order": [o for o in order if not blocked[ids.index(o)]]})

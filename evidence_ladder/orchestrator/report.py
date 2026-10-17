@@ -4,11 +4,13 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any, Dict, List, Optional
 
+from evidence_ladder.orchestrator import gates as gates_mod
 from evidence_ladder.orchestrator import stats
 from evidence_ladder.orchestrator.arms import ARMS, CONFIRMATORY, E_LABEL, EXPLORATORY
 from evidence_ladder.orchestrator.base import DEV_LABEL, SYNTHETIC_LABEL, PoolingError
 from evidence_ladder.orchestrator.budget import MATCHING_LABEL
 from evidence_ladder.orchestrator.index import FABLE_RUN_STATUS, WAIVER_NOTE
+from evidence_ladder.orchestrator.isolation import NOT_SEALED_STATEMENT
 
 TRACKS = ("python", "java", "fable")
 HOLDOUT_NOTE = "PRESERVED FOR HOLDOUT; not confirmatory on the development banks"
@@ -87,7 +89,7 @@ def _cost(res, rows):
     return out
 
 
-def _section(track, res, meta, rows, synthetic, seed):
+def _section(track, res, meta, rows, synthetic, seed, headroom_samples=None, invariant_results=None):
     for t in res:
         if t not in meta or meta[t].track != track:
             raise PoolingError(f"task {t} is not in track {track}: " + POOL_MSG)
@@ -115,15 +117,19 @@ def _section(track, res, meta, rows, synthetic, seed):
     exp["E_vs_D1"].update(label=E_LABEL, verdict=None, note="stage-1 LAYA is an exploratory transfer test; no keep/drop decision from this data")
     sec.update(contrasts=con, exploratory=exp, safety=_rates(res, rows), cost=_cost(res, rows),
                stop_causes={a: dict(Counter(r["stop_cause"] for r in rows if r["arm"] == a)) for a in ARMS if any(r["arm"] == a for r in rows)})
+    sec["gates"] = gates_mod.section_gates(res, rows, headroom_samples=headroom_samples, invariant_results=invariant_results, seed=seed)   # [EL-ARCH-1 C5] INSUFFICIENT_DATA below the minimum n
     return sec
 
 
 def make_report(results: Dict[str, Dict[str, Dict[str, dict]]], tasks: Dict[str, Dict[str, Any]], selection_rows: List[dict], *,
-                T: Optional[int] = None, synthetic: bool = False, seed: int = 0) -> dict:
+                T: Optional[int] = None, synthetic: bool = False, seed: int = 0, headroom_samples: Optional[Dict[str, list]] = None,
+                invariant_results: Optional[Dict[str, bool]] = None, comparison: Optional[dict] = None) -> dict:
     """results: {track: {task_id: {arm: grade dict with 'passed'}}}; tasks: {track: {task_id: TaskSpec}}; selection_rows: final per task-arm log rows."""
     if set(results) - set(TRACKS):
         raise PoolingError("unknown track key; " + POOL_MSG)
-    rep: Dict[str, Any] = {"label": DEV_LABEL, "matching": MATCHING_LABEL, "T": T, "pooled": "NOT PRODUCED: " + POOL_MSG, "tracks": {}}
+    rep: Dict[str, Any] = {"label": DEV_LABEL, "matching": MATCHING_LABEL, "T": T, "pooled": "NOT PRODUCED: " + POOL_MSG, "tracks": {},
+                           "evaluation_oracle_status": NOT_SEALED_STATEMENT,
+                           "comparison_scorers": comparison if comparison is not None else {"status": "NOT_RUN", "note": "arm E / comparison scorers did not run"}}
     if synthetic:
         rep["banner"] = SYNTHETIC_LABEL
     for track in TRACKS:
@@ -133,7 +139,7 @@ def make_report(results: Dict[str, Dict[str, Dict[str, dict]]], tasks: Dict[str,
                 raise NotImplementedError("Fable results cannot be reported: " + FABLE_RUN_STATUS)
             continue
         rows = [r for r in selection_rows if r.get("track") == track]
-        rep["tracks"][track] = _section(track, results.get(track, {}), tasks.get(track, {}), rows, synthetic, seed)
+        rep["tracks"][track] = _section(track, results.get(track, {}), tasks.get(track, {}), rows, synthetic, seed, (headroom_samples or {}).get(track), invariant_results)
     return rep
 
 
@@ -141,7 +147,14 @@ def render_markdown(rep: dict) -> str:
     L = [f"# {rep['label']}", ""]
     if rep.get("banner"):
         L += [f"**{rep['banner']}**", ""]
-    L += [f"Budget: {rep['matching']}. T = {rep['T']}.", rep["pooled"], ""]
+    L += [f"Budget: {rep['matching']}. T = {rep['T']}.", rep["pooled"], "", rep["evaluation_oracle_status"], ""]
+    cs = rep.get("comparison_scorers", {})
+    if cs.get("scorers"):
+        L += ["## Comparison scorers (not selectors; no keep/drop)", cs["label"], "", "| scorer | role | pools | informative | top-1 pass (informative) | pool mean pass | monotonicity |", "|---|---|---|---|---|---|---|"]
+        for sid, v in cs["scorers"].items():
+            f = lambda x: "-" if x is None else "%.3f" % x
+            L.append(f"| {sid} | {v['role']} | {v['n_pools']} | {v['n_informative_pools']} | {f(v['top1_pass_rate_informative'])} | {f(v['pool_mean_pass_rate_informative'])} | {v['monotonicity']['status']} |")
+        L.append("")
     for track, s in rep["tracks"].items():
         L += [f"## Track: {track}", ""]
         if "per_arm" not in s:
@@ -157,4 +170,7 @@ def render_markdown(rep: dict) -> str:
             else:
                 L.append(f"| {name} | - | - | - | - | - | - | - | {c.get('refused')} |")
         L.append("")
+        g = s["gates"]
+        L += [f"Gates (configs/el_arch1_gates_v1.toml): overall {g['overall']}; G-0 {g['g0']['status']}; I1-I8 {g['invariants']['status']}; "
+              + "; ".join(f"{a}: {v['status']}" for a, v in g["steps"].items()), ""]
     return "\n".join(L) + "\n"
