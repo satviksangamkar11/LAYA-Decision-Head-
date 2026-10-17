@@ -1,0 +1,4 @@
+round 1: push BOTH kernels (two separate kernels = two independent processes), wait for COMPLETE, download each output:
+  kaggle kernels output sangeetasangamkar/el-arch1-score-live-lowthink-v1 -p "results\raw\el-arch1-kaggle4b-lowthink-20261017T213212Z\kaggle_in\round1\score_live"
+  kaggle kernels output sangeetasangamkar/el-arch1-score-verify-lowthink-v1 -p "results\raw\el-arch1-kaggle4b-lowthink-20261017T213212Z\kaggle_in\round1\score_verify"
+then re-run the driver.

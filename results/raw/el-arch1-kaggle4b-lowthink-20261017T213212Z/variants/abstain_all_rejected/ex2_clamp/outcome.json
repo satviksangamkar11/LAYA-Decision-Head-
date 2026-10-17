@@ -1,0 +1,43 @@
+{
+ "variant": "abstain_all_rejected",
+ "base": "ex2_clamp",
+ "why": "every option fails a trusted policy check -> abstain (never a random pick)",
+ "expected": {
+  "label_not": [
+   "VERIFIED"
+  ],
+  "not_decided": true,
+  "kinds_present": [
+   "abstain"
+  ],
+  "chosen_none": true,
+  "allowed_set": []
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "078e8949827356a12e13e5f271f01bda13332e3407141a2bbd30022609b01aca",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 2,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

@@ -1,0 +1,271 @@
+{
+ "answer_label": "BLOCKED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 497,
+  "glm_tokens_out": 973,
+  "gpu_seconds": 427.8315620422363,
+  "problem_id": "ex2_clamp",
+  "qwen_gen_tokens": 9016,
+  "qwen_prefill_tokens": 3410,
+  "scorer_calls": 0,
+  "tool_runs": 5,
+  "wall_seconds": 3.594
+ },
+ "comparison_entries": 0,
+ "critic_result": {
+  "candidate_id": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from clamp import clamp; print(repr(clamp(*[15, 0, 10], **{})))'",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "clamp(15, 0, 10)",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n0\n",
+  "observed_sha256": "47ba33c323fcbdb548e41f7b9d9d282491f7e095cef45e694fcd466070a47766",
+  "packet_id": "49b03b2fca51c52ca640a89a988c5caab57a5b5bdb70af5112ba63873b4c391a",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex2_clamp/journal.json",
+  "record": "receipts/ex2_clamp/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "49b03b2fca51c52ca640a89a988c5caab57a5b5bdb70af5112ba63873b4c391a": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 497,
+      "tokens_out": 973
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 497,
+    "tokens_out": 973
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 497,
+   "tokens_out": 973
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA",
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "no_think_close",
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "296660a7164224bcbe37e7c4ef9de486f2024549",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "296660a7164224bcbe37e7c4ef9de486f2024549",
+  "recorded_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+  "replayed_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "296660a7164224bcbe37e7c4ef9de486f2024549",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "296660a7164224bcbe37e7c4ef9de486f2024549",
+  "recorded_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+  "replayed_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1"
+ },
+ "rounds": 2,
+ "scorer_unavailable_entries": 2,
+ "stage_map": {
+  "entries": 58,
+  "not_reached": [],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "repair",
+   "commit_verify"
+  ],
+  "repair_substages": {
+   "2": {
+    "discriminate": [
+     [
+      32,
+      32
+     ],
+     [
+      34,
+      34
+     ]
+    ],
+    "execute": [
+     [
+      33,
+      33
+     ],
+     [
+      40,
+      45
+     ]
+    ],
+    "generate": [
+     [
+      30,
+      31
+     ]
+    ],
+    "rank": [
+     [
+      35,
+      39
+     ]
+    ]
+   }
+  },
+  "stages": {
+   "commit_verify": [
+    [
+     46,
+     57
+    ]
+   ],
+   "discriminate": [
+    [
+     16,
+     16
+    ],
+    [
+     18,
+     18
+    ]
+   ],
+   "execute": [
+    [
+     17,
+     17
+    ],
+    [
+     24,
+     29
+    ]
+   ],
+   "generate": [
+    [
+     14,
+     15
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     13
+    ]
+   ],
+   "rank": [
+    [
+     19,
+     23
+    ]
+   ],
+   "repair": [
+    [
+     30,
+     45
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [],
+   "chosen_index": null,
+   "decision_id": "ex2_clamp:step1",
+   "executed_action": null,
+   "id_order_choice": null,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+   "step": 1,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  },
+  {
+   "allowed_set": [],
+   "chosen_index": null,
+   "decision_id": "ex2_clamp:step2",
+   "executed_action": null,
+   "id_order_choice": null,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ValueError: no accepted option to score (all_options_rejected)",
+   "step": 2,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=2 cap=2",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 5
+}

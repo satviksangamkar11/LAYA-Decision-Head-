@@ -1,0 +1,188 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-abcbfdd7338b",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex1_slug"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "0284c6380f6ce5aecea6e057787d36d95379e6a618f2b1987fe5eeadc4f4dbc1",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "artifact_ref": "python3 test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "2f3060b43dc6c650c910d23474bfaacec95b8254a84fa9d16384cf48657667de",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "49af52bdb4137b2217176e2eda558092db7c46bf10e2a5280a6f2b838ddd60c1",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "15271624f96d2f89c7d178319e2915e31e59a6b9a58de95a01d776cd9633059e",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "f50254a8a954bcf761031a50b93e546ecc24e7b23a69b55aaf4bf1ab4403c8fb",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "PLAUSIBLE",
+   "changed_from": null,
+   "covered": [],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": false,
+    "type_or_compile_check": false
+   },
+   "loop": "best-effort-coverage-review",
+   "reason": "no tests, examples, type/compile check or regression suite observed",
+   "step": "intake",
+   "tier": "O3"
+  },
+  "kind": "oracle_tier",
+  "prev": "65bb45c0f577352e858c7e2c95a1d51cfefdbd03c0c427a717f6c01b74f1ddaa",
+  "seq": 5
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "authorized_to_execute": false,
+   "candidate_id": "none",
+   "decision_id": "d-tier-ex1_slug",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "df1936d7f05878712ea22e01cf0af64fbf0803e795d57805cac9e044cb27e19f",
+  "seq": 6
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 0,
+   "budget_hit": false,
+   "cause": "missing_information",
+   "details": "tier O3: ask_user: no blocking ambiguity, best effort only",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex1_slug",
+   "rounds": 0,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "55272bc9941ff20dc670ac7cd0dfe09cb524cf591ef96917f5197c0e14fcb1fc",
+  "seq": 7
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "abd381d53d055817dd7839653bb5bc4543d130d651e6926c8aad83c17567485a",
+  "seq": 8
+ }
+]

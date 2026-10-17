@@ -1,0 +1,271 @@
+{
+ "answer_label": "BLOCKED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 517,
+  "glm_tokens_out": 800,
+  "gpu_seconds": 466.1991460323334,
+  "problem_id": "ex1_slug",
+  "qwen_gen_tokens": 10000,
+  "qwen_prefill_tokens": 3410,
+  "scorer_calls": 0,
+  "tool_runs": 5,
+  "wall_seconds": 3.453
+ },
+ "comparison_entries": 0,
+ "critic_result": {
+  "candidate_id": "b4fc9eb8003e7ec94b50c8e9beec60c6bf09997745bb5671f680529b8a897dac",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from slug import slugify; print(repr(slugify(*['\"'\"'  Test! '\"'\"'], **{})))'",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "slugify('  Test! ')",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n'test-'\n",
+  "observed_sha256": "7ce593d132bcb78d2e811e98b46a6377a68c44a841d9cafa2a1974ec00f5c5c0",
+  "packet_id": "115f81d5ca6ccc26040181a27b3de388ab81a7058951d837e38657d3624de198",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex1_slug/journal.json",
+  "record": "receipts/ex1_slug/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "115f81d5ca6ccc26040181a27b3de388ab81a7058951d837e38657d3624de198": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 517,
+      "tokens_out": 800
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 517,
+    "tokens_out": 800
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 517,
+   "tokens_out": 800
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA",
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "no_think_close",
+  "no_think_close"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "recorded_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+  "replayed_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "recorded_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+  "replayed_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a"
+ },
+ "rounds": 2,
+ "scorer_unavailable_entries": 2,
+ "stage_map": {
+  "entries": 58,
+  "not_reached": [],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "repair",
+   "commit_verify"
+  ],
+  "repair_substages": {
+   "2": {
+    "discriminate": [
+     [
+      32,
+      32
+     ],
+     [
+      34,
+      34
+     ]
+    ],
+    "execute": [
+     [
+      33,
+      33
+     ],
+     [
+      40,
+      45
+     ]
+    ],
+    "generate": [
+     [
+      30,
+      31
+     ]
+    ],
+    "rank": [
+     [
+      35,
+      39
+     ]
+    ]
+   }
+  },
+  "stages": {
+   "commit_verify": [
+    [
+     46,
+     57
+    ]
+   ],
+   "discriminate": [
+    [
+     16,
+     16
+    ],
+    [
+     18,
+     18
+    ]
+   ],
+   "execute": [
+    [
+     17,
+     17
+    ],
+    [
+     24,
+     29
+    ]
+   ],
+   "generate": [
+    [
+     14,
+     15
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     13
+    ]
+   ],
+   "rank": [
+    [
+     19,
+     23
+    ]
+   ],
+   "repair": [
+    [
+     30,
+     45
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [],
+   "chosen_index": null,
+   "decision_id": "ex1_slug:step1",
+   "executed_action": null,
+   "id_order_choice": null,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+   "step": 1,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  },
+  {
+   "allowed_set": [],
+   "chosen_index": null,
+   "decision_id": "ex1_slug:step2",
+   "executed_action": null,
+   "id_order_choice": null,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+   "step": 2,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=2 cap=2",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 5
+}

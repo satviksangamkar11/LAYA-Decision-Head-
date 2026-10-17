@@ -1,0 +1,164 @@
+{
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "gpu_peak_gib": 0.26,
+ "kernel": "el_arch1_local_score",
+ "mode": "replay",
+ "probe_fingerprint": "e21170fc281b359b0ea48e147779132f52ed5ebceee61430b86cac11863f4e0b",
+ "probe_order_sha256": "1f7fc2f127746039adcc9f45972ea700d298cefc83c5c2baa3c4a7c4c1bfd300",
+ "probe_train_pools": 334,
+ "profile_id": "qwen3-4b-thinking-2507",
+ "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+ "random_head_state_sha256": {
+  "random-s11": "65c4bb9bad467f14bda61cc14cd480e41b07d0bb840f42fde37fffa81657db98",
+  "random-s12": "cb846273f72e0f8ad102584c78a04b0e396240e974170bf60bec7d3bd78ce10c",
+  "random-s13": "4f44bdca13912d70f2f8fda74d957445db20d2287d75daef4979c5bce891b448"
+ },
+ "steps": {
+  "ex3_wordcount:2": {
+   "capture": {
+    "depth_keys": [
+     18,
+     24,
+     30
+    ],
+    "features_sha256": "ea146abfffe164d82f655140b877dd2d832afe085d9f56d730d4d3cbf6097d2a",
+    "lm_head_calls": 0,
+    "mode": "packed",
+    "option_tokens": [
+     13,
+     16,
+     14
+    ],
+    "peak_gib": 0.26,
+    "prefix_tokens": 785,
+    "profile_id": "qwen3-4b-thinking-2507",
+    "seconds": 11.08,
+    "status": "ok"
+   },
+   "context_sha256": "b441fab1d0b8c3b51f414ad869e2189cd53fcc08241001a64dd2ae2096b9b722",
+   "dropped_proposals": 0,
+   "features_sha256": "ea146abfffe164d82f655140b877dd2d832afe085d9f56d730d4d3cbf6097d2a",
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+    "5acd7dd8cb56f2ce2282f90b86d6442f1b102445c768f132d3ba5e16e7ad20d4",
+    "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d"
+   ],
+   "options": [
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"wc.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_wc.py\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_wc.py\"}}"
+   ],
+   "origin": "live_capture_same_process",
+   "provenance": {
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "b441fab1d0b8c3b51f414ad869e2189cd53fcc08241001a64dd2ae2096b9b722",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "dtype": "float16",
+    "hidden": 2560,
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "option_prefix": " ",
+    "option_sha256": [
+     "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+     "5acd7dd8cb56f2ce2282f90b86d6442f1b102445c768f132d3ba5e16e7ad20d4",
+     "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d"
+    ],
+    "profile_id": "qwen3-4b-thinking-2507",
+    "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1"
+   },
+   "raw_output": "[{\"name\": \"Read\", \"arguments\": {\"file_path\": \"wc.py\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"python3 test_wc.py\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"test_wc.py\"}}]",
+   "raw_output_sha256": "67584a2f044e053b3b38c298a205734f97dbfa84e8731f445a4c60aec1d4e910",
+   "score_seconds": 12.056,
+   "scores": {
+    "laya": {
+     "per_seed_logits": {
+      "final-s0": [
+       0.561951220035553,
+       0.43404054641723633,
+       1.0636709928512573
+      ],
+      "final-s1": [
+       -0.23028689622879028,
+       -4.623643398284912,
+       0.4373511075973511
+      ],
+      "final-s2": [
+       0.9839876890182495,
+       0.3243521749973297,
+       1.214401364326477
+      ]
+     },
+     "role": "scorer_under_test",
+     "score": [
+      0.4385506709416707,
+      -1.2884168922901154,
+      0.9051411549250284
+     ]
+    },
+    "probe": {
+     "role": "mandatory_baseline_linear_probe",
+     "score": [
+      2.016033887863159,
+      -1.4738482236862183,
+      3.157160520553589
+     ]
+    },
+    "random_head": {
+     "per_seed_logits": {
+      "random-s11": [
+       -0.19544336199760437,
+       -0.09321051836013794,
+       -0.11352049559354782
+      ],
+      "random-s12": [
+       -0.23728328943252563,
+       -0.11558999866247177,
+       -0.11277282238006592
+      ],
+      "random-s13": [
+       0.22946447134017944,
+       -0.08929738402366638,
+       -0.05742305889725685
+      ]
+     },
+     "role": "untrained_random_init_floor_control",
+     "score": [
+      -0.06775406002998352,
+      -0.09936596701542537,
+      -0.09457212562362353
+     ],
+     "seeds": [
+      11,
+      12,
+      13
+     ]
+    }
+   },
+   "status": "ok",
+   "step": 2
+  }
+ },
+ "stub": false,
+ "total_seconds": 30.5,
+ "verdict": "DONE",
+ "versions": {
+  "cuda": "12.6",
+  "python": "3.12.13",
+  "torch": "2.14.0+cu126",
+  "transformers": "5.17.0"
+ },
+ "which": "live"
+}

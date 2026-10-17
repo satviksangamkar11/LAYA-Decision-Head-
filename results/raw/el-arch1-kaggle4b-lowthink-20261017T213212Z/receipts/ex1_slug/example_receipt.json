@@ -1,0 +1,233 @@
+{
+ "answer_label": "VERIFIED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 449,
+  "glm_tokens_out": 1151,
+  "gpu_seconds": 96.33783435821533,
+  "problem_id": "ex1_slug",
+  "qwen_gen_tokens": 1448,
+  "qwen_prefill_tokens": 1538,
+  "scorer_calls": 1,
+  "tool_runs": 6,
+  "wall_seconds": 2.969
+ },
+ "comparison_entries": 1,
+ "critic_result": {
+  "candidate_id": "a36a4360a503c19eaa1965bf00ee59cc6fecaf3c52a2b0c1d52513be80b16ef1",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from slug import slugify; print(repr(slugify(*['\"'\"'Café Crème — 2024!'\"'\"'], **{})))'",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "slugify('Café Crème — 2024!')",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n'caf-cr-me-2024'\n",
+  "observed_sha256": "c87c8f7442c4564b69702f4c4a26e0ef9d2a262060588f620308c89f3ee99448",
+  "packet_id": "673b46c28ea16057fa5c86299caae901285bda956a7542b6984089f689a29bfd",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex1_slug/journal.json",
+  "record": "receipts/ex1_slug/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "673b46c28ea16057fa5c86299caae901285bda956a7542b6984089f689a29bfd": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 449,
+      "tokens_out": 1151
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 449,
+    "tokens_out": 1151
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 449,
+   "tokens_out": 1151
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "425b5eb3ed1dfd35b5f87d6a8b42e952bc885a04d3069d9b058ca288365e818a",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   49,
+   49
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "recorded_journal_hash": "425b5eb3ed1dfd35b5f87d6a8b42e952bc885a04d3069d9b058ca288365e818a",
+  "replayed_journal_hash": "425b5eb3ed1dfd35b5f87d6a8b42e952bc885a04d3069d9b058ca288365e818a"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   49,
+   49
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "recorded_journal_hash": "425b5eb3ed1dfd35b5f87d6a8b42e952bc885a04d3069d9b058ca288365e818a",
+  "replayed_journal_hash": "425b5eb3ed1dfd35b5f87d6a8b42e952bc885a04d3069d9b058ca288365e818a"
+ },
+ "rounds": 1,
+ "scorer_unavailable_entries": 0,
+ "stage_map": {
+  "entries": 49,
+  "not_reached": [
+   "repair"
+  ],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "commit_verify"
+  ],
+  "repair_substages": {},
+  "stages": {
+   "commit_verify": [
+    [
+     37,
+     48
+    ]
+   ],
+   "discriminate": [
+    [
+     16,
+     16
+    ],
+    [
+     18,
+     25
+    ]
+   ],
+   "execute": [
+    [
+     17,
+     17
+    ],
+    [
+     31,
+     36
+    ]
+   ],
+   "generate": [
+    [
+     14,
+     15
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     13
+    ]
+   ],
+   "rank": [
+    [
+     26,
+     30
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "chosen_index": 0,
+   "decision_id": "ex1_slug:step1",
+   "executed_action": {
+    "arguments": {
+     "file_path": "slug.py",
+     "new_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text).strip('-')",
+     "old_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text)"
+    },
+    "name": "Edit"
+   },
+   "id_order_choice": 0,
+   "label": "VERIFIED",
+   "laya_changed_the_choice_vs_id_order": false,
+   "laya_order": [
+    0,
+    3,
+    4,
+    1,
+    2
+   ],
+   "laya_top_was_chosen": true,
+   "scorer_unavailable_reason": null,
+   "step": 1,
+   "tests_pass": true,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 6
+}

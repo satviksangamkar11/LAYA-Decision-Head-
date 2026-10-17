@@ -1,0 +1,43 @@
+{
+ "variant": "no_tests_o3",
+ "base": "ex3_wordcount",
+ "why": "no tests, no examples, a request that names its target and criterion -> O3 best effort, nothing executed, BLOCKED (ceiling PLAUSIBLE, no verdict without an oracle)",
+ "expected": {
+  "stop_cause": "missing_information",
+  "label": "BLOCKED",
+  "tier": "O3",
+  "kinds_absent": [
+   "ask_user",
+   "step_record"
+  ],
+  "max_sandbox_calls": 0,
+  "details_has": "no blocking ambiguity"
+ },
+ "violations": [],
+ "stop_cause": "missing_information",
+ "stop_details": "tier O3: ask_user: no blocking ambiguity, best effort only",
+ "label": "BLOCKED",
+ "tier": "O3",
+ "journal_hash": "32ce0a61259def0c633b96482649ad5f6c270210f0e7c8ec9127ccd5ae1b3cc9",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 0,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

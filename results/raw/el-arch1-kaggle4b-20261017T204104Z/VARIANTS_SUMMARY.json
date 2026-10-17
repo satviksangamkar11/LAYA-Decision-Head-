@@ -1,0 +1,592 @@
+{
+ "tag": "[EL-ARCH-1 D1/S2] fault-injection variants",
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "real_components": [
+  "controller (AgenticRun, invariants I1-I8)",
+  "WSL sandbox",
+  "journal + replay record"
+ ],
+ "variants": {
+  "no_tests_o3": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "examples_only_o2": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "missing_information": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "vacuous_test_file": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "missing_information",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "broken_test_command": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "broken_sandbox": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "tool_failure",
+    "label": "UNVERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "tool_failure",
+    "label": "UNVERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "tool_failure",
+    "label": "UNVERIFIED",
+    "pending": null
+   }
+  },
+  "blocked_action": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "blocked_confirmed_without_precheck": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "abstain_all_rejected": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "abstain_no_options": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "invalid_model_evidence": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "unsafe_critic_experiment": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "budget_rounds": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "budget_tokens": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "budget_wall": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "scope_conflict": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "budget_steps": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "budget_actions": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "malformed_json": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "sequential_plan": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "duplicate_options": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "empty_pool": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "unsafe_action_filtered": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "budget",
+    "label": "BLOCKED",
+    "pending": null
+   }
+  },
+  "missing_scorer": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "decided",
+    "label": "VERIFIED",
+    "pending": null
+   }
+  },
+  "missing_scorer_required": {
+   "ex1_slug": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "refused:MissingComponentError",
+    "label": "NONE",
+    "pending": null
+   },
+   "ex2_clamp": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "refused:MissingComponentError",
+    "label": "NONE",
+    "pending": null
+   },
+   "ex3_wordcount": {
+    "ok": true,
+    "violations": [],
+    "stop_cause": "refused:MissingComponentError",
+    "label": "NONE",
+    "pending": null
+   }
+  }
+ },
+ "pending": {},
+ "all_ok": true
+}

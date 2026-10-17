@@ -1,0 +1,3 @@
+round 1: push this kernel, wait for COMPLETE, then:
+  kaggle kernels output sangeetasangamkar/el-arch1-generate-lowthink-v1 -p "results\raw\el-arch1-kaggle4b-lowthink-20261017T213212Z\kaggle_in\round1\gen"
+then re-run the driver.

@@ -1,0 +1,45 @@
+{
+ "variant": "missing_information",
+ "base": "ex3_wordcount",
+ "why": "blocking ambiguity (no target, no checkable criterion) -> ask_user journaled with the exact ambiguities, BLOCKED, no action",
+ "expected": {
+  "stop_cause": "missing_information",
+  "label": "BLOCKED",
+  "tier": "O3",
+  "kinds_present": [
+   "ask_user"
+  ],
+  "kinds_absent": [
+   "step_record"
+  ],
+  "max_sandbox_calls": 0,
+  "details_has": "target_unknown"
+ },
+ "violations": [],
+ "stop_cause": "missing_information",
+ "stop_details": "tier O3: ask_user: target_unknown: the request names no file, function or class of the workspace; no_verifiable_criterion: the request states no checkable success condition",
+ "label": "BLOCKED",
+ "tier": "O3",
+ "journal_hash": "38a60b05210f3cabad6a1595628345a9200b140e896fc04340530bd687981c84",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 0,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

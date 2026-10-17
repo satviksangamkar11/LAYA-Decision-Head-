@@ -1,0 +1,166 @@
+{
+ "tag": "[EL-ARCH-1 D1] live GLM step",
+ "utc": "20261017T215035Z",
+ "model": "z-ai/glm-5.3-flash",
+ "key_labels": [
+  "key_1",
+  "key_2",
+  "key_3",
+  "key_4",
+  "key_5",
+  "key_6",
+  "key_7",
+  "key_8",
+  "key_9",
+  "key_10",
+  "key_11",
+  "key_12",
+  "key_13",
+  "key_14"
+ ],
+ "send_summary": {
+  "sent": 3,
+  "states": {
+   "ok": 3
+  },
+  "stopped": false
+ },
+ "recovered": {},
+ "states": {
+  "ok": 3
+ },
+ "stop_all_critic_calls": false,
+ "glm_accounting": {
+  "totals": {
+   "calls": 3,
+   "ok": 3,
+   "retries": 0,
+   "failed_attempts": 0,
+   "tokens_in": 1314,
+   "tokens_out": 3980,
+   "estimated": false,
+   "packets": 3
+  },
+  "per_packet": {
+   "673b46c28ea16057fa5c86299caae901285bda956a7542b6984089f689a29bfd": {
+    "calls": 1,
+    "ok": 1,
+    "retries": 0,
+    "failed_attempts": 0,
+    "tokens_in": 449,
+    "tokens_out": 1151,
+    "estimated": false,
+    "attempts": [
+     {
+      "attempt": 1,
+      "http_status": 200,
+      "state": "ok",
+      "reason": "",
+      "error": null,
+      "tokens_in": 449,
+      "tokens_out": 1151,
+      "estimated": false
+     }
+    ]
+   },
+   "5b0f086ca2cfd4c7e00a59bbd7137b6aa13343637c9adf1bcc21fb7a7165e4d7": {
+    "calls": 1,
+    "ok": 1,
+    "retries": 0,
+    "failed_attempts": 0,
+    "tokens_in": 433,
+    "tokens_out": 898,
+    "estimated": false,
+    "attempts": [
+     {
+      "attempt": 1,
+      "http_status": 200,
+      "state": "ok",
+      "reason": "",
+      "error": null,
+      "tokens_in": 433,
+      "tokens_out": 898,
+      "estimated": false
+     }
+    ]
+   },
+   "f8febdaa78afdb1df3e6b025a464b2e580a6c63b080406b61e3a857ff07e2a1e": {
+    "calls": 1,
+    "ok": 1,
+    "retries": 0,
+    "failed_attempts": 0,
+    "tokens_in": 432,
+    "tokens_out": 1931,
+    "estimated": false,
+    "attempts": [
+     {
+      "attempt": 1,
+      "http_status": 200,
+      "state": "ok",
+      "reason": "",
+      "error": null,
+      "tokens_in": 432,
+      "tokens_out": 1931,
+      "estimated": false
+     }
+    ]
+   }
+  }
+ },
+ "reconcile": {
+  "ok": true,
+  "checks": {
+   "sends_match": {
+    "ok": true,
+    "detail": "broker sends 3, progress sends 3, accounting calls 3"
+   },
+   "ingests_match": {
+    "ok": true,
+    "detail": "sends 3, ingests 3, result events 3, unmatched none"
+   },
+   "ok_match": {
+    "ok": true,
+    "detail": "accounting ok 3, responses.jsonl 3, MANIFEST states.ok 3"
+   },
+   "retries_bounded": {
+    "ok": true,
+    "detail": "max_retries 1, packets over the bound none, retry ingests 0 == accounting retries 0"
+   },
+   "failures_classified": {
+    "ok": true,
+    "detail": "failed attempts 0, by category none, unclassified none"
+   },
+   "tokens_match": {
+    "ok": true,
+    "detail": "answers with provider usage 3 (in 1314, out 3980), answers without usage 0 (estimated=False); accounting in 1314 out 3980"
+   },
+   "no_credentials": {
+    "ok": true,
+    "detail": "files scanned 5, key-shaped text in none"
+   },
+   "utf8_clean": {
+    "ok": true,
+    "detail": "valid UTF-8, no U+FFFD / mojibake marker; offenders: none"
+   }
+  },
+  "accounting_totals": {
+   "calls": 3,
+   "ok": 3,
+   "retries": 0,
+   "failed_attempts": 0,
+   "tokens_in": 1314,
+   "tokens_out": 3980,
+   "estimated": false,
+   "packets": 3
+  },
+  "attempt_error_categories": {},
+  "tokens": {
+   "actual_in": 1314,
+   "actual_out": 3980,
+   "answers_with_usage": 3,
+   "answers_estimated": 0
+  },
+  "dir": "D:\\local model\\results\\raw\\el-arch1-kaggle4b-lowthink-20261017T213212Z\\glm\\critic_batch"
+ },
+ "secret_scan_hits": []
+}

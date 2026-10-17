@@ -1,0 +1,40 @@
+{
+ "variant": "duplicate_options",
+ "base": "ex3_wordcount",
+ "why": "identical candidates are deduplicated (never ranked twice, never padded back up)",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "proposer_codes_any": [
+   "duplicate"
+  ],
+  "options_eq": 2
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "a65d79ff871d78e96955a6a5408cca31aaace92847aea60880a4b6de1897e7cb",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 4,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

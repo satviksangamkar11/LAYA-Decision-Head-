@@ -1,0 +1,1 @@
+{"event":"config","limits":{"max_in_flight_per_key":10,"max_sends_per_key_per_minute":39,"rate_limit_cooldown_s":60},"max_retries":1,"model":"z-ai/glm-5.3-flash","seq":1,"ts":1792268097.6046243}

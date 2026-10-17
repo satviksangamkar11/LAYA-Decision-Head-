@@ -1,0 +1,1473 @@
+{
+ "backend_identity": {
+  "controller": "evidence_ladder.controller.agentic.AgenticRun",
+  "critic": "evidence_ladder.models.broker.StagedCriticBroker",
+  "laya": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "probe": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "random_head": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "recorded_run": "evidence_ladder.controller.replay.RecordedRun",
+  "sandbox": "evidence_ladder.controller.replay.RecordingSandbox"
+ },
+ "backends": {
+  "controller": {
+   "kind": "AgenticRun+RecordedRun",
+   "stub": false
+  },
+  "glm": {
+   "kind": "live_local_key_system",
+   "stub": false
+  },
+  "laya": {
+   "kind": "local_4b_stream",
+   "profile": {
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device_classes": [
+     "Tesla T4"
+    ],
+    "dtype": "float16",
+    "enable_thinking": null,
+    "generation": {
+     "do_sample": true,
+     "temperature": 0.6,
+     "top_k": 20,
+     "top_p": 0.95
+    },
+    "head_compatible": [
+     "laya_fable_adapters_v1"
+    ],
+    "hidden_size": 2560,
+    "id": "qwen3-4b-thinking-2507",
+    "local_device_policy": "stream",
+    "local_path": "models/qwen3-4b-thinking-2507",
+    "num_layers": 36,
+    "option_prefix": " ",
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1",
+    "repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "revision": "768f209d9ea81521153ed38c47d515654e938aea"
+   },
+   "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+   "runs": {
+    "round1": {
+     "live": {
+      "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+      "local": true,
+      "mode": "replay",
+      "stub": false,
+      "versions": {
+       "cuda": "12.6",
+       "python": "3.12.13",
+       "torch": "2.14.0+cu126",
+       "transformers": "5.17.0"
+      }
+     },
+     "verify": {
+      "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+      "local": true,
+      "mode": "replay",
+      "stub": false,
+      "versions": {
+       "cuda": "12.6",
+       "python": "3.12.13",
+       "torch": "2.14.0+cu126",
+       "transformers": "5.17.0"
+      }
+     }
+    },
+    "round2": {
+     "live": {
+      "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+      "local": true,
+      "mode": "replay",
+      "stub": false,
+      "versions": {
+       "cuda": "12.6",
+       "python": "3.12.13",
+       "torch": "2.14.0+cu126",
+       "transformers": "5.17.0"
+      }
+     },
+     "verify": {
+      "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+      "local": true,
+      "mode": "replay",
+      "stub": false,
+      "versions": {
+       "cuda": "12.6",
+       "python": "3.12.13",
+       "torch": "2.14.0+cu126",
+       "transformers": "5.17.0"
+      }
+     }
+    }
+   },
+   "stub": false,
+   "unavailable_reason": null
+  },
+  "probe": {
+   "stub": false
+  },
+  "qwen": {
+   "kind": "local_hf",
+   "profile": {
+    "depths": [
+     14,
+     19,
+     23
+    ],
+    "device_classes": [
+     "NVIDIA GeForce RTX 3050"
+    ],
+    "dtype": "float16",
+    "enable_thinking": true,
+    "generation": {
+     "do_sample": false
+    },
+    "head_compatible": [],
+    "hidden_size": 1024,
+    "id": "qwen3-0.6b",
+    "local_device_policy": "resident",
+    "local_path": "models/qwen3-0.6b",
+    "num_layers": 28,
+    "option_prefix": " ",
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1",
+    "repo": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+   },
+   "profile_sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d",
+   "runs": {
+    "round1": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "snapshot_verified": true,
+     "stub": false,
+     "total_seconds": 483.6,
+     "verdict": "DONE",
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    },
+    "round2": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "snapshot_verified": true,
+     "stub": false,
+     "total_seconds": 505.5,
+     "verdict": "DONE",
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    }
+   },
+   "stub": false
+  },
+  "random_head": {
+   "stub": false
+  },
+  "sandbox": {
+   "kind": "wsl_bwrap",
+   "stub": false
+  }
+ },
+ "constants": {
+  "max_new_tokens": 5000,
+  "max_steps": 2,
+  "require": [
+   "scorer",
+   "critic"
+  ],
+  "seeds": [
+   0,
+   1
+  ]
+ },
+ "examples": {
+  "ex1_slug": {
+   "answer_label": "BLOCKED",
+   "budget_record": {
+    "api_errors": 0,
+    "arm": "E",
+    "glm_calls": 1,
+    "glm_tokens_in": 517,
+    "glm_tokens_out": 800,
+    "gpu_seconds": 466.1991460323334,
+    "problem_id": "ex1_slug",
+    "qwen_gen_tokens": 10000,
+    "qwen_prefill_tokens": 3410,
+    "scorer_calls": 0,
+    "tool_runs": 5,
+    "wall_seconds": 3.453
+   },
+   "comparison_entries": 0,
+   "critic_result": {
+    "candidate_id": "b4fc9eb8003e7ec94b50c8e9beec60c6bf09997745bb5671f680529b8a897dac",
+    "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from slug import slugify; print(repr(slugify(*['\"'\"'  Test! '\"'\"'], **{})))'",
+    "evidence_status": "unknown",
+    "executed": true,
+    "experiment": "slugify('  Test! ')",
+    "experiment_status": "pass",
+    "kind": "function_call",
+    "label_unchanged_by_critic": true,
+    "observed": "exit 0\n'test-'\n",
+    "observed_sha256": "7ce593d132bcb78d2e811e98b46a6377a68c44a841d9cafa2a1974ec00f5c5c0",
+    "packet_id": "115f81d5ca6ccc26040181a27b3de388ab81a7058951d837e38657d3624de198",
+    "protected_unchanged": true,
+    "state": "applied"
+   },
+   "critic_state": "applied",
+   "files": {
+    "journal": "receipts/ex1_slug/journal.json",
+    "receipt": "receipts/ex1_slug/example_receipt.json",
+    "record": "receipts/ex1_slug/record.json"
+   },
+   "glm_accounting": {
+    "per_packet": {
+     "115f81d5ca6ccc26040181a27b3de388ab81a7058951d837e38657d3624de198": {
+      "attempts": [
+       {
+        "attempt": 1,
+        "error": null,
+        "estimated": false,
+        "http_status": 200,
+        "reason": "",
+        "state": "ok",
+        "tokens_in": 517,
+        "tokens_out": 800
+       }
+      ],
+      "calls": 1,
+      "estimated": false,
+      "failed_attempts": 0,
+      "ok": 1,
+      "retries": 0,
+      "tokens_in": 517,
+      "tokens_out": 800
+     }
+    },
+    "totals": {
+     "calls": 1,
+     "estimated": false,
+     "failed_attempts": 0,
+     "ok": 1,
+     "packets": 1,
+     "retries": 0,
+     "tokens_in": 517,
+     "tokens_out": 800
+    }
+   },
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+   "monotonicity_entries": [
+    "INSUFFICIENT_DATA",
+    "INSUFFICIENT_DATA"
+   ],
+   "proposals": [
+    "no_think_close",
+    "no_think_close"
+   ],
+   "replay_live_wsl": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     58,
+     58
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "live_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+    "replayed_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a"
+   },
+   "replay_offline": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     58,
+     58
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "offline_recorded_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+    "replayed_journal_hash": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a"
+   },
+   "rounds": 2,
+   "scorer_unavailable_entries": 2,
+   "stage_map": {
+    "entries": 58,
+    "not_reached": [],
+    "reached": [
+     "intake",
+     "investigate",
+     "generate",
+     "discriminate",
+     "rank",
+     "execute",
+     "repair",
+     "commit_verify"
+    ],
+    "repair_substages": {
+     "2": {
+      "discriminate": [
+       [
+        32,
+        32
+       ],
+       [
+        34,
+        34
+       ]
+      ],
+      "execute": [
+       [
+        33,
+        33
+       ],
+       [
+        40,
+        45
+       ]
+      ],
+      "generate": [
+       [
+        30,
+        31
+       ]
+      ],
+      "rank": [
+       [
+        35,
+        39
+       ]
+      ]
+     }
+    },
+    "stages": {
+     "commit_verify": [
+      [
+       46,
+       57
+      ]
+     ],
+     "discriminate": [
+      [
+       16,
+       16
+      ],
+      [
+       18,
+       18
+      ]
+     ],
+     "execute": [
+      [
+       17,
+       17
+      ],
+      [
+       24,
+       29
+      ]
+     ],
+     "generate": [
+      [
+       14,
+       15
+      ]
+     ],
+     "intake": [
+      [
+       0,
+       5
+      ]
+     ],
+     "investigate": [
+      [
+       6,
+       13
+      ]
+     ],
+     "rank": [
+      [
+       19,
+       23
+      ]
+     ],
+     "repair": [
+      [
+       30,
+       45
+      ]
+     ]
+    }
+   },
+   "steps": [
+    {
+     "allowed_set": [],
+     "chosen_index": null,
+     "decision_id": "ex1_slug:step1",
+     "executed_action": null,
+     "id_order_choice": null,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+     "step": 1,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    },
+    {
+     "allowed_set": [],
+     "chosen_index": null,
+     "decision_id": "ex1_slug:step2",
+     "executed_action": null,
+     "id_order_choice": null,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+     "step": 2,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    }
+   ],
+   "stop_cause": "budget",
+   "stop_details": "task.max_steps used=2 cap=2",
+   "stub": false,
+   "tier": "O1",
+   "tool_runs": 5
+  },
+  "ex2_clamp": {
+   "answer_label": "BLOCKED",
+   "budget_record": {
+    "api_errors": 0,
+    "arm": "E",
+    "glm_calls": 1,
+    "glm_tokens_in": 497,
+    "glm_tokens_out": 973,
+    "gpu_seconds": 427.8315620422363,
+    "problem_id": "ex2_clamp",
+    "qwen_gen_tokens": 9016,
+    "qwen_prefill_tokens": 3410,
+    "scorer_calls": 0,
+    "tool_runs": 5,
+    "wall_seconds": 3.61
+   },
+   "comparison_entries": 0,
+   "critic_result": {
+    "candidate_id": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from clamp import clamp; print(repr(clamp(*[15, 0, 10], **{})))'",
+    "evidence_status": "unknown",
+    "executed": true,
+    "experiment": "clamp(15, 0, 10)",
+    "experiment_status": "pass",
+    "kind": "function_call",
+    "label_unchanged_by_critic": true,
+    "observed": "exit 0\n0\n",
+    "observed_sha256": "47ba33c323fcbdb548e41f7b9d9d282491f7e095cef45e694fcd466070a47766",
+    "packet_id": "49b03b2fca51c52ca640a89a988c5caab57a5b5bdb70af5112ba63873b4c391a",
+    "protected_unchanged": true,
+    "state": "applied"
+   },
+   "critic_state": "applied",
+   "files": {
+    "journal": "receipts/ex2_clamp/journal.json",
+    "receipt": "receipts/ex2_clamp/example_receipt.json",
+    "record": "receipts/ex2_clamp/record.json"
+   },
+   "glm_accounting": {
+    "per_packet": {
+     "49b03b2fca51c52ca640a89a988c5caab57a5b5bdb70af5112ba63873b4c391a": {
+      "attempts": [
+       {
+        "attempt": 1,
+        "error": null,
+        "estimated": false,
+        "http_status": 200,
+        "reason": "",
+        "state": "ok",
+        "tokens_in": 497,
+        "tokens_out": 973
+       }
+      ],
+      "calls": 1,
+      "estimated": false,
+      "failed_attempts": 0,
+      "ok": 1,
+      "retries": 0,
+      "tokens_in": 497,
+      "tokens_out": 973
+     }
+    },
+    "totals": {
+     "calls": 1,
+     "estimated": false,
+     "failed_attempts": 0,
+     "ok": 1,
+     "packets": 1,
+     "retries": 0,
+     "tokens_in": 497,
+     "tokens_out": 973
+    }
+   },
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+   "monotonicity_entries": [
+    "INSUFFICIENT_DATA",
+    "INSUFFICIENT_DATA"
+   ],
+   "proposals": [
+    "no_think_close",
+    "ok"
+   ],
+   "replay_live_wsl": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     58,
+     58
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "live_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+    "replayed_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1"
+   },
+   "replay_offline": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     58,
+     58
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "offline_recorded_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+    "replayed_journal_hash": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1"
+   },
+   "rounds": 2,
+   "scorer_unavailable_entries": 2,
+   "stage_map": {
+    "entries": 58,
+    "not_reached": [],
+    "reached": [
+     "intake",
+     "investigate",
+     "generate",
+     "discriminate",
+     "rank",
+     "execute",
+     "repair",
+     "commit_verify"
+    ],
+    "repair_substages": {
+     "2": {
+      "discriminate": [
+       [
+        32,
+        32
+       ],
+       [
+        34,
+        34
+       ]
+      ],
+      "execute": [
+       [
+        33,
+        33
+       ],
+       [
+        40,
+        45
+       ]
+      ],
+      "generate": [
+       [
+        30,
+        31
+       ]
+      ],
+      "rank": [
+       [
+        35,
+        39
+       ]
+      ]
+     }
+    },
+    "stages": {
+     "commit_verify": [
+      [
+       46,
+       57
+      ]
+     ],
+     "discriminate": [
+      [
+       16,
+       16
+      ],
+      [
+       18,
+       18
+      ]
+     ],
+     "execute": [
+      [
+       17,
+       17
+      ],
+      [
+       24,
+       29
+      ]
+     ],
+     "generate": [
+      [
+       14,
+       15
+      ]
+     ],
+     "intake": [
+      [
+       0,
+       5
+      ]
+     ],
+     "investigate": [
+      [
+       6,
+       13
+      ]
+     ],
+     "rank": [
+      [
+       19,
+       23
+      ]
+     ],
+     "repair": [
+      [
+       30,
+       45
+      ]
+     ]
+    }
+   },
+   "steps": [
+    {
+     "allowed_set": [],
+     "chosen_index": null,
+     "decision_id": "ex2_clamp:step1",
+     "executed_action": null,
+     "id_order_choice": null,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ValueError: no accepted option to score (no_options_proposed)",
+     "step": 1,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    },
+    {
+     "allowed_set": [],
+     "chosen_index": null,
+     "decision_id": "ex2_clamp:step2",
+     "executed_action": null,
+     "id_order_choice": null,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ValueError: no accepted option to score (all_options_rejected)",
+     "step": 2,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    }
+   ],
+   "stop_cause": "budget",
+   "stop_details": "task.max_steps used=2 cap=2",
+   "stub": false,
+   "tier": "O1",
+   "tool_runs": 5
+  },
+  "ex3_wordcount": {
+   "answer_label": "BLOCKED",
+   "budget_record": {
+    "api_errors": 0,
+    "arm": "E",
+    "glm_calls": 1,
+    "glm_tokens_in": 480,
+    "glm_tokens_out": 920,
+    "gpu_seconds": 76.13473081588745,
+    "problem_id": "ex3_wordcount",
+    "qwen_gen_tokens": 1955,
+    "qwen_prefill_tokens": 3248,
+    "scorer_calls": 2,
+    "tool_runs": 6,
+    "wall_seconds": 3.859
+   },
+   "comparison_entries": 0,
+   "critic_result": {
+    "candidate_id": "cc7a9c343d60a8fcdaa9c7cea7dde447dd67e8cafdda3fccb06f13df6309d836",
+    "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from wc import count_words; print(repr(count_words(*['\"'\"'hello  world'\"'\"'], **{})))'",
+    "evidence_status": "unknown",
+    "executed": true,
+    "experiment": "count_words('hello  world')",
+    "experiment_status": "pass",
+    "kind": "function_call",
+    "label_unchanged_by_critic": true,
+    "observed": "exit 0\n3\n",
+    "observed_sha256": "e744f2fbb9fc77137297a2a131a5dc5a4ba76d3a413b31656148aaa5004e8738",
+    "packet_id": "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266",
+    "protected_unchanged": true,
+    "state": "applied"
+   },
+   "critic_state": "applied",
+   "files": {
+    "journal": "receipts/ex3_wordcount/journal.json",
+    "receipt": "receipts/ex3_wordcount/example_receipt.json",
+    "record": "receipts/ex3_wordcount/record.json"
+   },
+   "glm_accounting": {
+    "per_packet": {
+     "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266": {
+      "attempts": [
+       {
+        "attempt": 1,
+        "error": null,
+        "estimated": false,
+        "http_status": 200,
+        "reason": "",
+        "state": "ok",
+        "tokens_in": 480,
+        "tokens_out": 920
+       }
+      ],
+      "calls": 1,
+      "estimated": false,
+      "failed_attempts": 0,
+      "ok": 1,
+      "retries": 0,
+      "tokens_in": 480,
+      "tokens_out": 920
+     }
+    },
+    "totals": {
+     "calls": 1,
+     "estimated": false,
+     "failed_attempts": 0,
+     "ok": 1,
+     "packets": 1,
+     "retries": 0,
+     "tokens_in": 480,
+     "tokens_out": 920
+    }
+   },
+   "invariants": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "journal_hash": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844",
+   "monotonicity_entries": [
+    "INSUFFICIENT_DATA",
+    "INSUFFICIENT_DATA"
+   ],
+   "proposals": [
+    "ok",
+    "ok"
+   ],
+   "replay_live_wsl": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     62,
+     62
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "live_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844",
+    "replayed_journal_hash": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844"
+   },
+   "replay_offline": {
+    "changed_code_files": [],
+    "code_unchanged": true,
+    "entries": [
+     62,
+     62
+    ],
+    "error": null,
+    "first_divergence": null,
+    "git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "identical": true,
+    "mode": "offline_recorded_sandbox",
+    "recorded_git_commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+    "recorded_journal_hash": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844",
+    "replayed_journal_hash": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844"
+   },
+   "rounds": 2,
+   "scorer_unavailable_entries": 2,
+   "stage_map": {
+    "entries": 62,
+    "not_reached": [],
+    "reached": [
+     "intake",
+     "investigate",
+     "generate",
+     "discriminate",
+     "rank",
+     "execute",
+     "repair",
+     "commit_verify"
+    ],
+    "repair_substages": {
+     "2": {
+      "discriminate": [
+       [
+        34,
+        34
+       ],
+       [
+        36,
+        38
+       ]
+      ],
+      "execute": [
+       [
+        35,
+        35
+       ],
+       [
+        43,
+        49
+       ]
+      ],
+      "generate": [
+       [
+        32,
+        33
+       ]
+      ],
+      "rank": [
+       [
+        39,
+        42
+       ]
+      ]
+     }
+    },
+    "stages": {
+     "commit_verify": [
+      [
+       50,
+       61
+      ]
+     ],
+     "discriminate": [
+      [
+       16,
+       16
+      ],
+      [
+       18,
+       20
+      ]
+     ],
+     "execute": [
+      [
+       17,
+       17
+      ],
+      [
+       25,
+       31
+      ]
+     ],
+     "generate": [
+      [
+       14,
+       15
+      ]
+     ],
+     "intake": [
+      [
+       0,
+       5
+      ]
+     ],
+     "investigate": [
+      [
+       6,
+       13
+      ]
+     ],
+     "rank": [
+      [
+       21,
+       24
+      ]
+     ],
+     "repair": [
+      [
+       32,
+       49
+      ]
+     ]
+    }
+   },
+   "steps": [
+    {
+     "allowed_set": [
+      0,
+      1
+     ],
+     "chosen_index": 0,
+     "decision_id": "ex3_wordcount:step1",
+     "executed_action": {
+      "arguments": {
+       "file_path": "wc.py"
+      },
+      "name": "Read"
+     },
+     "id_order_choice": 0,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+     "step": 1,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    },
+    {
+     "allowed_set": [
+      0,
+      1
+     ],
+     "chosen_index": 0,
+     "decision_id": "ex3_wordcount:step2",
+     "executed_action": {
+      "arguments": {
+       "command": "python3 test_wc.py"
+      },
+      "name": "Bash"
+     },
+     "id_order_choice": 0,
+     "label": "BLOCKED",
+     "laya_changed_the_choice_vs_id_order": null,
+     "laya_order": null,
+     "laya_top_was_chosen": null,
+     "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+     "step": 2,
+     "tests_pass": false,
+     "trusted_evidence_overrode_laya": false
+    }
+   ],
+   "stop_cause": "budget",
+   "stop_details": "task.max_steps used=2 cap=2",
+   "stub": false,
+   "tier": "O1",
+   "tool_runs": 6
+  }
+ },
+ "external_logs": {
+  "glm\\GLM_LIVE_SUMMARY_20261017T193757Z.json": "8db65fa7172e77d52c0812c03d7c7c6943afefbb6b8c209fa957f469999d8e25"
+ },
+ "gates": {
+  "invariants": {
+   "status": "PASS"
+  },
+  "monotonicity": {
+   "laya_ordering_enabled": false,
+   "status": "INSUFFICIENT_DATA"
+  },
+  "overall": "INSUFFICIENT_DATA (3 examples; not a performance result)"
+ },
+ "glm_reconcile": {
+  "accounting_totals": {
+   "calls": 3,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 3,
+   "packets": 3,
+   "retries": 0,
+   "tokens_in": 1494,
+   "tokens_out": 2693
+  },
+  "attempt_error_categories": {},
+  "checks": {
+   "failures_classified": {
+    "detail": "failed attempts 0, by category none, unclassified none",
+    "ok": true
+   },
+   "ingests_match": {
+    "detail": "sends 3, ingests 3, result events 3, unmatched none",
+    "ok": true
+   },
+   "no_credentials": {
+    "detail": "files scanned 5, key-shaped text in none",
+    "ok": true
+   },
+   "ok_match": {
+    "detail": "accounting ok 3, responses.jsonl 3, MANIFEST states.ok 3",
+    "ok": true
+   },
+   "retries_bounded": {
+    "detail": "max_retries 1, packets over the bound none, retry ingests 0 == accounting retries 0",
+    "ok": true
+   },
+   "sends_match": {
+    "detail": "broker sends 3, progress sends 3, accounting calls 3",
+    "ok": true
+   },
+   "tokens_match": {
+    "detail": "answers with provider usage 3 (in 1494, out 2693), answers without usage 0 (estimated=False); accounting in 1494 out 2693",
+    "ok": true
+   },
+   "utf8_clean": {
+    "detail": "valid UTF-8, no U+FFFD / mojibake marker; offenders: none",
+    "ok": true
+   }
+  },
+  "dir": "results\\raw\\el-arch1-final-local-20261017T191233Z\\glm\\critic_batch",
+  "ok": true,
+  "tokens": {
+   "actual_in": 1494,
+   "actual_out": 2693,
+   "answers_estimated": 0,
+   "answers_with_usage": 3
+  }
+ },
+ "kaggle": {
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "gen_runs": {
+   "round1": {
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "snapshot_verified": true,
+    "stub": false,
+    "total_seconds": 483.6,
+    "verdict": "DONE",
+    "versions": {
+     "cuda": "12.6",
+     "python": "3.12.13",
+     "torch": "2.14.0+cu126",
+     "transformers": "5.17.0"
+    }
+   },
+   "round2": {
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "snapshot_verified": true,
+    "stub": false,
+    "total_seconds": 505.5,
+    "verdict": "DONE",
+    "versions": {
+     "cuda": "12.6",
+     "python": "3.12.13",
+     "torch": "2.14.0+cu126",
+     "transformers": "5.17.0"
+    }
+   }
+  },
+  "glm": {},
+  "parity": {
+   "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+   "device_prefix": "NVIDIA GeForce RTX 3050",
+   "file": "parity/PARITY_RESULT.json",
+   "n_records": 6,
+   "peak_gib": 0.64,
+   "sha256": "3b796da82571a60d439f1d7935811d7fdd389ee5a8246fb9730b8d6002242c2e",
+   "thresholds_sha256": "1628b70f9bccedbab69d9c8583f269e0bf53f4ea47840570efd23c1b76b1acae",
+   "total_seconds": 70.4,
+   "verdict": "PASS",
+   "worst_cos_min": 0.9999899948713817,
+   "worst_max_abs_diff": 0.125
+  },
+  "refused_pools": [
+   {
+    "key": "ex3_wordcount:1",
+    "reason": "a scoring result is not ok (live=too_few_proposals, verify=too_few_proposals)",
+    "refused_by": "pool_admissible"
+   }
+  ],
+  "score_runs": {
+   "round1": {
+    "live": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "local": true,
+     "mode": "replay",
+     "stub": false,
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    },
+    "verify": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "local": true,
+     "mode": "replay",
+     "stub": false,
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    }
+   },
+   "round2": {
+    "live": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "local": true,
+     "mode": "replay",
+     "stub": false,
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    },
+    "verify": {
+     "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "local": true,
+     "mode": "replay",
+     "stub": false,
+     "versions": {
+      "cuda": "12.6",
+      "python": "3.12.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "5.17.0"
+     }
+    }
+   }
+  }
+ },
+ "local": {
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "generation_model": "Qwen/Qwen3-0.6B",
+  "generation_profile": {
+   "id": "qwen3-0.6b",
+   "sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d"
+  },
+  "laya_available": true,
+  "mode": "LOCAL",
+  "parity": {
+   "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+   "device_prefix": "NVIDIA GeForce RTX 3050",
+   "file": "parity/PARITY_RESULT.json",
+   "n_records": 6,
+   "peak_gib": 0.64,
+   "sha256": "3b796da82571a60d439f1d7935811d7fdd389ee5a8246fb9730b8d6002242c2e",
+   "thresholds_sha256": "1628b70f9bccedbab69d9c8583f269e0bf53f4ea47840570efd23c1b76b1acae",
+   "total_seconds": 70.4,
+   "verdict": "PASS",
+   "worst_cos_min": 0.9999899948713817,
+   "worst_max_abs_diff": 0.125
+  },
+  "qwen_diagnostic_states": "qwen3-0.6b states are DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter",
+  "state_profile": {
+   "id": "qwen3-4b-thinking-2507",
+   "sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb"
+  }
+ },
+ "mode": "local",
+ "monotonicity_gate_all_examples": {
+  "can_override_trusted_evidence": false,
+  "laya_ordering_enabled": false,
+  "min_informative_pools": 30,
+  "n_informative_pools": 0,
+  "n_pools": 0,
+  "reason": "0 informative pools (a pool with at least one passing and one failing candidate), minimum 30: no verdict",
+  "role": "development check of a LAYA keep condition; not evidence of task success",
+  "status": "INSUFFICIENT_DATA"
+ },
+ "preflight": {
+  "code_sha256": {
+   "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+   "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+   "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+   "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "evidence_ladder/controller/agentic.py": "308c92424eee8e1555cbfdc50ce19532d2ae509478fbb1e0da952b401e91ad6c",
+   "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+   "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+   "evidence_ladder/controller/controller.py": "04110b1caadc07f170d664be0bd3dc52d655a55dab7798a4452ab2d6bb6de04e",
+   "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+   "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+   "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+   "evidence_ladder/controller/generation.py": "dbe6511d4018790e1c77b24ba75cb3d254279b68a68768f45a8d1f028b21738a",
+   "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+   "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+   "evidence_ladder/controller/investigate.py": "37d5366faf61ea805062112b5ca2c0a2a06c236cf4c0299b20a8f706030229e2",
+   "evidence_ladder/controller/journal.py": "22f1dddd600a7585654bf9562539d1bfbe2d642896be87a12253fb76678ee353",
+   "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+   "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+   "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+   "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+   "evidence_ladder/controller/pathb_stored.py": "ca5042563005c21cb8ef485f9b037b5a1922093f8f3c696a23f46e17f03497b9",
+   "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+   "evidence_ladder/controller/replay.py": "76b264a56abb22a43e993adc146815d3bc24674d0b01d24734a32bf7bc61965e",
+   "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+   "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+   "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+   "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+   "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+   "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+   "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+   "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+   "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+   "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+   "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+   "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+   "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+   "evidence_ladder/models/backbone.py": "23406e4317ffeef198bc99db13c0a2f0dcfe0357ea77abb749927531e4c418d0",
+   "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+   "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+   "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+   "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+   "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+   "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+   "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+   "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+   "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+   "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+   "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+   "evidence_ladder/models/qwen.py": "88fedd2723837f11825442412134992d7fee94bcf0ea67bbf756e62a33a6b12f",
+   "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+   "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5"
+  },
+  "commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "config_sha256": {
+   "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+   "configs/el_arch1_gates_v1.toml": "e3fa57a7dfe6fa1678ad60d6a363ac3e80ea34601005c583082d14e08026f99e",
+   "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+   "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+   "configs/el_arch1_local_parity_v1.toml": "1628b70f9bccedbab69d9c8583f269e0bf53f4ea47840570efd23c1b76b1acae",
+   "configs/thresholds.toml": "1c31ab903dc1ee4c72474b4178aa30d6b22a0d62dedb89d7e988fe8f09864475",
+   "configs/thresholds_context_diag_v1.toml": "291c9b5da053b777db7ff14b049faf6c21694a1bb05f758d7c7d9fa8a3262b37",
+   "configs/thresholds_evidence_ladder_v1.toml": "8b5e17cd0ad48382709f397403169fdb2d29e3faeaf45b393d80e5b21b8f644d",
+   "configs/thresholds_evidence_ladder_v1_T.toml": "b9f2918aa4e984b841f103f41930ca2baab39b66054c0187cadd1f5db99fb5d9",
+   "configs/thresholds_fable_gen_v2.toml": "7788060b0d2bb04455ef104c1c7f0302e8bf1e0e4683121f8abdcf2c7199f197",
+   "configs/thresholds_fable_gen_v3.toml": "6ba1ba1fe5130ad72e5085d9869f3f609ccbef822442d3b250d9e52f1b4d8249",
+   "configs/thresholds_loop_eng_v1.toml": "f50878562103169e436b54fef24a574edfca87b237a6325b441b0f32bcee18c3",
+   "configs/thresholds_loop_eng_v2.toml": "55be94ebeba63f82af7357066de185c0930c101e797df0a5cb5e50537eb61975",
+   "configs/thresholds_outcome_head_v1.toml": "e8209a04c6632a36c305387bc9f255f7d6e8e872e3d677b2a439c35dde8bc8bb",
+   "configs/thresholds_pool_v2.toml": "74c8173a49068a8bcff7bcb27e0af2ac1f912accb1cc8a512ec8f2643c5e8129",
+   "configs/thresholds_proposal_tools_v1.toml": "47c5fab060dcf40e28dbc8feea0762c409e16137d259fc7096c3f3efffa40ee4",
+   "configs/thresholds_proposal_tools_v2.toml": "b59aac36ef1a30bf68f90e289b2c95b0c320f232d8ed157d894f81fbb12017e5",
+   "configs/thresholds_sample_pool_v1.toml": "ad412a53a1684a6964312eca8dd97448bb0f3042b85912f8895c7c3adab8b3e4",
+   "configs/thresholds_sandbox_pilot_v1.toml": "7508d49cd1148adad33b51272b2ad17ba60e213e077e55ee8641a3ad71dc6112",
+   "configs/thresholds_sandbox_pilot_v2.toml": "6e61ecc3d7c397b0791edc5d2964c31170966aba699bcd8e6c044221a4fc0ba6",
+   "configs/thresholds_text_grader_k2_v1.toml": "27fe64efd464caa7d4a4af35185e23637379f1999d120cd4e539d01ac1af5787",
+   "configs/thresholds_text_grader_k2_v2.toml": "af903e3db843865d4ce9c8eef4d4d00eac3f8b9f4de395264fe5e8273c439bb6",
+   "configs/thresholds_text_imitation_v1.toml": "50164361ca8b4dc72f9a90dcfb7a96513156c15203e85997711d4fe5c6dc82ba"
+  },
+  "dirty_tracked_source": [],
+  "driver_sha256": "a1cb33e8eccabf1906a73481890a33fb53aca46fe61afb296e778a08baa16e87",
+  "final_path": true,
+  "limits": {
+   "max_actions": 3,
+   "max_glm_tokens": 200000,
+   "max_model_calls": 20,
+   "max_qwen_tokens": 60000,
+   "max_rounds": 3,
+   "max_wall_seconds": 3600.0
+  },
+  "secret_scan_added_lines": {
+   "base_ref": "main",
+   "files": [],
+   "hits": 0
+  },
+  "source_committed": true,
+  "static_isolation_scan": {
+   "controller_import_names": [],
+   "runtime_oracle_scan": []
+  },
+  "untracked_core_files": [],
+  "wsl": true
+ },
+ "provenance": {
+  "commit": "36be3cc5183aaad3c381c62e72877be683fed8fa",
+  "config_sha256": {
+   "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+   "configs/el_arch1_gates_v1.toml": "e3fa57a7dfe6fa1678ad60d6a363ac3e80ea34601005c583082d14e08026f99e",
+   "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+   "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+   "configs/el_arch1_local_parity_v1.toml": "1628b70f9bccedbab69d9c8583f269e0bf53f4ea47840570efd23c1b76b1acae",
+   "configs/thresholds.toml": "1c31ab903dc1ee4c72474b4178aa30d6b22a0d62dedb89d7e988fe8f09864475",
+   "configs/thresholds_context_diag_v1.toml": "291c9b5da053b777db7ff14b049faf6c21694a1bb05f758d7c7d9fa8a3262b37",
+   "configs/thresholds_evidence_ladder_v1.toml": "8b5e17cd0ad48382709f397403169fdb2d29e3faeaf45b393d80e5b21b8f644d",
+   "configs/thresholds_evidence_ladder_v1_T.toml": "b9f2918aa4e984b841f103f41930ca2baab39b66054c0187cadd1f5db99fb5d9",
+   "configs/thresholds_fable_gen_v2.toml": "7788060b0d2bb04455ef104c1c7f0302e8bf1e0e4683121f8abdcf2c7199f197",
+   "configs/thresholds_fable_gen_v3.toml": "6ba1ba1fe5130ad72e5085d9869f3f609ccbef822442d3b250d9e52f1b4d8249",
+   "configs/thresholds_loop_eng_v1.toml": "f50878562103169e436b54fef24a574edfca87b237a6325b441b0f32bcee18c3",
+   "configs/thresholds_loop_eng_v2.toml": "55be94ebeba63f82af7357066de185c0930c101e797df0a5cb5e50537eb61975",
+   "configs/thresholds_outcome_head_v1.toml": "e8209a04c6632a36c305387bc9f255f7d6e8e872e3d677b2a439c35dde8bc8bb",
+   "configs/thresholds_pool_v2.toml": "74c8173a49068a8bcff7bcb27e0af2ac1f912accb1cc8a512ec8f2643c5e8129",
+   "configs/thresholds_proposal_tools_v1.toml": "47c5fab060dcf40e28dbc8feea0762c409e16137d259fc7096c3f3efffa40ee4",
+   "configs/thresholds_proposal_tools_v2.toml": "b59aac36ef1a30bf68f90e289b2c95b0c320f232d8ed157d894f81fbb12017e5",
+   "configs/thresholds_sample_pool_v1.toml": "ad412a53a1684a6964312eca8dd97448bb0f3042b85912f8895c7c3adab8b3e4",
+   "configs/thresholds_sandbox_pilot_v1.toml": "7508d49cd1148adad33b51272b2ad17ba60e213e077e55ee8641a3ad71dc6112",
+   "configs/thresholds_sandbox_pilot_v2.toml": "6e61ecc3d7c397b0791edc5d2964c31170966aba699bcd8e6c044221a4fc0ba6",
+   "configs/thresholds_text_grader_k2_v1.toml": "27fe64efd464caa7d4a4af35185e23637379f1999d120cd4e539d01ac1af5787",
+   "configs/thresholds_text_grader_k2_v2.toml": "af903e3db843865d4ce9c8eef4d4d00eac3f8b9f4de395264fe5e8273c439bb6",
+   "configs/thresholds_text_imitation_v1.toml": "50164361ca8b4dc72f9a90dcfb7a96513156c15203e85997711d4fe5c6dc82ba"
+  },
+  "driver_sha256": "a1cb33e8eccabf1906a73481890a33fb53aca46fe61afb296e778a08baa16e87",
+  "final_path": true,
+  "journal_file_sha256": {
+   "ex1_slug": "41fdbb657d2e9baa9edae7211f4dd5dc11c7062389dbb47fc4827740ec1babcd",
+   "ex2_clamp": "9aed47e65a8b4a3e5d743abd4e40e3eb243f30b377363872e0cd9e131fea3594",
+   "ex3_wordcount": "503e0818e07611da2aea4018622e8904dd5a2d6be68db94b107ae4d4fc970606"
+  },
+  "journal_hashes": {
+   "ex1_slug": "de5a905635071486d56be94cc22e97f51038efdb1e3fba84e5ce28937ec9534a",
+   "ex2_clamp": "1858f84cd6c7f23632aab674eeef769b872f8aae8e98ed0dbcf2c6459daadff1",
+   "ex3_wordcount": "f54e1c7192f8d5d4bcafc680945cf52ab6d4992d88a0be8934a9662e21548844"
+  },
+  "models": {
+   "critic": "z-ai/glm-5.3-flash",
+   "generation": {
+    "repo": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+   },
+   "states": {
+    "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+    "repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "revision": "768f209d9ea81521153ed38c47d515654e938aea"
+   }
+  },
+  "receipt_sha256": {
+   "ex1_slug": "96623ead252b745ac793c379c7d4e870479759c2e72d4a0d71d59e0ecc99b0dc",
+   "ex2_clamp": "6d0e455571eb1eaaf6da314716a288c8fa56343b07d30c81f5267c83738d03e8",
+   "ex3_wordcount": "ce95a4c82c1a6558e454ecd080680a1ce4e1284b15b38c9b067a2b20f52d8182"
+  },
+  "secret_scan_added_lines": {
+   "base_ref": "main",
+   "files": [],
+   "hits": 0
+  },
+  "source_committed": true,
+  "source_sha256": {
+   "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+   "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+   "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+   "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "evidence_ladder/controller/agentic.py": "308c92424eee8e1555cbfdc50ce19532d2ae509478fbb1e0da952b401e91ad6c",
+   "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+   "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+   "evidence_ladder/controller/controller.py": "04110b1caadc07f170d664be0bd3dc52d655a55dab7798a4452ab2d6bb6de04e",
+   "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+   "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+   "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+   "evidence_ladder/controller/generation.py": "dbe6511d4018790e1c77b24ba75cb3d254279b68a68768f45a8d1f028b21738a",
+   "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+   "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+   "evidence_ladder/controller/investigate.py": "37d5366faf61ea805062112b5ca2c0a2a06c236cf4c0299b20a8f706030229e2",
+   "evidence_ladder/controller/journal.py": "22f1dddd600a7585654bf9562539d1bfbe2d642896be87a12253fb76678ee353",
+   "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+   "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+   "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+   "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+   "evidence_ladder/controller/pathb_stored.py": "ca5042563005c21cb8ef485f9b037b5a1922093f8f3c696a23f46e17f03497b9",
+   "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+   "evidence_ladder/controller/replay.py": "76b264a56abb22a43e993adc146815d3bc24674d0b01d24734a32bf7bc61965e",
+   "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+   "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+   "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+   "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+   "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+   "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+   "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+   "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+   "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+   "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+   "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+   "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+   "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+   "evidence_ladder/models/backbone.py": "23406e4317ffeef198bc99db13c0a2f0dcfe0357ea77abb749927531e4c418d0",
+   "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+   "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+   "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+   "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+   "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+   "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+   "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+   "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+   "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+   "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+   "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+   "evidence_ladder/models/qwen.py": "88fedd2723837f11825442412134992d7fee94bcf0ea67bbf756e62a33a6b12f",
+   "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+   "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5"
+  }
+ },
+ "secret_scan_hits": [],
+ "stub_run": false,
+ "tag": "[EL-ARCH-1 D1 · Aim: complete the missing architecture blocks, not performance]",
+ "utc": "2026-10-17T19:39:47Z",
+ "variants": {
+  "all_ok": null,
+  "n": 0,
+  "skipped": "path run: variants are reported separately (VARIANTS_SUMMARY.json of the variants run)",
+  "stub_components": null,
+  "summary_file": null
+ }
+}

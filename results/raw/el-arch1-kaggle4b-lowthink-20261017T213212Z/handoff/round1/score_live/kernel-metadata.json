@@ -1,0 +1,17 @@
+{
+ "id": "sangeetasangamkar/el-arch1-score-live-lowthink-v1",
+ "title": "el-arch1-score-live-lowthink-v1",
+ "code_file": "el_arch1_score_v1.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": false,
+ "dataset_sources": [
+  "leminhhung0101/qwen3-4b-thinking-2507",
+  "sangeetasangamkar/evidence-ladder-el-arch1-bundle-lowthink-v1"
+ ],
+ "kernel_sources": [],
+ "competition_sources": []
+}

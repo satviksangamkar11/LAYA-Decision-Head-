@@ -1,0 +1,471 @@
+{
+ "kernel": "evidence_ladder_laya_t6_step_v1",
+ "tag": "[LAYA-INT-1 \u00b7 Aim: integration, not performance]",
+ "run_id": "el-arch1-kaggle4b-lowthink-20261017T213212Z/round1",
+ "mode": "replay",
+ "started_utc": "2026-10-17T21:42:23Z",
+ "steps": {
+  "ex1_slug:1": {
+   "step": 1,
+   "context_sha256": "ef3d172c8dac605c6b1c7acfd5fd2fed2ba8e69790d7bbe1e47de4a83ec55e53",
+   "raw_output": "[{\"name\": \"Edit\", \"arguments\": {\"file_path\": \"slug.py\", \"new_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip('-')\", \"old_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"slug.py\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"python3 test_slug.py\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"slug.py\", \"new_string\": \"re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip('-')\", \"old_string\": \"re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"test_slug.py\"}}]",
+   "raw_output_sha256": "497c91fc2e91d92875289236d449f2d7d401eadc4b28adc529c5f679940d475a",
+   "generation": {
+    "replayed": true
+   },
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip('-')\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"slug.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_slug.py\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip('-')\",\"old_string\":\"re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_slug.py\"}}"
+   ],
+   "option_sha256": [
+    "1796c8cf2c39173bfceae0e62179129d10851d804f9c42baa98e3f767163bad1",
+    "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+    "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4",
+    "6b6b583f6fb083cfcf2c888f499ecd25edbf4375aa3d6ff87e23aa12222b20c9",
+    "3ca1983b033d9186c0ed2578a902d82cb0567680177c2f4f907066c8e4d637ad"
+   ],
+   "dropped_proposals": 0,
+   "status": "ok",
+   "scores": {
+    "laya": {
+     "per_seed_logits": {
+      "final-s0": [
+       1.689115047454834,
+       0.45763856172561646,
+       0.45044660568237305,
+       1.62836754322052,
+       0.7897856831550598
+      ],
+      "final-s1": [
+       1.753259301185608,
+       -0.36707088351249695,
+       -1.7175382375717163,
+       1.7148067951202393,
+       0.11091677844524384
+      ],
+      "final-s2": [
+       1.993513822555542,
+       0.261517733335495,
+       -0.1430709809064865,
+       1.961782455444336,
+       0.6026016473770142
+      ]
+     },
+     "score": [
+      1.8119627237319946,
+      0.11736180384953816,
+      -0.4700542042652766,
+      1.7683189312616985,
+      0.5011013696591059
+     ],
+     "role": "scorer_under_test"
+    },
+    "probe": {
+     "score": [
+      -2.977527682539251,
+      -2.533060052854265,
+      -2.851975009245238,
+      -3.1731701963543837,
+      -1.4309550448664528
+     ],
+     "role": "mandatory_baseline_linear_probe"
+    },
+    "random_head": {
+     "score": [
+      -0.1562372570236524,
+      -0.1683978190024694,
+      -0.08740703264872234,
+      -0.14204853028059006,
+      -0.1413338432709376
+     ],
+     "per_seed_logits": {
+      "random-s11": [
+       -0.07825734466314316,
+       -0.1587938368320465,
+       -0.11663822829723358,
+       -0.07331939786672592,
+       -0.15607604384422302
+      ],
+      "random-s12": [
+       -0.17620760202407837,
+       -0.1830058991909027,
+       -0.07613186538219452,
+       -0.14335143566131592,
+       -0.13355675339698792
+      ],
+      "random-s13": [
+       -0.21424682438373566,
+       -0.16339372098445892,
+       -0.06945100426673889,
+       -0.20947475731372833,
+       -0.13436873257160187
+      ]
+     },
+     "role": "untrained_random_init_floor_control",
+     "seeds": [
+      11,
+      12,
+      13
+     ]
+    }
+   },
+   "provenance": {
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "recipe_id": "fable_capture_v1",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "dtype": "float16",
+    "hidden": 2560,
+    "query_cue": "\n\nNext action:",
+    "option_prefix": " ",
+    "device": "Tesla T4",
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "ef3d172c8dac605c6b1c7acfd5fd2fed2ba8e69790d7bbe1e47de4a83ec55e53",
+    "option_sha256": [
+     "1796c8cf2c39173bfceae0e62179129d10851d804f9c42baa98e3f767163bad1",
+     "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+     "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4",
+     "6b6b583f6fb083cfcf2c888f499ecd25edbf4375aa3d6ff87e23aa12222b20c9",
+     "3ca1983b033d9186c0ed2578a902d82cb0567680177c2f4f907066c8e4d637ad"
+    ],
+    "profile_id": "qwen3-4b-thinking-2507",
+    "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb"
+   },
+   "origin": "live_capture_same_process",
+   "capture": {
+    "prefix_tokens": 638,
+    "option_tokens": [
+     60,
+     13,
+     16,
+     58,
+     14
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 0.9,
+    "peak_gib": 7.61,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ]
+   },
+   "features_sha256": "f995303b528b7c00548c092fbd4534b4e84a17365b2955beee65827458684420",
+   "score_seconds": 1.066
+  },
+  "ex2_clamp:1": {
+   "step": 1,
+   "context_sha256": "cbe61efc5c42203e06e96b12b10d761d8d4510180b6a841e64abf3ed52c54293",
+   "raw_output": "[{\"name\": \"Read\", \"arguments\": {\"file_path\": \"clamp.py\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"test_clamp.py\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"clamp.py\", \"new_string\": \"return max(lo, min(x, hi))\", \"old_string\": \"return min(lo, max(x, hi))\"}}]",
+   "raw_output_sha256": "84bec04159f1ab5fb5d5d2667c822dd2c271663357120e2f2a526464d929bc05",
+   "generation": {
+    "replayed": true
+   },
+   "options": [
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_clamp.py\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return max(lo, min(x, hi))\",\"old_string\":\"return min(lo, max(x, hi))\"}}"
+   ],
+   "option_sha256": [
+    "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+    "9b45a089eeac1ceaaa0cb1525dffdaef30b85c5b34b07114db674eff40fe2e09",
+    "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9"
+   ],
+   "dropped_proposals": 0,
+   "status": "ok",
+   "scores": {
+    "laya": {
+     "per_seed_logits": {
+      "final-s0": [
+       0.4424797296524048,
+       0.8818084001541138,
+       1.617489218711853
+      ],
+      "final-s1": [
+       -0.5554479360580444,
+       0.1559094935655594,
+       1.7855616807937622
+      ],
+      "final-s2": [
+       0.2108684480190277,
+       0.8048431873321533,
+       1.9341298341751099
+      ]
+     },
+     "score": [
+      0.032633413871129356,
+      0.6141870270172755,
+      1.7790602445602417
+     ],
+     "role": "scorer_under_test"
+    },
+    "probe": {
+     "score": [
+      -2.8498602682872756,
+      0.14745864192027103,
+      -0.6738282862081797
+     ],
+     "role": "mandatory_baseline_linear_probe"
+    },
+    "random_head": {
+     "score": [
+      -0.17637830475966135,
+      -0.14548438787460327,
+      -0.1684417426586151
+     ],
+     "per_seed_logits": {
+      "random-s11": [
+       -0.13839365541934967,
+       -0.13577653467655182,
+       -0.04261423647403717
+      ],
+      "random-s12": [
+       -0.22880876064300537,
+       -0.1823759377002716,
+       -0.27617350220680237
+      ],
+      "random-s13": [
+       -0.16193249821662903,
+       -0.11830069124698639,
+       -0.1865374892950058
+      ]
+     },
+     "role": "untrained_random_init_floor_control",
+     "seeds": [
+      11,
+      12,
+      13
+     ]
+    }
+   },
+   "provenance": {
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "recipe_id": "fable_capture_v1",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "dtype": "float16",
+    "hidden": 2560,
+    "query_cue": "\n\nNext action:",
+    "option_prefix": " ",
+    "device": "Tesla T4",
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "cbe61efc5c42203e06e96b12b10d761d8d4510180b6a841e64abf3ed52c54293",
+    "option_sha256": [
+     "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+     "9b45a089eeac1ceaaa0cb1525dffdaef30b85c5b34b07114db674eff40fe2e09",
+     "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9"
+    ],
+    "profile_id": "qwen3-4b-thinking-2507",
+    "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb"
+   },
+   "origin": "live_capture_same_process",
+   "capture": {
+    "prefix_tokens": 636,
+    "option_tokens": [
+     13,
+     15,
+     39
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 0.27,
+    "peak_gib": 7.61,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ]
+   },
+   "features_sha256": "79a9b9237c16816f0e47369f33fd1b3d5e003d898b0e713a01ad57d80bb8ecc1",
+   "score_seconds": 0.345
+  },
+  "ex3_wordcount:1": {
+   "step": 1,
+   "context_sha256": "49c39887db25bc8f04ae33c7ff05591f755c7250d29e0771268861bdf038571a",
+   "raw_output": "[{\"name\": \"Read\", \"arguments\": {\"file_path\": \"wc.py\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"test_wc.py\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"wc.py\", \"new_string\": \"return len(text.split())\", \"old_string\": \"return len(text.split(\\\" \\\"))\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"wc.py\", \"new_string\": \"return len([word for word in text.split() if word])\", \"old_string\": \"return len(text.split(\\\" \\\"))\"}}]",
+   "raw_output_sha256": "c11b1e0cff0385c9053dc8245c7676aa16e53dbc879c35513734fa089c23c0e0",
+   "generation": {
+    "replayed": true
+   },
+   "options": [
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"wc.py\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_wc.py\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"wc.py\",\"new_string\":\"return len(text.split())\",\"old_string\":\"return len(text.split(\\\" \\\"))\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"wc.py\",\"new_string\":\"return len([word for word in text.split() if word])\",\"old_string\":\"return len(text.split(\\\" \\\"))\"}}"
+   ],
+   "option_sha256": [
+    "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+    "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d",
+    "f6f691385f2dcbfef8deaf73c57700bc94d729d35d408cee5d86fd2fb941b9a0",
+    "ba4fd2b7a42a5365a7ba6d96e96b3b538aa9304ec2b52f8f30a61eee27d39610"
+   ],
+   "dropped_proposals": 0,
+   "status": "ok",
+   "scores": {
+    "laya": {
+     "per_seed_logits": {
+      "final-s0": [
+       0.45350515842437744,
+       0.7844754457473755,
+       1.6596522331237793,
+       1.7993786334991455
+      ],
+      "final-s1": [
+       -0.532524824142456,
+       -0.021616488695144653,
+       1.9451072216033936,
+       1.9831428527832031
+      ],
+      "final-s2": [
+       0.13970062136650085,
+       0.6346248984336853,
+       1.9391480684280396,
+       1.9158495664596558
+      ]
+     },
+     "score": [
+      0.020226985216140747,
+      0.46582795182863873,
+      1.8479691743850708,
+      1.8994570175806682
+     ],
+     "role": "scorer_under_test"
+    },
+    "probe": {
+     "score": [
+      -2.166135083148541,
+      -0.4744545313446358,
+      0.4419667109474963,
+      0.4695017413320812
+     ],
+     "role": "mandatory_baseline_linear_probe"
+    },
+    "random_head": {
+     "score": [
+      -0.17288799583911896,
+      -0.14584159354368845,
+      -0.1594704513748487,
+      -0.14668828745683035
+     ],
+     "per_seed_logits": {
+      "random-s11": [
+       -0.15258772671222687,
+       -0.16566559672355652,
+       -0.10325589030981064,
+       -0.10456769168376923
+      ],
+      "random-s12": [
+       -0.19429445266723633,
+       -0.13156044483184814,
+       -0.2159440517425537,
+       -0.22093090415000916
+      ],
+      "random-s13": [
+       -0.17178180813789368,
+       -0.1402987390756607,
+       -0.1592114120721817,
+       -0.11456626653671265
+      ]
+     },
+     "role": "untrained_random_init_floor_control",
+     "seeds": [
+      11,
+      12,
+      13
+     ]
+    }
+   },
+   "provenance": {
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "recipe_id": "fable_capture_v1",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "dtype": "float16",
+    "hidden": 2560,
+    "query_cue": "\n\nNext action:",
+    "option_prefix": " ",
+    "device": "Tesla T4",
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "49c39887db25bc8f04ae33c7ff05591f755c7250d29e0771268861bdf038571a",
+    "option_sha256": [
+     "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+     "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d",
+     "f6f691385f2dcbfef8deaf73c57700bc94d729d35d408cee5d86fd2fb941b9a0",
+     "ba4fd2b7a42a5365a7ba6d96e96b3b538aa9304ec2b52f8f30a61eee27d39610"
+    ],
+    "profile_id": "qwen3-4b-thinking-2507",
+    "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb"
+   },
+   "origin": "live_capture_same_process",
+   "capture": {
+    "prefix_tokens": 581,
+    "option_tokens": [
+     13,
+     14,
+     33,
+     41
+    ],
+    "status": "ok",
+    "mode": "packed",
+    "seconds": 0.26,
+    "peak_gib": 7.61,
+    "depth_keys": [
+     18,
+     24,
+     30
+    ]
+   },
+   "features_sha256": "7f3258be0d4b109d06b6b6ca21e49d1b97cbf126cc98ffd887e685c2f0c191a5",
+   "score_seconds": 0.338
+  }
+ },
+ "versions": {
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.16.1",
+  "cuda": "12.8"
+ },
+ "gpu": "Tesla T4",
+ "qwen_sha256_ok": {
+  "model-00001-of-00003.safetensors": true,
+  "model-00002-of-00003.safetensors": true,
+  "model-00003-of-00003.safetensors": true,
+  "tokenizer.json": true
+ },
+ "probe_train_pools": 334,
+ "probe_fingerprint": "8f4f8883330f39d77d00ba37a8f3bf3fc633d718484295bdf6753b720de60122",
+ "probe_order_sha256": "a1c0379e48723326653a4e0d41c3a905fc845a821b689cfb42a9801ffe7975b0",
+ "random_head_state_sha256": {
+  "random-s11": "85e69380ba4abeb0246968ad2121cee209076cbb273eecc29aa143ae64fa028d",
+  "random-s12": "372bf66b92b05f3be6747f450c321f3dafb2109ce53bf85eed58b9a60f2a3547",
+  "random-s13": "5e3ad010219e49c98d406c156a639f42235a1d08de4192c6afb9531c77695d4b"
+ },
+ "random_head_role": "untrained_random_init_floor_control",
+ "verdict": "DONE",
+ "total_seconds": 113.3
+}

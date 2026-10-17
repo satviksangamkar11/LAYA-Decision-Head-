@@ -1,0 +1,47 @@
+{
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "gpu_peak_gib": 0.0,
+ "kernel": "el_arch1_local_score",
+ "mode": "replay",
+ "probe_fingerprint": "e21170fc281b359b0ea48e147779132f52ed5ebceee61430b86cac11863f4e0b",
+ "probe_order_sha256": "1f7fc2f127746039adcc9f45972ea700d298cefc83c5c2baa3c4a7c4c1bfd300",
+ "probe_train_pools": 334,
+ "profile_id": "qwen3-4b-thinking-2507",
+ "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+ "random_head_state_sha256": {
+  "random-s11": "65c4bb9bad467f14bda61cc14cd480e41b07d0bb840f42fde37fffa81657db98",
+  "random-s12": "cb846273f72e0f8ad102584c78a04b0e396240e974170bf60bec7d3bd78ce10c",
+  "random-s13": "4f44bdca13912d70f2f8fda74d957445db20d2287d75daef4979c5bce891b448"
+ },
+ "steps": {
+  "ex3_wordcount:1": {
+   "context_sha256": "49c39887db25bc8f04ae33c7ff05591f755c7250d29e0771268861bdf038571a",
+   "dropped_proposals": 0,
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+    "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d"
+   ],
+   "options": [
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"wc.py\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"test_wc.py\"}}"
+   ],
+   "raw_output": "[{\"name\": \"Read\", \"arguments\": {\"file_path\": \"wc.py\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"test_wc.py\"}}]",
+   "raw_output_sha256": "5342032afac3c1e33ee4ccb484168668f368e4690f9d73e8ed297f8023431d78",
+   "status": "too_few_proposals",
+   "step": 1
+  }
+ },
+ "stub": false,
+ "total_seconds": 18.6,
+ "verdict": "DONE",
+ "versions": {
+  "cuda": "12.6",
+  "python": "3.12.13",
+  "torch": "2.14.0+cu126",
+  "transformers": "5.17.0"
+ },
+ "which": "verify"
+}

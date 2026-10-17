@@ -1,0 +1,142 @@
+{
+ "generation_seconds": 473.53,
+ "generation_tokens": 10636,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "gpu_peak_gib": 1.77,
+ "gpu_peak_gib_generation": 1.77,
+ "kernel": "el_arch1_local_gen",
+ "per_generation": [
+  {
+   "hit_token_cap": true,
+   "seconds": 216.9351990222931,
+   "seed": 0,
+   "task_id": "ex1_slug:step1",
+   "tokens": 5000
+  },
+  {
+   "hit_token_cap": false,
+   "seconds": 0.0,
+   "seed": 1,
+   "task_id": "ex1_slug:step1",
+   "tokens": 0
+  },
+  {
+   "hit_token_cap": true,
+   "seconds": 231.5456624031067,
+   "seed": 0,
+   "task_id": "ex2_clamp:step1",
+   "tokens": 5000
+  },
+  {
+   "hit_token_cap": false,
+   "seconds": 0.0,
+   "seed": 1,
+   "task_id": "ex2_clamp:step1",
+   "tokens": 0
+  },
+  {
+   "hit_token_cap": false,
+   "seconds": 25.051878929138184,
+   "seed": 0,
+   "task_id": "ex3_wordcount:step1",
+   "tokens": 636
+  },
+  {
+   "hit_token_cap": false,
+   "seconds": 0.0,
+   "seed": 1,
+   "task_id": "ex3_wordcount:step1",
+   "tokens": 0
+  }
+ ],
+ "profile": {
+  "depths": [
+   14,
+   19,
+   23
+  ],
+  "device_classes": [
+   "NVIDIA GeForce RTX 3050"
+  ],
+  "dtype": "float16",
+  "enable_thinking": true,
+  "generation": {
+   "do_sample": false
+  },
+  "head_compatible": [],
+  "hidden_size": 1024,
+  "id": "qwen3-0.6b",
+  "local_device_policy": "resident",
+  "local_path": "models/qwen3-0.6b",
+  "num_layers": 28,
+  "option_prefix": " ",
+  "query_cue": "\n\nNext action:",
+  "recipe_id": "fable_capture_v1",
+  "repo": "Qwen/Qwen3-0.6B",
+  "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+ },
+ "profile_sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d",
+ "snapshot_verified": true,
+ "states_index": [
+  {
+   "job_id": "ex1_slug:step1",
+   "status": "no_generation"
+  },
+  {
+   "job_id": "ex2_clamp:step1",
+   "status": "no_generation"
+  },
+  {
+   "job_id": "ex3_wordcount:step1",
+   "status": "no_generation"
+  }
+ ],
+ "states_label": "qwen3-0.6b states: DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter",
+ "stub": false,
+ "summary": {
+  "error_list": [],
+  "errors": 0,
+  "generated": 6,
+  "jobs": 3,
+  "model": {
+   "backend": "hf",
+   "dtype": "fp16",
+   "enable_thinking": true,
+   "generation": {
+    "do_sample": false
+   },
+   "local": true,
+   "pinned_files": [
+    "model.safetensors",
+    "tokenizer.json"
+   ],
+   "profile_id": "qwen3-0.6b",
+   "profile_sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d",
+   "repo": "Qwen/Qwen3-0.6B",
+   "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+   "sampling": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95
+   },
+   "snapshot_verified": true,
+   "templates": {
+    "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+    "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+    "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+    "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+   },
+   "thinking": true
+  },
+  "skipped_already_done": 0
+ },
+ "tokens_per_second": 22.46,
+ "total_seconds": 483.6,
+ "verdict": "DONE",
+ "versions": {
+  "cuda": "12.6",
+  "python": "3.12.13",
+  "torch": "2.14.0+cu126",
+  "transformers": "5.17.0"
+ }
+}

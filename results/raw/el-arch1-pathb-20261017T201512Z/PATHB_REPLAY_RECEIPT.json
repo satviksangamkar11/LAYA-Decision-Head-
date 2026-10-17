@@ -1,0 +1,253 @@
+{
+ "tag": "[EL-ARCH-1 F3] PATH B positive receipt",
+ "path": "B",
+ "source": "results/raw/laya-integration-20261016T184816Z/e2e_pass2/_kaggle/{live_s1,verify_s1}",
+ "source_sha256": {
+  "live_s1/output/t6_step_results.json": "eeeca068fb709d21469e904fc2a7e66455146eaf88770d93c3741691988f465b",
+  "verify_s1/output/t6_step_results.json": "0ee5462dbdc8c852050483c98daf1e99e4afa2f617d19066b4caf6988b4ab8b6",
+  "live_s1/kernel/evidence_ladder_laya_t6_step_v1.py": "7047bf5ba48765c163a052411beb3bdfadbe72641b8df2ba34f921733b48ab52"
+ },
+ "live": {
+  "gpu": "Tesla T4",
+  "mode": "propose",
+  "verdict": "DONE"
+ },
+ "verify": {
+  "gpu": "Tesla T4",
+  "mode": "replay",
+  "verdict": "DONE"
+ },
+ "refused_at_admission": [],
+ "stub": false,
+ "pools": {
+  "ex1_slug:1": {
+   "key": "ex1_slug:1",
+   "stored_context_sha256": "bd674f228ca185daad19c96263271cf184722b29cbb08215bdc7c614a11ec088",
+   "stored_context_text_sha256": "bd674f228ca185daad19c96263271cf184722b29cbb08215bdc7c614a11ec088",
+   "rebuilt_context_sha256": "bd674f228ca185daad19c96263271cf184722b29cbb08215bdc7c614a11ec088",
+   "option_sha256": [
+    "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+    "3ca1983b033d9186c0ed2578a902d82cb0567680177c2f4f907066c8e4d637ad",
+    "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4",
+    "66012657f33a8c6fe8281b1582dbfa8fcf0b1e54ceb8b3754a49e7aaa59aef0e"
+   ],
+   "admitted_by_backends": true,
+   "filter_rejected": [],
+   "pool_is_exact_stored_pool": true,
+   "scored": true,
+   "scorer_unavailable_reason": null,
+   "chosen_index": 1,
+   "laya_order": [
+    3,
+    1,
+    0,
+    2
+   ],
+   "trusted_evidence_overrode_laya": true,
+   "laya_top_was_chosen": false,
+   "verdict": "REPLAYED",
+   "laya_scores": [
+    0.5362120469411215,
+    0.8688409129778544,
+    0.38062939296166104,
+    1.6245932976404827
+   ],
+   "laya_equals_stored_verified_scores": true,
+   "comparison": [
+    {
+     "scorer": [
+      "probe",
+      "random_head"
+     ],
+     "selector": false,
+     "scores": {
+      "probe": {
+       "role": "mandatory_baseline_linear_probe",
+       "score": [
+        0.6595799106412357,
+        1.8914689689354773,
+        0.5497501393074491,
+        -2.2980272642323087
+       ]
+      },
+      "random_head": {
+       "role": "untrained_random_init_floor_control",
+       "score": [
+        -0.13643582165241241,
+        -0.11059632897377014,
+        -0.018977472558617592,
+        -0.36331644654273987
+       ]
+      }
+     }
+    }
+   ],
+   "probe_equals_stored": true,
+   "random_head_equals_stored": true,
+   "live_verify_agree_on": {
+    "context_sha256": true,
+    "scores": true
+   },
+   "negative_control": "refused: no verified score for this context/option pool (unverified or never scored): refused"
+  },
+  "ex2_clamp:1": {
+   "key": "ex2_clamp:1",
+   "stored_context_sha256": "f481e5d0c9bb856e33effdca247005cc15d5084c1897db3dee8b9add7fa372e6",
+   "stored_context_text_sha256": "f481e5d0c9bb856e33effdca247005cc15d5084c1897db3dee8b9add7fa372e6",
+   "rebuilt_context_sha256": "f481e5d0c9bb856e33effdca247005cc15d5084c1897db3dee8b9add7fa372e6",
+   "option_sha256": [
+    "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+    "9b45a089eeac1ceaaa0cb1525dffdaef30b85c5b34b07114db674eff40fe2e09",
+    "ce9b6ee63f416c654cf702b321d471f8dc90b0efbdf84b48a951b7146f489ad3",
+    "4662fb7ee8ef9ff80c939ba608845947026479117fd6d706a1c3678404af32a2"
+   ],
+   "admitted_by_backends": true,
+   "filter_rejected": [],
+   "pool_is_exact_stored_pool": true,
+   "scored": true,
+   "scorer_unavailable_reason": null,
+   "chosen_index": 3,
+   "laya_order": [
+    3,
+    1,
+    0,
+    2
+   ],
+   "trusted_evidence_overrode_laya": false,
+   "laya_top_was_chosen": true,
+   "verdict": "REPLAYED",
+   "laya_scores": [
+    0.4384663055340449,
+    0.8394608100255331,
+    0.3458075324694316,
+    1.4553008476893108
+   ],
+   "laya_equals_stored_verified_scores": true,
+   "comparison": [
+    {
+     "scorer": [
+      "probe",
+      "random_head"
+     ],
+     "selector": false,
+     "scores": {
+      "probe": {
+       "role": "mandatory_baseline_linear_probe",
+       "score": [
+        -0.14623056399031875,
+        2.045298649082762,
+        0.7441442431191359,
+        -1.2686047593527878
+       ]
+      },
+      "random_head": {
+       "role": "untrained_random_init_floor_control",
+       "score": [
+        -0.13037791848182678,
+        -0.09856030344963074,
+        -0.02329348213970661,
+        -0.39274290204048157
+       ]
+      }
+     }
+    }
+   ],
+   "probe_equals_stored": true,
+   "random_head_equals_stored": true,
+   "live_verify_agree_on": {
+    "context_sha256": true,
+    "scores": true
+   },
+   "negative_control": "refused: no verified score for this context/option pool (unverified or never scored): refused"
+  },
+  "ex3_wordcount:1": {
+   "key": "ex3_wordcount:1",
+   "stored_context_sha256": "ed5c9b33ac61a44fca0c6d1c7e5405df12718c730ab5502c454ef7f776fed46e",
+   "stored_context_text_sha256": "ed5c9b33ac61a44fca0c6d1c7e5405df12718c730ab5502c454ef7f776fed46e",
+   "rebuilt_context_sha256": "ed5c9b33ac61a44fca0c6d1c7e5405df12718c730ab5502c454ef7f776fed46e",
+   "option_sha256": [
+    "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+    "a182b50f6f4309e718c9c366db895448a29357f691c3c6e0fcb71f14c636c92d",
+    "5acd7dd8cb56f2ce2282f90b86d6442f1b102445c768f132d3ba5e16e7ad20d4",
+    "a0336b00a2ca6fd036c5042feb11bdbebe776d6ea4186fe842aceee6f33d22af"
+   ],
+   "admitted_by_backends": true,
+   "filter_rejected": [
+    "old_string_absent"
+   ],
+   "pool_is_exact_stored_pool": false,
+   "scored": false,
+   "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+   "chosen_index": 0,
+   "laya_order": null,
+   "trusted_evidence_overrode_laya": false,
+   "laya_top_was_chosen": null,
+   "verdict": "REFUSED",
+   "reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+   "negative_control": "refused: no verified score for this context/option pool (unverified or never scored): refused"
+  }
+ },
+ "summary": {
+  "replayed": 2,
+  "refused": 1,
+  "pools": 3,
+  "laya_probe_random_head_all_stored_and_equal": true,
+  "comparison_only": true,
+  "negative_controls_refused": true
+ },
+ "provenance": {
+  "commit": "296660a7164224bcbe37e7c4ef9de486f2024549",
+  "dirty_tracked_files": [
+   "M .gitignore",
+   " M DECISION_HEAD.md",
+   " M PLAN.md",
+   " M kaggle/qwen_proposals_v2.py",
+   " M kaggle/tpu_qwen30b_smoke.py",
+   " M pyproject.toml",
+   " M uv.lock"
+  ],
+  "config_sha256": {
+   "configs/el_arch1_gates_v1.toml": "e3fa57a7dfe6fa1678ad60d6a363ac3e80ea34601005c583082d14e08026f99e",
+   "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+   "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+   "configs/el_arch1_local_parity_v1.toml": "1628b70f9bccedbab69d9c8583f269e0bf53f4ea47840570efd23c1b76b1acae",
+   "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+   "configs/thresholds.toml": "1c31ab903dc1ee4c72474b4178aa30d6b22a0d62dedb89d7e988fe8f09864475",
+   "configs/thresholds_context_diag_v1.toml": "291c9b5da053b777db7ff14b049faf6c21694a1bb05f758d7c7d9fa8a3262b37",
+   "configs/thresholds_evidence_ladder_v1.toml": "8b5e17cd0ad48382709f397403169fdb2d29e3faeaf45b393d80e5b21b8f644d",
+   "configs/thresholds_evidence_ladder_v1_T.toml": "b9f2918aa4e984b841f103f41930ca2baab39b66054c0187cadd1f5db99fb5d9",
+   "configs/thresholds_fable_gen_v2.toml": "7788060b0d2bb04455ef104c1c7f0302e8bf1e0e4683121f8abdcf2c7199f197",
+   "configs/thresholds_fable_gen_v3.toml": "6ba1ba1fe5130ad72e5085d9869f3f609ccbef822442d3b250d9e52f1b4d8249",
+   "configs/thresholds_loop_eng_v1.toml": "f50878562103169e436b54fef24a574edfca87b237a6325b441b0f32bcee18c3",
+   "configs/thresholds_loop_eng_v2.toml": "55be94ebeba63f82af7357066de185c0930c101e797df0a5cb5e50537eb61975",
+   "configs/thresholds_outcome_head_v1.toml": "e8209a04c6632a36c305387bc9f255f7d6e8e872e3d677b2a439c35dde8bc8bb",
+   "configs/thresholds_pool_v2.toml": "74c8173a49068a8bcff7bcb27e0af2ac1f912accb1cc8a512ec8f2643c5e8129",
+   "configs/thresholds_proposal_tools_v1.toml": "47c5fab060dcf40e28dbc8feea0762c409e16137d259fc7096c3f3efffa40ee4",
+   "configs/thresholds_proposal_tools_v2.toml": "b59aac36ef1a30bf68f90e289b2c95b0c320f232d8ed157d894f81fbb12017e5",
+   "configs/thresholds_sample_pool_v1.toml": "ad412a53a1684a6964312eca8dd97448bb0f3042b85912f8895c7c3adab8b3e4",
+   "configs/thresholds_sandbox_pilot_v1.toml": "7508d49cd1148adad33b51272b2ad17ba60e213e077e55ee8641a3ad71dc6112",
+   "configs/thresholds_sandbox_pilot_v2.toml": "6e61ecc3d7c397b0791edc5d2964c31170966aba699bcd8e6c044221a4fc0ba6",
+   "configs/thresholds_text_grader_k2_v1.toml": "27fe64efd464caa7d4a4af35185e23637379f1999d120cd4e539d01ac1af5787",
+   "configs/thresholds_text_grader_k2_v2.toml": "af903e3db843865d4ce9c8eef4d4d00eac3f8b9f4de395264fe5e8273c439bb6",
+   "configs/thresholds_text_imitation_v1.toml": "50164361ca8b4dc72f9a90dcfb7a96513156c15203e85997711d4fe5c6dc82ba"
+  },
+  "source_sha256": {
+   "tools/el_arch1_pathb_replay.py": "9c7709974188b9eff20f22704d945e8d63ff9d50cf409348ed4c5eee6f3ad701",
+   "evidence_ladder/controller/agentic.py": "308c92424eee8e1555cbfdc50ce19532d2ae509478fbb1e0da952b401e91ad6c",
+   "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+   "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad"
+  },
+  "secret_scan_added_lines": {
+   "hits": 0,
+   "files": [],
+   "base_ref": "main"
+  }
+ },
+ "backend_identity": {
+  "laya": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "probe": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "random_head": "evidence_ladder.models.laya_runtime.VerifiedSavedScoreBackend",
+  "sandbox": "evidence_ladder.controller.wsl_sandbox.WslSandbox",
+  "controller": "evidence_ladder.controller.agentic.AgenticRun"
+ }
+}

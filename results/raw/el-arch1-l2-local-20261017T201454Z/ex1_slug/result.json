@@ -1,0 +1,53 @@
+{
+ "answer_label": "UNVERIFIED",
+ "authorized_to_execute": false,
+ "candidates": 0,
+ "clusters": {
+  "computed": false,
+  "extended_clusters": null,
+  "members": null,
+  "n_inputs": null,
+  "public_clusters": null
+ },
+ "discrimination": {
+  "reason": "fewer than 2 behaviour clusters among live candidates",
+  "trigger": {
+   "extended_clusters": 0,
+   "forced": false,
+   "live": 0,
+   "public_clusters": 0,
+   "triggered": false
+  },
+  "verdict": "NOT_TRIGGERED"
+ },
+ "final_artifact_id": null,
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "a5b1f3456837a0347c455565f663254f12edd970150fdbd20e9fc99119691790",
+ "l2": {
+  "reason": "L2 stage not reached (no candidate passed the public examples, so there was no trusted reference)",
+  "verdict": "INSUFFICIENT"
+ },
+ "l2_evidence": [],
+ "n_journal_entries": 27,
+ "never_approved_by_l2_clusters_or_critic": true,
+ "pending_critic_packets": [],
+ "public_examples": 3,
+ "seconds": 204.5,
+ "stop_cause": "no_progress_2",
+ "stop_details": "",
+ "task": "ex1_slug",
+ "task_prompt_sha256": "a89f92773f1965ef6f52f921fefb1849bfc6e48604efa3cd40325b6a3204c6cb"
+}

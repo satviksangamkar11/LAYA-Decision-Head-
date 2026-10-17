@@ -1,0 +1,41 @@
+{
+ "variant": "unsafe_critic_experiment",
+ "base": "ex3_wordcount",
+ "why": "a critic experiment outside the shared allow-list is rejected explicitly and never executed",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "critic_state": "rejected",
+  "critic_executed": false,
+  "never_ran": [
+   "secrets"
+  ]
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "e6d9c61d2981f31cab8875d69a3f24c371e1bf34d5df172dea368670555a1177",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 4,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

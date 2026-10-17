@@ -1,0 +1,3 @@
+run in YOUR terminal (reads .secrets through the project key system; this driver never does):
+  & 'D:\local model\.venv\Scripts\python.exe' 'D:\local model\tools\el_arch1_glm_live.py' 'results\raw\el-arch1-kaggle4b-lowthink-20261017T213212Z'
+then re-run the driver.

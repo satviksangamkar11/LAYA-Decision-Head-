@@ -1,0 +1,6 @@
+# [EL-ARCH-1 local run] device registration for THIS LOCAL RUN ONLY (versioned; written only after the pre-registered parity gate PASSED)
+[registration]
+profile_id = "qwen3-4b-thinking-2507"
+device_prefix = "NVIDIA GeForce RTX 3050"
+parity_result = "results/raw/el-arch1-final-local-20261017T191233Z/parity/PARITY_RESULT.json"
+parity_result_sha256 = "3b796da82571a60d439f1d7935811d7fdd389ee5a8246fb9730b8d6002242c2e"

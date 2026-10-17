@@ -1,0 +1,38 @@
+{
+ "variant": "budget_wall",
+ "base": "ex1_slug",
+ "why": "an injected clock jumps past the wall-time cap: budget stop, named",
+ "expected": {
+  "stop_cause": "budget",
+  "details_has": "limit:max_wall_seconds",
+  "not_decided": true,
+  "steps_run": 1
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "limit:max_wall_seconds used=5000.0 cap=3600.0",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "aad5a66849158ad7ebd67e9caacb4cae30936cf38b8a99d54c7cdcf1fa852ecc",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

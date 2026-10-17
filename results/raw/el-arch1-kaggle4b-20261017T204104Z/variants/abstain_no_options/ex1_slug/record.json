@@ -1,0 +1,222 @@
+{
+ "schema": "el_arch1_run_record_v1",
+ "task": {
+  "task_id": "ex1_slug",
+  "user_text": "The function slugify in slug.py returns slugs with leading or trailing hyphens, so test_slug.py fails. Fix slug.py so that `python3 test_slug.py` passes. Do not modify test_slug.py.",
+  "system_text": "system text",
+  "test_cmd": "python3 test_slug.py",
+  "protected": [
+   "test_slug.py"
+  ],
+  "max_steps": 1,
+  "scope": null,
+  "files": {
+   "slug.py": "import re\r\n\r\n\r\ndef slugify(text):\r\n    text = text.strip().lower()\r\n    return re.sub(r\"[^a-z0-9]+\", \"-\", text)\r\n",
+   "test_slug.py": "from slug import slugify\r\n\r\nassert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\r\nassert slugify(\"  A--B  \") == \"a-b\", slugify(\"  A--B  \")\r\nassert slugify(\"\") == \"\"\r\nprint(\"all tests passed\")\r\n"
+  }
+ },
+ "arm": "E",
+ "seeds": [
+  0
+ ],
+ "config": {
+  "max_steps": 1,
+  "require": [
+   "scorer"
+  ]
+ },
+ "limits": {
+  "max_wall_seconds": 3600.0,
+  "max_qwen_tokens": 60000,
+  "max_glm_tokens": 200000,
+  "max_actions": 3,
+  "max_rounds": 3
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "e": "step",
+   "options": [],
+   "meta": {}
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "sandbox": [
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+    "post_tree_sha256": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+    "post_tree_sha256": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+    "persisted": false
+   }
+  }
+ ],
+ "scorer": {
+  "scorer_id": "stub:laya",
+  "scorer_def": {
+   "weights_hash": "stub:laya",
+   "status": "stub"
+  },
+  "calls": []
+ },
+ "comparison": {
+  "probe": {
+   "scorer_id": "stub:probe",
+   "scorer_def": {
+    "weights_hash": "stub:probe",
+    "status": "stub"
+   },
+   "calls": []
+  },
+  "random_head": {
+   "scorer_id": "stub:random_head",
+   "scorer_def": {
+    "weights_hash": "stub:random_head",
+    "status": "stub"
+   },
+   "calls": []
+  }
+ },
+ "journal_hash": "2b5b8f5672dcce16738d7060d46a96cc2733cdd622da9771f783744e1ba51a49",
+ "chain": [
+  "0284c6380f6ce5aecea6e057787d36d95379e6a618f2b1987fe5eeadc4f4dbc1",
+  "49af52bdb4137b2217176e2eda558092db7c46bf10e2a5280a6f2b838ddd60c1",
+  "53efff72cb84be304345b9bdb2eef1a1dda0dafb0c21ba1f0161305b4a47cd8e",
+  "b0c931b5f74f2f8bdddd01361aac58d300ca3f4746d0f11490ef039807b5ade3",
+  "5aca49d772354a347d20df8a2f55f66f9d9c66c93eb9e4d1304f4c992e2656d7",
+  "a83dda28fa1aee0907544546c80232ab1a91cc75f459e1f60506a4257018260d",
+  "6a836575b33926b4b9e791d90077417fda4068508379d658f8c91146fbc5d18d",
+  "44c42dbebbc4ce306a617540fe52480a4c6202f83e85862f5c7ffa08ae8c8f05",
+  "36c060b7697f65b6d4076852fd7344ae66a1aa7db7ce9ecd9b3d5284fa9cab02",
+  "8e5c88a96a774e8c2076b96a2ee184c62fb8faba37a495901c8cc8f5e86a0233",
+  "9e941f078a73fcece74526b36af3d7b9f4d81fbb136a77a01d738fcfb5b7841a",
+  "7edb69f94f19ef9c3531ed8da61a637769152a4c66533a020174b31ba2c93822",
+  "3651cf9b02e2e15a96f5f63a243ca04cfc15c3eae9fb1616f8af617b36f04152",
+  "e5302d8559de182282dcca79ef866874138983c165037169cf205e68f89bdcbb",
+  "4e22b14eef06bf09b77fcb1d952bd641e635fb7013f0071f2934f9916fa0acbb",
+  "aee4d68fbe9af4a0748630ae02c3c96b72411ad708b1d226ddd3ab1c19043599",
+  "44d17c70ff4e2ab04d3f04e273c89be2a3b0d2f1d8315af11b4f5c91ac7cdf91",
+  "c8cad865d481f09608d4cdf2385d0a88706ed4ba6c8c04d6335fac70396d15a9",
+  "016dccb9b8f8b0c6d1d5656b77def7fe4d6b8a83e2bf906c6cc2861baeb77028",
+  "0dd7104248137f0600d9f1126d75e259d64b21c7b8a75da59542afe7a2bad099",
+  "e58b2fc244b16b5163197e8860e13f9f0fd4c822df0bb6c679f4880e5ff9f23f",
+  "f5591be32d03946a974b904a9738a09bede284b5718e5938ded4285cac5c0624",
+  "0928ee0873a6c50337427125ab92d76c7a9456556277c0eeb2d50c9abb9980d5",
+  "ddf00873ea4f4bce19af402a6231b0cddb3b66ab191237e8e193ea3ae413eed9",
+  "fec7c3a91f74b7fcfd61a3daa141d33520278dccf552a437da39f45731f7079f",
+  "532acec706ee4f3ad4ae8475a1497b8f3c6a91ac8b26c88a33342a9ea27a7557",
+  "2b5b8f5672dcce16738d7060d46a96cc2733cdd622da9771f783744e1ba51a49"
+ ],
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "candidate_filter",
+  "routing",
+  "monotonicity_gate",
+  "scorer_unavailable",
+  "ranking",
+  "abstain",
+  "action_decision",
+  "evidence",
+  "evidence",
+  "label",
+  "repair_report",
+  "step_record",
+  "routing",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "code": {
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "308c92424eee8e1555cbfdc50ce19532d2ae509478fbb1e0da952b401e91ad6c",
+  "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "04110b1caadc07f170d664be0bd3dc52d655a55dab7798a4452ab2d6bb6de04e",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+  "evidence_ladder/controller/generation.py": "dbe6511d4018790e1c77b24ba75cb3d254279b68a68768f45a8d1f028b21738a",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "37d5366faf61ea805062112b5ca2c0a2a06c236cf4c0299b20a8f706030229e2",
+  "evidence_ladder/controller/journal.py": "22f1dddd600a7585654bf9562539d1bfbe2d642896be87a12253fb76678ee353",
+  "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+  "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+  "evidence_ladder/controller/pathb_stored.py": "ca5042563005c21cb8ef485f9b037b5a1922093f8f3c696a23f46e17f03497b9",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "76b264a56abb22a43e993adc146815d3bc24674d0b01d24734a32bf7bc61965e",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/backbone.py": "23406e4317ffeef198bc99db13c0a2f0dcfe0357ea77abb749927531e4c418d0",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+  "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+  "evidence_ladder/models/qwen.py": "88fedd2723837f11825442412134992d7fee94bcf0ea67bbf756e62a33a6b12f",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+  "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648"
+ },
+ "git_commit": "1fb459a74d75376638b21019965bf2612dba63ab",
+ "result": {
+  "answer_label": "BLOCKED",
+  "stop_cause": "budget"
+ }
+}

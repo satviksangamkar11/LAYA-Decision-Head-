@@ -1,0 +1,287 @@
+{
+ "answer_label": "BLOCKED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 480,
+  "glm_tokens_out": 920,
+  "gpu_seconds": 76.13473081588745,
+  "problem_id": "ex3_wordcount",
+  "qwen_gen_tokens": 1955,
+  "qwen_prefill_tokens": 3248,
+  "scorer_calls": 2,
+  "tool_runs": 6,
+  "wall_seconds": 3.5
+ },
+ "comparison_entries": 0,
+ "critic_result": {
+  "candidate_id": "cc7a9c343d60a8fcdaa9c7cea7dde447dd67e8cafdda3fccb06f13df6309d836",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from wc import count_words; print(repr(count_words(*['\"'\"'hello  world'\"'\"'], **{})))'",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "count_words('hello  world')",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n3\n",
+  "observed_sha256": "e744f2fbb9fc77137297a2a131a5dc5a4ba76d3a413b31656148aaa5004e8738",
+  "packet_id": "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex3_wordcount/journal.json",
+  "record": "receipts/ex3_wordcount/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 480,
+      "tokens_out": 920
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 480,
+    "tokens_out": 920
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 480,
+   "tokens_out": 920
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "e0cce79dd60134b2647b7be27b455ee0f1f8fadbe2544ef7f8ce101d2d45aeb9",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA",
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "ok",
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   62,
+   62
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "fd744a473f94b28a3183388356946977a2adee08",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "fd744a473f94b28a3183388356946977a2adee08",
+  "recorded_journal_hash": "e0cce79dd60134b2647b7be27b455ee0f1f8fadbe2544ef7f8ce101d2d45aeb9",
+  "replayed_journal_hash": "e0cce79dd60134b2647b7be27b455ee0f1f8fadbe2544ef7f8ce101d2d45aeb9"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   62,
+   62
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "fd744a473f94b28a3183388356946977a2adee08",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "fd744a473f94b28a3183388356946977a2adee08",
+  "recorded_journal_hash": "e0cce79dd60134b2647b7be27b455ee0f1f8fadbe2544ef7f8ce101d2d45aeb9",
+  "replayed_journal_hash": "e0cce79dd60134b2647b7be27b455ee0f1f8fadbe2544ef7f8ce101d2d45aeb9"
+ },
+ "rounds": 2,
+ "scorer_unavailable_entries": 2,
+ "stage_map": {
+  "entries": 62,
+  "not_reached": [],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "repair",
+   "commit_verify"
+  ],
+  "repair_substages": {
+   "2": {
+    "discriminate": [
+     [
+      34,
+      34
+     ],
+     [
+      36,
+      38
+     ]
+    ],
+    "execute": [
+     [
+      35,
+      35
+     ],
+     [
+      43,
+      49
+     ]
+    ],
+    "generate": [
+     [
+      32,
+      33
+     ]
+    ],
+    "rank": [
+     [
+      39,
+      42
+     ]
+    ]
+   }
+  },
+  "stages": {
+   "commit_verify": [
+    [
+     50,
+     61
+    ]
+   ],
+   "discriminate": [
+    [
+     16,
+     16
+    ],
+    [
+     18,
+     20
+    ]
+   ],
+   "execute": [
+    [
+     17,
+     17
+    ],
+    [
+     25,
+     31
+    ]
+   ],
+   "generate": [
+    [
+     14,
+     15
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     13
+    ]
+   ],
+   "rank": [
+    [
+     21,
+     24
+    ]
+   ],
+   "repair": [
+    [
+     32,
+     49
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [
+    0,
+    1
+   ],
+   "chosen_index": 0,
+   "decision_id": "ex3_wordcount:step1",
+   "executed_action": {
+    "arguments": {
+     "file_path": "wc.py"
+    },
+    "name": "Read"
+   },
+   "id_order_choice": 0,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused; refusal on record: pool has 2 option(s): below the LAYA minimum of 3 (the adapters were trained on 3-5 option pools and the frozen scoring kernel refuses fewer); LA",
+   "step": 1,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  },
+  {
+   "allowed_set": [
+    0,
+    1
+   ],
+   "chosen_index": 0,
+   "decision_id": "ex3_wordcount:step2",
+   "executed_action": {
+    "arguments": {
+     "command": "python3 test_wc.py"
+    },
+    "name": "Bash"
+   },
+   "id_order_choice": 0,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+   "step": 2,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=2 cap=2",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 6
+}

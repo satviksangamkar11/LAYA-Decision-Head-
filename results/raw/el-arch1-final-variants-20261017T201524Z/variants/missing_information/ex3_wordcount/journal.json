@@ -1,0 +1,203 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-ecf25c7d22fb",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex3_wordcount"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "4244f915a2e626e6c9c3f7758829da512566fb0e90936c19f1f4993fc8e4accc",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "artifact_ref": "python3 test_wc.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_wc.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "a0ca49a0691e2643a787a76e2c04ad6a495645e0b10fac2eee09730e7561a256",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "f6af66fc61eb901b6a3c1478d5234c047ed8f4527c3498e79fc459761280ae03",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "ebbccfd3a0071e913ff738fcd70e8476133d295c2662d4d699125c4450d65fd3",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "e7d0a27650eea20e8d28c2990c234a5fafaafbef10786837501b268585f2e0ca",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "PLAUSIBLE",
+   "changed_from": null,
+   "covered": [],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": false,
+    "type_or_compile_check": false
+   },
+   "loop": "best-effort-coverage-review",
+   "reason": "no tests, examples, type/compile check or regression suite observed",
+   "step": "intake",
+   "tier": "O3"
+  },
+  "kind": "oracle_tier",
+  "prev": "5317c28374ba5f930213b6a228d1be149a0e4da7abe7924724ea9844ff20457e",
+  "seq": 5
+ },
+ {
+  "data": {
+   "ambiguities": [
+    "target_unknown: the request names no file, function or class of the workspace",
+    "no_verifiable_criterion: the request states no checkable success condition"
+   ],
+   "label": "BLOCKED",
+   "next_step": "block",
+   "step": "intake",
+   "tier": "O3"
+  },
+  "kind": "ask_user",
+  "prev": "d4c358ad3e06b5527d8832819fb240b0c434ddecc68e68589be03e0c36df78ee",
+  "seq": 6
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "authorized_to_execute": false,
+   "candidate_id": "none",
+   "decision_id": "d-tier-ex3_wordcount",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "db4eee7d803e43f292e17779838abe3cab9110bad34a7871b341d0ceec11002b",
+  "seq": 7
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 0,
+   "budget_hit": false,
+   "cause": "missing_information",
+   "details": "tier O3: ask_user: target_unknown: the request names no file, function or class of the workspace; no_verifiable_criterion: the request states no checkable success condition",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex3_wordcount",
+   "rounds": 0,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "abc000aaeedc7a38a1138b8242668dd16dc3ff494f5c32ee346346f8dea17527",
+  "seq": 8
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "d54b0331f4e5f88fd9ee61bce9e236d06eb9c34fbac97ed7bcbcb5bc102d99be",
+  "seq": 9
+ }
+]

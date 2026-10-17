@@ -1,0 +1,3 @@
+run in YOUR terminal (reads .secrets through the project key system; this driver never does):
+  & 'D:\local model\.venv\Scripts\python.exe' 'D:\local model\tools\el_arch1_glm_live.py' 'results\raw\el-arch1-final-local-20261017T191233Z'
+then re-run the driver.

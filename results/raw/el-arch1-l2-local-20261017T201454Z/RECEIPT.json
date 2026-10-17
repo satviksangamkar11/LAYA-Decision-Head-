@@ -1,0 +1,262 @@
+{
+ "backend": {
+  "backend": "hf",
+  "dtype": "fp16",
+  "enable_thinking": true,
+  "generation": {
+   "do_sample": false
+  },
+  "local": true,
+  "pinned_files": [
+   "model.safetensors",
+   "tokenizer.json"
+  ],
+  "profile_id": "qwen3-0.6b",
+  "profile_sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d",
+  "repo": "Qwen/Qwen3-0.6B",
+  "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "sampling": {
+   "temperature": 0.6,
+   "top_k": 20,
+   "top_p": 0.95
+  },
+  "snapshot_verified": true,
+  "templates": {
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "thinking": true
+ },
+ "controller_config": {
+  "critic": true,
+  "discriminate": true,
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "max_new_tokens": 2048,
+  "max_rounds": 2,
+  "mode": "ladder",
+  "mutant_limit": 8,
+  "strategies": [
+   "qwen_sample_v2",
+   "qwen_sample_v2b"
+  ]
+ },
+ "critic": {
+  "kind": "StagedCriticBroker",
+  "note": null,
+  "second_pass": false
+ },
+ "errors": {},
+ "finished_utc": "20261017T202502Z",
+ "harness": "el_arch1_l2_local",
+ "label": "REAL_LOCAL",
+ "sandbox": {
+  "backend": "wsl_function_exec",
+  "calls": 0,
+  "distro": "Ubuntu-24.04",
+  "runner_sha256": "ad466b50f3ca38e5fbca10fde8bf38b543a77e9c8c28164d98ad6e5b180e2a0e",
+  "sandbox": "bubblewrap, no network"
+ },
+ "script_sha256": "9a0d80b1def415dd71131d01467d435cacd8de842413370df387a13386a2ff91",
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "stub": false,
+ "summary": {
+  "ex1_slug": {
+   "approved_by_model_evidence": false,
+   "clusters": null,
+   "discrimination": "NOT_TRIGGERED",
+   "invariants_failed": null,
+   "l2": "INSUFFICIENT",
+   "stop": "no_progress_2"
+  },
+  "ex2_clamp": {
+   "approved_by_model_evidence": false,
+   "clusters": null,
+   "discrimination": "NOT_TRIGGERED",
+   "invariants_failed": null,
+   "l2": "INSUFFICIENT",
+   "stop": "no_progress_2"
+  },
+  "ex3_wordcount": {
+   "approved_by_model_evidence": false,
+   "clusters": null,
+   "discrimination": "NOT_TRIGGERED",
+   "invariants_failed": null,
+   "l2": "INSUFFICIENT",
+   "stop": "no_progress_2"
+  }
+ },
+ "tasks": {
+  "ex1_slug": {
+   "answer_label": "UNVERIFIED",
+   "authorized_to_execute": false,
+   "candidates": 0,
+   "clusters": {
+    "computed": false,
+    "extended_clusters": null,
+    "members": null,
+    "n_inputs": null,
+    "public_clusters": null
+   },
+   "discrimination": {
+    "reason": "fewer than 2 behaviour clusters among live candidates",
+    "trigger": {
+     "extended_clusters": 0,
+     "forced": false,
+     "live": 0,
+     "public_clusters": 0,
+     "triggered": false
+    },
+    "verdict": "NOT_TRIGGERED"
+   },
+   "final_artifact_id": null,
+   "invariants": {
+    "checked": [
+     "I1",
+     "I2",
+     "I3",
+     "I4",
+     "I5",
+     "I6",
+     "I7",
+     "I8"
+    ],
+    "failed": null
+   },
+   "journal_chain_ok": true,
+   "journal_hash": "a5b1f3456837a0347c455565f663254f12edd970150fdbd20e9fc99119691790",
+   "l2": {
+    "reason": "L2 stage not reached (no candidate passed the public examples, so there was no trusted reference)",
+    "verdict": "INSUFFICIENT"
+   },
+   "l2_evidence": [],
+   "n_journal_entries": 27,
+   "never_approved_by_l2_clusters_or_critic": true,
+   "pending_critic_packets": [],
+   "public_examples": 3,
+   "seconds": 204.5,
+   "stop_cause": "no_progress_2",
+   "stop_details": "",
+   "task": "ex1_slug",
+   "task_prompt_sha256": "a89f92773f1965ef6f52f921fefb1849bfc6e48604efa3cd40325b6a3204c6cb"
+  },
+  "ex2_clamp": {
+   "answer_label": "UNVERIFIED",
+   "authorized_to_execute": false,
+   "candidates": 0,
+   "clusters": {
+    "computed": false,
+    "extended_clusters": null,
+    "members": null,
+    "n_inputs": null,
+    "public_clusters": null
+   },
+   "discrimination": {
+    "reason": "fewer than 2 behaviour clusters among live candidates",
+    "trigger": {
+     "extended_clusters": 0,
+     "forced": false,
+     "live": 0,
+     "public_clusters": 0,
+     "triggered": false
+    },
+    "verdict": "NOT_TRIGGERED"
+   },
+   "final_artifact_id": null,
+   "invariants": {
+    "checked": [
+     "I1",
+     "I2",
+     "I3",
+     "I4",
+     "I5",
+     "I6",
+     "I7",
+     "I8"
+    ],
+    "failed": null
+   },
+   "journal_chain_ok": true,
+   "journal_hash": "b856ea4b77544027615970e27f3083cef05bc89baea9016de563ba932c0391f0",
+   "l2": {
+    "reason": "L2 stage not reached (no candidate passed the public examples, so there was no trusted reference)",
+    "verdict": "INSUFFICIENT"
+   },
+   "l2_evidence": [],
+   "n_journal_entries": 27,
+   "never_approved_by_l2_clusters_or_critic": true,
+   "pending_critic_packets": [],
+   "public_examples": 3,
+   "seconds": 204.9,
+   "stop_cause": "no_progress_2",
+   "stop_details": "",
+   "task": "ex2_clamp",
+   "task_prompt_sha256": "a63a26ee8dda4d3a7b700e4a18281f72952f061651432d05c7b51585ebce0547"
+  },
+  "ex3_wordcount": {
+   "answer_label": "UNVERIFIED",
+   "authorized_to_execute": false,
+   "candidates": 0,
+   "clusters": {
+    "computed": false,
+    "extended_clusters": null,
+    "members": null,
+    "n_inputs": null,
+    "public_clusters": null
+   },
+   "discrimination": {
+    "reason": "fewer than 2 behaviour clusters among live candidates",
+    "trigger": {
+     "extended_clusters": 0,
+     "forced": false,
+     "live": 0,
+     "public_clusters": 0,
+     "triggered": false
+    },
+    "verdict": "NOT_TRIGGERED"
+   },
+   "final_artifact_id": null,
+   "invariants": {
+    "checked": [
+     "I1",
+     "I2",
+     "I3",
+     "I4",
+     "I5",
+     "I6",
+     "I7",
+     "I8"
+    ],
+    "failed": null
+   },
+   "journal_chain_ok": true,
+   "journal_hash": "4e5542a6a7aacec17276938fb4cc23cfdf26ef3db525809a94c1e23a86470e28",
+   "l2": {
+    "reason": "L2 stage not reached (no candidate passed the public examples, so there was no trusted reference)",
+    "verdict": "INSUFFICIENT"
+   },
+   "l2_evidence": [],
+   "n_journal_entries": 27,
+   "never_approved_by_l2_clusters_or_critic": true,
+   "pending_critic_packets": [],
+   "public_examples": 3,
+   "seconds": 181.7,
+   "stop_cause": "no_progress_2",
+   "stop_details": "",
+   "task": "ex3_wordcount",
+   "task_prompt_sha256": "e527b158e965485f34c04836e2dbded3b658ca0cbba4b77ec9bce79abcb6f381"
+  }
+ }
+}

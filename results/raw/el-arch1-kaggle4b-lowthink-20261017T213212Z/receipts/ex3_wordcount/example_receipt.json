@@ -1,0 +1,231 @@
+{
+ "answer_label": "VERIFIED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 432,
+  "glm_tokens_out": 1931,
+  "gpu_seconds": 91.81770515441895,
+  "problem_id": "ex3_wordcount",
+  "qwen_gen_tokens": 1399,
+  "qwen_prefill_tokens": 1424,
+  "scorer_calls": 1,
+  "tool_runs": 6,
+  "wall_seconds": 3.5
+ },
+ "comparison_entries": 1,
+ "critic_result": {
+  "candidate_id": "b78e49f28f4c42c154ab25146a33bcc3e977f556ec71c92029a92c194a967469",
+  "command": "python3 test_wc.py",
+  "evidence_status": "fail",
+  "executed": true,
+  "experiment": "python3 test_wc.py",
+  "experiment_status": "fail",
+  "kind": "command",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\nall tests passed\n",
+  "observed_sha256": "dca07ca09b2c2ade04bf8c74c78dc26879c77b2ef63b6ad20b1380e2d2079c3d",
+  "packet_id": "f8febdaa78afdb1df3e6b025a464b2e580a6c63b080406b61e3a857ff07e2a1e",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex3_wordcount/journal.json",
+  "record": "receipts/ex3_wordcount/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "f8febdaa78afdb1df3e6b025a464b2e580a6c63b080406b61e3a857ff07e2a1e": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 432,
+      "tokens_out": 1931
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 432,
+    "tokens_out": 1931
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 432,
+   "tokens_out": 1931
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "f267d906fcfbe4956cc9d69638f15b8cbfe2da073bf068c8c8b441e2b20f5a2e",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   48,
+   48
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "recorded_journal_hash": "f267d906fcfbe4956cc9d69638f15b8cbfe2da073bf068c8c8b441e2b20f5a2e",
+  "replayed_journal_hash": "f267d906fcfbe4956cc9d69638f15b8cbfe2da073bf068c8c8b441e2b20f5a2e"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   48,
+   48
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "f31009ce3d15577968fe537d989d93df04fb4501",
+  "recorded_journal_hash": "f267d906fcfbe4956cc9d69638f15b8cbfe2da073bf068c8c8b441e2b20f5a2e",
+  "replayed_journal_hash": "f267d906fcfbe4956cc9d69638f15b8cbfe2da073bf068c8c8b441e2b20f5a2e"
+ },
+ "rounds": 1,
+ "scorer_unavailable_entries": 0,
+ "stage_map": {
+  "entries": 48,
+  "not_reached": [
+   "repair"
+  ],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "commit_verify"
+  ],
+  "repair_substages": {},
+  "stages": {
+   "commit_verify": [
+    [
+     36,
+     47
+    ]
+   ],
+   "discriminate": [
+    [
+     16,
+     16
+    ],
+    [
+     18,
+     24
+    ]
+   ],
+   "execute": [
+    [
+     17,
+     17
+    ],
+    [
+     30,
+     35
+    ]
+   ],
+   "generate": [
+    [
+     14,
+     15
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     13
+    ]
+   ],
+   "rank": [
+    [
+     25,
+     29
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "chosen_index": 3,
+   "decision_id": "ex3_wordcount:step1",
+   "executed_action": {
+    "arguments": {
+     "file_path": "wc.py",
+     "new_string": "return len([word for word in text.split() if word])",
+     "old_string": "return len(text.split(\" \"))"
+    },
+    "name": "Edit"
+   },
+   "id_order_choice": 0,
+   "label": "VERIFIED",
+   "laya_changed_the_choice_vs_id_order": true,
+   "laya_order": [
+    3,
+    2,
+    1,
+    0
+   ],
+   "laya_top_was_chosen": true,
+   "scorer_unavailable_reason": null,
+   "step": 1,
+   "tests_pass": true,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 6
+}

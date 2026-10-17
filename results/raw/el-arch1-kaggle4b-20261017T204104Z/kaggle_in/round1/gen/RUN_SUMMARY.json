@@ -1,0 +1,55 @@
+{
+ "kernel": "el_arch1_generate_v1",
+ "started_utc": "2026-10-17T21:02:33Z",
+ "versions": {
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.16.1"
+ },
+ "gpu": "Tesla T4",
+ "verdict": "DONE",
+ "total_seconds": 3115.0,
+ "summary": {
+  "jobs": 3,
+  "generated": 6,
+  "skipped_already_done": 0,
+  "errors": 0,
+  "error_list": [],
+  "model": {
+   "backend": "hf",
+   "repo": "Qwen/Qwen3-4B-Thinking-2507",
+   "revision": "768f209d9ea81521153ed38c47d515654e938aea",
+   "dtype": "fp16",
+   "thinking": true,
+   "enable_thinking": null,
+   "generation": {
+    "do_sample": true,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20
+   },
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20
+   },
+   "profile_id": "qwen3-4b-thinking-2507",
+   "profile_sha256": "483a896421f7b64d5955b2361d5ae3abfe647649b93ac56e56c68903e6d1e6bb",
+   "local": false,
+   "templates": {
+    "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+    "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+    "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+    "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+   },
+   "snapshot_verified": true,
+   "pinned_files": [
+    "model-00001-of-00003.safetensors",
+    "model-00002-of-00003.safetensors",
+    "model-00003-of-00003.safetensors",
+    "tokenizer.json"
+   ]
+  }
+ },
+ "snapshot_verified": true
+}
