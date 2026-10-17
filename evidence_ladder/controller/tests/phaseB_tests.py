@@ -81,6 +81,7 @@ def atask(task, ws, T, user=None, scope=None, max_steps=3):
 SLUG_FIX = {"name": "Edit", "arguments": {"file_path": "slug.py", "old_string": 'return re.sub(r"[^a-z0-9]+", "-", text)', "new_string": 'return re.sub(r"[^a-z0-9]+", "-", text).strip("-")'}}
 SLUG_BAD = {"name": "Edit", "arguments": {"file_path": "slug.py", "old_string": "text = text.strip().lower()", "new_string": "text = text.strip().upper()"}}
 READ_SLUG = {"name": "Read", "arguments": {"file_path": "slug.py"}}
+READ_TEST = {"name": "Read", "arguments": {"file_path": "test_slug.py"}}      # [A2.3] Read(slug.py) + Edit(slug.py) + Bash in one pool is a sequential plan the candidate filter rejects; these pools read the test
 BASH_TEST = {"name": "Bash", "arguments": {"command": "python3 test_slug.py"}}
 
 
@@ -319,7 +320,7 @@ def _gen(text, seed=0, tp=11, tg=22, sha="x", tid="qwen_actions_v1"):
                       wall_seconds=0.5)
 
 
-ACTS = [READ_SLUG, SLUG_FIX, SLUG_BAD, BASH_TEST]
+ACTS = [READ_TEST, SLUG_FIX, SLUG_BAD, BASH_TEST]
 
 
 @test
@@ -578,7 +579,7 @@ def t_b4_scorer_handoff_through_laya_scorer_and_verified_saved_backend_logic_onl
     sys.path.insert(0, str(ROOT / "evidence_ladder" / "models" / "tests"))
     import laya_integration_tests as LI
     from evidence_ladder.models import laya
-    opts = [opt(READ_SLUG), opt(SLUG_FIX), opt(SLUG_BAD), opt(BASH_TEST)]
+    opts = [opt(READ_TEST), opt(SLUG_FIX), opt(SLUG_BAD), opt(BASH_TEST)]
     d = LI._kres()
     d.update(options=opts, option_sha256=[LI.LF.sha256_text(o) for o in opts], provenance=LI.RT.make_provenance(device=LI.DEV, context_text="ctx", options=opts),
              scores={"laya": {"score": [0.1, 0.2, 0.9, 0.3]}})
@@ -882,7 +883,7 @@ def t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl():
     rr.begin()
     inv_res = rr.investigate()
     assert inv_res["failure"]["kind"] == "assertion" and inv_res["targets"][0]["function"] == "slugify"
-    rec = rr.step([opt(READ_SLUG), opt(SLUG_FIX), opt(SLUG_BAD), opt(BASH_TEST)], {"new_tokens": 9, "prompt_tokens": 40})
+    rec = rr.step([opt(READ_TEST), opt(SLUG_FIX), opt(SLUG_BAD), opt(BASH_TEST)], {"new_tokens": 9, "prompt_tokens": 40})
     res = rr.finish()
     assert rec["chosen_index"] == 1 and res.answer_label == "VERIFIED" and res.stop_cause == "decided" and rr.run.final_report["outcome"]["tests_pass"]
     assert rr.run.final_report["process"]["diff"]["modified"] == ["slug.py"] and res.rounds == 1 and rr.run.invariants_checked

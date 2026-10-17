@@ -5,6 +5,7 @@ end-state observation (so the baseline failure is an authoritative record for ex
 from __future__ import annotations
 
 import ast
+import fnmatch
 import hashlib
 import re
 from pathlib import Path
@@ -134,6 +135,130 @@ def report_text(test_cmd: str, exit_code: int, sources: List[Dict[str, Any]], fa
     return "\n".join(L)
 
 
+# [EL-ARCH-1 A2.2] bounded real context for the proposer. Sizes are fixed here (truncation is journaled as `investigate_context`); hidden / evaluation-only files never enter it.
+MAX_FILE_CHARS, MAX_TOTAL_CHARS, MAX_OUTPUT_CHARS, MAX_REQUEST_CHARS, WINDOW, MAX_SIGNATURES = 1400, 4200, 800, 700, 12, 12
+HIDDEN_PATTERNS = ("*hidden*", "*grader*", "*oracle*", "*expected_*", "*secret*", ".env*", ".git/*", "*/.git/*")
+CONSTRAINT = re.compile(r"\b(do not|don't|must not|must|only|never|without|keep|should not|not modify|leave)\b", re.I)
+
+
+class ContextLeak(Exception):
+    """a line of a hidden / evaluation-only file reached the proposal context"""
+
+
+def is_hidden(rel: str) -> bool:
+    return any(fnmatch.fnmatch(rel.lower(), p) for p in HIDDEN_PATTERNS)
+
+
+def signatures(path: Path) -> List[str]:
+    try:
+        tree = ast.parse(path.read_text("utf-8"))
+    except (SyntaxError, ValueError, OSError):
+        return []
+    out = []
+    for n in ast.walk(tree):
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            out.append("%sdef %s(%s)%s  # line %d" % ("async " if isinstance(n, ast.AsyncFunctionDef) else "", n.name, ast.unparse(n.args), (" -> " + ast.unparse(n.returns)) if n.returns else "", n.lineno))
+        elif isinstance(n, ast.ClassDef):
+            out.append("class %s  # line %d" % (n.name, n.lineno))
+    return out
+
+
+def snippet(path: Path, focus: Optional[int], cap: int):
+    """-> (numbered text, meta). The whole file when it fits in `cap` characters, else a window around the focus line (or the head); meta records what was cut."""
+    lines = path.read_text("utf-8", errors="replace").splitlines()
+    total = sum(len(x) + 1 for x in lines)
+    lo, hi = 0, len(lines)
+    if total > cap:
+        lo = max(0, (focus - 1 if focus else 0) - (WINDOW if focus else 0))
+        hi = min(len(lines), (focus - 1 + WINDOW + 1) if focus else len(lines))
+        while hi > lo + 1 and sum(len(x) + 9 for x in lines[lo:hi]) > cap:
+            hi -= 1
+    text = "\n".join("%4d| %s" % (i + 1, lines[i]) for i in range(lo, hi))
+    return text, {"lines_total": len(lines), "shown": [lo + 1, hi] if lines else [0, 0], "truncated": lo > 0 or hi < len(lines), "chars_total": total}
+
+
+def build_context(run, sources, failure, targets, output: str):
+    """The proposer-facing INVESTIGATE report: request + constraints, file paths and signatures, bounded source snippets (code under test first), the failing test line and output.
+    Hidden / evaluation-only files are excluded by name, the protected test is shown only as its failing line. -> (text, meta); meta is journaled as `investigate_context`."""
+    t = run.task
+    ws = Path(t.workspace)
+    prot = {Path(p).as_posix() for p in t.protected}
+    hidden = [s["path"] for s in sources if is_hidden(s["path"])]
+    vis = [s for s in sources if s["path"] not in hidden]
+    L = ["Investigation (deterministic, no model):"]
+    L.append("- request (verbatim, first %d chars): %s" % (MAX_REQUEST_CHARS, t.user_text[:MAX_REQUEST_CHARS].replace("\n", " ")))
+    cons = [x.strip()[:200] for x in re.split(r"(?<=[.!?])\s+|\n", t.user_text) if CONSTRAINT.search(x)][:5]
+    L.append("- constraints: " + ("; ".join(cons) if cons else "none stated") + "; protected files (never modify): " + ", ".join(sorted(prot)) + ("; allowed scope: " + ", ".join(t.scope) if t.scope else ""))
+    L.append("- files: " + "; ".join("%s (%d lines%s)" % (s["path"], s["lines"], ", protected test" if s["protected_test"] else "") for s in vis))
+    L.append("- test run `%s`: exit %d" % (t.test_cmd, run.last_exec["exit_code"]))
+    if failure["kind"] == "none":
+        L.append("- the existing tests already pass")
+    else:
+        tl = failure["test_location"]
+        L.append("- failure: %s%s%s" % (failure["exception"] or failure["kind"], (": " + failure["message"]) if failure["message"] else "", (" at %s:%d: %s" % (tl["file"], tl["line"], tl.get("text", ""))) if tl else ""))
+        cl = failure["code_location"]
+        if cl:
+            L.append("- code location of the failure: %s:%d in %s" % (cl["file"], cl["line"], cl["function"] or "?"))
+        if targets:
+            L.append("- code under test: " + ", ".join("%s (%s:%d)" % (x["function"], x["file"], x["line"]) for x in targets))
+        L.append("- test output (last %d chars):\n%s" % (MAX_OUTPUT_CHARS, output.strip()[-MAX_OUTPUT_CHARS:]))
+    focus = {x["file"]: x["line"] for x in targets}
+    if failure.get("code_location"):
+        focus.setdefault(failure["code_location"]["file"], failure["code_location"]["line"])
+    order = sorted((s for s in vis if not s["protected_test"] and s["path"].endswith(".py")), key=lambda s: (s["path"] not in focus, s["path"]))
+    meta = {"files": [], "excluded_hidden": sorted(hidden), "protected_shown_as": "failing line only", "caps": {"file": MAX_FILE_CHARS, "total": MAX_TOTAL_CHARS, "output": MAX_OUTPUT_CHARS, "request": MAX_REQUEST_CHARS},
+            "output_truncated": len(output.strip()) > MAX_OUTPUT_CHARS, "request_truncated": len(t.user_text) > MAX_REQUEST_CHARS}
+    left = MAX_TOTAL_CHARS
+    for s in order:
+        sig = signatures(ws / s["path"])
+        cap = min(MAX_FILE_CHARS, left)
+        if cap <= 200:
+            meta["files"].append({"path": s["path"], "shown": None, "truncated": True, "reason": "total_cap"})
+            continue
+        txt, m = snippet(ws / s["path"], focus.get(s["path"]), cap)
+        left -= len(txt)
+        sig_txt = "; ".join(sig[:MAX_SIGNATURES]) + ("; (+%d more)" % (len(sig) - MAX_SIGNATURES) if len(sig) > MAX_SIGNATURES else "")
+        L.append("- source %s%s:\n%s" % (s["path"], (" | signatures: " + sig_txt) if sig else "", txt))
+        meta["files"].append(dict(m, path=s["path"], sha256=s["sha256"], signatures=len(sig), signatures_truncated=len(sig) > MAX_SIGNATURES))
+    meta["truncated"] = meta["output_truncated"] or meta["request_truncated"] or any(f["truncated"] for f in meta["files"])
+    text = "\n".join(L)
+    for h in hidden:      # provenance guard: no non-trivial line of a hidden file may appear in the context
+        for ln in (ws / h).read_text("utf-8", errors="replace").splitlines():
+            if len(ln.strip()) >= 12 and ln.strip() in text:
+                raise ContextLeak("a line of the hidden file %s reached the proposal context" % h)
+    meta["context_sha256"] = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    meta["chars"] = len(text)
+    return text, meta
+
+
+def classify_progress(prev: Optional[Dict[str, Any]], cur: Dict[str, Any], tests_pass: bool) -> str:
+    """[A2.4] progress | repetition | regression | changed, from two parsed failures. repetition = same exception, message and test location as the previous observation;
+    regression = a failing assertion became a syntax error / uncaught exception (the code no longer even runs the check)."""
+    if tests_pass:
+        return "progress"
+    if prev is None:
+        return "changed"
+    same = lambda f: (f["kind"], f["exception"], f["message"], (f.get("test_location") or {}).get("file"), (f.get("test_location") or {}).get("line"))      # noqa: E731
+    if same(prev) == same(cur):
+        return "repetition"
+    if prev["kind"] == "assertion" and cur["kind"] in ("syntax", "exception"):
+        return "regression"
+    return "changed"
+
+
+def repair_text(k: int, action_text: str, result_text: str, cur: Dict[str, Any], cls: str, blocked_total: int, code_snippet: str) -> str:
+    L = ["Repair report (deterministic, step %d):" % k, "- action taken: %s" % action_text[:300], "- its result: %s" % result_text.strip()[:300].replace("\n", " | ")]
+    t = cur.get("test_location")
+    L.append("- failure now: %s%s%s [%s]" % (cur["exception"] or cur["kind"], (": " + cur["message"]) if cur["message"] else "", (" at %s:%d" % (t["file"], t["line"])) if t else "", cls))
+    if cls == "repetition":
+        L.append("- the same failure as before: the same action will not be accepted again unless the files or the failure change (%d repeated action(s) blocked so far)" % blocked_total)
+    elif cls == "regression":
+        L.append("- REGRESSION: the code no longer reaches the failing assertion; undo or fix the last change")
+    if code_snippet:
+        L.append("- current code at the failure location:\n" + code_snippet)
+    return "\n".join(L)
+
+
 def investigate(run) -> Dict[str, Any]:
     """Run the stage on an AgenticRun after begin(): journal `investigate_sources`, observe the baseline end state (L5 evidence), journal `investigate`, append the report to the next context,
     re-run the router and the tier. -> the structured result (also stored on run.investigation)."""
@@ -149,10 +274,13 @@ def investigate(run) -> Dict[str, Any]:
     targets = link_assertion(ws, failure, sources)
     res = {"state_id": state["state_id"], "exit_code": int(r["exit_code"]), "failure": failure, "targets": targets, "tests_pass": state["tests_pass"], "label": state["label"]}
     run.note("investigate", {k: res[k] for k in ("state_id", "exit_code", "failure", "targets", "label")})
-    run.messages += [{"role": "user", "content": report_text(run.task.test_cmd, res["exit_code"], sources, failure, targets)}]
+    text, meta = build_context(run, sources, failure, targets, out)
+    run.note("investigate_context", meta)      # [A2.2] what the proposer was shown, with every truncation and every excluded file
+    run.messages += [{"role": "user", "content": text}]
     run.route("investigate", state["state_id"])
     run.retier("investigate")
     run.investigation = res
+    run.prev_failure = failure
     return res
 
 

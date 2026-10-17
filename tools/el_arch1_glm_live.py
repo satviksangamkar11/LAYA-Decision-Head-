@@ -9,6 +9,8 @@ everything). Answers are fsynced to <out>/glm/critic_batch/{progress.jsonl,broke
 critic stage (experiments run in the WSL sandbox; model evidence stays diagnostic). Exit 0 = every packet reached a terminal state; 1 = a leak was found or a packet is unresolved.
 No key file readable -> explicit error and ZERO calls. Create-only summary: <out>/glm/GLM_LIVE_SUMMARY_<UTC>.json."""
 import json, re, sys, time
+try: sys.stdout.reconfigure(encoding="utf-8")      # [EL-ARCH-1 A3.2] never let the console code page re-decode text we print
+except Exception: pass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,15 +35,17 @@ def main(out: Path) -> int:
     runner = BT.BatchRunner(packets, out / "glm" / "critic_batch", make_transport(keys, read_timeout_s=120.0, total_timeout_s=1800.0), list(keys), load_concurrency(), max_retries=1, glm_config=cfg)
     sent = runner.run()
     acc = ACC.from_broker(runner.broker)
+    from evidence_ladder.critic_batch.reconcile import reconcile      # [EL-ARCH-1 A3.1] recomputed from the three ledgers; literal key values are searched for too
+    rec = reconcile(out / "glm" / "critic_batch", secrets=keys.values())
     summary = {"tag": "[EL-ARCH-1 D1] live GLM step", "utc": time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()), "model": glm.GLM_MODEL, "key_labels": list(keys), "send_summary": sent["summary"],
-               "recovered": sent["recovered"], "states": sent["manifest"]["states"], "stop_all_critic_calls": sent["manifest"]["stop_all_critic_calls"], "glm_accounting": acc}
+               "recovered": sent["recovered"], "states": sent["manifest"]["states"], "stop_all_critic_calls": sent["manifest"]["stop_all_critic_calls"], "glm_accounting": acc, "reconcile": rec}
     leaks = [str(p.relative_to(out)) for p in sorted((out / "glm").rglob("*")) if p.is_file() and (KEY_RE.search(p.read_text("utf-8", "replace")) or any(k in p.read_text("utf-8", "replace") for k in keys.values()))]
     summary["secret_scan_hits"] = leaks
     with open(out / "glm" / ("GLM_LIVE_SUMMARY_%s.json" % summary["utc"]), "x", encoding="utf-8") as f:
         json.dump(summary, f, indent=1, default=str)
-    print(json.dumps({k: summary[k] for k in ("states", "stop_all_critic_calls", "secret_scan_hits")}, default=str))
+    print(json.dumps({k: summary[k] for k in ("states", "stop_all_critic_calls", "secret_scan_hits")} | {"reconcile_ok": rec["ok"]}, default=str))
     unresolved = sent["manifest"]["states"].get("not_completed", 0)
-    return 1 if leaks or unresolved or sent["manifest"]["stop_all_critic_calls"] else 0
+    return 1 if leaks or not rec["ok"] or unresolved or sent["manifest"]["stop_all_critic_calls"] else 0
 
 
 if __name__ == "__main__":

@@ -101,6 +101,65 @@ class NeedGlm(Exception):
     pass
 
 
+# ================================================================== [EL-ARCH-1 A3.6/A3.8] provenance + backend guards (pure helpers; unit-tested in orchestrator/tests/phaseF3_tests.py)
+FORBIDDEN_BACKEND_MODULES = ("el_arch1_stubs", "unittest.mock", "mock")
+CONFIG_GLOBS = ("configs/el_arch1_*.toml", "configs/backbones_v1.toml", "configs/*limits*.toml", "configs/thresholds*.toml")
+
+
+def backend_identity(**parts) -> Dict[str, str]:
+    """name -> 'module.Class' of the object that actually ran (written into the receipt: it names the backend, not a flag)."""
+    return {k: "%s.%s" % (type(o).__module__, type(o).__qualname__) for k, o in parts.items()}
+
+
+def refuse_mock_backends(**parts) -> None:
+    """A3.8: in the acceptance path no part may be an instance of a stub/mock class, whatever flag it carries. Raises StubRefused naming the part and class."""
+    for name, o in parts.items():
+        cls = type(o)
+        mods = (cls.__module__ or "").split(".")
+        if cls.__module__ in FORBIDDEN_BACKEND_MODULES or "mock" in mods or "Mock" in cls.__name__ or cls.__name__.startswith("Stub"):
+            raise StubRefused("acceptance path refuses mock backend %s = %s.%s" % (name, cls.__module__, cls.__qualname__))
+
+
+def pool_admissible(item: Dict[str, Any], live: Dict[str, Any], verify: Dict[str, Any], proposed_options: Sequence[str]) -> Tuple[bool, str]:
+    """A3.4 / T34 / T49: a stored or freshly captured score pool is admitted ONLY for the exact context text and the exact option list the controller proposed in this decision
+    (context sha256 AND the ordered option list). Anything else is a refusal with its reason; there is no fallback pairing of candidates with scores computed for other candidates."""
+    if live.get("status") != "ok" or verify.get("status") != "ok":
+        return False, "a scoring result is not ok (live=%s, verify=%s)" % (live.get("status"), verify.get("status"))
+    if live.get("context_sha256") != RT.LF.sha256_text(item["context_text"]):
+        return False, "context text differs from the one the scores were computed for"
+    if list(live.get("options") or []) != list(proposed_options):
+        return False, "proposed options differ from the scored options (order and text must match)"
+    return True, "exact context sha256 and option list match"
+
+
+def config_hashes() -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for g in CONFIG_GLOBS:
+        for f in sorted(ROOT.glob(g)):
+            out[f.relative_to(ROOT).as_posix()] = sha(f.read_bytes())
+    return out
+
+
+def _git(*args, timeout=60) -> str:
+    return subprocess.run(["git", *args], cwd=str(ROOT), capture_output=True, timeout=timeout).stdout.decode("utf-8", "replace")
+
+
+def added_lines_secret_scan(base_ref: Optional[str] = None, diff_text: Optional[str] = None) -> Dict[str, Any]:
+    """A3.6: key-shaped text on ADDED lines (working tree + index vs HEAD, and the commits since merge-base with `base_ref` when given). Never returns the matching text, only file names and counts.
+    diff_text is injectable for tests."""
+    if diff_text is None:
+        diffs = [_git("diff", "-U0", "HEAD"), _git("diff", "-U0", "--cached")]
+        if base_ref:
+            mb = _git("merge-base", base_ref, "HEAD").strip()
+            if mb: diffs.append(_git("diff", "-U0", mb, "HEAD"))
+        diff_text = chr(10).join(diffs)
+    hits, cur = {}, None
+    for line in diff_text.splitlines():
+        if line.startswith("+++ "): cur = line[4:].removeprefix("b/"); continue
+        if line.startswith("+") and not line.startswith("+++") and KEY_RE.search(line): hits[cur] = hits.get(cur, 0) + 1
+    return {"hits": sum(hits.values()), "files": sorted(hits), "base_ref": base_ref}
+
+
 # ================================================================== stage map (pure; unit-tested)
 _RANK_KINDS = {"scorer", "scorer_unavailable", "scorer_comparison", "scorer_comparison_unavailable", "monotonicity_gate", "ranking", "abstain", "action_decision"}
 _EXEC_KINDS = {"action_auth", "label", "step_record", "tool_failure"}
@@ -220,15 +279,16 @@ class UnavailableBackend:
 # ================================================================== the acceptance object
 class Acceptance:
     def __init__(self, out: Path, *, final: bool, bundle: Optional[Path] = None, allow_dirty: bool = False, system_block: Optional[str] = None, sandbox_factory=None,
-                 local: bool = False, backbone: Optional[str] = None):
+                 local: bool = False, backbone: Optional[str] = None, replay_from: Optional[Path] = None):
         self.out, self.final, self.bundle = Path(out), final, (Path(bundle) if bundle else None)
         self.local = local
-        self.real = final or local                       # real backends (no stubs): the final-mode refusal rules that are not about T4 / committed source apply to a local run too
+        self.replay_from = Path(replay_from) if replay_from else None      # PATH B: replay of a stored, verified 4B run (generation records + score kernels + GLM ledger), exact contexts only
+        self.real = final or local or bool(replay_from)                       # real backends (no stubs): the final-mode refusal rules that are not about T4 / committed source apply to a local run too
         if local and not backbone: raise ValueError("--mode local needs --backbone <profile id>")
         self.gen_profile = BB.get(backbone) if backbone else None
         self.state_profile = BB.get()                    # the profile the frozen adapters + head consume (4B)
         self.laya_off: Optional[str] = None              # local run: reason LAYA is unavailable (parity gate failed)
-        self.mode = "local" if local else ("final" if final else "offline_rehearsal")
+        self.mode = "local" if local else ("replay_4b" if replay_from else ("final" if final else "offline_rehearsal"))
         self.allow_dirty = allow_dirty
         self.kin = self.out / "kaggle_in"
         self.system_block = system_block if system_block is not None else self._load_system_block()
@@ -247,6 +307,7 @@ class Acceptance:
 
     def preflight(self) -> Dict[str, Any]:
         if self.final and self.allow_dirty: raise RuntimeError("--allow-dirty is for the rehearsal only")
+        self.final_path = bool(self.final or ((self.local or self.replay_from) and not self.allow_dirty))      # A3.6: a local run is the final path unless --allow-dirty (development) was given
         scan = INV.static_isolation_scan()
         if any(scan.values()): raise RuntimeError("static isolation scan found: %s" % scan)
         info: Dict[str, Any] = {"static_isolation_scan": scan, "limits": load_limits("agentic").as_dict(), "wsl": available()}
@@ -262,10 +323,19 @@ class Acceptance:
         except (OSError, subprocess.TimeoutExpired):
             tracked = set()
         untracked_core = [f for f in core if f not in tracked]
+        if self.replay_from:      # seed the new run directory with the stored evidence (create-only, once); nothing is regenerated, rescored or re-asked
+            src = self.replay_from
+            for sub in ("kaggle_in", "glm/critic_batch", "glm/critic_packets"):
+                if (src / sub).is_dir() and not (self.out / sub).exists(): shutil.copytree(src / sub, self.out / sub)
+            info["replay_from"] = {"dir": str(src), "kaggle_in_sha256": {p.relative_to(src).as_posix(): sha(p.read_bytes()) for p in sorted((src / "kaggle_in").rglob("*")) if p.is_file()}}
         info.update(commit=head, dirty_tracked_source=dirty, untracked_core_files=untracked_core, source_committed=not dirty and not untracked_core and bool(head))
-        if self.final and (dirty or untracked_core): raise RuntimeError("--final needs committed source; modified tracked files: %s; core files not tracked: %s" % (dirty[:6], untracked_core[:6]))
+        info["secret_scan_added_lines"] = added_lines_secret_scan("main")
+        if self.final_path and info["secret_scan_added_lines"]["hits"]: raise RuntimeError("secret scan on added lines found %d hit(s) in %s" % (info["secret_scan_added_lines"]["hits"], info["secret_scan_added_lines"]["files"]))
+        info["final_path"] = self.final_path
+        if self.final_path and (dirty or untracked_core): raise RuntimeError("the final path needs committed source (use --allow-dirty only for development); modified tracked files: %s; core files not tracked: %s" % (dirty[:6], untracked_core[:6]))
         info["code_sha256"] = REP.code_hashes()
         info["driver_sha256"] = sha((ROOT / "tools/el_arch1_acceptance.py").read_bytes())
+        info["config_sha256"] = config_hashes()
         return info
 
     # ---------------------------------------------------------------- stub guard
@@ -274,6 +344,7 @@ class Acceptance:
         if not self.real: return
         for name, obj in parts.items():
             for o in (obj if isinstance(obj, list) else [obj]):
+                if not isinstance(o, dict): refuse_mock_backends(**{name: o})
                 flagged = (o.get("stub") if isinstance(o, dict) else getattr(o, "stub", False)) or any("stub" in str(x).lower() for x in
                            ([o.get("gpu"), o.get("model"), o.get("scorer_id")] if isinstance(o, dict) else [getattr(o, "scorer_id", "")]))
                 if flagged: raise StubRefused("final mode refuses a stub / fake backend: %s" % name)
@@ -341,7 +412,7 @@ class Acceptance:
             if out[w].get("verdict") != "DONE": raise RuntimeError("score kernel %s round %d verdict %s" % (w, rnd, out[w].get("verdict")))
         self.no_stubs(**{"score_live": out["live"], "score_verify": out["verify"]})
         if self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": False, "local": True} for w in out}
-        if self.final and not str(out["live"].get("gpu", "")).startswith("Tesla T4"): raise RuntimeError("scoring did not run on a Tesla T4: %r" % out["live"].get("gpu"))
+        if (self.final or self.replay_from) and not str(out["live"].get("gpu", "")).startswith("Tesla T4"): raise RuntimeError("scoring did not run on a Tesla T4: %r" % out["live"].get("gpu"))
         run_ids = {w: ("local/el-arch1-score-%s@round%d" % (w, rnd)) if self.local else "%s/el-arch1-score-%s-v1@round%d" % (OWNER, w, rnd) for w in out}
         if not self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"run_id": run_ids[w], "gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": out[w].get("stub", False)} for w in out}
         return out["live"], out["verify"], run_ids["live"], run_ids["verify"]
@@ -439,7 +510,8 @@ class Acceptance:
                     except Q.FixtureMissing: pass
                 missing.append(req); raise Q.FixtureMissing((req.task_id,))
             def model_info(self_): return {"backend": "staged_kaggle_replay"}
-        proposer = GEN.ActionProposer(Staged(), max_new_tokens=MAX_NEW_TOKENS)
+        # PATH A (local) uses the one-independent-action prompt + per-option salvage + candidate filter (ActionProposerV2); the Kaggle / PATH B replay keeps the frozen v1 proposer (stored prompts must reproduce)
+        proposer = (lambda b, **k: GEN.ActionProposerV2(b, prefilter=False, **k) if self.local else GEN.ActionProposer(b, **k))(Staged(), max_new_tokens=MAX_NEW_TOKENS)      # local: prefilter=False, the controller's single filter_options call journals every rejection
         gate_pools: List[Dict[str, Any]] = []
         for rnd in range(1, MAX_STEPS + 1):
             active = [n for n, r in runs.items() if not r.run.decided and len(r.run.steps) == rnd - 1]
@@ -450,20 +522,26 @@ class Acceptance:
                 recs = self.gen_records()
                 holder["replay"] = GEN.ReplayGenerationBackend(recs) if recs else None
                 for n in active:
-                    try: props[n] = proposer.propose(n, rnd, runs[n].run.context_text(), SEEDS)
+                    try:
+                        props[n] = proposer.propose(n, rnd, runs[n].run.context_text(), SEEDS, **self.filter_ctx(runs[n]))
+                        props[n]["step_options"] = self.step_options(props[n])
+                        props[n]["scored_options"] = self.accepted_preview(runs[n], props[n]["step_options"]) if self.local else props[n]["options"]
                     except Q.FixtureMissing: props.pop(n, None)
                 if not missing: break
                 self.need_gen(rnd, [GE.make_job(rq, rq.task_id) for rq in missing])
             if missing: raise RuntimeError("generation records still missing after the hand-off")
-            items = [{"key": "%s:%d" % (n, rnd), "step": rnd, "context_text": runs[n].run.context_text(), "saved_raw_output": json.dumps([json.loads(o) for o in props[n]["options"]])}
-                     for n in active if len(props[n]["options"]) >= 2]
+            items = [{"key": "%s:%d" % (n, rnd), "step": rnd, "context_text": runs[n].run.context_text(), "saved_raw_output": json.dumps([json.loads(o) for o in props[n]["scored_options"]])}
+                     for n in active if len(props[n]["scored_options"]) >= 2]
             if items and not self.laya_off:
                 live, ver, live_id, ver_id = self.need_score(rnd, items)
                 for it in items:
                     n, k = it["key"].split(":")[0], it["key"]
                     lv, vr = live["steps"].get(k, {}), ver["steps"].get(k, {})
-                    if lv.get("status") == "ok" and vr.get("status") == "ok" and lv.get("options") == props[n]["options"]:      # a pool the kernel parsed differently from the controller is not admitted
+                    ok_pool, why_pool = pool_admissible(it, lv, vr, props[n]["scored_options"])      # a pool the kernel parsed differently from the controller, or for another context, is not admitted
+                    if ok_pool:
                         for be in backends.values(): be.add(lv, vr, live_run=live_id, verify_run=ver_id, verify_mode=ver["mode"])
+                    else:
+                        self.notes.setdefault("refused_pools", []).append({"key": k, "reason": why_pool, "refused_by": "pool_admissible"})
                 self.notes.setdefault("refused_pools", []).extend(backends["laya"].refused)
             for n in active:
                 rr, pr = runs[n], props[n]
@@ -471,13 +549,38 @@ class Acceptance:
                 rr.propose(pr)
                 rr.note("stage", {"name": "step" if rnd == 1 else "repair", "round": rnd, "part": "step"})
                 try:
-                    rec = rr.step(pr["options"], dict(pr["qwen_meta"]))
+                    rec = rr.step(pr["step_options"], dict(pr["qwen_meta"]))
                     known = [i for i, t in enumerate(rec["trusted"]) if "L5_dry_run" in t]
                     if rec.get("scores") and len(known) >= 2:
                         gate_pools.append({"id": rec["decision_id"], "scores": [rec["scores"][i] for i in known], "passed": [rec["trusted"][i]["L5_dry_run"] == "pass" for i in known]})
                 except (NoOracle, LimitReached):
                     pass
         return self.finish_pass(runs, critic, gate_pools, backends, base)
+
+    def filter_ctx(self, rr) -> Dict[str, Any]:
+        """Arguments of the candidate filter for ActionProposerV2: the CURRENT workspace texts (so unappliable edits are rejected against what is really on disk) and the protected files. Empty for v1."""
+        if not self.local: return {}
+        ws = rr.run.task.workspace
+        files = {f.relative_to(ws).as_posix(): f.read_text("utf-8", "replace") for f in sorted(Path(ws).rglob("*")) if f.is_file() and f.suffix in (".py", ".txt", ".md", ".toml", ".json") and f.stat().st_size < 200_000}
+        return {"files": files}
+
+    def step_options(self, pr) -> List[str]:
+        import el_arch1_variants as V
+        return V.options_from_proposal(pr)
+
+    def accepted_preview(self, rr, step_options) -> List[str]:
+        """The options the controller's own filter will accept for this decision (same pure function, same files, same scope): the scorer must score exactly THOSE (frozen interface: scorer inputs = accepted
+        options). A repeated_failure rejection added by the controller later makes the pool differ and the scorer is then explicitly unavailable (pool_admissible)."""
+        from evidence_ladder.controller import candidate_filter as CF
+        cands = []
+        for i, o in enumerate(step_options):
+            try:
+                a = json.loads(o); ok = isinstance(a, dict) and isinstance(a.get("name"), str) and isinstance(a.get("arguments"), dict)
+            except ValueError:
+                ok = False
+            cands.append({"tool": a["name"], "arguments": a["arguments"], "origin": {"seed": None, "index": i}, "raw": o} if ok else {"malformed": True, "origin": {"seed": None, "index": i}, "raw": o})
+        fr = CF.filter_options(cands, rr.run.files_text(), path_scope={"allow": None, "protected": list(rr.run.task.protected)})
+        return [GEN.render_call(a["tool"], a["arguments"]) for a in fr["accepted"]]
 
     def finish_pass(self, runs, critic, gate_pools, backends, base) -> Dict[str, Any]:
         from evidence_ladder.critic_batch import validator as V
@@ -551,6 +654,21 @@ class Acceptance:
                                 "state_profile": {"id": self.state_profile.id, "sha256": self.state_profile.sha256}, "parity": self.notes.get("parity"), "laya_available": not self.laya_off,
                                 "qwen_diagnostic_states": "qwen3-0.6b states are DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter" if not self.gen_profile.is_head_compatible else None}
         summary["variants"] = variants
+        any_rr = next(iter(done["runs"].values()))[0]
+        summary["backend_identity"] = backend_identity(laya=done["backends"]["laya"], probe=done["backends"]["probe"], random_head=done["backends"]["random_head"], critic=done["critic"], sandbox=any_rr.ctx.sandbox,
+                                                       controller=any_rr.run, recorded_run=any_rr)       # A3.8: the receipt NAMES the class that ran (module.Class), not just a stub flag
+        mp = [p for p in (summary.get("backends") or {}).values()]
+        summary["provenance"] = {"commit": pre.get("commit"), "final_path": pre.get("final_path"), "source_committed": pre.get("source_committed"), "config_sha256": pre.get("config_sha256"),
+            "source_sha256": pre.get("code_sha256"), "driver_sha256": pre.get("driver_sha256"), "secret_scan_added_lines": pre.get("secret_scan_added_lines"),
+            "models": {"generation": ({"repo": self.gen_profile.repo, "revision": self.gen_profile.revision} if self.gen_profile else {"repo": BB.get().repo, "revision": BB.get().revision}),
+                       "states": {"repo": self.state_profile.repo, "revision": self.state_profile.revision, "profile_sha256": self.state_profile.sha256}, "critic": __import__("evidence_ladder.models.glm", fromlist=["GLM_MODEL"]).GLM_MODEL},
+            "journal_hashes": {n: res.journal_hash for n, (rr, res, st) in done["runs"].items()},
+            "receipt_sha256": {n: sha((rec_dir / n / "example_receipt.json").read_bytes()) for n in done["runs"]},
+            "journal_file_sha256": {n: sha((rec_dir / n / "journal.json").read_bytes()) for n in done["runs"]}}
+        glm_cb = self.out / "glm" / "critic_batch"
+        if glm_cb.is_dir():       # A3.1: ledger reconciliation of the real GLM step
+            from evidence_ladder.critic_batch.reconcile import reconcile
+            summary["glm_reconcile"] = reconcile(glm_cb)
         summary["external_logs"] = {str(p.relative_to(self.out)): sha(p.read_bytes()) for p in sorted(list(self.kin.rglob("*_push.txt")) + list((self.out / "glm").glob("GLM_LIVE_SUMMARY_*.json")))}      # push messages (kernel versions) saved by the coordinator + the live GLM summary
         leaks = [str(p.relative_to(self.out)) for p in sorted(self.out.rglob("*")) if p.is_file() and p.suffix in (".json", ".jsonl", ".txt", ".md", ".py") and KEY_RE.search(p.read_text("utf-8", "replace"))]
         summary["secret_scan_hits"] = leaks
@@ -565,17 +683,23 @@ class Acceptance:
         if (self.out / "receipts" / "ACCEPTANCE_SUMMARY.json").exists(): print("receipts already exist (create-only): nothing to do"); return 0
         variants = None
         vs = self.out / "VARIANTS_SUMMARY.json"
-        if self.local:      # the fault-injection variants are a Kaggle-path acceptance item, not part of the 3-example local run
-            variants = {"summary_file": None, "all_ok": None, "stub_components": None, "n": 0, "skipped": "local run"}
-            self.local_parity()
+        if self.local or self.replay_from:      # the fault-injection variants are a separate acceptance item (--variants-only), not part of the 3-example path runs
+            variants = {"summary_file": None, "all_ok": None, "stub_components": None, "n": 0, "skipped": "path run: variants are reported separately (VARIANTS_SUMMARY.json of the variants run)"}
+            if self.local: self.local_parity()
         elif not vs.exists():
             import el_arch1_variants as V
             V.run_all(self.out)
-        if not self.local: variants = json.loads(vs.read_text("utf-8")); variants = {"summary_file": "VARIANTS_SUMMARY.json", "all_ok": variants["all_ok"], "stub_components": variants["stub_components"], "n": sum(len(v) for v in variants["variants"].values())}
+        if not (self.local or self.replay_from): variants = json.loads(vs.read_text("utf-8")); variants = {"summary_file": "VARIANTS_SUMMARY.json", "all_ok": variants["all_ok"], "stub_components": variants["stub_components"], "n": sum(len(v) for v in variants["variants"].values())}
         try:
             done = self.one_pass("pass")
         except NeedKaggle as e:
             print("WAITING_FOR_KAGGLE %s round %d -- see %s" % (e.what, e.rnd, self.out / "handoff" / ("round%d" % e.rnd))); return EXIT_WAIT
+        except GEN.PromptMismatch as e:
+            if not self.replay_from: raise
+            # PATH B refusal (T34/T49): the stored 4B proposals/scores belong to the exact stored contexts; the current controller builds a different context, so NOTHING is replayed and nothing is paired.
+            write_over(self.out / "REPLAY_REFUSED.json", jdump({"path": "B", "verdict": "REFUSED", "reason": str(e)[:600], "stored_run": str(self.replay_from), "commit": pre.get("commit"),
+                                                                 "meaning": "the stored context/prompt hashes do not reproduce under the current controller code; stored 4B scores are valid only for the stored contexts and options, so no score is used"}))
+            print("PATH_B_REFUSED -- %s" % str(e)[:200]); return 4
         except NeedGlm as e:
             print("WAITING_FOR_GLM %d packet(s) -- see %s" % (e.args[0], self.out / "glm" / "WAITING_GLM.txt")); return EXIT_WAIT
         s = self.receipts(done, pre, variants)
@@ -749,12 +873,23 @@ def main(argv=None) -> int:
     g.add_argument("--offline-rehearsal", action="store_true"); g.add_argument("--final", action="store_true")
     ap.add_argument("--bundle"); ap.add_argument("--allow-dirty", action="store_true")
     ap.add_argument("--backbone", help="backbone profile id for the generating model (configs/backbones_v1.toml); only with --mode local")
-    ap.add_argument("--mode", choices=["kaggle", "local"], default="kaggle")
+    ap.add_argument("--mode", choices=["kaggle", "local", "replay4b"], default="kaggle")
+    ap.add_argument("--variants-only", action="store_true", help="run the fault-injection variants (all bases, real controller + WSL sandbox, scripted model text) into <out>/VARIANTS_SUMMARY.json and exit")
+    ap.add_argument("--from-run", help="PATH B: a stored acceptance run directory (kaggle_in + glm) to replay on exact stored contexts/options; only with --mode replay4b")
     ap.add_argument("--local-worker", nargs=3, metavar=("KIND", "REQUEST", "OUTDIR"), help="internal: run one local GPU worker (gen|score|parity) in this process")
     a = ap.parse_args(argv)
     if a.local_worker: return run_worker_process(*a.local_worker)
     if not a.out: ap.error("an output directory is required")
-    if a.mode == "local": return Acceptance(Path(a.out), final=False, allow_dirty=True, local=True, backbone=a.backbone or ap.error("--mode local needs --backbone")).run()
+    if a.variants_only:
+        import el_arch1_variants as V
+        Path(a.out).mkdir(parents=True, exist_ok=True)
+        s = V.run_all(Path(a.out))
+        print(json.dumps({"all_ok": s["all_ok"], "n": sum(len(v) for v in s["variants"].values())}))
+        return 0 if s["all_ok"] else 1
+    if a.mode == "replay4b":
+        if not a.from_run: ap.error("--mode replay4b needs --from-run <stored acceptance dir>")
+        return Acceptance(Path(a.out), final=False, allow_dirty=a.allow_dirty, replay_from=Path(a.from_run), system_block=None, bundle=Path(a.bundle) if a.bundle else None).run()
+    if a.mode == "local": return Acceptance(Path(a.out), final=False, allow_dirty=a.allow_dirty, local=True, backbone=a.backbone or ap.error("--mode local needs --backbone")).run()
     if a.backbone: ap.error("--backbone is used with --mode local")
     if not (a.final or a.offline_rehearsal): ap.error("one of --offline-rehearsal / --final / --mode local is required")
     if a.final and not a.bundle: ap.error("--final needs --bundle <results/raw/el-arch1-bundle-*>")

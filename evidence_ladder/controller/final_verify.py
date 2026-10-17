@@ -36,4 +36,20 @@ def final_report(run, fin: Dict[str, Any], decision: Dict[str, Any], before: Opt
     process = {"protected_unchanged": bool(fin["protected_unchanged"]), "diff": {k: ds[k] for k in ("added", "modified", "removed")}, "scope_declared": run.task.scope,
                "diff_scope_ok": ds["ok"], "diff_violations": ds["violations"], "actions_executed": run.actions, "actions_denied_by_risk_table": run.denied, "tier": tier,
                "constraints_respected": bool(fin["protected_unchanged"]) and ds["ok"]}
-    return {"outcome": outcome, "process": process}
+    return {"outcome": outcome, "process": process, "coverage": coverage_table(run, sid, decision)}
+
+
+def coverage_table(run, sid: str, decision: Dict[str, Any]) -> Dict[str, Any]:
+    """[A2 / T15] one row per requirement: its label, and every evidence record behind it with check, status, scope, source, independence, trust class and whether it counts as authoritative.
+    `weakest` is the row that sets the answer flag (the flag is the weakest row; one open requirement keeps it below VERIFIED)."""
+    from evidence_ladder.common.contract_import import C
+    evs = run.journal.evidence(sid)
+    by = {r["requirement_id"]: r for r in run.reqs}
+    rows = []
+    for row in decision["requirement_rows"]:
+        recs = [e for e in evs if e["requirement_id"] == row["requirement_id"]]
+        rows.append({"requirement_id": row["requirement_id"], "kind": by[row["requirement_id"]]["kind"], "priority": by[row["requirement_id"]]["priority"], "label": row["label"],
+                     "evidence": [{"evidence_id": e["evidence_id"], "check_id": e["check_id"], "status": e["status"], "scope": e["scope"], "source": e["source"], "independence": e["independence"],
+                                   "trust_class": run.registry.checks[e["check_id"]]["trust_class"], "authoritative": bool(C.authoritative(e, run.registry))} for e in recs]})
+    weakest = next((r for r in rows if C.answer_label([r["label"]]) == decision["answer_label"]), None)
+    return {"rows": rows, "answer_label": decision["answer_label"], "weakest": None if weakest is None else {"requirement_id": weakest["requirement_id"], "label": weakest["label"]}}

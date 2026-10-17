@@ -6,7 +6,9 @@ Key values live only in the `keys` dict handed in by the kernel and in the Autho
 `opener` is injectable so tests run with no network."""
 from __future__ import annotations
 
+import codecs
 import json
+import re
 import time
 import urllib.error
 import urllib.request
@@ -15,17 +17,26 @@ from typing import Any, Callable, Dict, Mapping, Optional, Tuple
 from evidence_ladder.models._util import describe_error, redact_message
 
 ENDPOINT = "https://integrate.api.nvidia.com/v1/chat/completions"
+# [EL-ARCH-1 A3.2] "â€”" is the UTF-8 byte sequence of an em dash (E2 80 94) read as Windows-1252. The wire bytes are decoded here as UTF-8 (incrementally, so a multi-byte character split across
+# reads cannot break) and every receipt file is written as ASCII-escaped JSON, so the mojibake appears only when a READER (PowerShell 5.1 Get-Content, cmd, a text=True subprocess) uses the ANSI code page.
+# The body therefore carries `encoding_check`; accounting/reconcile.py re-checks the saved files.
+MOJIBAKE_RE = re.compile("â€|Ã[-¿]|Â[ -¿]")
+
+
+def encoding_check(text: str) -> Dict[str, int]:
+    return {"replacement_chars": text.count("�"), "mojibake_markers": len(MOJIBAKE_RE.findall(text))}
 
 
 def read_stream(lines, *, clock: Callable[[], float] = time.monotonic, total_timeout_s: float = 1800.0):
     """Accumulate SSE lines into (non-stream-shaped body, completed). completed is False when the stream ended without finish_reason or [DONE]."""
     t0 = clock()
+    dec = codecs.getincrementaldecoder("utf-8")("replace")
     content, reasoning, usage, finish, done, err = [], [], {}, None, False, None
     for line in lines:
         if clock() - t0 > total_timeout_s:
             raise TimeoutError("total stream time exceeded")
         if isinstance(line, bytes):
-            line = line.decode("utf-8", "replace")
+            line = dec.decode(line)
         line = line.strip()
         if not line.startswith("data:"):
             continue
@@ -54,7 +65,7 @@ def read_stream(lines, *, clock: Callable[[], float] = time.monotonic, total_tim
     msg: Dict[str, Any] = {"role": "assistant", "content": "".join(content) if content else None}
     if reasoning:
         msg["reasoning_content"] = "".join(reasoning)
-    body = {"choices": [{"message": msg, "finish_reason": finish}], "usage": usage}
+    body = {"choices": [{"message": msg, "finish_reason": finish}], "usage": usage, "encoding_check": encoding_check("".join(content) + "".join(reasoning))}
     if err:
         body["stream_error"] = err
     return body, (finish is not None or done)

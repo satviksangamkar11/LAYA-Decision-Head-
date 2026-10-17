@@ -19,7 +19,7 @@ BLOCKING, NONBLOCKING_FAIL, PASS = "fail", "fail_nonblocking", "pass"
 
 def decide_next_action(journal, decision_id: str, option_texts: Sequence[str], l0_scores: Optional[Sequence[float]], trusted: Optional[Sequence[Dict[str, Optional[str]]]] = None,
                        *, scorer_id: Optional[str] = None, scorer_provenance: Optional[Dict[str, Any]] = None, scorer_unavailable_reason: Optional[str] = None,
-                       comparison_scores: Optional[Dict[str, Sequence[float]]] = None) -> Dict[str, Any]:
+                       comparison_scores: Optional[Dict[str, Sequence[float]]] = None, abstain_override: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
     n = len(option_texts)
     if l0_scores is None and not scorer_unavailable_reason:
         raise ValueError("no LAYA scores and no scorer_unavailable_reason: a silent id-order fallback is not allowed")
@@ -50,7 +50,9 @@ def decide_next_action(journal, decision_id: str, option_texts: Sequence[str], l
            "approved": False, "level": "L0_ordering_only", "derived_by": "controller", "abstain": sel is None, "scorer_available": l0_scores is not None}
     if sel is None:
         out["abstain_reason"] = "no allowed option: every option was rejected by a trusted check" if n else "no options proposed"
+        if abstain_override:      # [A2.3] the candidate filter's own abstain code + reason (frozen interface): journaled as given
+            out["abstain_reason"], out["abstain_code"] = str(abstain_override["reason"])[:300], abstain_override["code"]
         out["next_step"] = "gather_evidence"
-        journal.append("abstain", {"decision_id": decision_id, "reason": out["abstain_reason"], "n_options": n})
+        journal.append("abstain", {"decision_id": decision_id, "reason": out["abstain_reason"], "n_options": n, **({"code": out["abstain_code"]} if abstain_override else {})})
     journal.append("action_decision", out)
     return out

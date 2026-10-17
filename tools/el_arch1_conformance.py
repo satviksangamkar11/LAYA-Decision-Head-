@@ -108,7 +108,7 @@ class Receipts:
 
     def is_rehearsal(self) -> bool:
         """True for anything that is not a --final run: a rehearsal (stub_run) or a summary that does not say mode == final."""
-        return bool(self.summary and (self.summary.get("stub_run") or self.summary.get("mode") != "final"))
+        return bool(self.summary and (self.summary.get("stub_run") or self.summary.get("mode") not in ("final", "local", "replay_4b")))      # [F3] local (PATH A) and replay_4b (PATH B) runs use real backends
 
     def stubbed(self, backend: str) -> bool:
         """True if ANY marker says this backend was a stand-in: summary flag, per-example flag, Kaggle/GLM record flags. (A rehearsal run as a whole is handled separately by is_rehearsal().)"""

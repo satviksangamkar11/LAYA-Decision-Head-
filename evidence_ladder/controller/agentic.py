@@ -33,7 +33,9 @@ from evidence_ladder.common.contract_import import C
 from evidence_ladder.common.interfaces import ProblemResult
 from evidence_ladder.critic_batch import accounting as ACC
 from evidence_ladder.models import experiments as EXP
+from . import candidate_filter as CF
 from . import final_verify as FV
+from . import investigate as INV
 from . import risk as RISK
 from . import router as router_mod
 from . import tiers as TIERS
@@ -42,7 +44,8 @@ from .decision import authorize, blocked_without_candidate, decide_stage1
 from .evidence import Factory, trim
 from .invariants import assert_invariants, check_i2
 from .journal import EvidenceJournal, canon
-from .limits import Limiter, load_limits
+from .generation import render_call
+from .limits import Limiter, load_limits, stop_label
 from .next_action import decide_next_action
 from .monotonicity import monotonicity_gate
 
@@ -174,6 +177,12 @@ class AgenticRun:
         self.last_exec: Optional[Dict[str, Any]] = None
         self.investigation: Optional[Dict[str, Any]] = None
         self.denied = 0
+        self.qwen_calls = 0      # [A2.5] proposal rounds handed to step(); model calls = qwen_calls + scorer calls + GLM calls
+        self.attempts: Dict[str, Dict[str, Any]] = {}      # [A2.1] repeated-failure memory: key = sha(state hash, normalised action, observed failure) -> what happened
+        self.fb_sig: Optional[str] = None      # signature of the last failing observation (None after a passing one)
+        self.prev_failure: Optional[Dict[str, Any]] = None      # parsed failure of the last observation (progress / regression / repetition, A2.4)
+        self.repeat_blocked = 0
+        self.stop_label: Optional[str] = None
         self.tool_error: Optional[str] = None      # [D1/S2] the sandbox / test tool itself failed (raised): ERROR evidence, never a pass, stop cause tool_failure
         self.gate_pools: List[Dict[str, Any]] = []      # [D1/S0] this run's earlier decisions with TRUSTED outcomes (dry-run results); per run so a replay reproduces the journal exactly
         self.final_report: Optional[Dict[str, Any]] = None
@@ -216,8 +225,62 @@ class AgenticRun:
 
     def limit_check(self) -> Optional[Dict[str, Any]]:
         """[EL-ARCH-1 A3] None, or the exhausted resource {"resource","used","cap","details"}: wall time, Qwen tokens, GLM tokens (ledger-accounted), committed actions, rounds (steps)."""
+        if len(self.steps) >= self.task.max_steps:      # [A2.5] the task's own step cap is enforced, not only labelled: no step may start once max_steps steps ran
+            r = {"resource": "max_steps", "used": len(self.steps), "cap": self.task.max_steps, "details": "task.max_steps used=%d cap=%d" % (len(self.steps), self.task.max_steps)}
+            self.limiter.hit = self.limiter.hit or r
+            return r
         b = self.budget.record()
-        return self.limiter.exceeded(b["qwen_gen_tokens"] + b["qwen_prefill_tokens"], b["glm_tokens_in"] + b["glm_tokens_out"], self.actions, self.step_no)
+        return self.limiter.exceeded(b["qwen_gen_tokens"] + b["qwen_prefill_tokens"], b["glm_tokens_in"] + b["glm_tokens_out"], self.actions, self.step_no, model_calls=self.model_calls())
+
+    def model_calls(self) -> int:
+        b = self.budget.record()
+        return self.qwen_calls + b["scorer_calls"] + b["glm_calls"]
+
+    def files_text(self) -> Dict[str, str]:
+        """current workspace file texts for the candidate filter (what Edit applicability is judged against); binary / huge files are skipped"""
+        out = {}
+        ws = Path(self.task.workspace)
+        for p in sorted(x for x in ws.rglob("*") if x.is_file() and "__pycache__" not in x.parts and ".git" not in x.parts):
+            if p.stat().st_size <= 400000:
+                try:
+                    out[p.relative_to(ws).as_posix()] = p.read_text("utf-8")
+                except (UnicodeDecodeError, OSError):
+                    pass
+        return out
+
+    def filter_step(self, raw_options: Sequence[str], pre: str) -> Dict[str, Any]:
+        """[A2.3 / frozen interface] ONE candidate_filter.filter_options call per decision, before scoring and ranking; `repeated_failure` rejections (A2.1) are added here in the same record
+        shape; the whole FilterResult is journaled under kind "candidate_filter". Only the accepted options (canonical text, original order) go on."""
+        cands = []
+        for i, o in enumerate(raw_options):
+            try:
+                a = json.loads(o)
+                ok = isinstance(a, dict) and isinstance(a.get("name"), str) and isinstance(a.get("arguments"), dict)
+            except ValueError:
+                ok = False
+            cands.append({"tool": a["name"], "arguments": a["arguments"], "origin": {"seed": None, "index": i}, "raw": o} if ok else {"malformed": True, "origin": {"seed": None, "index": i}, "raw": o})
+        fr = CF.filter_options(cands, self.files_text(), path_scope={"allow": None, "protected": list(self.task.protected)})
+        kept, extra = [], []
+        for a in fr["accepted"]:
+            key = C.sha256(canon([pre, a["action_key"], self.fb_sig]))
+            prev = self.attempts.get(key)
+            if prev is not None:
+                extra.append({"option_id": a["option_id"], "origin": a["origin"], "rule": "repeated_failure",
+                              "reason": "the same action in the same state with the same observed failure already failed at step %d (failure %s)" % (prev["step"], prev["failure_sig"])})
+            else:
+                kept.append(a)
+        if extra:
+            self.repeat_blocked += len(extra)
+            fr = dict(fr, accepted=kept, rejected=fr["rejected"] + extra)
+            if not kept:
+                codes: Dict[str, int] = {}
+                for r in fr["rejected"]:
+                    codes[r["rule"]] = codes.get(r["rule"], 0) + 1
+                fr["abstain"] = {"code": "all_options_rejected", "reason": "no valid option after filtering: %d of %d options rejected (%s)" % (
+                    len(fr["rejected"]), len(raw_options), ", ".join("%s=%d" % kv for kv in sorted(codes.items())))}
+            fr["counts"] = {"in": len(raw_options), "accepted": len(kept), "rejected": len(fr["rejected"])}
+        self.note("candidate_filter", dict(fr, step=self.step_no + 1))
+        return fr
 
     def sync_glm_budget(self) -> Optional[Dict[str, Any]]:
         """[EL-ARCH-1 A1] glm_calls / glm_tokens_* / api_errors of the budget record are SET from the real broker + progress ledgers (never a default 0): calls = sends, tokens = provider usage or
@@ -312,13 +375,19 @@ class AgenticRun:
         lim = self.limit_check()
         if lim is not None:
             raise LimitReached(lim["details"])
-        self.step_no += 1
-        k = self.step_no
-        did = "%s:step%d" % (self.task.task_id, k)
-        ctx_text = self.context_text()
+        k = self.step_no + 1
         ws = self.task.workspace
         pre = tree_hash(ws)
+        fr = self.filter_step(options, pre)
+        self.step_no += 1
+        did = "%s:step%d" % (self.task.task_id, k)
+        ctx_text = self.context_text()
+        raw_sha = [sha(o) for o in options]
+        options = [render_call(a["tool"], a["arguments"]) for a in fr["accepted"]]      # canonical text: option_sha256 == option_id of the frozen interface
+        fb_before = self.fb_sig
         qm = qwen_meta or {}
+        if qm:
+            self.qwen_calls += 1
         self.budget.add(qwen_gen_tokens=int(qm.get("new_tokens", 0)), qwen_prefill_tokens=int(qm.get("prompt_tokens", 0)), gpu_seconds=float(qm.get("kaggle_seconds", 0.0)))
         # --- INTAKE + CHECK
         trusted, checks, acts = [], [], []
@@ -354,6 +423,8 @@ class AgenticRun:
         # --- SCORE (no silent fallback)
         scores, reason, prov = None, None, None
         try:
+            if not options:      # nothing to rank: no scorer call (no model call is spent on an empty pool); the decision abstains with the filter's code
+                raise ValueError("no accepted option to score (%s)" % ((fr["abstain"] or {}).get("code", "empty")))
             self.budget.add(scorer_calls=1)
             scores = [float(x) for x in self.ctx.scorer.score("next_action", {"context_text": ctx_text, "options": list(options)})]
             if len(scores) != len(options) or not all(math.isfinite(x) for x in scores):      # [EL-ARCH-1 B4] a malformed hand-off is a recorded scorer failure, never a crash or a silent fallback
@@ -382,7 +453,8 @@ class AgenticRun:
                                         "can_override_trusted_evidence": gate["can_override_trusted_evidence"]})
         # --- DECIDE
         dec = decide_next_action(self.journal, did, list(options), scores, trusted, scorer_id=getattr(self.ctx.scorer, "scorer_id", None),
-                                 scorer_provenance=(prov or {}).get("provenance") if isinstance(prov, dict) else None, scorer_unavailable_reason=reason, comparison_scores=comp)
+                                 scorer_provenance=(prov or {}).get("provenance") if isinstance(prov, dict) else None, scorer_unavailable_reason=reason, comparison_scores=comp,
+                                 abstain_override=fr["abstain"])
         i2 = check_i2(self.journal)
         known = [i for i in range(len(options)) if "L5_dry_run" in trusted[i]]      # options whose outcome a real execution decided (an Edit that applied)
         if scores is not None and len(known) >= 2:
@@ -398,7 +470,8 @@ class AgenticRun:
                "laya_choice_among_allowed_ignoring_trusted_evidence": laya_choice_no_trusted, "chosen_index": chosen, "decision": dec, "check_i2": i2 or "ok",
                "laya_changed_the_choice_vs_id_order": (chosen != id_choice) if scores else None,
                "trusted_evidence_overrode_laya": (chosen is not None and laya_choice_no_trusted is not None and chosen != laya_choice_no_trusted),
-               "laya_top_was_chosen": (chosen == laya_order[0]) if laya_order and chosen is not None else None, "pre_state": pre}
+               "laya_top_was_chosen": (chosen == laya_order[0]) if laya_order and chosen is not None else None, "pre_state": pre,
+               "filter": {"counts": fr["counts"], "rejected": fr["rejected"], "abstain": fr["abstain"], "raw_option_sha256": raw_sha}}
         # --- COMMIT
         if chosen is None:
             result_text = "no allowed action"
@@ -436,11 +509,12 @@ class AgenticRun:
         state = self._observe("step%d" % k)
         rec.update(state)
         self.messages += [{"role": "user", "content": state["feedback"]}]
-        self.entries.append({"failure_sigs": [] if state["tests_pass"] else [sha(state["feedback"])[:16]], "progress": bool(state["tests_pass"]), "regression": False, "lineage": "workspace"})
+        cls = self.progress_after(k, chosen, fr, pre, fb_before, rec, state)
+        self.entries.append({"failure_sigs": [] if state["tests_pass"] else [sha(state["feedback"])[:16]], "progress": bool(state["tests_pass"]), "regression": cls == "regression", "lineage": "workspace"})
         self.steps.append(rec)
         # [EL-ARCH-1 B8] one immutable record per step: inputs (context + options), decision (chosen option), evidence (the entries above), action (as executed), outcome (result + end state)
         self.note("step_record", {"step": k, "decision_id": did, "inputs": {"context_sha256": sha(ctx_text), "option_sha256": [sha(o) for o in options], "pre_state": pre},
-                                  "decision": {"chosen_index": chosen, "scorer_available": scores is not None, "allowed_set": allowed, "abstain": chosen is None},
+                                  "decision": {"chosen_index": chosen, "scorer_available": scores is not None, "allowed_set": allowed, "abstain": chosen is None, "filter_counts": fr["counts"]},
                                   "action": {"executed": rec.get("executed_action"), "class": (rec.get("action_auth") or {}).get("class"), "allowed": (rec.get("action_auth") or {}).get("allowed"),
                                              "denied": bool(rec.get("commit_denied"))},
                                   "outcome": {"result_sha256": rec["execution_result_sha256"], "post_state": state["state_id"], "tests_pass": state["tests_pass"], "label": state["label"],
@@ -448,6 +522,34 @@ class AgenticRun:
         self.route("step%d_observed" % k, state["state_id"])
         self.retier("step%d" % k)
         return rec
+
+    def progress_after(self, k: int, chosen, fr, pre: str, fb_before, rec, state) -> str:
+        """[A2.1/A2.4] after the real end-state observation of step k: remember a failed action (repeat blocker), classify the failure against the previous observation
+        (progress | repetition | regression | changed), and put a repair report with the REAL failure and the current code at the failing location into the next context. Same controller, same journal."""
+        r = self.last_exec or {}
+        out = (r.get("stdout", "") or "") + "\n" + (r.get("stderr", "") or "")
+        files = sorted(self.files_text())
+        failure = INV.parse_failure(out, int(r.get("exit_code", 1)), files, self.task.protected)
+        cls = INV.classify_progress(self.prev_failure, failure, state["tests_pass"])
+        self.prev_failure = failure
+        if chosen is not None and not state["tests_pass"]:
+            ak, rec_a = fr["accepted"][chosen]["action_key"], {"step": k, "failure_sig": sha(state["feedback"])[:16]}
+            self.attempts[C.sha256(canon([pre, ak, fb_before]))] = rec_a
+            if state["state_id"] == pre:      # the action changed nothing: the next proposal round sees this very state with the failure it just observed
+                self.attempts[C.sha256(canon([pre, ak, self.fb_sig]))] = rec_a
+        if state["tests_pass"]:
+            return cls
+        loc = failure.get("code_location") or failure.get("test_location")
+        snip = ""
+        if loc and not INV.is_hidden(loc["file"]) and loc["file"] not in {Path(x).as_posix() for x in self.task.protected} and (Path(self.task.workspace) / loc["file"]).is_file():
+            snip = INV.snippet(Path(self.task.workspace) / loc["file"], loc["line"], INV.MAX_FILE_CHARS)[0]
+        act = rec.get("executed_action")
+        a_txt = render_call(act["name"], act["arguments"]) if act else "(none: %s)" % ("denied" if rec.get("commit_denied") else "abstained")
+        text = INV.repair_text(k, a_txt, rec["execution_result"], failure, cls, self.repeat_blocked, snip)
+        self.messages += [{"role": "user", "content": text}]
+        self.note("repair_report", {"step": k, "classification": cls, "failure": {x: failure[x] for x in ("kind", "exception", "message", "test_location", "code_location")}, "failure_sig": sha(state["feedback"])[:16],
+                                    "repeat_blocked_total": self.repeat_blocked, "snippet_sha256": sha(snip), "report_sha256": sha(text)})
+        return cls
 
     def step_from_generation(self, proposer, seeds: Sequence[int] = (0,)) -> Dict[str, Any]:
         """[EL-ARCH-1 B3] ask a generation backend (via controller.generation.ActionProposer) for next-action proposals with the frozen action template, journal what came back (hashes, status,
@@ -468,6 +570,7 @@ class AgenticRun:
         state_id = tree_hash(ws)
         fb = "Harness test run (`%s`): exit %d\n%s%s" % (self.task.test_cmd, r["exit_code"], r["stdout"][-600:], r["stderr"][-600:])
         st1 = "error" if r.get("tool_error") else "pass" if r["exit_code"] == 0 else "fail"
+        self.fb_sig = None if st1 == "pass" else sha(fb)[:16]
         out1 = {"check_id": "protected_tests_v1", "status": st1, "observed": fb[-600:]}
         if detail_fn is not None and st1 != "pass":
             out1["detail"] = detail_fn(r)      # B2: the parsed failing location is part of the L5 observation
@@ -513,7 +616,7 @@ class AgenticRun:
                 raise MissingComponentError("critic", "config['require'] lists it")
             return "unavailable"
         bb = self.budget.record()
-        lim = self.limiter.exceeded(0, bb["glm_tokens_in"] + bb["glm_tokens_out"], 0, 0)      # the critic is neither an action nor a round: only wall time and GLM tokens can stop it
+        lim = self.limiter.exceeded(0, bb["glm_tokens_in"] + bb["glm_tokens_out"], 0, 0, model_calls=self.model_calls())      # the critic is neither an action nor a round: only wall time and GLM tokens can stop it
         if lim is not None:        # no new critic work once wall time / GLM tokens are exhausted (the exhausted resource is reported by finish())
             self.note("critic", {"state": "unavailable", "packet_id": None, "reason": "limit:" + lim["resource"]}); return "unavailable"
         req = self.critic_request()
@@ -598,7 +701,7 @@ class AgenticRun:
         self.sync_glm_budget()
         self.budget.set(wall_seconds=round(self.limiter.elapsed(), 3))
         bb = self.budget.record()      # exhausted resources: a refused step/critic (limiter.hit) or wall time / tokens strictly above the cap (counters are only "exhausted" at the cap, not exceeded)
-        lim = None if cause == "decided" else (self.limiter.hit or self.limiter.exceeded(bb["qwen_gen_tokens"] + bb["qwen_prefill_tokens"], bb["glm_tokens_in"] + bb["glm_tokens_out"], self.actions, self.step_no, at_cap_counts=True))
+        lim = None if cause == "decided" else (self.limiter.hit or self.limiter.exceeded(bb["qwen_gen_tokens"] + bb["qwen_prefill_tokens"], bb["glm_tokens_in"] + bb["glm_tokens_out"], self.actions, self.step_no, at_cap_counts=True, model_calls=self.model_calls()))
         if lim is not None and (cause == "no_progress_2" or details == ""):      # a per-problem limit is the more precise reason
             cause, details = "budget", lim["details"]
         if d["answer_label"] != "BLOCKED" and not d["authorized_to_execute"]:
@@ -608,7 +711,9 @@ class AgenticRun:
         if details.startswith("limit:"):
             stop["details"] = details.split(" used=")[0] if details.startswith("limit:max_wall") else details      # wall seconds are not journaled (reproducible hash)
         C.validate("stop_record", stop)
-        self.note("stop", dict(stop, rounds=len(self.steps), max_rounds=self.task.max_steps, attempts=len(self.steps), max_attempts=self.task.max_steps, budget_hit=cause == "budget", wasted_critic=0, mode="agentic"))
+        self.stop_label = stop_label(details) if cause == "budget" else None      # [A2.5] names the exhausted limit; the frozen stop_record cause stays "budget"
+        self.note("stop", dict(stop, rounds=len(self.steps), max_rounds=self.task.max_steps, attempts=len(self.steps), max_attempts=self.task.max_steps, budget_hit=cause == "budget", wasted_critic=0, mode="agentic",
+                               stop_label=self.stop_label))
         end = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.note("registry", {"phase": "end", "hash": end, "scorer": self._scorer_fp()})
         C.assert_frozen(self.reg_hash0, end)

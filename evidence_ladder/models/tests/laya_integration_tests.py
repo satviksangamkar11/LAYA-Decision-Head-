@@ -221,8 +221,17 @@ def test_invariant_negative_control_detects_a_reordering_across_evidence():
     assert INV.check_i2(bad) != ""
 
 
+STORED_T4_SCORES_SHA256 = "d4f98029920bc880b91199007fc5ab5098b611af520b93ba8b2478fd353f0164"
+
+
 def test_real_scores_never_override_trusted_evidence():
     p = os.environ.get("LAYA_T4_SCORES") or (sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith(".json") else None)
+    if not (p and Path(p).exists()):      # [EL-ARCH-1 A3] fall back to the stored copy of the real Kaggle T4 scores (read-only), pinned by sha256; same assertions below
+        import hashlib
+        stored = Path(__file__).resolve().parents[3] / "results/raw/laya-integration-20261016T184816Z/integration_run2/T4_scores.json"
+        if stored.exists():
+            assert hashlib.sha256(stored.read_bytes()).hexdigest() == STORED_T4_SCORES_SHA256, "stored T4_scores.json does not match its pinned sha256"
+            p = str(stored)
     assert p and Path(p).exists(), "T4_scores.json (real LAYA scores of the Kaggle T4 run) must ship with this suite; a missing file is a FAILURE, not a skip"
     pools = json.load(open(p, encoding="utf-8"))["pools"]
     assert len(pools) >= 3
@@ -291,16 +300,43 @@ def _run(scorer, tmp, name="t"):
 
 
 def test_agentic_real_executed_evidence_outranks_the_laya_top_choice():
+    """SUPERSEDES the 5-option design (laya_order [0,2,3,1,4], allowed_set [0,1,4], policy-failed PROT/RMRF, fail_nonblocking WRONG): the frozen candidate filter now removes the
+    protected-file edit (protected_path) and, because Read(slug.py) -> Edit(slug.py) -> Bash is a sequential plan, the WRONG edit and `rm -rf /` (sequential_plan) BEFORE ranking, by design.
+    The intent is unchanged and no trusted-evidence-beats-LAYA assertion is loosened: executed trusted evidence outranks LAYA's top choice, on (a) the same five options (what the filter
+    leaves), (b) an admissible pool that keeps a failing edit so the dry-run loss is still exercised, (c) the stored real 4B scores on the exact stored ex1 context (PATH B)."""
+    from evidence_ladder.controller import candidate_filter as CF
     with tempfile.TemporaryDirectory() as tmp:
         r = _run(ScorePref([9.0, 1.0, 5.0, 4.0, 0.0]), tmp)                 # the scorer likes READ (0) best and the fixing edit (4) least
         s = r.step([READ, WRONG, PROT, RMRF, FIX])
-        assert s["laya_order"] == [0, 2, 3, 1, 4] and s["allowed_set"] == [0, 1, 4]
-        assert s["trusted"][2] == {"policy": "fail"} and s["trusted"][3] == {"policy": "fail"}                 # protected-file edit and rm -rf rejected by policy
-        assert s["trusted"][4]["L5_dry_run"] == "pass" and s["trusted"][1]["L5_dry_run"] == "fail_nonblocking"   # dry-runs went through the sandbox port, not injected
-        assert s["chosen_index"] == 4 and s["trusted_evidence_overrode_laya"] is True and s["laya_top_was_chosen"] is False
+        f = r.journal.entries("candidate_filter")[0]["data"]
+        assert {x["rule"] for x in f["rejected"]} == {"protected_path", "sequential_plan"} and f["counts"] == {"in": 5, "accepted": 2, "rejected": 3}        # PROT, WRONG, RMRF removed before ranking
+        assert [a["tool"] for a in f["accepted"]] == ["Read", "Edit"] and [x["arguments"].get("file_path") for x in f["accepted"]] == ["slug.py", "slug.py"] and s["options"][1].count(".strip(\\\"-\\\")") == 1
+        assert s["trusted"][1]["L5_dry_run"] == "pass"                                                                                           # dry-run went through the sandbox port, not injected
+        assert s["laya_order"] == [0, 1] and s["allowed_set"] == [0, 1]
+        assert s["chosen_index"] == 1 and s["trusted_evidence_overrode_laya"] is True and s["laya_top_was_chosen"] is False                      # LAYA's top (the Read) loses to the executed pass
         assert s["tests_pass"] and s["label"] == "VERIFIED" and s["authorized"]
         res = r.finish()
         assert res.answer_label == "VERIFIED" and res.stop_cause == "decided" and r.invariants_checked == ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8"]
+    with tempfile.TemporaryDirectory() as tmp:                                                          # (b) a pool where LAYA's top is a real failing edit: dry-run FAIL, chosen = the passing edit
+        r = _run(ScorePref([9.0, 5.0, 0.0]), tmp, name="b")
+        s = r.step([READ, WRONG, FIX])
+        assert s["laya_order"] == [0, 1, 2] and s["allowed_set"] == [0, 1, 2]
+        assert s["trusted"][2]["L5_dry_run"] == "pass" and s["trusted"][1]["L5_dry_run"] == "fail_nonblocking"
+        assert s["chosen_index"] == 2 and s["trusted_evidence_overrode_laya"] is True and s["laya_top_was_chosen"] is False
+        assert s["tests_pass"] and s["label"] == "VERIFIED" and s["authorized"]
+        res = r.finish()
+        assert res.answer_label == "VERIFIED" and res.stop_cause == "decided" and r.invariants_checked == ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8"]
+    from evidence_ladder.controller import pathb_stored as PB                                           # (c) PATH B: stored verified 4B scores, exact stored context, real sandbox
+    try:
+        live, backends, sysb = PB.load_stored_4b()
+        from evidence_ladder.controller.wsl_sandbox import available
+        if not available():
+            return
+    except PB.StoredCaptureMissing:
+        return
+    r, s = PB.run_exact_pool("ex1_slug:1", live, backends, sysb)
+    top = s["laya_order"][0]
+    assert s["checks"][top]["dry_run"]["status"] == "fail" and s["chosen_index"] != top and s["trusted_evidence_overrode_laya"] is True and s["laya_top_was_chosen"] is False
 
 
 def test_agentic_laya_orders_what_trusted_evidence_leaves_and_may_change_the_id_order_choice():

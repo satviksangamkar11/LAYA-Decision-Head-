@@ -33,6 +33,7 @@ class GlmConfig:
     stream: bool = True
     reasoning_params: Optional[Mapping[str, Any]] = None   # PENDING (FC-2): extra top-level payload fields that select maximum reasoning
     temperature: Optional[float] = None
+    include_usage: bool = True                  # [EL-ARCH-1 A3.1] a streamed answer carries NO usage unless stream_options.include_usage is requested (the 2026-10-17 live receipts had usage null -> estimated tokens)
     allowed_kinds: Tuple[str, ...] = STAGE1_KINDS             # experiment kinds the prompt offers AND the parser accepts (step E: experiments.SUPPORTED_KINDS)
 
 
@@ -112,7 +113,7 @@ def validate_request(req: Mapping[str, Any]) -> Dict[str, Any]:
 SYSTEM_PROMPT = ("You are a verification critic. You see requirements quoted from a task, candidate programs and their concrete outputs. "
                  "Propose ONE experiment (a stdin input or a function call) on which the candidates are expected to behave differently, or that challenges "
                  "a quoted requirement. Reply with a single JSON object and nothing else.")
-RESERVED = {"model", "messages", "stream", "max_tokens", "temperature"}
+RESERVED = {"model", "messages", "stream", "max_tokens", "temperature", "stream_options"}
 
 
 EXEC_SYSTEM_PROMPT = ("You are a verification critic. You see requirements quoted from a task, candidate programs and their concrete outputs. "
@@ -147,6 +148,8 @@ def build_payload(req: Mapping[str, Any], cfg: GlmConfig) -> Dict[str, Any]:
     payload: Dict[str, Any] = {"model": GLM_MODEL, "messages": build_messages(r, cfg.allowed_kinds), "stream": cfg.stream, "max_tokens": cfg.max_tokens}
     if cfg.temperature is not None:
         payload["temperature"] = cfg.temperature
+    if cfg.stream and cfg.include_usage:
+        payload["stream_options"] = {"include_usage": True}
     payload.update(dict(cfg.reasoning_params))
     return payload
 
