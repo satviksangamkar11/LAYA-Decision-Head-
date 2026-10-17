@@ -85,7 +85,7 @@ def t_T42_negative_tampered_ledgers_fail_reconciliation():
         (d / "responses.jsonl").write_text("", "utf-8")                              # responses lost
         assert not reconcile(d)["checks"]["ok_match"]["ok"]
         shutil.rmtree(d); d = _real_batch_copy(tmp)
-        (d / "progress.jsonl").write_text((d / "progress.jsonl").read_text("utf-8") + json.dumps({"event": "note", "text": "Authorization: " + "Bear" + "er " + "abcdefghijklmnop" + "qrstuvwxyz0123456789"}      # assembled at runtime: still key-shaped for reconcile, but no key-shaped literal in the source (secret scan)) + "\n", "utf-8")
+        (d / "progress.jsonl").write_text((d / "progress.jsonl").read_text("utf-8") + json.dumps({"event": "note", "text": "Authorization: " + "Bear" + "er " + "abcdefghijklmnop" + "qrstuvwxyz0123456789"}) + "\n", "utf-8")      # token assembled at runtime: key-shaped for reconcile, no key-shaped literal in the source (secret scan)
         r = reconcile(d)
         assert not r["checks"]["no_credentials"]["ok"] and "progress.jsonl" in r["checks"]["no_credentials"]["detail"]
         shutil.rmtree(d); d = _real_batch_copy(tmp)
