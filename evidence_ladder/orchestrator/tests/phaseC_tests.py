@@ -487,6 +487,21 @@ def c6_reports_state_that_the_development_cases_are_not_sealed():
     assert off == [], off      # no runtime / report code speaks of a sealed benchmark except to deny or to name the future step
 
 
+@test
+def c6_deep_check_does_not_walk_into_modules_classes_or_functions_but_still_flags_a_held_grader_class():
+    import os, stat
+    from evidence_ladder.execution.protected import ProtectedGrader
+
+    class Holder:
+        def __init__(self, mod, fn, cls):
+            self.mod, self.fn, self.cls = mod, fn, cls
+    ok = Holder(os, os.path.join, Holder)                       # os.stat.UF_HIDDEN / FILE_ATTRIBUTE_HIDDEN live below os: must NOT be flagged (Kaggle Python 3.13 regression)
+    assert hasattr(stat, "UF_HIDDEN") or hasattr(stat, "FILE_ATTRIBUTE_HIDDEN")
+    assert isolation.deep_context_check(ok) == []
+    bad = Holder(os, os.path.join, ProtectedGrader)             # the grader class itself IS flagged
+    assert any("ProtectedGrader" in f for f in isolation.deep_context_check(bad)), isolation.deep_context_check(bad)
+
+
 def main():
     failed = {}
     for f in TESTS:
@@ -500,3 +515,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

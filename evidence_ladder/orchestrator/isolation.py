@@ -9,6 +9,8 @@ the selection gate, not secrecy. Numbers from them are development evidence only
 from __future__ import annotations
 
 import ast
+import inspect
+import types
 from pathlib import Path
 from typing import Any, Dict, List, Set
 
@@ -63,6 +65,13 @@ def deep_context_check(ctx: Any, max_depth: int = 6) -> List[str]:
         if d > max_depth or id(o) in seen:
             return
         seen.add(id(o))
+        # modules, classes and functions are code, not data: following them walks the whole stdlib (Kaggle's Python reached os.stat.UF_HIDDEN via
+        # qwen -> dataclasses -> inspect -> os). A grader CLASS held directly is still flagged by name.
+        if isinstance(o, type) and o.__name__ in FORBIDDEN_TYPE_NAMES:
+            found.append("%s is the class %s.%s" % (path, o.__module__, o.__name__))
+            return
+        if isinstance(o, (types.ModuleType, type)) or inspect.isroutine(o):
+            return
         t = type(o)
         if t.__name__ in FORBIDDEN_TYPE_NAMES or t.__module__.endswith("execution.protected"):
             found.append("%s is a %s.%s" % (path, t.__module__, t.__name__))
