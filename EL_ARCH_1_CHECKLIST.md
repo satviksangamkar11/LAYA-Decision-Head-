@@ -34,8 +34,8 @@ Status: DONE / RUNNING / TODO / BLOCKED. Evidence = path + hash. Mocks never cou
 - [x] C5 report + budget gates (3 examples -> INSUFFICIENT_DATA, never PASS)
 - [x] C6 evaluation oracles inaccessible to runtime; dev cases not called sealed
 
-## Phase D: verify 3 examples (D-1 RUNNING: driver + hooks + bundles + conformance generator; D-2 = real runs after commit)
-- [ ] D1 commit reviewed source (scan 0) -> record hash
+## Phase D: verify 3 examples (D-1 DONE commit 39b4da05; D-2 RUNNING: rebuild bundles, Kaggle test kernel, Kaggle T4 rounds, then GLM step by coordinator)
+- [x] D1 commit reviewed source (scan 0) -> 39b4da05 (D-1 suites verified: 266 local)
 - [ ] D2 ex1/ex2/ex3 through the same 8-stage controller
 - [ ] D3 real Qwen proposals + real repair where needed (Kaggle T4)
 - [ ] D4 real local GLM response enters controller; safe experiment executed
