@@ -1,0 +1,108 @@
+{
+ "broker": {
+  "attempts_failed": 0,
+  "reason": "",
+  "state": "ok"
+ },
+ "critic_changed_label": false,
+ "critic_evidence_records": [
+  {
+   "check_id": "critic_experiment_v1",
+   "id": "E0008",
+   "independence": "model_derived",
+   "status": "unknown"
+  }
+ ],
+ "critic_stage": "applied",
+ "experiment_decision": {
+  "candidate_id": "8b00b46a28e55c20cd89b36847b7ad3c44b280eebebbb67af181328b18a338c3",
+  "command": "python3 test_clamp.py",
+  "executed": true,
+  "experiment": "python3 test_clamp.py",
+  "experiment_status": "unknown",
+  "kind": "command",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\nall tests passed\n",
+  "observed_sha256": "dca07ca09b2c2ade04bf8c74c78dc26879c77b2ef63b6ad20b1380e2d2079c3d",
+  "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "invariants_checked": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash_extension": "5d82c74c95892312fe499cd0cfa0b7e177d44cef839f650b25fb97fbc8486581",
+ "label_after": "VERIFIED",
+ "label_before_critic": "VERIFIED",
+ "original_receipts": {
+  "answer_label_original": "VERIFIED",
+  "critic_original_state": "unavailable (key system blocked), see E_critic_receipt.json",
+  "journal_hash_original": "120862b7f4442e5d9c5e4add3c6782af721c100d06443e8251fdbcf4cde6664d"
+ },
+ "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+ "parsed_critic_result": {
+  "experiment": {
+   "expected_by_candidate": {},
+   "kind": "command",
+   "payload": "python3 test_clamp.py"
+  },
+  "implications": "mock: the test command runs"
+ },
+ "send_response_ledger": [
+  {
+   "attempt": 1,
+   "event": "send",
+   "key_label": "key_2",
+   "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+   "seq": 3,
+   "ts": 1792220648.0767365
+  },
+  {
+   "attempt": 1,
+   "event": "result",
+   "http_status": 200,
+   "key_label": "key_2",
+   "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+   "raw": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "message": {
+       "content": "{\"experiment\": {\"kind\": \"command\", \"payload\": \"python3 test_clamp.py\", \"expected_by_candidate\": {}}, \"implications\": \"mock: the test command runs\"}",
+       "reasoning_content": "mock reasoning",
+       "role": "assistant"
+      }
+     }
+    ],
+    "usage": {
+     "completion_tokens": 400,
+     "prompt_tokens": 900
+    }
+   },
+   "seq": 5,
+   "timing": {
+    "end": 1792220648.0777357,
+    "seconds": 0.0,
+    "start": 1792220648.0777357
+   },
+   "ts": 1792220648.078735
+  },
+  {
+   "event": "ingested",
+   "key_label": "key_2",
+   "level": 2,
+   "packet_id": "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+   "seq": 6,
+   "state": "ok",
+   "ts": 1792220648.0807385
+  }
+ ],
+ "stop_cause": "decided"
+}

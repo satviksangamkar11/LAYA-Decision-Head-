@@ -1,0 +1,141 @@
+{
+ "broker": {
+  "attempts_failed": 1,
+  "reason": "",
+  "state": "ok"
+ },
+ "critic_changed_label": false,
+ "critic_evidence_records": [
+  {
+   "check_id": "critic_experiment_v1",
+   "id": "E0013",
+   "independence": "model_derived",
+   "status": "pass"
+  }
+ ],
+ "critic_stage": "applied",
+ "experiment_decision": {
+  "candidate_id": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from wc import count_words; print(repr(count_words(*['\"'\"'a  b'\"'\"'], **{})))'",
+  "executed": true,
+  "experiment": "count_words('a  b')",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n3\n",
+  "observed_sha256": "e744f2fbb9fc77137297a2a131a5dc5a4ba76d3a413b31656148aaa5004e8738",
+  "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "invariants_checked": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash_extension": "43aaf94b1658acb804f5c8370558b11b8ad0a4decaac45bdc46269f966bc0a8a",
+ "label_after": "BLOCKED",
+ "label_before_critic": "BLOCKED",
+ "original_receipts": {
+  "answer_label_original": "BLOCKED",
+  "critic_original_state": "unavailable (key system blocked), see E_critic_receipt.json",
+  "journal_hash_original": "42821c1cbebd0c8281cfefa77e58e76137f05b5a5b4075fc18f9c86d281b04c0"
+ },
+ "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+ "parsed_critic_result": {
+  "experiment": {
+   "expected_by_candidate": {
+    "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2": "3"
+   },
+   "kind": "function_call",
+   "payload": "count_words('a  b')"
+  },
+  "implications": "The candidate splits on a single space only, so 'a  b' (two spaces) yields ['a', '', 'b'] and the candidate should return 3. If it returns 3, this confirms the defect behind the failing harness run (count_words('') == 1 caused test_wc.py to exit 1): empty tokens between consecutive/leading/trailing separators are counted as words, so any whitespace-based word count is wrong; a correct implementation must return 2. If it instead returns 2, single-space handling is fine and the harness failure must come from a different edge case (e.g., empty string or newline/tab separators), warranting a probe like count_words('a\\nb')."
+ },
+ "send_response_ledger": [
+  {
+   "attempt": 1,
+   "event": "send",
+   "key_label": "key_1",
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "seq": 2,
+   "ts": 1792220712.5845408
+  },
+  {
+   "attempt": 1,
+   "event": "result",
+   "http_status": null,
+   "key_label": "key_1",
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "raw": {
+    "error": "timeout"
+   },
+   "seq": 9,
+   "timing": {
+    "end": 1792220832.7538486,
+    "seconds": 120.168,
+    "start": 1792220712.585542
+   },
+   "ts": 1792220832.7578533
+  },
+  {
+   "event": "ingested",
+   "key_label": "key_1",
+   "level": 2,
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "seq": 10,
+   "state": "retry",
+   "ts": 1792220832.758851
+  },
+  {
+   "attempt": 2,
+   "event": "send",
+   "key_label": "key_5",
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "seq": 12,
+   "ts": 1792220834.8240697
+  },
+  {
+   "attempt": 2,
+   "event": "result",
+   "http_status": 200,
+   "key_label": "key_5",
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "raw": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "message": {
+       "content": "{\"experiment\": {\"kind\": \"function_call\", \"payload\": \"count_words('a  b')\", \"expected_by_candidate\": {\"0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2\": \"3\"}}, \"implications\": \"The candidate splits on a single space only, so 'a  b' (two spaces) yields ['a', '', 'b'] and the candidate should return 3. If it returns 3, this confirms the defect behind the failing harness run (count_words('') == 1 caused test_wc.py to exit 1): empty tokens between consecutive/leading/trailing separators are counted as words, so any whitespace-based word count is wrong; a correct implementation must return 2. If it instead returns 2, single-space handling is fine and the harness failure must come from a different edge case (e.g., empty string or newline/tab separators), warranting a probe like count_words('a\\\\nb').\"}",
+       "reasoning_content": "The candidate's `count_words` uses `text.split(\" \")` instead of `text.split()`. The observed harness test already failed on empty string: `count_words(\"\")` returns 1 instead of 0. I need to propose ONE experiment that challenges a quoted requirement or exposes a defect.\n\nThe requirement quoted is \"python3 test_wc.py\" — running the test file. But I could also do a function_call to expose the defect more specifically. The defect: split(\" \") doesn't handle multiple consecutive spaces, newlines, tabs, or empty strings correctly. A classic word count should split on any whitespace.\n\nA good experiment: `count_words('hello   world')` — with three spaces between words. Correct word count should be 2, but the candidate returns 4 (since split(\" \") gives ['hello', '', '', 'world'] → len 4). Or `count_words(\"a\\nb\\tc\")` should be 3 but candidate returns 1.\n\nWhich is better? The harness test already failed on empty string. A function_call like `count_words('  ')` would return 3, expected 0. Or `count_words('one  two')` returns 3 expected 2.\n\nSince the requirement is \"python3 test_wc.py\" exits 0, but that already failed. The experiment should challenge a quoted requirement or expose a defect. A function_call with multiple spaces would expose the defect in word counting semantics (words separated by whitespace, not just single spaces).\n\nExpected by candidate: for `count_words('a  b')` → split(\" \") on 'a  b' gives ['a', '', 'b'] → len 3. A correct implementation would give 2. So expected_by_candidate could be \"3\" (what the candidate returns) — the schema says \"expected_by_candidate\": what the candidate expects/produces. I think it means what output the candidate would produce/expect. Let me phrase: expected_by_candidate: {\"0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2\": \"3\"}.\n\nImplications: if it returns 3, it shows the candidate counts empty strings between consecutive spaces as words, confirming the root cause of the test failure (split on single space instead of any whitespace); a correct wc should return 2. If it returns 2, the defect is limited to other whitespace cases.\n\nAlternatively, a command experiment: 'python3 test_wc.py' — but that's already shown. The instruction says command can be \"the exact test command already shown\" — but that would be redundant. A function_call is better.\n\nLet me pick `count_words('a  b')` — literal arguments only, strings allowed. Or `count_words('hello\\nworld')` → split(\" \") gives ['hello\\nworld'] → 1, correct is 2. Newline handling is a big defect for wc. Hmm, `count_words('a\\nb')` returns 1 but should be 2. That's also a strong defect.\n\nI'll go with multiple spaces since it's the most classic: `count_words('a  b')`.\n\nJSON:\n{\"experiment\": {\"kind\": \"function_call\", \"payload\": \"count_words('a  b')\", \"expected_by_candidate\": {\"0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2\": \"3\"}}, \"implications\": \"...\"}\n\nImplications: If the call returns 3 (as the candidate's split(' ') logic implies: ['a', '', 'b']), it confirms the defect that consecutive separators produce phantom empty words — the same root cause as count_words('') == 1 that made test_wc.py exit 1; a correct whitespace-based word count must return 2. If it returns 2 or raises, the counting semantics differ and the harness failure must stem from another edge case (e.g., empty input or newlines).",
+       "role": "assistant"
+      }
+     }
+    ],
+    "usage": {}
+   },
+   "seq": 16,
+   "timing": {
+    "end": 1792221021.1346056,
+    "seconds": 186.311,
+    "start": 1792220834.8240697
+   },
+   "ts": 1792221021.1346056
+  },
+  {
+   "event": "ingested",
+   "key_label": "key_5",
+   "level": 2,
+   "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+   "seq": 17,
+   "state": "ok",
+   "ts": 1792221021.1366057
+  }
+ ],
+ "stop_cause": "budget"
+}

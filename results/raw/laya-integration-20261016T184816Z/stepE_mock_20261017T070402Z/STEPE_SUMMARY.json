@@ -1,0 +1,125 @@
+{
+ "allowed_kinds": [
+  "function_call",
+  "command"
+ ],
+ "bundle": {
+  "count": 3,
+  "responses_sha256": "0050c2afe6df8b755b86882f999b9bc566987ed457a8be65cf34d3e70277c087",
+  "states": {
+   "ok": 3
+  },
+  "stop_all_critic_calls": false
+ },
+ "critic_changed_any_label": false,
+ "examples": {
+  "ex1_slug": {
+   "broker": {
+    "attempts_failed": 1,
+    "reason": "",
+    "state": "ok"
+   },
+   "critic_changed_label": false,
+   "critic_stage": "applied",
+   "experiment": "applied",
+   "invariants_checked": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "label_after": "BLOCKED",
+   "label_before_critic": "BLOCKED",
+   "reason": null
+  },
+  "ex2_clamp": {
+   "broker": {
+    "attempts_failed": 0,
+    "reason": "",
+    "state": "ok"
+   },
+   "critic_changed_label": false,
+   "critic_stage": "applied",
+   "experiment": "applied",
+   "invariants_checked": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "label_after": "VERIFIED",
+   "label_before_critic": "VERIFIED",
+   "reason": null
+  },
+  "ex3_wordcount": {
+   "broker": {
+    "attempts_failed": 0,
+    "reason": "",
+    "state": "ok"
+   },
+   "critic_changed_label": false,
+   "critic_stage": "rejected",
+   "experiment": "rejected",
+   "invariants_checked": [
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I7",
+    "I8"
+   ],
+   "label_after": "BLOCKED",
+   "label_before_critic": "BLOCKED",
+   "reason": "shell_metacharacter: character ';' is not allowed"
+  }
+ },
+ "initial_requests": 3,
+ "invariants_I1_I8_all_pass": true,
+ "mode": "mock",
+ "model": "z-ai/glm-5.3-flash",
+ "originals_sha256": {
+  "e2e_pass2/E2E_SUMMARY.json": "c391053e2e8fe50ba6522c78e6ca65f38765f1706e3a3fd2249b8cb86c86f62c",
+  "e2e_pass2/E_critic_receipt.json": "1da4a7e64b1ba7822009421c63cfb036df82cb486c34b1decd174f6873e3b906",
+  "e2e_pass2/run1/critic_ledger.jsonl": "9feef62749e843d0c2110f6bb9efcdd1e28cfab522dc5f9b650bddbe988f48b7",
+  "e2e_pass2/run1/ex1_slug/journal.json": "c7a04f0dde4d52b42ad8cf065fa367b7e04c0054fa213ee90558643622528d54",
+  "e2e_pass2/run1/ex1_slug/result.json": "504581cf69e449884e7e804ee1b776104c81e087096b700c2061ae0900ea842c",
+  "e2e_pass2/run1/ex1_slug/steps.json": "9cff210c43cf643f5f5b7df6443cf7f446ef62e3377a7a68a497c1ae57dba8b9",
+  "e2e_pass2/run1/ex2_clamp/journal.json": "817eff18f43293d3f13f066cf7884fe568c14cdff0944675cf446b4c5d50c34a",
+  "e2e_pass2/run1/ex2_clamp/result.json": "ae21bd6b27b3c73786e7a4054ef9fdbd5c8045db0ef0fd8a17abff991baf8d18",
+  "e2e_pass2/run1/ex2_clamp/steps.json": "29ff4e123f7dfa441c833a4f4f0701538a731e905c0834552c991f637c08860e",
+  "e2e_pass2/run1/ex3_wordcount/journal.json": "949e557c00e4cb402976c60c16e107c9e28a2457f525a9a52318f2861252dd8d",
+  "e2e_pass2/run1/ex3_wordcount/result.json": "d14214b8f8899f4452e2292fff9ede554a1ff01d11f81909d0e679acca48e2eb",
+  "e2e_pass2/run1/ex3_wordcount/steps.json": "687603754ecc8885c9bf7eab8f8f8de30b514f5ce435fd34af899d3afe143f4c"
+ },
+ "originals_unchanged": true,
+ "packets": [
+  "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+  "aad88f44d915c5e83af504d86b78eaf2a4753b369bd9e9fa4ebbfc014047cb80",
+  "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a"
+ ],
+ "reasoning": {
+  "reasoning_effort": "max"
+ },
+ "recovered": {},
+ "send_summary": {
+  "sent": 4,
+  "states": {
+   "ok": 3,
+   "retry": 1
+  },
+  "stopped": false
+ },
+ "sends_total": 4,
+ "stop_all_critic_calls": false,
+ "tag": "[LAYA-INT-1 · Aim: integration, not performance] STEP E"
+}

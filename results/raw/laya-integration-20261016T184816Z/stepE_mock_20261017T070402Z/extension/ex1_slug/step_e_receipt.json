@@ -1,0 +1,142 @@
+{
+ "broker": {
+  "attempts_failed": 1,
+  "reason": "",
+  "state": "ok"
+ },
+ "critic_changed_label": false,
+ "critic_evidence_records": [
+  {
+   "check_id": "critic_experiment_v1",
+   "id": "E0015",
+   "independence": "model_derived",
+   "status": "unknown"
+  }
+ ],
+ "critic_stage": "applied",
+ "experiment_decision": {
+  "candidate_id": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from slug import slugify; print(repr(slugify(*['\"'\"'  A--B  '\"'\"'], **{})))'",
+  "executed": true,
+  "experiment": "slugify(\"  A--B  \")",
+  "experiment_status": "unknown",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n'a-b'\n",
+  "observed_sha256": "c4f12fb351f050995e067c13db81e69767027875b527306c1f2872c81cd52cce",
+  "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "invariants_checked": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash_extension": "98e8c974a2a7c10a83c3031fde95362489ece248aad3532b9f3e931a95b87e2b",
+ "label_after": "BLOCKED",
+ "label_before_critic": "BLOCKED",
+ "original_receipts": {
+  "answer_label_original": "BLOCKED",
+  "critic_original_state": "unavailable (key system blocked), see E_critic_receipt.json",
+  "journal_hash_original": "411a972ac9f0b87cd7bce8179d291c32a373310ff0378bc0c7d03f261218b379"
+ },
+ "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+ "parsed_critic_result": {
+  "experiment": {
+   "expected_by_candidate": {},
+   "kind": "function_call",
+   "payload": "slugify(\"  A--B  \")"
+  },
+  "implications": "mock: a-b expected"
+ },
+ "send_response_ledger": [
+  {
+   "attempt": 1,
+   "event": "send",
+   "key_label": "key_3",
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "seq": 4,
+   "ts": 1792220648.0777357
+  },
+  {
+   "attempt": 1,
+   "event": "result",
+   "http_status": null,
+   "key_label": "key_3",
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "raw": {
+    "error": "mock transport failure"
+   },
+   "seq": 9,
+   "timing": {
+    "end": 1792220648.078735,
+    "seconds": 0.0,
+    "start": 1792220648.078735
+   },
+   "ts": 1792220648.0827384
+  },
+  {
+   "event": "ingested",
+   "key_label": "key_3",
+   "level": 2,
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "seq": 10,
+   "state": "retry",
+   "ts": 1792220648.0837386
+  },
+  {
+   "attempt": 2,
+   "event": "send",
+   "key_label": "key_1",
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "seq": 11,
+   "ts": 1792220650.0855393
+  },
+  {
+   "attempt": 2,
+   "event": "result",
+   "http_status": 200,
+   "key_label": "key_1",
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "raw": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "message": {
+       "content": "{\"experiment\": {\"kind\": \"function_call\", \"payload\": \"slugify(\\\"  A--B  \\\")\", \"expected_by_candidate\": {}}, \"implications\": \"mock: a-b expected\"}",
+       "reasoning_content": "mock reasoning",
+       "role": "assistant"
+      }
+     }
+    ],
+    "usage": {
+     "completion_tokens": 400,
+     "prompt_tokens": 900
+    }
+   },
+   "seq": 12,
+   "timing": {
+    "end": 1792220650.0865362,
+    "seconds": 0.0,
+    "start": 1792220650.0865362
+   },
+   "ts": 1792220650.0865362
+  },
+  {
+   "event": "ingested",
+   "key_label": "key_1",
+   "level": 2,
+   "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+   "seq": 13,
+   "state": "ok",
+   "ts": 1792220650.088537
+  }
+ ],
+ "stop_cause": "budget"
+}

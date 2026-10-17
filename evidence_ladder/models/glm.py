@@ -33,6 +33,7 @@ class GlmConfig:
     stream: bool = True
     reasoning_params: Optional[Mapping[str, Any]] = None   # PENDING (FC-2): extra top-level payload fields that select maximum reasoning
     temperature: Optional[float] = None
+    allowed_kinds: Tuple[str, ...] = STAGE1_KINDS             # experiment kinds the prompt offers AND the parser accepts (step E: experiments.SUPPORTED_KINDS)
 
 
 # ------------------------------------------------------------------ blinding
@@ -114,12 +115,23 @@ SYSTEM_PROMPT = ("You are a verification critic. You see requirements quoted fro
 RESERVED = {"model", "messages", "stream", "max_tokens", "temperature"}
 
 
-def build_messages(req: Mapping[str, Any]) -> List[Dict[str, str]]:
+EXEC_SYSTEM_PROMPT = ("You are a verification critic. You see requirements quoted from a task, candidate programs and their concrete outputs. "
+                      "Propose ONE experiment that the sandbox can run on the candidate and that challenges a quoted requirement or exposes a defect. "
+                      "Reply with a single JSON object and nothing else.")
+
+
+def build_messages(req: Mapping[str, Any], kinds: Tuple[str, ...] = STAGE1_KINDS) -> List[Dict[str, str]]:
     parts = ["Question type: " + req["question"], "", "Requirements (verbatim quotes):"]
     parts += ["%d. %s" % (i + 1, q) for i, q in enumerate(req["requirement_quotes"])]
     for cid in req["candidate_ids"]:
         parts += ["", "### candidate " + cid, "```", req["candidate_code"][cid], "```"]
-    parts += ["", "Observed outputs (JSON):", json.dumps(req["observed_outputs"], sort_keys=True, indent=2, ensure_ascii=False), "",
+    parts += ["", "Observed outputs (JSON):", json.dumps(req["observed_outputs"], sort_keys=True, indent=2, ensure_ascii=False), ""]
+    if tuple(kinds) != STAGE1_KINDS:      # step E: the prompt offers exactly the kinds the controller executor supports (evidence_ladder.models.experiments)
+        from evidence_ladder.models import experiments as EXP
+        parts += ["Allowed experiment kinds (payload is a string):"] + ["- %s: %s" % (k, EXP.PAYLOAD_HELP[k]) for k in kinds] + [
+            'Reply with ONLY: {"experiment": {"kind": %s, "payload": "<string>", "expected_by_candidate": {"<candidate_id>": "<expected output>"}}, "implications": "<what each outcome would show>"}' % " or ".join('"%s"' % k for k in kinds)]
+        return [{"role": "system", "content": EXEC_SYSTEM_PROMPT}, {"role": "user", "content": "\n".join(parts)}]
+    parts += [
               'Reply with ONLY: {"experiment": {"kind": "stdin_input" or "function_call", "payload": "<string>", '
               '"expected_by_candidate": {"<candidate_id>": "<expected output>"}}, "implications": "<what each outcome would show>"}']
     return [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": "\n".join(parts)}]
@@ -132,7 +144,7 @@ def build_payload(req: Mapping[str, Any], cfg: GlmConfig) -> Dict[str, Any]:
     if clash:
         raise ConfigError("reasoning_params may not override %s" % sorted(clash))
     r = validate_request(req)
-    payload: Dict[str, Any] = {"model": GLM_MODEL, "messages": build_messages(r), "stream": cfg.stream, "max_tokens": cfg.max_tokens}
+    payload: Dict[str, Any] = {"model": GLM_MODEL, "messages": build_messages(r, cfg.allowed_kinds), "stream": cfg.stream, "max_tokens": cfg.max_tokens}
     if cfg.temperature is not None:
         payload["temperature"] = cfg.temperature
     payload.update(dict(cfg.reasoning_params))

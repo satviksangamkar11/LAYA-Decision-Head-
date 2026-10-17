@@ -28,6 +28,7 @@ from typing import Any, Callable, Dict, List, Optional, Sequence
 
 from evidence_ladder.common.contract_import import C
 from evidence_ladder.common.interfaces import ProblemResult
+from evidence_ladder.models import experiments as EXP
 from . import router as router_mod
 from .decision import authorize, decide_stage1
 from .evidence import Factory, trim
@@ -112,6 +113,7 @@ class AgenticRun:
         self.steps: List[Dict[str, Any]] = []
         self.entries: List[Dict[str, Any]] = []
         self.step_no = 0
+        self.critic_result: Optional[Dict[str, Any]] = None
         self.decided = False
         self.last_state: Optional[str] = None
         self.env = "env-" + C.sha256(canon({"sandbox": "wsl-bwrap-systemd", "test_cmd": task.test_cmd, "protected": task.protected}))[:12]
@@ -336,25 +338,33 @@ class AgenticRun:
         pid = packet["packet_id"]
         raw = self.ctx.critic.completed(pid)
         if raw is None:
-            self.note("critic", {"state": "pending", "packet_id": pid}); return "pending"
+            term = getattr(self.ctx.critic, "terminal_state", lambda _p: None)(pid)
+            if term is None:
+                self.note("critic", {"state": "pending", "packet_id": pid}); self.critic_result = {"state": "pending", "packet_id": pid}; return "pending"
+            why = str((getattr(self.ctx.critic, "packets", {}).get(pid) or {}).get("reason", ""))      # e.g. malformed/unsupported_kind: rejected EXPLICITLY, never dropped
+            st = "rejected" if term == "malformed" else "unavailable"
+            self.critic_result = {"state": st, "packet_id": pid, "executed": False, "reason": term + ":" + why, "label_unchanged_by_critic": True}
+            self.note("critic", dict(self.critic_result)); return st
         resp = raw.get("response") if isinstance(raw, dict) and "response" in raw and "experiment" not in raw else raw
         exp = (resp or {}).get("experiment") or {}
+        try:
+            plan = EXP.plan(exp, self.task.workspace, self.task.protected, self.task.test_cmd)
+        except EXP.Rejected as rj:
+            self.critic_result = {"state": "rejected", "packet_id": pid, "executed": False, "kind": exp.get("kind"), "reason": "%s: %s" % (rj.code, rj.detail), "reason_code": rj.code,
+                                  "payload_sha256": sha(str(exp.get("payload", ""))), "label_unchanged_by_critic": True}
+            self.note("critic", dict(self.critic_result)); return "rejected"
         scratch = Path(tempfile.mkdtemp(prefix="agentic-critic-")) / "ws"
         shutil.copytree(self.task.workspace, scratch)
         try:
-            if exp.get("kind") == "command":
-                r = self._run(scratch, exp["payload"])
-                observed = ("exit %d%s%s%s" % (r["exit_code"], chr(10), r["stdout"], r["stderr"]))[-600:]
-                want = (exp.get("expected_by_candidate") or {}).get(self.last_state)
-                st = "unknown" if want is None else ("pass" if want.strip() in observed else "fail")
-            else:
-                observed, st = "experiment kind %r is not run in per-action mode" % exp.get("kind"), "unknown"
+            r = self._run(scratch, plan["cmd"])
         finally:
             shutil.rmtree(scratch.parent, ignore_errors=True)
+        st, observed = EXP.judge((exp.get("expected_by_candidate") or {}).get(self.last_state), r)
         self._evidence(self.last_state, "R1", "critic_experiment_v1", "critic_experiment", "model_derived", st, "critic experiment on a scratch copy of the end state (diagnostic)",
                        {"check_id": "critic_experiment_v1", "status": st, "observed": observed, "detail": str((resp or {}).get("implications", ""))[:300]})
-        self.note("critic", {"state": "applied", "candidate_id": self.last_state, "packet_id": pid, "experiment_status": st, "observed_sha256": sha(observed),
-                             "label_unchanged_by_critic": True})
+        self.critic_result = {"state": "applied", "candidate_id": self.last_state, "packet_id": pid, "executed": True, "kind": plan["kind"], "experiment": plan["display"], "command": plan["cmd"],
+                              "experiment_status": st, "observed": observed, "observed_sha256": sha(observed), "protected_unchanged": r["protected_unchanged"], "label_unchanged_by_critic": True}
+        self.note("critic", {k: v for k, v in self.critic_result.items() if k not in ("observed", "command")})
         return "applied"
 
     # ------------------------------------------------------------------ finish

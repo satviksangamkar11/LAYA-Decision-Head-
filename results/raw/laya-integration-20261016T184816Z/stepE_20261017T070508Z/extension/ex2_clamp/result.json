@@ -1,0 +1,29 @@
+{
+ "answer_label": "VERIFIED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 59.199999999999996,
+  "problem_id": "ex2_clamp",
+  "qwen_gen_tokens": 114,
+  "qwen_prefill_tokens": 403,
+  "scorer_calls": 1,
+  "tool_runs": 4,
+  "wall_seconds": 0.0
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "f9504f8e3c6e260a26b048fd512aaa7ef2fb1c4659b8d5fc8b4a36198aaf4630",
+ "stop_cause": "decided"
+}

@@ -1,0 +1,29 @@
+{
+ "answer_label": "BLOCKED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 152.9,
+  "problem_id": "ex3_wordcount",
+  "qwen_gen_tokens": 1400,
+  "qwen_prefill_tokens": 926,
+  "scorer_calls": 2,
+  "tool_runs": 4,
+  "wall_seconds": 0.0
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "43aaf94b1658acb804f5c8370558b11b8ad0a4decaac45bdc46269f966bc0a8a",
+ "stop_cause": "budget"
+}

@@ -75,9 +75,10 @@ class ProgressLedger:
 
 class BatchRunner:
     def __init__(self, packets_dir, out_dir, transport, key_labels: Sequence[str], concurrency: Dict[str, Any], *, clock: Callable[[], float] = time.time,
-                 sleep: Callable[[float], None] = time.sleep, executor=None, max_retries: int = 3, poll_s: float = 0.05):
+                 sleep: Callable[[float], None] = time.sleep, executor=None, max_retries: int = 3, poll_s: float = 0.05, glm_config=None):
         self.packets_dir, self.out, self.transport, self.labels, self.cc = Path(packets_dir), Path(out_dir), transport, list(key_labels), concurrency
         self.clock, self.sleep, self.executor, self.max_retries, self.poll_s = clock, sleep, executor, max_retries, poll_s
+        self.glm_config = glm_config            # None = the Stage-1 default (reasoning max, STAGE1_KINDS)
         self.rejected: List[Dict[str, Any]] = []
         self.accepted: List[str] = []
         self.sched = None
@@ -115,7 +116,7 @@ class BatchRunner:
         accepted, self.rejected = V.read_packets(self.packets_dir)
         (self.out / "rejected.json").write_text(json.dumps(self.rejected, indent=1, sort_keys=True), encoding="utf-8")
         self.ledger = ProgressLedger(self.out / "progress.jsonl", self.clock)
-        self.broker = StagedCriticBroker(self.out / "broker_ledger.jsonl", config=glm.GlmConfig(reasoning_params=REASONING), max_retries=self.max_retries, clock=self.clock)
+        self.broker = StagedCriticBroker(self.out / "broker_ledger.jsonl", config=self.glm_config or glm.GlmConfig(reasoning_params=REASONING), max_retries=self.max_retries, clock=self.clock)
         if self.broker.stop_all_critic_calls:                  # an earlier run hit 402/quota: nothing new may be built or sent
             self.accepted = sorted(pid for pid, _ in accepted if pid in self.broker.packets)
         else:

@@ -184,7 +184,7 @@ class StagedCriticBroker:
             self._emit({"event": "duplicate_ingest", "packet_id": packet_id, "http_status": http_status})
             return {"state": "duplicate", "response": p["response"], "reason": "already_" + p["state"]}
         kind, reason = self._classify(http_status, raw_response)
-        parsed = glm.parse_critic_output(raw_response) if kind == "ok" else None
+        parsed = glm.parse_critic_output(raw_response, tuple(self.cfg.allowed_kinds)) if kind == "ok" else None
         state, response, stop = None, None, False
         attempts, not_before, backoff, ra = p["attempts"], 0.0, None, retry_after_s(raw_response)
         tin = tout = 0

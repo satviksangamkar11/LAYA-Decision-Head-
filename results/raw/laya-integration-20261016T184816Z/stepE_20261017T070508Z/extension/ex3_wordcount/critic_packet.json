@@ -1,0 +1,29 @@
+{
+ "packet_id": "28c9a3f28770dac5534ef069fffcb47fa55b22adbb75397efd58658a273bb38a",
+ "request": {
+  "candidate_code": {
+   "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2": "### wc.py\ndef count_words(text):\n    return len(text.split(\" \"))\n"
+  },
+  "candidate_ids": [
+   "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2"
+  ],
+  "decision_id": "d-crit-bc4a14966c6b6dc2",
+  "model": "z-ai/glm-5.3-flash",
+  "observed_outputs": {
+   "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2": [
+    {
+     "check_id": "task_tests",
+     "input": "python3 test_wc.py",
+     "observed": "Harness test run (`python3 test_wc.py`): exit 1\nTraceback (most recent call last):\n  File \"/work/test_wc.py\", line 5, in <module>\n    assert count_words(\"\") == 0, count_words(\"\")\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1\n",
+     "public_expected": "exit 0",
+     "status": "fail"
+    }
+   ]
+  },
+  "question": "challenge_requirement",
+  "request_id": "crit-bc4a14966c6b6dc2",
+  "requirement_quotes": [
+   "python3 test_wc.py"
+  ]
+ }
+}

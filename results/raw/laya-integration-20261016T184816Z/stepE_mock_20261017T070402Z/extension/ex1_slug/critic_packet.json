@@ -1,0 +1,29 @@
+{
+ "packet_id": "e36368a4fd1fd163d5d6c7654be4487747b35b2033c40bc0953c43a815ef212a",
+ "request": {
+  "candidate_code": {
+   "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8": "### slug.py\nimport re\n\n\ndef slugify(text):\n    text = text.strip().lower()\n    return re.sub(r\"[^a-z0-9]+\", \"-\", text)\n"
+  },
+  "candidate_ids": [
+   "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8"
+  ],
+  "decision_id": "d-crit-0833a4c344e6d010",
+  "model": "z-ai/glm-5.3-flash",
+  "observed_outputs": {
+   "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8": [
+    {
+     "check_id": "task_tests",
+     "input": "python3 test_slug.py",
+     "observed": "Harness test run (`python3 test_slug.py`): exit 1\nTraceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+     "public_expected": "exit 0",
+     "status": "fail"
+    }
+   ]
+  },
+  "question": "challenge_requirement",
+  "request_id": "crit-0833a4c344e6d010",
+  "requirement_quotes": [
+   "python3 test_slug.py"
+  ]
+ }
+}
