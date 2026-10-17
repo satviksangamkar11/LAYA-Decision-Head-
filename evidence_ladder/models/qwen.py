@@ -198,6 +198,15 @@ class SnapshotMismatch(RuntimeError):
     """[EL-ARCH-1 B3] a mounted model file does not match its pinned sha256."""
 
 
+# [lowthink] Qwen's documented way to cut thinking short ("thinking budget"): after the budget, close the think block with this text and let the model answer.
+FORCE_CLOSE = "\n\nConsidering the limited time, I have to give the solution based on the thinking directly now.\n</think>\n\n"
+
+
+def budget_needs_force(phase1_text: str) -> bool:
+    """True when phase 1 ended without a closed think block (the budget ran out), so FORCE_CLOSE must be appended before the answer is written."""
+    return "</think>" not in phase1_text
+
+
 class HFQwenBackend:
     """Real Qwen3-4B-Thinking-2507 generation (fp16, thinking mode, T=0.6 top_p=0.95 top_k=20). Runs only on Kaggle.
     Gate (checked in __init__ and again in generate): authorized is True, path /kaggle exists, env EVIDENCE_LADDER_ALLOW_INFERENCE == "1".
@@ -209,7 +218,10 @@ class HFQwenBackend:
 
     def __init__(self, *, authorized: bool = False, model_dir: Optional[str] = None, log_path: Optional[str] = None, language: str = "python",
                  env: Optional[Mapping[str, str]] = None, path_exists=os.path.exists, verify_files: Optional[Mapping[str, str]] = None,
-                 profile: Optional[BB.Profile] = None, local: bool = False):
+                 profile: Optional[BB.Profile] = None, local: bool = False, think_budget: Optional[int] = None, answer_tokens: int = 700):
+        if think_budget is not None and (not isinstance(think_budget, int) or think_budget < 64 or answer_tokens < 64):
+            raise ValueError("think_budget and answer_tokens must be integers >= 64 (or think_budget None = unchanged unlimited thinking)")
+        self.think_budget, self.answer_tokens = think_budget, int(answer_tokens)      # [lowthink] None = the frozen behaviour; N = think at most N tokens, then force </think> and write the answer
         self.profile = profile or _P4
         self.local = local is True          # local run on the PC (explicit; the /kaggle requirement is lifted for it only)
         self._authorized = authorized is True
@@ -234,7 +246,8 @@ class HFQwenBackend:
     def model_info(self) -> Dict[str, Any]:
         p = self.profile
         return {"backend": "hf", "repo": p.repo, "revision": p.revision, "dtype": "fp16", "thinking": True, "enable_thinking": p.enable_thinking, "generation": dict(p.generation), "sampling": dict(SAMPLING),
-                "profile_id": p.id, "profile_sha256": p.sha256, "local": self.local, "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files)}
+                "profile_id": p.id, "profile_sha256": p.sha256, "local": self.local, "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files),
+                **({"think_budget": self.think_budget, "answer_tokens": self.answer_tokens, "force_close_text_sha256": sha256_text(FORCE_CLOSE)} if self.think_budget else {})}
 
     def _verify_snapshot(self) -> None:
         import hashlib
@@ -269,10 +282,35 @@ class HFQwenBackend:
         stops = sorted(i for i in {tok.convert_tokens_to_ids("<|im_end|>"), tok.eos_token_id} if isinstance(i, int) and i >= 0)
         t0 = time.time()
         gen = dict(self.profile.generation)
+        if self.think_budget:
+            return self._generate_budgeted(torch, model, tok, request, seed, prompt_sha, lang, enc, n_prompt, stops, gen, t0)
         with torch.no_grad():
             ids = model.generate(**enc, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, eos_token_id=stops, **gen)
         new = ids[0, n_prompt:]
         return make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
+                               prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0,
+                               model=self.profile.repo, model_revision=self.profile.revision)
+
+    def _generate_budgeted(self, torch, model, tok, request, seed, prompt_sha, lang, enc, n_prompt, stops, gen, t0) -> Generation:
+        """[lowthink] Phase 1: think until </think> or `think_budget` tokens. If the budget ran out, append FORCE_CLOSE (which closes the think block). Phase 2: write the answer (<= answer_tokens).
+        The returned text is phase 1 + forcing text + phase 2, so the unchanged strict parser sees a normally closed think block; tokens_generated counts all three parts."""
+        close_id = tok.convert_tokens_to_ids("</think>")
+        stops1 = sorted(set(stops) | ({close_id} if isinstance(close_id, int) and close_id >= 0 else set()))
+        with torch.no_grad():
+            ids1 = model.generate(**enc, max_new_tokens=min(self.think_budget, request.max_new_tokens), pad_token_id=tok.eos_token_id, eos_token_id=stops1, **gen)
+        new1 = ids1[0, n_prompt:]
+        text1 = tok.decode(new1, skip_special_tokens=True)
+        force = budget_needs_force(text1)
+        parts = [new1]
+        if force:
+            parts.append(torch.tensor(tok.encode(FORCE_CLOSE, add_special_tokens=False), dtype=new1.dtype, device=new1.device))
+        ctx = torch.cat([ids1[0, :n_prompt]] + parts).unsqueeze(0)
+        with torch.no_grad():
+            ids2 = model.generate(input_ids=ctx, attention_mask=torch.ones_like(ctx), max_new_tokens=min(self.answer_tokens, max(64, request.max_new_tokens - sum(int(x.shape[0]) for x in parts))),
+                                  pad_token_id=tok.eos_token_id, eos_token_id=stops, **gen)
+        new2 = ids2[0, ctx.shape[1]:]
+        full = torch.cat(parts + [new2])
+        return make_generation(tok.decode(full, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(full.shape[0]), seed=seed,
                                prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0,
                                model=self.profile.repo, model_revision=self.profile.revision)
 

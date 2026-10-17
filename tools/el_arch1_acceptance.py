@@ -374,12 +374,15 @@ class Acceptance:
         if self.local:
             self.run_worker("gen", rnd, {"jobs": jobs, "profile": self.gen_profile.id}, self.kin / ("round%d" % rnd) / "gen"); return
         req = {"authorized": True, "jobs": jobs}
-        tmpl = (self.bundle / "kernels/el_arch1_generate_v1.py").read_text("utf-8")
+        lt = getattr(self, "think_budget", None)
+        gslug, gfile = ("el-arch1-generate-lowthink-v1", "el_arch1_generate_lowthink_v1.py") if lt else ("el-arch1-generate-v1", "el_arch1_generate_v1.py")
+        if lt: req.update(think_budget=int(lt), answer_tokens=700)       # [lowthink] think at most N tokens, force </think>, then answer; recorded in the kernel RUN_SUMMARY
+        tmpl = (self.bundle / ("kernels/" + gfile)).read_text("utf-8")
         assert "__GEN_REQUEST_JSON__" in tmpl and "'''" not in json.dumps(req)
-        write_over(h / "el_arch1_generate_v1.py", tmpl.replace("__GEN_REQUEST_JSON__", json.dumps(req, ensure_ascii=False)))
-        write_over(h / "kernel-metadata.json", json.dumps(self.kernel_meta("el-arch1-generate-v1", "el_arch1_generate_v1.py"), indent=1))
-        write_over(h / "WAITING.txt", "round %d: push this kernel, wait for COMPLETE, then:\n  kaggle kernels output %s/el-arch1-generate-v1 -p \"%s\"\nthen re-run the driver.\n"
-                   % (rnd, OWNER, (self.kin / ("round%d" % rnd) / "gen")))
+        write_over(h / gfile, tmpl.replace("__GEN_REQUEST_JSON__", json.dumps(req, ensure_ascii=False)))
+        write_over(h / "kernel-metadata.json", json.dumps(self.kernel_meta(gslug, gfile), indent=1))
+        write_over(h / "WAITING.txt", "round %d: push this kernel, wait for COMPLETE, then:\n  kaggle kernels output %s/%s -p \"%s\"\nthen re-run the driver.\n"
+                   % (rnd, OWNER, gslug, (self.kin / ("round%d" % rnd) / "gen")))
         raise NeedKaggle("gen", rnd)
 
     def kernel_meta(self, slug: str, code: str) -> Dict[str, Any]:
@@ -880,6 +883,7 @@ def main(argv=None) -> int:
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--offline-rehearsal", action="store_true"); g.add_argument("--final", action="store_true")
     ap.add_argument("--bundle"); ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--think-budget", type=int, help="Kaggle generation with a thinking budget of N tokens (kernel el-arch1-generate-lowthink-v1): think <= N, force </think>, then answer; default none = unchanged")
     ap.add_argument("--backbone", help="backbone profile id for the generating model (configs/backbones_v1.toml); only with --mode local")
     ap.add_argument("--mode", choices=["kaggle", "local", "replay4b"], default="kaggle")
     ap.add_argument("--variants-only", action="store_true", help="run the fault-injection variants (all bases, real controller + WSL sandbox, scripted model text) into <out>/VARIANTS_SUMMARY.json and exit")
@@ -901,7 +905,9 @@ def main(argv=None) -> int:
     if a.backbone: ap.error("--backbone is used with --mode local")
     if not (a.final or a.offline_rehearsal): ap.error("one of --offline-rehearsal / --final / --mode local is required")
     if a.final and not a.bundle: ap.error("--final needs --bundle <results/raw/el-arch1-bundle-*>")
-    return Acceptance(Path(a.out), final=a.final, bundle=a.bundle, allow_dirty=a.allow_dirty).run()
+    acc = Acceptance(Path(a.out), final=a.final, bundle=a.bundle, allow_dirty=a.allow_dirty)
+    acc.think_budget = a.think_budget      # None = the unchanged generation kernel
+    return acc.run()
 
 
 if __name__ == "__main__":

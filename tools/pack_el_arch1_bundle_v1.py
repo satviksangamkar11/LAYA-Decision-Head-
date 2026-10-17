@@ -93,6 +93,9 @@ def build(base: Path, out_root: Path, repo: Path = ROOT, utc: str = None) -> Pat
     gen = (repo / "kaggle/el_arch1_generate_v1.py").read_text("utf-8")
     assert "__GEN_REQUEST_JSON__" in gen and BUNDLE_ID in gen
     (kn / "el_arch1_generate_v1.py").write_text(gen, "utf-8")
+    low = (repo / "kaggle/el_arch1_generate_lowthink_v1.py").read_text("utf-8")      # [lowthink] same kernel + a thinking budget (new versioned template; v1 untouched)
+    assert "__GEN_REQUEST_JSON__" in low and BUNDLE_ID in low and "think_budget" in low
+    (kn / "el_arch1_generate_lowthink_v1.py").write_text(low, "utf-8")
     score = patch_score_kernel((repo / "kaggle/evidence_ladder_laya_t6_step_v1.py").read_text("utf-8"))
     assert "__STEP_REQUEST_JSON__" in score and BUNDLE_ID in score and OLD_BUNDLE_ID not in score
     (kn / "el_arch1_score_v1.py").write_text(score, "utf-8")
@@ -101,7 +104,7 @@ def build(base: Path, out_root: Path, repo: Path = ROOT, utc: str = None) -> Pat
             "# the acceptance driver writes the per-round kernel directories (handoff/round<k>/...) and prints the exact push/output commands; kernels: el-arch1-generate-v1, el-arch1-score-live-v1, el-arch1-score-verify-v1"]
     (out / "PUSH_COMMANDS.txt").write_text("\n".join(cmds) + "\n", "utf-8")
     (out / "PACK_REPORT.json").write_text(json.dumps({"out": str(out), "files": len(files), "bytes": sum((ds / f).stat().st_size for f in files), "bundle_manifest_sha256": sha_file(ds / "BUNDLE_MANIFEST.json"),
-                                                      "score_kernel_sha256": sha_file(kn / "el_arch1_score_v1.py"), "gen_kernel_sha256": sha_file(kn / "el_arch1_generate_v1.py")}, indent=1), "utf-8")
+                                                      "score_kernel_sha256": sha_file(kn / "el_arch1_score_v1.py"), "gen_kernel_sha256": sha_file(kn / "el_arch1_generate_v1.py"), "gen_lowthink_kernel_sha256": sha_file(kn / "el_arch1_generate_lowthink_v1.py")}, indent=1), "utf-8")
     return out
 
 

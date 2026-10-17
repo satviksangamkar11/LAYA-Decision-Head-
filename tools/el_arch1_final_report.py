@@ -32,7 +32,7 @@ MIN_EXAMPLES_FOR_STATISTICS = 30
 VERDICTS = ("PASS", "FAIL", "NOT_APPLICABLE", "INSUFFICIENT_DATA")
 TEST_FILES = ["evidence_ladder/controller/tests/phase%s_tests.py" % x for x in ("A", "B", "D1", "F1", "F1b", "F2")] + [
     "evidence_ladder/orchestrator/tests/phaseC_tests.py", "evidence_ladder/orchestrator/tests/phaseF3_tests.py", "evidence_ladder/critic_batch/tests/stepE_tests.py",
-    "evidence_ladder/critic_batch/tests/run_tests.py", "evidence_ladder/models/tests/run_tests.py", "evidence_ladder/models/tests/backbone_tests.py", "evidence_ladder/models/tests/laya_integration_tests.py",
+    "evidence_ladder/critic_batch/tests/run_tests.py", "evidence_ladder/models/tests/run_tests.py", "evidence_ladder/models/tests/backbone_tests.py", "evidence_ladder/models/tests/lowthink_tests.py", "evidence_ladder/models/tests/laya_integration_tests.py",
     "evidence_ladder/controller/tests/run_tests.py", "evidence_ladder/orchestrator/tests/run_tests.py", "evidence_ladder/controller/tests/phaseF1b_tests.py"]
 ROWMAP_FILES = ("EL_ARCH_ROWMAP_A1.json", "EL_ARCH_ROWMAP_A2.json")
 # Conformance rows whose failure CONTRADICTS a requirement (a safety / integrity / replay / budget check that ran and failed). Any other failed receipt check is a POSITIVE path the final-path receipts did not
