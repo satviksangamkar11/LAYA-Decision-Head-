@@ -268,7 +268,7 @@ def run_task(name: str, key: str, gen, exe, critic, out: Path, cfg: Dict[str, An
 
 
 def run_harness(out: Path, gen, exe, critic=None, *, final: bool, profile_id: str = BACKBONE, critic_responses: Optional[Dict[str, Any]] = None,
-                critic_note: Optional[str] = None, tasks: Optional[Dict[str, Any]] = None, examples: Sequence[Tuple[str, str]] = tuple(EXAMPLES)) -> Dict[str, Any]:
+                critic_note: Optional[str] = None, tasks: Optional[Dict[str, Any]] = None, examples: Sequence[Tuple[str, str]] = tuple(EXAMPLES), critic_factory=None) -> Dict[str, Any]:
     out = Path(out)
     if out.exists():
         raise FileExistsError("output dir exists (create-only): %s" % out)
@@ -277,6 +277,8 @@ def run_harness(out: Path, gen, exe, critic=None, *, final: bool, profile_id: st
     if final and hasattr(gen, "generate"):
         assert_real_backend(gen, profile_id)        # refuse a stub BEFORE anything is written
     out.mkdir(parents=True)
+    if critic_factory is not None:                  # built AFTER the create-only check: the staged broker creates out/glm/... in its constructor
+        critic, critic_note = critic_factory(out)
     if not hasattr(gen, "generate"):
         gen = gen(out)                              # factory: the real backend writes its generation log inside out/
     ident = assert_real_backend(gen, profile_id) if final else {"backend": "STUB", "label": "LOGIC_ONLY_STUB", "info": getattr(gen, "model_info", lambda: {})()}
@@ -310,8 +312,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if not available():
         ap.error("the WSL sandbox does not answer; refusing to run candidates anywhere else")
     resp = json.loads(Path(a.critic_responses).read_text("utf-8")) if a.critic_responses else None
-    critic, note = make_critic(out)
-    rec = run_harness(out, lambda o: build_real_backend(a.backbone, o), WslFunctionExec(out / "_work"), critic, final=True, profile_id=a.backbone, critic_responses=resp, critic_note=note)
+    rec = run_harness(out, lambda o: build_real_backend(a.backbone, o), WslFunctionExec(out / "_work"), None, final=True, profile_id=a.backbone, critic_responses=resp, critic_factory=make_critic)
     print(json.dumps(rec["summary"], indent=1))
     return 0
 
