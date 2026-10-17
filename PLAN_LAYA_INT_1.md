@@ -71,3 +71,6 @@ Freeze LAYA-INT-1 only when T1-T7 pass with these three addressed. No new genera
 
 ## Handoff
 HANDOFF_2026_10_17_LAYA_INT_1.md written 2026-10-17 (full state, decisions, audit blockers, next steps). LAYA-INT-1: smoke PASS; full integration PENDING; performance NOT TESTED.
+
+## Freeze
+LAYA-INT-1 frozen: FREEZE_LAYA_INT_1.md. Next milestone: PLAN_EL_ARCH_COMPLETION_1.md (EL-ARCH-1), not started.
