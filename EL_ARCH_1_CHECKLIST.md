@@ -16,17 +16,17 @@ Status: DONE / RUNNING / TODO / BLOCKED. Evidence = path + hash. Mocks never cou
 - [x] A5 I1-I8 real; missing component fails loudly
 - [x] Existing suites stay green; coordinator verified (phaseA 16, controller 25, critic_batch 28, stepE 12, models 30, orchestrator 25 local; laya_integration 24/25 locally: needs T4_scores.json, to be run on Kaggle)
 
-## Phase B: controller (RUNNING; owner: controller/*, models/qwen.py)
-- [ ] B1 real O1/O2/O3 routing
-- [ ] B2 deterministic investigate stage (inspect source, run tests, locate failure)
-- [ ] B3 Qwen generation interface + frozen prompt strategies in controller
-- [ ] B4 LAYA on correctly captured Qwen states
-- [ ] B5 fixed action-risk table + authorization + WSL sandbox
-- [ ] B6 validated model-written checks (L2), behavioural discrimination, repair from observed failures
-- [ ] B7 final verification of actual end state
-- [ ] B8 every step journals inputs, decision, evidence, action, outcome
+## Phase B: controller (DONE, commit 37422e98; owner: controller/*, models/qwen.py)
+- [x] B1 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) real O1/O2/O3 routing
+- [x] B2 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) deterministic investigate stage (inspect source, run tests, locate failure)
+- [x] B3 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) Qwen generation interface + frozen prompt strategies in controller
+- [x] B4 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) LAYA on correctly captured Qwen states
+- [x] B5 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) fixed action-risk table + authorization + WSL sandbox
+- [x] B6 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) validated model-written checks (L2), behavioural discrimination, repair from observed failures
+- [x] B7 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) final verification of actual end state
+- [x] B8 (LOGIC-ONLY for Qwen/LAYA/GLM; sandbox+controller real in tests) every step journals inputs, decision, evidence, action, outcome
 
-## Phase C: supporting (DONE, logic-only, commit see log; owner: orchestrator/*, new models/probe+gate files, next_action.py)
+## Phase C: supporting (DONE, logic-only, commit 0325f59c; owner: orchestrator/*, new models/probe+gate files, next_action.py)
 - [x] C1 (LOGIC-ONLY; real probe refit + random-head scores need Kaggle) linear probe + proper random-head control, identical pools, no retraining
 - [x] C2 (LOGIC-ONLY; real LAYA on program candidates pending) arm E wired into whole-program stage-1 controller (exploratory transfer only)
 - [x] C3 LAYA monotonicity gate (ordering disabled unless supported; never overrides trusted evidence)
@@ -34,7 +34,7 @@ Status: DONE / RUNNING / TODO / BLOCKED. Evidence = path + hash. Mocks never cou
 - [x] C5 report + budget gates (3 examples -> INSUFFICIENT_DATA, never PASS)
 - [x] C6 evaluation oracles inaccessible to runtime; dev cases not called sealed
 
-## Phase D: verify 3 examples
+## Phase D: verify 3 examples (D-1 RUNNING: driver + hooks + bundles + conformance generator; D-2 = real runs after commit)
 - [ ] D1 commit reviewed source (scan 0) -> record hash
 - [ ] D2 ex1/ex2/ex3 through the same 8-stage controller
 - [ ] D3 real Qwen proposals + real repair where needed (Kaggle T4)
