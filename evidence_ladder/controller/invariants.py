@@ -40,6 +40,12 @@ def static_no_grader_imports(root: Path = CONTROLLER_DIR) -> List[str]:
     return bad
 
 
+def static_isolation_scan() -> Dict[str, List[str]]:
+    """[EL-ARCH-1 D1/S0] the two static halves of I8 side by side: controller import-name scan + AST scan of every runtime module for the evaluation-only grader. Both must be empty."""
+    from evidence_ladder.orchestrator.isolation import static_oracle_scan
+    return {"controller_import_names": static_no_grader_imports(), "runtime_oracle_scan": static_oracle_scan()}
+
+
 def _first(journal, kind):
     e = journal.entries(kind)
     return e[0]["data"] if e else None
@@ -194,7 +200,8 @@ def check_i8(journal, ctx) -> str:
     for cid, c in journal._registry.checks.items():
         if c["grader_only"] and c["runtime_visible"]:
             return "grader-only check %s is runtime visible" % cid
-    return ""
+    from evidence_ladder.orchestrator.isolation import check_i8_deep      # [EL-ARCH-1 D1/S0] object-graph scan (a grader hidden inside a backend or config value); lazy, no import cycle
+    return check_i8_deep(ctx)
 
 
 def assert_invariants(result, journal, ctx, limits=None) -> List[str]:

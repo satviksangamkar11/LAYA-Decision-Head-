@@ -1,0 +1,38 @@
+{
+ "variant": "budget_rounds",
+ "base": "ex2_clamp",
+ "why": "a tiny round cap stops the problem as budget with the exhausted resource named; the second step is never taken",
+ "expected": {
+  "stop_cause": "budget",
+  "details_has": "limit:max_rounds",
+  "not_decided": true,
+  "steps_run": 1
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "limit:max_rounds used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "69f94a1deeaa4cfef246034bdb9557817cb94d83067cc1a64d940f13d8c40d03",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

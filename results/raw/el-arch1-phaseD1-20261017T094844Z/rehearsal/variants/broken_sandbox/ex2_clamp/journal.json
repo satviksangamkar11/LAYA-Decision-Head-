@@ -1,0 +1,747 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-c29a6df00d0f",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex2_clamp"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "eb55bc58cace110845a469b1e4d68ac18c64a5d3696666a8bea387cbac8de5e9",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "explicit",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "char_end": 161,
+      "char_start": 140,
+      "quote": "python3 test_clamp.py",
+      "type": "request_span"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_clamp.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "e63d8c72e426991612648c4f7ca6138f09ad1d46f545fd4f9c5c4bf4ab8d8c30",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "5f726d60d279a587cf3663f4dfdea5223ca7829105ba959d865ac836dc588ffa",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "2e724b74580bef7568fb2b7b61b90a22070b35835a497e77026935561bd733b4",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "9d6d359ae3715ecdb22e62150e4e359cfcc8d0705a39799106a80eb609b67b47",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "VERIFIED",
+   "changed_from": null,
+   "covered": [
+    "tests"
+   ],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": true,
+    "type_or_compile_check": false
+   },
+   "loop": "generate-execute-repair",
+   "reason": "trusted executable oracle: test_clamp.py",
+   "step": "intake",
+   "tier": "O1"
+  },
+  "kind": "oracle_tier",
+  "prev": "d6c1c51d2dc80f905d8fffa20682c266997cd31061de406d598c7d284232a3a7",
+  "seq": 5
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "check_id": "action_policy_v1",
+    "check_version": "1",
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0001",
+    "independence": "independent",
+    "produced_at": "t1",
+    "receipt_hash": "0ae4ecbe96c43cc0aa7b2bb6df50b9322fdc03ae89a2807913a7f543f93839f7",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "policy check of one proposed action",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_policy_v1",
+    "detail": "",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "2af6b3e83900c43bcdac9edced921417cf05fd7bfb9f29dbfc879346d29dc5d6",
+  "seq": 6
+ },
+ {
+  "data": {
+   "error": "RuntimeError: sandbox failed rc=1 simulated broken test tool",
+   "tag": "dry_run"
+  },
+  "kind": "tool_failure",
+  "prev": "7105b7da4c253e5db61789dcdd979f67cf992cd830e478a92d3c5fb853ec0ae1",
+  "seq": 7
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "check_id": "action_dry_run_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_clamp.py",
+     "observed": "exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool"
+    },
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0002",
+    "independence": "independent",
+    "produced_at": "t2",
+    "receipt_hash": "a56cb5e1a001521166fda6f528f8b8921720d02ad7c1a85a2512a0fa6616e16e",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "protected test after this single edit (scratch copy)",
+    "source": "environment_observation",
+    "status": "error"
+   },
+   "outcome": {
+    "check_id": "action_dry_run_v1",
+    "detail": "edit applied in a scratch copy, protected test run",
+    "observed": "exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool",
+    "status": "error"
+   }
+  },
+  "kind": "evidence",
+  "prev": "3c07a5c2c1234bdea206e8599c52dae416bb70e82dafbd72467669e3d6402147",
+  "seq": 8
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "step1_checked",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "a33ea2e5599c43749c76002a86147dd4984f428dbe5fda89dbffb106e00735d3",
+  "seq": 9
+ },
+ {
+  "data": {
+   "can_override_trusted_evidence": false,
+   "decision_id": "ex2_clamp:step1",
+   "laya_ordering_enabled": false,
+   "min_informative_pools": 30,
+   "n_informative_pools": 0,
+   "n_pools": 0,
+   "reason": "0 informative pools (a pool with at least one passing and one failing candidate), minimum 30: no verdict",
+   "status": "INSUFFICIENT_DATA"
+  },
+  "kind": "monotonicity_gate",
+  "prev": "2303506af7392fbe424a4ef1c8ac428a7ce5d58e5b900c4bb5e364e8a19cdc00",
+  "seq": 10
+ },
+ {
+  "data": {
+   "decision_id": "ex2_clamp:step1",
+   "ids": [
+    "ex2_clamp:step1#0"
+   ],
+   "level": "L0",
+   "provenance": {},
+   "scorer_id": "stub:laya",
+   "scores": [
+    0.187
+   ],
+   "state": "scored"
+  },
+  "kind": "scorer",
+  "prev": "02bc7cdbba9aaaddfc97aa8c1a448fe2316175d3e640ff4014427417026ee5de",
+  "seq": 11
+ },
+ {
+  "data": {
+   "decision_id": "ex2_clamp:step1",
+   "ids": [
+    "ex2_clamp:step1#0"
+   ],
+   "scores": {
+    "probe": {
+     "role": "mandatory_baseline_linear_probe",
+     "score": [
+      0.326
+     ]
+    },
+    "random_head": {
+     "role": "untrained_random_init_floor_control",
+     "score": [
+      0.879
+     ]
+    }
+   },
+   "selector": false
+  },
+  "kind": "scorer_comparison",
+  "prev": "8e58193ddd72d6b509d3e21e9b456a46970cca5bfd4f475b2bc8c641da5ef3c4",
+  "seq": 12
+ },
+ {
+  "data": {
+   "items": [
+    {
+     "cluster": 0,
+     "deepconf": 0.0,
+     "id": "ex2_clamp:step1#0",
+     "scorer": 0.187,
+     "trusted_passes": 1,
+     "validated_passes": 0
+    }
+   ],
+   "order": [
+    "ex2_clamp:step1#0"
+   ],
+   "step": "ex2_clamp:step1"
+  },
+  "kind": "ranking",
+  "prev": "98a51a7d699b6a3e3dd6c20aba12bc0e0073eaeff0424521a82af585b0271533",
+  "seq": 13
+ },
+ {
+  "data": {
+   "abstain": false,
+   "approved": false,
+   "blocked": [],
+   "decision_id": "ex2_clamp:step1",
+   "derived_by": "controller",
+   "level": "L0_ordering_only",
+   "order": [
+    "ex2_clamp:step1#0"
+   ],
+   "scorer_available": true,
+   "selected_id": "ex2_clamp:step1#0",
+   "selected_index": 0
+  },
+  "kind": "action_decision",
+  "prev": "627e1ed5c57f6460074d9a8fd782bbbbef4dd4a0bc17d4e7bd355b018d1a2f62",
+  "seq": 14
+ },
+ {
+  "data": {
+   "allowed": true,
+   "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+   "class": "reversible_workspace_edit",
+   "decision_id": "ex2_clamp:step1",
+   "decision_risk": "sandboxed",
+   "missing": [],
+   "requires": [
+    "inside_workspace",
+    "not_protected"
+   ]
+  },
+  "kind": "action_auth",
+  "prev": "302ad8128634b9b16083e20a35cfe1aa69f53cb671dece431c6a40b0b7909965",
+  "seq": 15
+ },
+ {
+  "data": {
+   "error": "RuntimeError: sandbox failed rc=1 simulated broken test tool",
+   "tag": "step1"
+  },
+  "kind": "tool_failure",
+  "prev": "3d288bb1c95d49be3773925cea53ea94e0a8e952455c7b2c6bfa8d7e4a8b64a7",
+  "seq": 16
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_clamp.py",
+     "observed": "Harness test run (`python3 test_clamp.py`): exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool"
+    },
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0003",
+    "independence": "user_provided",
+    "produced_at": "t3",
+    "receipt_hash": "39ae4ad92360e0e994043420632bfe4604266fba3622a33123a70dece4c853b8",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "error"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_clamp.py`): exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool",
+    "status": "error"
+   }
+  },
+  "kind": "evidence",
+  "prev": "41c84940f4576860ef844264c585d4d6ed207aea31ac0039682ab9583dac2231",
+  "seq": 17
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0004",
+    "independence": "independent",
+    "produced_at": "t4",
+    "receipt_hash": "49421f303478d7bb5a8c7672ec53eaa277a2613d102199d6a8936f9a30f9dcf3",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "error"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "error"
+   }
+  },
+  "kind": "evidence",
+  "prev": "4e8eb36ce7dd533423758b192915c24497db88fc0432cd0f326533a841dd72f0",
+  "seq": 18
+ },
+ {
+  "data": {
+   "answer_label": "UNVERIFIED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "step1"
+  },
+  "kind": "label",
+  "prev": "c512e567f46e27b9408e80264f29da1e372c4d403ec32e00c2b2093f63751ccf",
+  "seq": 19
+ },
+ {
+  "data": {
+   "action": {
+    "allowed": true,
+    "class": "reversible_workspace_edit",
+    "denied": false,
+    "executed": {
+     "arguments": {
+      "file_path": "clamp.py",
+      "new_string": "return max(lo, min(x, hi))",
+      "old_string": "return min(lo, max(x, hi))"
+     },
+     "name": "Edit"
+    }
+   },
+   "decision": {
+    "abstain": false,
+    "allowed_set": [
+     0
+    ],
+    "chosen_index": 0,
+    "scorer_available": true
+   },
+   "decision_id": "ex2_clamp:step1",
+   "inputs": {
+    "context_sha256": "0d7fb6f070a7729e2fcb268cf090f54c5dcc76d009b2ce1d548e32c486dc9c2f",
+    "option_sha256": [
+     "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9"
+    ],
+    "pre_state": "df4b8c14abf6dc324456b406c8c3a1bbacba65f16b75082e0760da72e056ecd6"
+   },
+   "outcome": {
+    "authorized": false,
+    "label": "UNVERIFIED",
+    "post_state": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "protected_unchanged": false,
+    "result_sha256": "8ba1849440f80dba4e5c553c07c7b063a14f5dbe2586ad9f6337cd7db2d2c552",
+    "tests_pass": false
+   },
+   "step": 1
+  },
+  "kind": "step_record",
+  "prev": "d34b1eaa24a4e40f4e791520954636ba59d0017b9fb29103c1486b704d74d81a",
+  "seq": 20
+ },
+ {
+  "data": {
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "ceiling": "VERIFIED",
+   "step": "step1_observed",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 1
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 1
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "ae4f4c125b3b2c2d09423f3b8376382bc47bd918afeab9c1936bc5e503961a92",
+  "seq": 21
+ },
+ {
+  "data": {
+   "error": "RuntimeError: sandbox failed rc=1 simulated broken test tool",
+   "tag": "finalize"
+  },
+  "kind": "tool_failure",
+  "prev": "0cdee5e0a082679be58bc0b09977f7ed51433f3f2113bee827b887129f32cb9f",
+  "seq": 22
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_clamp.py",
+     "observed": "Harness test run (`python3 test_clamp.py`): exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool"
+    },
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0005",
+    "independence": "user_provided",
+    "produced_at": "t5",
+    "receipt_hash": "39ae4ad92360e0e994043420632bfe4604266fba3622a33123a70dece4c853b8",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "error"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_clamp.py`): exit -1\nsandbox/test tool error: RuntimeError: sandbox failed rc=1 simulated broken test tool",
+    "status": "error"
+   }
+  },
+  "kind": "evidence",
+  "prev": "8d23f099ddc39d2f0d242fc8f92d41a4c6513ffd1c48f4d953492ee7fd243b4f",
+  "seq": 23
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-c29a6df00d0f",
+    "evidence_id": "E0006",
+    "independence": "independent",
+    "produced_at": "t6",
+    "receipt_hash": "49421f303478d7bb5a8c7672ec53eaa277a2613d102199d6a8936f9a30f9dcf3",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "error"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "error"
+   }
+  },
+  "kind": "evidence",
+  "prev": "d1ea13217bf107698aa1505927a78c3416a299b39201901d8a67a8f2a40350c2",
+  "seq": 24
+ },
+ {
+  "data": {
+   "answer_label": "UNVERIFIED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "finalize"
+  },
+  "kind": "label",
+  "prev": "36e1c52294471e20c2b90431cc73d88087ac55c8fa91e3afd1d0f9d1072ebb43",
+  "seq": 25
+ },
+ {
+  "data": {
+   "answer_label": "UNVERIFIED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "ok": false,
+   "reason": ""
+  },
+  "kind": "finalize",
+  "prev": "320a510f184e104d9893b525e7c1d2e4db01890a2d2104e8792b91fbb61cabbc",
+  "seq": 26
+ },
+ {
+  "data": {
+   "outcome": {
+    "answer_label": "UNVERIFIED",
+    "authorized_by_authorize": false,
+    "end_state_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "label_ceiling": "VERIFIED",
+    "state_unchanged_since_last_action": true,
+    "tests_pass": false,
+    "trusted_checks_rerun_on_real_end_state": true
+   },
+   "process": {
+    "actions_denied_by_risk_table": 0,
+    "actions_executed": 1,
+    "constraints_respected": false,
+    "diff": {
+     "added": [],
+     "modified": [
+      "clamp.py"
+     ],
+     "removed": []
+    },
+    "diff_scope_ok": true,
+    "diff_violations": [],
+    "protected_unchanged": false,
+    "scope_declared": null,
+    "tier": "O1"
+   }
+  },
+  "kind": "final_report",
+  "prev": "98d45336382a87924d6608ec90b97136625972fceca743b896c03d1973161569",
+  "seq": 27
+ },
+ {
+  "data": {
+   "answer_label": "UNVERIFIED",
+   "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "authorized_to_execute": false,
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "decision_id": "d-ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "report",
+   "requirement_rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "11985642e2b644f090d9289972cbb63bdd33dc61364dd035fc3349e79c562bcd",
+  "seq": 28
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 1,
+   "budget_hit": false,
+   "cause": "tool_failure",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex2_clamp",
+   "rounds": 1,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "540637783691b442ae706befd9778f49b80555384e54ca41da23fa65203f605f",
+  "seq": 29
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "12d6da9b8312cab9083450187fac344b651e03ea35152bcaad3e3e4f3e536d7a",
+  "seq": 30
+ }
+]

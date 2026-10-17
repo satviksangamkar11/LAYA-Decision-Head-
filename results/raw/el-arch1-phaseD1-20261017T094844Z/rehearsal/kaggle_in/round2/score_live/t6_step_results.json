@@ -1,0 +1,87 @@
+{
+ "gpu": "Tesla T4 (STUB)",
+ "kernel": "el_arch1_score_v1",
+ "mode": "replay",
+ "steps": {
+  "ex2_clamp:2": {
+   "context_sha256": "3cd64954a156fceff601c51fec22585d88ae9fb964d0efb7033d105d9a948914",
+   "features_sha256": "2854fdc8d85a985952e0cdd7cfd0ecce59e3889133bc934a5e66a009ba74a5fb",
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+    "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+    "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164"
+   ],
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return max(lo, min(x, hi))\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}"
+   ],
+   "origin": "live_capture_same_process",
+   "provenance": {
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "3cd64954a156fceff601c51fec22585d88ae9fb964d0efb7033d105d9a948914",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device": "Tesla T4 (STUB)",
+    "dtype": "float16",
+    "hidden": 2560,
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "option_prefix": " ",
+    "option_sha256": [
+     "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+     "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+     "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164"
+    ],
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1"
+   },
+   "raw_output": "[{\"name\": \"Edit\", \"arguments\": {\"file_path\": \"clamp.py\", \"new_string\": \"return max(lo, min(x, hi))\", \"old_string\": \"return min(lo, max(x, hi))\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"clamp.py\", \"new_string\": \"return min(x, hi)\", \"old_string\": \"return min(lo, max(x, hi))\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"clamp.py\"}}]",
+   "raw_output_sha256": "fecdf9cce2c1a61c041c30dcecf0e9545f6b02c22a4b3e67eda9ea198dbdb1f4",
+   "scores": {
+    "laya": {
+     "role": "laya",
+     "score": [
+      0.187,
+      0.973,
+      0.123
+     ]
+    },
+    "probe": {
+     "role": "probe",
+     "score": [
+      0.326,
+      0.335,
+      0.298
+     ]
+    },
+    "random_head": {
+     "role": "random_head",
+     "score": [
+      0.879,
+      0.852,
+      0.44
+     ]
+    }
+   },
+   "status": "ok",
+   "step": 2,
+   "stub": true
+  }
+ },
+ "stub": true,
+ "total_seconds": 1.0,
+ "verdict": "DONE",
+ "versions": {
+  "stub": true
+ }
+}

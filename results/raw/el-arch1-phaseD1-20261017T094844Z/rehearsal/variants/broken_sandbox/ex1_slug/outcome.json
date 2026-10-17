@@ -1,0 +1,45 @@
+{
+ "variant": "broken_sandbox",
+ "base": "ex1_slug",
+ "why": "the sandbox raises: ERROR evidence (not pass, not a candidate failure), stop cause tool_failure",
+ "expected": {
+  "stop_cause": "tool_failure",
+  "label_not": [
+   "VERIFIED",
+   "SUPPORTED"
+  ],
+  "not_decided": true,
+  "kinds_present": [
+   "tool_failure"
+  ],
+  "evidence_status_present": "error",
+  "no_protected_pass": true
+ },
+ "violations": [],
+ "stop_cause": "tool_failure",
+ "stop_details": "sandbox",
+ "label": "UNVERIFIED",
+ "tier": "O1",
+ "journal_hash": "c94f2c5053e58e8d14eacd9d105c3ea44cafcc6a5d22af562b678cff2bfe6630",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

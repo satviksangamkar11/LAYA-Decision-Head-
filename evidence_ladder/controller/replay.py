@@ -21,7 +21,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, Dict, List, Optional
 
-from .agentic import AgenticContext, AgenticRun, AgenticTask, NoOracle
+from .agentic import AgenticContext, AgenticRun, AgenticTask, LimitReached, NoOracle
+from .limits import Limits
 from .journal import canon
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -62,7 +63,12 @@ def git_commit() -> Optional[str]:
 
 def _tree_files(ws) -> Dict[str, str]:
     ws = Path(ws)
-    return {p.relative_to(ws).as_posix(): p.read_text("utf-8") for p in sorted(ws.rglob("*")) if p.is_file() and "__pycache__" not in p.parts}
+    out = {}
+    for p in sorted(ws.rglob("*")):
+        if p.is_file() and "__pycache__" not in p.parts:
+            with open(p, "r", encoding="utf-8", newline="") as f:      # newline="" keeps CRLF / LF exactly as on disk: a replay must hash the same bytes (Windows text mode would rewrite them)
+                out[p.relative_to(ws).as_posix()] = f.read()
+    return out
 
 
 def _write_tree(ws, files: Dict[str, str]) -> None:
@@ -72,7 +78,8 @@ def _write_tree(ws, files: Dict[str, str]) -> None:
     for rel, txt in files.items():
         q = ws / rel
         q.parent.mkdir(parents=True, exist_ok=True)
-        q.write_text(txt, "utf-8")
+        with open(q, "w", encoding="utf-8", newline="") as f:
+            f.write(txt)
 
 
 # ------------------------------------------------------------------ recorders
@@ -81,7 +88,11 @@ class RecordingSandbox:
         self.inner, self.calls = inner, []
 
     def run(self, workspace, cmd, persist=False, timeout=60):
-        r = self.inner.run(workspace, cmd, persist=persist, timeout=timeout)
+        try:
+            r = self.inner.run(workspace, cmd, persist=persist, timeout=timeout)
+        except Exception as ex:      # noqa: BLE001  [D1/S2] a sandbox that raised is part of the record (the controller turns it into ERROR evidence)
+            self.calls.append({"cmd": cmd, "persist": bool(persist), "raised": "%s: %s" % (type(ex).__name__, str(ex)[:200])})
+            raise
         rec = {"cmd": cmd, "persist": bool(persist), "result": copy.deepcopy(r)}
         if persist:
             rec["files_after"] = _tree_files(workspace)
@@ -100,6 +111,8 @@ class RecordedSandbox:
         self.i += 1
         if rec["cmd"] != cmd or rec["persist"] != bool(persist):
             raise ReplayDivergence("sandbox call #%d: recorded %r (persist=%s), replay asked %r (persist=%s)" % (self.i, rec["cmd"], rec["persist"], cmd, persist))
+        if "raised" in rec:
+            raise RuntimeError(rec["raised"].split(": ", 1)[-1])
         if persist and "files_after" in rec:
             _write_tree(workspace, rec["files_after"])
         return copy.deepcopy(rec["result"])
@@ -150,8 +163,9 @@ class RecordedRun:
         self.files = files if files is not None else _tree_files(task.workspace)       # the intake workspace (before begin / any action)
         self.sb = RecordingSandbox(ctx.sandbox)
         self.sc = RecordingScorer(ctx.scorer) if ctx.scorer is not None else None
+        self.cmp = {k: RecordingScorer(v) for k, v in sorted((ctx.comparison or {}).items())}      # [D1] probe / random-head comparison scorers are recorded like the main scorer
         self.cfg = copy.deepcopy(dict(ctx.config))
-        ctx2 = AgenticContext(sandbox=self.sb, scorer=self.sc, critic=ctx.critic, budget=ctx.budget, arm=ctx.arm, seeds=ctx.seeds, config=ctx.config, limits=ctx.limits, clock=ctx.clock)
+        ctx2 = AgenticContext(sandbox=self.sb, scorer=self.sc, critic=ctx.critic, budget=ctx.budget, arm=ctx.arm, seeds=ctx.seeds, config=ctx.config, limits=ctx.limits, clock=ctx.clock, comparison=self.cmp or None)
         self.task, self.ctx = task, ctx2
         self.run = AgenticRun(task, ctx2, render)
         self.events: List[Dict[str, Any]] = []
@@ -170,6 +184,16 @@ class RecordedRun:
         self.events.append({"e": "step", "options": list(options), "meta": copy.deepcopy(qwen_meta or {})})
         return self.run.step(options, qwen_meta)
 
+    def note(self, kind, data):
+        """[D1] a driver-level journal entry (e.g. the stage marker): recorded as an event so a replay writes it at the same place."""
+        self.events.append({"e": "note", "kind": kind, "data": copy.deepcopy(data)})
+        return self.run.note(kind, data)
+
+    def propose(self, out):
+        """[D1] journal one proposal round (output of controller.generation.ActionProposer.propose); the replay re-journals the recorded output."""
+        self.events.append({"e": "proposals", "out": copy.deepcopy(out)})
+        return self.run.journal_proposals(out)
+
     def critic_stage(self):
         self.events.append({"e": "critic_stage"})
         return self.run.critic_stage()
@@ -180,11 +204,14 @@ class RecordedRun:
         return self.result
 
     def record(self) -> Dict[str, Any]:
+        """[D1] `limits` is recorded because a non-default limits profile is part of the run; the injected clock is NOT (a wall-time stop is not replayable)."""
         t = self.task
         return {"schema": "el_arch1_run_record_v1", "task": {"task_id": t.task_id, "user_text": t.user_text, "system_text": t.system_text, "test_cmd": t.test_cmd, "protected": list(t.protected),
                                                               "max_steps": t.max_steps, "scope": t.scope, "files": self.files},
-                "arm": self.ctx.arm, "seeds": [int(s) for s in self.ctx.seeds], "config": self.cfg, "events": self.events, "sandbox": self.sb.calls,
+                "arm": self.ctx.arm, "seeds": [int(s) for s in self.ctx.seeds], "config": self.cfg,
+                "limits": self.ctx.limits.as_dict() if self.ctx.limits is not None else None, "events": self.events, "sandbox": self.sb.calls,
                 "scorer": None if self.sc is None else {"scorer_id": self.sc.scorer_id, "scorer_def": self.sc.scorer_def, "calls": self.sc.calls},
+                "comparison": {k: {"scorer_id": v.scorer_id, "scorer_def": v.scorer_def, "calls": v.calls} for k, v in self.cmp.items()},
                 "journal_hash": self.run.journal.journal_hash(), "chain": self.run.journal.chain_hashes(), "kinds": [e["kind"] for e in self.run.journal.entries()],
                 "code": code_hashes(), "git_commit": git_commit(), "result": None if self.result is None else {"answer_label": self.result.answer_label, "stop_cause": self.result.stop_cause}}
 
@@ -204,7 +231,9 @@ def replay(record: Dict[str, Any], *, sandbox=None, critic=None, render=None, wo
     sc = record.get("scorer")
     scorer = RecordedScorer(sc["scorer_id"], sc["scorer_def"], sc["calls"]) if sc else None
     sb = sandbox if sandbox is not None else RecordedSandbox(record["sandbox"])
-    ctx = AgenticContext(sandbox=sb, scorer=scorer, critic=critic, arm=record["arm"], seeds=tuple(record["seeds"]), config=copy.deepcopy(record["config"]))
+    cmp_ = {k: RecordedScorer(v["scorer_id"], v["scorer_def"], v["calls"]) for k, v in (record.get("comparison") or {}).items()}
+    ctx = AgenticContext(sandbox=sb, scorer=scorer, critic=critic, arm=record["arm"], seeds=tuple(record["seeds"]), config=copy.deepcopy(record["config"]), comparison=cmp_ or None,
+                         limits=Limits(**record["limits"]) if record.get("limits") else None)
     run = AgenticRun(task, ctx, render or (lambda m: "ctx"))
     err = None
     try:
@@ -214,8 +243,15 @@ def replay(record: Dict[str, Any], *, sandbox=None, critic=None, render=None, wo
             elif ev["e"] == "investigate":
                 from . import investigate as INV
                 INV.investigate(run)
+            elif ev["e"] == "note":
+                run.note(ev["kind"], ev["data"])
+            elif ev["e"] == "proposals":
+                run.journal_proposals(ev["out"])
             elif ev["e"] == "step":
-                run.step(ev["options"], ev["meta"])
+                try:
+                    run.step(ev["options"], ev["meta"])
+                except (NoOracle, LimitReached):      # the recorded run was refused at this step too; the later events (finish) still replay
+                    pass
             elif ev["e"] == "critic_stage":
                 run.critic_stage()
             elif ev["e"] == "finish":

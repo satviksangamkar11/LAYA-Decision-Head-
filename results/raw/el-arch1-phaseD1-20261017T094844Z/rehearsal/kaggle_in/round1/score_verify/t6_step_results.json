@@ -1,0 +1,253 @@
+{
+ "gpu": "Tesla T4 (STUB)",
+ "kernel": "el_arch1_score_v1",
+ "mode": "replay",
+ "steps": {
+  "ex1_slug:1": {
+   "context_sha256": "1171370a92da3111ec10fc2f2839d9ccc6499bac763d77cbd7a78f2d086267ea",
+   "features_sha256": "adf0793a8de89f28a737e90d087115a507090b24d7ec794a78f77a4ea64a192b",
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+    "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+    "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+    "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4"
+   ],
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip()\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"slug.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_slug.py\"}}"
+   ],
+   "origin": "live_capture_same_process",
+   "provenance": {
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "1171370a92da3111ec10fc2f2839d9ccc6499bac763d77cbd7a78f2d086267ea",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device": "Tesla T4 (STUB)",
+    "dtype": "float16",
+    "hidden": 2560,
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "option_prefix": " ",
+    "option_sha256": [
+     "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+     "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+     "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+     "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4"
+    ],
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1"
+   },
+   "raw_output": "[{\"name\": \"Edit\", \"arguments\": {\"file_path\": \"slug.py\", \"new_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\", \"old_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"slug.py\", \"new_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip()\", \"old_string\": \"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"slug.py\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"python3 test_slug.py\"}}]",
+   "raw_output_sha256": "8e9c6c6dc16810661e64351102fd72061d30f9ec9f5f73257aede2b79b248441",
+   "scores": {
+    "laya": {
+     "role": "laya",
+     "score": [
+      0.018,
+      0.195,
+      0.293,
+      0.835
+     ]
+    },
+    "probe": {
+     "role": "probe",
+     "score": [
+      0.015,
+      0.139,
+      0.266,
+      0.444
+     ]
+    },
+    "random_head": {
+     "role": "random_head",
+     "score": [
+      0.876,
+      0.578,
+      0.117,
+      0.758
+     ]
+    }
+   },
+   "status": "ok",
+   "step": 1,
+   "stub": true
+  },
+  "ex2_clamp:1": {
+   "context_sha256": "7469a2e78b6a3acd5196a5c58db05cf8f52c3c7e0884c51cafe8f3193acd0251",
+   "features_sha256": "2bf7e2150491abcbec9c79da037306452da1a57e5ddafa5cea574afc12cecbfe",
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+    "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+    "09d02aa1e4a91b6858946081b831e862bcff79e969859b8465377aa25a1c1488",
+    "92d8b63c8db402900987e27324335bd5fc8e716baab46af95ea589f23011cbd7"
+   ],
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"ls\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"cat clamp.py\"}}"
+   ],
+   "origin": "live_capture_same_process",
+   "provenance": {
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "7469a2e78b6a3acd5196a5c58db05cf8f52c3c7e0884c51cafe8f3193acd0251",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device": "Tesla T4 (STUB)",
+    "dtype": "float16",
+    "hidden": 2560,
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "option_prefix": " ",
+    "option_sha256": [
+     "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+     "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+     "09d02aa1e4a91b6858946081b831e862bcff79e969859b8465377aa25a1c1488",
+     "92d8b63c8db402900987e27324335bd5fc8e716baab46af95ea589f23011cbd7"
+    ],
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1"
+   },
+   "raw_output": "[{\"name\": \"Edit\", \"arguments\": {\"file_path\": \"clamp.py\", \"new_string\": \"return min(x, hi)\", \"old_string\": \"return min(lo, max(x, hi))\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"clamp.py\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"ls\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"cat clamp.py\"}}]",
+   "raw_output_sha256": "5e0c5afd93f689ae20b4572206b9a69624cf7a22a0a2d6c303893ef08e2ef6a5",
+   "scores": {
+    "laya": {
+     "role": "laya",
+     "score": [
+      0.973,
+      0.123,
+      0.253,
+      0.888
+     ]
+    },
+    "probe": {
+     "role": "probe",
+     "score": [
+      0.335,
+      0.298,
+      0.493,
+      0.023
+     ]
+    },
+    "random_head": {
+     "role": "random_head",
+     "score": [
+      0.852,
+      0.44,
+      0.17,
+      0.658
+     ]
+    }
+   },
+   "status": "ok",
+   "step": 1,
+   "stub": true
+  },
+  "ex3_wordcount:1": {
+   "context_sha256": "dcec679d5680fdbd817964ab7aaefedb36fe3543bc612457552d4a6aee89c9b0",
+   "features_sha256": "ff61922a1daaf688ac2d6a37419c83f325d3c28b728d1ac3a0cea773b33e5112",
+   "generation": {
+    "replayed": true
+   },
+   "option_sha256": [
+    "f6f691385f2dcbfef8deaf73c57700bc94d729d35d408cee5d86fd2fb941b9a0",
+    "0b5824dc9f7fe75f48923f1a2c1f15c72926aead1337f6ee996df09a9e1bb506",
+    "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+    "5acd7dd8cb56f2ce2282f90b86d6442f1b102445c768f132d3ba5e16e7ad20d4"
+   ],
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"wc.py\",\"new_string\":\"return len(text.split())\",\"old_string\":\"return len(text.split(\\\" \\\"))\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"wc.py\",\"new_string\":\"return len(text.split(\\\",\\\"))\",\"old_string\":\"return len(text.split(\\\" \\\"))\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"wc.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_wc.py\"}}"
+   ],
+   "origin": "live_capture_same_process",
+   "provenance": {
+    "capture_code_sha256": {
+     "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+     "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+    },
+    "context_sha256": "dcec679d5680fdbd817964ab7aaefedb36fe3543bc612457552d4a6aee89c9b0",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device": "Tesla T4 (STUB)",
+    "dtype": "float16",
+    "hidden": 2560,
+    "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+    "option_prefix": " ",
+    "option_sha256": [
+     "f6f691385f2dcbfef8deaf73c57700bc94d729d35d408cee5d86fd2fb941b9a0",
+     "0b5824dc9f7fe75f48923f1a2c1f15c72926aead1337f6ee996df09a9e1bb506",
+     "a3dd80b50725c4e5ebaee4c315c4b2d3fa0f6250890230969cdf76515cec3dac",
+     "5acd7dd8cb56f2ce2282f90b86d6442f1b102445c768f132d3ba5e16e7ad20d4"
+    ],
+    "query_cue": "\n\nNext action:",
+    "recipe_id": "fable_capture_v1"
+   },
+   "raw_output": "[{\"name\": \"Edit\", \"arguments\": {\"file_path\": \"wc.py\", \"new_string\": \"return len(text.split())\", \"old_string\": \"return len(text.split(\\\" \\\"))\"}}, {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"wc.py\", \"new_string\": \"return len(text.split(\\\",\\\"))\", \"old_string\": \"return len(text.split(\\\" \\\"))\"}}, {\"name\": \"Read\", \"arguments\": {\"file_path\": \"wc.py\"}}, {\"name\": \"Bash\", \"arguments\": {\"command\": \"python3 test_wc.py\"}}]",
+   "raw_output_sha256": "f0255747ae9c085d307fa79ef923483509cb3d419740ee997f9afe04e85a9a45",
+   "scores": {
+    "laya": {
+     "role": "laya",
+     "score": [
+      0.07,
+      0.977,
+      0.258,
+      0.534
+     ]
+    },
+    "probe": {
+     "role": "probe",
+     "score": [
+      0.439,
+      0.601,
+      0.46,
+      0.296
+     ]
+    },
+    "random_head": {
+     "role": "random_head",
+     "score": [
+      0.773,
+      0.217,
+      0.937,
+      0.391
+     ]
+    }
+   },
+   "status": "ok",
+   "step": 1,
+   "stub": true
+  }
+ },
+ "stub": true,
+ "total_seconds": 1.0,
+ "verdict": "DONE",
+ "versions": {
+  "stub": true
+ }
+}

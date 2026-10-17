@@ -1,0 +1,285 @@
+{
+ "answer_label": "VERIFIED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 900,
+  "glm_tokens_out": 400,
+  "gpu_seconds": 4.0,
+  "problem_id": "ex2_clamp",
+  "qwen_gen_tokens": 354,
+  "qwen_prefill_tokens": 2240,
+  "scorer_calls": 2,
+  "tool_runs": 9,
+  "wall_seconds": 4.031
+ },
+ "comparison_entries": 2,
+ "critic_result": {
+  "candidate_id": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+  "command": "python3 test_clamp.py",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "python3 test_clamp.py",
+  "experiment_status": "unknown",
+  "kind": "command",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\nall tests passed\n",
+  "observed_sha256": "dca07ca09b2c2ade04bf8c74c78dc26879c77b2ef63b6ad20b1380e2d2079c3d",
+  "packet_id": "5b0f086ca2cfd4c7e00a59bbd7137b6aa13343637c9adf1bcc21fb7a7165e4d7",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex2_clamp/journal.json",
+  "record": "receipts/ex2_clamp/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "5b0f086ca2cfd4c7e00a59bbd7137b6aa13343637c9adf1bcc21fb7a7165e4d7": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": false,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 900,
+      "tokens_out": 400
+     }
+    ],
+    "calls": 1,
+    "estimated": false,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 900,
+    "tokens_out": 400
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 900,
+   "tokens_out": 400
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA",
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "ok",
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   65,
+   65
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+  "recorded_journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d",
+  "replayed_journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   65,
+   65
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+  "recorded_journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d",
+  "replayed_journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d"
+ },
+ "rounds": 2,
+ "scorer_unavailable_entries": 0,
+ "stage_map": {
+  "entries": 65,
+  "not_reached": [],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "repair",
+   "commit_verify"
+  ],
+  "repair_substages": {
+   "2": {
+    "discriminate": [
+     [
+      35,
+      41
+     ]
+    ],
+    "execute": [
+     [
+      47,
+      52
+     ]
+    ],
+    "generate": [
+     [
+      33,
+      34
+     ]
+    ],
+    "rank": [
+     [
+      42,
+      46
+     ]
+    ]
+   }
+  },
+  "stages": {
+   "commit_verify": [
+    [
+     53,
+     64
+    ]
+   ],
+   "discriminate": [
+    [
+     15,
+     21
+    ]
+   ],
+   "execute": [
+    [
+     27,
+     32
+    ]
+   ],
+   "generate": [
+    [
+     13,
+     14
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     12
+    ]
+   ],
+   "rank": [
+    [
+     22,
+     26
+    ]
+   ],
+   "repair": [
+    [
+     33,
+     52
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "chosen_index": 3,
+   "decision_id": "ex2_clamp:step1",
+   "executed_action": {
+    "arguments": {
+     "command": "cat clamp.py"
+    },
+    "name": "Bash"
+   },
+   "id_order_choice": 0,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": true,
+   "laya_order": [
+    0,
+    3,
+    2,
+    1
+   ],
+   "laya_top_was_chosen": false,
+   "scorer_unavailable_reason": null,
+   "step": 1,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": true
+  },
+  {
+   "allowed_set": [
+    0,
+    1,
+    2
+   ],
+   "chosen_index": 0,
+   "decision_id": "ex2_clamp:step2",
+   "executed_action": {
+    "arguments": {
+     "file_path": "clamp.py",
+     "new_string": "return max(lo, min(x, hi))",
+     "old_string": "return min(lo, max(x, hi))"
+    },
+    "name": "Edit"
+   },
+   "id_order_choice": 0,
+   "label": "VERIFIED",
+   "laya_changed_the_choice_vs_id_order": false,
+   "laya_order": [
+    1,
+    0,
+    2
+   ],
+   "laya_top_was_chosen": false,
+   "scorer_unavailable_reason": null,
+   "step": 2,
+   "tests_pass": true,
+   "trusted_evidence_overrode_laya": true
+  }
+ ],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "stub": true,
+ "tier": "O1",
+ "tool_runs": 9
+}

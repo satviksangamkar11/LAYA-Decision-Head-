@@ -1,0 +1,9 @@
+{
+ "gpu": "STUB (no GPU)",
+ "kernel": "el_arch1_generate_v1",
+ "stub": true,
+ "summary": {
+  "errors": 0
+ },
+ "verdict": "DONE"
+}

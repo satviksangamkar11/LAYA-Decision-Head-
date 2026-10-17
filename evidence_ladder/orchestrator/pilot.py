@@ -135,7 +135,7 @@ class PilotRunner:
                  master_seed: int, n_total: Optional[int] = None, arms=ARMS, critic_factory: Callable = None, scorer=None, transport: Callable = None,
                  authorization_manifest=None, thresholds_path=THRESHOLDS, dry_run: bool = False, clock: Callable = time.monotonic, synthetic: bool = False,
                  critic_location: Optional[str] = None, comparison_scorers: Optional[Dict[str, Any]] = None, system_block: Optional[str] = None, qwen_module=None,
-                 match_b_to_critic: bool = True):
+                 match_b_to_critic: bool = True, invariant_results: Optional[Dict[str, bool]] = None):
         if "fable" in tasks:
             raise NotImplementedError("Fable run support is NOT IMPLEMENTED for stage 1")
         self.tasks, self.controller, self.generation, self.execution = tasks, controller, generation, execution
@@ -147,6 +147,7 @@ class PilotRunner:
         # [EL-ARCH-1 C2] arm E: with a system_block the scorer is wrapped per task so candidate programs are rendered as a proper decision (program_scorer); without it the scorer is passed as given.
         self.comparison_scorers, self.system_block, self.qwen_module = dict(comparison_scorers or {}), system_block, qwen_module
         self.match_b_to_critic = match_b_to_critic
+        self.invariant_results = invariant_results      # [D1/S0] I1-I8 booleans of the runs; without them the report's invariants gate is FAIL by design
         self.scorer_events: List[dict] = []
         self._comparison_outcomes: Optional[Dict[str, Dict[str, bool]]] = None
         self.b_rebalance: Dict[str, dict] = {}
@@ -331,7 +332,7 @@ class PilotRunner:
         if self.scorer_events or self.comparison_scorers:
             write_jsonl(self.out / "selection" / "scorer_events.jsonl", self.scorer_events)
             comparison = comparison_report(self.scorer_events, self._comparison_outcomes or {}, seed=self.seed)
-        rep = make_report(results, meta, rows, T=self.T, synthetic=self.synthetic, seed=self.seed, comparison=comparison)
+        rep = make_report(results, meta, rows, T=self.T, synthetic=self.synthetic, seed=self.seed, comparison=comparison, invariant_results=self.invariant_results)
         write_json(self.out / "report.json", rep)
         with open(self.out / "report.md", "w", encoding="utf-8", newline="\n") as f:
             f.write(render_markdown(rep))

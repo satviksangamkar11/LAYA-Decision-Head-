@@ -1,0 +1,43 @@
+{
+ "variant": "abstain_no_options",
+ "base": "ex2_clamp",
+ "why": "the model proposed nothing parseable -> a step with no options abstains and asks for more evidence",
+ "expected": {
+  "label_not": [
+   "VERIFIED"
+  ],
+  "not_decided": true,
+  "kinds_present": [
+   "abstain"
+  ],
+  "chosen_none": true,
+  "allowed_set": []
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "7ec334492d076203b953cbc25b53af30797a22d1fefda63e3519b78f4cb9b8a9",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 2,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

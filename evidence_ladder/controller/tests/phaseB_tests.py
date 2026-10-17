@@ -941,6 +941,7 @@ def t_b8_replay_offline_logic_only_and_step_records():
 @test
 def t_static_controller_imports_stay_clean_and_modules_import_without_torch():
     assert inv.static_no_grader_imports() == [], inv.static_no_grader_imports()
+    assert inv.static_isolation_scan() == {"controller_import_names": [], "runtime_oracle_scan": []}, inv.static_isolation_scan()      # [D1/S0] oracle scan next to the import-name scan
     import subprocess
     code = "import sys; sys.modules['torch']=None; import evidence_ladder.controller.generation, evidence_ladder.models.qwen, evidence_ladder.models.gen_entry, evidence_ladder.controller.l2, evidence_ladder.controller.replay"
     p = subprocess.run([sys.executable, "-c", code], cwd=str(ROOT), capture_output=True, text=True, env=dict(__import__("os").environ, PYTHONPATH=str(ROOT)))

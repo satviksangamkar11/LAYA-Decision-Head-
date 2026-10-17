@@ -454,7 +454,7 @@ def c6_deep_check_finds_a_grader_hidden_inside_a_backend_that_the_name_scan_miss
     evil = Backend(ProtectedGrader(gate, python_cases=Path("nowhere.json"), java_cases=Path("nowhere.json")))
     res, ctl, _, _ = RT.run([["OK:a"]], {"k": 1})
     ctx = ControllerContext(RT.FakeGen([]), evil, RT.FakeBudget(arm="D0"), "D0", None, None, (1,), {})
-    assert inv.check_i8(ctl.last_journal, ctx) == ""                             # the field-name scan is blind to it
+    assert "ProtectedGrader" in inv.check_i8(ctl.last_journal, ctx)              # [D1/S0] check_i8 now calls the deep scan, so the hidden grader is found (it was blind before the hook)
     assert "ProtectedGrader" in isolation.check_i8_deep(ctx)
     ctx2 = ControllerContext(RT.FakeGen([]), RT.FakeExec(), RT.FakeBudget(arm="D0"), "D0", None, None, (1,), {"path": "results/x/grader/" + "protected" + "_cases.json"})
     assert "names" in isolation.check_i8_deep(ctx2)

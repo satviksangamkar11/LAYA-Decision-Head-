@@ -1,0 +1,718 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-a0469714992a",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex1_slug"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "dea3d378a8c54eadcc12fb0b4a3e48704ee477f04be694cb41d5830d319e0405",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "artifact_ref": "python3 test_does_not_exist.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "318a1394858529a27111af2717ab95ccfe0c3b67dcd34bfd6e1a826e8a53db3e",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "d86d27696e191b743c625e090f3ebc9ea924773f74103554cfb1c180a9aa3ad4",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "8734cea650e29b9687d28e06945a5866dc2cbb090598f0889020c0f6c7fbb376",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "9ecdedd6b2539baab46bcc2f0996697b2405b299067bbb119fb19820a7b198f5",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "VERIFIED",
+   "changed_from": null,
+   "covered": [
+    "tests"
+   ],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": true,
+    "type_or_compile_check": false
+   },
+   "loop": "generate-execute-repair",
+   "reason": "trusted executable oracle: test_slug.py",
+   "step": "intake",
+   "tier": "O1"
+  },
+  "kind": "oracle_tier",
+  "prev": "e26f5b3968c1f8922270f34bd81c00d533404b1eacfb4480091d81ea4f8dcf7a",
+  "seq": 5
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "check_id": "action_policy_v1",
+    "check_version": "1",
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0001",
+    "independence": "independent",
+    "produced_at": "t1",
+    "receipt_hash": "ebc85a95fa0e2fda9a5fab5a4cf8125d3ea6a8eec30446e56cb5eb195252951b",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "policy check of one proposed action",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_policy_v1",
+    "detail": "",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "51b107886df31de4cdbad051854afec4f7210f64870c46bc0a6eef510b4b3317",
+  "seq": 6
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "check_id": "action_dry_run_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0002",
+    "independence": "independent",
+    "produced_at": "t2",
+    "receipt_hash": "15c32442c98ebd5db78e0a0ac57c4ab4d2cea7c39c12ac2f456f11c0a4d067df",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "protected test after this single edit (scratch copy)",
+    "source": "environment_observation",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "action_dry_run_v1",
+    "detail": "edit applied in a scratch copy, protected test run",
+    "observed": "exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "944fdab8ee5297dd5922c2452cf832f9b54568e9ff9c2e1f070808002101c7b5",
+  "seq": 7
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "step1_checked",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "a7ffc73f691ba9f4e8e0a5a747b3e650c360aec303d6a109d3e087365c44bc45",
+  "seq": 8
+ },
+ {
+  "data": {
+   "can_override_trusted_evidence": false,
+   "decision_id": "ex1_slug:step1",
+   "laya_ordering_enabled": false,
+   "min_informative_pools": 30,
+   "n_informative_pools": 0,
+   "n_pools": 0,
+   "reason": "0 informative pools (a pool with at least one passing and one failing candidate), minimum 30: no verdict",
+   "status": "INSUFFICIENT_DATA"
+  },
+  "kind": "monotonicity_gate",
+  "prev": "62d0a195efaba9721e91fcea459074b68a3172e543b8df874d62b2c146cbfd4f",
+  "seq": 9
+ },
+ {
+  "data": {
+   "decision_id": "ex1_slug:step1",
+   "ids": [
+    "ex1_slug:step1#0"
+   ],
+   "level": "L0",
+   "provenance": {},
+   "scorer_id": "stub:laya",
+   "scores": [
+    0.018
+   ],
+   "state": "scored"
+  },
+  "kind": "scorer",
+  "prev": "2af9e448c491969cb33cc6920c2e511b3899ee4f16934c50c05170ff30c6010f",
+  "seq": 10
+ },
+ {
+  "data": {
+   "decision_id": "ex1_slug:step1",
+   "ids": [
+    "ex1_slug:step1#0"
+   ],
+   "scores": {
+    "probe": {
+     "role": "mandatory_baseline_linear_probe",
+     "score": [
+      0.015
+     ]
+    },
+    "random_head": {
+     "role": "untrained_random_init_floor_control",
+     "score": [
+      0.876
+     ]
+    }
+   },
+   "selector": false
+  },
+  "kind": "scorer_comparison",
+  "prev": "72377efe4b05873de6b7cd153bffc9f262a6da0aabe961852f03b7c7b01dabc3",
+  "seq": 11
+ },
+ {
+  "data": {
+   "items": [
+    {
+     "cluster": 0,
+     "deepconf": 0.0,
+     "id": "ex1_slug:step1#0",
+     "scorer": 0.018,
+     "trusted_passes": 0,
+     "validated_passes": 0
+    }
+   ],
+   "order": [
+    "ex1_slug:step1#0"
+   ],
+   "step": "ex1_slug:step1"
+  },
+  "kind": "ranking",
+  "prev": "d5d81f63048b88b78e0e9d8bf45b0ee45bcbb21c9d14e174a27835645fce6356",
+  "seq": 12
+ },
+ {
+  "data": {
+   "abstain": false,
+   "approved": false,
+   "blocked": [],
+   "decision_id": "ex1_slug:step1",
+   "derived_by": "controller",
+   "level": "L0_ordering_only",
+   "order": [
+    "ex1_slug:step1#0"
+   ],
+   "scorer_available": true,
+   "selected_id": "ex1_slug:step1#0",
+   "selected_index": 0
+  },
+  "kind": "action_decision",
+  "prev": "cca4be5a300744761168ca84cf2f7d8172b74623078b0f2597bce00f0e58d953",
+  "seq": 13
+ },
+ {
+  "data": {
+   "allowed": true,
+   "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+   "class": "reversible_workspace_edit",
+   "decision_id": "ex1_slug:step1",
+   "decision_risk": "sandboxed",
+   "missing": [],
+   "requires": [
+    "inside_workspace",
+    "not_protected"
+   ]
+  },
+  "kind": "action_auth",
+  "prev": "5c92d3a79d7d276849b29d164c4b1a2567cff3d181c106dfaf5e4a93f30d779f",
+  "seq": 14
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0003",
+    "independence": "user_provided",
+    "produced_at": "t3",
+    "receipt_hash": "52f48d2998c69f7fdd980cabac8294dcfda34cdc5e5137da5bb7dc8477a42135",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "4567d3bdf468625464d1552a38b0d46ed5337b4a87fe52e379d780b8c945767e",
+  "seq": 15
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0004",
+    "independence": "independent",
+    "produced_at": "t4",
+    "receipt_hash": "c850cd271f980cae0b48be604f0ee6593a2e9dd1f2ce00cf3e0b71a5c12883be",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "7fb0ebba9ab6e80814d05e47ce8340908ceb29668ecd966337a162d18affcead",
+  "seq": 16
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "step1"
+  },
+  "kind": "label",
+  "prev": "631d5e0e7876ec0c590f0e08ef542897eecc9fcb3f0a26c7af6a9511baa6b7b0",
+  "seq": 17
+ },
+ {
+  "data": {
+   "action": {
+    "allowed": true,
+    "class": "reversible_workspace_edit",
+    "denied": false,
+    "executed": {
+     "arguments": {
+      "file_path": "slug.py",
+      "new_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")",
+      "old_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text)"
+     },
+     "name": "Edit"
+    }
+   },
+   "decision": {
+    "abstain": false,
+    "allowed_set": [
+     0
+    ],
+    "chosen_index": 0,
+    "scorer_available": true
+   },
+   "decision_id": "ex1_slug:step1",
+   "inputs": {
+    "context_sha256": "a94db17624cccac1992b641e6e805381988c57bd2691d6d5738f9aeb32f9888d",
+    "option_sha256": [
+     "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4"
+    ],
+    "pre_state": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8"
+   },
+   "outcome": {
+    "authorized": false,
+    "label": "BLOCKED",
+    "post_state": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "protected_unchanged": true,
+    "result_sha256": "3448bfdac188b506e3849b34cca8b8daf7eadbc224a8085555a7103610f695a2",
+    "tests_pass": false
+   },
+   "step": 1
+  },
+  "kind": "step_record",
+  "prev": "aff808a14dff2788c305b1e3438ade320fb072ecd1c28caad62928de6a0b0e76",
+  "seq": 18
+ },
+ {
+  "data": {
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "ceiling": "VERIFIED",
+   "step": "step1_observed",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 1
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 1
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "965ed34b69705c58c12b48afea3c9a61136ac9dd499041184759f18d267ae97a",
+  "seq": 19
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0005",
+    "independence": "user_provided",
+    "produced_at": "t5",
+    "receipt_hash": "52f48d2998c69f7fdd980cabac8294dcfda34cdc5e5137da5bb7dc8477a42135",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\npython3: can't open file '/work/test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "330e8e92ed51517c69b27c029840109ccb1fe4f411641b466fcc7fd47cf6094c",
+  "seq": 20
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-a0469714992a",
+    "evidence_id": "E0006",
+    "independence": "independent",
+    "produced_at": "t6",
+    "receipt_hash": "c850cd271f980cae0b48be604f0ee6593a2e9dd1f2ce00cf3e0b71a5c12883be",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "566565b73dec9968d8c4c5a0c8e834fda87cd96c7147c5c3b4b727ad7b32e26e",
+  "seq": 21
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "finalize"
+  },
+  "kind": "label",
+  "prev": "28c7e8330af813cf0c0fefced386a6b277c9e8c2e0521e245026f74ad862e4c2",
+  "seq": 22
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "ok": false,
+   "reason": ""
+  },
+  "kind": "finalize",
+  "prev": "925d2dd7ee094b3c95a93c8671fb947d0746fa86e81833196d38e229a1bbd9c3",
+  "seq": 23
+ },
+ {
+  "data": {
+   "outcome": {
+    "answer_label": "BLOCKED",
+    "authorized_by_authorize": false,
+    "end_state_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "label_ceiling": "VERIFIED",
+    "state_unchanged_since_last_action": true,
+    "tests_pass": false,
+    "trusted_checks_rerun_on_real_end_state": true
+   },
+   "process": {
+    "actions_denied_by_risk_table": 0,
+    "actions_executed": 1,
+    "constraints_respected": true,
+    "diff": {
+     "added": [],
+     "modified": [
+      "slug.py"
+     ],
+     "removed": []
+    },
+    "diff_scope_ok": true,
+    "diff_violations": [],
+    "protected_unchanged": true,
+    "scope_declared": null,
+    "tier": "O1"
+   }
+  },
+  "kind": "final_report",
+  "prev": "97eecacfaa0fe4a21e577effe91be855d6c69b2ea31168bf2e174ad399c93505",
+  "seq": 24
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "authorized_to_execute": false,
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "decision_id": "d-175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "7de631f3b8f1cd2b86b34bd9468a14873c3744cfa82aaee10ef1cc7c52d63192",
+  "seq": 25
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 1,
+   "budget_hit": true,
+   "cause": "budget",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex1_slug",
+   "rounds": 1,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "2b3a9c6d29fa004b35e30595f3901f5b7c4719cade79615444dfb9a4b1b86319",
+  "seq": 26
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "43d776e0ebb54da754f075aee568927e930eabcd9bb37c176cf3ba59795fc340",
+  "seq": 27
+ }
+]

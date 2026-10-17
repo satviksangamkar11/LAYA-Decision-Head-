@@ -22,6 +22,7 @@ import math
 import os
 import re
 import shutil
+import subprocess
 import tempfile
 import time
 from dataclasses import dataclass, field
@@ -43,6 +44,7 @@ from .invariants import assert_invariants, check_i2
 from .journal import EvidenceJournal, canon
 from .limits import Limiter, load_limits
 from .next_action import decide_next_action
+from .monotonicity import monotonicity_gate
 
 TOOLS = {"Read": ("read_only", {"file_path"}), "Edit": ("reversible_write", {"file_path", "old_string", "new_string"}), "Bash": ("sandboxed_exec", {"command"})}
 # [EL-ARCH-1 B5] the regex deny-list is gone: controller/risk.py holds the fixed action-risk table (authorize_action in policy() and at the commit gate)
@@ -82,6 +84,7 @@ class AgenticContext:          # no field name may contain 'grader' or 'protecte
     config: Dict[str, Any] = field(default_factory=dict)
     limits: Any = None             # [EL-ARCH-1 A3] controller.limits.Limits; default = profile "agentic" of configs/el_arch1_limits_v1.toml
     clock: Any = None              # injected monotonic clock for the wall-time limit (default time.monotonic)
+    comparison: Any = None         # [EL-ARCH-1 D1/S0] optional {"probe": scorer, "random_head": scorer} scoring the SAME options; journaled as scorer_comparison, never a selector
     # config["require"] = ["scorer", "critic"]: components this run needs; a missing one writes a journal entry and raises MissingComponentError (A5). Final acceptance runs set it.
 
 
@@ -156,6 +159,8 @@ class AgenticRun:
                 "source": {"type": "request_span", "quote": q, "char_start": i, "char_end": i + len(q)}}
         req2 = {"requirement_id": "R2", "version": 1, "kind": "contract", "text": "the protected test files are not modified", "priority": "hard", "status": "active",
                 "source": {"type": "task_metadata", "artifact_ref": ",".join(task.protected)}}
+        if i < 0:      # [D1/S2 finding] a test command the request does not quote cannot be an 'explicit' requirement (the quote check would demote it to a non-gating hypothesis and a failing test would no longer block VERIFIED): it is a harness-declared contract requirement instead
+            req1 = dict(req1, kind="contract", source={"type": "task_metadata", "artifact_ref": q})
         self.reqs = [C.check_requirement(req1, task.user_text), C.check_requirement(req2, task.user_text)]
         self.roles = {"R1": "example", "R2": "contract"}
         if task.scope is not None:      # [EL-ARCH-1 B7] declared diff scope: a hard contract requirement with its own certified check
@@ -169,6 +174,8 @@ class AgenticRun:
         self.last_exec: Optional[Dict[str, Any]] = None
         self.investigation: Optional[Dict[str, Any]] = None
         self.denied = 0
+        self.tool_error: Optional[str] = None      # [D1/S2] the sandbox / test tool itself failed (raised): ERROR evidence, never a pass, stop cause tool_failure
+        self.gate_pools: List[Dict[str, Any]] = []      # [D1/S0] this run's earlier decisions with TRUSTED outcomes (dry-run results); per run so a replay reproduces the journal exactly
         self.final_report: Optional[Dict[str, Any]] = None
         self.fac = Factory(self.registry, self.reqs, self.env, self.roles)
 
@@ -284,6 +291,15 @@ class AgenticRun:
         self.budget.add(tool_runs=1)
         return self.ctx.sandbox.run(workspace, cmd, persist=persist)
 
+    def _run_checked(self, workspace, cmd, tag: str):
+        """[D1/S2] a trusted check whose tool breaks (the sandbox raises) is ERROR evidence, not a failure of the candidate and never a pass."""
+        try:
+            return self._run(workspace, cmd)
+        except (RuntimeError, OSError, ValueError, subprocess.TimeoutExpired) as ex:      # infrastructure errors only (WslSandbox raises these); logic errors and ReplayDivergence still propagate
+            self.tool_error = "%s: %s" % (type(ex).__name__, str(ex)[:200])
+            self.note("tool_failure", {"tag": tag, "error": self.tool_error})
+            return {"exit_code": -1, "killed": False, "stdout": "", "stderr": "sandbox/test tool error: " + self.tool_error, "protected_unchanged": False, "tool_error": True}
+
     def _evidence(self, cand: str, rid: str, check_id: str, source: str, independence: str, status: str, scope: str, outcome: Dict[str, Any], cx=None):
         ev = self.fac.make(_Art(cand), rid, check_id, source, independence, status, scope, outcome, cx)
         self.journal.add_evidence(ev, trim(dict(outcome, check_id=check_id, status=status)))
@@ -321,12 +337,13 @@ class AgenticRun:
                 try:
                     msg, ok = self.apply_edit(scratch, act["arguments"])
                     if ok:
-                        r = self._run(scratch, self.task.test_cmd)
-                        st = "pass" if (r["exit_code"] == 0 and r["protected_unchanged"]) else "fail"
+                        r = self._run_checked(scratch, self.task.test_cmd, "dry_run")
+                        st = "error" if r.get("tool_error") else "pass" if (r["exit_code"] == 0 and r["protected_unchanged"]) else "fail"
                         out = {"check_id": "action_dry_run_v1", "status": st, "observed": ("exit %d\n%s%s" % (r["exit_code"], r["stdout"], r["stderr"]))[-600:], "detail": "edit applied in a scratch copy, protected test run"}
                         self._evidence(cid, "R1", "action_dry_run_v1", "environment_observation", "independent", st, "protected test after this single edit (scratch copy)", out,
                                        None if st == "pass" else {"input": self.task.test_cmd, "expected": "exit 0", "observed": out["observed"][-300:]})
-                        t["L5_dry_run"] = "pass" if st == "pass" else "fail_nonblocking"
+                        if st != "error":      # an ERROR dry-run says nothing about the action: no trusted pass and no trusted fail
+                            t["L5_dry_run"] = "pass" if st == "pass" else "fail_nonblocking"
                         rec["dry_run"] = {"status": st, "exit_code": r["exit_code"], "output_sha256": sha(out["observed"])}
                     else:
                         rec["dry_run"] = {"status": "not_applicable", "edit_error": msg}
@@ -345,10 +362,31 @@ class AgenticRun:
         except Exception as ex:      # noqa: BLE001  a missing/failed/refusing scorer is recorded, never swallowed
             scores = None
             reason = "%s: %s" % (type(ex).__name__, str(ex)[:250])
+        # --- COMPARISON scorers (probe / random head on the SAME options; journaled, never passed to the ranking)
+        comp = None
+        if scores is not None and self.ctx.comparison:
+            comp = {}
+            for kind, sc in sorted(self.ctx.comparison.items()):
+                try:
+                    v = [float(x) for x in sc.score("next_action", {"context_text": ctx_text, "options": list(options)})]
+                    if len(v) != len(options) or not all(math.isfinite(x) for x in v):
+                        raise ValueError("wrong number of scores or non-finite")
+                    comp[kind] = v
+                except Exception as ex:      # noqa: BLE001  a missing comparison score is recorded, the run goes on (it is not a selector)
+                    self.note("scorer_comparison_unavailable", {"decision_id": did, "kind": kind, "reason": "%s: %s" % (type(ex).__name__, str(ex)[:200])})
+            comp = comp or None
+        # --- monotonicity gate (C3): journaled BEFORE the decision; with so few pools it is INSUFFICIENT_DATA, LAYA ordering of checks stays disabled and I2 is unchanged
+        gate = monotonicity_gate(self.gate_pools)
+        self.note("monotonicity_gate", {"decision_id": did, "status": gate["status"], "n_pools": gate["n_pools"], "n_informative_pools": gate["n_informative_pools"],
+                                        "min_informative_pools": gate["min_informative_pools"], "reason": gate["reason"], "laya_ordering_enabled": gate["laya_ordering_enabled"],
+                                        "can_override_trusted_evidence": gate["can_override_trusted_evidence"]})
         # --- DECIDE
         dec = decide_next_action(self.journal, did, list(options), scores, trusted, scorer_id=getattr(self.ctx.scorer, "scorer_id", None),
-                                 scorer_provenance=(prov or {}).get("provenance") if isinstance(prov, dict) else None, scorer_unavailable_reason=reason)
+                                 scorer_provenance=(prov or {}).get("provenance") if isinstance(prov, dict) else None, scorer_unavailable_reason=reason, comparison_scores=comp)
         i2 = check_i2(self.journal)
+        known = [i for i in range(len(options)) if "L5_dry_run" in trusted[i]]      # options whose outcome a real execution decided (an Edit that applied)
+        if scores is not None and len(known) >= 2:
+            self.gate_pools.append({"id": did, "scores": [scores[i] for i in known], "passed": [trusted[i]["L5_dry_run"] == "pass" for i in known]})
         n = len(options)
         allowed = [i for i in range(n) if not any(v == "fail" for v in trusted[i].values())]
         laya_order = sorted(range(n), key=lambda i: (-scores[i], i)) if scores else None
@@ -415,23 +453,27 @@ class AgenticRun:
         """[EL-ARCH-1 B3] ask a generation backend (via controller.generation.ActionProposer) for next-action proposals with the frozen action template, journal what came back (hashes, status,
         every rejection: prose is rejected, never repaired) and run one step on the parsed options. An empty proposal list is a step with no options: the decision abstains."""
         out = proposer.propose(self.task.task_id, self.step_no + 1, self.context_text(), seeds)
+        self.journal_proposals(out)
+        return self.step(out["options"], out["qwen_meta"])
+
+    def journal_proposals(self, out: Dict[str, Any]) -> None:
+        """[D1] the journal entry of one proposal round (split out of step_from_generation so RecordedRun can record and replay it as its own event)."""
         self.note("proposals", {"step": self.step_no + 1, "status": out["status"], "prompt_sha256": out["prompt_sha256"], "raw_sha256": out["raw_sha256"], "option_sha256": [sha(o) for o in out["options"]],
                                 "rejected": out["rejected"], "generations": out["generations"]})
-        return self.step(out["options"], out["qwen_meta"])
 
     def _observe(self, tag: str, detail_fn: Optional[Callable[[Dict[str, Any]], str]] = None) -> Dict[str, Any]:
         ws = self.task.workspace
-        r = self._run(ws, self.task.test_cmd)
+        r = self._run_checked(ws, self.task.test_cmd, tag)
         self.last_exec = r
         state_id = tree_hash(ws)
         fb = "Harness test run (`%s`): exit %d\n%s%s" % (self.task.test_cmd, r["exit_code"], r["stdout"][-600:], r["stderr"][-600:])
-        st1 = "pass" if r["exit_code"] == 0 else "fail"
+        st1 = "error" if r.get("tool_error") else "pass" if r["exit_code"] == 0 else "fail"
         out1 = {"check_id": "protected_tests_v1", "status": st1, "observed": fb[-600:]}
         if detail_fn is not None and st1 != "pass":
             out1["detail"] = detail_fn(r)      # B2: the parsed failing location is part of the L5 observation
         self._evidence(state_id, "R1", "protected_tests_v1", "user_test", "user_provided", st1, "the protected test command on the real end state", out1,
                        None if st1 == "pass" else {"input": self.task.test_cmd, "expected": "exit 0", "observed": fb[-300:]})
-        st2 = "pass" if r["protected_unchanged"] else "fail"
+        st2 = "error" if r.get("tool_error") else "pass" if r["protected_unchanged"] else "fail"
         self._evidence(state_id, "R2", "protected_files_unchanged_v1", "certified_check", "independent", st2, "sha256 of the protected files before/after the test run", {"check_id": "protected_files_unchanged_v1", "status": st2})
         if self.task.scope is not None:      # [EL-ARCH-1 B7] R3: the end-state diff against the intake snapshot stays inside the declared scope
             ds = FV.diff_scope(self.baseline, TIERS.snapshot(ws), self.task.scope, self.task.protected)
@@ -441,7 +483,7 @@ class AgenticRun:
         d = decide_stage1(self.reqs, self.journal.evidence(state_id), state_id, state_id, self.env, self.registry, "sandboxed", False, "commit")
         self.note("label", {"candidate_id": state_id, "tag": tag, "answer_label": d["answer_label"], "rows": d["requirement_rows"]})
         ok = authorize(self.reqs, self.journal.evidence(state_id), state_id, state_id, self.env, self.registry, "sandboxed", False)
-        self.decided = ok
+        self.decided = ok and not self.tool_error
         self.last_state = state_id
         return {"state_id": state_id, "tests_pass": r["exit_code"] == 0, "feedback": fb, "label": d["answer_label"], "authorized": ok, "protected_unchanged": r["protected_unchanged"]}
 
@@ -549,6 +591,8 @@ class AgenticRun:
         details = ""
         if cause is None:
             cause = "budget" if len(self.steps) >= self.task.max_steps else "no_progress_2"
+        if self.tool_error and cause != "decided":      # [D1/S2] a broken test tool is its own stop cause, not a budget or progress verdict
+            cause, details = "tool_failure", "sandbox"
         if cause == "budget" and len(self.steps) >= self.task.max_steps:
             details = "task.max_steps used=%d cap=%d" % (len(self.steps), self.task.max_steps)
         self.sync_glm_budget()

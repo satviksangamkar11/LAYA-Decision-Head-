@@ -1,0 +1,41 @@
+{
+ "variant": "invalid_model_evidence",
+ "base": "ex2_clamp",
+ "why": "a critic that claims things on an invented requirement id (R99) and says 'approve': its evidence lands on the controller's own row as diagnostic, never as pass; forging R99 is refused/caught by I3",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "critic_state": "applied",
+  "critic_label_unchanged": true,
+  "critic_evidence_not_pass": true,
+  "only_known_requirements": true,
+  "forged_invented_id_caught": true
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "1ef765f963afdee8b85cc89d1a77c69734ac3206540bbab4e7149739c73c56e0",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 5,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

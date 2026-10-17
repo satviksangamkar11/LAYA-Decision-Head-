@@ -1,0 +1,2311 @@
+{
+ "tag": "[EL-ARCH-1 D1] conformance",
+ "run_dir": "results\\raw\\el-arch1-phaseD1-20261017T094844Z\\rehearsal",
+ "mode": "offline_rehearsal",
+ "rehearsal": true,
+ "commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+ "counts": {
+  "REAL PASS": 0,
+  "LOGIC-ONLY": 57,
+  "IMPLEMENTED": 7,
+  "NOT APPLICABLE": 7,
+  "BLOCKED": 5
+ },
+ "rows": [
+  {
+   "id": "ST1",
+   "group": "stage",
+   "title": "1 INTAKE (requirements R1/R2, tier, routing table, risk table hash)",
+   "status": "LOGIC-ONLY",
+   "note": "stage intake reached (ranges {'ex1_slug': [[0, 5]], 'ex2_clamp': [[0, 5]], 'ex3_wordcount': [[0, 5]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:190",
+    "evidence_ladder/controller/tiers.py:123"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "ST2",
+   "group": "stage",
+   "title": "2 INVESTIGATE (deterministic: read sources, run existing tests, parse failure)",
+   "status": "LOGIC-ONLY",
+   "note": "stage investigate reached (ranges {'ex1_slug': [[6, 12]], 'ex2_clamp': [[6, 12]], 'ex3_wordcount': [[6, 12]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/investigate.py:137"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "ST3",
+   "group": "stage",
+   "title": "3 GENERATE (frozen action prompt, strict parse, Qwen3-4B-Thinking on Kaggle T4)",
+   "status": "LOGIC-ONLY",
+   "note": "stage generate reached (ranges {'ex1_slug': [[13, 14]], 'ex2_clamp': [[13, 14]], 'ex3_wordcount': [[13, 14]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, qwen, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/generation.py:74",
+    "evidence_ladder/models/qwen.py:199"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "ST4",
+   "group": "stage",
+   "title": "4/5 DISCRIMINATE (policy + real dry-run of every proposed action in a scratch copy)",
+   "status": "LOGIC-ONLY",
+   "note": "stage discriminate reached (ranges {'ex1_slug': [[15, 22]], 'ex2_clamp': [[15, 21]], 'ex3_wordcount': [[15, 22]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "ST5",
+   "group": "stage",
+   "title": "6 RANK (trusted evidence first, LAYA L0 last, monotonicity gate journaled, abstain)",
+   "status": "LOGIC-ONLY",
+   "note": "stage rank reached (ranges {'ex1_slug': [[23, 27]], 'ex2_clamp': [[22, 26]], 'ex3_wordcount': [[23, 27]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, laya, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/next_action.py:20",
+    "evidence_ladder/controller/monotonicity.py:66"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "ST6",
+   "group": "stage",
+   "title": "4 EXECUTE (commit gate, WSL execution, protected test on the real end state)",
+   "status": "LOGIC-ONLY",
+   "note": "stage execute reached (ranges {'ex1_slug': [[28, 33]], 'ex2_clamp': [[27, 32]], 'ex3_wordcount': [[28, 33]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:464",
+    "evidence_ladder/controller/wsl_sandbox.py:33"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "ST7",
+   "group": "stage",
+   "title": "7 REPAIR (round >= 2 from the observed failure, same parts)",
+   "status": "LOGIC-ONLY",
+   "note": "stage repair reached (ranges {'ex1_slug': None, 'ex2_clamp': [[33, 52]], 'ex3_wordcount': None}) in ex2_clamp | exercised with stand-ins: controller, laya, qwen, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309",
+    "evidence_ladder/controller/controller.py:524"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "ST8",
+   "group": "stage",
+   "title": "8 COMMIT + VERIFY (finalize on the real end state, final_report, decision, stop, I1-I8)",
+   "status": "LOGIC-ONLY",
+   "note": "stage commit_verify reached (ranges {'ex1_slug': [[34, 45]], 'ex2_clamp': [[53, 64]], 'ex3_wordcount': [[34, 45]]}) in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:578",
+    "evidence_ladder/controller/final_verify.py:28"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I1",
+   "group": "invariant",
+   "title": "I1 authority",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I1 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:54",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I2",
+   "group": "invariant",
+   "title": "I2 monotone safety",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I2 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:88",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I3",
+   "group": "invariant",
+   "title": "I3 no self-authorisation",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I3 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:101",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I4",
+   "group": "invariant",
+   "title": "I4 unknown is not pass",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I4 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:131",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I5",
+   "group": "invariant",
+   "title": "I5 bounded",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I5 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:141",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I6",
+   "group": "invariant",
+   "title": "I6 observe before commit",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I6 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:167",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I7",
+   "group": "invariant",
+   "title": "I7 frozen scorers + immutable journal",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I7 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:185",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "I8",
+   "group": "invariant",
+   "title": "I8 sealed evaluation (runtime isolation)",
+   "status": "LOGIC-ONLY",
+   "note": "assert_invariants ran I8 in all 3 examples; blocked_action,budget_rounds,invalid_model_evidence: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:196",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "L0",
+   "group": "evidence",
+   "title": "L0 scores/opinions (LAYA, probe, random head, critic) order effort only",
+   "status": "LOGIC-ONLY",
+   "note": "journal entry 'ranking' per example: {'ex1_slug': 1, 'ex2_clamp': 2, 'ex3_wordcount': 1} | exercised with stand-ins: controller, laya, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/next_action.py:20"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "L1",
+   "group": "evidence",
+   "title": "L1 behavioural agreement (ladder controller clusters on derived inputs)",
+   "status": "IMPLEMENTED",
+   "note": "ladder-mode (function-level) feature; unit-tested LOGIC-ONLY (phaseB t_b6); the toy per-action run discriminates by real dry-run instead (ST4)",
+   "source": [
+    "evidence_ladder/controller/controller.py:491",
+    "evidence_ladder/controller/controller.py:427"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "L2",
+   "group": "evidence",
+   "title": "L2 validated weak-model checks (quote span, mutants, consistency)",
+   "status": "IMPLEMENTED",
+   "note": "ladder-mode feature; unit-tested LOGIC-ONLY (phaseB t_b6); no Qwen-written checks were requested in the toy run",
+   "source": [
+    "evidence_ladder/controller/l2.py:211"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "L3",
+   "group": "evidence",
+   "title": "L3 examples quoted from the request (tier O2 evidence)",
+   "status": "LOGIC-ONLY",
+   "note": "examples_only_o2: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/tiers.py:43"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/examples_only_o2/ex1_slug/outcome.json",
+     "sha256": "2591c181cf2740167259f1b3300a95ab3cd020d00db5095905cd1c175f756758"
+    },
+    {
+     "path": "variants/examples_only_o2/ex2_clamp/outcome.json",
+     "sha256": "6403c1cd8098df007ec7c560e4074765e6ff76e05bf6f956575f7dbb61e8941c"
+    },
+    {
+     "path": "variants/examples_only_o2/ex3_wordcount/outcome.json",
+     "sha256": "a4a476e3bc082f3c9c96443b5e76cb319f0ac0c2efb58441f6271e38293530c0"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "L4",
+   "group": "evidence",
+   "title": "L4 certified checks (protected_files_unchanged_v1, diff_scope_v1) inside their scope",
+   "status": "LOGIC-ONLY",
+   "note": "certified_check pass records: 10 | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:120"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "L5",
+   "group": "evidence",
+   "title": "L5 real environment observation (protected test on the real end state)",
+   "status": "LOGIC-ONLY",
+   "note": "protected_tests_v1 pass records: 6 | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:464"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "Lscope",
+   "group": "evidence",
+   "title": "evidence scope + provenance (requirement/check version, artifact hash, environment, scope text) on every record",
+   "status": "LOGIC-ONLY",
+   "note": "all evidence records carry scope/artifact_hash/environment_revision/versions | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/evidence.py:62"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "O1",
+   "group": "tier",
+   "title": "O1 trusted executable oracle -> generate-execute-repair, ceiling VERIFIED",
+   "status": "LOGIC-ONLY",
+   "note": "tier O1 in all 3 examples | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/tiers.py:72"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "O2",
+   "group": "tier",
+   "title": "O2 partial oracle (examples) -> pointer to the ladder controller, ceiling SUPPORTED",
+   "status": "LOGIC-ONLY",
+   "note": "examples_only_o2: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/tiers.py:72",
+    "evidence_ladder/controller/agentic.py:559"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/examples_only_o2/ex1_slug/outcome.json",
+     "sha256": "2591c181cf2740167259f1b3300a95ab3cd020d00db5095905cd1c175f756758"
+    },
+    {
+     "path": "variants/examples_only_o2/ex2_clamp/outcome.json",
+     "sha256": "6403c1cd8098df007ec7c560e4074765e6ff76e05bf6f956575f7dbb61e8941c"
+    },
+    {
+     "path": "variants/examples_only_o2/ex3_wordcount/outcome.json",
+     "sha256": "a4a476e3bc082f3c9c96443b5e76cb319f0ac0c2efb58441f6271e38293530c0"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "O3",
+   "group": "tier",
+   "title": "O3 no oracle -> best effort / ask_user on blocking ambiguity, BLOCKED",
+   "status": "LOGIC-ONLY",
+   "note": "no_tests_o3,missing_information: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/tiers.py:123"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/missing_information/ex1_slug/outcome.json",
+     "sha256": "43ddb0b9475fd5a904ced0b8d13ca18fa286a538e4867961f1ec097736165928"
+    },
+    {
+     "path": "variants/missing_information/ex2_clamp/outcome.json",
+     "sha256": "ab93147500dad09244e8975b98e3f21f4ffc16da98ede6000e87456eadea2ec3"
+    },
+    {
+     "path": "variants/missing_information/ex3_wordcount/outcome.json",
+     "sha256": "67e9d6c2408c5f8db8cd7a3ad87feacdc2c6a0673195028f14270a8bf5c6521b"
+    },
+    {
+     "path": "variants/no_tests_o3/ex1_slug/outcome.json",
+     "sha256": "1e1e91861051ff4308a00ea9568f787ababf08bc1785f7b32b42f503ac26d121"
+    },
+    {
+     "path": "variants/no_tests_o3/ex2_clamp/outcome.json",
+     "sha256": "99aa6a87e80990232a2c36a79b91c1b8fc0a110af715e1877a9e6f67447ce8fc"
+    },
+    {
+     "path": "variants/no_tests_o3/ex3_wordcount/outcome.json",
+     "sha256": "db39612edabe00b4c4015f0c50e37159c9d2e5093456cb277bf47b444de02760"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "R1.1",
+   "group": "revision",
+   "title": "R1.1 evidence per requirement (rows), weakest-row label",
+   "status": "LOGIC-ONLY",
+   "note": "journal entry 'label' per example: {'ex1_slug': 3, 'ex2_clamp': 4, 'ex3_wordcount': 3} | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/decision.py:23"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "R1.2",
+   "group": "revision",
+   "title": "R1.2 router re-run after evidence-adding steps; tier upgraded only by pre-existing unmodified files",
+   "status": "LOGIC-ONLY",
+   "note": "routing entries per example: {'ex1_slug': 4, 'ex2_clamp': 6, 'ex3_wordcount': 4} | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/tiers.py:47",
+    "evidence_ladder/controller/agentic.py:208"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "R1.3",
+   "group": "revision",
+   "title": "R1.3 repair continues on progress (stop causes)",
+   "status": "IMPLEMENTED",
+   "note": "ladder-mode logic, unit-tested; the per-action loop stops by solved / task.max_steps / limits (variants budget_*)",
+   "source": [
+    "evidence_ladder/controller/controller.py:549"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "R2.1",
+   "group": "revision",
+   "title": "R2.1 every action goes intake -> check -> commit (step_record per step)",
+   "status": "LOGIC-ONLY",
+   "note": "journal entry 'step_record' per example: {'ex1_slug': 1, 'ex2_clamp': 2, 'ex3_wordcount': 1} | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "R2.2",
+   "group": "revision",
+   "title": "R2.2 evidence levels are not a total order; scope-covering records only",
+   "status": "LOGIC-ONLY",
+   "note": "journal entry 'routing' per example: {'ex1_slug': 4, 'ex2_clamp': 6, 'ex3_wordcount': 4} | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/router.py:21"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "R2.3",
+   "group": "revision",
+   "title": "R2.3 approval depends on risk (fixed action-risk table, user_confirmed + trusted pre-check)",
+   "status": "LOGIC-ONLY",
+   "note": "blocked_action,blocked_confirmed_without_precheck: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/risk.py:231"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex1_slug/outcome.json",
+     "sha256": "586ec03d0c28d64885c1237e09b767a5700db92c6393739400daeb54c14ccf64"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex2_clamp/outcome.json",
+     "sha256": "d3319b1a013955505ae62f6b4f7526e3b70f40b5f7b5cf1c6084daa4fac84f55"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex3_wordcount/outcome.json",
+     "sha256": "cd3bb70cc1f0245f06fecee049d6d2cf24d056dac8ab0b52e1ef5ef3d7ddff99"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "D5",
+   "group": "revision",
+   "title": "D5 critic = z-ai/glm-5.3-flash, blinded packets, diagnostic evidence only",
+   "status": "LOGIC-ONLY",
+   "note": "critic stage ran, label unchanged by the critic in all 3 examples | exercised with stand-ins: controller, glm, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:507",
+    "evidence_ladder/critic_batch/validator.py:50"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "glm",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "M-QWEN",
+   "group": "model",
+   "title": "Qwen3-4B-Thinking-2507 proposals (Kaggle T4, strict parser, prompt-hash replay)",
+   "status": "LOGIC-ONLY",
+   "note": "a proposal round with status ok in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: qwen, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/qwen.py:199",
+    "kaggle/el_arch1_generate_v1.py:1"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "M-ADAPT",
+   "group": "model",
+   "title": "3 frozen Fable adapters + pretrained head scoring on correctly captured Qwen states",
+   "status": "LOGIC-ONLY",
+   "note": "scorer entries carry capture provenance (model revision, recipe, depths, device, capture code hashes) | exercised with stand-ins: laya, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/laya_runtime.py:180",
+    "evidence_ladder/models/laya_runtime.py:106"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    }
+   ],
+   "stub_backends": [
+    "laya",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "M-LAYA",
+   "group": "model",
+   "title": "LAYA scorer used as L0 only; scorer_unavailable journaled, never a silent fallback",
+   "status": "LOGIC-ONLY",
+   "note": "scorer / scorer_unavailable entries present | exercised with stand-ins: laya, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/laya.py:160"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "laya",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "M-PROBE",
+   "group": "model",
+   "title": "linear probe on the SAME pools (refit on exactly the 334 TRAIN pools, fingerprinted), comparison only",
+   "status": "LOGIC-ONLY",
+   "note": "scorer_comparison with probe scores in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: probe, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/probe.py:47"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "probe",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "M-RAND",
+   "group": "model",
+   "title": "random head control (untrained seeded heads, same architecture) on the SAME pools, comparison only",
+   "status": "LOGIC-ONLY",
+   "note": "scorer_comparison with random_head scores in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: random_head, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/random_head.py:48"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "random_head",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "RT-CTRL",
+   "group": "runtime",
+   "title": "real controller (AgenticRun in RecordedRun), journal replays identically offline",
+   "status": "LOGIC-ONLY",
+   "note": "offline replay identical against the committed code in all 3 examples | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/replay.py:159",
+    "evidence_ladder/controller/replay.py:219"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "RT-WSL",
+   "group": "runtime",
+   "title": "WSL (systemd + bubblewrap) sandbox: every action and every end state executed there; live replay identical",
+   "status": "LOGIC-ONLY",
+   "note": "live WSL replay identical, sandbox runs > 0 in all 3 examples | exercised with stand-ins: rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/wsl_sandbox.py:33"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "RT-GLM",
+   "group": "runtime",
+   "title": "local GLM critic through the project key system: response enters the controller, safe experiment executed",
+   "status": "LOGIC-ONLY",
+   "note": "critic applied with >= 1 accounted GLM call in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: controller, glm, rehearsal_run, sandbox",
+   "source": [
+    "tools/el_arch1_glm_live.py:19",
+    "evidence_ladder/controller/agentic.py:507"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "glm",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "RT-REPAIR",
+   "group": "runtime",
+   "title": "repair loop with real Qwen proposals (round >= 2 only for unsolved examples)",
+   "status": "LOGIC-ONLY",
+   "note": "stage repair reached (ranges {'ex1_slug': None, 'ex2_clamp': [[33, 52]], 'ex3_wordcount': None}) in ex2_clamp | exercised with stand-ins: controller, laya, qwen, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "BUDGET",
+   "group": "cross",
+   "title": "budget enforcement: rounds / Qwen tokens / wall time stop as `budget` with the resource named; GLM accounting from ledgers",
+   "status": "LOGIC-ONLY",
+   "note": "budget_rounds,budget_tokens,budget_wall: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/limits.py:43",
+    "evidence_ladder/critic_batch/accounting.py:94"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/budget_rounds/ex1_slug/outcome.json",
+     "sha256": "507617b826fd678ed01a0c4f559367f3a8d5c76552ec8b8dfa26ea71e53e2519"
+    },
+    {
+     "path": "variants/budget_rounds/ex2_clamp/outcome.json",
+     "sha256": "40e0e5c08fa36eb571a4873fa435903e772e658be73ca5d0e38c3c1513c6fc8e"
+    },
+    {
+     "path": "variants/budget_rounds/ex3_wordcount/outcome.json",
+     "sha256": "db703fc48a1991ee86579c735a130436f82c220fe4e828302f1c5b937fb75254"
+    },
+    {
+     "path": "variants/budget_tokens/ex1_slug/outcome.json",
+     "sha256": "9ae2748b798ac1327a720eecad77558e66f6d636431563fcb92b25adeb4d8af3"
+    },
+    {
+     "path": "variants/budget_tokens/ex2_clamp/outcome.json",
+     "sha256": "4a77de99b86dd247bb51b0cdf5c20d34f7d914d525eeb22853e79d806811cea5"
+    },
+    {
+     "path": "variants/budget_tokens/ex3_wordcount/outcome.json",
+     "sha256": "e189d5d7aeaef669478c72cb865dce8232108d05f88b0bb7feb570df1444728d"
+    },
+    {
+     "path": "variants/budget_wall/ex1_slug/outcome.json",
+     "sha256": "eb3a43a90e3f5b05c01d7d7a2a0f7b667c709a5284f5bad8f829f45db6ece6dc"
+    },
+    {
+     "path": "variants/budget_wall/ex2_clamp/outcome.json",
+     "sha256": "df4d4d4de429cd472c4e56c282ed7c133cdf5b52d35dcbbd3e73c65dc781dd29"
+    },
+    {
+     "path": "variants/budget_wall/ex3_wordcount/outcome.json",
+     "sha256": "b755f487a3e977a403ad900ea02999452211c3435aabd76049fe78044e204a77"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "SAFETY",
+   "group": "cross",
+   "title": "safety: irreversible / network / protected-write proposals never run; confirmation alone does not authorize; protected files read-only",
+   "status": "LOGIC-ONLY",
+   "note": "blocked_action,blocked_confirmed_without_precheck,abstain_all_rejected,scope_conflict: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/risk.py:52"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex1_slug/outcome.json",
+     "sha256": "07205c5ac377d9567395b1cc0d1909d26b5b3bd7f189902e74c1edd948286106"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex2_clamp/outcome.json",
+     "sha256": "f34e990208a3040568d18a93628a869526a7261c23896b0874929dd80e8bd136"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex3_wordcount/outcome.json",
+     "sha256": "3e5c257f63c2bf58ab53f1dbeced7a551775f2fb5ed33ff95bc19600fac6dfa2"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex1_slug/outcome.json",
+     "sha256": "586ec03d0c28d64885c1237e09b767a5700db92c6393739400daeb54c14ccf64"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex2_clamp/outcome.json",
+     "sha256": "d3319b1a013955505ae62f6b4f7526e3b70f40b5f7b5cf1c6084daa4fac84f55"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex3_wordcount/outcome.json",
+     "sha256": "cd3bb70cc1f0245f06fecee049d6d2cf24d056dac8ab0b52e1ef5ef3d7ddff99"
+    },
+    {
+     "path": "variants/scope_conflict/ex1_slug/outcome.json",
+     "sha256": "7146785e3711e24d453122ce40d7af0a49e072ab003b6e75bfb1217cd5491f34"
+    },
+    {
+     "path": "variants/scope_conflict/ex2_clamp/outcome.json",
+     "sha256": "59a6ddb561c72c55b5666efa3b4a07be830a79dfc2201a9f3639487cd2ab58c6"
+    },
+    {
+     "path": "variants/scope_conflict/ex3_wordcount/outcome.json",
+     "sha256": "1a7b8ee33d753d800a424ff264f457717043c3d75e0b27967830569247765276"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "FAULTS",
+   "group": "cross",
+   "title": "fault injection: O2/O3, blocked action, missing information, broken test tool (ERROR, not pass), abstention, invalid model evidence, budget exhaustion",
+   "status": "LOGIC-ONLY",
+   "note": "all 48 variant runs matched their expected outcome | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "tools/el_arch1_variants.py:72"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "REPORT",
+   "group": "cross",
+   "title": "reporting: gates read INSUFFICIENT_DATA (never PASS) on 3 examples; NOT-sealed statement; outcome vs process fields; secret scan 0",
+   "status": "LOGIC-ONLY",
+   "note": "monotonicity INSUFFICIENT_DATA, secret scan hits 0, final_report per example | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/orchestrator/gates.py:136",
+    "evidence_ladder/orchestrator/isolation.py:22"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "JOURNAL",
+   "group": "cross",
+   "title": "immutable hash-chained journal + replay against the committed code (source committed, hashes recorded)",
+   "status": "BLOCKED",
+   "note": "FAILED: source_committed and code_unchanged on replay",
+   "source": [
+    "evidence_ladder/controller/journal.py:29"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "TRUSTED-CONFLICT",
+   "group": "cross",
+   "title": "an actual trusted-evidence conflict (LAYA top option fails real execution, or tests pass while the diff scope fails)",
+   "status": "LOGIC-ONLY",
+   "note": "real LAYA-vs-trusted override seen: True; scope_conflict variant ok: True | exercised with stand-ins: controller, laya, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/scope_conflict/ex1_slug/outcome.json",
+     "sha256": "7146785e3711e24d453122ce40d7af0a49e072ab003b6e75bfb1217cd5491f34"
+    },
+    {
+     "path": "variants/scope_conflict/ex2_clamp/outcome.json",
+     "sha256": "59a6ddb561c72c55b5666efa3b4a07be830a79dfc2201a9f3639487cd2ab58c6"
+    },
+    {
+     "path": "variants/scope_conflict/ex3_wordcount/outcome.json",
+     "sha256": "1a7b8ee33d753d800a424ff264f457717043c3d75e0b27967830569247765276"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F01",
+   "group": "finding",
+   "title": "T6 end-to-end loop completed with receipts",
+   "status": "LOGIC-ONLY",
+   "note": "end-to-end finish with I1-I8 in all 3 examples | exercised with stand-ins: controller, laya, qwen, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:578"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "qwen",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F02",
+   "group": "finding",
+   "title": "laya_integration (T5/T7) suite run with T4_scores.json",
+   "status": "BLOCKED",
+   "note": "missing receipt: Kaggle TEST_RESULTS.json (pass --tests-results); smallest fix: run the el-arch1 tests kernel",
+   "source": [
+    "evidence_ladder/models/tests/laya_integration_tests.py:1"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F03",
+   "group": "finding",
+   "title": "driver is the Evidence-Ladder controller, not a mini controller",
+   "status": "LOGIC-ONLY",
+   "note": "AgenticRun journal (registry, routing, step_record) in all 3 examples | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/agentic.py:132",
+    "tools/el_arch1_acceptance.py:204"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F04",
+   "group": "finding",
+   "title": "real trusted-vs-LAYA conflict (not injected)",
+   "status": "LOGIC-ONLY",
+   "note": "a real LAYA-top option failed real execution and was overridden | exercised with stand-ins: controller, laya, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "laya",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F05",
+   "group": "finding",
+   "title": "NONE/abstain: empty allowed set abstains, never a random pick",
+   "status": "LOGIC-ONLY",
+   "note": "abstain_all_rejected,abstain_no_options,blocked_action: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/next_action.py:20"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex1_slug/outcome.json",
+     "sha256": "07205c5ac377d9567395b1cc0d1909d26b5b3bd7f189902e74c1edd948286106"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex2_clamp/outcome.json",
+     "sha256": "f34e990208a3040568d18a93628a869526a7261c23896b0874929dd80e8bd136"
+    },
+    {
+     "path": "variants/abstain_all_rejected/ex3_wordcount/outcome.json",
+     "sha256": "3e5c257f63c2bf58ab53f1dbeced7a551775f2fb5ed33ff95bc19600fac6dfa2"
+    },
+    {
+     "path": "variants/abstain_no_options/ex1_slug/outcome.json",
+     "sha256": "6fd1fd6500a4a14141258f511f5db7401f09dd30ff932fc9a5d163d58b0c79c9"
+    },
+    {
+     "path": "variants/abstain_no_options/ex2_clamp/outcome.json",
+     "sha256": "fb8f27232dd38c17387b2eb93eef432ebd31dd7a461526c0d481226b6a177fe1"
+    },
+    {
+     "path": "variants/abstain_no_options/ex3_wordcount/outcome.json",
+     "sha256": "a50749f057c747f244d848713a703d41df503685f5821340b4863cf6c9a2572d"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F06",
+   "group": "finding",
+   "title": "no silent LAYA -> id-order fallback (scorer / scorer_unavailable journaled)",
+   "status": "LOGIC-ONLY",
+   "note": "journaled per step | exercised with stand-ins: controller, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/agentic.py:309"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "receipts/ex1_slug/journal.json",
+     "sha256": "e42738e6d9d24f2af7cf71e67d215e8e10cd860e41bc7358430b185686249335"
+    },
+    {
+     "path": "receipts/ex2_clamp/journal.json",
+     "sha256": "afb69f6f6b9f056389d0343ad9c7841b62e5ffa86555fe2d99ccf5bdaa49e271"
+    },
+    {
+     "path": "receipts/ex3_wordcount/journal.json",
+     "sha256": "4a00b0b4b6a0aeecfdd9f7503bd665166fd5624da9191a1b5f4bd8faebf4bc14"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F07",
+   "group": "finding",
+   "title": "probe and random-head controls as sibling slots on identical pools",
+   "status": "LOGIC-ONLY",
+   "note": "scorer_comparison entries in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: laya, probe, random_head, rehearsal_run",
+   "source": [
+    "evidence_ladder/orchestrator/comparison.py:46"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "laya",
+    "probe",
+    "random_head",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F08",
+   "group": "finding",
+   "title": "arm E wired into the stage-1 (whole-program) controller",
+   "status": "IMPLEMENTED",
+   "note": "wired and unit-tested LOGIC-ONLY (phaseC); not part of the toy per-action acceptance run, no real program-pool scores",
+   "source": [
+    "evidence_ladder/orchestrator/program_scorer.py:22"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F09",
+   "group": "finding",
+   "title": "Kaggle -> PC trust: two independent runs agree on hashes + scores; run ids recorded",
+   "status": "LOGIC-ONLY",
+   "note": "live+verify runs recorded, no pool refused | exercised with stand-ins: laya, rehearsal_run",
+   "source": [
+    "evidence_ladder/models/laya_runtime.py:180"
+   ],
+   "receipts": [],
+   "stub_backends": [
+    "laya",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F10",
+   "group": "finding",
+   "title": "live-mode provenance is self-declared",
+   "status": "BLOCKED",
+   "note": "NOT FIXED: no attestation computed by the capture implementation; mitigated only by the independent verify run (F09). Smallest fix: LiveScorer takes an attestation (shard sha256 list, device name) produced inside the kernel",
+   "source": [
+    "evidence_ladder/models/laya_runtime.py:106"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F11",
+   "group": "finding",
+   "title": "evidence-producing code frozen: committed source, hashes in receipts",
+   "status": "BLOCKED",
+   "note": "FAILED: source committed, HEAD a22d08a19655",
+   "source": [
+    "evidence_ladder/controller/replay.py:45"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F12",
+   "group": "finding",
+   "title": "hidden dev cases NOT sealed: relabelled + static oracle scan",
+   "status": "IMPLEMENTED",
+   "note": "relabelled (NOT_SEALED_STATEMENT in reports), runtime import hygiene + deep context scan; real sealing (unpublished hidden tests) is NOT done",
+   "source": [
+    "evidence_ladder/orchestrator/isolation.py:31"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F13",
+   "group": "finding",
+   "title": "real Qwen -> controller -> repair -> critic loop ran",
+   "status": "LOGIC-ONLY",
+   "note": "Qwen proposals ok and critic applied in all 3 examples | exercised with stand-ins: controller, glm, laya, qwen, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/agentic.py:578"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "glm",
+    "laya",
+    "qwen",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F14",
+   "group": "finding",
+   "title": "behaviour clustering beyond public examples + critic trigger logged",
+   "status": "IMPLEMENTED",
+   "note": "ladder-mode, unit-tested LOGIC-ONLY (phaseB t_b6); not exercised by the toy per-action run",
+   "source": [
+    "evidence_ladder/controller/controller.py:491"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F15",
+   "group": "finding",
+   "title": "critic pass cannot raise a row / choose its target requirement",
+   "status": "LOGIC-ONLY",
+   "note": "invalid_model_evidence,unsafe_critic_experiment: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/controller.py:377",
+    "evidence_ladder/controller/evidence.py:52"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex1_slug/outcome.json",
+     "sha256": "ed40e230d9e0680c9a6d0523fa7172fe68cd1141a0bed748f50ec8b3dd9f3345"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex2_clamp/outcome.json",
+     "sha256": "9cfc844ea52597e16fdc25a819dd52d97a99ecbdc2c6f26bc9b32e8d2e4e6bdc"
+    },
+    {
+     "path": "variants/invalid_model_evidence/ex3_wordcount/outcome.json",
+     "sha256": "cc065a4342cc736968406b9898d195d1e44f6be6733d79afb8579e15c66a825f"
+    },
+    {
+     "path": "variants/unsafe_critic_experiment/ex1_slug/outcome.json",
+     "sha256": "42860378646fd0117ca654f65ed7b2172e2915e714533de0bdeba91b19c4f1b5"
+    },
+    {
+     "path": "variants/unsafe_critic_experiment/ex2_clamp/outcome.json",
+     "sha256": "4f7e30b4c52fd0b84905f81958770f6ae3e9c0dcbbbf8b209989fc5d84f9f96f"
+    },
+    {
+     "path": "variants/unsafe_critic_experiment/ex3_wordcount/outcome.json",
+     "sha256": "1d62103208017b2b481d2fbe5d9f2b5d1c43fbcbee49c8e951e514c0455741d7"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F16",
+   "group": "finding",
+   "title": "per-action literals and tautologies removed (recomputed I1, fixed risk table)",
+   "status": "LOGIC-ONLY",
+   "note": "blocked_action,blocked_confirmed_without_precheck: exact expected stop cause / label / journal entries on all 3 bases | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/invariants.py:54",
+    "evidence_ladder/controller/risk.py:231"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "variants/blocked_action/ex1_slug/outcome.json",
+     "sha256": "3a301049b009b35702aebda842c24b208bf47cf72c7cf6b3cfbf4eb989a1501b"
+    },
+    {
+     "path": "variants/blocked_action/ex2_clamp/outcome.json",
+     "sha256": "42f286d895523a1bc132fbcdfe8141a8defe1c694963f4ba6c120995ddd1c626"
+    },
+    {
+     "path": "variants/blocked_action/ex3_wordcount/outcome.json",
+     "sha256": "aa27e88b35ac4abf7dde3943085cea0de53b9b292cac82396efeb3cef0862d71"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex1_slug/outcome.json",
+     "sha256": "586ec03d0c28d64885c1237e09b767a5700db92c6393739400daeb54c14ccf64"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex2_clamp/outcome.json",
+     "sha256": "d3319b1a013955505ae62f6b4f7526e3b70f40b5f7b5cf1c6084daa4fac84f55"
+    },
+    {
+     "path": "variants/blocked_confirmed_without_precheck/ex3_wordcount/outcome.json",
+     "sha256": "cd3bb70cc1f0245f06fecee049d6d2cf24d056dac8ab0b52e1ef5ef3d7ddff99"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F17",
+   "group": "finding",
+   "title": "tiers, L2, monotonicity gate, gates, wall-time cap implemented",
+   "status": "LOGIC-ONLY",
+   "note": "monotonicity_gate journaled before each decision; wall-time variant ok | exercised with stand-ins: controller, rehearsal_run, sandbox",
+   "source": [
+    "evidence_ladder/controller/monotonicity.py:66",
+    "evidence_ladder/orchestrator/gates.py:136"
+   ],
+   "receipts": [
+    {
+     "path": "VARIANTS_SUMMARY.json",
+     "sha256": "65d8eca6a8bd4e5349c9bb1204483bdde8e11a6800b35adf96c4f6f816a07cd4"
+    },
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    },
+    {
+     "path": "variants/budget_wall/ex1_slug/outcome.json",
+     "sha256": "eb3a43a90e3f5b05c01d7d7a2a0f7b667c709a5284f5bad8f829f45db6ece6dc"
+    },
+    {
+     "path": "variants/budget_wall/ex2_clamp/outcome.json",
+     "sha256": "df4d4d4de429cd472c4e56c282ed7c133cdf5b52d35dcbbd3e73c65dc781dd29"
+    },
+    {
+     "path": "variants/budget_wall/ex3_wordcount/outcome.json",
+     "sha256": "b755f487a3e977a403ad900ea02999452211c3435aabd76049fe78044e204a77"
+    }
+   ],
+   "stub_backends": [
+    "controller",
+    "rehearsal_run",
+    "sandbox"
+   ]
+  },
+  {
+   "id": "F18",
+   "group": "finding",
+   "title": "ensemble top-1 unmeasured",
+   "status": "NOT APPLICABLE",
+   "note": "a performance measurement; outside EL-ARCH-1 (completion of architecture blocks, not performance)",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F19",
+   "group": "finding",
+   "title": "T7 tolerance sensitivity floor unmeasured",
+   "status": "NOT APPLICABLE",
+   "note": "LAYA-INT-1 T7 measurement; outside EL-ARCH-1",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F20",
+   "group": "finding",
+   "title": "Qwen-proposed options captured and scored (not stored Fable pools)",
+   "status": "LOGIC-ONLY",
+   "note": "scoring kernels ran on proposals of this run | exercised with stand-ins: laya, qwen, rehearsal_run",
+   "source": [
+    "kaggle/evidence_ladder_laya_t6_step_v1.py:1"
+   ],
+   "receipts": [],
+   "stub_backends": [
+    "laya",
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F21",
+   "group": "finding",
+   "title": "proposals in thinking mode parsed by the strict parser (no closed-think prefill)",
+   "status": "LOGIC-ONLY",
+   "note": "strict-parsed proposal round in ex1_slug,ex2_clamp,ex3_wordcount | exercised with stand-ins: qwen, rehearsal_run",
+   "source": [
+    "evidence_ladder/controller/generation.py:37"
+   ],
+   "receipts": [
+    {
+     "path": "receipts/ACCEPTANCE_SUMMARY.json",
+     "sha256": "f81c1546a169400ec5e4a07203053523dcd7a9b2052244ef9b238a713f996a88"
+    }
+   ],
+   "stub_backends": [
+    "qwen",
+    "rehearsal_run"
+   ]
+  },
+  {
+   "id": "F22",
+   "group": "finding",
+   "title": "toy tasks prove wiring, not usefulness",
+   "status": "NOT APPLICABLE",
+   "note": "stated limit of the three-example closure; no performance claim is made",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F23",
+   "group": "finding",
+   "title": "stop_cause(…,0,1) hard-coded budget args; duplicate repair templates",
+   "status": "IMPLEMENTED",
+   "note": "documented as intentional in code (budget enforced in loop()/limit_check()); the two repair templates are NOT merged",
+   "source": [
+    "evidence_ladder/controller/controller.py:549"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F24",
+   "group": "finding",
+   "title": "decision chain v4-v6 consistent",
+   "status": "NOT APPLICABLE",
+   "note": "a consistency note, no code",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F25",
+   "group": "finding",
+   "title": "PLAN_LAYA_INT_1 'no NVIDIA calls' superseded",
+   "status": "NOT APPLICABLE",
+   "note": "a documentation note",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F26",
+   "group": "finding",
+   "title": "positive verification of earlier receipts",
+   "status": "NOT APPLICABLE",
+   "note": "a positive finding",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F27",
+   "group": "finding",
+   "title": "fable_capture v1 pin never the training path",
+   "status": "NOT APPLICABLE",
+   "note": "a documented correction",
+   "source": [],
+   "receipts": [],
+   "stub_backends": []
+  },
+  {
+   "id": "F28",
+   "group": "finding",
+   "title": "WSL execution suite 21/21 and Kaggle-jail results unverified",
+   "status": "BLOCKED",
+   "note": "not re-run in this closure; smallest fix: run the 21-test WSL execution suite on the PC and attach its result",
+   "source": [
+    "evidence_ladder/execution/backend.py:1"
+   ],
+   "receipts": [],
+   "stub_backends": []
+  }
+ ]
+}

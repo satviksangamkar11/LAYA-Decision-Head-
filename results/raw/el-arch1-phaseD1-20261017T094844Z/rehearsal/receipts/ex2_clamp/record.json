@@ -1,0 +1,890 @@
+{
+ "arm": "E",
+ "chain": [
+  "e1e8894a0a07cd758d19ee75987ac2244c2dca79f9626c149efdd26d1b904a9e",
+  "40fb8bd4b5ea03e03b9cf959b74b696a71d640284af0cbc274418c305eec6df8",
+  "abf7616d8011c72dd4230ef1acd7772ca2f3fec1e9f7271679bca87f48c5df74",
+  "09164ab2b430cf1409755420c744e66691eca1651b3cd30690a2d3d5a6a8c940",
+  "d41d4d6198e8b80cf60fb98a6d4097dad41a13fc099ecc8afff1819bf4e1aaee",
+  "d6e1eb9bc42ecb90f2b1666605a6062be1d1e5900ae3f1c6284b2f0ebd683bb8",
+  "c5bdd1768416bab8508432186bf18e716f1068727699282eb542b921fe721f2f",
+  "66a74240b81ed1664580526d022e65e2989b70494c77ff0bd1bb9269143e1285",
+  "2a349933f6074c9fa8a1df3b57c5ddf8ee0784641efad8c17f3f71ab7b6cb091",
+  "40d077d73b59ea6caa7337f579996371ca9e4e898ef7ecb58c009f40ac25b6c0",
+  "ed3e0a78e5a323b5f43fe97e54766eab1ecae2ae6b7797f8e320af67553f43a7",
+  "4155303c60cb007c37284013bf03958db0ca72490b3e6811cfa05fc98e5da42b",
+  "823241b1f819d8a886962080d4641177f46da80cbd1ebddcf33a096e0c8374c7",
+  "53a4fe098516c37755a7f62e60f37a8af13fb88773268f96549d67018136620f",
+  "54e969e22c12828591a1210d5718e5cf285091ce97d58b1ca8b5fc70ad3662dc",
+  "b950733aac9670742701955301b67b577d5a4ada6e9951a15aa7cf2848a98179",
+  "22ff4e90f9dd4b350ee0c2e522de956080edc3cfb9535ee98e5971b1f4535f79",
+  "d7f7247c43dc5ba026ed1794d071496068df513a66fececdd67dea6a03fb9f44",
+  "2cc94202cd4224cc8cbe2b87ce373fa9ea705e110b85ddb1376a1d6aad40ab77",
+  "077028a9a8c137ef98e9f868d444750932d8f0a6832c0099183b13343b380218",
+  "7728f5a2d59261f111a06358ffc55cca3db2bf937a5f28314433a7ec5e736f87",
+  "b85e5a30256b258b36b593be413e5bd0d3d7ef3ac7b43add863f904a92bf6f8c",
+  "298ab3ab2bfbc82efc5b732b5be8db16e55c445936d28885639a22000044f325",
+  "34ca6c5ff105d712ba39a79726af970f2f78d106820759eb59b21496584020ea",
+  "36f897ce35b90e8adceeda3abd452a40594a9fb1579ef0ff1a5590e2f1e6537d",
+  "b992b6afcdb69b2b2e308cc1d680bc7b42a3d231f851b5afc7b9f87fc0fdfff4",
+  "b98c2fd6236e59c7f2cf640e002e4878c8b0e44cd20a82f14a92bf12c9239c61",
+  "5254da7ed76ab11b0d4f0619027f42bac6d8128f816c003ea516bbd406743a40",
+  "a94d69d95818f0271ec872116c6e425cfd7ebae6299478538d2dd9e1627229bb",
+  "910752e0dee2f42240e8ed9604183b470b358d6dc1995cc80688abe7817d3cb7",
+  "4f696176aa0b011ff9798bc0e9b33538f4abbc4404a9c9e7115a18c36200bb92",
+  "9e170af2f1746171b7df9d0a49cfc30e84782b9f47e796831fa44363899762da",
+  "389e251491cbd1da10ffbc251bb6f63584a6256efb59d23f2e4b2f1c5c471638",
+  "3778aa635f23777b0241c8936afa40b947ae0427bc5d8a4a1b90ecd60942dd95",
+  "efed6c51d97f09572d1151a87274c8eb89ba61fd949f629f0f848ec20d450269",
+  "ebcf02edd4362e897eaf573e7d47a49b681c19dfc9e8f1adcc238aed74c0a089",
+  "2e7d035b94e5b4569560328ad9df21e48ba9c244d48bc7662ec346aefe9d9dc5",
+  "1b1a919d127a29f0056084eb0c4d5384758ce6658c3ccbf788595fb698db4994",
+  "49a5548b933dcb58dbb868698fab9001993cc78509e7fb358972b5c75b676f29",
+  "9f8ed63b597c54bce26132d3af2037afee9f97f82bcab43a6588104fb791454a",
+  "5898caa024637ea23c40dccd16f0bf882b555b001d93abe3aaabd7ee7f34d2ff",
+  "7dc8660f1344a1edecb083c48b676a6565c87d2605adc1548b376dc6ee55dd15",
+  "dd1c9ed03df010237733eaf90e12a79d5be730164d65d585abf09b2fe0212e35",
+  "01695d21128de71b656f903b9cae91d35356fcea6bb5a51bd628cb985e7f294e",
+  "838fe180d00801ccdf7559287006697e1f44a954e0e49b661601897b2856e83c",
+  "809eb9bf4ac2dcad211351070f5231460685ef6d74dcc210406d0960f130ba5d",
+  "d1a765aa797625d96e20a87547e2698f1bdbcbb1ae4ab9da0d2a73aa82d25115",
+  "9e31a263d231f869b376a76bd7adb49c6ea05f24b83a5f110a42f1abe99a7873",
+  "edf46aff1604104773d8ada2bfe16c4d80cbe0989d9da63995bdd44050174d1c",
+  "548f15935d0e92a6dcd73443b6b96d2523977ddd1d446e7d9bf2223357bf132d",
+  "d3e383940cad52e7ec45fdf600b8da38212f0d19430aa9f4f298c63ed965d2bc",
+  "7188f73201dc38af57691fd858ceb5982abc8f62f65ff114d6b98d01271a8b1c",
+  "eab33269e73124065270adfe7c236fb27b51ec165f5122e1c3938c64e9591966",
+  "5e64ab2bcaa03dd40f6f2c78b90ee417f13896b61a7cb8620618a26571c1c096",
+  "0bd8b0299b08d5545f31612a5a605c79069e28d3c4184332e9bbebcb572ce7d7",
+  "eba00f5a911a5eec780886d0fd1e4ff08198c55b3ffc8be58258873956251b6f",
+  "950ead099c1121525a74e0463d78bf4e8a8f1143af52d15ca819d96b182cf70e",
+  "64ff1cc39999caaa33e7b1c55057ca80ad62707ec984577d13a7b651ab79fd0f",
+  "dedf9fc2a93481218806ece6f5558feef511cbb95ea517111cf3c4a1fe7184cf",
+  "063489bafca6c1f38674f39bc6e0a52177020f26e281edbe101b970132980371",
+  "5a49c01b6ab153ac56fa5d0a10c5497c6e1f13dc5f08b45c5e75de1884d8fc91",
+  "600cb5088dab5a81a3bafd1cecf43bf78242f4ee6ba50349d0f0675fb1f2601a",
+  "b8a390b8f7e5a4d558abbc402b0d6a960df4bd84e6a0828b57e288fd5cd136b8",
+  "70722e5ab5a3fbf974feca7ff53f9e752bd54de2b9692ab25881fd602a8dfe65",
+  "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d"
+ ],
+ "code": {
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "7296ac532dca21d6b0bb4e26637dc57317a37c110a23f6201b0468b2cb501733",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "04110b1caadc07f170d664be0bd3dc52d655a55dab7798a4452ab2d6bb6de04e",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "fdc56673c607443cc2828707545cdf8643cdab73dc319741f5b3c1e535fc79e1",
+  "evidence_ladder/controller/generation.py": "ce10720862ba112d45f6a8491a24a0ab23585bd2b2204bd87d3e3dbefb2dd79a",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "2c16c5a86a020b483c54b7c5ae575416bb4e50d2ca5bf750d93c985cb1e129c0",
+  "evidence_ladder/controller/journal.py": "22f1dddd600a7585654bf9562539d1bfbe2d642896be87a12253fb76678ee353",
+  "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+  "evidence_ladder/controller/limits.py": "6880ef2764c0a0a3405ad0f693dc2faddc6d19f5e7df5979402cbddfc93bc784",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/next_action.py": "0268fbf2ee44e8a97f1c127ac5de2e28e9e1a4627faa91c39621268c420989e2",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "653da61cbd594830438ab5c3c69f481dfcc9c2093fa8272904a1a880b00d07c7",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/transport.py": "ae15c1b313c6e6a9ec6224501eb1156333c21da22ef70b9625bc16291611ba4b",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "059af651dcc15e5754317d8a7a7d1b8a3a93c8e1c1e781192791492dd4cf4f8a",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "3d59f330e2ee466bb9706dc86fa4a2e584f009b251e09d5b83810bd58453abfd",
+  "evidence_ladder/models/laya_runtime.py": "ba49f47c7334c4db88447114d7ec250759fd36e443dd36498079c04e324e9cb8",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/qwen.py": "c6e56bbccb8d602527aad3946f12e4f8121f8056e8c4af2ea7ae8369a6aa8071",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5"
+ },
+ "comparison": {
+  "probe": {
+   "calls": [
+    {
+     "last": {
+      "features_sha256": "2bf7e2150491abcbec9c79da037306452da1a57e5ddafa5cea574afc12cecbfe",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "7469a2e78b6a3acd5196a5c58db05cf8f52c3c7e0884c51cafe8f3193acd0251",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+        "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+        "09d02aa1e4a91b6858946081b831e862bcff79e969859b8465377aa25a1c1488",
+        "92d8b63c8db402900987e27324335bd5fc8e716baab46af95ea589f23011cbd7"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+     },
+     "scores": [
+      0.335,
+      0.298,
+      0.493,
+      0.023
+     ]
+    },
+    {
+     "last": {
+      "features_sha256": "2854fdc8d85a985952e0cdd7cfd0ecce59e3889133bc934a5e66a009ba74a5fb",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round2",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "3cd64954a156fceff601c51fec22585d88ae9fb964d0efb7033d105d9a948914",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+        "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+        "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round2"
+     },
+     "scores": [
+      0.326,
+      0.335,
+      0.298
+     ]
+    }
+   ],
+   "scorer_def": {
+    "compatibility": {
+     "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+     "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device_class": "kaggle_t4",
+     "dtype": "fp16",
+     "max_options": 8,
+     "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+     "option_token_limit": 4096,
+     "prefix_token_limit": 24000,
+     "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+     "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+    },
+    "decision_types_validated": [
+     "next_action"
+    ],
+    "scorer_id": "probe_v1",
+    "status": "validated",
+    "version": "v1",
+    "weights_hash": "recipe:7e30b63d208acb3522548e0e80ad1c740a690e396ccd1c8dba311bdf6e8cf30e;refit_at_scoring_time"
+   },
+   "scorer_id": "probe_v1"
+  },
+  "random_head": {
+   "calls": [
+    {
+     "last": {
+      "features_sha256": "2bf7e2150491abcbec9c79da037306452da1a57e5ddafa5cea574afc12cecbfe",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "7469a2e78b6a3acd5196a5c58db05cf8f52c3c7e0884c51cafe8f3193acd0251",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+        "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+        "09d02aa1e4a91b6858946081b831e862bcff79e969859b8465377aa25a1c1488",
+        "92d8b63c8db402900987e27324335bd5fc8e716baab46af95ea589f23011cbd7"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+     },
+     "scores": [
+      0.852,
+      0.44,
+      0.17,
+      0.658
+     ]
+    },
+    {
+     "last": {
+      "features_sha256": "2854fdc8d85a985952e0cdd7cfd0ecce59e3889133bc934a5e66a009ba74a5fb",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round2",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "3cd64954a156fceff601c51fec22585d88ae9fb964d0efb7033d105d9a948914",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+        "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+        "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round2"
+     },
+     "scores": [
+      0.879,
+      0.852,
+      0.44
+     ]
+    }
+   ],
+   "scorer_def": {
+    "compatibility": {
+     "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+     "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device_class": "kaggle_t4",
+     "dtype": "fp16",
+     "max_options": 8,
+     "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+     "option_token_limit": 4096,
+     "prefix_token_limit": 24000,
+     "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+     "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+    },
+    "decision_types_validated": [
+     "next_action"
+    ],
+    "scorer_id": "random_head_v1",
+    "status": "transfer_test",
+    "version": "v1",
+    "weights_hash": "none:random_init_head"
+   },
+   "scorer_id": "random_head_v1"
+  }
+ },
+ "config": {
+  "max_steps": 2,
+  "require": [
+   "scorer",
+   "critic"
+  ]
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "data": {
+    "name": "investigate"
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "investigate"
+  },
+  {
+   "data": {
+    "name": "generate",
+    "part": "generate",
+    "round": 1
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "proposals",
+   "out": {
+    "generations": [
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "e68c0bb363344dad9baf87b03cee601a8c95eedec30bd6d6c751802fddb9f37e",
+      "seed": 0,
+      "template": "qwen_actions_v1"
+     },
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "e68c0bb363344dad9baf87b03cee601a8c95eedec30bd6d6c751802fddb9f37e",
+      "seed": 1,
+      "template": "qwen_actions_v1"
+     }
+    ],
+    "options": [
+     "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+     "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}",
+     "{\"name\":\"Bash\",\"arguments\":{\"command\":\"ls\"}}",
+     "{\"name\":\"Bash\",\"arguments\":{\"command\":\"cat clamp.py\"}}"
+    ],
+    "prompt_sha256": "e68c0bb363344dad9baf87b03cee601a8c95eedec30bd6d6c751802fddb9f37e",
+    "qwen_meta": {
+     "kaggle_seconds": 2.0,
+     "new_tokens": 168,
+     "prompt_tokens": 1020
+    },
+    "raw_sha256": [
+     "13e8d237a6bad7ed2eab92f71fa166a9ef5a753ba0232cda6cffa4ace26e1d51",
+     "13e8d237a6bad7ed2eab92f71fa166a9ef5a753ba0232cda6cffa4ace26e1d51"
+    ],
+    "rejected": [
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     }
+    ],
+    "status": "ok",
+    "statuses": [
+     "ok",
+     "ok"
+    ]
+   }
+  },
+  {
+   "data": {
+    "name": "step",
+    "part": "step",
+    "round": 1
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "step",
+   "meta": {
+    "kaggle_seconds": 2.0,
+    "new_tokens": 168,
+    "prompt_tokens": 1020
+   },
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"ls\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"cat clamp.py\"}}"
+   ]
+  },
+  {
+   "data": {
+    "name": "repair",
+    "part": "generate",
+    "round": 2
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "proposals",
+   "out": {
+    "generations": [
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "0775122328044fb4c8ba6ce10a70d07de1bbf84a624a17e351198a79eb5bb8e2",
+      "seed": 0,
+      "template": "qwen_actions_v1"
+     },
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "0775122328044fb4c8ba6ce10a70d07de1bbf84a624a17e351198a79eb5bb8e2",
+      "seed": 1,
+      "template": "qwen_actions_v1"
+     }
+    ],
+    "options": [
+     "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return max(lo, min(x, hi))\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+     "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+     "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}"
+    ],
+    "prompt_sha256": "0775122328044fb4c8ba6ce10a70d07de1bbf84a624a17e351198a79eb5bb8e2",
+    "qwen_meta": {
+     "kaggle_seconds": 2.0,
+     "new_tokens": 186,
+     "prompt_tokens": 1220
+    },
+    "raw_sha256": [
+     "80cf657302f74c8430c71e5bac3e0be89117a6671d6109620082dcf9b112de66",
+     "80cf657302f74c8430c71e5bac3e0be89117a6671d6109620082dcf9b112de66"
+    ],
+    "rejected": [
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     }
+    ],
+    "status": "ok",
+    "statuses": [
+     "ok",
+     "ok"
+    ]
+   }
+  },
+  {
+   "data": {
+    "name": "repair",
+    "part": "step",
+    "round": 2
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "step",
+   "meta": {
+    "kaggle_seconds": 2.0,
+    "new_tokens": 186,
+    "prompt_tokens": 1220
+   },
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return max(lo, min(x, hi))\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"clamp.py\",\"new_string\":\"return min(x, hi)\",\"old_string\":\"return min(lo, max(x, hi))\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"clamp.py\"}}"
+   ]
+  },
+  {
+   "data": {
+    "name": "commit_verify"
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "critic_stage"
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+ "journal_hash": "7db7e55a21c20fb994330accd9b9d9a8c175bb524daeeeaee73e9c4fe32c667d",
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "stage",
+  "investigate_sources",
+  "evidence",
+  "evidence",
+  "label",
+  "investigate",
+  "routing",
+  "stage",
+  "proposals",
+  "stage",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "label",
+  "step_record",
+  "routing",
+  "stage",
+  "proposals",
+  "stage",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "label",
+  "step_record",
+  "routing",
+  "stage",
+  "evidence",
+  "critic",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "glm_accounting",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "limits": null,
+ "result": {
+  "answer_label": "VERIFIED",
+  "stop_cause": "decided"
+ },
+ "sandbox": [
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "pre_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_clamp.py\", line 3, in <module>\n    assert clamp(5, 0, 10) == 5, clamp(5, 0, 10)\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "4e5aefa696ab8aaf347025bd55ec832e005bebaecc0dfc2fa2d50e5a0072fd32",
+    "pre_tree_sha256": "4e5aefa696ab8aaf347025bd55ec832e005bebaecc0dfc2fa2d50e5a0072fd32",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_clamp.py\", line 4, in <module>\n    assert clamp(-3, 0, 10) == 0, clamp(-3, 0, 10)\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: -3\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "cat clamp.py",
+   "files_after": {
+    "clamp.py": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))\n",
+    "test_clamp.py": "from clamp import clamp\n\nassert clamp(5, 0, 10) == 5, clamp(5, 0, 10)\nassert clamp(-3, 0, 10) == 0, clamp(-3, 0, 10)\nassert clamp(99, 0, 10) == 10, clamp(99, 0, 10)\nprint(\"all tests passed\")\n"
+   },
+   "persist": true,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": true,
+    "post_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "pre_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))\n"
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "pre_tree_sha256": "1b9550c30a419daf56a3f35a60e6c4aeffd863c5edbdb67f1156caf81ea6d217",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_clamp.py\", line 3, in <module>\n    assert clamp(5, 0, 10) == 5, clamp(5, 0, 10)\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "pre_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "4e5aefa696ab8aaf347025bd55ec832e005bebaecc0dfc2fa2d50e5a0072fd32",
+    "pre_tree_sha256": "4e5aefa696ab8aaf347025bd55ec832e005bebaecc0dfc2fa2d50e5a0072fd32",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_clamp.py\", line 4, in <module>\n    assert clamp(-3, 0, 10) == 0, clamp(-3, 0, 10)\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: -3\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "pre_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "pre_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_clamp.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "pre_tree_sha256": "686040e9359ecceaac1dbfed252906641664a3d482fc496606a4566365fcfbe3",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  }
+ ],
+ "schema": "el_arch1_run_record_v1",
+ "scorer": {
+  "calls": [
+   {
+    "last": {
+     "features_sha256": "2bf7e2150491abcbec9c79da037306452da1a57e5ddafa5cea574afc12cecbfe",
+     "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+     "origin": "saved_scores_verified_by_independent_recapture",
+     "provenance": {
+      "capture_code_sha256": {
+       "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+       "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+      },
+      "context_sha256": "7469a2e78b6a3acd5196a5c58db05cf8f52c3c7e0884c51cafe8f3193acd0251",
+      "depths": [
+       18,
+       24,
+       30
+      ],
+      "device": "Tesla T4 (STUB)",
+      "dtype": "float16",
+      "hidden": 2560,
+      "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+      "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+      "option_prefix": " ",
+      "option_sha256": [
+       "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+       "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164",
+       "09d02aa1e4a91b6858946081b831e862bcff79e969859b8465377aa25a1c1488",
+       "92d8b63c8db402900987e27324335bd5fc8e716baab46af95ea589f23011cbd7"
+      ],
+      "query_cue": "\n\nNext action:",
+      "recipe_id": "fable_capture_v1"
+     },
+     "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+    },
+    "scores": [
+     0.973,
+     0.123,
+     0.253,
+     0.888
+    ]
+   },
+   {
+    "last": {
+     "features_sha256": "2854fdc8d85a985952e0cdd7cfd0ecce59e3889133bc934a5e66a009ba74a5fb",
+     "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round2",
+     "origin": "saved_scores_verified_by_independent_recapture",
+     "provenance": {
+      "capture_code_sha256": {
+       "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+       "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+      },
+      "context_sha256": "3cd64954a156fceff601c51fec22585d88ae9fb964d0efb7033d105d9a948914",
+      "depths": [
+       18,
+       24,
+       30
+      ],
+      "device": "Tesla T4 (STUB)",
+      "dtype": "float16",
+      "hidden": 2560,
+      "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+      "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+      "option_prefix": " ",
+      "option_sha256": [
+       "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+       "cccf042e77cafaeebca0fa66bd8be5c161a4e66b20bddc67c2cb1f37ff2546b8",
+       "6cddf61343b682c73db4b5ce5f84a159ea095a349e3960b98a5c4e8f059ac164"
+      ],
+      "query_cue": "\n\nNext action:",
+      "recipe_id": "fable_capture_v1"
+     },
+     "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round2"
+    },
+    "scores": [
+     0.187,
+     0.973,
+     0.123
+    ]
+   }
+  ],
+  "scorer_def": {
+   "compatibility": {
+    "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+    "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device_class": "kaggle_t4",
+    "dtype": "fp16",
+    "max_options": 8,
+    "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+    "option_token_limit": 4096,
+    "prefix_token_limit": 24000,
+    "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+    "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+   },
+   "decision_types_validated": [
+    "next_action"
+   ],
+   "scorer_id": "laya_adapter_v1",
+   "status": "validated",
+   "version": "v1",
+   "weights_hash": "e8434c75f9bbc782fa40c958ba5eb6b9dfc8c02cf7cb424a1cf785dbe32c198f"
+  },
+  "scorer_id": "laya_adapter_v1"
+ },
+ "seeds": [
+  0,
+  1
+ ],
+ "task": {
+  "files": {
+   "clamp.py": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))\n",
+   "test_clamp.py": "from clamp import clamp\n\nassert clamp(5, 0, 10) == 5, clamp(5, 0, 10)\nassert clamp(-3, 0, 10) == 0, clamp(-3, 0, 10)\nassert clamp(99, 0, 10) == 10, clamp(99, 0, 10)\nprint(\"all tests passed\")\n"
+  },
+  "max_steps": 2,
+  "protected": [
+   "test_clamp.py"
+  ],
+  "scope": null,
+  "system_text": "[system]\nYou are an autonomous coding agent running on the user's machine.\n\nYou work in the current directory of a real repository. Use your tools to read, search, create, and edit files and to run shell commands (tests, builds, type-checkers). Some tools are deferred: only their names are known until you load their schemas with ToolSearch. Depending on the environment, some tools may be unavailable or without network access; if a tool call fails, adapt and continue with what is available. Never guess at the contents of a file you have not read, and never claim a fix works without running the verification yourself.\n\nMethod:\n1. Reproduce first. Read the relevant code and run the failing command before changing anything.\n2. Form a hypothesis about the root cause; make the smallest edit that tests it.\n3. Verify. Rerun the tests/build after every meaningful change. If it still fails, re-read the output carefully — do not repeat the same edit.\n4. Fix the cause, not the symptom.\n\nRules:\n- Never modify tests to make them pass, unless the user explicitly says the tests are wrong.\n- Keep edits minimal and consistent with the existing code style.\n- End with a brief summary: the root cause, what you changed, and proof that it passes.",
+  "task_id": "ex2_clamp",
+  "test_cmd": "python3 test_clamp.py",
+  "user_text": "The function clamp in clamp.py should limit x to the range [lo, hi] but returns wrong values, so test_clamp.py fails. Fix clamp.py so that `python3 test_clamp.py` passes. Do not modify test_clamp.py."
+ }
+}

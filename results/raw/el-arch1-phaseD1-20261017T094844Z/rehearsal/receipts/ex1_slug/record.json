@@ -1,0 +1,606 @@
+{
+ "arm": "E",
+ "chain": [
+  "900428962731b3365b4714d213faf80e4efbeb235f55edaa272b5f822a99f9cd",
+  "937362dfdf93cc7171fd7912bd7e99cc5cba4f45bb02f66e5847c8db89f0f8a3",
+  "c0fe6b6cb074f3be9def4e83e320b6b540d22303920b48427ad8a33f85a5be69",
+  "cfc4372e7a6ada86ccf8c68b7f990f886be8d68127e689d6e3d25c316d162815",
+  "03da4a859226b4002c90014c94b2dafa976e516ea3d57c1866d9c9531e7f55e2",
+  "f102b47d4415bfabcfaed80f75492a1ce0fa22a2eadb35db60c1b056a7285d35",
+  "aec67dd4c20dc6189862e62889958d0074107d6cc0c0291539a12f75a5ab8085",
+  "18dd9454f56e2313b6b47a2f06d25bdfd6f81b9909be28d7e0117ddd4526e9d6",
+  "b90145518c1c994a5287f5632b9957ed6d084fb395f55c85604b724101473bdb",
+  "a253c36d6518dfbddcf736ccb8d8b5c944d09301476f4d23aae45ea4f6df6cb3",
+  "ad491213b100d8e6ad990c7fffeaa0e693280adc6d48012a50d871a51c5357ba",
+  "9b11eea538c944285c0f572fe30afb6d6395a3ccabf57810956a8e5a1e6f8dd3",
+  "d4cf1f95929467bbdbed002d843813dd629a7fe34ce102cdf736f08f1fa89c4a",
+  "c1aebde41bdb86a9dd6f1f3f4b0b761d71468b345734cb9931e3efa2797c85f7",
+  "237d678efa154074dacd400d75b69461f17ac3a99770a797d1db49ff02450fa5",
+  "7ca56a25410e2fe0ef0b716c9e6e99306464e0f7fa2fcf9a610251a331183410",
+  "4fca0f39aefd550fb229e1843c984d09297a904f0c828f6f24de55adb81a63a9",
+  "2c06dc69be17a6fbb43c16a7f09f60daf428b18b4794447cccc29ec02ed898a4",
+  "3edc6f6d3bbadb42dd7cbb2f6756c4e88d9e1dbb186451c584fbbae1fed079fa",
+  "17e06d4f9148cb81776a638862e243693a272780f1275012a9482c41e9c1e34d",
+  "17e114c8d71c062a9050b0645c69ef2b5ba39f6fb8528a83ff4ed96212f2639c",
+  "004353cd33953376079d5a2ba422ba7cb5070d4a29060eb03257125ff4f5860f",
+  "84bcbf72049fd5632e49ce07e007d67bd27048400800f0934a06b67d95dae522",
+  "90b7bd793f88aae01dc49a7ca8834dbef9ea39dbb9ee324ab350c9ec203724df",
+  "af696229cf3ac70ec4a5363bde9320e2189f15feda60116c338c8c328a965907",
+  "dbf766b890daaa82e10db71a18853d7a4c67ca7bcb47aa3a7020986288ac790a",
+  "7f51da899ac3967982d5482e4ba3338cba287347d641814b36d5c09b568fc004",
+  "8fc3bcfb83690970442e3c4543c7f9b1d9942f75c37c8e1f7ff9e6464068f5b5",
+  "b291a929c0c70979d2faee52a5992ad02b0bbb1d4713941f19c8763c39af5098",
+  "d6e66dd968ac95320d26e908dcedf42231291d6e4f9a362b2d84beedea98d006",
+  "fb4752bfdb145b9f574eeac9d1e9d10596d8a0cb9214b3ee73de8cd61d8cbb15",
+  "f91861208cbc01986bc5a8b485fd72c7b28c0e925b58b55354650a2a58feecd3",
+  "c65de0f5d3ab3ba8641f57aa4764c24cf3408a122bc1275c901083f2421b2f68",
+  "f6629a05fb513b0c93ab3576e78af4fbda5c05fa92677f92cfd9c71bf07a2772",
+  "059a6f5179a2ac8035be4f56f456f136b617445f59153a0bb0109d1e5443b2bc",
+  "45847f9602c0e241777ea4710a17a326a59297be5c9bfbf2d4be4f210edf9126",
+  "9135fde1392d169fe927bfb5d31e7582f5a54e342b5409fd6c4207e4c64a85f9",
+  "898c542b2621bf40413547e2b04cbed15d115ec0503d52419631a846ed1c7dc2",
+  "2a136512a72415cf69ab1fe41853ba5641c9e85bdbe2ec2f7c6b91d2d20442c5",
+  "26499430b72dd9722e8c5b57189d141aa0dbcb841bac87abcdf9f6105b1c1a15",
+  "c7e06156cf1ca13af4e63765c1ac23d3d75d1217c48da869c4b86ac0cf2c544c",
+  "434dd142318f05fb51b814886453b44ef3bc38c0ed1b236165dea9c48f6ffc80",
+  "95920ea2759233d101cc676b0448d30f77f174c2acab797c035ea194d8fead82",
+  "a5decaf3055d0c7285a019972b06df8fb92c10f04a1c1af36347971d6994b14c",
+  "f5f2facfeb714fcb76d7b29433f81e076c038fc44b8cc850eae4fc410756338c",
+  "7dec49b231e87131350cc9b0f8c90bf1d0af3570ffed35c43e66ec30c418594a"
+ ],
+ "code": {
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "7296ac532dca21d6b0bb4e26637dc57317a37c110a23f6201b0468b2cb501733",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "04110b1caadc07f170d664be0bd3dc52d655a55dab7798a4452ab2d6bb6de04e",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "fdc56673c607443cc2828707545cdf8643cdab73dc319741f5b3c1e535fc79e1",
+  "evidence_ladder/controller/generation.py": "ce10720862ba112d45f6a8491a24a0ab23585bd2b2204bd87d3e3dbefb2dd79a",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "2c16c5a86a020b483c54b7c5ae575416bb4e50d2ca5bf750d93c985cb1e129c0",
+  "evidence_ladder/controller/journal.py": "22f1dddd600a7585654bf9562539d1bfbe2d642896be87a12253fb76678ee353",
+  "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+  "evidence_ladder/controller/limits.py": "6880ef2764c0a0a3405ad0f693dc2faddc6d19f5e7df5979402cbddfc93bc784",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/next_action.py": "0268fbf2ee44e8a97f1c127ac5de2e28e9e1a4627faa91c39621268c420989e2",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "653da61cbd594830438ab5c3c69f481dfcc9c2093fa8272904a1a880b00d07c7",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/transport.py": "ae15c1b313c6e6a9ec6224501eb1156333c21da22ef70b9625bc16291611ba4b",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "059af651dcc15e5754317d8a7a7d1b8a3a93c8e1c1e781192791492dd4cf4f8a",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "3d59f330e2ee466bb9706dc86fa4a2e584f009b251e09d5b83810bd58453abfd",
+  "evidence_ladder/models/laya_runtime.py": "ba49f47c7334c4db88447114d7ec250759fd36e443dd36498079c04e324e9cb8",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/qwen.py": "c6e56bbccb8d602527aad3946f12e4f8121f8056e8c4af2ea7ae8369a6aa8071",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5"
+ },
+ "comparison": {
+  "probe": {
+   "calls": [
+    {
+     "last": {
+      "features_sha256": "adf0793a8de89f28a737e90d087115a507090b24d7ec794a78f77a4ea64a192b",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "1171370a92da3111ec10fc2f2839d9ccc6499bac763d77cbd7a78f2d086267ea",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+        "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+        "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+        "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+     },
+     "scores": [
+      0.015,
+      0.139,
+      0.266,
+      0.444
+     ]
+    }
+   ],
+   "scorer_def": {
+    "compatibility": {
+     "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+     "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device_class": "kaggle_t4",
+     "dtype": "fp16",
+     "max_options": 8,
+     "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+     "option_token_limit": 4096,
+     "prefix_token_limit": 24000,
+     "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+     "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+    },
+    "decision_types_validated": [
+     "next_action"
+    ],
+    "scorer_id": "probe_v1",
+    "status": "validated",
+    "version": "v1",
+    "weights_hash": "recipe:7e30b63d208acb3522548e0e80ad1c740a690e396ccd1c8dba311bdf6e8cf30e;refit_at_scoring_time"
+   },
+   "scorer_id": "probe_v1"
+  },
+  "random_head": {
+   "calls": [
+    {
+     "last": {
+      "features_sha256": "adf0793a8de89f28a737e90d087115a507090b24d7ec794a78f77a4ea64a192b",
+      "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+      "origin": "saved_scores_verified_by_independent_recapture",
+      "provenance": {
+       "capture_code_sha256": {
+        "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+       },
+       "context_sha256": "1171370a92da3111ec10fc2f2839d9ccc6499bac763d77cbd7a78f2d086267ea",
+       "depths": [
+        18,
+        24,
+        30
+       ],
+       "device": "Tesla T4 (STUB)",
+       "dtype": "float16",
+       "hidden": 2560,
+       "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+       "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+       "option_prefix": " ",
+       "option_sha256": [
+        "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+        "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+        "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+        "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4"
+       ],
+       "query_cue": "\n\nNext action:",
+       "recipe_id": "fable_capture_v1"
+      },
+      "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+     },
+     "scores": [
+      0.876,
+      0.578,
+      0.117,
+      0.758
+     ]
+    }
+   ],
+   "scorer_def": {
+    "compatibility": {
+     "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+     "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+     "depths": [
+      18,
+      24,
+      30
+     ],
+     "device_class": "kaggle_t4",
+     "dtype": "fp16",
+     "max_options": 8,
+     "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+     "option_token_limit": 4096,
+     "prefix_token_limit": 24000,
+     "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+     "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+     "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+    },
+    "decision_types_validated": [
+     "next_action"
+    ],
+    "scorer_id": "random_head_v1",
+    "status": "transfer_test",
+    "version": "v1",
+    "weights_hash": "none:random_init_head"
+   },
+   "scorer_id": "random_head_v1"
+  }
+ },
+ "config": {
+  "max_steps": 2,
+  "require": [
+   "scorer",
+   "critic"
+  ]
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "data": {
+    "name": "investigate"
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "investigate"
+  },
+  {
+   "data": {
+    "name": "generate",
+    "part": "generate",
+    "round": 1
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "proposals",
+   "out": {
+    "generations": [
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "8879cf59f2e49be3c55ce8cdc95662b0ddc80c773b519c08777e6a873e46e45e",
+      "seed": 0,
+      "template": "qwen_actions_v1"
+     },
+     {
+      "model": "stub:scripted-qwen",
+      "model_revision": "stub",
+      "prompt_sha256": "8879cf59f2e49be3c55ce8cdc95662b0ddc80c773b519c08777e6a873e46e45e",
+      "seed": 1,
+      "template": "qwen_actions_v1"
+     }
+    ],
+    "options": [
+     "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+     "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip()\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+     "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"slug.py\"}}",
+     "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_slug.py\"}}"
+    ],
+    "prompt_sha256": "8879cf59f2e49be3c55ce8cdc95662b0ddc80c773b519c08777e6a873e46e45e",
+    "qwen_meta": {
+     "kaggle_seconds": 2.0,
+     "new_tokens": 268,
+     "prompt_tokens": 1030
+    },
+    "raw_sha256": [
+     "96ddd757f946f9aac3d7d5a6bb87325274293327988d0ca1e86460f7bbc32573",
+     "96ddd757f946f9aac3d7d5a6bb87325274293327988d0ca1e86460f7bbc32573"
+    ],
+    "rejected": [
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     },
+     {
+      "reason": "duplicate or beyond max_actions",
+      "seed": 1
+     }
+    ],
+    "status": "ok",
+    "statuses": [
+     "ok",
+     "ok"
+    ]
+   }
+  },
+  {
+   "data": {
+    "name": "step",
+    "part": "step",
+    "round": 1
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "step",
+   "meta": {
+    "kaggle_seconds": 2.0,
+    "new_tokens": 268,
+    "prompt_tokens": 1030
+   },
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip()\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}",
+    "{\"name\":\"Read\",\"arguments\":{\"file_path\":\"slug.py\"}}",
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"python3 test_slug.py\"}}"
+   ]
+  },
+  {
+   "data": {
+    "name": "commit_verify"
+   },
+   "e": "note",
+   "kind": "stage"
+  },
+  {
+   "e": "critic_stage"
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "git_commit": "a22d08a196557ef27cbae0d3925d44de8a209262",
+ "journal_hash": "7dec49b231e87131350cc9b0f8c90bf1d0af3570ffed35c43e66ec30c418594a",
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "stage",
+  "investigate_sources",
+  "evidence",
+  "evidence",
+  "label",
+  "investigate",
+  "routing",
+  "stage",
+  "proposals",
+  "stage",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "label",
+  "step_record",
+  "routing",
+  "stage",
+  "evidence",
+  "critic",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "glm_accounting",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "limits": null,
+ "result": {
+  "answer_label": "VERIFIED",
+  "stop_cause": "decided"
+ },
+ "sandbox": [
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "b4fc9eb8003e7ec94b50c8e9beec60c6bf09997745bb5671f680529b8a897dac",
+    "pre_tree_sha256": "b4fc9eb8003e7ec94b50c8e9beec60c6bf09997745bb5671f680529b8a897dac",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "pre_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "5441656edd4327d83510d463eac89907d3a655ba67d1fa2bb84f802405a90b33",
+    "pre_tree_sha256": "5441656edd4327d83510d463eac89907d3a655ba67d1fa2bb84f802405a90b33",
+    "protected_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "stdout": ""
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "pre_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "pre_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "persisted": false,
+    "post_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "pre_tree_sha256": "67e4bf304771d91ce13076914c5df9cc0ca086c6121cdd199108cfa7d4be0c0a",
+    "protected_unchanged": true,
+    "stderr": "",
+    "stdout": "all tests passed\n"
+   }
+  }
+ ],
+ "schema": "el_arch1_run_record_v1",
+ "scorer": {
+  "calls": [
+   {
+    "last": {
+     "features_sha256": "adf0793a8de89f28a737e90d087115a507090b24d7ec794a78f77a4ea64a192b",
+     "live_run": "sangeetasangamkar/el-arch1-score-live-v1@round1",
+     "origin": "saved_scores_verified_by_independent_recapture",
+     "provenance": {
+      "capture_code_sha256": {
+       "capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",
+       "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"
+      },
+      "context_sha256": "1171370a92da3111ec10fc2f2839d9ccc6499bac763d77cbd7a78f2d086267ea",
+      "depths": [
+       18,
+       24,
+       30
+      ],
+      "device": "Tesla T4 (STUB)",
+      "dtype": "float16",
+      "hidden": 2560,
+      "model_repo": "Qwen/Qwen3-4B-Thinking-2507",
+      "model_revision": "768f209d9ea81521153ed38c47d515654e938aea",
+      "option_prefix": " ",
+      "option_sha256": [
+       "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+       "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+       "74c4ac3e96ce49c616a7d2fdeac45aa54a29cb3010a7c3e2090c32ece300358f",
+       "0290990e1ecf7b961b894477ba70ae8c0dd4ff6b65258b099aa205241cd8b4b4"
+      ],
+      "query_cue": "\n\nNext action:",
+      "recipe_id": "fable_capture_v1"
+     },
+     "verify_run": "sangeetasangamkar/el-arch1-score-verify-v1@round1"
+    },
+    "scores": [
+     0.018,
+     0.195,
+     0.293,
+     0.835
+    ]
+   }
+  ],
+  "scorer_def": {
+   "compatibility": {
+    "capture_code_hash": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8;8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a;fe2ae8ea295a2991353238502fcb0da0b5998590dde3c64bf754f61f4486c9e9",
+    "capture_code_path": "capture/capture.py;capture/capture_resident.py;decision_head/fable_features.py",
+    "depths": [
+     18,
+     24,
+     30
+    ],
+    "device_class": "kaggle_t4",
+    "dtype": "fp16",
+    "max_options": 8,
+    "option_feature": "mean over the option's own tokens, independent suffix of the shared prefix, option prefix ' '",
+    "option_token_limit": 4096,
+    "prefix_token_limit": 24000,
+    "query_feature": "hidden state at last prefix token after cue '\\n\\nNext action:'",
+    "qwen_repo": "Qwen/Qwen3-4B-Thinking-2507",
+    "qwen_revision": "768f209d9ea81521153ed38c47d515654e938aea"
+   },
+   "decision_types_validated": [
+    "next_action"
+   ],
+   "scorer_id": "laya_adapter_v1",
+   "status": "validated",
+   "version": "v1",
+   "weights_hash": "e8434c75f9bbc782fa40c958ba5eb6b9dfc8c02cf7cb424a1cf785dbe32c198f"
+  },
+  "scorer_id": "laya_adapter_v1"
+ },
+ "seeds": [
+  0,
+  1
+ ],
+ "task": {
+  "files": {
+   "slug.py": "import re\n\n\ndef slugify(text):\n    text = text.strip().lower()\n    return re.sub(r\"[^a-z0-9]+\", \"-\", text)\n",
+   "test_slug.py": "from slug import slugify\n\nassert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\nassert slugify(\"  A--B  \") == \"a-b\", slugify(\"  A--B  \")\nassert slugify(\"\") == \"\"\nprint(\"all tests passed\")\n"
+  },
+  "max_steps": 2,
+  "protected": [
+   "test_slug.py"
+  ],
+  "scope": null,
+  "system_text": "[system]\nYou are an autonomous coding agent running on the user's machine.\n\nYou work in the current directory of a real repository. Use your tools to read, search, create, and edit files and to run shell commands (tests, builds, type-checkers). Some tools are deferred: only their names are known until you load their schemas with ToolSearch. Depending on the environment, some tools may be unavailable or without network access; if a tool call fails, adapt and continue with what is available. Never guess at the contents of a file you have not read, and never claim a fix works without running the verification yourself.\n\nMethod:\n1. Reproduce first. Read the relevant code and run the failing command before changing anything.\n2. Form a hypothesis about the root cause; make the smallest edit that tests it.\n3. Verify. Rerun the tests/build after every meaningful change. If it still fails, re-read the output carefully — do not repeat the same edit.\n4. Fix the cause, not the symptom.\n\nRules:\n- Never modify tests to make them pass, unless the user explicitly says the tests are wrong.\n- Keep edits minimal and consistent with the existing code style.\n- End with a brief summary: the root cause, what you changed, and proof that it passes.",
+  "task_id": "ex1_slug",
+  "test_cmd": "python3 test_slug.py",
+  "user_text": "The function slugify in slug.py returns slugs with leading or trailing hyphens, so test_slug.py fails. Fix slug.py so that `python3 test_slug.py` passes. Do not modify test_slug.py."
+ }
+}
