@@ -58,16 +58,21 @@ class Missing(Exception):
 
 
 class Receipts:
-    def __init__(self, d: Path, tests_results: Optional[Path] = None):
+    def __init__(self, d: Path, tests_results: Optional[Path] = None, variants_dir: Optional[Path] = None):
         self.dir = Path(d)
+        vd = Path(variants_dir) if variants_dir else self.dir
+        self.vdir = vd.parent if vd.is_file() else vd      # [F3] the variants run may live in its own directory (VARIANTS_SUMMARY.json + variants/<name>/<base>/outcome.json)
         self.summary = self._j("receipts/ACCEPTANCE_SUMMARY.json", required=False)
         self.variants = self._j("VARIANTS_SUMMARY.json", required=False)
         self.tests_results = json.loads(Path(tests_results).read_text("utf-8")) if tests_results and Path(tests_results).is_file() else None
         self.tests_path = str(tests_results) if tests_results else None
         self._used: List[str] = []
 
+    def _p(self, rel: str) -> Path:
+        return (self.vdir if rel == "VARIANTS_SUMMARY.json" or rel.startswith("variants/") else self.dir) / rel
+
     def _j(self, rel, required=True):
-        p = self.dir / rel
+        p = self._p(rel)
         if not p.is_file():
             if required: raise Missing(rel)
             return None
@@ -76,7 +81,7 @@ class Receipts:
     # --- accessors that record which files a row relied on
     def need(self, *rels: str) -> None:
         for r in rels:
-            if not (self.dir / r).is_file(): raise Missing(r)
+            if not self._p(r).is_file(): raise Missing(r)
             self._used.append(r)
 
     def examples(self) -> Dict[str, Dict[str, Any]]:
@@ -98,7 +103,7 @@ class Receipts:
         for b in self.variants["variants"].get(name, {}):
             rel = "variants/%s/%s/outcome.json" % (name, b)
             self.need(rel)
-            out[b] = json.loads((self.dir / rel).read_text("utf-8"))
+            out[b] = json.loads(self._p(rel).read_text("utf-8"))
         if not out: raise Missing("variants/%s/*" % name)
         return out
 
@@ -123,7 +128,7 @@ class Receipts:
         return any(e.get("stub") for e in s.get("examples", {}).values())
 
     def sha_of(self, rel: str) -> Optional[str]:
-        p = self.dir / rel
+        p = self._p(rel)
         return sha(p.read_bytes()) if p.is_file() else None
 
     def used(self) -> List[Dict[str, Any]]:
@@ -342,8 +347,8 @@ def grade(spec: Spec, R: Receipts, tests_results_ok: Optional[Tuple[bool, str]] 
     return row
 
 
-def generate(d: Path, tests_results: Optional[Path] = None) -> Dict[str, Any]:
-    R = Receipts(d, tests_results)
+def generate(d: Path, tests_results: Optional[Path] = None, variants_dir: Optional[Path] = None) -> Dict[str, Any]:
+    R = Receipts(d, tests_results, variants_dir)
     rows = [grade(s, R) for s in spec_list()]
     for r in rows: assert r["status"] in STATUSES
     counts = {s: sum(1 for r in rows if r["status"] == s) for s in STATUSES}

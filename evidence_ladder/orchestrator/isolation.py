@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import ast
 import inspect
+import re
 import types
 from pathlib import Path
 from typing import Any, Dict, List, Set
@@ -21,6 +22,10 @@ FORBIDDEN_LITERALS = ("protected" + "_cases", "hidden" + "_cases", "oracles" + "
 ALLOWED_MENTIONS = {"critic_batch/validator.py": "deny-list patterns that reject such text in critic packets",
                     "execution/receipts.py": "path + sha256 pins of grader files for integrity checks; it hashes them, it parses no case"}
 FORBIDDEN_TYPE_NAMES = {"ProtectedGrader", "GatedGrader", "SelectionGate", "HiddenGrade"}
+# Attribute NAMES that mark evaluation-only material. A closed, documented token match, NOT the bare substring "hidden": real model objects legitimately carry hidden_size, num_hidden_layers,
+# output_hidden_states, hidden_act, hidden_states ... (the first real HFQwenBackend in a controller context was falsely flagged by the bare substring). Flagged: grader / oracle / protected / held-out
+# carriers and hidden_<tests|cases|grades|labels|answers|solutions|oracle> in snake_case or camelCase.
+EVAL_ATTR_RE = re.compile(r"grader|oracle|protected|held_?out|hidden_?(tests?|cases?|grades?|labels?|answers?|solutions?)", re.I)
 NOT_SEALED_STATEMENT = ("The exposed development cases are NOT sealed: they were committed to Git history, are public, and sit at a fixed path. Runtime isolation here is import hygiene "
                         "and the selection gate, not secrecy. Every number from them is development evidence only; a held-out claim needs hidden tests that were never published.")
 
@@ -94,7 +99,7 @@ def deep_context_check(ctx: Any, max_depth: int = 6) -> List[str]:
             return
         else:
             for k, v in list(getattr(o, "__dict__", {}).items()):
-                if any(w in k.lower() for w in ("grader", "protected", "oracle", "hidden")):
+                if EVAL_ATTR_RE.search(str(k)):
                     found.append("%s.%s: attribute name" % (path, k))
                 walk(v, path + "." + k, d + 1)
 

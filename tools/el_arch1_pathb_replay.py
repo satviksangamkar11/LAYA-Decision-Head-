@@ -91,6 +91,14 @@ def run(out: Path) -> int:
     doc["summary"] = {"replayed": len(reps), "refused": sum(1 for p in doc["pools"].values() if p.get("verdict") == "REFUSED"), "pools": len(doc["pools"]),
                       "laya_probe_random_head_all_stored_and_equal": bool(reps) and all(p["laya_equals_stored_verified_scores"] and p["probe_equals_stored"] and p["random_head_equals_stored"] for p in reps),
                       "comparison_only": all(c.get("selector") is False for p in reps for c in p["comparison"]), "negative_controls_refused": all(str(p.get("negative_control", "")).startswith("refused") for p in doc["pools"].values())}
+    import subprocess
+    import el_arch1_acceptance as A
+    git = lambda *a: subprocess.run(["git", *a], cwd=str(ROOT), capture_output=True, timeout=60).stdout.decode("utf-8", "replace").strip()
+    doc["provenance"] = {"commit": git("rev-parse", "HEAD"), "dirty_tracked_files": git("status", "--porcelain", "--untracked-files=no").splitlines()[:10], "config_sha256": A.config_hashes(),
+                         "source_sha256": {f: sha((ROOT / f).read_bytes()) for f in ("tools/el_arch1_pathb_replay.py", "evidence_ladder/controller/agentic.py", "evidence_ladder/controller/candidate_filter.py", "evidence_ladder/models/laya_runtime.py")},
+                         "secret_scan_added_lines": A.added_lines_secret_scan("main")}
+    doc["backend_identity"] = A.backend_identity(laya=backends["laya"], probe=backends["probe"], random_head=backends["random_head"], sandbox=sb, controller=r)
+    A.refuse_mock_backends(laya=backends["laya"], probe=backends["probe"], random_head=backends["random_head"], sandbox=sb)
     out.mkdir(parents=True, exist_ok=True)
     with open(out / "PATHB_REPLAY_RECEIPT.json", "x", encoding="utf-8", newline="\n") as f: json.dump(doc, f, indent=1, ensure_ascii=False, default=str)
     print(json.dumps(doc["summary"]))

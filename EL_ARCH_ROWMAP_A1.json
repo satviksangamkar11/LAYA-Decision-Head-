@@ -1,0 +1,64 @@
+{
+  "T23": {
+    "real": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a11_salvage_keeps_valid_siblings_and_rejects_the_broken_one",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_new_prompt_template_is_versioned_and_v1_is_frozen",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a15_proposer_v2_end_to_end",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a17_prefilter_false_hands_raw_items_through_untouched"
+    ],
+    "negative": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a11_negative_strict_parser_and_prose_stay_strict",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a17_duplicate_surfaces_as_duplicate_never_as_malformed_option"
+    ],
+    "receipt": [
+      {"path": "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex2_clamp/journal.json", "what": "entry index 33, kind candidate_filter: rule malformed_option (a broken array item rejected alone, siblings kept)"}
+    ],
+    "notes": "Candidate parse/template side only (unit tests are logic-only, scripted model text). The real-0.6B generation run is the coordinator's; no claim is made here about model-written candidate quality."
+  },
+  "T24": {
+    "real": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a13_rejects_noop_unchanged_absent_missing_and_not_unique_edits",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_sequential_plan_keeps_first_step_only",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_rejects_bad_structure_scope_and_dedupes",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_count_cap_order_and_never_pads",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a15_abstain_codes_and_negative",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a16_result_shape_ids_and_purity"
+    ],
+    "negative": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_negative_independent_alternatives_are_not_a_plan",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a13_negative_applicable_edit_kept_and_no_files_skips_only_applicability",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_negative_risky_actions_are_accepted_for_the_authorization_gate",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_path_scope_prefixes_and_negative"
+    ],
+    "receipt": [
+      {"path": "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex3_wordcount/journal.json", "what": "entry index 17, kind candidate_filter: rules sequential_plan (x3), duplicate (x2), no_op_edit"},
+      {"path": "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex3_wordcount/journal.json", "what": "entry index 35, kind candidate_filter: rules duplicate, old_string_absent, repeated_failure (repeated_failure is the controller's, not the filter's)"},
+      {"path": "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex2_clamp/journal.json", "what": "entry index 33, kind candidate_filter: rule malformed_option"}
+    ],
+    "notes": "ex1_slug journal has no candidate_filter rejection. Rule codes not seen in any receipt: unknown_tool, bad_arguments, path_outside_scope, protected_path, unchanged_diff, old_string_not_unique, beyond_max_options (unit tests only)."
+  },
+  "T12": {
+    "real": [],
+    "negative": [],
+    "receipt": [
+      {"path": "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json", "what": "real-model run exists but exercised nothing: all 12 samples per task were 2048-token thinking loops with no code, so no candidate reached the L2 stage; the run also ended with an I8 false positive (Agent 3 fixing the scan)"}
+    ],
+    "notes": "not exercised with the real model. Logic-only plumbing tests exist (phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered, f1b_vacuous_and_untraceable_checks_are_rejected_with_reasons) but use scripted stub text and must not be counted as real-model evidence."
+  },
+  "T13": {
+    "real": [],
+    "negative": [],
+    "receipt": [
+      {"path": "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json", "what": "no candidates produced (all samples were thinking loops with no code), so no behaviour clustering happened"}
+    ],
+    "notes": "not exercised with the real model. Logic-only: phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered (2 extended clusters), f1b_a_wrong_candidate_set_with_equal_behaviour_does_not_trigger_discrimination; the sandbox runner protocol is covered on real WSL by f1b_sandbox_runner_protocol_wsl, but that is not model evidence."
+  },
+  "T26": {
+    "real": [],
+    "negative": [],
+    "receipt": [
+      {"path": "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json", "what": "discrimination never reached: no live candidates (all samples were thinking loops with no code)"}
+    ],
+    "notes": "not exercised with the real model. Logic-only: phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered (TRIGGERED, blinded packet pending), f1b_nothing_is_approved_by_l2_clusters_or_critic."
+  }
+}

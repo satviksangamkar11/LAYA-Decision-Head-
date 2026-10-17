@@ -405,6 +405,71 @@ def t_T37_pathB_stored_4b_replay_laya_probe_random_head_exact_pools_and_refusals
         shutil.rmtree(out.parent, ignore_errors=True)
 
 
+class _Cfg:
+    def __init__(self):
+        self.hidden_size, self.num_hidden_layers, self.output_hidden_states, self.hidden_act, self.hidden_dropout_prob = 2560, 36, True, "silu", 0.0
+
+
+class _Model:
+    def __init__(self):
+        self.config = _Cfg(); self._modules = {"model": type("Inner", (), {})()}; self._modules["model"].config = _Cfg(); self.hidden_states = None
+
+
+class _Backend:
+    def __init__(self, extra=None):
+        self._model = _Model(); self.profile = _Cfg()
+        for k, v in (extra or {}).items(): setattr(self, k, v)
+
+
+@test
+def t_T08_deep_scan_passes_a_real_model_like_object_graph():
+    """A real HFQwenBackend carries hidden_size / num_hidden_layers / output_hidden_states / hidden_act; none of that is evaluation-only material."""
+    from evidence_ladder.orchestrator import isolation
+    assert isolation.check_i8_deep(_Backend()) == ""
+    assert isolation.deep_context_check({"generation": _Backend()}) == []
+
+
+@test
+def t_T08_negative_deep_scan_still_flags_held_evaluation_material_in_the_same_graph():
+    from evidence_ladder.orchestrator import isolation
+    from evidence_ladder.execution.protected import ProtectedGrader, SelectionGate
+    for attr in ("hidden_tests", "hiddenTests", "hidden_cases", "grader", "oracle_outputs", "heldout", "protected_cases", "hidden_labels"):
+        msg = isolation.check_i8_deep(_Backend({attr: ["x"]}))
+        assert attr in msg and "attribute name" in msg, (attr, msg)
+    msg = isolation.check_i8_deep(_Backend({"helper": ProtectedGrader(SelectionGate(), python_cases=Path("nowhere.json"), java_cases=Path("nowhere.json"))}))
+    assert "ProtectedGrader" in msg                                                  # a grader object under an innocent name is still found by type
+    assert "names" in isolation.check_i8_deep(_Backend({"path": "results/x/" + "hidden" + "_cases.json"}))      # and a string naming the hidden-case files
+
+
+@test
+def t_T48_rowmap_merge_declared_missing_or_failing_tests_are_never_a_pass():
+    import el_arch1_final_report as FR
+    this = "evidence_ladder/orchestrator/tests/phaseF3_tests.py"
+    doc = {"suites": [{"file": this, "parsed": True, "exit": 0, "failed": {"t_failing_one": "boom"}}]}
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        sp = tmp / "S.json"; sp.write_text(json.dumps(doc), "utf-8")
+        suites = FR.Suites(sp)
+        ok = this + "::t_T48_generator_refuses_pass_without_real_negative_and_receipt"
+        assert suites.state(ok) == "passed" and suites.state(this + "::t_does_not_exist") == "missing" and suites.state(this + "::t_failing_one") == "missing"      # not a real function: missing wins over the failed list
+        ent = FR.E([], [], [], receipt=["suites"], owner="x")
+        run = {}
+        def row(real, neg, notes=()):
+            rm = {"T99": {"real": real, "negative": neg, "receipt": [{"path": "EL_ARCH_TRACEABILITY.md", "what": "exists"}], "notes": list(notes)}}
+            return FR.resolve_row("T99", ent, {}, suites, run, rm)["paths"]["A"]
+        r = row([ok], [ok]); assert r["verdict"] in ("PASS", "INSUFFICIENT_DATA")      # resolvable (PASS needs a run dir for the receipt check; the point is the next lines)
+        assert row([ok, this + "::t_does_not_exist"], [ok])["verdict"] == "INSUFFICIENT_DATA" and "not found" in row([ok, this + "::t_does_not_exist"], [ok])["why"]      # declared but missing -> never PASS
+        assert row([ok], ["evidence_ladder/orchestrator/tests/nothing.py::t_x"])["verdict"] == "INSUFFICIENT_DATA"
+        assert row([ok], [ok], ["Final receipts: no example reached VERIFIED, no positive receipt"])["verdict"] == "INSUFFICIENT_DATA"
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    v = FR.verdict(dict(real=["r"], neg=["n"], receipt=["x"], conf_ok=True, failed=[], stub=False, missing=["a::b"]))
+    assert v[0] == "INSUFFICIENT_DATA"
+    v = FR.verdict(dict(real=["r"], neg=["n"], receipt=["x"], conf_ok=True, failed=[], stub=False, missing=[], positive_gap="no example reached VERIFIED"))
+    assert v[0] == "INSUFFICIENT_DATA" and FR.POSITIVE_GAP in v[1]
+    assert FR.verdict(dict(real=["r"], neg=["n"], receipt=["x"], conf_ok=False, failed=[], stub=False))[0] == "FAIL"      # a contradicting check is FAIL
+
+
 # ================================================================== T47 / T48 report generator
 @test
 def t_T48_generator_refuses_pass_without_real_negative_and_receipt():

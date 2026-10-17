@@ -1,0 +1,489 @@
+{
+ "T01": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic",
+   "evidence_ladder/controller/tests/phaseA_tests.py::test_a5_i1_checks_the_journaled_decision_not_a_literal"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: decision (last) answer_label BLOCKED while final_report.outcome.tests_pass is false in all three examples (negative case only)"
+   }
+  ],
+  "notes": "Final PATH A receipts (el-arch1-final-local-20261017T191233Z): no example reached VERIFIED (all three stop budget/step_cap, decision BLOCKED, tests_pass false), so there is NO positive receipt for approval paths; the positive proof is the cited test only. The WSL test holds both halves (failing tests + model claim -> not VERIFIED; real fix -> VERIFIED)."
+ },
+ "T02": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: ranking + action_decision entries (level L0_ordering_only, approved false) exist, but scorer_unavailable in every step, so no LAYA-vs-trusted conflict occurs in the PATH A receipts"
+   }
+  ],
+  "notes": "The conflict is exercised on PATH B only (stored 4B scores, exact context); PATH A receipts have no LAYA scores. No receipt reference for the conflict itself."
+ },
+ "T03": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl",
+   "evidence_ladder/controller/tests/phaseA_tests.py::test_a4_critic_pass_cannot_lift_unverified_or_blocked_and_forged_records_fail_i3"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: critic entry (state applied) in all three; the label stays BLOCKED (decision) after it"
+   }
+  ],
+  "notes": "Injection is covered through the critic/GLM reply path (a stub reply saying approve / VERIFIED); there is no separate file-content or test-output injection test."
+ },
+ "T04": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic",
+   "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: evidence entries with status fail (never pass) for protected_tests_v1 in all three"
+   }
+  ],
+  "notes": "The status-mapper exhaustive check is check_i4 inside the I1-I8 test; no ERROR/TIMEOUT status occurs in the final receipts."
+ },
+ "T05": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_is_enforced_second_step_is_refused_and_i5_holds_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_from_task_max_steps_is_named_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_from_max_actions_is_named_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_round_cap_is_named_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_token_cap_is_named_and_enforced_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_wall_time_is_named_and_enforced_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_model_call_cap_is_named_and_enforced_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_no_label_when_no_limit_was_hit_and_v1_profile_loads_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: stop entry with cause budget and stop_label step_cap (all three examples)"
+   }
+  ],
+  "notes": "The cap tests run the real controller with the in-process ToySandbox (logic-only sandbox); only step_cap appears in the final receipts, the other four labels have test evidence only."
+ },
+ "T06": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json (ex3): action_auth entries class read_only / reversible_workspace_edit allowed true"
+   }
+  ],
+  "notes": "No denied or irreversible action occurs in the final receipts; the refusal is shown by tests only."
+ },
+ "T07": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: registry entries phase start and phase end with equal hash and scorer (2 per journal)"
+   }
+  ],
+  "notes": "I7 negative = forged registry hash change in the I1-I8 test; the chain check is journal.verify_chain in the WSL test. The scorer fingerprint is part of the registry entry."
+ },
+ "T08": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+   "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s0_i8_deep_scan_is_in_check_i8_and_static_scans_are_clean"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+   "evidence_ladder/orchestrator/tests/phaseC_tests.py::c6_deep_check_finds_a_grader_hidden_inside_a_backend_that_the_name_scan_misses"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: investigate_context.excluded_hidden (empty in the final run: no hidden file was planted)"
+   }
+  ],
+  "notes": "The context-leak proof is the planted-marker test (logic-only sandbox, real investigate code); the receipts only show an empty exclusion list."
+ },
+ "T09": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+  ],
+  "receipt": [],
+  "notes": "Final PATH A receipts (el-arch1-final-local-20261017T191233Z): no example reached VERIFIED (all three stop budget/step_cap, decision BLOCKED, tests_pass false), so there is NO positive receipt for approval paths; the positive proof is the cited test only. The positive half of the WSL test shows protected_tests_v1 approving on the real end state."
+ },
+ "T10": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_out_of_scope_edit_blocks_the_final_label_logic_only"
+  ],
+  "receipt": [],
+  "notes": "No scope was declared in the final run, so no R3 / diff_scope_v1 evidence exists in the receipts; test evidence only."
+ },
+ "T11": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: requirements entry holds only R1 (explicit, quoted span of the test command) and R2 (contract); no phantom requirement"
+   }
+  ],
+  "notes": "The frozen contract demotes a phantom span to a non-gating derived_hypothesis (it is not deleted)."
+ },
+ "T12": {
+  "real": [],
+  "negative": [],
+  "receipt": [],
+  "notes": "NOT DONE (real-model half): phaseB t_b6_* are logic-only; no real 0.6B-written test was validated."
+ },
+ "T13": {
+  "real": [],
+  "negative": [],
+  "receipt": [],
+  "notes": "NOT DONE (real-model half): clustering is covered logic-only by phaseB t_b6_ladder_l2_discrimination_clustering_and_critic_trigger_logic_only."
+ },
+ "T14": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+   "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_laya_never_overrides_trusted_evidence_in_any_gate_state"
+  ],
+  "receipt": [],
+  "notes": "PATH A receipts have no L0 scores (scorer_unavailable everywhere); test evidence only."
+ },
+ "T15": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_evidence_records_carry_scope_provenance_and_level_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: final_report.coverage rows (R1, R2) with evidence scope/source/independence/trust_class and weakest = R1 FAILED, in all three"
+   }
+  ],
+  "notes": "The receipt shows the weakest-row rule on a failing run (answer BLOCKED); the all-VERIFIED case is test-only."
+ },
+ "T16": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t16_outcome_and_process_fields_are_present_and_separate_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: final_report.outcome and final_report.process (constraints_respected true, tests_pass false) in all three"
+   }
+  ],
+  "notes": "Process-violation-with-passing-outcome is a test case (t15), not in the final receipts."
+ },
+ "T17": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_three_examples_route_to_O1"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: oracle_tier tier O1 in all three"
+   }
+  ],
+  "notes": "The route test is logic-only (no sandbox needed); negative = O2/O3 tasks take no action."
+ },
+ "T18": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+  ],
+  "receipt": [],
+  "notes": "O2 is not exercised by the final receipts (all O1); co-owned with Agent 3 variants."
+ },
+ "T19": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+  ],
+  "receipt": [],
+  "notes": "O3 / blocking ambiguity is not exercised by the final receipts; co-owned with Agent 3 variants."
+ },
+ "T20": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_model_written_tests_never_upgrade_the_tier"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: routing entries for intake, investigate, step1_checked, step1_observed, step2_checked, step2_observed (router re-run after each stage)"
+   }
+  ],
+  "notes": "The receipt shows the re-runs; the trusted-upgrade versus critic-no-upgrade distinction is the test."
+ },
+ "T21": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: requirements entry (R1 explicit with char_start/char_end quote, R2 contract)"
+   }
+  ],
+  "notes": ""
+ },
+ "T22": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_investigate_gives_real_snippets_signatures_output_constraints_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b2_investigate_three_toy_repos_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_truncation_is_bounded_and_journalled_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: investigate_context entry (files[].path/shown/truncated, excluded_hidden, caps, context_sha256) in all three"
+   }
+  ],
+  "notes": "In the final receipts truncated is false for every file and nothing was excluded; truncation is exercised by the test only."
+ },
+ "T24": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_blocker_end_to_end_ex2_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_all_rejected_abstains_with_the_filter_code_and_takes_no_action_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: candidate_filter entries: ex3 rules sequential_plan, duplicate, no_op_edit, old_string_absent, repeated_failure; ex2 malformed_option + abstain all_options_rejected; ex1/ex2 abstain no_options_proposed"
+   }
+  ],
+  "notes": "The filter implementation is Agent 1's; this row is the controller wiring."
+ },
+ "T25": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json (ex3): step_record action.executed Read then Bash with execution_result_sha256; evidence entries carry receipt_hash"
+   }
+  ],
+  "notes": "Only ex3 executed actions in the final run; ex1/ex2 abstained."
+ },
+ "T26": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: critic entry state applied (experiment on a scratch copy, label_unchanged_by_critic) in all three"
+   }
+  ],
+  "notes": "PARTIAL: real critic experiment path only. Multi-cluster discrimination is the ladder controller, logic-only (phaseB t_b6_*)."
+ },
+ "T27": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic"
+  ],
+  "receipt": [],
+  "notes": "No LAYA scores on PATH A; evidence-first ordering shown by tests (PATH B + toy)."
+ },
+ "T28": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_blocker_end_to_end_ex2_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_retry_after_state_change_is_allowed_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t27_t28_rank_by_evidence_first_and_same_failure_twice_stops_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: repair_report entries (classification repetition, failure kind assertion) in all three; ex3 step 2 candidate_filter rejected repeated_failure"
+   }
+  ],
+  "notes": "The repair loop never converged in the final run; the success path is test-only (a2_4 WSL ex2 reaches VERIFIED)."
+ },
+ "T29": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: finalize entry (ok false) and final_report.outcome (trusted_checks_rerun_on_real_end_state true, state_unchanged_since_last_action) in all three"
+   }
+  ],
+  "notes": "Receipts show finalize on failing end states; the ok=true case is test-only."
+ },
+ "T30": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: per step candidate_filter -> evidence -> monotonicity_gate/scorer_unavailable -> ranking -> action_decision -> (action_auth) -> repair_report -> step_record, then finalize once"
+   }
+  ],
+  "notes": ""
+ },
+ "T31": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t31_approval_depends_on_coverage_evidence_and_action_risk_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::t31_approval_depends_on_coverage_evidence_and_action_risk_logic",
+   "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json (ex3): action_auth read_only and reversible_workspace_edit allowed true"
+   }
+  ],
+  "notes": "No irreversible action in the final run; the confirmation requirement is test-only."
+ },
+ "T32": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_missing_laya_on_the_real_path_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_missing_scores_are_journalled_with_the_reason_never_silent_logic"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: scorer_unavailable entries with a reason in every step of every example (no accepted option to score / ProvenanceError no verified score for this pool); no silent learned-score fallback"
+   }
+  ],
+  "notes": ""
+ },
+ "T33": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json (ex3): scorer_unavailable ProvenanceError for a pool LAYA did not score exactly (negative case); ex1/ex2: no accepted option to score"
+   }
+  ],
+  "notes": "No positive PATH A receipt: LAYA never scored an exact accepted pool in the final run."
+ },
+ "T38": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic",
+   "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_three_examples_give_insufficient_data_and_ordering_stays_disabled"
+  ],
+  "receipt": [
+   {
+    "path": "A",
+    "what": "receipts/<ex>/journal.json: monotonicity_gate entries status INSUFFICIENT_DATA, laya_ordering_enabled false, can_override_trusted_evidence false (every step)"
+   }
+  ],
+  "notes": ""
+ },
+ "T39": {
+  "real": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+  ],
+  "negative": [
+   "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+  ],
+  "receipt": [],
+  "notes": "Static + unit evidence (source scan; comparison scorers limited to probe/random_head with selector false); no receipt field proves an absence."
+ }
+}
