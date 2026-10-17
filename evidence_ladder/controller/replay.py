@@ -87,6 +87,10 @@ class RecordingSandbox:
     def __init__(self, inner):
         self.inner, self.calls = inner, []
 
+    @property
+    def env_label(self):      # [MXC] the environment identity of the wrapped sandbox (default: the WSL label, so existing journal hashes are unchanged)
+        return getattr(self.inner, "env_label", "wsl-bwrap-systemd")
+
     def run(self, workspace, cmd, persist=False, timeout=60):
         try:
             r = self.inner.run(workspace, cmd, persist=persist, timeout=timeout)
@@ -101,8 +105,9 @@ class RecordingSandbox:
 
 
 class RecordedSandbox:
-    def __init__(self, calls: List[Dict[str, Any]]):
+    def __init__(self, calls: List[Dict[str, Any]], label: Optional[str] = None):
         self.calls, self.i = list(calls), 0
+        self.env_label = label or "wsl-bwrap-systemd"      # [MXC] restored from record["sandbox_label"] when the recording backend was not WSL
 
     def run(self, workspace, cmd, persist=False, timeout=60):
         if self.i >= len(self.calls):
@@ -166,7 +171,7 @@ class RecordedRun:
         self.sc = RecordingScorer(ctx.scorer) if ctx.scorer is not None else None
         self.cmp = {k: RecordingScorer(v) for k, v in sorted((ctx.comparison or {}).items())}      # [D1] probe / random-head comparison scorers are recorded like the main scorer
         self.cfg = copy.deepcopy(dict(ctx.config))
-        ctx2 = AgenticContext(sandbox=self.sb, scorer=self.sc, critic=ctx.critic, budget=ctx.budget, arm=ctx.arm, seeds=ctx.seeds, config=ctx.config, limits=ctx.limits, clock=ctx.clock, comparison=self.cmp or None)
+        ctx2 = AgenticContext(sandbox=self.sb, scorer=self.sc, critic=ctx.critic, budget=ctx.budget, arm=ctx.arm, seeds=ctx.seeds, config=ctx.config, limits=ctx.limits, clock=ctx.clock, comparison=self.cmp or None, timeline=getattr(ctx, "timeline", None))
         self.task, self.ctx = task, ctx2
         self.run = AgenticRun(task, ctx2, render)
         self.events: List[Dict[str, Any]] = []
@@ -207,7 +212,9 @@ class RecordedRun:
     def record(self) -> Dict[str, Any]:
         """[D1] `limits` is recorded because a non-default limits profile is part of the run; the injected clock is NOT (a wall-time stop is not replayable)."""
         t = self.task
-        return {"schema": "el_arch1_run_record_v1", "task": {"task_id": t.task_id, "user_text": t.user_text, "system_text": t.system_text, "test_cmd": t.test_cmd, "protected": list(t.protected),
+        label = self.sb.env_label
+        extra = {} if label == "wsl-bwrap-systemd" else {"sandbox_label": label}      # [MXC] only a non-WSL backend adds the key, so WSL records are byte-identical to before
+        return {**extra, "schema": "el_arch1_run_record_v1", "task": {"task_id": t.task_id, "user_text": t.user_text, "system_text": t.system_text, "test_cmd": t.test_cmd, "protected": list(t.protected),
                                                               "max_steps": t.max_steps, "scope": t.scope, "files": self.files},
                 "arm": self.ctx.arm, "seeds": [int(s) for s in self.ctx.seeds], "config": self.cfg,
                 "limits": self.ctx.limits.as_dict() if self.ctx.limits is not None else None, "events": self.events, "sandbox": self.sb.calls,
@@ -231,7 +238,7 @@ def replay(record: Dict[str, Any], *, sandbox=None, critic=None, render=None, wo
     task = AgenticTask(t["task_id"], t["user_text"], ws, t["test_cmd"], list(t["protected"]), t["system_text"], t["max_steps"], t.get("scope"))
     sc = record.get("scorer")
     scorer = RecordedScorer(sc["scorer_id"], sc["scorer_def"], sc["calls"]) if sc else None
-    sb = sandbox if sandbox is not None else RecordedSandbox(record["sandbox"])
+    sb = sandbox if sandbox is not None else RecordedSandbox(record["sandbox"], record.get("sandbox_label"))
     cmp_ = {k: RecordedScorer(v["scorer_id"], v["scorer_def"], v["calls"]) for k, v in (record.get("comparison") or {}).items()}
     ctx = AgenticContext(sandbox=sb, scorer=scorer, critic=critic, arm=record["arm"], seeds=tuple(record["seeds"]), config=copy.deepcopy(record["config"]), comparison=cmp_ or None,
                          limits=Limits(**record["limits"]) if record.get("limits") else None)

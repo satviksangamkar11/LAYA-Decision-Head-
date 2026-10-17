@@ -1,0 +1,38 @@
+{
+ "variant": "budget_tokens",
+ "base": "ex1_slug",
+ "why": "a tiny Qwen-token cap (the first step already used 500) stops the problem as budget, named",
+ "expected": {
+  "stop_cause": "budget",
+  "details_has": "limit:max_qwen_tokens",
+  "not_decided": true,
+  "steps_run": 1
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "limit:max_qwen_tokens used=500 cap=100",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "6d51f9b8501c3dec59b3a9ae6d5678aad06e996a2d8c4c365c6bd0e3ddcf4728",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

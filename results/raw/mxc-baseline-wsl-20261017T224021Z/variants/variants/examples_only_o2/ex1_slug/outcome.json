@@ -1,0 +1,42 @@
+{
+ "variant": "examples_only_o2",
+ "base": "ex1_slug",
+ "why": "no tests but an example in the request -> O2 (partial oracle); per-action mode has no executable oracle so it points to the ladder (examples) controller",
+ "expected": {
+  "stop_cause": "missing_information",
+  "label": "BLOCKED",
+  "tier": "O2",
+  "kinds_absent": [
+   "step_record"
+  ],
+  "max_sandbox_calls": 0,
+  "details_has": "tier O2"
+ },
+ "violations": [],
+ "stop_cause": "missing_information",
+ "stop_details": "tier O2: no executable test oracle for per-action mode; use the ladder (examples) controller",
+ "label": "BLOCKED",
+ "tier": "O2",
+ "journal_hash": "1f37ee08e90724a15f0cff4d5beaabc6003a5b834db1fcfaffe4cab5030aa4bd",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 0,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

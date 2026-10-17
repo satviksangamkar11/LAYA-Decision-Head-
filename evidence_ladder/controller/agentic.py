@@ -155,7 +155,7 @@ class AgenticRun:
         self.critic_result: Optional[Dict[str, Any]] = None
         self.decided = False
         self.last_state: Optional[str] = None
-        self.env = "env-" + C.sha256(canon({"sandbox": "wsl-bwrap-systemd", "test_cmd": task.test_cmd, "protected": task.protected}))[:12]
+        self.env = "env-" + C.sha256(canon({"sandbox": getattr(ctx.sandbox, "env_label", "wsl-bwrap-systemd"), "test_cmd": task.test_cmd, "protected": task.protected}))[:12]
         q = task.test_cmd
         i = task.user_text.find(q)
         req1 = {"requirement_id": "R1", "version": 1, "kind": "explicit", "text": "the protected test command exits 0", "priority": "hard", "status": "active",

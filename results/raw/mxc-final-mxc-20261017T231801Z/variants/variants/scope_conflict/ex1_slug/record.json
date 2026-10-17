@@ -1,0 +1,364 @@
+{
+ "sandbox_label": "mxc-processcontainer",
+ "schema": "el_arch1_run_record_v1",
+ "task": {
+  "task_id": "ex1_slug",
+  "user_text": "The function slugify in slug.py returns slugs with leading or trailing hyphens, so test_slug.py fails. Fix slug.py so that `python3 test_slug.py` passes. Do not modify test_slug.py.",
+  "system_text": "system text",
+  "test_cmd": "python3 test_slug.py",
+  "protected": [
+   "test_slug.py"
+  ],
+  "max_steps": 2,
+  "scope": [
+   "slug.py"
+  ],
+  "files": {
+   "slug.py": "import re\r\n\r\n\r\ndef slugify(text):\r\n    text = text.strip().lower()\r\n    return re.sub(r\"[^a-z0-9]+\", \"-\", text)\r\n",
+   "test_slug.py": "from slug import slugify\r\n\r\nassert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\r\nassert slugify(\"  A--B  \") == \"a-b\", slugify(\"  A--B  \")\r\nassert slugify(\"\") == \"\"\r\nprint(\"all tests passed\")\r\n"
+  }
+ },
+ "arm": "E",
+ "seeds": [
+  0
+ ],
+ "config": {
+  "max_steps": 2,
+  "require": [
+   "scorer"
+  ]
+ },
+ "limits": {
+  "max_wall_seconds": 3600.0,
+  "max_qwen_tokens": 60000,
+  "max_glm_tokens": 200000,
+  "max_actions": 3,
+  "max_rounds": 3
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "e": "step",
+   "options": [
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"echo note > notes.txt\"}}"
+   ],
+   "meta": {}
+  },
+  {
+   "e": "step",
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}}"
+   ],
+   "meta": {}
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "sandbox": [
+  {
+   "cmd": "echo note > notes.txt",
+   "persist": true,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8",
+    "post_tree_sha256": "daa312151bc5d0885809e3b748f27ffd36617cee47525563660c5a6183873def",
+    "persisted": true
+   },
+   "files_after": {
+    "notes.txt": "note\n",
+    "slug.py": "import re\r\n\r\n\r\ndef slugify(text):\r\n    text = text.strip().lower()\r\n    return re.sub(r\"[^a-z0-9]+\", \"-\", text)\r\n",
+    "test_slug.py": "from slug import slugify\r\n\r\nassert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\r\nassert slugify(\"  A--B  \") == \"a-b\", slugify(\"  A--B  \")\r\nassert slugify(\"\") == \"\"\r\nprint(\"all tests passed\")\r\n"
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "daa312151bc5d0885809e3b748f27ffd36617cee47525563660c5a6183873def",
+    "post_tree_sha256": "daa312151bc5d0885809e3b748f27ffd36617cee47525563660c5a6183873def",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "post_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "post_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_slug.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "post_tree_sha256": "99dbbbdedefe14b19193406d2c050ef6bb57484069a4f874b0a6ac6b35d05f4b",
+    "persisted": false
+   }
+  }
+ ],
+ "scorer": {
+  "scorer_id": "stub:laya",
+  "scorer_def": {
+   "weights_hash": "stub:laya",
+   "status": "stub"
+  },
+  "calls": [
+   {
+    "scores": [
+     0.531
+    ],
+    "last": null
+   },
+   {
+    "scores": [
+     0.018
+    ],
+    "last": null
+   }
+  ]
+ },
+ "comparison": {
+  "probe": {
+   "scorer_id": "stub:probe",
+   "scorer_def": {
+    "weights_hash": "stub:probe",
+    "status": "stub"
+   },
+   "calls": [
+    {
+     "scores": [
+      0.786
+     ],
+     "last": null
+    },
+    {
+     "scores": [
+      0.015
+     ],
+     "last": null
+    }
+   ]
+  },
+  "random_head": {
+   "scorer_id": "stub:random_head",
+   "scorer_def": {
+    "weights_hash": "stub:random_head",
+    "status": "stub"
+   },
+   "calls": [
+    {
+     "scores": [
+      0.593
+     ],
+     "last": null
+    },
+    {
+     "scores": [
+      0.876
+     ],
+     "last": null
+    }
+   ]
+  }
+ },
+ "journal_hash": "58ffd733330facf20aabce5d87c3bb601e8d1e7e5cdeab78341c827a60ebc3ff",
+ "chain": [
+  "e95c4c15a6d05517c70454fd2b718d1439d22610a9aa6ccf76193b96a4c0da2a",
+  "a48e76e2d9a9ba277a116254ea8441d6dd339fd0e7775d74682fd4851d073ed1",
+  "c2ecfcf4f4b34d695c1085d5451c1b95687bebad6ba93496d4b1a45d2a7ecbef",
+  "4f3107bb0d0019024c0020f9da209e70433f5ea2ba42c46714585a29b5592e9d",
+  "0d7b9b79cc6166c6aa8d78edb254eff7678d72893a1b75b4e207be2e1947e04d",
+  "b80cb15c6fe8a62a3a07a487640504dea630e17c44682b4939f2ee5ed8a9da7a",
+  "03161ac3aeb44031b19a3ead105dddbc44e34c25c3f91e97ffe36544a44e5fb8",
+  "50d0a287f2e36b4d1d3cc625daf7976e04a8857eab35a6887ae7f8597aa9bbc4",
+  "4dcfc19a183d122ad30f5af52fe66e3675eee741af9ff3ee0eceddf4cec974f7",
+  "258772c4e9721311c7e106bc646e922b2b3d1b338ce0c3a8e1301e0b28183b58",
+  "47a9db509ca098ff07f5cae98d19c7b241ec6552f49f7c0a2de0ecdbb495691d",
+  "e5a4fc2062f6dc49bcb3c4ef5d77c0beb48d366caddc130d4ff21ca7f3721dd4",
+  "d3b7557bb770afac1ac4b04fe2dbd5188bc12eddddc6118ad7308cac90735252",
+  "5ea383d7ff7350c61c536d82d13796adfa7e57e3120b82058e0b61b29c7643b6",
+  "387854f1676630b6aab5e04df1c160344dabd6c5072ebf822a40773010847f3f",
+  "062d5b4dd4fe93511971cbe723e3fa9aa53b146b4791752b40c42a429a182a2c",
+  "18996fd9a40278203222be0f9883fcd9105e215fb302b99d218cab69c4b2ea93",
+  "1563c892c4b3ff266ff0708d5c5e2face12d3fb3bb471af76532eb6fa55dc0b7",
+  "97ca608a500dfaf0b285f26a210d10938370decb6b88ef77a28708fed8034ceb",
+  "9458985b1950445bf6af8ab32d7e72c062cc84ec05a728c101e296ffb45438e2",
+  "9978a17a6b28285ac60ec8b779989f3132ab859acfb5d17887c6129014c7901a",
+  "cc77b1a0705f300abde3b3a978400de99dbb2744ee6389d9ac68f9147fb090f8",
+  "fa5aa63d0f56b8406e2b848156c91e9e77ee8599bae1faba805f1914c856243a",
+  "a25dbed52453c233f6817f38e5d533d7ca06bde26f1af4e950ee0216c1983725",
+  "58244ab42d6a162a9819baa8096ab6c065a0f1f296fde214f0efd1096d916b51",
+  "9f46e31e5ca6ef0fbe88a8217870b786645e46336279e5a5f0997d0b185f4db7",
+  "eead1d3799408c9d11bc175de28d4270d60d479af8fb03854a913858d1a95e48",
+  "fb6a73b280853c61c31c770f2354fe84fe0e66f7d8771a3c7f4ac84e8a031690",
+  "e5dceeaae2ad9c1d70d0c3c2c6224fc6b70eeb5f7f8aef5dd49dafb65007f252",
+  "4905b2f17c06f8a91b924eba31d02442ad518108604602a8ce030396111e014e",
+  "1d9a21e9f6e989a1fdf51e4bedc41f433df4c6e5cadca28285fa2df4ab3d890a",
+  "c6d69c576de32bfdfed12411a2b3b03342dbc0fd47c68162e32a8895f3cb7f76",
+  "e2384ebd49d7e17c0e2c46a5c481fc8a986f625fd92fd5148be931d8c5262b00",
+  "85e91fbadef68fd2d591f2818aef6affa7517bddf010e03cda8a759dfc62fe30",
+  "cebb7b2ef7d3a987f04c19597ef1e6fe88432b2dc76867bc9481b94af22fd9fc",
+  "13e22e5ceb296562e7ea2bcc1e013f51249580c88b3200746711186e119c4085",
+  "a288f9e631917b6811e7232343947344bc201fceb1d853b998a34592ba859bad",
+  "c031bb16a665a7d3df6d8843c16860d0ba6fe4308d92540e7cc027219d47d247",
+  "94767b7c0dfaba7e057ca9d720b2577076d5b298715bfd2c93ef88cdd302aaf6",
+  "4d803b7f1e799057441a43df68bb7ea335b9be106f2822649550c4b3902cfbea",
+  "d4c959c78b11521d742b52f6b5ffefcf305837ddae583d0d644e31d6b542e8f0",
+  "204204a76b7896ff71b376ba1865754c2d6812200260b0582f8b45ac14efb0ab",
+  "193370343d7c080c7ae15ba95de3bd7a2e048381f7a8ff63df5f2374641f8ce1",
+  "9cca620b7e806395fad28a5b2ea059cf8c12823cd76a260c7c82f63e343a3c40",
+  "a18f8f741a8e37dbf61ba6b4aa6fd8c53fccd4874fb737a0e8ba24779e7d2f13",
+  "6562af9900c18b04a1e088bd7f9a07e3fa10acbb97679e49b773688021939415",
+  "58ffd733330facf20aabce5d87c3bb601e8d1e7e5cdeab78341c827a60ebc3ff"
+ ],
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "candidate_filter",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "repair_report",
+  "step_record",
+  "routing",
+  "candidate_filter",
+  "evidence",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "step_record",
+  "routing",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "code": {
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "880a3baab627208aa4b0e41ee175fef46a577beb4f7ce828de03086e69a403e0",
+  "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "3503449e3febf7b62e6a7951faf289cb36ad079ff20170737cb813b1320b2f16",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+  "evidence_ladder/controller/generation.py": "dbe6511d4018790e1c77b24ba75cb3d254279b68a68768f45a8d1f028b21738a",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "d413b50c2f5ff8c3e01abff2f8fd6c8721effd58bef09125ee46643f0b5164db",
+  "evidence_ladder/controller/journal.py": "e5826f0686be4d68473e29885088f12d3c7e8e6514d22467fe8c7c211397f198",
+  "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+  "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/mxc_sandbox.py": "77affce3ebcd7d61a129bed4d30808d78d0a6167c89ff145cf1e1629783e7571",
+  "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+  "evidence_ladder/controller/pathb_stored.py": "25fb97f5046f67055d308226c7c3ee1ae9bbd34012d9b7b2cd4a87455764fe01",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "13560685bbe06561269ea7168abfcd46b733c62edfeb752bb793d57275fa0751",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/sandbox_provider.py": "1696341aa813b3f14c7167aed3908689844044f62fec9b8325ef7e864a122f6d",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/timeline.py": "79b04e0b392978bc7da3c0ff097d0b0f67cabae12bf6e471499ab918947f4178",
+  "evidence_ladder/controller/win_job.py": "8eaf8917dae9aac6425fa7da66c845e774937bfe5cd0130b5919d6aa96f11833",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/backbone.py": "23406e4317ffeef198bc99db13c0a2f0dcfe0357ea77abb749927531e4c418d0",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+  "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+  "evidence_ladder/models/qwen.py": "0c7322b31a11c1f223863d501d1fc9c88db999768a37da2236c783e8ff6457c7",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+  "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648"
+ },
+ "git_commit": "4f57294a174f750060ff3e184cb58df0d904a42f",
+ "result": {
+  "answer_label": "BLOCKED",
+  "stop_cause": "budget"
+ }
+}

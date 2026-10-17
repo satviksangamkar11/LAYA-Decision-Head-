@@ -77,6 +77,7 @@ from evidence_ladder.controller.agentic import AgenticContext, AgenticTask, Limi
 from evidence_ladder.controller.limits import load_limits                            # noqa: E402
 from evidence_ladder.controller.monotonicity import monotonicity_gate                # noqa: E402
 from evidence_ladder.controller.wsl_sandbox import WslSandbox, available            # noqa: E402
+from evidence_ladder.controller.sandbox_provider import backend_available, make_sandbox, selected_backend   # noqa: E402  [MXC]
 from evidence_ladder.models import backbone as BB, gen_entry as GE, laya, laya_runtime as RT, qwen as Q   # noqa: E402
 
 
@@ -294,7 +295,7 @@ class Acceptance:
         self.allow_dirty = allow_dirty
         self.kin = self.out / "kaggle_in"
         self.system_block = system_block if system_block is not None else self._load_system_block()
-        self.sandbox_factory = sandbox_factory or (lambda scratch, prot: WslSandbox(scratch, prot))
+        self.sandbox_factory = sandbox_factory or (lambda scratch, prot: make_sandbox(scratch, prot))      # [MXC] backend from LAYA_SANDBOX_BACKEND (default wsl); no fallback
         self.notes: Dict[str, Any] = {"gen_runs": {}, "score_runs": {}, "glm": {}}
         self.stub_kaggle = None if self.real else StubKaggle(self.kin)
 
@@ -312,8 +313,8 @@ class Acceptance:
         self.final_path = bool(self.final or ((self.local or self.replay_from) and not self.allow_dirty))      # A3.6: a local run is the final path unless --allow-dirty (development) was given
         scan = INV.static_isolation_scan()
         if any(scan.values()): raise RuntimeError("static isolation scan found: %s" % scan)
-        info: Dict[str, Any] = {"static_isolation_scan": scan, "limits": load_limits("agentic").as_dict(), "wsl": available()}
-        if not info["wsl"]: raise RuntimeError("WSL sandbox does not answer: the acceptance run needs the real sandbox")
+        info: Dict[str, Any] = {"static_isolation_scan": scan, "limits": load_limits("agentic").as_dict(), "wsl": backend_available()["available"]}
+        if not info["wsl"]: raise RuntimeError("the %s sandbox is not available: the acceptance run needs the real sandbox" % selected_backend())
         try:
             head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(ROOT), capture_output=True, text=True, timeout=30).stdout.strip()
             dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no", "--"] + list(CODE_PATHS) + list(USER_UNRELATED_EXCLUDES), cwd=str(ROOT), capture_output=True, text=True, timeout=60).stdout.strip().splitlines()

@@ -30,6 +30,7 @@ from evidence_ladder.controller.evidence import Factory, ModelEvidenceError     
 from evidence_ladder.controller.journal import EvidenceJournal                              # noqa: E402
 from evidence_ladder.controller.limits import Limits                                        # noqa: E402
 from evidence_ladder.controller.wsl_sandbox import WslSandbox                               # noqa: E402
+from evidence_ladder.controller.sandbox_provider import make_sandbox                       # noqa: E402  [MXC]
 
 BASES = {"ex1_slug": "slug", "ex2_clamp": "clamp", "ex3_wordcount": "wordcount"}
 # (file, old, new) of the correct and of a plausible but wrong one-line edit, per repo
@@ -227,7 +228,7 @@ def run_variant(name: str, base: str, work: Path, sandbox=None) -> Dict[str, Any
     cmd = v["cmd"](task) if "cmd" in v else T["test_cmd"]
     scope = v["scope"](task) if "scope" in v else None
     at = AgenticTask(base, v["user"](task), ws, cmd, T["protected"], "system text", v["max_steps"], scope)
-    inner = sandbox or WslSandbox(Path(work) / "_sandbox", T["protected"])
+    inner = sandbox or make_sandbox(Path(work) / "_sandbox", T["protected"])      # [MXC] LAYA_SANDBOX_BACKEND (default wsl)
     sb = BrokenSandbox() if v.get("sandbox") == "broken" else inner
     critic = StubCritic(CRITIC_RESPONSES[v["critic"]](task)) if v.get("critic") else None
     cfg = dict(v.get("cfg", {}), max_steps=v["max_steps"], require=["scorer"] + (["critic"] if critic else []))

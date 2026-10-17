@@ -1,0 +1,40 @@
+{
+ "variant": "missing_scorer",
+ "base": "ex3_wordcount",
+ "why": "no LAYA scorer: scorer_unavailable is journalled and the id-order fallback is explicit; trusted evidence still decides (never a silent learned-score fallback)",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "kinds_present": [
+   "scorer_unavailable"
+  ],
+  "id_order_fallback_explicit": true
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "983e78260b57ac863d2b74829a14825adc779c3da99a03026720ebf65d0990ad",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 4,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

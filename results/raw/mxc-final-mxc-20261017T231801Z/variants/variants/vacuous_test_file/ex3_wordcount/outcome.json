@@ -1,0 +1,41 @@
+{
+ "variant": "vacuous_test_file",
+ "base": "ex3_wordcount",
+ "why": "a 'test' that asserts nothing is not an oracle: the tier is not O1 and a pass of it can never VERIFY",
+ "expected": {
+  "stop_cause": "missing_information",
+  "label": "BLOCKED",
+  "tier_not": "O1",
+  "kinds_absent": [
+   "step_record"
+  ],
+  "max_sandbox_calls": 0
+ },
+ "violations": [],
+ "stop_cause": "missing_information",
+ "stop_details": "tier O3: ask_user: no blocking ambiguity, best effort only",
+ "label": "BLOCKED",
+ "tier": "O3",
+ "journal_hash": "79b352c37dc458270df724a7ca9286706f2a44c27b70b19ae84400fd02f667c6",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 0,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

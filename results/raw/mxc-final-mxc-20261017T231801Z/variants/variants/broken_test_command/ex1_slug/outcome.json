@@ -1,0 +1,40 @@
+{
+ "variant": "broken_test_command",
+ "base": "ex1_slug",
+ "why": "the test command cannot find its test: exit != 0 is a failure of the check, never a pass, whatever the edit",
+ "expected": {
+  "label_not": [
+   "VERIFIED",
+   "SUPPORTED"
+  ],
+  "not_decided": true,
+  "tests_pass_last": false
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "fc945df20d83e341f3603d2e78cbe687f0dde7e7f69e42a67405522de0680e7a",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

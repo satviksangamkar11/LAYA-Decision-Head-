@@ -81,8 +81,8 @@ def run_exact_pool(key: str, live: Dict[str, Any], backends: Dict[str, Any], sys
     for fn, c in T["files"].items():
         (ws / fn).write_text(c, "utf-8")
     if sandbox is None:
-        from evidence_ladder.controller.wsl_sandbox import WslSandbox
-        sandbox = WslSandbox(base / "_sandbox", T["protected"])
+        from evidence_ladder.controller.sandbox_provider import make_sandbox      # [MXC] LAYA_SANDBOX_BACKEND (default wsl)
+        sandbox = make_sandbox(base / "_sandbox", T["protected"])
     scorer = laya.LayaScorer(authorized=True, backend=backends["laya"])
     cmp_ = {"probe": laya.ProbeScorer(authorized=True, backend=backends["probe"]), "random_head": laya.RandomHeadScorer(authorized=True, backend=backends["random_head"])}
     task = AgenticTask(key.split(":")[0], T["user"], ws, T["test_cmd"], T["protected"], sysblock, 2)

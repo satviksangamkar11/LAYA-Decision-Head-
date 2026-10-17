@@ -1,0 +1,262 @@
+{
+ "sandbox_label": "mxc-processcontainer",
+ "schema": "el_arch1_run_record_v1",
+ "task": {
+  "task_id": "ex3_wordcount",
+  "user_text": "The function count_words in wc.py miscounts words when the text has repeated spaces or newlines, so test_wc.py fails. Fix wc.py so that `python3 test_wc.py` passes. Do not modify test_wc.py.",
+  "system_text": "system text",
+  "test_cmd": "python3 test_wc.py",
+  "protected": [
+   "test_wc.py"
+  ],
+  "max_steps": 1,
+  "scope": null,
+  "files": {
+   "test_wc.py": "from wc import count_words\r\n\r\nassert count_words(\"a b c\") == 3, count_words(\"a b c\")\r\nassert count_words(\"a  b\\nc\") == 3, count_words(\"a  b\\nc\")\r\nassert count_words(\"\") == 0, count_words(\"\")\r\nprint(\"all tests passed\")\r\n",
+   "wc.py": "def count_words(text):\r\n    return len(text.split(\" \"))\r\n"
+  }
+ },
+ "arm": "E",
+ "seeds": [
+  0
+ ],
+ "config": {
+  "max_steps": 1,
+  "require": [
+   "scorer"
+  ]
+ },
+ "limits": {
+  "max_wall_seconds": 3600.0,
+  "max_qwen_tokens": 60000,
+  "max_glm_tokens": 200000,
+  "max_actions": 3,
+  "max_rounds": 3
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "e": "proposals",
+   "out": {
+    "status": "no_valid_action",
+    "options": [],
+    "rejected": [],
+    "prompt_sha256": "a2dee3442ead920f7515daed3451f366b8edfb21ab7a2b8c2e5f622a54e1ad4b",
+    "statuses": [
+     "no_valid_action"
+    ],
+    "raw_sha256": [
+     "22ff2979cbde8abf3ed0c1ed722cb2556d4111b7fe08e39be0e2b884b8a9eb7c"
+    ],
+    "qwen_meta": {
+     "prompt_tokens": 100,
+     "new_tokens": 7,
+     "kaggle_seconds": 0.0
+    },
+    "generations": [
+     {
+      "seed": 0,
+      "model": "stub:scripted",
+      "model_revision": "stub",
+      "prompt_sha256": "scripted",
+      "template": "qwen_actions_v2"
+     }
+    ]
+   }
+  },
+  {
+   "e": "step",
+   "options": [],
+   "meta": {
+    "prompt_tokens": 100,
+    "new_tokens": 7,
+    "kaggle_seconds": 0.0
+   }
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "sandbox": [
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_wc.py\", line 5, in <module>\n    assert count_words(\"\") == 0, count_words(\"\")\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+    "post_tree_sha256": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_wc.py\", line 5, in <module>\n    assert count_words(\"\") == 0, count_words(\"\")\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+    "post_tree_sha256": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+    "persisted": false
+   }
+  }
+ ],
+ "scorer": {
+  "scorer_id": "stub:laya",
+  "scorer_def": {
+   "weights_hash": "stub:laya",
+   "status": "stub"
+  },
+  "calls": []
+ },
+ "comparison": {
+  "probe": {
+   "scorer_id": "stub:probe",
+   "scorer_def": {
+    "weights_hash": "stub:probe",
+    "status": "stub"
+   },
+   "calls": []
+  },
+  "random_head": {
+   "scorer_id": "stub:random_head",
+   "scorer_def": {
+    "weights_hash": "stub:random_head",
+    "status": "stub"
+   },
+   "calls": []
+  }
+ },
+ "journal_hash": "ced14c65a284501b4a1096f623558eb454b8b95ebb260d20ed5a359ff47feb9d",
+ "chain": [
+  "ddeeb7d194c182450e2cc0c5486076f2160ecc2dbac67a1019858178f8b0525a",
+  "139d304b30764b3f013a4a2a7a319eda37df978cd5d92285a5ca54a23515b549",
+  "4f0433b7a4643ee624a3ab74242708056d2c34cad0d103bfcabf34c17a6b667b",
+  "50cea26d2ec3140338cd3420ab0fa777987e0c8f7677ed215f6923de2a30b452",
+  "8c057e3a67b7def3d46bb6fec25743de4caebe9f996a212acc9cb672bbcb6734",
+  "915cc30e5b461315f1568e15cf727051878f12377b85c6cd8121886dfe8acba0",
+  "9d96570142dac6860370428cdafc6e5e1cab22272b37c6e8807a972b622b220e",
+  "589ecca9338090c40f024fbb04b51d379bf4b86f231f9cbe9972fac23d717c8c",
+  "14abec3eb13f97aacf090ab67ff0d693697677ca49d1cd3a0f71f29856f823a1",
+  "d0b180f540d6b8a040c8b6bd18f9e0517d5776aa3a0e03c7af2c2dc5a13c866b",
+  "723cacc725223c5b6edd2e7fc3bdb4d5a7d1be9835f409e658469a94434ed23b",
+  "3b318c89b22ab22d3686cbbe1350d63dec6b5a8988837ca2c73a0c6cc09b8866",
+  "c0e31ce934f5b49b069c3a0aaecbc145f46fe77339772e6a9f8631d91ad8fb7a",
+  "b7bea6f1d194d5ad1a42839b8163c308ae80e8de7a10482d79445b2582b5e458",
+  "b3bd26f9328652b7715d549f87d1bfdfe5a38be5d105a3c471fea87f6769e2a2",
+  "5dbd5a4c7ca1716dc041f5e5df291de85b16947c20aa156f9d637aae7d9ed1b5",
+  "62e9eaba2ef7d3f1ce133aabf6145ae221449b75df13bc01e01cfad11b6a4d64",
+  "3084a38a7f623ddc14e368079bfecceabc2e3a5b1f2a8702ac3fdacf3bce6861",
+  "cc61fe2383d89d3f27187e02338808f9cc0ebdfdebffdb9e88f794cafb96c3c3",
+  "259fc7e939e57e2bd3c315b034dfcda32a4c69a18feb7769328c0f20300e16f6",
+  "e3f304ebe0bd382927cc84932af4d4c2df1d0bf909d930354c20a58095669fd0",
+  "9069a79a2f64e3e0bd898d01ac312618f883dc93b587808d4e5975cecf049440",
+  "09bbf333ceafe39a068a4c6242bdecbf2bea983a8a48784e2244e60a650d1f53",
+  "ab9935c9180583a3a0cdebf9d72734ceaedc316b3a9e5e16f4e12de21a2cc6b4",
+  "25b5ff5f7acac88d66bea671396c84fcd938916443ca5be432cccb79d90b6daa",
+  "98a695ef269bd1710abb34a81269ddc3baae1452656d4b15a51430cfaba2aa86",
+  "f99014c6d8a70800790457ae3472dd20d32cc316c4e2ef295b221c4feb8ff2ab",
+  "ced14c65a284501b4a1096f623558eb454b8b95ebb260d20ed5a359ff47feb9d"
+ ],
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "proposals",
+  "candidate_filter",
+  "routing",
+  "monotonicity_gate",
+  "scorer_unavailable",
+  "ranking",
+  "abstain",
+  "action_decision",
+  "evidence",
+  "evidence",
+  "label",
+  "repair_report",
+  "step_record",
+  "routing",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "code": {
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "880a3baab627208aa4b0e41ee175fef46a577beb4f7ce828de03086e69a403e0",
+  "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "3503449e3febf7b62e6a7951faf289cb36ad079ff20170737cb813b1320b2f16",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+  "evidence_ladder/controller/generation.py": "dbe6511d4018790e1c77b24ba75cb3d254279b68a68768f45a8d1f028b21738a",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "d413b50c2f5ff8c3e01abff2f8fd6c8721effd58bef09125ee46643f0b5164db",
+  "evidence_ladder/controller/journal.py": "e5826f0686be4d68473e29885088f12d3c7e8e6514d22467fe8c7c211397f198",
+  "evidence_ladder/controller/l2.py": "3698c0eda1f7886255fc4115c3f7606ecef3fe2550a7b4daac3a5e7f90d2a600",
+  "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/mxc_sandbox.py": "77affce3ebcd7d61a129bed4d30808d78d0a6167c89ff145cf1e1629783e7571",
+  "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+  "evidence_ladder/controller/pathb_stored.py": "25fb97f5046f67055d308226c7c3ee1ae9bbd34012d9b7b2cd4a87455764fe01",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "13560685bbe06561269ea7168abfcd46b733c62edfeb752bb793d57275fa0751",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/sandbox_provider.py": "1696341aa813b3f14c7167aed3908689844044f62fec9b8325ef7e864a122f6d",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/timeline.py": "79b04e0b392978bc7da3c0ff097d0b0f67cabae12bf6e471499ab918947f4178",
+  "evidence_ladder/controller/win_job.py": "8eaf8917dae9aac6425fa7da66c845e774937bfe5cd0130b5919d6aa96f11833",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/backbone.py": "23406e4317ffeef198bc99db13c0a2f0dcfe0357ea77abb749927531e4c418d0",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+  "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+  "evidence_ladder/models/qwen.py": "0c7322b31a11c1f223863d501d1fc9c88db999768a37da2236c783e8ff6457c7",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+  "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648"
+ },
+ "git_commit": "4f57294a174f750060ff3e184cb58df0d904a42f",
+ "result": {
+  "answer_label": "BLOCKED",
+  "stop_cause": "budget"
+ }
+}

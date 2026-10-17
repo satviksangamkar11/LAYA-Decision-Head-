@@ -1,0 +1,19 @@
+{
+ "backend": "mxc",
+ "started_utc": "20261017T232613Z",
+ "suites": {
+  "evidence_ladder/controller/tests/phaseMXC_tests.py": {
+   "exit_code": 0,
+   "seconds": 54.7,
+   "summary": {
+    "tests": 21,
+    "passed": 21,
+    "failed": {},
+    "skipped": {}
+   },
+   "stdout_tail": "{\n \"tests\": 21,\n \"passed\": 21,\n \"failed\": {},\n \"skipped\": {}\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "finished_utc": "20261017T232708Z"
+}

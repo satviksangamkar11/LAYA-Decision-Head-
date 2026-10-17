@@ -1,0 +1,63 @@
+{
+ "started_utc": "20261017T231721Z",
+ "host": {
+  "cpu_count": 16,
+  "platform": "win32",
+  "ram_gb": 15.3
+ },
+ "n": 30,
+ "isolation_profile": {
+  "network": "none",
+  "env": "scrubbed",
+  "protected": "read-only + hash-verified",
+  "limits": {
+   "memory_mb": 2048,
+   "max_processes": 256,
+   "cpu_percent": 400
+  },
+  "wsl_limits": "MemoryMax 2G, TasksMax 256, CPUQuota 400%"
+ },
+ "cases": {
+  "cold_first_call": {
+   "seconds_per_call_or_unit": {
+    "wsl": {
+     "n": 30,
+     "mean": 0.2322,
+     "p50": 0.2282,
+     "p95": 0.2776,
+     "min": 0.1883,
+     "max": 0.2891,
+     "stdev": 0.0246
+    },
+    "mxc_oneshot": {
+     "n": 30,
+     "mean": 0.3787,
+     "p50": 0.3503,
+     "p95": 0.4025,
+     "min": 0.3241,
+     "max": 1.0464,
+     "stdev": 0.1259
+    },
+    "mxc_persistent": {
+     "n": 30,
+     "mean": 0.3435,
+     "p50": 0.336,
+     "p95": 0.398,
+     "min": 0.3104,
+     "max": 0.4184,
+     "stdev": 0.026
+    }
+   },
+   "breakdown_ms_mean": {},
+   "extra": null,
+   "resources": {
+    "peak_descendant_rss_mb": 78.1,
+    "descendant_cpu_seconds_sampled": 14.84,
+    "vmmemWSL_mb_start": 427.6,
+    "vmmemWSL_mb_peak": 444.4
+   },
+   "wall_seconds": 29.1
+  }
+ },
+ "finished_utc": "20261017T231750Z"
+}

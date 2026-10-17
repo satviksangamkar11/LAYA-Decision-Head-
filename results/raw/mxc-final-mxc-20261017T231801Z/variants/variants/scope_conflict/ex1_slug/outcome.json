@@ -1,0 +1,38 @@
+{
+ "variant": "scope_conflict",
+ "base": "ex1_slug",
+ "why": "trusted-evidence conflict: the protected test PASSES but the diff left the declared scope -> the final label is BLOCKED, not VERIFIED",
+ "expected": {
+  "label": "BLOCKED",
+  "not_decided": true,
+  "tests_pass_last": true,
+  "diff_violation": "notes.txt"
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=2 cap=2",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "58ffd733330facf20aabce5d87c3bb601e8d1e7e5cdeab78341c827a60ebc3ff",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 5,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

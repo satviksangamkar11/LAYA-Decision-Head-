@@ -1,0 +1,838 @@
+{
+ "backend": "wsl",
+ "started_utc": "20261017T224021Z",
+ "suites": {
+  "evidence_ladder/controller/tests/phaseA_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.8,
+   "summary": {
+    "tests": 16,
+    "passed": 16,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 16,\n \"passed\": 16,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/phaseB_tests.py": {
+   "exit_code": 0,
+   "seconds": 13.4,
+   "summary": {
+    "tests": 36,
+    "passed": 36,
+    "failed": {},
+    "skipped": {}
+   },
+   "stdout_tail": "{\n \"tests\": 36,\n \"passed\": 36,\n \"failed\": {},\n \"skipped\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/phaseD1_tests.py": {
+   "exit_code": 0,
+   "seconds": 185.7,
+   "summary": {
+    "tests": 21,
+    "passed": 21,
+    "failed": {},
+    "skipped": {}
+   },
+   "stdout_tail": "ug\": [\"VERIFIED\", \"decided\", 8, true], \"ex2_clamp\": [\"VERIFIED\", \"decided\", 8, true], \"ex3_wordcount\": [\"VERIFIED\", \"decided\", 8, true]}, \"gates\": {\"invariants\": {\"status\": \"PASS\"}, \"monotonicity\": {\"status\": \"INSUFFICIENT_DATA\", \"laya_ordering_enabled\": false}, \"overall\": \"INSUFFICIENT_DATA (3 examples; not a performance result)\"}, \"variants_ok\": true, \"secret_scan_hits\": []}\nWAITING_FOR_KAGGLE gen round 1 -- see C:\\Users\\Satvik\\AppData\\Local\\Temp\\phaseD1-115zn09q\\fin\\handoff\\round1\nWAITING_FOR_KAGGLE score round 1 -- see C:\\Users\\Satvik\\AppData\\Local\\Temp\\phaseD1-115zn09q\\fin\\handoff\\round1\nWAITING_FOR_KAGGLE gen round 2 -- see C:\\Users\\Satvik\\AppData\\Local\\Temp\\phaseD1-115zn09q\\fin\\handoff\\round2\nWAITING_FOR_KAGGLE score round 2 -- see C:\\Users\\Satvik\\AppData\\Local\\Temp\\phaseD1-115zn09q\\fin\\handoff\\round2\nWAITING_FOR_GLM 3 packet(s) -- see C:\\Users\\Satvik\\AppData\\Local\\Temp\\phaseD1-115zn09q\\fin\\glm\\WAITING_GLM.txt\n{\"mode\": \"final\", \"examples\": {\"ex1_slug\": [\"VERIFIED\", \"decided\", 8, true], \"ex2_clamp\": [\"VERIFIED\", \"decided\", 8, true], \"ex3_wordcount\": [\"VERIFIED\", \"decided\", 8, true]}, \"gates\": {\"invariants\": {\"status\": \"PASS\"}, \"monotonicity\": {\"status\": \"INSUFFICIENT_DATA\", \"laya_ordering_enabled\": false}, \"overall\": \"INSUFFICIENT_DATA (3 examples; not a performance result)\"}, \"variants_ok\": true, \"secret_scan_hits\": []}\n{\"REAL PASS\": 0, \"LOGIC-ONLY\": 59, \"IMPLEMENTED\": 7, \"NOT APPLICABLE\": 7, \"BLOCKED\": 3}\n{\n \"tests\": 21,\n \"passed\": 21,\n \"failed\": {},\n \"skipped\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/phaseF1_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.2,
+   "summary": {
+    "tests": 18,
+    "passed": 18,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 18,\n \"passed\": 18,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/phaseF1b_tests.py": {
+   "exit_code": 0,
+   "seconds": 1.5,
+   "summary": {
+    "tests": 10,
+    "passed": 10,
+    "failed": {},
+    "skipped": {}
+   },
+   "stdout_tail": "{\n \"tests\": 10,\n \"passed\": 10,\n \"failed\": {},\n \"skipped\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/phaseF2_tests.py": {
+   "exit_code": 0,
+   "seconds": 11.1,
+   "summary": {
+    "tests": 45,
+    "passed": 45,
+    "failed": {},
+    "skipped": {}
+   },
+   "stdout_tail": "{\n \"tests\": 45,\n \"passed\": 45,\n \"failed\": {},\n \"skipped\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/controller/tests/run_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.7,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/critic_batch/tests/run_tests.py": {
+   "exit_code": 0,
+   "seconds": 1.7,
+   "summary": {
+    "tests": 28,
+    "passed": 28,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 28,\n \"passed\": 28,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/critic_batch/tests/stepE_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.6,
+   "summary": {
+    "tests": 12,
+    "passed": 12,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 12,\n \"passed\": 12,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/execution/tests/run_tests.py": {
+   "exit_code": 1,
+   "seconds": 0.3,
+   "summary": {
+    "tests": 21,
+    "passed": 2,
+    "failed": {
+     "py_reference_passes_public": "y\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 97, in py_reference_passes_public\n    outs = run_pub(art(tid, \"python\", py_ref_src(tid), \"reference\"))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "py_wrong_fails_with_counterexample": "  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 109, in py_wrong_fails_with_counterexample\n    p = pub(run_pub(art(tid, \"python\", src, \"known_wrong:\" + name)), \"public_examples_v1\")\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "py_known_wrong_exact_counterexample": "\"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 125, in py_known_wrong_exact_counterexample\n    p = pub(run_pub(a), \"public_examples_v1\")\n            ^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "py_compile_error_runtime_error_timeout_missing": "main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 136, in py_compile_error_runtime_error_timeout_missing\n    o = run_pub(art(\"P1-01\", \"python\", \"def solve(d) return 1\\n\"))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "strict_type_sensitivity": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 159, in strict_type_sensitivity\n    p = pub(BE.run_public(art(\"X-1\", \"python\", src), t), \"public_examples_v1\")\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "per_example_outcomes": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 176, in per_example_outcomes\n    ex = pubs(BE.run_public(art(\"P1-01\", \"python\", py_ref_src(\"P1-01\"), \"reference\"), t))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "java_reference_passes_public_and_wrong_fails": ", \"java\", java_ref_src(tid), \"reference\"))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 175, in run_java\n    compile_cmd = mod.jail(w, [\"/usr/bin/prlimit\", *cfg.java_compile_prlimit, jdk + \"/bin/javac\", \"-proc:none\", \"-encoding\", \"UTF-8\", \"-d\", \"/work\",\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-java-20261016\\fixed_v1\\grader\\grade_sandboxed_java_v1.py\", line 26, in jail\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "java_compile_runtime_timeout_missing_classes": " class Solution { broken \\n\"))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 175, in run_java\n    compile_cmd = mod.jail(w, [\"/usr/bin/prlimit\", *cfg.java_compile_prlimit, jdk + \"/bin/javac\", \"-proc:none\", \"-encoding\", \"UTF-8\", \"-d\", \"/work\",\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-java-20261016\\fixed_v1\\grader\\grade_sandboxed_java_v1.py\", line 26, in jail\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "java_utf8_pinned_and_non_ascii_task": "in java_utf8_pinned_and_non_ascii_task\n    o = BE.run_experiment(art(\"J1-09\", \"java\", probe), {\"kind\": \"function_call\", \"payload\": json.dumps({\"text\": \"x\", \"shift\": 1})})\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 104, in run_experiment\n    res = engine.run(artifact.language, raw, [obj], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 175, in run_java\n    compile_cmd = mod.jail(w, [\"/usr/bin/prlimit\", *cfg.java_compile_prlimit, jdk + \"/bin/javac\", \"-proc:none\", \"-encoding\", \"UTF-8\", \"-d\", \"/work\",\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-java-20261016\\fixed_v1\\grader\\grade_sandboxed_java_v1.py\", line 26, in jail\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "hostile_python_cannot_escape": "rt(\"P1-01\", \"python\", src, \"hostile:\" + name))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 282, in hostile_ok\n    p = pub(run_pub(a), \"public_examples_v1\")\n            ^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "hostile_java_cannot_escape": "sts\\run_tests.py\", line 282, in hostile_ok\n    p = pub(run_pub(a), \"public_examples_v1\")\n            ^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 175, in run_java\n    compile_cmd = mod.jail(w, [\"/usr/bin/prlimit\", *cfg.java_compile_prlimit, jdk + \"/bin/javac\", \"-proc:none\", \"-encoding\", \"UTF-8\", \"-d\", \"/work\",\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-java-20261016\\fixed_v1\\grader\\grade_sandboxed_java_v1.py\", line 26, in jail\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "hash_tamper_is_error_not_pass_or_fail": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 327, in hash_tamper_is_error_not_pass_or_fail\n    assert pub(be.run_public(a, task), \"public_examples_v1\")[\"status\"] == \"pass\"\n               ^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "candidates_are_isolated_from_each_other": "cal model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 356, in candidates_are_isolated_from_each_other\n    pa = pub(run_pub(a), \"public_examples_v1\")\n             ^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 86, in run_pub\n    return BE.run_public(a, t)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 54, in run_public\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "experiments": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 369, in experiments\n    o = BE.run_experiment(ref, {\"kind\": kind, \"payload\": json.dumps({\"text\": \"hello world\"})})\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\backend.py\", line 104, in run_experiment\n    res = engine.run(artifact.language, raw, [obj], self.cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "static_no_protected_import": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 410, in static_no_protected_import\n    assert os.system(f\"cd {str(REPO)!r} && python3 -c \\\"{code}\\\"\") == 0           # importing the backend must not load protected.py\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "gate_open_raises_closed_grades_and_shape": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 424, in gate_open_raises_closed_grades_and_shape\n    h = gr.grade(a)\n        ^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\protected.py\", line 64, in grade\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self._cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "protected_python_40_references_and_all_wrong": "recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 440, in protected_python_40_references_and_all_wrong\n    ok = [t for t in PY_TASKS if gr.grade(art(t, \"python\", py_ref_src(t), \"reference\"))[\"passed\"]]\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\protected.py\", line 64, in grade\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self._cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 150, in run_python\n    r = spawn(mod.bwrap_cmd(cand, runner), stdin, cfg.py_timeout, cfg.max_output_bytes)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-20261016\\fixed_v2\\grader\\sandbox\\grade_sandboxed_v2.py\", line 23, in bwrap_cmd\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []  # unprivileged real uid, so RLIMIT_NPROC is enforced\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "protected_java_40_references": " line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 460, in protected_java_40_references\n    h = gr.grade(art(t, \"java\", java_ref_src(t), \"reference\"))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\protected.py\", line 64, in grade\n    res = engine.run(artifact.language, raw, [c[\"input\"] for c in cases], self._cfg)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 201, in run\n    return run_python(raw, inputs, cfg) if language == \"python\" else run_java(raw, inputs, cfg)\n                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\engine.py\", line 175, in run_java\n    compile_cmd = mod.jail(w, [\"/usr/bin/prlimit\", *cfg.java_compile_prlimit, jdk + \"/bin/javac\", \"-proc:none\", \"-encoding\", \"UTF-8\", \"-d\", \"/work\",\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\results\\raw\\codex-pilot1-java-20261016\\fixed_v1\\grader\\grade_sandboxed_java_v1.py\", line 26, in jail\n    pre = [\"runuser\", \"-u\", \"nobody\", \"--\"] if os.getuid() == 0 else []\n                                               ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n",
+     "isolation_receipt_contents": "Traceback (most recent call last):\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 513, in main\n    f()\n  File \"D:\\local model\\evidence_ladder\\execution\\tests\\run_tests.py\", line 484, in isolation_receipt_contents\n    r = isolation_receipt(CFG)\n        ^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\local model\\evidence_ladder\\execution\\receipts.py\", line 64, in isolation_receipt\n    rec: Dict[str, Any] = {\"backend\": \"bubblewrap (existing receipted python/java sandboxes, unmodified)\", \"host_uid\": os.getuid(),\n                                                                                                                       ^^^^^^^^^\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\n"
+    },
+    "notes": {
+     "seconds": {
+      "py_reference_passes_public": 0.0,
+      "py_wrong_fails_with_counterexample": 0.0,
+      "py_known_wrong_exact_counterexample": 0.0,
+      "py_compile_error_runtime_error_timeout_missing": 0.0,
+      "strict_type_sensitivity": 0.0,
+      "task_language_mismatch_is_invalid_spec": 0.0,
+      "per_example_outcomes": 0.0,
+      "java_reference_passes_public_and_wrong_fails": 0.0,
+      "java_compile_runtime_timeout_missing_classes": 0.0,
+      "java_utf8_pinned_and_non_ascii_task": 0.0,
+      "hostile_python_cannot_escape": 0.0,
+      "hostile_java_cannot_escape": 0.0,
+      "hash_tamper_is_error_not_pass_or_fail": 0.0,
+      "candidates_are_isolated_from_each_other": 0.0,
+      "experiments": 0.0,
+      "static_no_protected_import": 0.0,
+      "gate_open_raises_closed_grades_and_shape": 0.0,
+      "protected_python_40_references_and_all_wrong": 0.0,
+      "protected_java_40_references": 0.0,
+      "existing_receipts_intact": 0.0,
+      "isolation_receipt_contents": 0.0
+     },
+     "replayed_receipt_files": 14,
+     "java_redteam_escaped_markers_in_old_receipt": [
+      "ESCAPED list /mnt -> null",
+      "ESCAPED list /home -> null",
+      "ESCAPED exec -> 0"
+     ]
+    },
+    "total_seconds": 0.2
+   },
+   "stdout_tail": "del\\\\evidence_ladder\\\\execution\\\\receipts.py\\\", line 64, in isolation_receipt\\n    rec: Dict[str, Any] = {\\\"backend\\\": \\\"bubblewrap (existing receipted python/java sandboxes, unmodified)\\\", \\\"host_uid\\\": os.getuid(),\\n                                                                                                                       ^^^^^^^^^\\nAttributeError: module 'os' has no attribute 'getuid'. Did you mean: 'getpid'?\\n\"}, \"notes\": {\"seconds\": {\"py_reference_passes_public\": 0.0, \"py_wrong_fails_with_counterexample\": 0.0, \"py_known_wrong_exact_counterexample\": 0.0, \"py_compile_error_runtime_error_timeout_missing\": 0.0, \"strict_type_sensitivity\": 0.0, \"task_language_mismatch_is_invalid_spec\": 0.0, \"per_example_outcomes\": 0.0, \"java_reference_passes_public_and_wrong_fails\": 0.0, \"java_compile_runtime_timeout_missing_classes\": 0.0, \"java_utf8_pinned_and_non_ascii_task\": 0.0, \"hostile_python_cannot_escape\": 0.0, \"hostile_java_cannot_escape\": 0.0, \"hash_tamper_is_error_not_pass_or_fail\": 0.0, \"candidates_are_isolated_from_each_other\": 0.0, \"experiments\": 0.0, \"static_no_protected_import\": 0.0, \"gate_open_raises_closed_grades_and_shape\": 0.0, \"protected_python_40_references_and_all_wrong\": 0.0, \"protected_java_40_references\": 0.0, \"existing_receipts_intact\": 0.0, \"isolation_receipt_contents\": 0.0}, \"replayed_receipt_files\": 14, \"java_redteam_escaped_markers_in_old_receipt\": [\"ESCAPED list /mnt -> null\", \"ESCAPED list /home -> null\", \"ESCAPED exec -> 0\"]}, \"total_seconds\": 0.2}\n",
+   "stderr_tail": "The filename, directory name, or volume label syntax is incorrect.\n"
+  },
+  "evidence_ladder/models/tests/run_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.8,
+   "summary": {
+    "tests": 30,
+    "passed": 30,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 30,\n \"passed\": 30,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/models/tests/backbone_tests.py": {
+   "exit_code": 0,
+   "seconds": 2.6,
+   "summary": {
+    "tests": 14,
+    "passed": 14,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 14,\n \"passed\": 14,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/models/tests/lowthink_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.2,
+   "summary": {
+    "tests": 3,
+    "passed": 3,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 3,\n \"passed\": 3,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/orchestrator/tests/phaseC_tests.py": {
+   "exit_code": 0,
+   "seconds": 8.5,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": "D:\\local model\\evidence_ladder\\orchestrator\\tests\\phaseC_tests.py:106: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\nConsider using tensor.detach() first. (Triggered internally at C:\\actions-runner\\_work\\pytorch\\pytorch\\torch\\csrc\\autograd\\generated\\python_variable_methods.cpp:821.)\n  assert float(h1.kind_emb.weight.abs().sum()) == 0.0 and float(h1.mu_q.abs().sum()) == 0.0 and float(h1.sd_q.min()) == 1.0   # identity scaler, nothing fitted\n"
+  },
+  "evidence_ladder/orchestrator/tests/phaseF3_tests.py": {
+   "exit_code": 0,
+   "seconds": 29.9,
+   "summary": {
+    "tests": 30,
+    "passed": 30,
+    "failed": {}
+   },
+   "stdout_tail": "{\"replayed\": 2, \"refused\": 1, \"pools\": 3, \"laya_probe_random_head_all_stored_and_equal\": true, \"comparison_only\": true, \"negative_controls_refused\": true}\n{\n \"tests\": 30,\n \"passed\": 30,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  },
+  "evidence_ladder/orchestrator/tests/run_tests.py": {
+   "exit_code": 0,
+   "seconds": 0.6,
+   "summary": {
+    "tests": 25,
+    "passed": 25,
+    "failed": {}
+   },
+   "stdout_tail": "{\n \"tests\": 25,\n \"passed\": 25,\n \"failed\": {}\n}\n",
+   "stderr_tail": ""
+  }
+ },
+ "variants": {
+  "exit_code": 0,
+  "seconds": 51.1,
+  "stdout_tail": "{\"all_ok\": true, \"n\": 75}\n",
+  "stderr_tail": "",
+  "summary_file": "results\\raw\\mxc-baseline-wsl-20261017T224021Z\\variants\\VARIANTS_SUMMARY.json",
+  "summary": {
+   "tag": "[EL-ARCH-1 D1/S2] fault-injection variants",
+   "stub_components": [
+    "qwen",
+    "laya",
+    "glm"
+   ],
+   "real_components": [
+    "controller (AgenticRun, invariants I1-I8)",
+    "WSL sandbox",
+    "journal + replay record"
+   ],
+   "variants": {
+    "no_tests_o3": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "examples_only_o2": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "missing_information": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "vacuous_test_file": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "missing_information",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "broken_test_command": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "broken_sandbox": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "tool_failure",
+      "label": "UNVERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "tool_failure",
+      "label": "UNVERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "tool_failure",
+      "label": "UNVERIFIED",
+      "pending": null
+     }
+    },
+    "blocked_action": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "blocked_confirmed_without_precheck": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "abstain_all_rejected": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "abstain_no_options": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "invalid_model_evidence": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "unsafe_critic_experiment": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "budget_rounds": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "budget_tokens": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "budget_wall": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "scope_conflict": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "budget_steps": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "budget_actions": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "malformed_json": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "sequential_plan": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "duplicate_options": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "empty_pool": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "unsafe_action_filtered": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "budget",
+      "label": "BLOCKED",
+      "pending": null
+     }
+    },
+    "missing_scorer": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "decided",
+      "label": "VERIFIED",
+      "pending": null
+     }
+    },
+    "missing_scorer_required": {
+     "ex1_slug": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "refused:MissingComponentError",
+      "label": "NONE",
+      "pending": null
+     },
+     "ex2_clamp": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "refused:MissingComponentError",
+      "label": "NONE",
+      "pending": null
+     },
+     "ex3_wordcount": {
+      "ok": true,
+      "violations": [],
+      "stop_cause": "refused:MissingComponentError",
+      "label": "NONE",
+      "pending": null
+     }
+    }
+   },
+   "pending": {},
+   "all_ok": true
+  }
+ },
+ "finished_utc": "20261017T224531Z"
+}

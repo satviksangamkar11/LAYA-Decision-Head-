@@ -1,0 +1,38 @@
+{
+ "variant": "budget_actions",
+ "base": "ex3_wordcount",
+ "why": "the action cap (Limits.max_actions, label step_cap) stops the second action as budget with the resource named. NOTE: task.max_steps itself is still not refused by AgenticRun.step (finish() raises I5 if a caller steps past it); the Limits caps are the enforced ones",
+ "expected": {
+  "stop_cause": "budget",
+  "details_has": "limit:max_actions",
+  "not_decided": true,
+  "steps_run": 1
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "limit:max_actions used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "a44a3212c1b1bd398dfe52a50be58430ae67129ca54623640b8b5d01ec99fea9",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 3,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

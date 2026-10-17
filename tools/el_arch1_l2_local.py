@@ -105,8 +105,8 @@ class WslFunctionExec:
     def __init__(self, scratch: Path, sandbox=None, timeout: int = 30):
         self.scratch = Path(scratch)
         if sandbox is None:
-            from evidence_ladder.controller.wsl_sandbox import WslSandbox
-            sandbox = WslSandbox(self.scratch / "_sandbox", [])
+            from evidence_ladder.controller.sandbox_provider import make_sandbox      # [MXC] LAYA_SANDBOX_BACKEND (default wsl)
+            sandbox = make_sandbox(self.scratch / "_sandbox", [])
         self.sandbox, self.timeout, self.calls, self._cache = sandbox, timeout, 0, {}
 
     def _execute(self, source: str, inputs: List[Any]) -> Dict[str, Any]:

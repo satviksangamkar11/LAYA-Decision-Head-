@@ -1,0 +1,30 @@
+{
+ "variant": "missing_scorer_required",
+ "base": "ex2_clamp",
+ "why": "the run lists the scorer as required and it is missing: the run refuses (MissingComponentError), it does not continue on a fallback",
+ "expected": {
+  "raises": "MissingComponentError",
+  "label_not": [
+   "VERIFIED"
+  ],
+  "not_decided": true
+ },
+ "violations": [],
+ "stop_cause": "refused:MissingComponentError",
+ "stop_details": "MissingComponentError: required component missing: scorer (config['require'] lists it)",
+ "label": "NONE",
+ "tier": null,
+ "journal_hash": "8fdd4501d25f59f5234cb79a818413ba513c853ab2b48d9a35b977248fb85e89",
+ "invariants": [],
+ "sandbox_calls": 0,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}
