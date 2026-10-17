@@ -123,6 +123,8 @@ def refuse_mock_backends(**parts) -> None:
 def pool_admissible(item: Dict[str, Any], live: Dict[str, Any], verify: Dict[str, Any], proposed_options: Sequence[str]) -> Tuple[bool, str]:
     """A3.4 / T34 / T49: a stored or freshly captured score pool is admitted ONLY for the exact context text and the exact option list the controller proposed in this decision
     (context sha256 AND the ordered option list). Anything else is a refusal with its reason; there is no fallback pairing of candidates with scores computed for other candidates."""
+    if live.get("status") == "too_few_proposals" or verify.get("status") == "too_few_proposals":
+        return False, "pool has %d option(s): below the LAYA minimum of 3 (the adapters were trained on 3-5 option pools and the frozen scoring kernel refuses fewer); LAYA is not asked" % len(live.get("options") or [])
     if live.get("status") != "ok" or verify.get("status") != "ok":
         return False, "a scoring result is not ok (live=%s, verify=%s)" % (live.get("status"), verify.get("status"))
     if live.get("context_sha256") != RT.LF.sha256_text(item["context_text"]):
@@ -542,6 +544,7 @@ class Acceptance:
                         for be in backends.values(): be.add(lv, vr, live_run=live_id, verify_run=ver_id, verify_mode=ver["mode"])
                     else:
                         self.notes.setdefault("refused_pools", []).append({"key": k, "reason": why_pool, "refused_by": "pool_admissible"})
+                        for be in backends.values(): be.refused.append({"context_sha256": RT.LF.sha256_text(it["context_text"]), "reason": why_pool})      # the controller's scorer_unavailable journal entry then carries the real cause
                 self.notes.setdefault("refused_pools", []).extend(backends["laya"].refused)
             for n in active:
                 rr, pr = runs[n], props[n]
