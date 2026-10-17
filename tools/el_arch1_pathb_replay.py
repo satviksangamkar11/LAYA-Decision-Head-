@@ -73,6 +73,9 @@ def run(out: Path) -> int:
         same_pool = accepted_ids == list(st["option_sha256"])
         pool.update(filter_rejected=[x["rule"] for f in flt for x in f["rejected"]], pool_is_exact_stored_pool=same_pool, scored=bool(sc), scorer_unavailable_reason=rec.get("scorer_unavailable_reason"),
                     chosen_index=rec["chosen_index"], laya_order=rec.get("laya_order"), trusted_evidence_overrode_laya=rec.get("trusted_evidence_overrode_laya"), laya_top_was_chosen=rec.get("laya_top_was_chosen"))
+        from evidence_ladder.controller import invariants as INV
+        mg = [e["data"] for e in j.entries("monotonicity_gate")]
+        pool.update(monotonicity_gate=({k: mg[0].get(k) for k in ("status", "laya_ordering_enabled", "can_override_trusted_evidence")} if mg else None), evidence_first_ordering_i2_clean=(INV.check_i2(j) == ""))
         if sc and same_pool:
             stored = {k: st["scores"][k]["score"] for k in ("laya", "probe", "random_head")}
             pool.update(verdict="REPLAYED", laya_scores=sc[0]["scores"], laya_equals_stored_verified_scores=sc[0]["scores"] == stored["laya"],

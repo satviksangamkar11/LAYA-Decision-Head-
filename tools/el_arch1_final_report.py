@@ -38,6 +38,8 @@ ROWMAP_FILES = ("EL_ARCH_ROWMAP_A1.json", "EL_ARCH_ROWMAP_A2.json")
 # Conformance rows whose failure CONTRADICTS a requirement (a safety / integrity / replay / budget check that ran and failed). Any other failed receipt check is a POSITIVE path the final-path receipts did not
 # exercise (e.g. no example reached VERIFIED) and reads INSUFFICIENT_DATA, not FAIL.
 CONTRADICTION_IDS = {"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "RT-CTRL", "SAFETY", "BUDGET", "FAULTS", "JOURNAL", "F05", "F15", "F16"}
+CLOSED_RULES = {"malformed_option", "unknown_tool", "bad_arguments", "path_outside_scope", "protected_path", "no_op_edit", "unchanged_diff", "old_string_absent", "old_string_not_unique", "duplicate",
+                "sequential_plan", "sequential_plan_step", "beyond_max_options", "repeated_failure"}      # EL_ARCH_INTERFACE_FREEZE_v1.md
 POSITIVE_GAP = "positive path not exercised in the final-path receipts"
 NEG_WORDS = re.compile(r"negative|refus|reject|never|cannot|blocked|insufficient|detect|tamper|forged|unsafe|not_|no_", re.I)
 
@@ -116,6 +118,10 @@ REGISTRY: Dict[str, Dict[str, Any]] = {
     "T50": E([], ["test_4b_profile_equals_the_former_hardcoded_constants", "test_06b_profile_values_and_proportional_depths"], ["test_guard_refuses_wrong_model_revision_dtype_depths_device_recipe_hash"], receipt=["suites"], owner="C"),
 }
 MIN_EX = MIN_EXAMPLES_FOR_STATISTICS
+# receipt-CONTENT checks (PathRun.receipt_check); owner notes never change a verdict
+for _tid, _kinds in {"T01": ["verified_reached"], "T09": ["verified_reached"], "T24": ["filter_rejections"], "T27": ["laya_scored_a", "pathb_ordering"], "T38": ["pathb_monotonicity"],
+                     "T12": ["l2"], "T13": ["l2_clusters"], "T26": ["l2_clusters"]}.items():
+    REGISTRY[_tid]["receipt"] = list(dict.fromkeys(REGISTRY[_tid]["receipt"] + _kinds))
 
 
 # ------------------------------------------------------------------ the one place a verdict is decided
@@ -242,7 +248,38 @@ class PathRun:
             if kind == "pathb_conflict": ok = ok and any(p.get("trusted_evidence_overrode_laya") for p in d["pools"].values() if p.get("verdict") == "REPLAYED")
             if kind == "pathb_probe_random": ok = ok and s2["laya_probe_random_head_all_stored_and_equal"] and s2["comparison_only"]
             return ok, "PATHB_REPLAY_RECEIPT.json %s" % sha(rp.read_bytes())[:12]
-        if kind == "l2":
+        if kind in ("filter_rejections", "verified_reached", "laya_scored_a"):
+            if self.label != "A": return True, None      # evidence of the PATH A run only; PATH B is judged by its own receipt kinds
+            if not self.dir or not s: return None, None
+            js = {n: json.loads((self.dir / "receipts" / n / "journal.json").read_text("utf-8")) for n in s.get("examples", {}) if (self.dir / "receipts" / n / "journal.json").is_file()}
+            if not js: return None, None
+            if kind == "verified_reached":
+                got = [n for n, e in s["examples"].items() if e.get("answer_label") == "VERIFIED"]
+                return (True if got else None), "ACCEPTANCE_SUMMARY.json: VERIFIED in %s" % (",".join(got) or "no example")
+            if kind == "laya_scored_a":
+                got = [n for n, j in js.items() if any(e["kind"] == "scorer" for e in j)]
+                return (True if got else None), "journals: kind scorer (LAYA scored) in %s" % (",".join(got) or "no example (scorer_unavailable)")
+            rules = {n: sorted({r.get("rule") for e in j if e["kind"] == "candidate_filter" for r in e["data"].get("rejected", [])} - {None}) for n, j in js.items()}
+            ok = any(rules.values()) and all(r in CLOSED_RULES for rs in rules.values() for r in rs)
+            return (True if ok else None), "journals: candidate_filter rejections %s" % rules
+        if kind in ("pathb_monotonicity", "pathb_ordering"):
+            if self.label != "B": return True, None
+            rp = self.dir / "PATHB_REPLAY_RECEIPT.json" if self.dir else None
+            if not rp or not rp.is_file(): return None, None
+            d = json.loads(rp.read_text("utf-8")); reps = [p for p in d["pools"].values() if p.get("verdict") == "REPLAYED"]
+            if kind == "pathb_monotonicity":
+                ok = bool(reps) and all(((p.get("monotonicity_gate") or {}).get("status") == "INSUFFICIENT_DATA") and (p["monotonicity_gate"].get("laya_ordering_enabled") is False) for p in reps)
+            else:
+                ok = bool(reps) and all(p.get("evidence_first_ordering_i2_clean") is True for p in reps)
+            return (True if ok else None), "PATHB_REPLAY_RECEIPT.json %s" % kind
+        if kind in ("l2", "l2_clusters"):
+            rp = self.l2 if self.l2 and self.l2.is_file() else (self.l2 / "RECEIPT.json" if self.l2 else None)
+            if not rp or not rp.is_file(): return None, None
+            d = json.loads(rp.read_text("utf-8")); sm = d.get("summary") or {}
+            if d.get("errors") or d.get("stub") is not False: return None, "%s (errors or stub)" % rp.name
+            good = [n for n, x in sm.items() if (x.get("l2") not in (None, "INSUFFICIENT") if kind == "l2" else (x.get("clusters") or 0) >= 2)]
+            return (True if good else None), "%s %s: %s in %s" % (rp.name, sha(rp.read_bytes())[:12], "validated L2 checks" if kind == "l2" else ">=2 clusters", ",".join(good) or "no example")
+        if kind == "l2_legacy":
             rp = self.l2 if self.l2 and self.l2.is_file() else (self.l2 / "RECEIPT.json" if self.l2 else None)
             if not rp or not rp.is_file(): return None, None
             d = json.loads(rp.read_text("utf-8"))
@@ -294,7 +331,7 @@ def resolve_row(tid: str, ent: Dict[str, Any], idx: Dict[str, str], suites: Suit
     real = [r for r in real_refs if st[r] == "passed"]
     neg = [r for r in neg_refs if st[r] == "passed"]
     stats = {r.split("::")[1]: s for r, s in st.items()}
-    gap_note = next((n for n in rm["notes"] if GAP_MARKERS.search(n)), None)
+    gap_note = None      # owner free-text notes are INFORMATIONAL (printed in the row); a verdict comes from tests and receipt CONTENT only
     rm_receipts = []
     for rc in rm["receipt"]:
         pth, what = str(rc.get("path", "")), str(rc.get("what", ""))
@@ -331,7 +368,7 @@ def resolve_row(tid: str, ent: Dict[str, Any], idx: Dict[str, str], suites: Suit
             vn, vnok = pr.variant_ok(ent["vneg"])
             for names, ok, okn, key in ((ent["vreal"], vr, vok, "real"), (ent["vneg"], vn, vnok, "neg")):
                 if names and ok is False: oks.append(False); notes.append("variant(s) failed")
-                elif names and ok: d[key] = d[key] + ["variant:" + n for n in okn]; d["receipt"].append("%s %s" % (pr.variants_path.name, sha(pr.variants_path.read_bytes())[:12]))
+                elif names and ok: d[key] = d[key] + ["variant:" + n for n in okn]; d["receipt"].append("%s %s [variant: scripted model text, real controller + sandbox]" % (pr.variants_path.name, sha(pr.variants_path.read_bytes())[:12]))
             for rk in ent["receipt"]:
                 ok, ref = pr.receipt_check(rk, suites, runs.get("B" if p == "A" else "A"))
                 oks.append(ok)

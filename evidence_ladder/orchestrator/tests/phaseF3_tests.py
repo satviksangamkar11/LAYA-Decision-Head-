@@ -470,6 +470,36 @@ def t_T48_rowmap_merge_declared_missing_or_failing_tests_are_never_a_pass():
     assert FR.verdict(dict(real=["r"], neg=["n"], receipt=["x"], conf_ok=False, failed=[], stub=False))[0] == "FAIL"      # a contradicting check is FAIL
 
 
+@test
+def t_T48_notes_never_change_a_verdict_receipt_content_does():
+    """Owner notes are informational: a row whose receipt check passes stays PASS even if the note says 'not exercised'; a row without a receipt stays INSUFFICIENT_DATA even if the note says 'PASS'."""
+    import el_arch1_final_report as FR
+    this = "evidence_ladder/orchestrator/tests/phaseF3_tests.py"
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        sp = tmp / "S.json"; sp.write_text(json.dumps({"suites": [{"file": this, "parsed": True, "exit": 0, "failed": {}}]}), "utf-8")
+        suites = FR.Suites(sp)
+        ok = this + "::t_T48_generator_refuses_pass_without_real_negative_and_receipt"
+        # a PATH A dir with a journal that carries a named candidate_filter rejection
+        a = tmp / "A"; (a / "receipts" / "ex1").mkdir(parents=True)
+        (a / "receipts" / "ex1" / "journal.json").write_text(json.dumps([{"kind": "candidate_filter", "data": {"rejected": [{"rule": "duplicate"}], "accepted": []}}]), "utf-8")
+        (a / "receipts" / "ACCEPTANCE_SUMMARY.json").write_text(json.dumps({"mode": "local", "stub_run": False, "examples": {"ex1": {"answer_label": "BLOCKED"}}, "backends": {}}), "utf-8")
+        run = {"A": FR.PathRun("A", a, None)}
+        ent = FR.E([], [], [], receipt=["filter_rejections"], owner="x")
+        def row(notes, ent=ent, runs=run):
+            rm = {"T98": {"real": [ok], "negative": [ok], "receipt": [], "notes": notes}}
+            return FR.resolve_row("T98", ent, {}, suites, runs, rm)["paths"]["A"]
+        assert row(["not exercised; no positive receipt"])["verdict"] == "PASS"            # receipt content passes -> notes do not downgrade
+        assert row([])["verdict"] == "PASS"
+        ent2 = FR.E([], [], [], receipt=["verified_reached"], owner="x")                   # no example reached VERIFIED -> INSUFFICIENT, whatever the note claims
+        assert row(["PASS: everything verified"], ent2)["verdict"] == "INSUFFICIENT_DATA"
+        assert row([], ent2)["verdict"] == "INSUFFICIENT_DATA"
+        (a / "receipts" / "ex1" / "journal.json").write_text(json.dumps([{"kind": "candidate_filter", "data": {"rejected": [], "accepted": []}}]), "utf-8")
+        assert row(["PASS"])["verdict"] == "INSUFFICIENT_DATA"                              # no named rejection in the journal -> no pass
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 # ================================================================== T47 / T48 report generator
 @test
 def t_T48_generator_refuses_pass_without_real_negative_and_receipt():

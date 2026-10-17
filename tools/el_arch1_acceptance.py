@@ -513,7 +513,7 @@ class Acceptance:
                 missing.append(req); raise Q.FixtureMissing((req.task_id,))
             def model_info(self_): return {"backend": "staged_kaggle_replay"}
         # PATH A (local) uses the one-independent-action prompt + per-option salvage + candidate filter (ActionProposerV2); the Kaggle / PATH B replay keeps the frozen v1 proposer (stored prompts must reproduce)
-        proposer = (lambda b, **k: GEN.ActionProposerV2(b, prefilter=False, **k) if self.local else GEN.ActionProposer(b, **k))(Staged(), max_new_tokens=MAX_NEW_TOKENS)      # local: prefilter=False, the controller's single filter_options call journals every rejection
+        proposer = (lambda b, **k: GEN.ActionProposerV2(b, prefilter=False, **k) if self.use_v2() else GEN.ActionProposer(b, **k))(Staged(), max_new_tokens=MAX_NEW_TOKENS)      # local: prefilter=False, the controller's single filter_options call journals every rejection
         gate_pools: List[Dict[str, Any]] = []
         for rnd in range(1, MAX_STEPS + 1):
             active = [n for n, r in runs.items() if not r.run.decided and len(r.run.steps) == rnd - 1]
@@ -527,7 +527,7 @@ class Acceptance:
                     try:
                         props[n] = proposer.propose(n, rnd, runs[n].run.context_text(), SEEDS, **self.filter_ctx(runs[n]))
                         props[n]["step_options"] = self.step_options(props[n])
-                        props[n]["scored_options"] = self.accepted_preview(runs[n], props[n]["step_options"]) if self.local else props[n]["options"]
+                        props[n]["scored_options"] = self.accepted_preview(runs[n], props[n]["step_options"]) if self.use_v2() else props[n]["options"]
                     except Q.FixtureMissing: props.pop(n, None)
                 if not missing: break
                 self.need_gen(rnd, [GE.make_job(rq, rq.task_id) for rq in missing])
@@ -560,9 +560,14 @@ class Acceptance:
                     pass
         return self.finish_pass(runs, critic, gate_pools, backends, base)
 
+    def use_v2(self) -> bool:
+        """The fixed pipeline (one-independent-action prompt qwen_actions_v2, per-option salvage, the controller's single candidate filter): every fresh run, local or Kaggle --final.
+        PATH B replay (--mode replay4b) and the offline rehearsal keep the frozen v1 proposer so stored prompts reproduce."""
+        return bool(self.local or (self.final and not self.replay_from))
+
     def filter_ctx(self, rr) -> Dict[str, Any]:
         """Arguments of the candidate filter for ActionProposerV2: the CURRENT workspace texts (so unappliable edits are rejected against what is really on disk) and the protected files. Empty for v1."""
-        if not self.local: return {}
+        if not self.use_v2(): return {}
         ws = rr.run.task.workspace
         files = {f.relative_to(ws).as_posix(): f.read_text("utf-8", "replace") for f in sorted(Path(ws).rglob("*")) if f.is_file() and f.suffix in (".py", ".txt", ".md", ".toml", ".json") and f.stat().st_size < 200_000}
         return {"files": files}
