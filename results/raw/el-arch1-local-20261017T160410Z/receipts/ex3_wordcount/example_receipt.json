@@ -1,0 +1,272 @@
+{
+ "answer_label": "BLOCKED",
+ "budget_record": {
+  "api_errors": 0,
+  "arm": "E",
+  "glm_calls": 1,
+  "glm_tokens_in": 420,
+  "glm_tokens_out": 839,
+  "gpu_seconds": 99.84292387962341,
+  "problem_id": "ex3_wordcount",
+  "qwen_gen_tokens": 2430,
+  "qwen_prefill_tokens": 2066,
+  "scorer_calls": 2,
+  "tool_runs": 5,
+  "wall_seconds": 3.234
+ },
+ "comparison_entries": 1,
+ "critic_result": {
+  "candidate_id": "cc7a9c343d60a8fcdaa9c7cea7dde447dd67e8cafdda3fccb06f13df6309d836",
+  "command": "python3 -c 'import sys; sys.path.insert(0, '\"'\"'.'\"'\"'); from wc import count_words; print(repr(count_words(*['\"'\"'cat  dog'\"'\"'], **{})))'",
+  "evidence_status": "unknown",
+  "executed": true,
+  "experiment": "count_words(\"cat  dog\")",
+  "experiment_status": "pass",
+  "kind": "function_call",
+  "label_unchanged_by_critic": true,
+  "observed": "exit 0\n3\n",
+  "observed_sha256": "e744f2fbb9fc77137297a2a131a5dc5a4ba76d3a413b31656148aaa5004e8738",
+  "packet_id": "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266",
+  "protected_unchanged": true,
+  "state": "applied"
+ },
+ "critic_state": "applied",
+ "files": {
+  "journal": "receipts/ex3_wordcount/journal.json",
+  "record": "receipts/ex3_wordcount/record.json"
+ },
+ "glm_accounting": {
+  "per_packet": {
+   "a3c519af972b37dc84cea094715a799d0a3c224cbb758f14418792d0e82f1266": {
+    "attempts": [
+     {
+      "attempt": 1,
+      "error": null,
+      "estimated": true,
+      "http_status": 200,
+      "reason": "",
+      "state": "ok",
+      "tokens_in": 420,
+      "tokens_out": 839
+     }
+    ],
+    "calls": 1,
+    "estimated": true,
+    "failed_attempts": 0,
+    "ok": 1,
+    "retries": 0,
+    "tokens_in": 420,
+    "tokens_out": 839
+   }
+  },
+  "totals": {
+   "calls": 1,
+   "estimated": true,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 420,
+   "tokens_out": 839
+  }
+ },
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "journal_hash": "c85794696a4f8e26f37db3d942d84d498bd5fa1c66920c6559456c4304c85b84",
+ "monotonicity_entries": [
+  "INSUFFICIENT_DATA",
+  "INSUFFICIENT_DATA"
+ ],
+ "proposals": [
+  "not_json_array",
+  "ok"
+ ],
+ "replay_live_wsl": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "437df8e5b9dcb01d9e243d8e7b8d9223af568473",
+  "identical": true,
+  "mode": "live_sandbox",
+  "recorded_git_commit": "437df8e5b9dcb01d9e243d8e7b8d9223af568473",
+  "recorded_journal_hash": "c85794696a4f8e26f37db3d942d84d498bd5fa1c66920c6559456c4304c85b84",
+  "replayed_journal_hash": "c85794696a4f8e26f37db3d942d84d498bd5fa1c66920c6559456c4304c85b84"
+ },
+ "replay_offline": {
+  "changed_code_files": [],
+  "code_unchanged": true,
+  "entries": [
+   58,
+   58
+  ],
+  "error": null,
+  "first_divergence": null,
+  "git_commit": "437df8e5b9dcb01d9e243d8e7b8d9223af568473",
+  "identical": true,
+  "mode": "offline_recorded_sandbox",
+  "recorded_git_commit": "437df8e5b9dcb01d9e243d8e7b8d9223af568473",
+  "recorded_journal_hash": "c85794696a4f8e26f37db3d942d84d498bd5fa1c66920c6559456c4304c85b84",
+  "replayed_journal_hash": "c85794696a4f8e26f37db3d942d84d498bd5fa1c66920c6559456c4304c85b84"
+ },
+ "rounds": 2,
+ "scorer_unavailable_entries": 1,
+ "stage_map": {
+  "entries": 58,
+  "not_reached": [],
+  "reached": [
+   "intake",
+   "investigate",
+   "generate",
+   "discriminate",
+   "rank",
+   "execute",
+   "repair",
+   "commit_verify"
+  ],
+  "repair_substages": {
+   "2": {
+    "discriminate": [
+     [
+      29,
+      34
+     ]
+    ],
+    "execute": [
+     [
+      40,
+      45
+     ]
+    ],
+    "generate": [
+     [
+      27,
+      28
+     ]
+    ],
+    "rank": [
+     [
+      35,
+      39
+     ]
+    ]
+   }
+  },
+  "stages": {
+   "commit_verify": [
+    [
+     46,
+     57
+    ]
+   ],
+   "discriminate": [
+    [
+     15,
+     16
+    ]
+   ],
+   "execute": [
+    [
+     22,
+     26
+    ]
+   ],
+   "generate": [
+    [
+     13,
+     14
+    ]
+   ],
+   "intake": [
+    [
+     0,
+     5
+    ]
+   ],
+   "investigate": [
+    [
+     6,
+     12
+    ]
+   ],
+   "rank": [
+    [
+     17,
+     21
+    ]
+   ],
+   "repair": [
+    [
+     27,
+     45
+    ]
+   ]
+  }
+ },
+ "steps": [
+  {
+   "allowed_set": [],
+   "chosen_index": null,
+   "decision_id": "ex3_wordcount:step1",
+   "executed_action": null,
+   "id_order_choice": null,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": null,
+   "laya_order": null,
+   "laya_top_was_chosen": null,
+   "scorer_unavailable_reason": "ProvenanceError: no verified score for this context/option pool (unverified or never scored): refused",
+   "step": 1,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  },
+  {
+   "allowed_set": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "chosen_index": 1,
+   "decision_id": "ex3_wordcount:step2",
+   "executed_action": {
+    "arguments": {
+     "file_path": "wc.py",
+     "new_string": "count_words@1",
+     "old_string": "count_words@1"
+    },
+    "name": "Edit"
+   },
+   "id_order_choice": 0,
+   "label": "BLOCKED",
+   "laya_changed_the_choice_vs_id_order": true,
+   "laya_order": [
+    1,
+    3,
+    0,
+    2
+   ],
+   "laya_top_was_chosen": true,
+   "scorer_unavailable_reason": null,
+   "step": 2,
+   "tests_pass": false,
+   "trusted_evidence_overrode_laya": false
+  }
+ ],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=2 cap=2",
+ "stub": false,
+ "tier": "O1",
+ "tool_runs": 5
+}

@@ -1,0 +1,60 @@
+{
+ "label": "qwen3-0.6b states: DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter",
+ "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "profile": "qwen3-0.6b",
+ "profile_sha256": "e1bb9ba65198ac8fc7220090ddd5e7d419be7e361abc9b42ff432e5031bbd57d",
+ "checks": {
+  "shapes": {
+   "hq": [
+    3,
+    1024
+   ],
+   "ho": [
+    3,
+    3,
+    1024
+   ],
+   "dtype": "torch.float16",
+   "depth_keys": [
+    14,
+    19,
+    23
+   ],
+   "ok": true
+  },
+  "finite_fp16": true,
+  "lm_head_never_run": {
+   "calls": 0,
+   "ok": true
+  },
+  "deterministic": {
+   "bit_identical": true,
+   "features_sha256": "60f86c2dd9510a0d2cff4b87128ae42411697ef7072bb111868b7e95e41f22a6",
+   "features_sha256_repeat": "60f86c2dd9510a0d2cff4b87128ae42411697ef7072bb111868b7e95e41f22a6"
+  },
+  "option_order_independence": {
+   "min_cosine_rows_follow_options": 0.9999996956099311,
+   "max_abs": 0.0625,
+   "query_identical_or_close": 0.9999999999999998,
+   "ok": true
+  },
+  "packed_equals_plain": {
+   "min_cosine": 0.9999974475471998,
+   "ok": true
+  },
+  "laya_guard_refuses": {
+   "messages": {
+    "check_metadata": "states of backbone 'qwen3-0.6b' (hidden 1024) are DIAGNOSTIC data: not consumable by the frozen LAYA head (head_compatible is empty); they are data for a future",
+    "check_tensors": "states of backbone 'qwen3-0.6b' (hidden 1024) are DIAGNOSTIC data: not consumable by the frozen LAYA head (head_compatible is empty); they are data for a future",
+    "LiveScorer": "states of backbone 'qwen3-0.6b' (hidden 1024) are DIAGNOSTIC data: not consumable by the frozen LAYA head (head_compatible is empty); they are data for a future"
+   },
+   "ok": true
+  }
+ },
+ "overall": "PASS",
+ "peak_gib": 1.12,
+ "versions": {
+  "torch": "2.14.0+cu126"
+ },
+ "utc": "2026-10-17T16:23:39Z"
+}
