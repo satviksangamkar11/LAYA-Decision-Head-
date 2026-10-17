@@ -14,14 +14,16 @@ import secrets
 import time
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
-from evidence_ladder.models import laya_forward as LF
+from evidence_ladder.models import backbone as BB, laya_forward as LF
 
-QWEN_REPO, QWEN_REVISION = "Qwen/Qwen3-4B-Thinking-2507", "768f209d9ea81521153ed38c47d515654e938aea"
-RECIPE_ID = "fable_capture_v1"
+_P4 = BB.get()                      # the profile whose states the frozen head consumes; every check below is keyed on the profile named in the record (default: this one)
+QWEN_REPO, QWEN_REVISION = _P4.repo, _P4.revision
+RECIPE_ID = _P4.recipe_id
 CAPTURE_CODE_SHA256 = {"capture/capture.py": "d7e817d68fb6e0696ababd8add51ca929b92a2207d39885b11f0025db52710b8",          # byte-identical to the pkg/ copies of the TRAIN and VAL capture runs
                        "capture/capture_resident.py": "8fb5e492480f6130366fc3bb235e991e5c3e777a74f32fc609d63cb15831106a"}
-DEVICE_CLASS = "Tesla T4"
+DEVICE_CLASS = _P4.device_classes[0]
 DEFAULT_TOL = {"min_cosine": 0.9999, "max_abs_diff": 0.5}      # configs/laya_head_gate_v1.toml [a_feature_recapture]
+PROFILE_FIELDS = ("profile_id", "profile_sha256")     # written by make_provenance; optional when READING (records made before profiles existed mean the 4B profile)
 PROVENANCE_FIELDS = ("model_repo", "model_revision", "recipe_id", "depths", "dtype", "hidden", "query_cue", "option_prefix", "device", "capture_code_sha256", "context_sha256", "option_sha256")
 
 
@@ -29,39 +31,53 @@ class ProvenanceError(ValueError):
     """Features are not (provably) frozen-Qwen3-4B-Thinking-2507 states of the training recipe. The scorer refuses; there is no fallback."""
 
 
-def make_provenance(*, device: str, context_text: str, options: Sequence[str]) -> Dict[str, Any]:
-    return {"model_repo": QWEN_REPO, "model_revision": QWEN_REVISION, "recipe_id": RECIPE_ID, "depths": list(LF.DEPTHS), "dtype": "float16", "hidden": LF.HIDDEN,
-            "query_cue": LF.QUERY_CUE, "option_prefix": " ", "device": device, "capture_code_sha256": dict(CAPTURE_CODE_SHA256),
-            "context_sha256": LF.sha256_text(context_text), "option_sha256": [LF.sha256_text(o) for o in options]}
+def make_provenance(*, device: str, context_text: str, options: Sequence[str], profile: Optional[BB.Profile] = None) -> Dict[str, Any]:
+    p = profile or _P4
+    return {"model_repo": p.repo, "model_revision": p.revision, "recipe_id": p.recipe_id, "depths": list(p.depths), "dtype": p.dtype, "hidden": p.hidden_size,
+            "query_cue": p.query_cue, "option_prefix": p.option_prefix, "device": device, "capture_code_sha256": dict(CAPTURE_CODE_SHA256),
+            "context_sha256": LF.sha256_text(context_text), "option_sha256": [LF.sha256_text(o) for o in options], "profile_id": p.id, "profile_sha256": p.sha256}
 
 
 def check_metadata(prov: Any) -> None:
-    """Cheap first filter. NEVER sufficient: metadata cannot prove where tensors came from."""
+    """Cheap first filter. NEVER sufficient: metadata cannot prove where tensors came from. Keyed on the PROFILE named in the record (no profile_id = the 4B profile, records older than profiles)."""
     if not isinstance(prov, Mapping):
         raise ProvenanceError("no provenance record: features of unknown origin are refused")
     miss = [k for k in PROVENANCE_FIELDS if k not in prov]
     if miss:
         raise ProvenanceError("provenance lacks fields %s" % miss)
-    want = {"model_repo": QWEN_REPO, "model_revision": QWEN_REVISION, "recipe_id": RECIPE_ID, "dtype": "float16", "hidden": LF.HIDDEN, "query_cue": LF.QUERY_CUE, "option_prefix": " "}
+    try:
+        p = BB.get(prov.get("profile_id", BB.DEFAULT_ID))
+        BB.require_head_compatible(p)
+    except BB.ProfileError as e:
+        raise ProvenanceError(str(e))
+    if "profile_sha256" in prov and prov["profile_sha256"] != p.sha256:
+        raise ProvenanceError("profile %s hash differs from the profile that produced the states" % p.id)
+    want = {"model_repo": p.repo, "model_revision": p.revision, "recipe_id": p.recipe_id, "dtype": p.dtype, "hidden": p.hidden_size, "query_cue": p.query_cue, "option_prefix": p.option_prefix}
     for k, v in want.items():
         if prov[k] != v:
-            raise ProvenanceError("provenance %s = %r, expected %r (not the frozen Qwen3-4B-Thinking-2507 training recipe)" % (k, prov[k], v))
-    if list(prov["depths"]) != list(LF.DEPTHS):
-        raise ProvenanceError("depths %r, expected %r" % (prov["depths"], list(LF.DEPTHS)))
-    if not str(prov["device"]).startswith(DEVICE_CLASS):
-        raise ProvenanceError("captured on %r; the adapters were trained on %s features" % (prov["device"], DEVICE_CLASS))
+            raise ProvenanceError("provenance %s = %r, expected %r (not the frozen %s training recipe)" % (k, prov[k], v, p.repo.split("/")[-1]))
+    if list(prov["depths"]) != list(p.depths):
+        raise ProvenanceError("depths %r, expected %r" % (prov["depths"], list(p.depths)))
+    if not any(str(prov["device"]).startswith(d) for d in BB.allowed_devices(p)):
+        raise ProvenanceError("captured on %r; the adapters were trained on %s features (allowed for profile %s: %s)" % (prov["device"], p.device_classes[0], p.id, list(BB.allowed_devices(p))))
     if dict(prov["capture_code_sha256"]) != CAPTURE_CODE_SHA256:
         raise ProvenanceError("capture code hashes differ from the code that produced the training features")
 
 
-def check_tensors(hq, ho, n_options: Optional[int] = None) -> None:
+def check_tensors(hq, ho, n_options: Optional[int] = None, profile: Optional[BB.Profile] = None) -> None:
     import torch
+    p = profile or _P4
+    try:
+        BB.require_head_compatible(p)
+    except BB.ProfileError as e:
+        raise ProvenanceError(str(e))
     if not (torch.is_tensor(hq) and torch.is_tensor(ho)):
         raise ProvenanceError("features must be tensors captured from the frozen Qwen (text, embeddings and TF-IDF are refused)")
     if hq.dtype != torch.float16 or ho.dtype != torch.float16:
         raise ProvenanceError("features must be float16 (training dtype), got %s / %s" % (hq.dtype, ho.dtype))
-    if tuple(hq.shape) != (len(LF.DEPTHS), LF.HIDDEN) or ho.dim() != 3 or tuple(ho.shape[1:]) != (len(LF.DEPTHS), LF.HIDDEN):
-        raise ProvenanceError("feature shapes %s / %s are not [3,2560] / [N,3,2560]" % (tuple(hq.shape), tuple(ho.shape)))
+    K, H = len(p.depths), p.hidden_size
+    if tuple(hq.shape) != (K, H) or ho.dim() != 3 or tuple(ho.shape[1:]) != (K, H):
+        raise ProvenanceError("feature shapes %s / %s are not [%d,%d] / [N,%d,%d]" % (tuple(hq.shape), tuple(ho.shape), K, H, K, H))
     if ho.shape[0] < 2 or (n_options is not None and ho.shape[0] != n_options):
         raise ProvenanceError("option count %d (expected %s, minimum 2)" % (ho.shape[0], n_options))
     if not (torch.isfinite(hq).all() and torch.isfinite(ho).all()):
@@ -106,7 +122,12 @@ CaptureFn = Callable[[str, Sequence[str]], Tuple[Any, Any, Dict[str, Any]]]   # 
 class LiveScorer:
     """Live mode: text in, scores out. The capture happens inside this call, in this process, on the frozen Qwen; no tensor argument exists."""
 
-    def __init__(self, capture_fn: CaptureFn, scorer: FeatureScorer, device_name: str):
+    def __init__(self, capture_fn: CaptureFn, scorer: FeatureScorer, device_name: str, profile: Optional[BB.Profile] = None):
+        self.profile = profile or _P4
+        try:
+            BB.require_head_compatible(self.profile)
+        except BB.ProfileError as e:
+            raise ProvenanceError(str(e))
         self._capture, self._scorer, self.device = capture_fn, scorer, device_name
 
     def score_texts(self, context_text: str, options: Sequence[str]) -> Dict[str, Any]:
@@ -118,9 +139,9 @@ class LiveScorer:
         hq, ho, info = self._capture(context_text, list(options))
         if hq is None:
             raise ProvenanceError("capture excluded this decision: %s" % info.get("status"))
-        check_tensors(hq, ho, len(options))
+        check_tensors(hq, ho, len(options), self.profile)
         res = self._scorer._score(hq, ho)
-        return {"scores": res, "provenance": make_provenance(device=self.device, context_text=context_text, options=options), "capture": info,
+        return {"scores": res, "provenance": make_provenance(device=self.device, context_text=context_text, options=options, profile=self.profile), "capture": info,
                 "seconds": round(time.time() - t, 3), "origin": "live_capture_same_process"}
 
 
@@ -138,7 +159,7 @@ def score_stored(records: Sequence[Mapping[str, Any]], *, capture_fn: CaptureFn,
         check_metadata(r["provenance"])
         if r["provenance"]["context_sha256"] != LF.sha256_text(r["context_text"]) or list(r["provenance"]["option_sha256"]) != [LF.sha256_text(o) for o in r["options"]]:
             raise ProvenanceError("record %r: recorded text does not match the provenance hashes" % r.get("decision_id"))
-        check_tensors(r["hq"], r["ho"], len(r["options"]))
+        check_tensors(r["hq"], r["ho"], len(r["options"]), BB.get(r["provenance"].get("profile_id", BB.DEFAULT_ID)))
     n = max(min(3, len(records)), math.ceil(0.25 * len(records))) if sample_n is None else min(int(sample_n), len(records))   # integration tests pass sample_n=len(batch): 100%
     seed = secrets.randbits(32) if seed is None else int(seed)
     chosen = random.Random(seed).sample(range(len(records)), n)
@@ -220,7 +241,8 @@ class VerifiedSavedScoreBackend:
         key = (LF.sha256_text(req["context_text"]), tuple(LF.sha256_text(o) for o in req["options"]))
         rec = self._pools.get(key)
         if rec is None:
-            raise ProvenanceError("no verified score for this context/option pool (unverified or never scored): refused")
+            why = [r["reason"] for r in self.refused if r.get("context_sha256") == key[0]]
+            raise ProvenanceError("no verified score for this context/option pool (unverified or never scored): refused" + ("; refusal on record: " + why[-1] if why else ""))
         sc = rec["live"]["scores"].get(self.kind)
         if sc is None:
             raise ProvenanceError("scorer kind %r not available" % self.kind)

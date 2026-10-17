@@ -1,0 +1,9 @@
+{
+ "record": "evidence_ladder_decisions_v7",
+ "date": "2026-10-17",
+ "source": "user, in chat: 'Qwen 3 0.6 B download and run full pipeline locally use local gpu' / 'Only for 3 examples' / 'Think plan next steps how can we expose the hidden state of small model and then run full pipeline locally 3 examples only'",
+ "download": "Qwen/Qwen3-0.6B rev c1899de289a04d12100db370d81485cdf75e47ca, Apache-2.0, 1.52 GB, models/qwen3-0.6b/, LFS sha256 verified (models/qwen3-0.6b/MANIFEST_pinned.json); user said yes to the >1 GB download",
+ "scope": "local pipeline run, ONLY ex1_slug, ex2_clamp, ex3_wordcount; local RTX 3050 allowed for this run (lifts 'Kaggle for compute' for this task only); Kaggle round-2 scoring notebooks stay queued as the T4 reference",
+ "frozen_head_limit": "the 3 frozen adapters and the pretrained LAYA head read Qwen3-4B states (hidden 2560, depths 18/24/30). Qwen3-0.6B states (hidden 1024, 28 layers) cannot enter them. Plan B: 0.6B proposes; 0.6B hidden states are exposed and recorded (diagnostic, future adapter data); LAYA scores the same options from 4B states captured locally ONLY if a pre-registered parity gate against the stored T4 features passes; otherwise LAYA is explicitly unavailable in the local run (journalled scorer_unavailable). No adapter training in this run (would need a separate GO).",
+ "max_spend_inr": 0
+}

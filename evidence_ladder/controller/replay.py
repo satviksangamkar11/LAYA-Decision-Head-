@@ -150,7 +150,8 @@ class RecordedScorer:
         rec = self.calls[self.i]
         self.i += 1
         if "error" in rec:
-            raise RuntimeError(rec["error"].split(": ", 1)[-1] if rec["error"].startswith(rec.get("error_type", "") + ": ") else rec["error"])
+            msg = rec["error"].split(": ", 1)[-1] if rec["error"].startswith(rec.get("error_type", "") + ": ") else rec["error"]
+            raise (type(rec["error_type"], (RuntimeError,), {}) if rec.get("error_type") else RuntimeError)(msg)      # same exception TYPE NAME as recorded: the journal's scorer_unavailable reason carries it
         self._backend.last = rec["last"]
         return list(rec["scores"])
 

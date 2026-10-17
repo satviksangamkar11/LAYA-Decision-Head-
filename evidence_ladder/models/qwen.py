@@ -11,11 +11,13 @@ import time
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 from evidence_ladder.common.interfaces import (Budget, BudgetExhausted, Generation, GenerationRequest, NotAuthorized, sha256_text)
+from evidence_ladder.models import backbone as BB
 from evidence_ladder.models._util import canonical_json
 
-QWEN_REPO = "Qwen/Qwen3-4B-Thinking-2507"
-QWEN_REVISION = "768f209d9ea81521153ed38c47d515654e938aea"
-SAMPLING = {"temperature": 0.6, "top_p": 0.95, "top_k": 20}
+_P4 = BB.get()      # default backbone profile (configs/backbones_v1.toml); HFQwenBackend takes any profile
+QWEN_REPO = _P4.repo
+QWEN_REVISION = _P4.revision
+SAMPLING = {k: v for k, v in _P4.generation.items() if k != "do_sample"}
 
 # ------------------------------------------------------------------ templates
 TEMPLATES: Dict[str, str] = {
@@ -206,7 +208,10 @@ class HFQwenBackend:
     INFERENCE_ENV = "EVIDENCE_LADDER_ALLOW_INFERENCE"
 
     def __init__(self, *, authorized: bool = False, model_dir: Optional[str] = None, log_path: Optional[str] = None, language: str = "python",
-                 env: Optional[Mapping[str, str]] = None, path_exists=os.path.exists, verify_files: Optional[Mapping[str, str]] = None):
+                 env: Optional[Mapping[str, str]] = None, path_exists=os.path.exists, verify_files: Optional[Mapping[str, str]] = None,
+                 profile: Optional[BB.Profile] = None, local: bool = False):
+        self.profile = profile or _P4
+        self.local = local is True          # local run on the PC (explicit; the /kaggle requirement is lifted for it only)
         self._authorized = authorized is True
         self._env = os.environ if env is None else env
         self._exists = path_exists
@@ -216,18 +221,20 @@ class HFQwenBackend:
         self._model = None
         self._tok = None
         self.snapshot_verified = False
+        self._greedy: Dict[Any, Generation] = {}      # greedy profiles only: first generation per (prompt, cap, language)
 
     def _gate(self) -> None:
         if not self._authorized:
             raise NotAuthorized("HFQwenBackend needs authorized=True")
-        if not self._exists("/kaggle"):
+        if not self.local and not self._exists("/kaggle"):
             raise NotAuthorized("HFQwenBackend runs only on Kaggle (/kaggle not found)")
         if self._env.get(self.INFERENCE_ENV) != "1":
             raise NotAuthorized("set %s=1 to allow inference" % self.INFERENCE_ENV)
 
     def model_info(self) -> Dict[str, Any]:
-        return {"backend": "hf", "repo": QWEN_REPO, "revision": QWEN_REVISION, "dtype": "fp16", "thinking": True, "sampling": dict(SAMPLING),
-                "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files)}
+        p = self.profile
+        return {"backend": "hf", "repo": p.repo, "revision": p.revision, "dtype": "fp16", "thinking": True, "enable_thinking": p.enable_thinking, "generation": dict(p.generation), "sampling": dict(SAMPLING),
+                "profile_id": p.id, "profile_sha256": p.sha256, "local": self.local, "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files)}
 
     def _verify_snapshot(self) -> None:
         import hashlib
@@ -246,8 +253,8 @@ class HFQwenBackend:
             from transformers import AutoModelForCausalLM, AutoTokenizer
             if self.verify_files:
                 self._verify_snapshot()
-            src = self.model_dir or QWEN_REPO
-            rev = None if self.model_dir else QWEN_REVISION
+            src = self.model_dir or self.profile.repo
+            rev = None if self.model_dir else self.profile.revision
             self._tok = AutoTokenizer.from_pretrained(src, revision=rev)
             self._model = AutoModelForCausalLM.from_pretrained(src, revision=rev, torch_dtype=torch.float16).to("cuda").eval()
         return self._model, self._tok
@@ -255,21 +262,24 @@ class HFQwenBackend:
     def _generate_one(self, torch, model, tok, request: GenerationRequest, seed: int, prompt_sha: str, lang: str) -> Generation:
         torch.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
-        chat = tok.apply_chat_template([{"role": "user", "content": request.prompt}], tokenize=False, add_generation_prompt=True)
+        tkw = {} if self.profile.enable_thinking is None else {"enable_thinking": self.profile.enable_thinking}     # the 4B template takes no argument (always thinks): nothing is passed, as before
+        chat = tok.apply_chat_template([{"role": "user", "content": request.prompt}], tokenize=False, add_generation_prompt=True, **tkw)
         enc = tok(chat, return_tensors="pt", add_special_tokens=False).to(model.device)
         n_prompt = int(enc["input_ids"].shape[1])
         stops = sorted(i for i in {tok.convert_tokens_to_ids("<|im_end|>"), tok.eos_token_id} if isinstance(i, int) and i >= 0)
         t0 = time.time()
+        gen = dict(self.profile.generation)
         with torch.no_grad():
-            ids = model.generate(**enc, do_sample=True, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, eos_token_id=stops, **SAMPLING)
+            ids = model.generate(**enc, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, eos_token_id=stops, **gen)
         new = ids[0, n_prompt:]
         return make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
-                               prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0)
+                               prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0,
+                               model=self.profile.repo, model_revision=self.profile.revision)
 
     def generate(self, request: GenerationRequest) -> List[Generation]:
         self._gate()
-        if not request.thinking:
-            raise ValueError("Qwen3-4B-Thinking-2507 is thinking-only")
+        if not request.thinking and self.profile.enable_thinking is None:
+            raise ValueError("%s is thinking-only" % self.profile.repo)
         if len(request.seeds) < request.n:
             raise ValueError("request needs %d seeds, got %d" % (request.n, len(request.seeds)))
         import torch
@@ -277,8 +287,15 @@ class HFQwenBackend:
         lang = "json" if request.purpose == "tests" else self.language
         prompt_sha = sha256_text(request.prompt)
         out = []
+        greedy = not self.profile.generation.get("do_sample", True)
         for seed in list(request.seeds)[:request.n]:
-            g = self._generate_one(torch, model, tok, request, int(seed), prompt_sha, lang)
+            first = self._greedy.get((prompt_sha, request.max_new_tokens, lang)) if greedy else None
+            if first is not None:      # greedy decoding is deterministic: a later seed (also in a later call of run_jobs) repeats the first text at no cost (tokens_generated 0, wall 0)
+                g = dataclasses.replace(first, seed=int(seed), tokens_generated=0, wall_seconds=0.0)
+            else:
+                g = self._generate_one(torch, model, tok, request, int(seed), prompt_sha, lang)
+                if greedy:
+                    self._greedy[(prompt_sha, request.max_new_tokens, lang)] = g
             self._log(request, g)
             out.append(g)
         return out

@@ -22,7 +22,10 @@ QUERY_CUE = "\n\nNext action:"
 SOLUTION_PATH = {"python": "solution.py", "java": "Solution.java"}
 EXPLORATORY_LABEL = "exploratory, out-of-distribution: next-action head applied to whole-program candidates; agreement with Fable was never measured here"
 SEEDS = ("final-s0", "final-s1", "final-s2")
-DEPTHS, HIDDEN = (18, 24, 30), 2560
+from evidence_ladder.models import backbone as BB   # noqa: E402
+
+_P4 = BB.get()      # the LAYA head + adapters read THIS backbone's states (profile qwen3-4b-thinking-2507); depths / hidden / cue come from the profile
+DEPTHS, HIDDEN, QUERY_CUE = _P4.depths, _P4.hidden_size, _P4.query_cue
 
 
 def sha256_text(s: str) -> str:

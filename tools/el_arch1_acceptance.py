@@ -26,6 +26,13 @@ STAGED KAGGLE HAND-OFF (this script never calls Kaggle, NVIDIA or the network)
   live + verify: frozen-Qwen capture of the EXACT context and the EXACT option strings, LAYA + probe + random head) -> PC runs the step in the WSL sandbox -> next round only for unsolved examples
   -> NEED_GLM (tools/el_arch1_glm_live.py in the user's terminal) -> finish, replay (offline + live), receipts, exit 0.
 
+LOCAL MODE (--mode local --backbone <profile id>; defaults leave everything above unchanged)  the same driver, the same controller and stage map, with LOCAL backends instead of the Kaggle hand-off:
+  generation  = the backbone profile's model (configs/backbones_v1.toml, e.g. qwen3-0.6b, greedy) in a separate GPU process (--local-worker gen), which also EXPOSES that model's hidden states
+                (same recipe positions, profile depths) as DIAGNOSTIC data;
+  LAYA        = the 4B profile's states captured on the local GPU by per-layer streaming (--local-worker score, two independent processes = live + verify), used ONLY after the pre-registered device
+                parity gate (--local-worker parity, configs/el_arch1_local_parity_v1.toml) passed; otherwise LAYA is explicitly unavailable (scorer_unavailable journalled with the numbers);
+  critic      = still the staged GLM hand-off (WAITING_FOR_GLM). Stubs are still refused. One GPU process at a time.
+
 MODES   --offline-rehearsal : every Kaggle/GLM answer is produced by a clearly labelled stub (`stub: true` in every record and receipt); for tests and dry runs only.
         --final             : refuses ANY stub (StubRefused), refuses a dirty source tree, requires config["require"]=["scorer","critic"]; receipts are REAL only if everything real was ingested.
   PYTHONPATH=. .venv/Scripts/python.exe tools/el_arch1_acceptance.py <out dir> (--offline-rehearsal | --final --bundle <results/raw/el-arch1-bundle-*>) [--allow-dirty]"""
@@ -70,7 +77,7 @@ from evidence_ladder.controller.agentic import AgenticContext, AgenticTask, Limi
 from evidence_ladder.controller.limits import load_limits                            # noqa: E402
 from evidence_ladder.controller.monotonicity import monotonicity_gate                # noqa: E402
 from evidence_ladder.controller.wsl_sandbox import WslSandbox, available            # noqa: E402
-from evidence_ladder.models import gen_entry as GE, laya, laya_runtime as RT, qwen as Q   # noqa: E402
+from evidence_ladder.models import backbone as BB, gen_entry as GE, laya, laya_runtime as RT, qwen as Q   # noqa: E402
 
 
 def sha(b) -> str: return hashlib.sha256(b if isinstance(b, bytes) else b.encode("utf-8")).hexdigest()
@@ -202,17 +209,32 @@ def stub_critic_transport(pids: Dict[str, Dict[str, Any]]):
     return transport
 
 
+class UnavailableBackend:
+    """Local run whose device parity gate did not pass: every score request raises with the numbers, so the controller journals scorer_unavailable (never an id-order fallback dressed up as LAYA)."""
+
+    def __init__(self, reason: str): self.reason, self.refused = reason, []
+
+    def score(self, decision_type, pool): raise RT.ProvenanceError(self.reason)
+
+
 # ================================================================== the acceptance object
 class Acceptance:
-    def __init__(self, out: Path, *, final: bool, bundle: Optional[Path] = None, allow_dirty: bool = False, system_block: Optional[str] = None, sandbox_factory=None):
+    def __init__(self, out: Path, *, final: bool, bundle: Optional[Path] = None, allow_dirty: bool = False, system_block: Optional[str] = None, sandbox_factory=None,
+                 local: bool = False, backbone: Optional[str] = None):
         self.out, self.final, self.bundle = Path(out), final, (Path(bundle) if bundle else None)
-        self.mode = "final" if final else "offline_rehearsal"
+        self.local = local
+        self.real = final or local                       # real backends (no stubs): the final-mode refusal rules that are not about T4 / committed source apply to a local run too
+        if local and not backbone: raise ValueError("--mode local needs --backbone <profile id>")
+        self.gen_profile = BB.get(backbone) if backbone else None
+        self.state_profile = BB.get()                    # the profile the frozen adapters + head consume (4B)
+        self.laya_off: Optional[str] = None              # local run: reason LAYA is unavailable (parity gate failed)
+        self.mode = "local" if local else ("final" if final else "offline_rehearsal")
         self.allow_dirty = allow_dirty
         self.kin = self.out / "kaggle_in"
         self.system_block = system_block if system_block is not None else self._load_system_block()
         self.sandbox_factory = sandbox_factory or (lambda scratch, prot: WslSandbox(scratch, prot))
         self.notes: Dict[str, Any] = {"gen_runs": {}, "score_runs": {}, "glm": {}}
-        self.stub_kaggle = None if final else StubKaggle(self.kin)
+        self.stub_kaggle = None if self.real else StubKaggle(self.kin)
 
     # ---------------------------------------------------------------- preflight
     def _load_system_block(self) -> str:
@@ -249,7 +271,7 @@ class Acceptance:
     # ---------------------------------------------------------------- stub guard
     def no_stubs(self, **parts) -> None:
         """Final mode: abort if any ingested part declares itself a stand-in. parts: name -> object or dict. Called on the scorers, the critic, the sandbox and on every ingested Kaggle record."""
-        if not self.final: return
+        if not self.real: return
         for name, obj in parts.items():
             for o in (obj if isinstance(obj, list) else [obj]):
                 flagged = (o.get("stub") if isinstance(o, dict) else getattr(o, "stub", False)) or any("stub" in str(x).lower() for x in
@@ -264,10 +286,11 @@ class Acceptance:
             if sm.get("verdict") != "DONE" or (sm.get("summary") or {}).get("errors"): raise RuntimeError("generation run %s is not a clean DONE: %s" % (p.parent.parent.name, sm.get("verdict")))
             self.notes["gen_runs"][p.parent.parent.name] = {k: sm.get(k) for k in ("verdict", "gpu", "versions", "total_seconds", "snapshot_verified", "stub")}
             recs += [json.loads(l) for l in p.read_text("utf-8").splitlines() if l.strip()]
-        if self.final:
+        if self.real:
+            gp = self.gen_profile or BB.get()            # final (Kaggle) mode: the 4B profile = the previous hard-coded Q.QWEN_REPO / Q.QWEN_REVISION
             self.no_stubs(gen_records=recs, **{"gen_record.generation": [r["generation"] for r in recs]})
-            bad = [r["task_id"] for r in recs if r["generation"]["model"] != Q.QWEN_REPO or r["generation"]["model_revision"] != Q.QWEN_REVISION]
-            if bad: raise StubRefused("generation records not made by %s@%s: %s" % (Q.QWEN_REPO, Q.QWEN_REVISION[:8], bad[:3]))
+            bad = [r["task_id"] for r in recs if r["generation"]["model"] != gp.repo or r["generation"]["model_revision"] != gp.revision]
+            if bad: raise StubRefused("generation records not made by %s@%s: %s" % (gp.repo, gp.revision[:8], bad[:3]))
         return recs
 
     def need_gen(self, rnd: int, jobs: List[Dict[str, Any]]) -> None:
@@ -275,6 +298,8 @@ class Acceptance:
         if self.stub_kaggle is not None:
             self.stub_kaggle.gen(rnd, jobs); return
         for j in jobs: GE.check_job(j)
+        if self.local:
+            self.run_worker("gen", rnd, {"jobs": jobs, "profile": self.gen_profile.id}, self.kin / ("round%d" % rnd) / "gen"); return
         req = {"authorized": True, "jobs": jobs}
         tmpl = (self.bundle / "kernels/el_arch1_generate_v1.py").read_text("utf-8")
         assert "__GEN_REQUEST_JSON__" in tmpl and "'''" not in json.dumps(req)
@@ -290,6 +315,9 @@ class Acceptance:
 
     def need_score(self, rnd: int, items: List[Dict[str, Any]]) -> Tuple[Dict[str, Any], Dict[str, Any], str, str]:
         res = {w: self.kin / ("round%d" % rnd) / ("score_" + w) / "t6_step_results.json" for w in ("live", "verify")}
+        if self.local:        # two independent GPU processes (live + verify) = the two Kaggle kernels of the hand-off; the frozen-4B capture streams layer by layer
+            for w in ("live", "verify"):
+                if not res[w].exists(): self.run_worker("score", rnd, {"items": items, "which": w}, res[w].parent)
         if self.stub_kaggle is not None:
             for w in ("live", "verify"):
                 if not res[w].exists(): self.stub_kaggle.score(rnd, w, items)
@@ -312,10 +340,49 @@ class Acceptance:
             out[w] = json.loads(p.read_text("utf-8"))
             if out[w].get("verdict") != "DONE": raise RuntimeError("score kernel %s round %d verdict %s" % (w, rnd, out[w].get("verdict")))
         self.no_stubs(**{"score_live": out["live"], "score_verify": out["verify"]})
+        if self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": False, "local": True} for w in out}
         if self.final and not str(out["live"].get("gpu", "")).startswith("Tesla T4"): raise RuntimeError("scoring did not run on a Tesla T4: %r" % out["live"].get("gpu"))
-        run_ids = {w: "%s/el-arch1-score-%s-v1@round%d" % (OWNER, w, rnd) for w in out}
-        self.notes["score_runs"]["round%d" % rnd] = {w: {"run_id": run_ids[w], "gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": out[w].get("stub", False)} for w in out}
+        run_ids = {w: ("local/el-arch1-score-%s@round%d" % (w, rnd)) if self.local else "%s/el-arch1-score-%s-v1@round%d" % (OWNER, w, rnd) for w in out}
+        if not self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"run_id": run_ids[w], "gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": out[w].get("stub", False)} for w in out}
         return out["live"], out["verify"], run_ids["live"], run_ids["verify"]
+
+    # ---------------------------------------------------------------- local run hooks (--mode local)
+    def run_worker(self, kind: str, rnd: int, req: Dict[str, Any], outdir) -> None:
+        """One local GPU worker = one separate process (the GPU is free again when it exits). It reads a request json and writes its results under outdir."""
+        outdir = Path(outdir); outdir.mkdir(parents=True, exist_ok=True)
+        h = self.out / "handoff" / ("parity" if kind == "parity" else "round%d" % rnd); rp = h / ("%s%s_request.json" % (kind, "_" + req["which"] if "which" in req else ""))
+        write_over(rp, json.dumps(req, ensure_ascii=False))
+        env = dict(os.environ, PYTHONPATH=str(ROOT), ATEN_CPU_CAPABILITY="avx2", PYTHONUNBUFFERED="1")
+        logp = outdir / "worker.log"
+        with open(logp, "w", encoding="utf-8") as lf:
+            rc = subprocess.run([sys.executable, str(Path(__file__).resolve()), "--local-worker", kind, str(rp), str(outdir)], cwd=str(ROOT), env=env, stdout=lf, stderr=subprocess.STDOUT).returncode
+        if rc: raise RuntimeError("local worker %s failed (rc %s); tail of %s:\n%s" % (kind, rc, logp, logp.read_text("utf-8", "replace")[-1500:]))
+
+    def local_parity(self) -> None:
+        """Pre-registered device parity gate (configs/el_arch1_local_parity_v1.toml). PASS -> the RTX 3050 is registered for the 4B profile for THIS process only, from a versioned file that
+        carries the sha256 of the passed result; anything else -> LAYA is unavailable in this run and says why."""
+        d = self.out / "parity"; res = d / "PARITY_RESULT.json"
+        try:
+            if not res.exists(): self.run_worker("parity", 0, {}, d)
+            doc = json.loads(res.read_text("utf-8"))
+        except (RuntimeError, OSError, ValueError) as e:
+            self.notes["parity"] = {"verdict": "NOT_RUN", "error": str(e)[:600]}
+            self.laya_off = "scorer unavailable: the local device parity gate could not run (%s)" % str(e)[:300]
+            return
+        self.notes["parity"] = {k: doc.get(k) for k in ("verdict", "device", "device_prefix", "worst_cos_min", "worst_max_abs_diff", "n_records", "thresholds_sha256", "total_seconds", "peak_gib")}
+        self.notes["parity"].update(file=res.relative_to(self.out).as_posix(), sha256=sha(res.read_bytes()))
+        self.notes["device"] = doc.get("device")
+        if doc["verdict"] == "PASS":
+            reg = d / "el_arch1_local_device_v1.toml"
+            if not reg.exists():
+                write_new(reg, '# [EL-ARCH-1 local run] device registration for THIS LOCAL RUN ONLY (versioned; written only after the pre-registered parity gate PASSED)\n[registration]\nprofile_id = "%s"\n'
+                               'device_prefix = "%s"\nparity_result = "%s"\nparity_result_sha256 = "%s"\n' % (self.state_profile.id, doc["device_prefix"], res.resolve().relative_to(ROOT).as_posix(), sha(res.read_bytes())))
+            BB.register_device(self.state_profile, doc["device"], reg)
+        elif doc["verdict"] == "FAIL":
+            self.laya_off = ("scorer unavailable: local device parity gate FAILED (worst cos_min=%.6f vs >= 0.9999, worst max_abs_diff=%.4f vs <= 0.5, %d record(s) failed of %d; device %s)"
+                             % (doc["worst_cos_min"], doc["worst_max_abs_diff"], sum(not r["passed"] for r in doc["rows"]), doc["n_records"], doc["device"]))
+        else:
+            self.laya_off = "scorer unavailable: the local device parity gate errored (%s)" % str(doc.get("error"))[:300]
 
     # ---------------------------------------------------------------- building runs
     def render(self, messages):
@@ -324,13 +391,19 @@ class Acceptance:
         assert text is not None, info
         return text
 
+    def run_config(self) -> Dict[str, Any]:
+        cfg: Dict[str, Any] = {"max_steps": MAX_STEPS, "require": ["scorer", "critic"]}
+        if self.local:      # profile id + hash are part of the journalled run configuration (the default Kaggle path adds nothing, so its journal hashes are unchanged)
+            cfg["backbones"] = {"generation": {"id": self.gen_profile.id, "sha256": self.gen_profile.sha256}, "states": {"id": self.state_profile.id, "sha256": self.state_profile.sha256}, "mode": "local"}
+        return cfg
+
     def build_run(self, name: str, task: str, base: Path, scorer, comparison, critic):
         T = TASKS[task]; ws = base / name / "workspace"
         for fn, c in T["files"].items(): write_new(ws / fn, c)
         at = AgenticTask(task_id=name, user_text=T["user"], workspace=ws, test_cmd=T["test_cmd"], protected=T["protected"], system_text=self.system_block, max_steps=MAX_STEPS)
         sb = self.sandbox_factory(base / "_sandbox", T["protected"])
         self.no_stubs(**{"sandbox:" + name: sb})
-        ctx = AgenticContext(sandbox=sb, scorer=scorer, critic=critic, arm="E", seeds=SEEDS, config={"max_steps": MAX_STEPS, "require": ["scorer", "critic"]}, comparison=comparison)
+        ctx = AgenticContext(sandbox=sb, scorer=scorer, critic=critic, arm="E", seeds=SEEDS, config=self.run_config(), comparison=comparison)
         rr = REP.RecordedRun(at, ctx, self.render)
         rr.begin()
         rr.note("stage", {"name": "investigate"})
@@ -348,7 +421,7 @@ class Acceptance:
     def one_pass(self, label: str) -> Dict[str, Any]:
         base = self.out / "derived" / label
         if base.exists(): shutil.rmtree(base)
-        backends = {k: RT.VerifiedSavedScoreBackend(k) for k in ("laya", "probe", "random_head")}
+        backends = {k: (UnavailableBackend(self.laya_off) if self.laya_off else RT.VerifiedSavedScoreBackend(k)) for k in ("laya", "probe", "random_head")}
         scorer = laya.LayaScorer(authorized=True, backend=backends["laya"])
         assert not scorer.disabled, scorer.meta.disabled_reason
         comparison = {"probe": laya.ProbeScorer(authorized=True, backend=backends["probe"]), "random_head": laya.RandomHeadScorer(authorized=True, backend=backends["random_head"])}
@@ -384,7 +457,7 @@ class Acceptance:
             if missing: raise RuntimeError("generation records still missing after the hand-off")
             items = [{"key": "%s:%d" % (n, rnd), "step": rnd, "context_text": runs[n].run.context_text(), "saved_raw_output": json.dumps([json.loads(o) for o in props[n]["options"]])}
                      for n in active if len(props[n]["options"]) >= 2]
-            if items:
+            if items and not self.laya_off:
                 live, ver, live_id, ver_id = self.need_score(rnd, items)
                 for it in items:
                     n, k = it["key"].split(":")[0], it["key"]
@@ -421,7 +494,7 @@ class Acceptance:
         if pending:
             pk = self.glm_dir / "critic_packets"
             if not (pk / "PACKETS_MANIFEST.json").exists(): V.write_packets(pk, {pids[n]: reqs[n] for n in runs})
-            if self.final:
+            if self.real:
                 write_over(self.glm_dir / "WAITING_GLM.txt", "run in YOUR terminal (reads .secrets through the project key system; this driver never does):\n  & '%s' '%s' '%s'\nthen re-run the driver.\n"
                            % (ROOT / ".venv/Scripts/python.exe", ROOT / "tools/el_arch1_glm_live.py", self.out))
                 raise NeedGlm(len(pending))
@@ -439,9 +512,9 @@ class Acceptance:
     # ---------------------------------------------------------------- receipts
     def receipts(self, done: Dict[str, Any], pre: Dict[str, Any], variants: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         rec_dir = self.out / "receipts"
-        summary: Dict[str, Any] = {"tag": TAG, "mode": self.mode, "stub_run": not self.final, "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "preflight": pre, "constants": {
+        summary: Dict[str, Any] = {"tag": TAG, "mode": self.mode, "stub_run": not self.real, "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "preflight": pre, "constants": {
             "seeds": list(SEEDS), "max_new_tokens": MAX_NEW_TOKENS, "max_steps": MAX_STEPS, "require": ["scorer", "critic"]}, "examples": {}, "kaggle": self.notes}
-        stub = not self.final
+        stub = not self.real
         for n, (rr, res, state) in done["runs"].items():
             run = rr.run
             entries = run.journal.entries()
@@ -470,6 +543,13 @@ class Acceptance:
                                "laya": {"kind": "stub" if stub else "kaggle_t4_live_plus_verify", "stub": stub, "runs": self.notes["score_runs"]},
                                "probe": {"stub": stub}, "random_head": {"stub": stub}, "glm": {"kind": "stub" if stub else "live_local_key_system", "stub": stub},
                                "sandbox": {"kind": "wsl_bwrap", "stub": False}, "controller": {"kind": "AgenticRun+RecordedRun", "stub": False}}
+        if self.local:
+            summary["backends"]["qwen"] = {"kind": "local_hf", "stub": False, "profile": self.gen_profile.as_dict(), "profile_sha256": self.gen_profile.sha256, "runs": self.notes["gen_runs"]}
+            summary["backends"]["laya"] = {"kind": "local_4b_stream" if not self.laya_off else "unavailable", "stub": False, "profile": self.state_profile.as_dict(), "profile_sha256": self.state_profile.sha256,
+                                           "unavailable_reason": self.laya_off, "runs": self.notes["score_runs"]}
+            summary["local"] = {"mode": "LOCAL", "device": self.notes.get("device"), "generation_model": self.gen_profile.repo, "generation_profile": {"id": self.gen_profile.id, "sha256": self.gen_profile.sha256},
+                                "state_profile": {"id": self.state_profile.id, "sha256": self.state_profile.sha256}, "parity": self.notes.get("parity"), "laya_available": not self.laya_off,
+                                "qwen_diagnostic_states": "qwen3-0.6b states are DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter" if not self.gen_profile.is_head_compatible else None}
         summary["variants"] = variants
         summary["external_logs"] = {str(p.relative_to(self.out)): sha(p.read_bytes()) for p in sorted(list(self.kin.rglob("*_push.txt")) + list((self.out / "glm").glob("GLM_LIVE_SUMMARY_*.json")))}      # push messages (kernel versions) saved by the coordinator + the live GLM summary
         leaks = [str(p.relative_to(self.out)) for p in sorted(self.out.rglob("*")) if p.is_file() and p.suffix in (".json", ".jsonl", ".txt", ".md", ".py") and KEY_RE.search(p.read_text("utf-8", "replace"))]
@@ -485,10 +565,13 @@ class Acceptance:
         if (self.out / "receipts" / "ACCEPTANCE_SUMMARY.json").exists(): print("receipts already exist (create-only): nothing to do"); return 0
         variants = None
         vs = self.out / "VARIANTS_SUMMARY.json"
-        if not vs.exists():
+        if self.local:      # the fault-injection variants are a Kaggle-path acceptance item, not part of the 3-example local run
+            variants = {"summary_file": None, "all_ok": None, "stub_components": None, "n": 0, "skipped": "local run"}
+            self.local_parity()
+        elif not vs.exists():
             import el_arch1_variants as V
             V.run_all(self.out)
-        variants = json.loads(vs.read_text("utf-8")); variants = {"summary_file": "VARIANTS_SUMMARY.json", "all_ok": variants["all_ok"], "stub_components": variants["stub_components"], "n": sum(len(v) for v in variants["variants"].values())}
+        if not self.local: variants = json.loads(vs.read_text("utf-8")); variants = {"summary_file": "VARIANTS_SUMMARY.json", "all_ok": variants["all_ok"], "stub_components": variants["stub_components"], "n": sum(len(v) for v in variants["variants"].values())}
         try:
             done = self.one_pass("pass")
         except NeedKaggle as e:
@@ -501,13 +584,179 @@ class Acceptance:
         return 0
 
 
+# ================================================================== local GPU workers (each runs in its own process, one at a time; torch is imported only here)
+def _bundle_dir() -> Path:
+    c = [p for p in sorted((ROOT / "results/raw").glob("el-laya-int1-bundle-*")) if (p / "gate/feat_v3_B.pt").is_file()]
+    if not c: raise RuntimeError("no el-laya-int1-bundle-* with gate/ and models/ found")
+    return c[-1]
+
+
+def _versions() -> Dict[str, Any]:
+    import torch, transformers
+    return {"python": sys.version.split()[0], "torch": torch.__version__, "transformers": transformers.__version__, "cuda": torch.version.cuda}
+
+
+def _gate_data(B: Path):
+    import torch
+    FE = {n: {r["decision_id"]: r for r in torch.load(B / ("gate/feat_%s_B.pt" % n), map_location="cpu", weights_only=False)["records"]} for n in ("v2", "v3", "val")}
+    RQ = {n: {d["decision_id"]: d for d in (json.loads(l) for l in open(B / ("gate/req_%s.jsonl" % n), encoding="utf-8"))} for n in ("v2", "v3", "val")}
+    return FE, RQ, json.loads((B / "gate/labels.json").read_text("utf-8"))
+
+
+def worker_gen(req: Dict[str, Any], out: Path) -> int:
+    """Local generation with the profile's model (greedy for qwen3-0.6b) through the SAME GenerationRequest/run_jobs path as the Kaggle entry, then the model's hidden states are EXPOSED:
+    for every job the proposed options + the context are captured with the profile's depths (same recipe positions) and stored as DIAGNOSTIC data."""
+    import torch
+    from evidence_ladder.models import profile_capture as PC
+    os.environ["EVIDENCE_LADDER_ALLOW_INFERENCE"] = "1"
+    t0 = time.time(); P = BB.get(req["profile"]); rs: Dict[str, Any] = {"kernel": "el_arch1_local_gen", "profile": P.as_dict(), "profile_sha256": P.sha256, "stub": False, "versions": _versions()}
+    try:
+        man = json.loads((P.model_dir() / "MANIFEST_pinned.json").read_text("utf-8"))
+        assert man["revision"] == P.revision, "model manifest revision differs from the profile"
+        pins = {f: man["files"][f]["sha256"] for f in ("model.safetensors", "tokenizer.json")}
+        model, tok, dev = PC.load_model(P); rs["gpu"] = dev
+        be = Q.HFQwenBackend(authorized=True, profile=P, local=True, model_dir=str(P.model_dir()), log_path=str(out / "gen_log.jsonl"), verify_files=pins)
+        be._verify_snapshot(); be._model, be._tok = model, tok
+        torch.cuda.reset_peak_memory_stats()
+        summary = GE.run_jobs(be, req["jobs"], str(out / "gen_records.jsonl"))
+        recs = [json.loads(l) for l in (out / "gen_records.jsonl").read_text("utf-8").splitlines() if l.strip()]
+        ntok, nsec = sum(r["generation"]["tokens_generated"] for r in recs), sum(r["generation"]["wall_seconds"] for r in recs)
+        cap_of = {j["job_id"]: j["max_new_tokens"] for j in req["jobs"]}
+        rs.update(summary=summary, snapshot_verified=be.snapshot_verified, generation_tokens=ntok, generation_seconds=round(nsec, 2), tokens_per_second=round(ntok / nsec, 2) if nsec else None,
+                  gpu_peak_gib_generation=round(torch.cuda.max_memory_allocated() / 2 ** 30, 2),
+                  per_generation=[{"task_id": r["task_id"], "seed": r["seed"], "tokens": r["generation"]["tokens_generated"], "seconds": r["generation"]["wall_seconds"],
+                                   "hit_token_cap": r["generation"]["tokens_generated"] >= cap_of[r["job_id"]]} for r in recs])
+        # ---- exposed hidden states (diagnostic)
+        cap = PC.make_capture_fn(P, model, tok); sd = out / ("states_" + P.id); sd.mkdir(exist_ok=True); index = []
+        label = "%s states: DIAGNOSTIC; NOT consumable by the frozen LAYA head; data for a future adapter" % P.id
+        suf = "\n\n" + GEN.ACTION_INSTR
+        for j in req["jobs"]:
+            r0 = next((r for r in recs if r["job_id"] == j["job_id"] and r["seed"] == j["seeds"][0]), None)
+            if r0 is None or not j["prompt"].endswith(suf): index.append({"job_id": j["job_id"], "status": "no_generation"}); continue
+            opts = GEN.parse_actions(r0["generation"]["text"])["actions"]
+            if len(opts) < 2: index.append({"job_id": j["job_id"], "status": "fewer_than_2_options", "n_options": len(opts)}); continue
+            ctx = j["prompt"][:-len(suf)]; hq, ho, info = cap(ctx, opts)
+            if hq is None: index.append({"job_id": j["job_id"], "status": info.get("status")}); continue
+            f = sd / (j["job_id"].replace(":", "_") + ".pt")
+            torch.save({"label": label, "hq": hq, "ho": ho, "options": opts, "context_sha256": RT.LF.sha256_text(ctx), "capture": info, "profile_id": P.id, "profile_sha256": P.sha256,
+                        "provenance": RT.make_provenance(device=dev, context_text=ctx, options=opts, profile=P), "diagnostic_only": True}, f)
+            index.append({"job_id": j["job_id"], "status": "ok", "file": f.name, "file_sha256": sha(f.read_bytes()), "n_options": len(opts), "hq_shape": list(hq.shape), "ho_shape": list(ho.shape),
+                          "features_sha256": info["features_sha256"], "capture_seconds": info["seconds"]})
+        rs.update(states_label=label, states_index=index, gpu_peak_gib=round(torch.cuda.max_memory_allocated() / 2 ** 30, 2), verdict="DONE" if not summary["errors"] else "FAILED")
+    except BaseException as e:      # noqa: BLE001
+        import traceback; rs.update(verdict="FAILED", error=repr(e)[:500], trace=traceback.format_exc()[-3000:]); print(rs["trace"])
+    rs["total_seconds"] = round(time.time() - t0, 1); write_over(out / "RUN_SUMMARY.json", jdump(rs)); print("VERDICT", rs["verdict"]); return 0
+
+
+def _parse_raw(raw: str):
+    i = raw.find("["); items, dropped = [], 0
+    try: arr, _ = json.JSONDecoder().raw_decode(raw[i:]) if i >= 0 else ([], 0)
+    except ValueError: arr = []
+    for a in arr if isinstance(arr, list) else []:
+        if isinstance(a, dict) and a.get("name") in GEN.ACTION_TOOLS and isinstance(a.get("arguments"), dict) and set(a["arguments"]) == GEN.ACTION_TOOLS[a["name"]] and all(isinstance(v, str) for v in a["arguments"].values()):
+            s = GEN.render_call(a["name"], a["arguments"])
+            if s not in items: items.append(s)
+            else: dropped += 1
+        else: dropped += 1
+    return items[:5], dropped
+
+
+def worker_score(req: Dict[str, Any], out: Path) -> int:
+    """Frozen-4B capture (profile qwen3-4b-thinking-2507, per-layer streaming on the local GPU) of the EXACT context and option strings, then the 3 adapters + pretrained head + probe + random heads.
+    Same step schema as kaggle/evidence_ladder_laya_t6_step_v1.py (replay mode: the proposals are the saved ones)."""
+    import torch
+    from evidence_ladder.models import profile_capture as PC, probe as PR, random_head as RH
+    t0 = time.time(); B = _bundle_dir(); P = BB.get(); rs: Dict[str, Any] = {"kernel": "el_arch1_local_score", "mode": "replay", "which": req.get("which"), "profile_id": P.id, "profile_sha256": P.sha256, "stub": False, "steps": {}}
+    try:
+        rs["versions"] = _versions(); LF = RT.LF
+        heads = {n: LF.build_head(B / "models/pretrained_31.safetensors", B / ("models/%s.pt" % n)) for n in LF.SEEDS}
+        FE, RQ, LAB = _gate_data(B); rows = []
+        for nm in ("v2", "v3"):
+            for did, sr in FE[nm].items():
+                if did in LAB["v3"]:
+                    lab = LAB["v3"][did]; ix = {o: i for i, o in enumerate(RQ[nm][did]["options"])}
+                    rows.append(dict(decision_id=did, ho=torch.stack([sr["ho"][ix[o]] for o in lab["options"]]), pos=torch.tensor([s == "positive" for s in lab["status"]])))
+        fit = PR.refit_probe(rows, expect_pools=PR.TRAIN_POOLS); rand = RH.build_random_heads(scaler_from=str(B / "models/final-s0.pt"))
+        rs.update(probe_train_pools=len(rows), probe_fingerprint=fit["fingerprint"], probe_order_sha256=fit["order_sha256"], random_head_state_sha256={n: RH.state_sha256(h) for n, h in rand.items()})
+        del rows, FE, RQ
+        model, tok, dev = PC.load_model(P); rs["gpu"] = dev
+        live = RT.LiveScorer(PC.make_capture_fn(P, model, tok), RT.FeatureScorer(heads, probe=fit["probe"], random_head=rand), dev, P)
+        torch.cuda.reset_peak_memory_stats()
+        for st in req["items"]:
+            raw = st["saved_raw_output"]; opts, dropped = _parse_raw(raw)
+            r = {"step": st["step"], "context_sha256": LF.sha256_text(st["context_text"]), "raw_output": raw, "raw_output_sha256": LF.sha256_text(raw), "generation": {"replayed": True}, "options": opts,
+                 "option_sha256": [LF.sha256_text(o) for o in opts], "dropped_proposals": dropped}
+            if len(opts) < 3: r["status"] = "too_few_proposals"
+            else:
+                o = live.score_texts(st["context_text"], opts)
+                r.update(status="ok", scores=o["scores"], provenance=o["provenance"], origin=o["origin"], capture=o["capture"], features_sha256=o["capture"]["features_sha256"], score_seconds=o["seconds"])
+            rs["steps"][st["key"]] = r
+        rs.update(gpu_peak_gib=round(torch.cuda.max_memory_allocated() / 2 ** 30, 2), verdict="DONE")
+    except BaseException as e:      # noqa: BLE001
+        import traceback; rs.update(verdict="FAILED", error=repr(e)[:500], trace=traceback.format_exc()[-3000:]); print(rs["trace"])
+    rs["total_seconds"] = round(time.time() - t0, 1); write_over(out / "t6_step_results.json", jdump(rs)); print("VERDICT", rs["verdict"]); return 0
+
+
+def worker_parity(req: Dict[str, Any], out: Path) -> int:
+    """configs/el_arch1_local_parity_v1.toml: local-GPU streaming 4B capture vs the stored T4 training features of the 3 TRAIN + 3 VAL smoke pools. ALL must pass; the bar is fixed in that file."""
+    import tomllib, torch
+    import torch.nn.functional as F
+    from evidence_ladder.models import profile_capture as PC
+    t0 = time.time(); cfgp = ROOT / "configs/el_arch1_local_parity_v1.toml"; G = tomllib.loads(cfgp.read_text("utf-8"))["gate"]
+    P = BB.get(G["profile_id"]); doc: Dict[str, Any] = {"gate": "el_arch1_local_parity_v1", "profile_id": P.id, "profile_sha256": P.sha256, "device_prefix": G["device_prefix"], "thresholds": {k: G[k] for k in ("min_cosine", "max_abs_diff")},
+                                                         "thresholds_sha256": sha(cfgp.read_bytes()), "rows": [], "versions": _versions()}
+    try:
+        B = _bundle_dir(); FE, RQ, LAB = _gate_data(B); LF = RT.LF
+        heads = {n: LF.build_head(B / "models/pretrained_31.safetensors", B / ("models/%s.pt" % n)) for n in LF.SEEDS}
+        model, tok, dev = PC.load_model(P); doc["device"] = dev; cap = PC.make_capture_fn(P, model, tok); torch.cuda.reset_peak_memory_stats()
+        find = lambda did: next(n for n in ("v2", "v3", "val") if did in FE[n])
+        def ordered(did, hq, ho):
+            lab = next(LAB[k][did] for k in ("v3", "val") if did in LAB[k]); ix = {o: i for i, o in enumerate(RQ[find(did)][did]["options"])}
+            return hq, torch.stack([ho[ix[o]] for o in lab["options"]])
+        for did in list(G["train_ids"]) + list(G["val_ids"]):
+            n = find(did); sr, rq = FE[n][did], RQ[n][did]; role = "train" if did in G["train_ids"] else "val"
+            assert sr["option_sha256"] == rq["option_sha256"] and sr["context_sha256"] == rq["context_sha256"], "stored record and request disagree: " + did
+            hq, ho, info = cap(rq["context_text"], rq["options"])
+            if hq is None: doc["rows"].append({"decision_id": did, "role": role, "status": info["status"], "passed": False, "info": info}); continue
+            cm = RT.compare_features((hq, ho), (sr["hq"], sr["ho"]), {"min_cosine": G["min_cosine"], "max_abs_diff": G["max_abs_diff"]})
+            per = [{"depth": P.depths[k], "hq_cos": F.cosine_similarity(hq[k].double(), sr["hq"][k].double(), 0).item(), "ho_cos_min": F.cosine_similarity(ho[:, k].double(), sr["ho"][:, k].double(), -1).min().item(),
+                    "max_abs": max((hq[k].float() - sr["hq"][k].float()).abs().max().item(), (ho[:, k].float() - sr["ho"][:, k].float()).abs().max().item())} for k in range(len(P.depths))]
+            a, b = ordered(did, hq, ho), ordered(did, sr["hq"], sr["ho"]); rec = {}
+            for hn, h in heads.items():
+                x, y = LF.head_logits(h, *a), LF.head_logits(h, *b)
+                rec[hn] = {"same_top": max(range(len(x)), key=x.__getitem__) == max(range(len(y)), key=y.__getitem__), "max_abs_logit_diff": max(abs(u - v) for u, v in zip(x, y))}
+            ok = cm["passed"] and info["status"] == "ok" and info["depth_keys"] == list(G["require_depth_keys"]) and info["lm_head_calls"] == G["require_lm_head_calls"]
+            doc["rows"].append({"decision_id": did, "role": role, "status": "ok", "n_options": ho.shape[0], "hq_shape": list(hq.shape), "ho_shape": list(ho.shape), "dtype": str(hq.dtype),
+                                "cos_min": cm["cos_min"], "max_abs_diff": cm["max_abs_diff"], "passed": bool(ok), "bit_identical": bool(torch.equal(hq, sr["hq"]) and torch.equal(ho, sr["ho"])), "per_depth": per,
+                                "info": info, "recorded_not_gating": rec})
+        ok_rows = [r for r in doc["rows"] if r["status"] == "ok"]
+        doc.update(n_records=len(doc["rows"]), worst_cos_min=min([r["cos_min"] for r in ok_rows] or [float("nan")]), worst_max_abs_diff=max([r["max_abs_diff"] for r in ok_rows] or [float("nan")]),
+                   peak_gib=round(torch.cuda.max_memory_allocated() / 2 ** 30, 2), verdict="PASS" if len(doc["rows"]) == len(G["train_ids"]) + len(G["val_ids"]) and all(r["passed"] for r in doc["rows"]) else "FAIL")
+    except BaseException as e:      # noqa: BLE001
+        import traceback; doc.update(verdict="ERROR", error=repr(e)[:500], trace=traceback.format_exc()[-3000:]); print(doc["trace"])
+    doc["total_seconds"] = round(time.time() - t0, 1); write_over(out / "PARITY_RESULT.json", jdump(doc)); print("VERDICT", doc["verdict"]); return 0
+
+
+def run_worker_process(kind: str, req_path: str, outdir: str) -> int:
+    os.environ.setdefault("ATEN_CPU_CAPABILITY", "avx2")
+    return {"gen": worker_gen, "score": worker_score, "parity": worker_parity}[kind](json.loads(Path(req_path).read_text("utf-8")), Path(outdir).resolve())
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("out")
-    g = ap.add_mutually_exclusive_group(required=True)
+    ap.add_argument("out", nargs="?")
+    g = ap.add_mutually_exclusive_group()
     g.add_argument("--offline-rehearsal", action="store_true"); g.add_argument("--final", action="store_true")
     ap.add_argument("--bundle"); ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--backbone", help="backbone profile id for the generating model (configs/backbones_v1.toml); only with --mode local")
+    ap.add_argument("--mode", choices=["kaggle", "local"], default="kaggle")
+    ap.add_argument("--local-worker", nargs=3, metavar=("KIND", "REQUEST", "OUTDIR"), help="internal: run one local GPU worker (gen|score|parity) in this process")
     a = ap.parse_args(argv)
+    if a.local_worker: return run_worker_process(*a.local_worker)
+    if not a.out: ap.error("an output directory is required")
+    if a.mode == "local": return Acceptance(Path(a.out), final=False, allow_dirty=True, local=True, backbone=a.backbone or ap.error("--mode local needs --backbone")).run()
+    if a.backbone: ap.error("--backbone is used with --mode local")
+    if not (a.final or a.offline_rehearsal): ap.error("one of --offline-rehearsal / --final / --mode local is required")
     if a.final and not a.bundle: ap.error("--final needs --bundle <results/raw/el-arch1-bundle-*>")
     return Acceptance(Path(a.out), final=a.final, bundle=a.bundle, allow_dirty=a.allow_dirty).run()
 

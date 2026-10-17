@@ -1,0 +1,39 @@
+# [EL-ARCH-1 local run] BACKBONE PROFILES v1. One entry per frozen backbone the pipeline can read states from / generate with. Written 2026-10-17 (user: "extend the connection for the second model;
+# later we make this universal"). The 4B entry restates, unchanged, what was hard-coded before (laya_forward.DEPTHS/HIDDEN/QUERY_CUE, laya_runtime.QWEN_REPO/REVISION/DEVICE_CLASS, qwen.QWEN_REPO);
+# evidence_ladder/models/backbone.py cross-checks this file against its embedded copy of the 4B entry (a difference raises). A change is a new file (backbones_v2.toml) with a written reason.
+# head_compatible = the frozen adapter sets that can consume this backbone's states. EMPTY = states are diagnostic data only and every LAYA scorer path refuses them.
+# device_classes = devices whose states count as the training device class for this profile (provenance guard). Extra devices are registered only through a versioned, parity-gated file (backbone.register_device).
+
+[backbone."qwen3-4b-thinking-2507"]
+repo = "Qwen/Qwen3-4B-Thinking-2507"
+revision = "768f209d9ea81521153ed38c47d515654e938aea"
+local_path = "models/qwen3-4b-thinking-2507"
+hidden_size = 2560
+num_layers = 36
+depths = [18, 24, 30]
+dtype = "float16"
+local_device_policy = "stream"            # 6 GB card cannot hold 30 layers: per-layer streaming (capture.capture.Capturer)
+device_classes = ["Tesla T4"]
+recipe_id = "fable_capture_v1"
+query_cue = "\n\nNext action:"
+option_prefix = " "
+head_compatible = ["laya_fable_adapters_v1"]
+generation = { do_sample = true, temperature = 0.6, top_p = 0.95, top_k = 20 }
+# enable_thinking is not set: the Thinking-2507 template always opens the think block itself (no template argument is passed, as in the Kaggle runs)
+
+[backbone."qwen3-0.6b"]
+repo = "Qwen/Qwen3-0.6B"
+revision = "c1899de289a04d12100db370d81485cdf75e47ca"
+local_path = "models/qwen3-0.6b"
+hidden_size = 1024
+num_layers = 28
+depths = [14, 19, 23]                     # proportional to 18/24/30 of 36 layers (0.5, 0.667, 0.833 of depth), rounded
+dtype = "float16"
+local_device_policy = "resident"
+device_classes = ["NVIDIA GeForce RTX 3050"]
+recipe_id = "fable_capture_v1"            # same positions: last prefix token after the cue; mean over each option's own tokens
+query_cue = "\n\nNext action:"
+option_prefix = " "
+head_compatible = []                      # no adapter was trained on this model's states: diagnostic data for a future adapter
+generation = { do_sample = false }        # greedy (user decision 2026-10-17)
+enable_thinking = true                    # matches the 4B runs, which always think; Qwen3-0.6B's template honours the flag

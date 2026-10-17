@@ -1,0 +1,25 @@
+# [EL-ARCH-1 local run] PRE-REGISTERED DEVICE PARITY GATE for the LOCAL run. Written 2026-10-17 BEFORE any 4B capture on the RTX 3050.
+# Written reason: the three frozen adapters + pretrained LAYA head were trained on Qwen3-4B-Thinking-2507 fp16 states captured on a Tesla T4 (provenance guard: device class "Tesla T4").
+# The user asked to run the pipeline locally on the RTX 3050 (6 GB), where the 4B model cannot be resident, so its layers stream through the GPU one at a time
+# (capture.capture.Capturer, parametrized by the backbone profile). The local device may be registered as a device class for THIS LOCAL RUN ONLY, and only if the states it
+# produces equal the stored T4 training features within the same bar the repo already applies (configs/laya_int1_thresholds_v1.toml / laya_smoke_thresholds_v1.toml [s2_capture_parity]).
+# Never edited after results are seen: a change is a new versioned file with a written reason. If the gate FAILS, LAYA is unavailable in the local run (scorer_unavailable journalled with the numbers).
+
+[gate]
+profile_id = "qwen3-4b-thinking-2507"
+device_prefix = "NVIDIA GeForce RTX 3050"
+capture = "profile-parametrized capture, stream policy (capture.capture.Capturer), fp16 weights, same recipe, same packed shared-prefix pass"
+reference = "stored fp16 training features of the Tesla T4 level-12/v3 captures (bundle gate/feat_v2_B.pt, feat_v3_B.pt, feat_val_B.pt with their request texts)"
+min_cosine = 0.9999        # float64 per vector, hq and every ho, all 3 depths (18/24/30)
+max_abs_diff = 0.5         # fp16 spacing at the largest stored magnitude (~146) is 0.125; 0.5 = 4 spacings
+records_required = "all"   # every one of the 6 pools must pass; one failure fails the gate
+train_ids = ["fable5:bash-dotlink:2", "fable5:py-klondike:1", "fable5:go-dashfeed:4"]          # the 3 TRAIN pools of the Kaggle smoke run (S2)
+val_ids = ["fable5:bash-logtop:2", "fable5:bash-retryrun:3", "fable5:bash-retryrun:4"]          # the 3 VAL pools of the Kaggle smoke run (S5b)
+require_status_ok = true
+require_depth_keys = [18, 24, 30]
+require_lm_head_calls = 0
+
+[recorded_not_gating]
+# recorded for information, never a pass/fail input: per adapter, argmax agreement and max |logit| difference of the head on local features vs stored features
+adapter_same_top_choice = "recorded"
+adapter_max_abs_logit_diff = "recorded (the smoke run used 0.1 as its bar)"
