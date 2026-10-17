@@ -11,7 +11,7 @@ from typing import Any, Callable, Dict, List, Mapping, Optional
 
 from evidence_ladder.common.interfaces import Budget, sha256_text
 from evidence_ladder.models import glm
-from evidence_ladder.models._util import canonical_json, redact
+from evidence_ladder.models._util import canonical_json, error_info, redact
 
 # Call-logic limits (user, FIXED NVIDIA CALL LOGIC). Configuration constants only; enforced by pc_sender.KeyScheduler.
 LIMITS = {"max_in_flight_per_key": 10, "max_sends_per_key_per_minute": 39, "rate_limit_cooldown_s": 60}  # user 2026-10-16: 10 in flight per key (2026-10-11 measurement: at 10, about half got 429; 39/min and 60 s cooldown unchanged)
@@ -208,12 +208,13 @@ class StagedCriticBroker:
                 not_before = self.clock() + backoff
         raw_text = redact(canonical_json(raw_response) if not isinstance(raw_response, str) else raw_response)
         api_error = not (200 <= (http_status or 0) < 300)
+        err = error_info(http_status, raw_response)           # [EL-ARCH-1 A2] error_class/category/errno/redacted message; reason keeps "transport_failure" etc.
         self._emit({"event": "ingest", "packet_id": packet_id, "http_status": http_status, "state": state, "reason": reason, "attempts": attempts,
                     "not_before": not_before, "backoff_s": backoff, "retry_after_s": ra, "response": response, "tokens_in": tin, "tokens_out": tout,
-                    "api_error": api_error, "stop_all": stop, "raw_sha256": sha256_text(raw_text), "raw_head": raw_text[:50000]})
+                    "api_error": api_error, "error": err, "stop_all": stop, "raw_sha256": sha256_text(raw_text), "raw_head": raw_text[:50000]})
         if self.budget is not None and (tin or tout):
             self.budget.charge("glm_in", tin)
             self.budget.charge("glm_out", tout)
         return {"state": state, "response": response, "reason": reason, "backoff_s": backoff, "retry_after_s": ra, "not_before": not_before or None,
-                "stop_all_critic_calls": self.stop_all_critic_calls, "tokens_in": tin, "tokens_out": tout,
+                "stop_all_critic_calls": self.stop_all_critic_calls, "tokens_in": tin, "tokens_out": tout, "error": err,
                 "reasoning_text": parsed.reasoning if parsed else ""}

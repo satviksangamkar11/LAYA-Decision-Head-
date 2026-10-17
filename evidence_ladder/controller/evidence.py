@@ -38,13 +38,39 @@ def trim(o: Dict[str, Any]) -> Dict[str, Any]:
     return {k: (_s(o[k]) if k in ("detail", "observed") else o[k]) for k in ("check_id", "status", "detail", "counterexample", "observed", "failure_class", "example_index") if k in o}
 
 
+MODEL_SOURCES = {"model_test", "critic_experiment", "candidate_agreement", "scorer"}
+
+
+class ModelEvidenceError(Exception):
+    """[EL-ARCH-1 A4] model-derived evidence named a requirement the controller does not hold."""
+
+
+def is_model_derived(source: str, independence: str, check_trust: str) -> bool:
+    return independence == "model_derived" or source in MODEL_SOURCES or check_trust == "diagnostic"
+
+
+def cap_model_status(status: str, rid: str, check_id: str, roles: Optional[Dict[str, str]]) -> str:
+    """[EL-ARCH-1 A4] Model-derived evidence (critic experiments, model-written checks, behaviour clusters; LAYA/probe scores never enter as evidence at all) may REJECT or stay unknown,
+    but a `pass` is kept only where the router's fixed table (router.SOFT_BY_ROLE) lists that check as soft support for the controller's own role of that requirement; anywhere
+    else it is recorded as `unknown`. The requirement id always comes from the controller's list (Factory.make raises on any other id), never from the model."""
+    if status != "pass":
+        return status
+    from .router import SOFT_BY_ROLE
+    return "pass" if check_id in SOFT_BY_ROLE.get((roles or {}).get(rid, "other"), []) else "unknown"
+
+
 class Factory:
-    def __init__(self, registry, reqs: List[Dict[str, Any]], env: str):
+    def __init__(self, registry, reqs: List[Dict[str, Any]], env: str, roles: Optional[Dict[str, str]] = None):
         self.registry, self.env, self.n = registry, env, 0
         self.ver = {r["requirement_id"]: r["version"] for r in reqs}
+        self.roles = roles
 
     def make(self, art, rid: str, check_id: str, source: str, independence: str, status: str, scope: str, outcome: Dict[str, Any],
              counterexample: Optional[Dict[str, str]] = None, assumptions: Optional[List[str]] = None) -> Dict[str, Any]:
+        if rid not in self.ver:
+            raise ModelEvidenceError("requirement %r is not in the controller's requirement list (check %s)" % (rid, check_id))
+        if is_model_derived(source, independence, self.registry.checks[check_id]["trust_class"]):
+            status = cap_model_status(status, rid, check_id, self.roles)
         self.n += 1
         ev = {"evidence_id": "E%04d" % self.n, "requirement_id": rid, "requirement_version": self.ver[rid], "check_id": check_id,
               "check_version": self.registry.checks[check_id]["version"], "candidate_id": art.artifact_id, "artifact_hash": art.artifact_id,

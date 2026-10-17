@@ -12,6 +12,8 @@ import urllib.error
 import urllib.request
 from typing import Any, Callable, Dict, Mapping, Optional, Tuple
 
+from evidence_ladder.models._util import describe_error, redact_message
+
 ENDPOINT = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 
@@ -63,16 +65,21 @@ def make_transport(keys: Mapping[str, str], *, endpoint: str = ENDPOINT, opener:
     def transport(packet: Dict[str, Any], key_label: str) -> Tuple[Optional[int], Any]:
         req = urllib.request.Request(endpoint, data=json.dumps(packet["payload"]).encode("utf-8"), method="POST",
                                      headers={"Authorization": "Bearer " + keys[key_label], "Content-Type": "application/json", "Accept": "text/event-stream"})
+        phase, secrets = "connect", list(keys.values())
         try:
             with opener(req, timeout=read_timeout_s) as r:
                 status = r.status
+                phase = "stream"
                 body, complete = read_stream(r, clock=clock, total_timeout_s=total_timeout_s)
         except urllib.error.HTTPError as e:
             try:
-                text = e.read().decode("utf-8", "replace")[:2000]
+                text = redact_message(e.read().decode("utf-8", "replace"), secrets, 2000)
             except Exception:
                 text = ""
             return e.code, {"error": text, "headers": {k: v for k, v in (e.headers.items() if e.headers else []) if k.lower() == "retry-after"}}
+        except Exception as e:      # [EL-ARCH-1 A2] still raised (PcSender files it as a retryable transport failure); the phase travels with it and PcSender records describe_error()
+            e.el_phase = phase
+            raise
         if body.get("stream_error"):
             return 502, {"error": json.dumps(body["stream_error"], default=str)[:2000]}
         if not complete:

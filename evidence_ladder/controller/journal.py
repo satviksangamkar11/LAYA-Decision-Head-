@@ -9,6 +9,7 @@ import json
 from typing import Any, Dict, List, Optional
 
 from evidence_ladder.common.contract_import import C
+from .components import MissingComponentError
 
 GENESIS = C.sha256("evidence-journal-v1")
 
@@ -19,6 +20,10 @@ def canon(o: Any, default=None) -> str:
 
 class JournalError(Exception):
     pass
+
+
+class JournalRegistryMissing(MissingComponentError, JournalError):
+    """[EL-ARCH-1 A5] a journal without a registry cannot admit evidence: a missing component, and (for old callers) still a JournalError."""
 
 
 class EvidenceJournal:
@@ -41,7 +46,7 @@ class EvidenceJournal:
         """Admit one evidence record. Every record is bound to artifact_hash, environment_revision, requirement_version, check_version and candidate_id
         (all are required by the schema). `outcome` is the trimmed, deterministic execution outcome it was derived from (kept for replay and for I4)."""
         if self._registry is None:
-            raise JournalError("journal has no registry: evidence cannot be admitted")
+            raise JournalRegistryMissing("registry", "evidence cannot be admitted")
         if ev["evidence_id"] in self._ev_ids:
             raise JournalError("duplicate evidence id " + ev["evidence_id"])
         self._registry.accept(ev)    # KeyError for unregistered checks, ValidationError for schema violations

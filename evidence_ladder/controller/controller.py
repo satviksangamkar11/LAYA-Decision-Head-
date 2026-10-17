@@ -27,6 +27,8 @@ from evidence_ladder.common.interfaces import (Artifact, BudgetExhausted, Contro
 from . import intake as intake_mod
 from . import router as router_mod
 from .decision import blocked_without_candidate, decide_stage1, with_next
+from .components import MissingComponentError, require
+from .limits import Limiter, load_limits
 from .evidence import Factory, _s, is_tool_failure, map_status, public_records, trim
 from .invariants import assert_invariants
 from .journal import EvidenceJournal, canon
@@ -77,8 +79,21 @@ class _Run:
         self.seen_sigs: set = set()
         self.pending_cluster_progress = False
         self._scorer_key = None
+        self.limiter = Limiter(ctl.limits, ctl.clock)
+        self.limit_detail = ""
 
     # ------------------------------------------------------------ plumbing
+    def limit_check(self) -> bool:
+        """[EL-ARCH-1 A3] True (and budget_hit set, details remembered) when a per-problem limit forbids more work: wall time, Qwen/GLM tokens, actions (attempts), rounds."""
+        self.limiter.start()
+        b = self.ctx.budget.record()
+        r = self.limiter.exceeded(int(b.get("qwen_gen_tokens", 0)) + int(b.get("qwen_prefill_tokens", 0)), int(b.get("glm_tokens_in", 0)) + int(b.get("glm_tokens_out", 0)),
+                                  self.attempts, self.rounds)
+        if r is not None:
+            self.budget_hit, self.limit_detail = True, r["details"]
+            self.note("limit", {"resource": r["resource"], "cap": r["cap"], **({} if r["resource"] == "max_wall_seconds" else {"used": r["used"]})})      # wall time is not journaled (reproducible hash)
+        return r is not None
+
     def note(self, kind: str, data: Any) -> None:
         self.journal.append(kind, data)
 
@@ -97,8 +112,10 @@ class _Run:
         return out
 
     def generate(self, purpose: str, prompt: str, n: int):
-        n = min(n, self.max_attempts - self.attempts)
+        n = min(n, self.max_attempts - self.attempts, self.limiter.limits.max_actions - self.attempts)
         if n <= 0:
+            return []
+        if self.limit_check():
             return []
         if self.ctx.budget.exhausted():
             self.budget_hit = True
@@ -327,8 +344,9 @@ class _Run:
 
     def apply_critic(self, resp: Dict[str, Any], live: List[_Cand], pid: str) -> None:
         exp = resp["experiment"]
-        target = resp.get("requirement_id")
-        target = target if target in {r["requirement_id"] for r in self.reqs} else self.intake.all_inputs_id
+        # [EL-ARCH-1 A4] the requirement the evidence attaches to is the CONTROLLER's choice (the "all legal inputs" row); the id the critic names is recorded, never obeyed
+        target = self.intake.all_inputs_id
+        named = resp.get("requirement_id")
         payload = exp["payload"].strip()
         groups: Dict[Any, List[_Cand]] = {}
         outs = {}
@@ -366,7 +384,9 @@ class _Run:
                         c.demoted = True
                         demoted.append(c.id)
         self.pending_cluster_progress = self.pending_cluster_progress or bool(demoted)
-        self.note("critic", {"state": "applied", "packet_id": pid, "ids": [c.id for c in live], "demoted": sorted(demoted), "outcomes": outs, "clusters_after": len(groups)})
+        self.note("critic", {"state": "applied", "packet_id": pid, "ids": [c.id for c in live], "demoted": sorted(demoted), "outcomes": outs, "clusters_after": len(groups)}
+                  if named in (None, target) else {"state": "applied", "packet_id": pid, "ids": [c.id for c in live], "demoted": sorted(demoted), "outcomes": outs, "clusters_after": len(groups),
+                                                   "critic_named_requirement": str(named)[:40], "attached_to": target})
         self.route("critic")
 
     # ------------------------------------------------------------ repair
@@ -402,7 +422,7 @@ class _Run:
         self.route("repair")
 
     def after_round(self):
-        cause = C.stop_cause(self.entries, 0, 1)
+        cause = C.stop_cause(self.entries, 0, 1)      # budget_used=0 / cap=1 on purpose: only the NON-budget causes are wanted here; every budget cap is enforced in loop() and limit_check()
         if cause is None:
             return None
         if cause in KILL_CAUSES:
@@ -425,7 +445,7 @@ class _Run:
             if self.tool_failure:
                 return ("tool_failure", "sandbox")
             if self.budget_hit:
-                return ("budget", "token_cap")
+                return ("budget", self.limit_detail or "token_cap")
             if self.ladder and self.cfg.get("critic") and self.ctx.critic is not None and not self.critic_done:
                 r = self.critic_stage()
                 if r:
@@ -441,6 +461,8 @@ class _Run:
                 return ("budget", "round_cap")
             if self.attempts >= self.max_attempts:
                 return ("budget", "attempt_cap")
+            if self.limit_check():      # per-problem limits (limits.py) after the legacy cfg caps: a decided problem is never turned into a budget stop
+                return ("budget", self.limit_detail)
             target = self.repair_target()
             if target is None:
                 if not self.cands and self.rounds < self.max_rounds:     # nothing usable was ever extracted: sample again, counted as a round without progress
@@ -498,6 +520,15 @@ class _Run:
     # ------------------------------------------------------------ run
     def execute(self) -> ProblemResult:
         task, ctx = self.task, self.ctx
+        require("generation backend", ctx.generation, "every controller arm samples candidates")
+        require("execution backend / sandbox", ctx.execution, "no candidate can be checked without it")
+        require("budget", ctx.budget, "token and call accounting")
+        wanted = [(n, o, k) for n, o, k in (("critic", ctx.critic, "critic"), ("scorer", ctx.scorer, "scorer")) if self.ladder and self.cfg.get(k)]
+        need = set(self.cfg.get("require", ()))
+        for n, o, _k in wanted:      # [EL-ARCH-1 A5] an arm that asks for the critic/scorer and has none: cfg["require"] (final runs) raises BEFORE any model call; otherwise it is journaled below
+            if o is None and n in need:
+                raise MissingComponentError(n, "arm config asks for it and cfg['require'] lists it")
+        self.limiter.start()
         self.intake = intake_mod.build(task, self.cfg.get("proposed_requirements"))
         self.reqs = self.intake.reqs
         self.registry = build_registry(self.intake.example_ids)
@@ -506,11 +537,14 @@ class _Run:
         self.journal = EvidenceJournal(self.registry)
         info = ctx.execution.backend_info()
         self.env = self.cfg.get("environment_revision") or ("env-" + C.sha256(canon(info, default=str))[:12])
-        self.fac = Factory(self.registry, self.reqs, self.env)
+        self.fac = Factory(self.registry, self.reqs, self.env, self.intake.roles)
         self.note("run_start", {"task_id": task.task_id, "arm": ctx.arm, "mode": self.mode, "seeds": [int(s) for s in ctx.seeds], "environment_revision": self.env,
                                 "config_digest": C.sha256(canon(self.cfg, default=str))})
         self.note("registry", {"phase": "start", "hash": self.reg_hash0, "scorer": self.scorer_fp()})
         self.note("requirements", {"reqs": self.reqs, "request_sha": sha256_text(self.intake.request_text), "stop": self.intake.stop, "notes": self.intake.notes})
+        for n, o, _k in wanted:
+            if o is None:
+                self.note("component_missing", {"component": n, "why": "the arm config asks for it but the context has none; the run continues WITHOUT it", "arm": ctx.arm, "waived": True})
         self.route("intake")
         if self.intake.stop:
             cause, details = self.intake.stop, self.intake.stop_details
@@ -551,7 +585,7 @@ class _Run:
         result = ProblemResult(task.task_id, ctx.arm, best.id if best else None, d["answer_label"], d, cause,
                                [e["evidence_id"] for e in self.journal.evidence(best.id)] if best else [], ctx.budget.record(), self.rounds, self.journal.journal_hash(),
                                best.art if best else None, details)
-        assert_invariants(result, self.journal, ctx)
+        assert_invariants(result, self.journal, ctx, self.limiter.limits)
         self.ctl.last_journal = self.journal
         return result
 
@@ -559,7 +593,11 @@ class _Run:
 class EvidenceLadderController:
     """Implements interfaces.Controller. One instance can run many problems; last_journal / last_run describe the most recent one."""
 
-    def __init__(self):
+    def __init__(self, limits=None, clock=None):
+        """limits: evidence_ladder.controller.limits.Limits (default: profile "ladder" of configs/el_arch1_limits_v1.toml). clock: injected monotonic clock for the wall-time limit."""
+        import time as _time
+        self.limits = limits if limits is not None else load_limits("ladder")
+        self.clock = clock or _time.monotonic
         self._registry = None
         self.last_journal: Optional[EvidenceJournal] = None
         self.last_run: Optional[_Run] = None

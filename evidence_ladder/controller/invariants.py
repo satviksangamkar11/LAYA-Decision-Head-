@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from evidence_ladder.common.contract_import import C
+from .components import MissingComponentError
 from .decision import decide_stage1
 from .evidence import NOT_PASS, map_status
 
@@ -59,8 +60,16 @@ def check_i1(result, journal) -> str:
             if C.can_gate(r) and r["priority"] in ("hard", "functional"):
                 if not any(e["requirement_id"] == r["requirement_id"] and e["status"] == "pass" and C.authoritative(e, reg) for e in journal.evidence(result.final_artifact_id)):
                     return "VERIFIED but %s has no trusted pass" % r["requirement_id"]
-    if result.decision.get("derived_by") != "controller":
-        return "decision not derived by the controller"
+    # [EL-ARCH-1 A5] `derived_by` is a literal written by C.decide, so it proves nothing. What is checked instead: the decision handed back IS the decision the controller journaled, and
+    # its rows, candidate and authorization equal a fresh recomputation from the journal evidence (the label alone is not enough).
+    dec = [e["data"] for e in journal.entries("decision")]
+    if not dec or dec[-1] != result.decision:
+        return "result.decision is not the decision the controller journaled"
+    for k in ("candidate_id", "requirement_rows"):
+        if result.decision.get(k) != d.get(k):
+            return "decision %s differs from the evidence-derived decision" % k
+    if result.decision.get("authorized_to_execute") and not d.get("authorized_to_execute") and d.get("decision_type") == result.decision.get("decision_type"):
+        return "decision authorizes execution that the evidence does not"
     return ""
 
 
@@ -86,9 +95,24 @@ def check_i3(journal) -> str:
             return "model-derived record %s counts as authority" % ev["evidence_id"]
         if ev["independence"] == "model_derived" and C.authoritative(ev, reg):
             return "model_derived record %s is authoritative" % ev["evidence_id"]
-    for r in (_first(journal, "requirements") or {}).get("reqs", []):
+    reqs = (_first(journal, "requirements") or {}).get("reqs", [])
+    for r in reqs:
         if r["kind"] == "derived_hypothesis" and C.can_gate(r) and r["status"] != "validated":
             return "unvalidated derived hypothesis %s can gate" % r["requirement_id"]
+    # [EL-ARCH-1 A4] every record names a requirement of the controller's own list, and a model-derived PASS exists only where the routing table (fixed, journaled) lists that check as soft
+    # support for that requirement: a critic/model-test pass can never sit on a contract/example/hidden row, so it cannot lift a row above UNVERIFIED.
+    ids = {r["requirement_id"] for r in reqs}
+    soft: Dict[str, set] = {}
+    routed = journal.entries("routing")      # a run-level journal always has them (assert_invariants refuses one without); a bare unit-test journal is judged on the first two rules only
+    for rt in routed:
+        for row in rt["data"]["table"]:
+            soft.setdefault(row["requirement_id"], set()).update(row["soft_checks"])
+    for ev in journal.evidence():
+        if ids and ev["requirement_id"] not in ids:
+            return "evidence %s names a requirement outside the controller's list" % ev["evidence_id"]
+        c = reg.checks[ev["check_id"]]
+        if (ev["source"] in MODEL_SOURCES or c["trust_class"] == "diagnostic" or ev["independence"] == "model_derived") and ev["status"] == "pass" and routed and ev["check_id"] not in soft.get(ev["requirement_id"], set()):
+            return "model-derived pass %s on %s is outside the soft-support route (it would lift a row)" % (ev["evidence_id"], ev["requirement_id"])
     return ""
 
 
@@ -102,7 +126,7 @@ def check_i4(journal) -> str:
     return ""
 
 
-def check_i5(result, journal) -> str:
+def check_i5(result, journal, limits=None) -> str:
     stop = (journal.entries("stop") or [None])[-1]
     if stop is None:
         return "no stop record"
@@ -111,6 +135,16 @@ def check_i5(result, journal) -> str:
         return "rounds/attempts above the caps"
     if result.stop_cause == "decided" and d["budget_hit"]:
         return "decided after budget exhaustion"
+    if limits is not None:      # [EL-ARCH-1 A3] the per-problem limits are real: counters never above the cap; wall/tokens above the cap only when the problem stopped as budget
+        b = result.budget_record
+        over = [(n, u, c) for n, u, c in (("max_actions", d["attempts"], limits.max_actions), ("max_rounds", d["rounds"], limits.max_rounds)) if u > c]
+        if result.stop_cause != "budget":
+            over += [(n, u, c) for n, u, c in (("max_qwen_tokens", b["qwen_gen_tokens"] + b["qwen_prefill_tokens"], limits.max_qwen_tokens),
+                                               ("max_glm_tokens", b["glm_tokens_in"] + b["glm_tokens_out"], limits.max_glm_tokens), ("max_wall_seconds", b["wall_seconds"], limits.max_wall_seconds)) if u > c and result.stop_cause != "decided"]
+        if over:
+            return "limit exceeded without a budget stop: %s" % over
+        if result.stop_cause == "budget" and result.stop_details.startswith("limit:") and not result.stop_details.split()[0].split(":")[1] in limits.as_dict():
+            return "stop_details names an unknown limit"
     try:
         C.validate("budget_record", result.budget_record)
     except Exception as ex:      # noqa: BLE001
@@ -153,10 +187,12 @@ def check_i8(journal, ctx) -> str:
     return ""
 
 
-def assert_invariants(result, journal, ctx) -> List[str]:
+def assert_invariants(result, journal, ctx, limits=None) -> List[str]:
     checks = {"I1": lambda: check_i1(result, journal), "I2": lambda: check_i2(journal), "I3": lambda: check_i3(journal), "I4": lambda: check_i4(journal),
-              "I5": lambda: check_i5(result, journal), "I6": lambda: check_i6(journal), "I7": lambda: check_i7(journal), "I8": lambda: check_i8(journal, ctx)}
+              "I5": lambda: check_i5(result, journal, limits), "I6": lambda: check_i6(journal), "I7": lambda: check_i7(journal), "I8": lambda: check_i8(journal, ctx)}
     failures = {}
+    if not journal.entries("routing"):      # [EL-ARCH-1 A5] the router is a required component: a run that never journaled a routing table did not use it
+        raise MissingComponentError("router", "the journal holds no routing table")
     for name, fn in checks.items():
         msg = fn()
         if msg:

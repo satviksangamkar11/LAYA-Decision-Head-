@@ -22,18 +22,22 @@ import os
 import re
 import shutil
 import tempfile
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Sequence
 
 from evidence_ladder.common.contract_import import C
 from evidence_ladder.common.interfaces import ProblemResult
+from evidence_ladder.critic_batch import accounting as ACC
 from evidence_ladder.models import experiments as EXP
 from . import router as router_mod
+from .components import MissingComponentError, require
 from .decision import authorize, decide_stage1
 from .evidence import Factory, trim
 from .invariants import assert_invariants, check_i2
 from .journal import EvidenceJournal, canon
+from .limits import Limiter, load_limits
 from .next_action import decide_next_action
 
 TOOLS = {"Read": ("read_only", {"file_path"}), "Edit": ("reversible_write", {"file_path", "old_string", "new_string"}), "Bash": ("sandboxed_exec", {"command"})}
@@ -71,6 +75,13 @@ class AgenticContext:          # no field name may contain 'grader' or 'protecte
     arm: str = "E"
     seeds: Sequence[int] = ()
     config: Dict[str, Any] = field(default_factory=dict)
+    limits: Any = None             # [EL-ARCH-1 A3] controller.limits.Limits; default = profile "agentic" of configs/el_arch1_limits_v1.toml
+    clock: Any = None              # injected monotonic clock for the wall-time limit (default time.monotonic)
+    # config["require"] = ["scorer", "critic"]: components this run needs; a missing one writes a journal entry and raises MissingComponentError (A5). Final acceptance runs set it.
+
+
+class LimitReached(Exception):
+    """A per-problem limit forbids another step. finish() still works and reports stop_cause "budget" with the exhausted resource in stop_details."""
 
 
 class AgenticBudget:
@@ -81,6 +92,10 @@ class AgenticBudget:
     def add(self, **kw):
         for k, v in kw.items():
             self.r[k] += v
+
+    def set(self, **kw):
+        for k, v in kw.items():
+            self.r[k] = v
 
     def record(self):
         return dict(self.r)
@@ -104,6 +119,14 @@ def check_defs() -> List[dict]:
 class AgenticRun:
     def __init__(self, task: AgenticTask, ctx: AgenticContext, render_context: Callable[[List[Dict[str, Any]]], str]):
         self.task, self.ctx, self.render = task, ctx, render_context
+        require("sandbox backend", getattr(ctx, "sandbox", None), "every action is dry-run and every end state is checked in it")
+        if not (task.protected and task.test_cmd):
+            raise MissingComponentError("protected test", "the task names no protected test files / test command: nothing could ever verify the end state")
+        self.limiter = Limiter(ctx.limits or load_limits("agentic"), ctx.clock or time.monotonic)
+        self.limiter.start()
+        self.actions = 0
+        self.critic_pids: List[str] = []
+        self.glm_accounting: Optional[Dict[str, Any]] = None
         self.registry = C.Registry(check_defs())
         self.reg_hash0 = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.journal = EvidenceJournal(self.registry)
@@ -125,18 +148,50 @@ class AgenticRun:
                 "source": {"type": "task_metadata", "artifact_ref": ",".join(task.protected)}}
         self.reqs = [C.check_requirement(req1, task.user_text), C.check_requirement(req2, task.user_text)]
         self.roles = {"R1": "example", "R2": "contract"}
-        self.fac = Factory(self.registry, self.reqs, self.env)
+        self.fac = Factory(self.registry, self.reqs, self.env, self.roles)
 
     # ------------------------------------------------------------------ journal helpers
     def note(self, kind: str, data: Any) -> None:
         self.journal.append(kind, data)
 
+    def _missing(self, component: str, why: str) -> None:
+        self.note("component_missing", {"component": component, "why": why, "arm": self.ctx.arm})
+        raise MissingComponentError(component, why)
+
     def begin(self) -> None:
+        need = set(self.ctx.config.get("require", ()))
+        for comp, obj in (("scorer", self.ctx.scorer), ("critic", self.ctx.critic)):
+            if obj is None and comp in need:
+                self.note("run_start", {"task_id": self.task.task_id, "arm": self.ctx.arm, "mode": "agentic_per_action"})
+                self._missing(comp, "config['require'] lists it")
         self.note("run_start", {"task_id": self.task.task_id, "arm": self.ctx.arm, "mode": "agentic_per_action", "seeds": [int(s) for s in self.ctx.seeds], "environment_revision": self.env,
                                 "config_digest": C.sha256(canon(self.ctx.config, default=str))})
         self.note("registry", {"phase": "start", "hash": self.reg_hash0, "scorer": self._scorer_fp()})
         self.note("requirements", {"reqs": self.reqs, "request_sha": sha(self.task.user_text), "stop": None, "notes": []})
+        if self.ctx.scorer is None and self.ctx.arm == "E":      # not required by this run: stated, not silent (each step also journals scorer_unavailable)
+            self.note("component_missing", {"component": "scorer", "why": "arm E has no scorer in the context; steps fall back to the id order", "arm": self.ctx.arm, "waived": True})
         self.route("intake", None)
+
+    def limit_check(self) -> Optional[Dict[str, Any]]:
+        """[EL-ARCH-1 A3] None, or the exhausted resource {"resource","used","cap","details"}: wall time, Qwen tokens, GLM tokens (ledger-accounted), committed actions, rounds (steps)."""
+        b = self.budget.record()
+        return self.limiter.exceeded(b["qwen_gen_tokens"] + b["qwen_prefill_tokens"], b["glm_tokens_in"] + b["glm_tokens_out"], self.actions, self.step_no)
+
+    def sync_glm_budget(self) -> Optional[Dict[str, Any]]:
+        """[EL-ARCH-1 A1] glm_calls / glm_tokens_* / api_errors of the budget record are SET from the real broker + progress ledgers (never a default 0): calls = sends, tokens = provider usage or
+        a flagged estimate. The per-packet detail (calls, retries, failed attempts, tokens, estimated) is journaled once as glm_accounting."""
+        c = self.ctx.critic
+        if c is None or not self.critic_pids:
+            return None
+        acc = ACC.from_broker(c, self.critic_pids)
+        if acc is None:
+            return None
+        t = acc["totals"]
+        self.budget.set(glm_calls=t["calls"], glm_tokens_in=t["tokens_in"], glm_tokens_out=t["tokens_out"], api_errors=t["failed_attempts"])
+        if acc != self.glm_accounting:
+            self.glm_accounting = acc
+            self.note("glm_accounting", acc)
+        return acc
 
     def _scorer_fp(self) -> Optional[str]:
         s = self.ctx.scorer
@@ -200,6 +255,9 @@ class AgenticRun:
 
     # ------------------------------------------------------------------ one step
     def step(self, options: Sequence[str], qwen_meta: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        lim = self.limit_check()
+        if lim is not None:
+            raise LimitReached(lim["details"])
         self.step_no += 1
         k = self.step_no
         did = "%s:step%d" % (self.task.task_id, k)
@@ -280,6 +338,7 @@ class AgenticRun:
             self.messages += [{"role": "assistant", "content": "", "tool_calls": [{"id": cid_msg, "function": {"name": act["name"], "arguments": json.dumps(act["arguments"])}}]},
                               {"role": "tool", "tool_call_id": cid_msg, "content": result_text}]
             rec["executed_action"] = act
+            self.actions += 1
         rec["execution_result"], rec["execution_result_sha256"] = result_text, sha(result_text)
         # --- OBSERVE on the real end state
         state = self._observe("step%d" % k)
@@ -329,13 +388,22 @@ class AgenticRun:
         """-> 'applied' | 'pending' | 'unavailable'. Needs ctx.critic (a CriticBroker). The response is an EXPERIMENT; the controller runs it in the sandbox on a scratch copy of the end state
         and records the outcome as diagnostic evidence (critic_experiment_v1, model_derived): it can never raise a label."""
         if self.ctx.critic is None:
-            self.note("critic", {"state": "unavailable", "reason": "no critic broker in the context"}); return "unavailable"
+            self.note("critic", {"state": "unavailable", "reason": "no critic broker in the context"})
+            if "critic" in set(self.ctx.config.get("require", ())):
+                raise MissingComponentError("critic", "config['require'] lists it")
+            return "unavailable"
+        bb = self.budget.record()
+        lim = self.limiter.exceeded(0, bb["glm_tokens_in"] + bb["glm_tokens_out"], 0, 0)      # the critic is neither an action nor a round: only wall time and GLM tokens can stop it
+        if lim is not None:        # no new critic work once wall time / GLM tokens are exhausted (the exhausted resource is reported by finish())
+            self.note("critic", {"state": "unavailable", "packet_id": None, "reason": "limit:" + lim["resource"]}); return "unavailable"
         req = self.critic_request()
         try:
             packet = self.ctx.critic.build_packet(req)
         except Exception as ex:      # noqa: BLE001  e.g. CriticStopped after a payment/quota error
             self.note("critic", {"state": "unavailable", "packet_id": None, "reason": "%s: %s" % (type(ex).__name__, str(ex)[:200])}); return "unavailable"
         pid = packet["packet_id"]
+        if pid not in self.critic_pids:
+            self.critic_pids.append(pid)
         raw = self.ctx.critic.completed(pid)
         if raw is None:
             term = getattr(self.ctx.critic, "terminal_state", lambda _p: None)(pid)
@@ -360,10 +428,10 @@ class AgenticRun:
         finally:
             shutil.rmtree(scratch.parent, ignore_errors=True)
         st, observed = EXP.judge((exp.get("expected_by_candidate") or {}).get(self.last_state), r)
-        self._evidence(self.last_state, "R1", "critic_experiment_v1", "critic_experiment", "model_derived", st, "critic experiment on a scratch copy of the end state (diagnostic)",
+        ev = self._evidence(self.last_state, "R1", "critic_experiment_v1", "critic_experiment", "model_derived", st, "critic experiment on a scratch copy of the end state (diagnostic)",
                        {"check_id": "critic_experiment_v1", "status": st, "observed": observed, "detail": str((resp or {}).get("implications", ""))[:300]})
         self.critic_result = {"state": "applied", "candidate_id": self.last_state, "packet_id": pid, "executed": True, "kind": plan["kind"], "experiment": plan["display"], "command": plan["cmd"],
-                              "experiment_status": st, "observed": observed, "observed_sha256": sha(observed), "protected_unchanged": r["protected_unchanged"], "label_unchanged_by_critic": True}
+                              "experiment_status": st, "evidence_status": ev["status"], "observed": observed, "observed_sha256": sha(observed), "protected_unchanged": r["protected_unchanged"], "label_unchanged_by_critic": True}
         self.note("critic", {k: v for k, v in self.critic_result.items() if k not in ("observed", "command")})
         return "applied"
 
@@ -377,18 +445,29 @@ class AgenticRun:
         sid = fin["state_id"]
         d = decide_stage1(self.reqs, self.journal.evidence(sid), sid, sid, self.env, self.registry, "sandboxed", False, "complete_program")
         cause = C.stop_cause(self.entries, len(self.steps), self.task.max_steps, decided=bool(fin["authorized"]))
+        details = ""
         if cause is None:
             cause = "budget" if len(self.steps) >= self.task.max_steps else "no_progress_2"
+        if cause == "budget" and len(self.steps) >= self.task.max_steps:
+            details = "task.max_steps used=%d cap=%d" % (len(self.steps), self.task.max_steps)
+        self.sync_glm_budget()
+        self.budget.set(wall_seconds=round(self.limiter.elapsed(), 3))
+        bb = self.budget.record()      # exhausted resources: a refused step/critic (limiter.hit) or wall time / tokens strictly above the cap (counters are only "exhausted" at the cap, not exceeded)
+        lim = None if cause == "decided" else (self.limiter.hit or self.limiter.exceeded(bb["qwen_gen_tokens"] + bb["qwen_prefill_tokens"], bb["glm_tokens_in"] + bb["glm_tokens_out"], self.actions, self.step_no, at_cap_counts=True))
+        if lim is not None and (cause == "no_progress_2" or details == ""):      # a per-problem limit is the more precise reason
+            cause, details = "budget", lim["details"]
         if d["answer_label"] != "BLOCKED" and not d["authorized_to_execute"]:
             d = dict(d, next_step="report"); C.validate("decision_record", d)
         self.note("decision", d)
         stop = {"problem_id": self.task.task_id, "arm": self.ctx.arm, "cause": cause}
+        if details.startswith("limit:"):
+            stop["details"] = details.split(" used=")[0] if details.startswith("limit:max_wall") else details      # wall seconds are not journaled (reproducible hash)
         C.validate("stop_record", stop)
         self.note("stop", dict(stop, rounds=len(self.steps), max_rounds=self.task.max_steps, attempts=len(self.steps), max_attempts=self.task.max_steps, budget_hit=cause == "budget", wasted_critic=0, mode="agentic"))
         end = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.note("registry", {"phase": "end", "hash": end, "scorer": self._scorer_fp()})
         C.assert_frozen(self.reg_hash0, end)
         result = ProblemResult(self.task.task_id, self.ctx.arm, sid, d["answer_label"], d, cause, [e["evidence_id"] for e in self.journal.evidence(sid)], self.budget.record(), len(self.steps),
-                               self.journal.journal_hash(), None, "")
-        self.invariants_checked = assert_invariants(result, self.journal, self.ctx)
+                               self.journal.journal_hash(), None, details)
+        self.invariants_checked = assert_invariants(result, self.journal, self.ctx, self.limiter.limits)
         return result

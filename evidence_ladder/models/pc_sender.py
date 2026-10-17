@@ -8,6 +8,7 @@ from collections import Counter, deque
 from concurrent.futures import FIRST_COMPLETED, wait
 from typing import Any, Callable, Deque, Dict, List, Optional, Sequence, Tuple
 
+from evidence_ladder.models._util import describe_error
 from evidence_ladder.models.broker import LIMITS, StagedCriticBroker
 
 
@@ -113,10 +114,10 @@ class PcSender:
                 p, k = item
                 try:
                     return transport(p, k)
-                except TimeoutError:
-                    return None, {"error": "timeout"}
+                except TimeoutError as e:
+                    return None, {"error": "timeout", "error_class": describe_error(e)}
                 except Exception as e:   # transport failure is evidence of nothing; the broker retries it with backoff
-                    return None, {"error": "transport_exception", "type": type(e).__name__}
+                    return None, {"error": "transport_exception", "type": type(e).__name__, "error_class": describe_error(e)}
 
             results = list(self.executor.map(call, wave)) if self.executor else [call(w) for w in wave]
             for (p, k), (status, raw) in zip(wave, results):
@@ -140,10 +141,10 @@ class PcSender:
             t0 = self.clock()
             try:
                 st, raw = transport(p, k)
-            except TimeoutError:
-                st, raw = None, {"error": "timeout"}
+            except TimeoutError as e:
+                st, raw = None, {"error": "timeout", "error_class": describe_error(e)}
             except Exception as e:
-                st, raw = None, {"error": "transport_exception", "type": type(e).__name__}
+                st, raw = None, {"error": "transport_exception", "type": type(e).__name__, "error_class": describe_error(e)}
             t1 = self.clock()
             return st, raw, {"start": t0, "end": t1, "seconds": round(t1 - t0, 3)}
 

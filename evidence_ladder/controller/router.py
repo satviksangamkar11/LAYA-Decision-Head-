@@ -19,6 +19,9 @@ SOFT_BY_ROLE = {
 
 
 def route(reqs: List[Dict[str, Any]], roles: Dict[str, str], registry, evidence: List[Dict[str, Any]], candidate_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    if registry is None:
+        from .components import MissingComponentError
+        raise MissingComponentError("check registry", "the router derives every ceiling from it")
     table = []
     for r in reqs:
         rid = r["requirement_id"]

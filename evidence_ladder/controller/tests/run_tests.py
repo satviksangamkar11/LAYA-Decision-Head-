@@ -247,7 +247,7 @@ def model_tests_never_verify():
     run_ = ctl.last_run
     art = Artifact.make("T1", "python", "OK:zzz")
     j = EvidenceJournal(run_.registry)
-    fac = Factory(run_.registry, run_.reqs, run_.env)
+    fac = Factory(run_.registry, run_.reqs, run_.env, run_.intake.roles)      # EL-ARCH-1 A4: roles are required for model-derived evidence to count as soft support at all
     evs = []
     for rid in ("R3", "R4", "R2", "R1"):
         evs.append(fac.make(art, rid, "qwen_tests_v1", "model_test", "model_derived", "pass", "model-written test", {"status": "pass"}))
@@ -256,7 +256,8 @@ def model_tests_never_verify():
     for e in evs:
         j.add_evidence(e, {"status": "pass"})
     d = decide_stage1(run_.reqs, evs, art.artifact_id, art.artifact_id, run_.env, run_.registry)
-    assert d["answer_label"] == "SUPPORTED" and "VERIFIED" not in labels_of(d).values()
+    # A4: model passes count as soft support only on the "all legal inputs" row (R2); on the contract row (R1) and the example rows they are capped to `unknown`, so the answer stays UNVERIFIED
+    assert d["answer_label"] == "UNVERIFIED" and "VERIFIED" not in labels_of(d).values() and labels_of(d)["R2"] == "SUPPORTED" and labels_of(d)["R1"] == "UNVERIFIED"
     assert inv.check_i3(j) == ""
     # S3-T1 / S3-T4
     bad = dict(evs[0], check_id="not_registered", evidence_id="E9999")

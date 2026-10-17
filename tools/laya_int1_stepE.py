@@ -174,6 +174,7 @@ def main():
                                 "invariants_checked": v["invariants_checked"], "broker": v["broker"], "experiment": (v["experiment_decision"] or {}).get("state"),
                                 "reason": (v["experiment_decision"] or {}).get("reason")} for n, v in results.items()},
                "invariants_I1_I8_all_pass": all(len(v["invariants_checked"]) == 8 for v in results.values()), "critic_changed_any_label": any(v["critic_changed_label"] for v in results.values()),
+               "glm_accounting": __import__("evidence_ladder.critic_batch.accounting", fromlist=["x"]).from_broker(broker),      # [EL-ARCH-1 A1/A2] calls, retries, failed attempts, tokens (estimated flag), error classes per attempt
                "originals_unchanged": original_hashes() == before, "originals_sha256": before, "stop_all_critic_calls": broker.stop_all_critic_calls}
     write_new(out / "STEPE_SUMMARY.json", jdump(summary))
     shutil.rmtree(out / "replay" / "_sandbox", ignore_errors=True)

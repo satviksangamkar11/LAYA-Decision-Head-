@@ -147,7 +147,7 @@ class BatchRunner:
         self.ledger.append({"event": "result", "packet_id": p["packet_id"], "key_label": k, "attempt": p["attempt"], "http_status": status, "raw": raw, "timing": timing})
 
     def _on_ingested(self, p, k, res):
-        self.ledger.append({"event": "ingested", "packet_id": p["packet_id"], "state": res["state"], "key_label": k, "level": self.sched.level[k]})
+        self.ledger.append({"event": "ingested", "packet_id": p["packet_id"], "state": res["state"], "key_label": k, "level": self.sched.level[k], "error": res.get("error")})
 
     # ------------------------------------------------------------ bundle
     def write_bundle(self) -> Dict[str, Any]:
