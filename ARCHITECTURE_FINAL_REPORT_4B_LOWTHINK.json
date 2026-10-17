@@ -1,0 +1,2632 @@
+{
+ "rows": [
+  {
+   "tid": "T01",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseA_tests.py::test_a5_i1_checks_the_journaled_decision_not_a_literal",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_I1_rejects_a_label_above_the_tier_ceiling",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "ACCEPTANCE_SUMMARY.json: VERIFIED in ex1_slug,ex2_clamp,ex3_wordcount",
+      "A: receipts/<ex>/journal.json: decision (last) answer_label BLOCKED while final_report.outcome.tests_pa"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl",
+    "t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+   ],
+   "neg_declared": [
+    "test_a5_i1_checks_the_journaled_decision_not_a_literal",
+    "t_b1_I1_rejects_a_label_above_the_tier_ceiling",
+    "t01_authority_model_text_cannot_make_failing_tests_verified_wsl",
+    "a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Final PATH A receipts (el-arch1-final-local-20261017T191233Z): no example reached VERIFIED (all three stop budget/step_cap, decision BLOCKED, tests_pass false), so there is NO positive receipt for approval paths; the positive proof is the cited test only. The WSL test holds both halves (failing tests + model claim -> not VERIFIED; real fix -> VERIFIED)."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:54",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T02",
+   "owner": "A2",
+   "paths": {
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_agentic_real_executed_evidence_outranks_the_laya_top_choice",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_top_laya_failing_trusted_evidence_is_never_selected",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_invariant_negative_control_detects_a_reordering_across_evidence",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7",
+      "A: receipts/<ex>/journal.json: ranking + action_decision entries (level L0_ordering_only, approved fals"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_agentic_real_executed_evidence_outranks_the_laya_top_choice",
+    "a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+   ],
+   "neg_declared": [
+    "test_top_laya_failing_trusted_evidence_is_never_selected",
+    "test_invariant_negative_control_detects_a_reordering_across_evidence",
+    "a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+    "a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The conflict is exercised on PATH B only (stored 4B scores, exact context); PATH A receipts have no LAYA scores. No receipt reference for the conflict itself."
+   ],
+   "src": [],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T03",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseA_tests.py::test_a4_critic_named_requirement_is_ignored_and_example_row_pass_is_capped",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseA_tests.py::test_a4_critic_pass_cannot_lift_unverified_or_blocked_and_forged_records_fail_i3",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl",
+      "variant:invalid_model_evidence"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json: critic entry (state applied) in all three; the label stays BLOCKED (deci"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_a4_critic_named_requirement_is_ignored_and_example_row_pass_is_capped",
+    "a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+   ],
+   "neg_declared": [
+    "test_a4_critic_pass_cannot_lift_unverified_or_blocked_and_forged_records_fail_i3",
+    "a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Injection is covered through the critic/GLM reply path (a stub reply saying approve / VERIFIED); there is no separate file-content or test-output injection test."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:101",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T04",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_judge_statuses",
+      "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T04_broken_test_tool_is_error_never_pass",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic",
+      "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl",
+      "variant:broken_test_command",
+      "variant:broken_sandbox"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json: evidence entries with status fail (never pass) for protected_tests_v1 in"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_judge_statuses",
+    "d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl"
+   ],
+   "neg_declared": [
+    "t_T04_broken_test_tool_is_error_never_pass",
+    "a2_7_every_invariant_has_a_positive_and_a_negative_test_logic",
+    "d1_s2_broken_test_tool_is_error_never_pass_and_unquoted_command_still_blocks_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The status-mapper exhaustive check is check_i4 inside the I1-I8 test; no ERROR/TIMEOUT status occurs in the final receipts."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:131",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T05",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseA_tests.py::test_a3_agentic_wall_time_actions_rounds_tokens_stop_as_budget_with_the_resource_named",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T05_budget_variants_name_the_exhausted_limit",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_is_enforced_second_step_is_refused_and_i5_holds_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_from_task_max_steps_is_named_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_step_cap_from_max_actions_is_named_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_round_cap_is_named_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_token_cap_is_named_and_enforced_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_wall_time_is_named_and_enforced_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_model_call_cap_is_named_and_enforced_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_5_no_label_when_no_limit_was_hit_and_v1_profile_loads_logic",
+      "variant:budget_rounds",
+      "variant:budget_tokens",
+      "variant:budget_wall",
+      "variant:budget_actions",
+      "variant:budget_steps"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "variants/budget_tokens/ex1_slug/outcome.json 097de7e1a97e",
+      "variants/budget_tokens/ex2_clamp/outcome.json 52471d93d770",
+      "variants/budget_tokens/ex3_wordcount/outcome.json 44d228cc1af6",
+      "variants/budget_wall/ex1_slug/outcome.json 2f3939d66d5a",
+      "variants/budget_wall/ex2_clamp/outcome.json 11944e14b4db",
+      "variants/budget_wall/ex3_wordcount/outcome.json 811fb2095bc3",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json: stop entry with cause budget and stop_label step_cap (all three examples"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_a3_agentic_wall_time_actions_rounds_tokens_stop_as_budget_with_the_resource_named",
+    "t_T05_budget_variants_name_the_exhausted_limit",
+    "a2_5_step_cap_is_enforced_second_step_is_refused_and_i5_holds_logic",
+    "a2_5_step_cap_from_task_max_steps_is_named_logic",
+    "a2_5_step_cap_from_max_actions_is_named_logic",
+    "a2_5_round_cap_is_named_logic",
+    "a2_5_token_cap_is_named_and_enforced_logic",
+    "a2_5_wall_time_is_named_and_enforced_logic",
+    "a2_5_model_call_cap_is_named_and_enforced_logic"
+   ],
+   "neg_declared": [
+    "a2_5_no_label_when_no_limit_was_hit_and_v1_profile_loads_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The cap tests run the real controller with the in-process ToySandbox (logic-only sandbox); only step_cap appears in the final receipts, the other four labels have test evidence only."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:141",
+    "evidence_ladder/controller/invariants.py:207",
+    "evidence_ladder/controller/limits.py:59",
+    "evidence_ladder/critic_batch/accounting.py:94"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T06",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_authorization_per_class",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_confirmed_irreversible_is_still_blocked_at_the_commit_gate_without_a_precheck",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic",
+      "variant:blocked_action",
+      "variant:blocked_confirmed_without_precheck",
+      "variant:unsafe_action_filtered"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "variants/abstain_all_rejected/ex1_slug/outcome.json 2c068b9cbee8",
+      "variants/abstain_all_rejected/ex2_clamp/outcome.json f916fec2595c",
+      "variants/abstain_all_rejected/ex3_wordcount/outcome.json 5652f7021573",
+      "variants/blocked_confirmed_without_precheck/ex1_slug/outcome.json e81759ce87e6",
+      "variants/blocked_confirmed_without_precheck/ex2_clamp/outcome.json b16e151a3373",
+      "variants/blocked_confirmed_without_precheck/ex3_wordcount/outcome.json c393e3f762da",
+      "variants/scope_conflict/ex1_slug/outcome.json 1ffa6bdfb9b5",
+      "variants/scope_conflict/ex2_clamp/outcome.json 4622a9412e67",
+      "variants/scope_conflict/ex3_wordcount/outcome.json 85809bc77dbd",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json (ex3): action_auth entries class read_only / reversible_workspace_edit al"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b5_authorization_per_class",
+    "a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+   ],
+   "neg_declared": [
+    "t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied",
+    "t_b5_confirmed_irreversible_is_still_blocked_at_the_commit_gate_without_a_precheck",
+    "a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "No denied or irreversible action occurs in the final receipts; the refusal is shown by tests only."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:167",
+    "evidence_ladder/controller/invariants.py:207",
+    "evidence_ladder/controller/risk.py:52"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T07",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_journal_is_reproducible",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "A: receipts/<ex>/journal.json: registry entries phase start and phase end with equal hash and scorer (2"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_journal_is_reproducible",
+    "a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl"
+   ],
+   "neg_declared": [
+    "a2_7_every_invariant_has_a_positive_and_a_negative_test_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "I7 negative = forged registry hash change in the I1-I8 test; the chain check is journal.verify_chain in the WSL test. The scorer fingerprint is part of the registry entry."
+   ],
+   "src": [
+    "tools/el_arch1_acceptance.py::config_hashes",
+    "evidence_ladder/controller/invariants.py:185",
+    "evidence_ladder/controller/invariants.py:207",
+    "evidence_ladder/controller/journal.py:29"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T08",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_static_controller_imports_stay_clean_and_modules_import_without_torch",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T08_deep_scan_passes_a_real_model_like_object_graph",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+      "evidence_ladder/controller/tests/phaseD1_tests.py::d1_s0_i8_deep_scan_is_in_check_i8_and_static_scans_are_clean"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T08_negative_deep_scan_still_flags_held_evaluation_material_in_the_same_graph",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+      "evidence_ladder/orchestrator/tests/phaseC_tests.py::c6_deep_check_finds_a_grader_hidden_inside_a_backend_that_the_name_scan_misses"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/budget_rounds/ex1_slug/outcome.json c35aa2ab4bae",
+      "variants/budget_rounds/ex2_clamp/outcome.json 10be6f36e1f8",
+      "variants/budget_rounds/ex3_wordcount/outcome.json da084a605d0e",
+      "variants/invalid_model_evidence/ex1_slug/outcome.json 9d832b629727",
+      "variants/invalid_model_evidence/ex2_clamp/outcome.json 95fd6e03016e",
+      "variants/invalid_model_evidence/ex3_wordcount/outcome.json 6699840c2db3",
+      "A: receipts/<ex>/journal.json: investigate_context.excluded_hidden (empty in the final run: no hidden f"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_static_controller_imports_stay_clean_and_modules_import_without_torch",
+    "t_T08_deep_scan_passes_a_real_model_like_object_graph",
+    "a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+    "d1_s0_i8_deep_scan_is_in_check_i8_and_static_scans_are_clean"
+   ],
+   "neg_declared": [
+    "t_T08_negative_deep_scan_still_flags_held_evaluation_material_in_the_same_graph",
+    "a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic",
+    "c6_deep_check_finds_a_grader_hidden_inside_a_backend_that_the_name_scan_misses"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The context-leak proof is the planted-marker test (logic-only sandbox, real investigate code); the receipts only show an empty exclusion list."
+   ],
+   "src": [
+    "evidence_ladder/controller/invariants.py:196",
+    "evidence_ladder/controller/invariants.py:207"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T09",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b2_investigate_three_toy_repos_wsl",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "ACCEPTANCE_SUMMARY.json: VERIFIED in ex1_slug,ex2_clamp,ex3_wordcount"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b2_investigate_three_toy_repos_wsl",
+    "t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+   ],
+   "neg_declared": [
+    "t01_authority_model_text_cannot_make_failing_tests_verified_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Final PATH A receipts (el-arch1-final-local-20261017T191233Z): no example reached VERIFIED (all three stop budget/step_cap, decision BLOCKED, tests_pass false), so there is NO positive receipt for approval paths; the positive proof is the cited test only. The positive half of the WSL test shows protected_tests_v1 approving on the real end state."
+   ],
+   "src": [
+    "evidence_ladder/controller/agentic.py:566"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T10",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_out_of_scope_edit_blocks_the_final_label_logic_only"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad"
+     ]
+    }
+   },
+   "real_declared": [
+    "t15_coverage_table_and_weakest_row_set_the_flag_logic",
+    "t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+   ],
+   "neg_declared": [
+    "t15_coverage_table_and_weakest_row_set_the_flag_logic",
+    "t_b7_out_of_scope_edit_blocks_the_final_label_logic_only"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "No scope was declared in the final run, so no R3 / diff_scope_v1 evidence exists in the receipts; test evidence only."
+   ],
+   "src": [
+    "evidence_ladder/controller/agentic.py:123"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T11",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic",
+      "variant:examples_only_o2"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "variants/examples_only_o2/ex1_slug/outcome.json 2591c181cf27",
+      "variants/examples_only_o2/ex2_clamp/outcome.json 6403c1cd8098",
+      "variants/examples_only_o2/ex3_wordcount/outcome.json a4a476e3bc08",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json: requirements entry holds only R1 (explicit, quoted span of the test comm"
+     ]
+    }
+   },
+   "real_declared": [
+    "t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+   ],
+   "neg_declared": [
+    "t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The frozen contract demotes a phantom span to a non-gating derived_hypothesis (it is not deleted)."
+   ],
+   "src": [
+    "evidence_ladder/controller/tiers.py:43"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T12",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "the run did not exercise this component (code exists, no receipt of it working)",
+     "notes": [
+      "L2 IMPLEMENTED, not exercised",
+      "receipt l2 missing or not final-path"
+     ],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b6_mutants_inputs_and_strict_check_parse"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b6_validate_checks_every_rule_has_a_reason"
+     ],
+     "receipt": [
+      "RECEIPT.json dc63f1c7079b: validated L2 checks in no example",
+      "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json: real-model run exists but exercised nothing: all 12 samples per task were 2048-token thinking loops "
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b6_mutants_inputs_and_strict_check_parse"
+   ],
+   "neg_declared": [
+    "t_b6_validate_checks_every_rule_has_a_reason"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "not exercised with the real model. Logic-only plumbing tests exist (phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered, f1b_vacuous_and_untraceable_checks_are_rejected_with_reasons) but use scripted stub text and must not be counted as real-model evidence.",
+    "NOT DONE (real-model half): phaseB t_b6_* are logic-only; no real 0.6B-written test was validated."
+   ],
+   "src": [
+    "evidence_ladder/controller/l2.py:211"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T13",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "no resolved negative-test reference",
+     "notes": [
+      "L1 IMPLEMENTED, not exercised",
+      "receipt l2 missing or not final-path",
+      "receipt l2_clusters missing or not final-path"
+     ],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b6_ladder_l2_discrimination_clustering_and_critic_trigger_logic_only"
+     ],
+     "neg": [],
+     "receipt": [
+      "RECEIPT.json dc63f1c7079b: validated L2 checks in no example",
+      "RECEIPT.json dc63f1c7079b: >=2 clusters in no example",
+      "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json: no candidates produced (all samples were thinking loops with no code), so no behaviour clustering ha"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b6_ladder_l2_discrimination_clustering_and_critic_trigger_logic_only"
+   ],
+   "neg_declared": [],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "not exercised with the real model. Logic-only: phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered (2 extended clusters), f1b_a_wrong_candidate_set_with_equal_behaviour_does_not_trigger_discrimination; the sandbox runner protocol is covered on real WSL by f1b_sandbox_runner_protocol_wsl, but that is not model evidence.",
+    "NOT DONE (real-model half): clustering is covered logic-only by phaseB t_b6_ladder_l2_discrimination_clustering_and_critic_trigger_logic_only."
+   ],
+   "src": [
+    "evidence_ladder/controller/controller.py:491",
+    "evidence_ladder/controller/controller.py:427"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T14",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_l0_orders_equal_evidence_candidates_and_never_approves",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_trusted_evidence_outranks_any_laya_score",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_real_scores_never_override_trusted_evidence",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+      "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_laya_never_overrides_trusted_evidence_in_any_gate_state"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7"
+     ]
+    },
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_l0_orders_equal_evidence_candidates_and_never_approves",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_trusted_evidence_outranks_any_laya_score",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_real_scores_never_override_trusted_evidence",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+      "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_laya_never_overrides_trusted_evidence_in_any_gate_state"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_l0_orders_equal_evidence_candidates_and_never_approves",
+    "a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+   ],
+   "neg_declared": [
+    "test_trusted_evidence_outranks_any_laya_score",
+    "test_real_scores_never_override_trusted_evidence",
+    "a2_9_conflict_is_deterministic_with_a_scored_pool_logic",
+    "c3_laya_never_overrides_trusted_evidence_in_any_gate_state"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "PATH A receipts have no L0 scores (scorer_unavailable everywhere); test evidence only."
+   ],
+   "src": [
+    "evidence_ladder/controller/next_action.py:20"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T15",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_evidence_records_carry_scope_provenance_and_level_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: final_report.coverage rows (R1, R2) with evidence scope/source/independe"
+     ]
+    }
+   },
+   "real_declared": [
+    "t15_coverage_table_and_weakest_row_set_the_flag_logic",
+    "a2_7_evidence_records_carry_scope_provenance_and_level_logic"
+   ],
+   "neg_declared": [
+    "t15_coverage_table_and_weakest_row_set_the_flag_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The receipt shows the weakest-row rule on a failing run (answer BLOCKED); the all-VERIFIED case is test-only."
+   ],
+   "src": [
+    "evidence_ladder/controller/decision.py:23"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T16",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t16_outcome_and_process_fields_are_present_and_separate_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t15_coverage_table_and_weakest_row_set_the_flag_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: final_report.outcome and final_report.process (constraints_respected tru"
+     ]
+    }
+   },
+   "real_declared": [
+    "t16_outcome_and_process_fields_are_present_and_separate_logic"
+   ],
+   "neg_declared": [
+    "t15_coverage_table_and_weakest_row_set_the_flag_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Process-violation-with-passing-outcome is a test case (t15), not in the final receipts."
+   ],
+   "src": [
+    "evidence_ladder/orchestrator/gates.py:136",
+    "evidence_ladder/orchestrator/isolation.py:29"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T17",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_three_examples_route_to_O1"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "A: receipts/<ex>/journal.json: oracle_tier tier O1 in all three"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b1_three_examples_route_to_O1"
+   ],
+   "neg_declared": [
+    "a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The route test is logic-only (no sandbox needed); negative = O2/O3 tasks take no action."
+   ],
+   "src": [
+    "evidence_ladder/controller/tiers.py:72"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T18",
+   "owner": "A3+A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_agentic_o2_without_test_oracle_points_to_the_ladder",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic",
+      "variant:examples_only_o2"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T18_O2_variant_routes_O2_and_takes_no_action",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "variants/examples_only_o2/ex1_slug/outcome.json 2591c181cf27",
+      "variants/examples_only_o2/ex2_clamp/outcome.json 6403c1cd8098",
+      "variants/examples_only_o2/ex3_wordcount/outcome.json a4a476e3bc08",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b1_agentic_o2_without_test_oracle_points_to_the_ladder",
+    "a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+   ],
+   "neg_declared": [
+    "t_T18_O2_variant_routes_O2_and_takes_no_action",
+    "a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "O2 is not exercised by the final receipts (all O1); co-owned with Agent 3 variants."
+   ],
+   "src": [
+    "evidence_ladder/controller/tiers.py:72",
+    "evidence_ladder/controller/agentic.py:662"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T19",
+   "owner": "A3+A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_agentic_o3_asks_the_user_and_takes_no_action",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T19_O3_variants_route_O3_and_ambiguity_asks_the_user",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic",
+      "variant:no_tests_o3",
+      "variant:missing_information"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "variants/missing_information/ex1_slug/outcome.json 43ddb0b9475f",
+      "variants/missing_information/ex2_clamp/outcome.json ab93147500da",
+      "variants/missing_information/ex3_wordcount/outcome.json 67e9d6c2408c",
+      "variants/no_tests_o3/ex1_slug/outcome.json 1e1e91861051",
+      "variants/no_tests_o3/ex2_clamp/outcome.json 99aa6a87e809",
+      "variants/no_tests_o3/ex3_wordcount/outcome.json db39612edabe",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b1_agentic_o3_asks_the_user_and_takes_no_action",
+    "t_T19_O3_variants_route_O3_and_ambiguity_asks_the_user",
+    "a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+   ],
+   "neg_declared": [
+    "a2_6_o2_and_o3_take_no_action_and_o3_asks_with_the_blocking_ambiguity_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "O3 / blocking ambiguity is not exercised by the final receipts; co-owned with Agent 3 variants."
+   ],
+   "src": [
+    "evidence_ladder/controller/tiers.py:123"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T20",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_model_written_tests_never_upgrade_the_tier",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b1_model_written_tests_never_upgrade_the_tier"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: routing entries for intake, investigate, step1_checked, step1_observed, "
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b1_model_written_tests_never_upgrade_the_tier",
+    "t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic"
+   ],
+   "neg_declared": [
+    "t20_router_reruns_after_each_evidence_stage_and_upgrades_only_from_trusted_sources_logic",
+    "t_b1_model_written_tests_never_upgrade_the_tier"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The receipt shows the re-runs; the trusted-upgrade versus critic-no-upgrade distinction is the test."
+   ],
+   "src": [
+    "evidence_ladder/controller/tiers.py:47",
+    "evidence_ladder/controller/agentic.py:217"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T21",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: requirements entry (R1 explicit with char_start/char_end quote, R2 contr"
+     ]
+    }
+   },
+   "real_declared": [
+    "t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+   ],
+   "neg_declared": [
+    "t21_quoted_span_filter_phantom_requirement_does_not_gate_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/agentic.py:199",
+    "evidence_ladder/controller/tiers.py:123"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T22",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b2_investigate_records_L5_observation_and_context_logic_only",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_investigate_gives_real_snippets_signatures_output_constraints_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b2_investigate_three_toy_repos_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_truncation_is_bounded_and_journalled_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: investigate_context entry (files[].path/shown/truncated, excluded_hidden"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b2_investigate_records_L5_observation_and_context_logic_only",
+    "a2_2_investigate_gives_real_snippets_signatures_output_constraints_logic",
+    "a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+    "t_b2_investigate_three_toy_repos_wsl"
+   ],
+   "neg_declared": [
+    "a2_2_truncation_is_bounded_and_journalled_logic",
+    "a2_2_hidden_and_evaluation_only_data_cannot_enter_the_context_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "In the final receipts truncated is false for every file and nothing was excluded; truncation is exercised by the test only."
+   ],
+   "src": [
+    "evidence_ladder/controller/investigate.py:262"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T23",
+   "owner": "A1+A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b3_action_proposer_feeds_the_agentic_step_logic_only",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a11_salvage_keeps_valid_siblings_and_rejects_the_broken_one",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_new_prompt_template_is_versioned_and_v1_is_frozen",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a15_proposer_v2_end_to_end",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a17_prefilter_false_hands_raw_items_through_untouched",
+      "variant:malformed_json",
+      "variant:sequential_plan"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a11_negative_strict_parser_and_prose_stay_strict",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a17_duplicate_surfaces_as_duplicate_never_as_malformed_option"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex2_clamp/journal.json: entry index 33, kind candidate_filter: rule malformed_option (a broken array item rejected alone, si"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b3_action_proposer_feeds_the_agentic_step_logic_only",
+    "a11_salvage_keeps_valid_siblings_and_rejects_the_broken_one",
+    "a12_new_prompt_template_is_versioned_and_v1_is_frozen",
+    "a15_proposer_v2_end_to_end",
+    "a17_prefilter_false_hands_raw_items_through_untouched"
+   ],
+   "neg_declared": [
+    "a11_negative_strict_parser_and_prose_stay_strict",
+    "a17_duplicate_surfaces_as_duplicate_never_as_malformed_option"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Candidate parse/template side only (unit tests are logic-only, scripted model text). The real-0.6B generation run is the coordinator's; no claim is made here about model-written candidate quality."
+   ],
+   "src": [
+    "evidence_ladder/controller/generation.py:167",
+    "evidence_ladder/models/qwen.py:210",
+    "kaggle/el_arch1_generate_v1.py:1"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T24",
+   "owner": "A1+A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a13_rejects_noop_unchanged_absent_missing_and_not_unique_edits",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_sequential_plan_keeps_first_step_only",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_rejects_bad_structure_scope_and_dedupes",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_count_cap_order_and_never_pads",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a15_abstain_codes_and_negative",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a16_result_shape_ids_and_purity",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_blocker_end_to_end_ex2_wsl",
+      "variant:malformed_json",
+      "variant:sequential_plan",
+      "variant:duplicate_options"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T24_rejections_are_journalled_by_the_controller_and_the_scored_pool_is_the_accepted_one",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a12_negative_independent_alternatives_are_not_a_plan",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a13_negative_applicable_edit_kept_and_no_files_skips_only_applicability",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_negative_risky_actions_are_accepted_for_the_authorization_gate",
+      "evidence_ladder/controller/tests/phaseF1_tests.py::a14_path_scope_prefixes_and_negative",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_all_rejected_abstains_with_the_filter_code_and_takes_no_action_logic",
+      "variant:unsafe_action_filtered",
+      "variant:empty_pool"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "journals: candidate_filter rejections {'ex1_slug': ['duplicate', 'sequential_plan'], 'ex2_clamp': ['duplicate', 'sequential_plan'], 'ex3_wordcount': ['duplicate', 'sequential_plan']}",
+      "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex3_wordcount/journal.json: entry index 17, kind candidate_filter: rules sequential_plan (x3), duplicate (x2), no_op_edit",
+      "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex3_wordcount/journal.json: entry index 35, kind candidate_filter: rules duplicate, old_string_absent, repeated_failure (repeate",
+      "results/raw/el-arch1-final-local-20261017T191233Z/receipts/ex2_clamp/journal.json: entry index 33, kind candidate_filter: rule malformed_option",
+      "A: receipts/<ex>/journal.json: candidate_filter entries: ex3 rules sequential_plan, duplicate, no_op_ed"
+     ]
+    }
+   },
+   "real_declared": [
+    "a13_rejects_noop_unchanged_absent_missing_and_not_unique_edits",
+    "a12_sequential_plan_keeps_first_step_only",
+    "a14_rejects_bad_structure_scope_and_dedupes",
+    "a14_count_cap_order_and_never_pads",
+    "a15_abstain_codes_and_negative",
+    "a16_result_shape_ids_and_purity",
+    "a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+    "a2_1_blocker_end_to_end_ex2_wsl"
+   ],
+   "neg_declared": [
+    "t_T24_rejections_are_journalled_by_the_controller_and_the_scored_pool_is_the_accepted_one",
+    "a12_negative_independent_alternatives_are_not_a_plan",
+    "a13_negative_applicable_edit_kept_and_no_files_skips_only_applicability",
+    "a14_negative_risky_actions_are_accepted_for_the_authorization_gate",
+    "a14_path_scope_prefixes_and_negative",
+    "a2_3_all_rejected_abstains_with_the_filter_code_and_takes_no_action_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "ex1_slug journal has no candidate_filter rejection. Rule codes not seen in any receipt: unknown_tool, bad_arguments, path_outside_scope, protected_path, unchanged_diff, old_string_not_unique, beyond_max_options (unit tests only).",
+    "The filter implementation is Agent 1's; this row is the controller wiring."
+   ],
+   "src": [],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T25",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "A: receipts/<ex>/journal.json (ex3): step_record action.executed Read then Bash with execution_result_s"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl",
+    "a2_6_all_eight_stages_run_through_one_controller_and_one_journal_wsl"
+   ],
+   "neg_declared": [
+    "a2_10_unsafe_action_end_to_end_on_the_real_sandbox_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Only ex3 executed actions in the final run; ex1/ex2 abstained."
+   ],
+   "src": [
+    "evidence_ladder/controller/wsl_sandbox.py:33"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T26",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "the run did not exercise this component (code exists, no receipt of it working)",
+     "notes": [
+      "receipt l2_clusters missing or not final-path"
+     ],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_controller_rejects_unsafe_experiment_explicitly_and_never_runs_it",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl",
+      "variant:unsafe_critic_experiment"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "RECEIPT.json dc63f1c7079b: >=2 clusters in no example",
+      "results/raw/el-arch1-l2-local-20261017T193459Z/RECEIPT.json: discrimination never reached: no live candidates (all samples were thinking loops with no code)",
+      "A: receipts/<ex>/journal.json: critic entry state applied (experiment on a scratch copy, label_unchange"
+     ]
+    }
+   },
+   "real_declared": [
+    "a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+   ],
+   "neg_declared": [
+    "test_controller_rejects_unsafe_experiment_explicitly_and_never_runs_it",
+    "a2_7_critic_and_model_tests_cannot_upgrade_or_authorise_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "not exercised with the real model. Logic-only: phaseF1b_tests.py::f1b_valid_l2_check_two_clusters_and_discrimination_triggered (TRIGGERED, blinded packet pending), f1b_nothing_is_approved_by_l2_clusters_or_critic.",
+    "PARTIAL: real critic experiment path only. Multi-cluster discrimination is the ladder controller, logic-only (phaseB t_b6_*)."
+   ],
+   "src": [
+    "evidence_ladder/controller/agentic.py:372",
+    "evidence_ladder/controller/agentic.py:610",
+    "evidence_ladder/critic_batch/validator.py:50"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T27",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_agentic_laya_orders_what_trusted_evidence_leaves_and_may_change_the_id_order_choice",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_trusted_evidence_outranks_any_laya_score",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7",
+      "journals: kind scorer (LAYA scored) in ex1_slug,ex2_clamp,ex3_wordcount"
+     ]
+    },
+    "B": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "the run did not exercise this component (code exists, no receipt of it working)",
+     "notes": [
+      "receipt pathb_ordering missing or not final-path"
+     ],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_agentic_laya_orders_what_trusted_evidence_leaves_and_may_change_the_id_order_choice",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_trusted_evidence_outranks_any_laya_score",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_conflict_is_deterministic_with_a_scored_pool_logic"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7",
+      "PATHB_REPLAY_RECEIPT.json pathb_ordering"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_agentic_laya_orders_what_trusted_evidence_leaves_and_may_change_the_id_order_choice",
+    "a2_9_pathB_laya_top_loses_to_an_executed_trusted_check_stored_4b_scores_wsl"
+   ],
+   "neg_declared": [
+    "test_trusted_evidence_outranks_any_laya_score",
+    "a2_9_conflict_is_deterministic_with_a_scored_pool_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "No LAYA scores on PATH A; evidence-first ordering shown by tests (PATH B + toy)."
+   ],
+   "src": [
+    "evidence_ladder/controller/next_action.py:20",
+    "evidence_ladder/controller/monotonicity.py:66"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T28",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "the run did not exercise this component (code exists, no receipt of it working)",
+     "notes": [
+      "ST7 IMPLEMENTED, not exercised",
+      "RT-REPAIR IMPLEMENTED, not exercised"
+     ],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_blocker_end_to_end_ex2_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_1_retry_after_state_change_is_allowed_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t27_t28_rank_by_evidence_first_and_same_failure_twice_stops_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: repair_report entries (classification repetition, failure kind assertion"
+     ]
+    }
+   },
+   "real_declared": [
+    "a2_4_real_failure_text_reaches_the_next_prompt_ex2_wsl",
+    "a2_1_blocker_end_to_end_ex2_wsl"
+   ],
+   "neg_declared": [
+    "a2_1_retry_after_state_change_is_allowed_logic",
+    "t27_t28_rank_by_evidence_first_and_same_failure_twice_stops_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "The repair loop never converged in the final run; the success path is test-only (a2_4 WSL ex2 reaches VERIFIED)."
+   ],
+   "src": [
+    "evidence_ladder/controller/agentic.py:372",
+    "evidence_ladder/controller/controller.py:524"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T29",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: finalize entry (ok false) and final_report.outcome (trusted_checks_rerun"
+     ]
+    }
+   },
+   "real_declared": [
+    "t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic",
+    "t_b7_b8_full_run_on_the_real_wsl_sandbox_and_replay_wsl"
+   ],
+   "neg_declared": [
+    "t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Receipts show finalize on failing end states; the ok=true case is test-only."
+   ],
+   "src": [
+    "evidence_ladder/controller/agentic.py:681",
+    "evidence_ladder/controller/final_verify.py:28"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T30",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json: per step candidate_filter -> evidence -> monotonicity_gate/scorer_unavai"
+     ]
+    }
+   },
+   "real_declared": [
+    "t29_t30_commit_verify_reobserves_the_real_end_state_and_each_action_has_intake_check_commit_logic"
+   ],
+   "neg_declared": [
+    "a2_10_unsafe_actions_never_execute_and_never_classes_stay_denied_even_when_confirmed_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/agentic.py:372"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T31",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_authorization_per_class",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t31_approval_depends_on_coverage_evidence_and_action_risk_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::t31_approval_depends_on_coverage_evidence_and_action_risk_logic",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied",
+      "variant:blocked_confirmed_without_precheck"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "variants/blocked_action/ex1_slug/outcome.json 87dba265b41c",
+      "variants/blocked_action/ex2_clamp/outcome.json 100ebedf3385",
+      "variants/blocked_action/ex3_wordcount/outcome.json a09662be4847",
+      "variants/blocked_confirmed_without_precheck/ex1_slug/outcome.json e81759ce87e6",
+      "variants/blocked_confirmed_without_precheck/ex2_clamp/outcome.json b16e151a3373",
+      "variants/blocked_confirmed_without_precheck/ex3_wordcount/outcome.json c393e3f762da",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json (ex3): action_auth read_only and reversible_workspace_edit allowed true"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_b5_authorization_per_class",
+    "t31_approval_depends_on_coverage_evidence_and_action_risk_logic"
+   ],
+   "neg_declared": [
+    "t31_approval_depends_on_coverage_evidence_and_action_risk_logic",
+    "t_b5_blocked_actions_never_reach_the_sandbox_and_unknown_is_denied"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "No irreversible action in the final run; the confirmation requirement is test-only."
+   ],
+   "src": [
+    "evidence_ladder/controller/risk.py:231"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T32",
+   "owner": "A2+A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_scorer_unavailable_is_explicit_never_silent",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_agentic_missing_scorer_is_journaled_not_silent_and_step_limit_stops",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_missing_laya_on_the_real_path_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_missing_scores_are_journalled_with_the_reason_never_silent_logic",
+      "variant:missing_scorer",
+      "variant:missing_scorer_required"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]",
+      "A: receipts/<ex>/journal.json: scorer_unavailable entries with a reason in every step of every example "
+     ]
+    }
+   },
+   "real_declared": [
+    "test_scorer_unavailable_is_explicit_never_silent",
+    "test_agentic_missing_scorer_is_journaled_not_silent_and_step_limit_stops",
+    "a2_8_missing_laya_on_the_real_path_wsl"
+   ],
+   "neg_declared": [
+    "a2_8_missing_scores_are_journalled_with_the_reason_never_silent_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/agentic.py:372"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T33",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_laya_scorer_interface_wiring",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad",
+      "A: receipts/<ex>/journal.json (ex3): scorer_unavailable ProvenanceError for a pool LAYA did not score e"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_laya_scorer_interface_wiring",
+    "a2_3_filter_runs_before_scoring_and_rejects_are_journalled_with_reasons_logic",
+    "a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+   ],
+   "neg_declared": [
+    "a2_9_pathB_agreeing_case_and_exact_pool_refusal_wsl"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "No positive PATH A receipt: LAYA never scored an exact accepted pool in the final run."
+   ],
+   "src": [
+    "evidence_ladder/models/laya.py:160"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T34",
+   "owner": "A3+A2",
+   "paths": {
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_verified_saved_scores_need_two_agreeing_runs_and_feed_the_laya_scorer"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_saved_score_backend_refuses_unproven_records"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_verified_saved_scores_need_two_agreeing_runs_and_feed_the_laya_scorer"
+   ],
+   "neg_declared": [
+    "t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths",
+    "test_saved_score_backend_refuses_unproven_records"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_acceptance.py::pool_admissible",
+    "tools/el_arch1_pathb_replay.py::run"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T35",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/backbone_tests.py::test_4b_provenance_accepted_and_legacy_record_without_profile_accepted"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/backbone_tests.py::test_head_incompatible_profile_states_are_refused_with_a_clear_message",
+      "evidence_ladder/models/tests/backbone_tests.py::test_layascorer_refuses_06b_states_with_the_reason_on_record",
+      "evidence_ladder/models/tests/backbone_tests.py::test_guard_refuses_wrong_model_revision_dtype_depths_device_recipe_hash"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_4b_provenance_accepted_and_legacy_record_without_profile_accepted"
+   ],
+   "neg_declared": [
+    "test_head_incompatible_profile_states_are_refused_with_a_clear_message",
+    "test_layascorer_refuses_06b_states_with_the_reason_on_record",
+    "test_guard_refuses_wrong_model_revision_dtype_depths_device_recipe_hash"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/models/laya.py::LayaScorer"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T36",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_genuine_batch_is_accepted_and_scored"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_fabricated_tensors_with_perfect_metadata_are_caught_by_recapture_not_metadata",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_single_fabricated_record_anywhere_is_caught_at_100_percent"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    },
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_genuine_batch_is_accepted_and_scored"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_fabricated_tensors_with_perfect_metadata_are_caught_by_recapture_not_metadata",
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_single_fabricated_record_anywhere_is_caught_at_100_percent"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_genuine_batch_is_accepted_and_scored"
+   ],
+   "neg_declared": [
+    "test_fabricated_tensors_with_perfect_metadata_are_caught_by_recapture_not_metadata",
+    "test_single_fabricated_record_anywhere_is_caught_at_100_percent"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T37",
+   "owner": "A3",
+   "paths": {
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/run_tests.py::test_probe_and_random_head_interfaces"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_saved_score_backend_refuses_unproven_records",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T37_pathB_stored_4b_replay_laya_probe_random_head_exact_pools_and_refusals"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json 449ca148cec7"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_probe_and_random_head_interfaces"
+   ],
+   "neg_declared": [
+    "test_saved_score_backend_refuses_unproven_records",
+    "t_T37_pathB_stored_4b_replay_laya_probe_random_head_exact_pools_and_refusals"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_pathb_replay.py::run"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T38",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "statistical gate with fewer than 30 examples",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic",
+      "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_three_examples_give_insufficient_data_and_ordering_stays_disabled"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "variants/budget_wall/ex1_slug/outcome.json 2f3939d66d5a",
+      "variants/budget_wall/ex2_clamp/outcome.json 11944e14b4db",
+      "variants/budget_wall/ex3_wordcount/outcome.json 811fb2095bc3",
+      "A: receipts/<ex>/journal.json: monotonicity_gate entries status INSUFFICIENT_DATA, laya_ordering_enable"
+     ]
+    },
+    "B": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "the run did not exercise this component (code exists, no receipt of it working)",
+     "notes": [
+      "receipt pathb_monotonicity missing or not final-path"
+     ],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic",
+      "evidence_ladder/orchestrator/tests/phaseC_tests.py::c3_three_examples_give_insufficient_data_and_ordering_stays_disabled"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json pathb_monotonicity",
+      "A: receipts/<ex>/journal.json: monotonicity_gate entries status INSUFFICIENT_DATA, laya_ordering_enable"
+     ]
+    }
+   },
+   "real_declared": [
+    "a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic"
+   ],
+   "neg_declared": [
+    "a2_8_laya_is_l0_only_and_the_gate_keeps_verification_effort_ordering_off_logic",
+    "c3_three_examples_give_insufficient_data_and_ordering_stays_disabled"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/monotonicity.py:66",
+    "evidence_ladder/orchestrator/gates.py:136"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T39",
+   "owner": "A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseF2_tests.py::a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    }
+   },
+   "real_declared": [
+    "a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+   ],
+   "neg_declared": [
+    "a2_8_no_unregistered_ensemble_and_no_untrained_none_probability_logic"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [
+    "Static + unit evidence (source scan; comparison scorers limited to probe/random_head with selector false); no receipt field proves an absence."
+   ],
+   "src": [],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T40",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T40_packet_blinding_positive_and_negative",
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_i8_packet_is_blinded"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T40_packet_blinding_positive_and_negative",
+      "evidence_ladder/models/tests/run_tests.py::test_blinding_rejections"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T40_packet_blinding_positive_and_negative",
+    "test_i8_packet_is_blinded"
+   ],
+   "neg_declared": [
+    "t_T40_packet_blinding_positive_and_negative",
+    "test_blinding_rejections"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/critic_batch/validator.py::validate_packet"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T41",
+   "owner": "A3+A2",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_controller_executes_supported_experiment_and_label_unchanged",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T41_experiment_types_validated_and_only_allowed_ops_planned"
+     ],
+     "neg": [
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_unsupported_kinds_rejected",
+      "evidence_ladder/critic_batch/tests/stepE_tests.py::test_unsafe_commands_rejected",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T41_critic_never_authorises_label_unchanged",
+      "variant:unsafe_critic_experiment",
+      "variant:invalid_model_evidence"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_controller_executes_supported_experiment_and_label_unchanged",
+    "t_T41_experiment_types_validated_and_only_allowed_ops_planned"
+   ],
+   "neg_declared": [
+    "test_unsupported_kinds_rejected",
+    "test_unsafe_commands_rejected",
+    "t_T41_critic_never_authorises_label_unchanged"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/agentic.py:610",
+    "evidence_ladder/critic_batch/validator.py:50"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T42",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_reconcile_the_real_local_ledger",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_success_run_through_real_runner_reconciles_with_actual_tokens",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_payload_requests_provider_usage_and_flag_is_reserved"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_negative_tampered_ledgers_fail_reconciliation",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_transport_failures_are_classified_retries_bounded_no_key_in_files",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T42_utf8_stream_roundtrip_and_mojibake_negative"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json glm_reconcile"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T42_reconcile_the_real_local_ledger",
+    "t_T42_success_run_through_real_runner_reconciles_with_actual_tokens",
+    "t_T42_payload_requests_provider_usage_and_flag_is_reserved"
+   ],
+   "neg_declared": [
+    "t_T42_negative_tampered_ledgers_fail_reconciliation",
+    "t_T42_transport_failures_are_classified_retries_bounded_no_key_in_files",
+    "t_T42_utf8_stream_roundtrip_and_mojibake_negative"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/critic_batch/reconcile.py::reconcile"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T43",
+   "owner": "A3+C",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_config_and_source_hashes_present_and_change_with_content",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_secret_scan_counts_only_added_lines"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_dirty_tree_is_refused_on_the_final_path_only",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_secret_scan_counts_only_added_lines"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json provenance"
+     ]
+    },
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_config_and_source_hashes_present_and_change_with_content",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_secret_scan_counts_only_added_lines"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_dirty_tree_is_refused_on_the_final_path_only",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T43_secret_scan_counts_only_added_lines"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json provenance"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T43_config_and_source_hashes_present_and_change_with_content",
+    "t_T43_secret_scan_counts_only_added_lines"
+   ],
+   "neg_declared": [
+    "t_T43_dirty_tree_is_refused_on_the_final_path_only",
+    "t_T43_secret_scan_counts_only_added_lines"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_acceptance.py::Acceptance.preflight",
+    "tools/el_arch1_acceptance.py::added_lines_secret_scan"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T44",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json backend_identity"
+     ]
+    },
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+     ],
+     "receipt": [
+      "PATHB_REPLAY_RECEIPT.json backend_identity"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+   ],
+   "neg_declared": [
+    "t_T44_mock_backends_refused_in_the_acceptance_path_and_real_ones_named"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_acceptance.py::refuse_mock_backends"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T45",
+   "owner": "A3+C",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/laya_integration_tests.py::test_agentic_replay_gives_identical_journal_hashes",
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b8_replay_offline_logic_only_and_step_records"
+     ],
+     "neg": [
+      "evidence_ladder/controller/tests/phaseB_tests.py::t_b8_replay_offline_logic_only_and_step_records"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_agentic_replay_gives_identical_journal_hashes",
+    "t_b8_replay_offline_logic_only_and_step_records"
+   ],
+   "neg_declared": [
+    "t_b8_replay_offline_logic_only_and_step_records"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/controller/replay.py:160",
+    "evidence_ladder/controller/replay.py:220",
+    "evidence_ladder/controller/wsl_sandbox.py:33"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T46",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T46_malformed_sequential_duplicate_empty_unsafe_missing_scorer_variants",
+      "variant:malformed_json",
+      "variant:sequential_plan",
+      "variant:duplicate_options",
+      "variant:empty_pool",
+      "variant:unsafe_action_filtered",
+      "variant:missing_scorer",
+      "variant:broken_test_command",
+      "variant:budget_rounds",
+      "variant:examples_only_o2",
+      "variant:no_tests_o3",
+      "variant:scope_conflict"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T46_negative_a_variant_that_does_not_reach_its_expected_state_is_reported",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T46_malformed_sequential_duplicate_empty_unsafe_missing_scorer_variants"
+     ],
+     "receipt": [
+      "VARIANTS_SUMMARY.json fcef9f15199e",
+      "VARIANTS_SUMMARY.json fcef9f15199e [variant: scripted model text, real controller + sandbox]"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T46_malformed_sequential_duplicate_empty_unsafe_missing_scorer_variants"
+   ],
+   "neg_declared": [
+    "t_T46_negative_a_variant_that_does_not_reach_its_expected_state_is_reported",
+    "t_T46_malformed_sequential_duplicate_empty_unsafe_missing_scorer_variants"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_variants.py::VARIANTS",
+    "tools/el_arch1_variants.py:124"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T47",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "INSUFFICIENT_DATA",
+     "why": "statistical gate with fewer than 30 examples",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T47_statistical_rows_stay_insufficient_with_three_examples"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_generator_refuses_pass_without_real_negative_and_receipt",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T47_statistical_rows_stay_insufficient_with_three_examples"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json 37a1c6acbb4a",
+      "receipts/ex1_slug/journal.json 9365e5d3cae4",
+      "receipts/ex2_clamp/journal.json c4e0c3f691f6",
+      "receipts/ex3_wordcount/journal.json bd5bda2259ad"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T47_statistical_rows_stay_insufficient_with_three_examples"
+   ],
+   "neg_declared": [
+    "t_T48_generator_refuses_pass_without_real_negative_and_receipt",
+    "t_T47_statistical_rows_stay_insufficient_with_three_examples"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "evidence_ladder/orchestrator/gates.py::section_gates",
+    "evidence_ladder/orchestrator/gates.py:136",
+    "evidence_ladder/orchestrator/isolation.py:29"
+   ],
+   "verdict": "INSUFFICIENT_DATA"
+  },
+  {
+   "tid": "T48",
+   "owner": "A3",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_one_row_per_traceability_id_and_per_invariant",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_one_row_per_traceability_id_and_per_invariant_placeholder_guard"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_generator_refuses_pass_without_real_negative_and_receipt",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_rowmap_merge_declared_missing_or_failing_tests_are_never_a_pass",
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T48_notes_never_change_a_verdict_receipt_content_does"
+     ],
+     "receipt": [
+      "ARCHITECTURE_FINAL_REPORT.md (this file)"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T48_one_row_per_traceability_id_and_per_invariant",
+    "t_T48_one_row_per_traceability_id_and_per_invariant_placeholder_guard"
+   ],
+   "neg_declared": [
+    "t_T48_generator_refuses_pass_without_real_negative_and_receipt",
+    "t_T48_rowmap_merge_declared_missing_or_failing_tests_are_never_a_pass",
+    "t_T48_notes_never_change_a_verdict_receipt_content_does"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_final_report.py::verdict"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T49",
+   "owner": "A3+C",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json | PATH B: pathb_replay"
+     ]
+    },
+    "B": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+     ],
+     "neg": [
+      "evidence_ladder/orchestrator/tests/phaseF3_tests.py::t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+     ],
+     "receipt": [
+      "receipts/ACCEPTANCE_SUMMARY.json | PATH B: pathb_replay"
+     ]
+    }
+   },
+   "real_declared": [
+    "t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+   ],
+   "neg_declared": [
+    "t_T34_T49_pool_admission_needs_exact_context_and_options_never_cross_paths"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [
+    "tools/el_arch1_acceptance.py::pool_admissible"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "tid": "T50",
+   "owner": "C",
+   "paths": {
+    "A": {
+     "verdict": "PASS",
+     "why": "real test + negative test + receipt, all resolved and passing",
+     "notes": [],
+     "real": [
+      "evidence_ladder/models/tests/backbone_tests.py::test_4b_profile_equals_the_former_hardcoded_constants",
+      "evidence_ladder/models/tests/backbone_tests.py::test_06b_profile_values_and_proportional_depths"
+     ],
+     "neg": [
+      "evidence_ladder/models/tests/backbone_tests.py::test_guard_refuses_wrong_model_revision_dtype_depths_device_recipe_hash"
+     ],
+     "receipt": [
+      "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json 570b8c1a1640"
+     ]
+    }
+   },
+   "real_declared": [
+    "test_4b_profile_equals_the_former_hardcoded_constants",
+    "test_06b_profile_values_and_proportional_depths"
+   ],
+   "neg_declared": [
+    "test_guard_refuses_wrong_model_revision_dtype_depths_device_recipe_hash"
+   ],
+   "unrun": [],
+   "missing": [],
+   "notes_from_owners": [],
+   "src": [],
+   "verdict": "PASS"
+  }
+ ],
+ "traceability": {
+  "T01": {
+   "requirement": "I1 authority: flag from evidence record, equals highest level reached; VERIFIED only with every hard/functional requirement VERIFIED (R1.1)",
+   "owner": "A2",
+   "acceptance": "positive: ex2 passing run -> VERIFIED; negative: model text claims \"fixed\" with failing tests -> not VERIFIED"
+  },
+  "T02": {
+   "requirement": "I2 monotone safety: no score reorders across evidence levels or accepts what L3-L5 rejects",
+   "owner": "A2",
+   "acceptance": "negative: LAYA-top candidate with failing trusted check loses (conflict test)"
+  },
+  "T03": {
+   "requirement": "I3 no self-authorisation: model/critic/tool text cannot change permissions, caps, levels, check library",
+   "owner": "A2",
+   "acceptance": "negative: injection text in file/test output/GLM reply changes nothing"
+  },
+  "T04": {
+   "requirement": "I4 unknown is not pass: UNKNOWN/TIMEOUT/ERROR/MISSING_EVIDENCE/INVALID_SPEC never pass (broken test tool -> ERROR)",
+   "owner": "A2 + A3 variant",
+   "acceptance": "exhaustive status-mapper test + broken-tool variant of ex2"
+  },
+  "T05": {
+   "requirement": "I5 bounded: tokens, rounds, steps, wall time, model calls ENFORCED; stop label names the exhausted limit (`step_cap`...)",
+   "owner": "A2 (enforce+label) + A3 (budget-exhaustion variant)",
+   "acceptance": "one test per cap hits it and stops; receipts show the specific label"
+  },
+  "T06": {
+   "requirement": "I6 observe before commit: reversible in sandbox first; irreversible needs L4/L5 pre-checks + user confirmation; fixed action table",
+   "owner": "A2",
+   "acceptance": "negative: unsafe/irreversible action cannot bypass authorization (unsafe-action variant)"
+  },
+  "T07": {
+   "requirement": "I7 frozen scorers/check library hash-checked at start AND end; journal append-only",
+   "owner": "A2 + A3 (hashes in receipt)",
+   "acceptance": "negative: tampered scorer/check hash aborts; journal chain break detected"
+  },
+  "T08": {
+   "requirement": "I8 sealed evaluation: eval-only oracles unreachable from runtime, incl. the proposal context",
+   "owner": "A2 (context) + A3 (deep scan)",
+   "acceptance": "negative: hidden/eval data placed in context is detected/absent; deep scan flags a held grader"
+  },
+  "T09": {
+   "requirement": "L5 real observation (protected tests, real end state) may approve",
+   "owner": "A2",
+   "acceptance": "ex2 trusted check pass on the real end state"
+  },
+  "T10": {
+   "requirement": "L4 certified checks approve only within stated scope",
+   "owner": "A2",
+   "acceptance": "negative: out-of-scope L4 pass does not cover requirement"
+  },
+  "T11": {
+   "requirement": "L3 examples/constraints quoted from the request, deterministic",
+   "owner": "A2",
+   "acceptance": "positive+negative on quoted-span filter"
+  },
+  "T12": {
+   "requirement": "L2 model-written checks validated (span, non-vacuous on mutants, consistent with L3/L5); never approve",
+   "owner": "A2 (A2->A1 overflow: new test file)",
+   "acceptance": "real 0.6B-written test on an ex task validated or rejected; negative: vacuous test rejected; cannot upgrade a row"
+  },
+  "T13": {
+   "requirement": "L1 behaviour clustering of candidates",
+   "owner": "A2 (overflow ok)",
+   "acceptance": "two candidates with equal behaviour cluster; different behaviour split (real sandbox)"
+  },
+  "T14": {
+   "requirement": "L0 scores (LAYA/probe/DeepConf/critic) never approve",
+   "owner": "A2",
+   "acceptance": "negative: highest L0 cannot change a trusted rejection"
+  },
+  "T15": {
+   "requirement": "Evidence per requirement with scope + provenance; coverage table; answer flag = weakest row (R1.1, R2.2)",
+   "owner": "A2",
+   "acceptance": "receipt has a coverage table; negative: one open requirement keeps flag below VERIFIED"
+  },
+  "T16": {
+   "requirement": "Output flags VERIFIED/SUPPORTED/PLAUSIBLE/UNVERIFIED/BLOCKED; report carries separate `outcome` and `process` fields",
+   "owner": "A2 + A3 (report)",
+   "acceptance": "receipt fields present; negative: process violation with passing outcome flagged"
+  },
+  "T17": {
+   "requirement": "O1 trusted executable oracle -> generate-execute-repair",
+   "owner": "A2",
+   "acceptance": "ex1/ex2/ex3 route O1"
+  },
+  "T18": {
+   "requirement": "O2 partial oracle (examples, regression) -> discriminate path",
+   "owner": "A3 variant + A2",
+   "acceptance": "controlled variation of the 3 tasks routes O2"
+  },
+  "T19": {
+   "requirement": "O3 no oracle: best effort, PLAUSIBLE/BLOCKED, blocking ambiguity asks the user (BLOCKED until answered)",
+   "owner": "A3 variant + A2",
+   "acceptance": "variation with no tests routes O3; ambiguity variant BLOCKED"
+  },
+  "T20": {
+   "requirement": "Router re-run after every evidence-adding stage; upgrade only by trusted sources, never by model artifacts",
+   "owner": "A2",
+   "acceptance": "test: repo tests found during INVESTIGATE upgrade a requirement; model-written test does not"
+  },
+  "T21": {
+   "requirement": "INTAKE: contract skeleton, requirement list with quoted spans (phantom requirements dropped), caps, tier",
+   "owner": "A2",
+   "acceptance": "negative: requirement without request span dropped"
+  },
+  "T22": {
+   "requirement": "INVESTIGATE: real snippets/paths/signatures/failing test output/constraints; truncation journalled",
+   "owner": "A2",
+   "acceptance": "test asserts proposal prompt contains the real source lines of clamp.py; truncation record present"
+  },
+  "T23": {
+   "requirement": "GENERATE: real local 0.6B backend, registered prompt strategies, valid alternatives recorded separately",
+   "owner": "A1 (parse/filter/template) + A2",
+   "acceptance": "PATH A real generation run; sequential plan / malformed variants handled"
+  },
+  "T24": {
+   "requirement": "CANDIDATE FILTER (frozen interface): no-op/unappliable/duplicate/plan/malformed rejected per option, abstain with reason, never invent options",
+   "owner": "A1 (+A2 wires)",
+   "acceptance": "phaseF1 tests + real-controller test of each rule code"
+  },
+  "T25": {
+   "requirement": "EXECUTE in qualified WSL sandbox, actual outcomes recorded",
+   "owner": "A2",
+   "acceptance": "real WSL run, hashes in receipt"
+  },
+  "T26": {
+   "requirement": "DISCRIMINATE: behavioural differences, validated L2 tests, blinded local GLM experiment",
+   "owner": "A2 + A3",
+   "acceptance": "a decision with >=2 surviving clusters runs a discriminating experiment; negative: GLM reply cannot select"
+  },
+  "T27": {
+   "requirement": "RANK: evidence level first, then trusted checks before learned scores, LAYA at L0 only",
+   "owner": "A2",
+   "acceptance": "negative: LAYA order cannot beat evidence level"
+  },
+  "T28": {
+   "requirement": "REPAIR: fixed template, real failure evidence fed back, progress tracked, regression detected, same-failure-twice / 2-no-progress stops",
+   "owner": "A2",
+   "acceptance": "ex3 repair loop shows failure text in next prompt; negative: repeated identical failure blocked; legit retry after state change allowed"
+  },
+  "T29": {
+   "requirement": "COMMIT & VERIFY: authorization, apply only permitted, inspect REAL end state, rerun trusted checks, diff scope",
+   "owner": "A2",
+   "acceptance": "final state hash + test re-run in receipt"
+  },
+  "T30": {
+   "requirement": "Runs per action (intake -> check -> commit per tool call), task-level verify once at end (R2.1)",
+   "owner": "A2",
+   "acceptance": "journal shows per-action intake/check/commit"
+  },
+  "T31": {
+   "requirement": "Approval = f(coverage, evidence, action risk) (R2.3)",
+   "owner": "A2",
+   "acceptance": "reversible approved on trusted checks; irreversible needs confirmation"
+  },
+  "T32": {
+   "requirement": "Missing LAYA scores journalled; explicit id-order fallback; no silent learned-score fallback",
+   "owner": "A2",
+   "acceptance": "existing ex1 case + new variant with scorer removed"
+  },
+  "T33": {
+   "requirement": "LAYA ranks next actions (L0 ordering) only on exact scored options; never averaged with critic",
+   "owner": "A2",
+   "acceptance": "PATH A: scored only if exact accepted options captured; else scorer_unavailable"
+  },
+  "T34": {
+   "requirement": "Frozen 4B LAYA replay: stored verified scores, exact context sha + option sha list, mismatch refused",
+   "owner": "A3 (harness) + A2",
+   "acceptance": "PATH B replay matches stored scores; mismatched options refused"
+  },
+  "T35": {
+   "requirement": "0.6B features never enter the frozen 4B adapter; provenance guard refuses",
+   "owner": "A3",
+   "acceptance": "negative: 0.6B tensor refused (T7 cases re-run once)"
+  },
+  "T36": {
+   "requirement": "Fake/incompatible capture source rejected; live-capture provenance hardened",
+   "owner": "A3",
+   "acceptance": "negative: fabricated tensors with valid metadata fail re-capture comparison"
+  },
+  "T37": {
+   "requirement": "Probe baseline + correctly constructed random-head control on the same compatible 4B pools, separate from LAYA, comparison-only",
+   "owner": "A3",
+   "acceptance": "PATH B pools: probe and random-head scores journalled, selector=false"
+  },
+  "T38": {
+   "requirement": "Monotonicity gate: verification-effort ordering stays disabled unless registered criterion passes",
+   "owner": "A2",
+   "acceptance": "3 examples -> INSUFFICIENT_DATA, ordering disabled"
+  },
+  "T39": {
+   "requirement": "No unregistered adapter ensemble; no untrained NONE probability",
+   "owner": "A2",
+   "acceptance": "grep + negative test: unregistered ensemble/NONE refused"
+  },
+  "T40": {
+   "requirement": "Critic blinded (no LAYA pick, no generator reasoning, no hidden tests/labels)",
+   "owner": "A3",
+   "acceptance": "negative: packet containing a forbidden field is refused"
+  },
+  "T41": {
+   "requirement": "Experiment types validated; only allowed operations executed via WSL; critic never authorises",
+   "owner": "A3 + A2",
+   "acceptance": "negative: disallowed experiment type refused; label unchanged by critic"
+  },
+  "T42": {
+   "requirement": "GLM accounting reconciles with ledger (calls, sends, retries, tokens, errors); transport failures classified, retries bounded; no credentials logged; UTF-8 receipts (no mojibake)",
+   "owner": "A3",
+   "acceptance": "reconcile test on the real local ledger; negative: non-ASCII round-trip stays intact; secret scan 0"
+  },
+  "T43": {
+   "requirement": "Commit + secret scan BEFORE final run; receipts carry commit SHA, config hashes, model identity, source hashes, receipt + journal hashes; dirty tree refused",
+   "owner": "A3 (driver) + C (commit)",
+   "acceptance": "negative: dirty tree refused in final mode"
+  },
+  "T44": {
+   "requirement": "Final path uses real backends only; receipt names the backend; mock refused",
+   "owner": "A3",
+   "acceptance": "negative: stub backend refused in final mode"
+  },
+  "T45": {
+   "requirement": "Replay of final decisions from committed code matches receipts (offline + WSL)",
+   "owner": "A3 + C",
+   "acceptance": "replay identical for every example"
+  },
+  "T46": {
+   "requirement": "Fault injection on the 3 tasks: malformed JSON, sequential plan, duplicates, empty pool, unsafe action, broken test tool, missing scorer, budget exhaustion, O2, O3, evidence conflict",
+   "owner": "A3",
+   "acceptance": "each variant reaches its expected terminal state with the expected rule/stop code"
+  },
+  "T47": {
+   "requirement": "Report gates and comparison arms; statistical gates INSUFFICIENT_DATA with 3 examples; dev tests marked unsealed",
+   "owner": "A3",
+   "acceptance": "report shows INSUFFICIENT_DATA; no PASS from n=3"
+  },
+  "T48": {
+   "requirement": "ARCHITECTURE_FINAL_REPORT.md: one row per row of THIS matrix and per invariant; PASS/FAIL/NOT_APPLICABLE/INSUFFICIENT_DATA",
+   "owner": "A3 (generator) + C (run)",
+   "acceptance": "generator refuses a PASS row without a real-test + negative-test + receipt reference"
+  },
+  "T49": {
+   "requirement": "Two paths kept apart in report and receipts; 0.6B candidates never paired with stored 4B scores",
+   "owner": "A3 + C",
+   "acceptance": "receipt sections separate; negative: pairing attempt refused"
+  },
+  "T50": {
+   "requirement": "Backbone profile (model-agnostic capture/generation/provenance) unchanged and still green",
+   "owner": "C",
+   "acceptance": "backbone suite 14 green on merged tree"
+  }
+ },
+ "counts": {
+  "PASS": 43,
+  "FAIL": 0,
+  "NOT_APPLICABLE": 0,
+  "INSUFFICIENT_DATA": 7
+ },
+ "runs": {
+  "A": {
+   "dir": "results\\raw\\el-arch1-kaggle4b-lowthink-20261017T213212Z",
+   "mode": "final",
+   "examples": 3,
+   "commit": "f31009ce3d15577968fe537d989d93df04fb4501"
+  },
+  "B": {
+   "dir": "results\\raw\\el-arch1-pathb-20261017T201512Z",
+   "mode": null,
+   "examples": 0,
+   "commit": null
+  }
+ },
+ "suite_results": {
+  "path": "results\\raw\\el-arch1-final-suites-c3-202610180329\\SUITE_RESULTS_20261017T220415Z.json",
+  "sha256": "570b8c1a1640c482b8aa3a21ae713221b5701b0386a7b0f79cc0a5076153abfb"
+ },
+ "rowmaps": [
+  "T01",
+  "T02",
+  "T03",
+  "T04",
+  "T05",
+  "T06",
+  "T07",
+  "T08",
+  "T09",
+  "T10",
+  "T11",
+  "T12",
+  "T13",
+  "T14",
+  "T15",
+  "T16",
+  "T17",
+  "T18",
+  "T19",
+  "T20",
+  "T21",
+  "T22",
+  "T23",
+  "T24",
+  "T25",
+  "T26",
+  "T27",
+  "T28",
+  "T29",
+  "T30",
+  "T31",
+  "T32",
+  "T33",
+  "T38",
+  "T39"
+ ]
+}
