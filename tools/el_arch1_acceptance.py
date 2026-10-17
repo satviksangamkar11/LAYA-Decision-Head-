@@ -387,7 +387,7 @@ class Acceptance:
 
     def kernel_meta(self, slug: str, code: str) -> Dict[str, Any]:
         return {"id": "%s/%s" % (OWNER, slug), "title": slug, "code_file": code, "language": "python", "kernel_type": "script", "is_private": True, "enable_gpu": True, "enable_tpu": False,
-                "enable_internet": False, "dataset_sources": ["leminhhung0101/qwen3-4b-thinking-2507", OWNER + "/evidence-ladder-el-arch1-bundle-v1"], "kernel_sources": [], "competition_sources": []}
+                "enable_internet": False, "dataset_sources": ["leminhhung0101/qwen3-4b-thinking-2507", OWNER + ("/evidence-ladder-el-arch1-bundle-lowthink-v1" if getattr(self, "think_budget", None) else "/evidence-ladder-el-arch1-bundle-v1")], "kernel_sources": [], "competition_sources": []}
 
     def need_score(self, rnd: int, items: List[Dict[str, Any]]) -> Tuple[Dict[str, Any], Dict[str, Any], str, str]:
         res = {w: self.kin / ("round%d" % rnd) / ("score_" + w) / "t6_step_results.json" for w in ("live", "verify")}
@@ -405,7 +405,7 @@ class Acceptance:
             src = tmpl.replace("__STEP_REQUEST_JSON__", json.dumps(req, ensure_ascii=False))
             msg = ["round %d: push BOTH kernels (two separate kernels = two independent processes), wait for COMPLETE, download each output:" % rnd]
             for w in ("live", "verify"):
-                slug = "el-arch1-score-%s-v1" % w
+                slug = "el-arch1-score-%s-%sv1" % (w, "lowthink-" if getattr(self, "think_budget", None) else "")
                 write_over(h / ("score_" + w) / "el_arch1_score_v1.py", src)
                 write_over(h / ("score_" + w) / "kernel-metadata.json", json.dumps(self.kernel_meta(slug, "el_arch1_score_v1.py"), indent=1))
                 msg.append("  kaggle kernels output %s/%s -p \"%s\"" % (OWNER, slug, res[w].parent))
@@ -418,7 +418,7 @@ class Acceptance:
         self.no_stubs(**{"score_live": out["live"], "score_verify": out["verify"]})
         if self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": False, "local": True} for w in out}
         if (self.final or self.replay_from) and not str(out["live"].get("gpu", "")).startswith("Tesla T4"): raise RuntimeError("scoring did not run on a Tesla T4: %r" % out["live"].get("gpu"))
-        run_ids = {w: ("local/el-arch1-score-%s@round%d" % (w, rnd)) if self.local else "%s/el-arch1-score-%s-v1@round%d" % (OWNER, w, rnd) for w in out}
+        run_ids = {w: ("local/el-arch1-score-%s@round%d" % (w, rnd)) if self.local else "%s/el-arch1-score-%s-%sv1@round%d" % (OWNER, w, "lowthink-" if getattr(self, "think_budget", None) else "", rnd) for w in out}
         if not self.local: self.notes["score_runs"]["round%d" % rnd] = {w: {"run_id": run_ids[w], "gpu": out[w].get("gpu"), "mode": out[w].get("mode"), "versions": out[w].get("versions"), "stub": out[w].get("stub", False)} for w in out}
         return out["live"], out["verify"], run_ids["live"], run_ids["verify"]
 
