@@ -1,0 +1,131 @@
+{
+ "name": "el_bank40_v1",
+ "created": "2026-10-18",
+ "purpose": "architecture run of the full Evidence-Ladder pipeline (function-level ladder controller, new sandbox, thinking model with low effort) on 40 bank tasks; DEVELOPMENT use under the recorded D1 waiver, not a sealed evaluation",
+ "rule": "per language: all 10 easy tasks + the first 10 medium tasks by id, skipping mediums whose grader is weak (raw mutation score < 0.80 or unmeasured per specs/evidence_ladder_v1/P0_STATUS_2026_10_16.md). Easy tasks are all kept even where the grader is weak; they are listed.",
+ "sources": {
+  "python": {
+   "file": "results/raw/codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl",
+   "sha256": "dd5d945c85d7537da953c897f939d0958703252deb493b8091ce899c0bdcc2eb"
+  },
+  "java": {
+   "file": "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/tasks.jsonl",
+   "sha256": "3211290a072a07ca656902b3ea6e00e899e9398f0a5810ec6358ea3821b5e064"
+  }
+ },
+ "python": {
+  "tasks": [
+   "P1-01",
+   "P1-02",
+   "P1-03",
+   "P1-04",
+   "P1-05",
+   "P1-06",
+   "P1-07",
+   "P1-08",
+   "P1-09",
+   "P1-10",
+   "P1-11",
+   "P1-12",
+   "P1-13",
+   "P1-15",
+   "P1-16",
+   "P1-17",
+   "P1-18",
+   "P1-20",
+   "P1-21",
+   "P1-22"
+  ],
+  "easy": [
+   "P1-01",
+   "P1-02",
+   "P1-03",
+   "P1-04",
+   "P1-05",
+   "P1-06",
+   "P1-07",
+   "P1-08",
+   "P1-09",
+   "P1-10"
+  ],
+  "medium": [
+   "P1-11",
+   "P1-12",
+   "P1-13",
+   "P1-15",
+   "P1-16",
+   "P1-17",
+   "P1-18",
+   "P1-20",
+   "P1-21",
+   "P1-22"
+  ],
+  "medium_skipped_weak_grader": [
+   "P1-14",
+   "P1-19",
+   "P1-26"
+  ],
+  "easy_with_weak_grader": [
+   "P1-05",
+   "P1-10"
+  ]
+ },
+ "java": {
+  "tasks": [
+   "J1-01",
+   "J1-02",
+   "J1-03",
+   "J1-04",
+   "J1-05",
+   "J1-06",
+   "J1-07",
+   "J1-08",
+   "J1-09",
+   "J1-10",
+   "J1-11",
+   "J1-12",
+   "J1-13",
+   "J1-14",
+   "J1-15",
+   "J1-16",
+   "J1-18",
+   "J1-19",
+   "J1-21",
+   "J1-22"
+  ],
+  "easy": [
+   "J1-01",
+   "J1-02",
+   "J1-03",
+   "J1-04",
+   "J1-05",
+   "J1-06",
+   "J1-07",
+   "J1-08",
+   "J1-09",
+   "J1-10"
+  ],
+  "medium": [
+   "J1-11",
+   "J1-12",
+   "J1-13",
+   "J1-14",
+   "J1-15",
+   "J1-16",
+   "J1-18",
+   "J1-19",
+   "J1-21",
+   "J1-22"
+  ],
+  "medium_skipped_weak_grader": [
+   "J1-17",
+   "J1-20",
+   "J1-27"
+  ],
+  "easy_with_weak_grader": [
+   "J1-08",
+   "J1-10"
+  ]
+ },
+ "total": 40
+}

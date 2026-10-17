@@ -87,6 +87,7 @@ class AgenticContext:          # no field name may contain 'grader' or 'protecte
     config: Dict[str, Any] = field(default_factory=dict)
     limits: Any = None             # [EL-ARCH-1 A3] controller.limits.Limits; default = profile "agentic" of configs/el_arch1_limits_v1.toml
     clock: Any = None              # injected monotonic clock for the wall-time limit (default time.monotonic)
+    timeline: Any = None           # [F2b] optional timeline.Timeline side channel (timestamps only; never enters a journal entry or a hash)
     comparison: Any = None         # [EL-ARCH-1 D1/S0] optional {"probe": scorer, "random_head": scorer} scoring the SAME options; journaled as scorer_comparison, never a selector
     # config["require"] = ["scorer", "critic"]: components this run needs; a missing one writes a journal entry and raises MissingComponentError (A5). Final acceptance runs set it.
 
@@ -146,6 +147,9 @@ class AgenticRun:
         self.registry = C.Registry(check_defs(with_scope=task.scope is not None))
         self.reg_hash0 = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.journal = EvidenceJournal(self.registry)
+        self.tl = getattr(ctx, "timeline", None)
+        if self.tl is not None:
+            self.tlc("attach", self.journal)
         self.budget = ctx.budget or AgenticBudget(task.task_id, ctx.arm)
         ctx.budget = self.budget
         self.messages: List[Dict[str, Any]] = [{"role": "system", "content": task.system_text}, {"role": "user", "content": task.user_text}]
@@ -192,11 +196,47 @@ class AgenticRun:
     def note(self, kind: str, data: Any) -> None:
         self.journal.append(kind, data)
 
+    def _tlv(self, method: str):
+        if self.tl is not None:
+            try:
+                return getattr(self.tl, method)()
+            except Exception:      # noqa: BLE001
+                return None
+        return None
+
+    def timed(self, kind: str, fn, status_of=None, **meta):
+        """[F2b] run fn() EXACTLY once and record its real duration as a timeline event; timeline failures are swallowed, fn's own exceptions propagate unchanged"""
+        if self.tl is None:
+            return fn()
+        mk = self._tlv("mark")
+        try:
+            res = fn()
+        except BaseException:
+            self.tlc("finish_call", kind, mk, "error", **meta)
+            raise
+        st = None
+        if status_of is not None:
+            try:
+                st = status_of(res)
+            except Exception:      # noqa: BLE001
+                st = None
+        self.tlc("finish_call", kind, mk, st, **meta)
+        return res
+
+    def tlc(self, method: str, *a: Any, **k: Any) -> None:
+        """[F2b] call a Timeline method if a timeline is attached; a failing or missing timeline can never change a decision"""
+        if self.tl is not None:
+            try:
+                getattr(self.tl, method)(*a, **k)
+            except Exception:      # noqa: BLE001
+                pass
+
     def _missing(self, component: str, why: str) -> None:
         self.note("component_missing", {"component": component, "why": why, "arm": self.ctx.arm})
         raise MissingComponentError(component, why)
 
     def begin(self) -> None:
+        self.tlc("enter", "intake")
         need = set(self.ctx.config.get("require", ()))
         for comp, obj in (("scorer", self.ctx.scorer), ("critic", self.ctx.critic)):
             if obj is None and comp in need:
@@ -350,14 +390,19 @@ class AgenticRun:
         p.write_text(txt.replace(a["old_string"], a["new_string"]), "utf-8")
         return "edited " + a["file_path"], True
 
-    def _run(self, workspace, cmd, persist=False):
+    _CHECK_OF = {"dry_run": "action_dry_run_v1", "critic_experiment": "critic_experiment_v1", "commit_exec": None}
+
+    def _run(self, workspace, cmd, persist=False, label=None):
         self.budget.add(tool_runs=1)
-        return self.ctx.sandbox.run(workspace, cmd, persist=persist)
+        if self.tl is None:
+            return self.ctx.sandbox.run(workspace, cmd, persist=persist)
+        cid = self._CHECK_OF[label] if label in self._CHECK_OF else "protected_tests_v1"
+        return self.timed("sandbox", lambda: self.ctx.sandbox.run(workspace, cmd, persist=persist), lambda r: "pass" if r.get("exit_code") == 0 else "fail", check_id=cid, label=label or "test_run")
 
     def _run_checked(self, workspace, cmd, tag: str):
         """[D1/S2] a trusted check whose tool breaks (the sandbox raises) is ERROR evidence, not a failure of the candidate and never a pass."""
         try:
-            return self._run(workspace, cmd)
+            return self._run(workspace, cmd, label=tag)
         except (RuntimeError, OSError, ValueError, subprocess.TimeoutExpired) as ex:      # infrastructure errors only (WslSandbox raises these); logic errors and ReplayDivergence still propagate
             self.tool_error = "%s: %s" % (type(ex).__name__, str(ex)[:200])
             self.note("tool_failure", {"tag": tag, "error": self.tool_error})
@@ -378,6 +423,7 @@ class AgenticRun:
         k = self.step_no + 1
         ws = self.task.workspace
         pre = tree_hash(ws)
+        self.tlc("enter", "filter", step=k)
         fr = self.filter_step(options, pre)
         self.step_no += 1
         did = "%s:step%d" % (self.task.task_id, k)
@@ -388,6 +434,8 @@ class AgenticRun:
         qm = qwen_meta or {}
         if qm:
             self.qwen_calls += 1
+            self.tlc("model_call", "qwen", qm.get("kaggle_seconds"), int(qm.get("prompt_tokens", 0)), int(qm.get("new_tokens", 0)), purpose="next_action_proposal")
+        self.tlc("enter", "check")
         self.budget.add(qwen_gen_tokens=int(qm.get("new_tokens", 0)), qwen_prefill_tokens=int(qm.get("prompt_tokens", 0)), gpu_seconds=float(qm.get("kaggle_seconds", 0.0)))
         # --- INTAKE + CHECK
         trusted, checks, acts = [], [], []
@@ -421,12 +469,13 @@ class AgenticRun:
             trusted.append(t); checks.append(rec)
         self.route("step%d_checked" % k, None)
         # --- SCORE (no silent fallback)
+        self.tlc("enter", "rank")
         scores, reason, prov = None, None, None
         try:
             if not options:      # nothing to rank: no scorer call (no model call is spent on an empty pool); the decision abstains with the filter's code
                 raise ValueError("no accepted option to score (%s)" % ((fr["abstain"] or {}).get("code", "empty")))
             self.budget.add(scorer_calls=1)
-            scores = [float(x) for x in self.ctx.scorer.score("next_action", {"context_text": ctx_text, "options": list(options)})]
+            scores = [float(x) for x in self._score_timed(lambda: self.ctx.scorer.score("next_action", {"context_text": ctx_text, "options": list(options)}))]
             if len(scores) != len(options) or not all(math.isfinite(x) for x in scores):      # [EL-ARCH-1 B4] a malformed hand-off is a recorded scorer failure, never a crash or a silent fallback
                 raise ValueError("scorer returned %d score(s) for %d option(s), finite=%s" % (len(scores), len(options), all(math.isfinite(x) for x in scores)))
             prov = getattr(getattr(self.ctx.scorer, "_backend", None), "last", None)
@@ -473,6 +522,7 @@ class AgenticRun:
                "laya_top_was_chosen": (chosen == laya_order[0]) if laya_order and chosen is not None else None, "pre_state": pre,
                "filter": {"counts": fr["counts"], "rejected": fr["rejected"], "abstain": fr["abstain"], "raw_option_sha256": raw_sha}}
         # --- COMMIT
+        self.tlc("enter", "commit")
         if chosen is None:
             result_text = "no allowed action"
             self.messages += [{"role": "assistant", "content": "(no allowed action)"}]
@@ -497,7 +547,7 @@ class AgenticRun:
             elif act["name"] == "Edit":
                 result_text = self.apply_edit(ws, act["arguments"])[0]
             else:
-                r = self._run(ws, act["arguments"]["command"], persist=True)
+                r = self._run(ws, act["arguments"]["command"], persist=True, label="commit_exec")
                 result_text = ("exit %d\n%s%s" % (r["exit_code"], r["stdout"], r["stderr"]))[:1500]
             cid_msg = "call_%s_%d" % (self.task.task_id, k)
             self.messages += [{"role": "assistant", "content": "", "tool_calls": [{"id": cid_msg, "function": {"name": act["name"], "arguments": json.dumps(act["arguments"])}}]},
@@ -506,6 +556,7 @@ class AgenticRun:
             self.actions += 1
         rec["execution_result"], rec["execution_result_sha256"] = result_text, sha(result_text)
         # --- OBSERVE on the real end state
+        self.tlc("enter", "observe")
         state = self._observe("step%d" % k)
         rec.update(state)
         self.messages += [{"role": "user", "content": state["feedback"]}]
@@ -521,11 +572,13 @@ class AgenticRun:
                                               "authorized": state["authorized"], "protected_unchanged": state["protected_unchanged"]}})
         self.route("step%d_observed" % k, state["state_id"])
         self.retier("step%d" % k)
+        self.tlc("leave")
         return rec
 
     def progress_after(self, k: int, chosen, fr, pre: str, fb_before, rec, state) -> str:
         """[A2.1/A2.4] after the real end-state observation of step k: remember a failed action (repeat blocker), classify the failure against the previous observation
         (progress | repetition | regression | changed), and put a repair report with the REAL failure and the current code at the failing location into the next context. Same controller, same journal."""
+        self.tlc("enter", "repair")
         r = self.last_exec or {}
         out = (r.get("stdout", "") or "") + "\n" + (r.get("stderr", "") or "")
         files = sorted(self.files_text())
@@ -551,9 +604,13 @@ class AgenticRun:
                                     "repeat_blocked_total": self.repeat_blocked, "snippet_sha256": sha(snip), "report_sha256": sha(text)})
         return cls
 
+    def _score_timed(self, fn):
+        return self.timed("model_call", fn, None, model="laya_scorer", purpose="next_action_score")
+
     def step_from_generation(self, proposer, seeds: Sequence[int] = (0,)) -> Dict[str, Any]:
         """[EL-ARCH-1 B3] ask a generation backend (via controller.generation.ActionProposer) for next-action proposals with the frozen action template, journal what came back (hashes, status,
         every rejection: prose is rejected, never repaired) and run one step on the parsed options. An empty proposal list is a step with no options: the decision abstains."""
+        self.tlc("enter", "generate", step=self.step_no + 1)
         out = proposer.propose(self.task.task_id, self.step_no + 1, self.context_text(), seeds)
         self.journal_proposals(out)
         return self.step(out["options"], out["qwen_meta"])
@@ -610,6 +667,7 @@ class AgenticRun:
     def critic_stage(self) -> str:
         """-> 'applied' | 'pending' | 'unavailable'. Needs ctx.critic (a CriticBroker). The response is an EXPERIMENT; the controller runs it in the sandbox on a scratch copy of the end state
         and records the outcome as diagnostic evidence (critic_experiment_v1, model_derived): it can never raise a label."""
+        self.tlc("enter", "discriminate")
         if self.ctx.critic is None:
             self.note("critic", {"state": "unavailable", "reason": "no critic broker in the context"})
             if "critic" in set(self.ctx.config.get("require", ())):
@@ -647,7 +705,7 @@ class AgenticRun:
         scratch = Path(tempfile.mkdtemp(prefix="agentic-critic-")) / "ws"
         shutil.copytree(self.task.workspace, scratch)
         try:
-            r = self._run(scratch, plan["cmd"])
+            r = self._run(scratch, plan["cmd"], label="critic_experiment")
         finally:
             shutil.rmtree(scratch.parent, ignore_errors=True)
         st, observed = EXP.judge((exp.get("expected_by_candidate") or {}).get(self.last_state), r)
@@ -660,6 +718,7 @@ class AgenticRun:
 
     # ------------------------------------------------------------------ finish
     def _finish_no_oracle(self) -> ProblemResult:
+        self.tlc("enter", "commit_verify")
         """[EL-ARCH-1 B1] tier O2/O3: no action was taken. BLOCKED, with the ask-user questions (O3) or the pointer to the ladder controller (O2) in the stop details."""
         t = self.no_oracle
         d = blocked_without_candidate(self.reqs, "d-tier-" + self.task.task_id)
@@ -679,6 +738,7 @@ class AgenticRun:
         return result
 
     def finish(self) -> ProblemResult:
+        self.tlc("enter", "commit_verify")
         if self.last_state is None and self.no_oracle is not None:
             return self._finish_no_oracle()
         if self.last_state is None:
@@ -717,6 +777,7 @@ class AgenticRun:
         end = C.sha256(json.dumps(list(self.registry.checks.values()), sort_keys=True))
         self.note("registry", {"phase": "end", "hash": end, "scorer": self._scorer_fp()})
         C.assert_frozen(self.reg_hash0, end)
+        self.tlc("leave")
         result = ProblemResult(self.task.task_id, self.ctx.arm, sid, d["answer_label"], d, cause, [e["evidence_id"] for e in self.journal.evidence(sid)], self.budget.record(), len(self.steps),
                                self.journal.journal_hash(), None, details)
         self.invariants_checked = assert_invariants(result, self.journal, self.ctx, self.limiter.limits)

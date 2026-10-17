@@ -262,6 +262,7 @@ def repair_text(k: int, action_text: str, result_text: str, cur: Dict[str, Any],
 def investigate(run) -> Dict[str, Any]:
     """Run the stage on an AgenticRun after begin(): journal `investigate_sources`, observe the baseline end state (L5 evidence), journal `investigate`, append the report to the next context,
     re-run the router and the tier. -> the structured result (also stored on run.investigation)."""
+    run.tlc("enter", "investigate")
     ws = run.task.workspace
     sources = inspect_sources(ws, run.task.protected)
     run.note("investigate_sources", {"files": sources})

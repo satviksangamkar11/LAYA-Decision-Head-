@@ -93,6 +93,12 @@ ACTION_INSTR_V2 = ("Propose exactly 4 DISTINCT ALTERNATIVE candidates for the SI
                    "Every double quote inside a string value must be escaped as \\\". Output only the JSON list.")
 ACTION_TEMPLATE_HASH_V2 = sha256_text(ACTION_INSTR_V2)
 _OBJ_START = re.compile(r'\{\s*"name"\s*:')
+# ------------------------------------------------------------------ [EL-ARCH-1 brief-thinking] v3 = v2 + a brief-reasoning instruction; NO token cutoff on thinking (only a large technical safety ceiling set by the caller)
+ACTION_TEMPLATE_ID_V3 = "qwen_actions_v3"
+BRIEF_THINKING_INSTR = ("Think BRIEFLY: reason in a few short sentences only, do not re-verify or re-derive the same point, do not enumerate every possibility, and output the JSON list as soon as you have your candidates. ")
+ACTION_INSTR_V3 = BRIEF_THINKING_INSTR + ACTION_INSTR_V2
+ACTION_TEMPLATE_HASH_V3 = sha256_text(ACTION_INSTR_V3)
+
 
 
 def parse_actions_v2(text: str, max_actions: int = 5) -> Dict[str, Any]:
@@ -272,6 +278,12 @@ def plan_samples(task, n: int, seeds: Sequence[int], start_index: int = 0, strat
 
 
 # ------------------------------------------------------------------ Kaggle -> PC hand-off
+class ActionProposerV3(ActionProposerV2):
+    """[EL-ARCH-1 brief-thinking] qwen_actions_v3: the v2 behaviour (salvage, one independent next action, filter) with a brief-reasoning instruction in the prompt. It does NOT cut thinking by a token
+    count; the caller sets only a large technical safety ceiling (max_new_tokens), and a sample that hits it is a failure (no closed think block), never a success."""
+    TEMPLATE_ID, INSTR = ACTION_TEMPLATE_ID_V3, ACTION_INSTR_V3
+
+
 class PromptMismatch(RuntimeError):
     """The controller asked for a prompt other than the one the recorded generation was made from."""
 

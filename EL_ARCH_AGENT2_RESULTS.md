@@ -100,3 +100,40 @@ Import path: `evidence_ladder.controller.pathb_stored` (alias `PB`), documented 
 - `PB.run_exact_pool(key, live, backends, system_block, sandbox=None) -> (AgenticRun, step record)`: toy repo of that example, LAYA scorer + probe / random-head comparison scorers on the stored backends, one `step()` on the stored options (default sandbox: real WslSandbox). Journal: `scorer` (LAYA, L0), `scorer_comparison` (probe + random_head, `selector: false`, scores equal the stored ones). ex1 and ex2 pools survive the filter unchanged (scores admitted); ex3's pool loses one option (`old_string_absent`), so it is refused: no `scorer`, no `scorer_comparison`, `scorer_unavailable` with ProvenanceError.
 Why this works where `--mode replay4b` could not: the stored runs here have `raw_output`/options and context text in the kernel request, and I rebuild the context from the system block, not from the current controller's INVESTIGATE-extended messages.
 (Correction to a typo above: the module is `decision_head.fable_pool`.)
+
+---
+# TIMELINE SIDE CHANNEL (user request 2026-10-18; checklist-style note for the Kaggle runner / Agent 3)
+
+Status: DONE. New `evidence_ladder/controller/timeline.py` (class `Timeline`), hooks in `journal.py`, `agentic.py`, `investigate.py`, `controller.py` (ladder), `replay.py`; tests `evidence_ladder/controller/tests/phaseF2b_tests.py` (12/12; one real-WSL test).
+
+## Import path and call signatures
+```python
+from evidence_ladder.controller.timeline import Timeline
+tl = Timeline()                      # default clocks: real UTC (datetime.now(timezone.utc).isoformat()) and time.monotonic. Timeline(utc=fn_returning_iso_str, mono=fn_returning_float) for tests.
+
+# agentic mode (AgenticRun): one optional field on the context
+ctx = AgenticContext(sandbox=..., scorer=..., critic=..., arm="E", config=..., timeline=tl)       # RecordedRun passes it through (replay.py); replay() itself runs without a timeline
+
+# ladder mode (EvidenceLadderController): one optional constructor argument
+ctl = EvidenceLadderController(limits=None, clock=None, timeline=tl)
+
+rows = tl.rows()        # list[dict], JSON-serialisable, call order; closes an open stage
+summ = tl.summary()     # {"stages": {name: {count,total_s,p50,p95}}, "spans": {...}, "events": {kind: {...}}, "entries": n_journal_entries, "wall_s": ..., "clock_errors": n}
+```
+The controllers attach the timeline to their own journal (`tl.attach(journal)`, journal.append then calls `tl.on_entry(seq, kind)`); the caller only passes `tl`. One Timeline per problem is the intended use (rows carry `step`/`stage`, not a task id: write `tl.rows()` next to the problem's journal, or put the task id in the file name). For several problems in one process either create one Timeline per problem or call `tl.event("problem_start", None, task_id=...)` yourself between them.
+
+## Row shapes (side list only; NEVER inside a journal entry, a journal hash, a record or a receipt that is hashed)
+- `{"row":"entry","seq":<journal seq>,"kind":<journal kind>,"utc_iso","monotonic_s","stage","step","seq_in_timeline"}`: one per journal entry (every entry of the run has one; test asserts seq 0..n-1).
+- `{"row":"stage","name","start_utc_iso","start_monotonic_s","end_utc_iso","end_monotonic_s","duration_s","step", ...meta}`: flat stage map; `enter()` closes the open stage.
+  Agentic stage names: `intake` (begin), `investigate`, `generate` (only via step_from_generation), `filter`, `check` (dry-runs), `rank` (scorer + decision), `commit`, `observe`, `repair`, `discriminate` (critic stage), `commit_verify` (finish). `step` = decision round.
+  Ladder stage names: `intake`, `generate` (purpose, n), `execute` (public examples of a candidate), `l2_generate`, `l2_validate`, `cluster` (L1 behaviour clustering), `discriminate` (critic packet export / ingest), `rank`, `repair` (round = n), `commit_verify`.
+- `{"row":"event","kind":"model_call","model","tokens_prompt","tokens_generated","seconds","purpose", ...}`: Qwen proposal rounds in agentic mode (tokens + `kaggle_seconds` from the `qwen_meta` you pass to `step()`), LAYA scorer calls (`model="laya_scorer"`, seconds measured around the call), ladder generations (`Generation.wall_seconds`, purpose sample/tests/repair).
+- `{"row":"event","kind":"sandbox","seconds","check_id","status","label"}`: every sandbox / execution call, timed around the real call (`protected_tests_v1`, `action_dry_run_v1`, `critic_experiment_v1`, `public_examples_v1`, `experiment`; status pass | fail | error).
+- `{"row":"span", ...}` and `Timeline.span(name, **meta)`: nested timed sections you can use in the runner (e.g. GLM packet export / ingest around your own calls). Not emitted by the controllers.
+- GLM seconds are NOT measured by the controller (the broker/PC sender is yours): record them with `tl.event("model_call", seconds, model="glm", tokens_prompt=..., tokens_generated=..., purpose="critic")` or `with tl.span("glm_critic", packet_id=...)`.
+
+## Guarantees and tests (phaseF2b_tests.py)
+- Hash identity: `tl_agentic_journal_hash_is_identical_with_and_without_the_timeline_logic` (journal hash, chain hashes, label, stop, decision identical off / on / on with a different clock; nothing of the timeline inside any entry), `tl_ladder_journal_hash_is_identical_with_and_without_the_timeline_logic` (ladder with L2 + clustering + critic, and ladder with a repair round; a broken timeline too), `tl_agentic_replay_is_identical_with_the_timeline_on_and_off_logic` (RecordedRun with a timeline records, `replay()` without one is identical).
+- Failure isolation: `tl_agentic_failing_timeline_and_failing_clock_change_no_decision_logic` (every Timeline method raises; every clock call raises: same journal and decisions; the sandbox is called exactly once per step: the timing wrapper never retries or swallows the call), `tl_failing_clock_blanks_the_row_and_never_raises_logic` (rows get `clock_error`, duration None).
+- Content: `tl_rows_and_summary_have_the_documented_shapes_logic`, `tl_percentiles_only_where_meaningful_logic` (p95 is null for a single sample), `tl_default_clocks_are_real_utc_and_monotonic_logic`, `tl_agentic_stage_map_model_calls_and_sandbox_calls_are_recorded_logic`, `tl_ladder_stage_map_covers_intake_generate_execute_l2_cluster_discriminate_rank_commit_logic`, `tl_ladder_repair_rounds_are_a_stage_with_the_round_number_logic`, and on the real WSL sandbox with real clocks `tl_agentic_stage_boundaries_on_the_real_sandbox_wsl` (real durations > 0, baseline fails / edit passes).
+- Suites on the current tree after the change: phaseF2b 12/12, phaseF2 45/45, phaseF1 18/18, phaseA 16/16, controller run_tests 25/25, laya_integration 25/25, orchestrator run_tests 25/25, replay_integration 26/26. NOT green, not caused by the timeline: phaseB `t_static_controller_imports_stay_clean_...`, phaseD1 `d1_s0_i8_deep_scan_...` / `d1_s1_final_path_resumes_...` / `d1_s5_*`, phaseC `c6_no_runtime_module_imports_or_names_the_hidden_cases`: `static_isolation_scan()` now reports `bank40.py:267 string names protected_cases / hidden_cases` (a runtime module outside the controller that is not mine; Agent 3 / coordinator to fix the string or the scan scope); phaseF3 `t_T43_dirty_tree_is_refused...` fails because the tree is dirty during this work.

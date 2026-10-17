@@ -57,6 +57,7 @@ TAG = "[EL-ARCH-1 D1 · Aim: complete the missing architecture blocks, not perfo
 OWNER = "sangeetasangamkar"
 EXAMPLES = [("ex1_slug", "slug"), ("ex2_clamp", "clamp"), ("ex3_wordcount", "wordcount")]
 SEEDS = (0, 1)                       # two samples per decision; merged in seed order by ActionProposer
+SAFETY_CEILING_BRIEF = 8192            # [brief-thinking] technical ceiling only (a sample that hits it has no closed think block = a failure); NOT a thinking budget
 MAX_NEW_TOKENS = 5000                # thinking must close inside this (the strict parser refuses an unfinished think block); 2 seeds x 5000 stays inside the agentic Qwen-token cap
 MAX_STEPS = 2                        # one proposal round + one repair round
 SYSTEM_BLOCK_SHA256 = "9bf0352e5debcef4997f0fe2b514a408b072c61e83a87249c7aeb4fdaa5d7250"
@@ -517,7 +518,8 @@ class Acceptance:
                 missing.append(req); raise Q.FixtureMissing((req.task_id,))
             def model_info(self_): return {"backend": "staged_kaggle_replay"}
         # PATH A (local) uses the one-independent-action prompt + per-option salvage + candidate filter (ActionProposerV2); the Kaggle / PATH B replay keeps the frozen v1 proposer (stored prompts must reproduce)
-        proposer = (lambda b, **k: GEN.ActionProposerV2(b, prefilter=False, **k) if self.use_v2() else GEN.ActionProposer(b, **k))(Staged(), max_new_tokens=MAX_NEW_TOKENS)      # local: prefilter=False, the controller's single filter_options call journals every rejection
+        brief = getattr(self, "thinking_policy", None) == "prompt_brief"
+        proposer = (lambda b, **k: (GEN.ActionProposerV3 if brief else GEN.ActionProposerV2)(b, prefilter=False, **k) if self.use_v2() else GEN.ActionProposer(b, **k))(Staged(), max_new_tokens=SAFETY_CEILING_BRIEF if brief else MAX_NEW_TOKENS)      # local: prefilter=False, the controller's single filter_options call journals every rejection
         gate_pools: List[Dict[str, Any]] = []
         for rnd in range(1, MAX_STEPS + 1):
             active = [n for n, r in runs.items() if not r.run.decided and len(r.run.steps) == rnd - 1]
@@ -628,7 +630,7 @@ class Acceptance:
     def receipts(self, done: Dict[str, Any], pre: Dict[str, Any], variants: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         rec_dir = self.out / "receipts"
         summary: Dict[str, Any] = {"tag": TAG, "mode": self.mode, "stub_run": not self.real, "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "preflight": pre, "constants": {
-            "seeds": list(SEEDS), "max_new_tokens": MAX_NEW_TOKENS, "max_steps": MAX_STEPS, "require": ["scorer", "critic"]}, "examples": {}, "kaggle": self.notes}
+            "seeds": list(SEEDS), "max_new_tokens": SAFETY_CEILING_BRIEF if getattr(self, "thinking_policy", None) == "prompt_brief" else MAX_NEW_TOKENS, "thinking_policy": getattr(self, "thinking_policy", None) or "full_thinking", "max_steps": MAX_STEPS, "require": ["scorer", "critic"]}, "examples": {}, "kaggle": self.notes}
         stub = not self.real
         for n, (rr, res, state) in done["runs"].items():
             run = rr.run
@@ -884,6 +886,7 @@ def main(argv=None) -> int:
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--offline-rehearsal", action="store_true"); g.add_argument("--final", action="store_true")
     ap.add_argument("--bundle"); ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--thinking-policy", choices=["prompt_brief"], help="Kaggle generation with the brief-reasoning prompt qwen_actions_v3 and NO token cutoff on thinking (safety ceiling 8192 only)")
     ap.add_argument("--think-budget", type=int, help="Kaggle generation with a thinking budget of N tokens (kernel el-arch1-generate-lowthink-v1): think <= N, force </think>, then answer; default none = unchanged")
     ap.add_argument("--backbone", help="backbone profile id for the generating model (configs/backbones_v1.toml); only with --mode local")
     ap.add_argument("--mode", choices=["kaggle", "local", "replay4b"], default="kaggle")
@@ -907,7 +910,8 @@ def main(argv=None) -> int:
     if not (a.final or a.offline_rehearsal): ap.error("one of --offline-rehearsal / --final / --mode local is required")
     if a.final and not a.bundle: ap.error("--final needs --bundle <results/raw/el-arch1-bundle-*>")
     acc = Acceptance(Path(a.out), final=a.final, bundle=a.bundle, allow_dirty=a.allow_dirty)
-    acc.think_budget = a.think_budget      # None = the unchanged generation kernel
+    acc.think_budget = a.think_budget
+    acc.thinking_policy = a.thinking_policy      # None = the unchanged generation kernel
     return acc.run()
 
 

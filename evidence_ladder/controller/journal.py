@@ -33,6 +33,7 @@ class EvidenceJournal:
         self._head = GENESIS
         self._evidence: List[Dict[str, Any]] = []
         self._ev_ids = set()
+        self.timeline = None      # [F2b] optional side channel (timeline.Timeline.attach): never part of an entry or a hash
 
     # ---- writing (the only mutation is append)
     def append(self, kind: str, data: Any) -> str:
@@ -40,6 +41,12 @@ class EvidenceJournal:
         line = canon(entry)          # raises TypeError on non-JSON data: nothing nondeterministic slips in silently
         self._head = C.sha256(line)
         self._lines.append(line)
+        tl = self.timeline
+        if tl is not None:
+            try:
+                tl.on_entry(entry["seq"], kind)
+            except Exception:      # noqa: BLE001  a failing timeline never changes the journal
+                pass
         return self._head
 
     def add_evidence(self, ev: Dict[str, Any], outcome: Optional[Dict[str, Any]] = None) -> str:

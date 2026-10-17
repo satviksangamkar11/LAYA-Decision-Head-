@@ -94,6 +94,7 @@ class _Run:
         self._scorer_key = None
         self.limiter = Limiter(ctl.limits, ctl.clock)
         self.limit_detail = ""
+        self.tl = getattr(ctl, "timeline", None)      # [F2b] optional timestamps side channel (timeline.Timeline); never enters the journal or a hash
 
     # ------------------------------------------------------------ plumbing
     def limit_check(self) -> bool:
@@ -109,6 +110,40 @@ class _Run:
 
     def note(self, kind: str, data: Any) -> None:
         self.journal.append(kind, data)
+
+    def _tlv(self, method: str):
+        if self.tl is not None:
+            try:
+                return getattr(self.tl, method)()
+            except Exception:      # noqa: BLE001
+                return None
+        return None
+
+    def timed(self, kind: str, fn, status_of=None, **meta):
+        """[F2b] run fn() EXACTLY once and record its real duration as a timeline event; timeline failures are swallowed, fn's own exceptions propagate unchanged"""
+        if self.tl is None:
+            return fn()
+        mk = self._tlv("mark")
+        try:
+            res = fn()
+        except BaseException:
+            self.tlc("finish_call", kind, mk, "error", **meta)
+            raise
+        st = None
+        if status_of is not None:
+            try:
+                st = status_of(res)
+            except Exception:      # noqa: BLE001
+                st = None
+        self.tlc("finish_call", kind, mk, st, **meta)
+        return res
+
+    def tlc(self, method: str, *a: Any, **k: Any) -> None:
+        if self.tl is not None:
+            try:
+                getattr(self.tl, method)(*a, **k)
+            except Exception:      # noqa: BLE001  a failing timeline never changes a decision
+                pass
 
     def check_frozen(self) -> None:
         C.assert_frozen(self.reg_hash0, digest(self.registry))
@@ -134,6 +169,8 @@ class _Run:
             self.budget_hit = True
             return []
         seeds = self.next_seeds(n)
+        if purpose == "sample":
+            self.tlc("enter", "generate", purpose=purpose, n=n)
         template = {"sample": "qwen_sample_v2", "repair": "repair_v1", "tests": "qwen_tests_v1"}.get(purpose, purpose)
         if purpose == "sample" and self.cfg.get("strategies"):
             # [EL-ARCH-1 B3] the frozen prompt strategies (qwen_sample_v2 x2, qwen_sample_v2b x2, ... each with the solution-format block): one request per consecutive strategy run
@@ -155,6 +192,7 @@ class _Run:
                                                                          purpose, bool(self.cfg.get("thinking", True)), template)))
         out = []
         for g in gens:
+            self.tlc("model_call", g.model, getattr(g, "wall_seconds", None), g.tokens_prompt, g.tokens_generated, purpose=purpose, seed=g.seed)
             out.append(g)                       # the generation exists and cost tokens, so it is kept even if it crossed the cap
             try:
                 self.ctx.budget.charge("qwen_prefill", int(g.tokens_prompt))
@@ -188,9 +226,13 @@ class _Run:
         for ev, out in recs:
             self.journal.add_evidence(ev, out)
 
+    def _timed_exec(self, check_id, fn, status_of):
+        return self.timed("sandbox", fn, status_of, check_id=check_id)
+
     def run_public(self, art: Artifact):
         try:
-            outcomes = list(self.ctx.execution.run_public(art, self.task))
+            outcomes = list(self._timed_exec("public_examples_v1", lambda: self.ctx.execution.run_public(art, self.task),
+                                              lambda o: "pass" if all(x.get("status") == "pass" for x in o) else "fail"))
         except BudgetExhausted:
             raise
         except Exception as ex:      # noqa: BLE001  an execution backend failure is a tool failure, never a candidate failure (S5)
@@ -201,6 +243,7 @@ class _Run:
         return outcomes
 
     def evaluate(self, c: _Cand) -> None:
+        self.tlc("enter", "execute")
         outcomes = self.run_public(c.art)
         recs, summary = public_records(self.task, c.art, outcomes, self.intake, self.fac)
         self.record(recs)
@@ -297,6 +340,7 @@ class _Run:
     # ------------------------------------------------------------ critic (ladder only)
     def critic_stage(self):
         """-> None (continue) or (stop_cause, details)."""
+        self.tlc("enter", "discriminate")
         live = sorted((c for c in self.cands.values() if c.fails == 0), key=lambda c: c.id)
         clusters = {self.ckey(c) for c in live}
         trig = bool(live) and (len(clusters) >= 2 or bool(self.cfg.get("critic_experiment")))
@@ -431,7 +475,8 @@ class _Run:
         def run(source: str, inp: Dict[str, Any]) -> Dict[str, Any]:
             art = Artifact.make(self.task.task_id, self.task.language, source, None, "probe")
             try:
-                out = dict(self.ctx.execution.run_experiment(art, {"kind": "function_call", "payload": json.dumps(inp, sort_keys=True, ensure_ascii=False)}))
+                out = dict(self._timed_exec("experiment", lambda: self.ctx.execution.run_experiment(art, {"kind": "function_call", "payload": json.dumps(inp, sort_keys=True, ensure_ascii=False)}),
+                                            lambda o: o.get("status")))
             except BudgetExhausted:
                 raise
             except Exception as ex:      # noqa: BLE001  an infrastructure failure is a tool failure, never a verdict on the candidate
@@ -450,6 +495,7 @@ class _Run:
         if not refs:
             return
         self.l2_done = True
+        self.tlc("enter", "l2_generate")
         from evidence_ladder.models import qwen as _Q
         prompt, _ = _Q.render("qwen_tests_v1", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests), n_tests=int(self.cfg.get("l2_n", 6)))
         parsed, rejected = [], []
@@ -457,6 +503,7 @@ class _Run:
             pc = L2.parse_checks(g.text, int(self.cfg.get("l2_n", 6)))
             parsed += pc["checks"]
             rejected += pc["rejected"]
+        self.tlc("enter", "l2_validate")
         val = L2.validate_checks(parsed, self.intake.request_text, self.task.public_tests, refs, self.runner(), int(self.cfg.get("mutant_limit", 8)))
         self.l2_checks = val["validated"]
         keep = ("index", "quote", "char_start", "char_end", "reference", "kills_mutants", "beyond_examples", "passed_by", "failed_by")
@@ -497,6 +544,7 @@ class _Run:
         if len(live) < 2 or key == self._disc_key:
             return
         self._disc_key = key
+        self.tlc("enter", "cluster")
         inputs = L2.derive_inputs(self.task.public_tests, int(self.cfg.get("disc_inputs", 6)))
         seen = {L2.canon(i) for i in inputs}
         for ck in self.l2_checks:
@@ -522,6 +570,7 @@ class _Run:
         return None
 
     def repair_round(self, target: _Cand) -> None:
+        self.tlc("enter", "repair", round=self.rounds + 1)
         target.repaired = True
         f = target.first_fail or {"level": "L3", "input": "n/a", "expected": "n/a", "observed": "n/a", "quote": self.intake.by_id("R2")["text"]}
         constraints = "; ".join(r["text"] for r in self.reqs if r["kind"] == "contract") + "; keep the entry point `solve` and its signature"
@@ -581,6 +630,7 @@ class _Run:
                     return r
                 if self.tool_failure:
                     continue
+            self.tlc("enter", "rank")
             ranked = self.ranked("loop")
             if ranked and self.ok(ranked[0]):
                 return ("decided", "")
@@ -658,12 +708,15 @@ class _Run:
             if o is None and n in need:
                 raise MissingComponentError(n, "arm config asks for it and cfg['require'] lists it")
         self.limiter.start()
+        self.tlc("enter", "intake")
         self.intake = intake_mod.build(task, self.cfg.get("proposed_requirements"))
         self.reqs = self.intake.reqs
         self.registry = build_registry(self.intake.example_ids)
         self.ctl._registry = self.registry
         self.reg_hash0 = digest(self.registry)
         self.journal = EvidenceJournal(self.registry)
+        if self.tl is not None:
+            self.tlc("attach", self.journal)
         info = ctx.execution.backend_info()
         self.env = self.cfg.get("environment_revision") or ("env-" + C.sha256(canon(info, default=str))[:12])
         self.fac = Factory(self.registry, self.reqs, self.env, self.intake.roles)
@@ -691,6 +744,7 @@ class _Run:
         return self.finish(cause, details)
 
     def finish(self, cause: str, details: str) -> ProblemResult:
+        self.tlc("enter", "commit_verify")
         task, ctx = self.task, self.ctx
         best: Optional[_Cand] = self.ranked("final")[0] if self.cands else None
         if cause == "decided" and best is not None and self.cfg.get("finalize", True):
@@ -723,17 +777,19 @@ class _Run:
                                best.art if best else None, details)
         assert_invariants(result, self.journal, ctx, self.limiter.limits)
         self.ctl.last_journal = self.journal
+        self.tlc("leave")
         return result
 
 
 class EvidenceLadderController:
     """Implements interfaces.Controller. One instance can run many problems; last_journal / last_run describe the most recent one."""
 
-    def __init__(self, limits=None, clock=None):
+    def __init__(self, limits=None, clock=None, timeline=None):
         """limits: evidence_ladder.controller.limits.Limits (default: profile "ladder" of configs/el_arch1_limits_v1.toml). clock: injected monotonic clock for the wall-time limit."""
         import time as _time
         self.limits = limits if limits is not None else load_limits("ladder")
         self.clock = clock or _time.monotonic
+        self.timeline = timeline      # [F2b] optional timeline.Timeline (timestamps side channel)
         self._registry = None
         self.last_journal: Optional[EvidenceJournal] = None
         self.last_run: Optional[_Run] = None
