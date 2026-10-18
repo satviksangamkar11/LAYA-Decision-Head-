@@ -81,10 +81,20 @@ def find_links(root: Path) -> List[str]:
 
 
 def tree_hash(ws: Path) -> str:
-    """Same bytes as laya_int1_t6_sandbox.tree(): sorted files, 'relpath\\0sha256(content)'. Links never occur here (find_links runs first)."""
+    """Same bytes as laya_int1_t6_sandbox.tree(): sorted files, 'relpath\0sha256(content)'. Links (and anything lstat cannot classify as a plain file, e.g. a WSL symlink created by a container that
+    Windows cannot open) are never followed or read: they are skipped, and run() reports them separately (find_links / persist refused)."""
     h = hashlib.sha256()
-    files = sorted((x for x in Path(ws).rglob("*") if x.is_file() and not is_link(str(x))), key=lambda p: str(p.relative_to(ws)))
-    for p in files:
+    files = []
+    for dp, dns, fns in os.walk(ws, followlinks=False):
+        for n in fns:
+            p = os.path.join(dp, n)
+            try:
+                st = os.lstat(p)
+            except OSError:
+                continue
+            if stat.S_ISREG(st.st_mode) and not (getattr(st, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)):
+                files.append(Path(p))
+    for p in sorted(files, key=lambda p: str(p.relative_to(ws))):
         h.update(str(p.relative_to(ws)).replace("\\", "/").encode() + b"\0" + hashlib.sha256(p.read_bytes()).digest())
     return h.hexdigest()
 

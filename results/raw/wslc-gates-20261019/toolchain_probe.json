@@ -1,0 +1,28 @@
+{
+ "backend": "mxc-wslc",
+ "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+ "languages": {
+  "java": {
+   "probe": "PASS",
+   "versions": {
+    "javac": "javac 26.0.1",
+    "java": "openjdk version \"26.0.1\" 2026-04-21"
+   },
+   "reason": ""
+  },
+  "python": {
+   "probe": "PASS",
+   "versions": {
+    "python": "Python 3.13.11"
+   },
+   "reason": ""
+  },
+  "go": {
+   "probe": "PASS",
+   "versions": {
+    "go": "go version go1.26.4 linux/amd64"
+   },
+   "reason": ""
+  }
+ }
+}

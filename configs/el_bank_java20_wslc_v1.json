@@ -1,0 +1,120 @@
+{
+ "name": "el_bank_java20_wslc_v1",
+ "created": "2026-10-18",
+ "purpose": "the 20 Java records of configs/el_bank80_rest_v1.json, to be run through the full pipeline with the MXC WSLC backend (previously NOT_TESTED_NO_JDK)",
+ "source": "configs/el_bank80_rest_v1.json",
+ "source_sha256": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+ "sources": {
+  "python": {
+   "file": "results/raw/codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl",
+   "sha256": "dd5d945c85d7537da953c897f939d0958703252deb493b8091ce899c0bdcc2eb"
+  },
+  "java": {
+   "file": "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/tasks.jsonl",
+   "sha256": "3211290a072a07ca656902b3ea6e00e899e9398f0a5810ec6358ea3821b5e064"
+  }
+ },
+ "tasks": [
+  {
+   "task": "J1-17",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-20",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-23",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-24",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-25",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-26",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-27",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-28",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-29",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-30",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-31",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-32",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-33",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-34",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-35",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-36",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-37",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-38",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-39",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-40",
+   "language": "java",
+   "difficulty": "hard"
+  }
+ ],
+ "total": 20
+}

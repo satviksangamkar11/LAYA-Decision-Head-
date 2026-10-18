@@ -248,12 +248,12 @@ def check_sandbox(task_dir: Path, result: Dict[str, Any], summary: Dict[str, Any
             except ValueError:
                 pass
     for path, v in seen:
-        if FORBIDDEN_ENGINE.search(v) and not (expect.lower().startswith("wsl") and "wsl" in v.lower()):
+        if FORBIDDEN_ENGINE.search(v) and not (str(v) == expect or str(v).startswith(expect)):
             probs.append("forbidden execution backend %r at %s" % (v, path))
     return probs, info
 
 
-def check_policy(result: Dict[str, Any], summary: Dict[str, Any], entries: List[Dict[str, Any]], legacy: bool) -> Tuple[List[str], Dict[str, Any]]:
+def check_policy(result: Dict[str, Any], summary: Dict[str, Any], entries: List[Dict[str, Any]], legacy: bool, require_l2_v2: bool = False) -> Tuple[List[str], Dict[str, Any]]:
     probs: List[str] = []
     pol = result.get("thinking_policy") or summary.get("thinking_policy")
     sha = (result.get("profile_sha256") or (summary.get("profile") or {}).get("sha256") or (summary.get("model") or {}).get("profile_sha256") or summary.get("profile_sha256"))
@@ -263,6 +263,8 @@ def check_policy(result: Dict[str, Any], summary: Dict[str, Any], entries: List[
     info = {"thinking_policy": (pol or {}).get("policy") if isinstance(pol, dict) else pol, "profile_sha256": sha, "l2_version": l2v, "waived": []}
     if not pol:
         probs.append("thinking policy not recorded")
+    if require_l2_v2 and l2v is not None and int(l2v) != 2:
+        probs.append("l2_version is %r, the WSLC Java run requires the L2 v2 prompt/parser" % (l2v,))
     for name, v in (("profile sha256", sha), ("l2_version", l2v)):
         if v is None:
             if legacy:
@@ -286,11 +288,18 @@ def check_public(task_dir: Path, summary: Dict[str, Any], markers: Sequence[str]
     return probs
 
 
-def check_exec(task_dir: Path, legacy: bool) -> Tuple[List[str], Dict[str, Any]]:
+WSLC_RECEIPT_FIELDS = ("backend", "image_digest", "toolchain", "source_sha256")
+_HEX64 = re.compile(r"^[0-9a-f]{64}$")
+
+
+def check_exec(task_dir: Path, legacy: bool, expect: Optional[str] = None, strict_provenance: bool = False, summary: Optional[Dict[str, Any]] = None) -> Tuple[List[str], Dict[str, Any]]:
+    """strict_provenance (WSLC mode): every record also names backend (== expect: any other backend is a SILENT FALLBACK), image_digest sha256:<64 hex> (one digest for the whole task),
+    toolchain {javac, java, python} non-empty and source_sha256 (64 hex; equal to RUN_SUMMARY.source_sha256 when that is recorded)."""
     p = task_dir / "exec_results.jsonl"
     if not p.exists():
         return ([] if legacy else ["exec_results.jsonl missing (every sandbox call must be recorded with the 8 contract fields)"]), {"records": 0, "waived": legacy}
     n, probs = 0, []
+    digests, backends = set(), set()
     for i, l in enumerate(x for x in p.read_text("utf-8").splitlines() if x.strip()):
         n += 1
         rec = json.loads(l)
@@ -298,9 +307,36 @@ def check_exec(task_dir: Path, legacy: bool) -> Tuple[List[str], Dict[str, Any]]
         if miss:
             probs.append("exec record %d lacks %s" % (i, miss))
             break
+        if strict_provenance:
+            miss = [k for k in WSLC_RECEIPT_FIELDS if not rec.get(k)]
+            if miss:
+                probs.append("exec record %d lacks receipt field(s) %s" % (i, miss))
+                break
+            backends.add(str(rec["backend"]))
+            if expect and not str(rec["backend"]).startswith(expect):
+                probs.append("silent fallback: exec record %d ran on backend %r, expected %r" % (i, rec["backend"], expect))
+                break
+            if not re.match(r"^sha256:[0-9a-f]{64}$", str(rec["image_digest"])):
+                probs.append("exec record %d: image_digest %r is not sha256:<64 hex>" % (i, rec["image_digest"]))
+                break
+            digests.add(rec["image_digest"])
+            tc = rec["toolchain"] if isinstance(rec["toolchain"], dict) else {}
+            bad = [k for k in ("javac", "java", "python") if not str(tc.get(k) or "").strip()]
+            if bad:
+                probs.append("exec record %d: toolchain lacks %s" % (i, bad))
+                break
+            if not _HEX64.match(str(rec["source_sha256"])):
+                probs.append("exec record %d: source_sha256 is not 64 hex" % i)
+                break
+            want = (summary or {}).get("source_sha256")
+            if want and rec["source_sha256"] != want:
+                probs.append("exec record %d: source_sha256 differs from RUN_SUMMARY.source_sha256 (not the committed source)" % i)
+                break
     if n == 0:
         probs.append("exec_results.jsonl is empty")
-    return probs, {"records": n}
+    if len(digests) > 1:
+        probs.append("more than one image digest used inside one task: %s" % sorted(digests))
+    return probs, {"records": n, "backends": sorted(backends), "image_digests": sorted(digests)}
 
 
 def check_states(task_dir: Path, entries: List[Dict[str, Any]]) -> Tuple[List[str], Dict[str, Any]]:
@@ -330,7 +366,7 @@ def check_states(task_dir: Path, entries: List[Dict[str, Any]]) -> Tuple[List[st
 
 
 # ------------------------------------------------------------------ the audit
-def audit_task(task_dir: Path, summary: Dict[str, Any], expect: str, legacy: bool, markers: Sequence[str], input_keys: Optional[Sequence[str]] = None) -> Dict[str, Any]:
+def audit_task(task_dir: Path, summary: Dict[str, Any], expect: str, legacy: bool, markers: Sequence[str], input_keys: Optional[Sequence[str]] = None, wslc: bool = False) -> Dict[str, Any]:
     tid = task_dir.name
     rec: Dict[str, Any] = {"task": tid, "verdict": "PIPELINE_OK", "problems": [], "checks": {}}
 
@@ -355,13 +391,14 @@ def audit_task(task_dir: Path, summary: Dict[str, Any], expect: str, legacy: boo
     add("l2", lp, linfo)
     ep, einfo = check_sandbox(task_dir, result, summary, expect, legacy)
     add("sandbox", ep, einfo)
-    pp, pinfo = check_policy(result, summary, entries, legacy)
+    pp, pinfo = check_policy(result, summary, entries, legacy, require_l2_v2=wslc)
     add("policy", pp, pinfo)
     add("public_only", check_public(task_dir, summary, markers))
-    xp, xinfo = check_exec(task_dir, legacy)
+    xp, xinfo = check_exec(task_dir, legacy, expect, wslc, summary)
     add("exec_results", xp, xinfo)
     tp, tinfo = check_states(task_dir, entries)
     add("states", tp, tinfo)
+    rec["candidate"] = {"answer_label": result.get("answer_label"), "stop_cause": result.get("stop_cause"), "public": result.get("public"), "note": "candidate result, reported separately: an honest candidate failure is still PIPELINE_OK when every stage was recorded"}
     if rec["problems"]:
         rec["verdict"] = "BROKEN"
     return rec
@@ -376,8 +413,12 @@ def expected_tasks(summary: Dict[str, Any], tasks_path: Optional[str]) -> List[s
     return [t for w in order for t in w] if order and isinstance(order[0], list) else list(order)
 
 
-def audit_run(run_dir, expect: str = "mxc", legacy: bool = False, tasks_path: Optional[str] = None, markers: Sequence[str] = HIDDEN_MARKERS) -> Dict[str, Any]:
+def audit_run(run_dir, expect: str = "mxc", legacy: bool = False, tasks_path: Optional[str] = None, markers: Sequence[str] = HIDDEN_MARKERS, wslc: Optional[bool] = None,
+              expect_count: Optional[int] = None) -> Dict[str, Any]:
+    """wslc (default: True when `expect` contains 'wslc'): strict execution provenance per record (backend, image digest, toolchain, source hash), zero NOT_TESTED (NO_JDK), zero silent fallback,
+    L2 v2 required; expect_count (e.g. 20): exactly that many executed tasks must exist. A summary with engine_status BLOCKED is an explicit PIPELINE_BLOCKED, never a pass."""
     run = Path(run_dir)
+    wslc = ("wslc" in expect) if wslc is None else wslc
     summary = _read_json(run / "RUN_SUMMARY.json") if (run / "RUN_SUMMARY.json").exists() else {}
     out: Dict[str, Any] = {"run_dir": str(run), "expect_engine": expect, "legacy_kaggle": legacy, "run_checks": {}, "tasks": {}, "not_tested": {}, "error": [], "missing": []}
     out["run_checks"]["run_summary"] = bool(summary)
@@ -392,7 +433,7 @@ def audit_run(run_dir, expect: str = "mxc", legacy: bool = False, tasks_path: Op
             except (OSError, ValueError):
                 out["not_tested"][td.name] = "NOT_TESTED marker without a result"
         elif (td / "DONE").exists():
-            out["tasks"][td.name] = audit_task(td, summary, expect, legacy, markers)
+            out["tasks"][td.name] = audit_task(td, summary, expect, legacy, markers, None, wslc)
         else:
             out["error"].append({"task": td.name, "why": "no DONE and no NOT_TESTED marker (crashed, pending or in progress)"})
     exp = expected_tasks(summary, tasks_path)
@@ -409,6 +450,22 @@ def audit_run(run_dir, expect: str = "mxc", legacy: bool = False, tasks_path: Op
         out["verdict"] = "PIPELINE_PARTIAL"
     else:
         out["verdict"] = "PIPELINE_COMPLETE"
+    if wslc:
+        crit: Dict[str, Any] = {}
+        no_jdk = sorted(t for t, r in out["not_tested"].items() if "NO_JDK" in str(r).upper() or "JDK" in str(r).upper())
+        crit["zero_not_tested"] = not out["not_tested"]
+        crit["zero_not_tested_no_jdk"] = not no_jdk
+        crit["zero_silent_fallback"] = not any("silent fallback" in p or "forbidden execution backend" in p or "not the expected" in p for ps in broken.values() for p in ps)
+        crit["expected_count"] = expect_count
+        crit["executed_count_matches"] = expect_count is None or len(out["tasks"]) == expect_count
+        crit["all_receipts_complete"] = not any(p.startswith("exec_results:") for ps in broken.values() for p in ps) and bool(out["tasks"])
+        crit["engine_status"] = summary.get("engine_status", "OK" if summary else "UNKNOWN")
+        out["wslc"] = {"criteria": crit, "not_tested_no_jdk": no_jdk, "candidate_results": {t: r.get("candidate") for t, r in out["tasks"].items()}}
+        if str(crit["engine_status"]).upper().startswith("BLOCKED"):
+            out["verdict"] = "PIPELINE_BLOCKED"
+            out["blocked_reason"] = summary.get("engine_blocked_reason") or summary.get("engine_status")
+        elif out["verdict"] == "PIPELINE_COMPLETE" and not (crit["zero_not_tested"] and crit["zero_not_tested_no_jdk"] and crit["executed_count_matches"]):
+            out["verdict"] = "PIPELINE_PARTIAL"
     out["label"] = "architecture conformance of a run (files only); not an accuracy result"
     return out
 
@@ -424,6 +481,11 @@ def to_markdown(rep: Dict[str, Any]) -> str:
         L += ["## ERROR / pending (no marker)"] + ["- %s: %s" % (e["task"], e["why"]) for e in rep["error"]] + [""]
     if rep["missing"]:
         L += ["## MISSING (expected but no task directory)", ", ".join(rep["missing"]), ""]
+    if rep.get("blocked_reason"):
+        L += ["## BLOCKED", str(rep["blocked_reason"]), ""]
+    if rep.get("wslc"):
+        L += ["## WSLC criteria", "```", json.dumps(rep["wslc"]["criteria"], indent=1), "```", "", "## Candidate results (SEPARATE from pipeline status)", "", "| task | answer label | stop cause | public |", "|---|---|---|---|"]
+        L += ["| %s | %s | %s | %s |" % (t, (c or {}).get("answer_label"), (c or {}).get("stop_cause"), json.dumps((c or {}).get("public"))[:120].replace("|", "/")) for t, c in sorted(rep["wslc"]["candidate_results"].items())] + [""]
     L += ["## per task", "", "| task | verdict | problems |", "|---|---|---|"] + ["| %s | %s | %s |" % (t, r["verdict"], "; ".join(r["problems"])[:300].replace("|", "/") or "") for t, r in sorted(rep["tasks"].items())]
     return "\n".join(L) + "\n"
 
@@ -457,11 +519,12 @@ def main(argv=None) -> int:
     ap.add_argument("--tasks")
     ap.add_argument("--expect-engine", default="mxc")
     ap.add_argument("--legacy", "--legacy-kaggle", dest="legacy_kaggle", action="store_true", help="audit an OLD run without the new provenance keys (profile sha, l2_version, exec_results.jsonl); waivers are reported. Default: strict")
+    ap.add_argument("--expect-count", type=int, help="exactly this many executed tasks must exist (WSLC Java run: 20)")
     ap.add_argument("--no-write", action="store_true")
     ap.add_argument("--out")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args(argv)
-    rep = audit_run(a.run_dir, a.expect_engine, a.legacy_kaggle, a.tasks)
+    rep = audit_run(a.run_dir, a.expect_engine, a.legacy_kaggle, a.tasks, expect_count=a.expect_count)
     if a.selftest:
         rep["selftest_state_hook_hash_neutral"] = selftest()
     md = to_markdown(rep)

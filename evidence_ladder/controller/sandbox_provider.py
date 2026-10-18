@@ -11,6 +11,7 @@ PORT (unchanged from WslSandbox; callers: AgenticRun._run, replay.RecordingSandb
 BACKENDS (explicit, never silently switched):
     wsl  the qualified WSL2 + systemd + bubblewrap sandbox (evidence_ladder/controller/wsl_sandbox.py). DEFAULT until the MXC gates in MXC_MIGRATION.md are met.
     mxc  Microsoft MXC (processcontainer) via evidence_ladder/controller/mxc_sandbox.py. Selected with backend="mxc" or LAYA_SANDBOX_BACKEND=mxc.
+    wslc Microsoft MXC WSLC (Linux container, pinned local image) via evidence_ladder/controller/wslc_sandbox.py; env_label "mxc-wslc"; provenance() gives image digest + toolchain.
 There is NO "auto" and NO fallback: asking for mxc on a host that cannot run it raises SandboxUnavailable (fail closed); the caller decides whether to switch to wsl, and the backend that ran is
 named in the journal environment id, in the receipts and in the diagnostics."""
 from __future__ import annotations
@@ -24,7 +25,7 @@ from evidence_ladder.controller.mxc_sandbox import SandboxUnavailable
 RESULT_KEYS = ("exit_code", "killed", "stdout", "stderr", "protected_unchanged", "pre_tree_sha256", "post_tree_sha256", "persisted")
 RESULT_TYPES = {"exit_code": int, "killed": bool, "stdout": str, "stderr": str, "protected_unchanged": bool, "pre_tree_sha256": str, "post_tree_sha256": str, "persisted": bool}
 DEFAULT_BACKEND = "wsl"
-BACKENDS = ("wsl", "mxc")
+BACKENDS = ("wsl", "mxc", "wslc")
 ENV_VAR = "LAYA_SANDBOX_BACKEND"
 
 
@@ -41,6 +42,9 @@ def make_sandbox(scratch, protected: Sequence[str], backend: Optional[str] = Non
     if b == "wsl":
         from evidence_ladder.controller.wsl_sandbox import WslSandbox
         return WslSandbox(Path(scratch), protected)
+    if b == "wslc":      # [WSLC] Linux container from a pinned local image through MXC; limits come from configs/wslc_image_v1.toml (cpuCount, memoryMb); a pids limit cannot be enforced -> raises
+        from evidence_ladder.controller.wslc_sandbox import WslcSandbox
+        return WslcSandbox(Path(scratch), protected, **kw)
     from evidence_ladder.controller.mxc_sandbox import Limits, MxcSandbox
     kw.setdefault("persistent", True)      # benchmark: a one-shot node start per call is slower than WSL at p95; the persistent bridge keeps NO candidate state (fresh run directory per call, tested)
     kw.setdefault("limits", Limits())      # parity with the WSL cgroup profile (2 GB, 256 processes, 4 cores); the constructor raises if they cannot be enforced
@@ -54,6 +58,10 @@ def backend_available(backend: Optional[str] = None) -> Dict[str, Any]:
         from evidence_ladder.controller.wsl_sandbox import available
         ok = available()
         return {"backend": b, "available": ok, "reasons": [] if ok else ["wsl does not answer"]}
+    if b == "wslc":
+        from evidence_ladder.controller.wslc_sandbox import capabilities as wcap
+        c = wcap()
+        return {"backend": b, "available": c["available"], "reasons": c["reasons"]}
     from evidence_ladder.controller.mxc_sandbox import capabilities
     c = capabilities()
     return {"backend": b, "available": c["available"], "reasons": c["reasons"], "tier": c.get("probe_tier")}

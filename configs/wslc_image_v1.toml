@@ -1,0 +1,23 @@
+# [WSLC backend] Pinned image identity for the MXC WSLC provider (evidence_ladder/controller/wslc_sandbox.py). Versioned: a different image is a NEW file (wslc_image_v2.toml) with a written reason.
+# The image is a LOCAL IMPORT (MXC wslc.imageTarPath): a minimal rootfs built from the qualified Ubuntu-24.04 WSL distro by tools/wslc_build_rootfs.sh. No registry pull, no download.
+# image_digest = sha256 of the tar file (what MXC imports). The provider re-hashes the tar once per process and refuses to start if it differs (fail closed).
+[image]
+id = "wslc-rootfs-v1"
+tar = "models/wslc-image/wslc_rootfs_v1.tar"
+sha256 = "5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff"
+bytes = 722995200
+builder = "tools/wslc_build_rootfs.sh"
+builder_sha256 = "a246c64fc7fb11ea752f4b8a01a460d2b67465070893f3111ee5929ffbdf638d"
+base = "Ubuntu-24.04 (qualified WSL sandbox distro), toolchains copied from /opt/toolchains at the SAME absolute paths"
+store = "models/wslc-store"            # wslc.storagePath (D: has the space; the MXC default would be %TEMP% on C:)
+
+[toolchain_expected]                   # read INSIDE the image by the provider and compared (a mismatch raises)
+python = "Python 3.13.11"
+java = "26.0.1"
+javac = "javac 26.0.1"
+go = "go1.26.4"
+
+[limits]                               # applied to the WSLC session (VM): cpuCount, memoryMb. A pids limit has no field in the WSLC V1 policy and was measured NOT enforced (1500 forks ok): requesting one raises.
+cpu_count = 2
+memory_mb = 1536
+max_output_bytes = 1048576

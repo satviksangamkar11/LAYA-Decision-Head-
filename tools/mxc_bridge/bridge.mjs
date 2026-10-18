@@ -34,7 +34,18 @@ function collect(stream, cap, state, key) {
 async function doRun(req) {
   const t0 = performance.now();
   const cap = Number(req.maxOutputBytes || 1048576);
-  const request = {
+  // containment "wslc": a Linux container (MXC WSLC backend) from a LOCAL image tar (req.wslc = {imageTarPath, storagePath, cpuCount, memoryMb}); no network block is declared, so MXC applies its
+  // default (no networking). Only the listed host paths are mounted. Default: Windows processcontainer (unchanged behaviour).
+  const isWslc = req.containment === "wslc";
+  const request = isWslc ? {
+    command: req.command,
+    containment: { type: "wslc", config: req.wslc || {} },
+    workingDirectory: req.cwd,
+    timeoutMs: req.timeoutMs,
+    inheritDefaultEnvironment: false,
+    environment: req.env || {},
+    filesystem: { readwritePaths: req.readwrite || [], readonlyPaths: req.readonly || [] },
+  } : {
     command: req.command,
     containment: { type: "processcontainer" },
     workingDirectory: req.cwd,

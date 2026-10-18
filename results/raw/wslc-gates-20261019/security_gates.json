@@ -1,0 +1,194 @@
+{
+ "backend": "mxc-wslc",
+ "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+ "utc": "2026-10-18T20:42:09Z",
+ "gates": {
+  "host_file_read_blocked": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "cat of 3 dummy sentinels (beside the workspace, in the project root, in an evidence_ladder tests-like path) + a write beside the workspace + listing of /mnt and of the drive root",
+    "sentinels_leaked": [],
+    "write_outside_reached_host": false,
+    "mnt_listing_and_drive_root_and_env": "cat: /mnt/c/Users/Satvik/AppData/Local/Temp/wslc-gate-vx5foddq/sentinel_near_dum rc=0\ncat: '/mnt/d/local model/_wslc_sentinel_root_dummy.txt': No such file or directo rc=0\ncat: '/mnt/d/local model/evidence_ladder/_wslc_sentinel_tests_dummy.txt': No suc rc=0\nwrite_outside_rc=1\nc\n---drive-root\nls: cannot access '/mnt/d': No such file or directory\n---env\nCI GOCACHE GOFLAGS GOPATH GOSUMDB GOTELEMETRY GOTOOLCHAIN HOME JAVA_HOME LANG LC_ALL NO_COLOR OLDPWD PATH PWD PYTHONDONTWRITEBYTECODE PYTHONHASHSEED SHLVL TMPDIR _ ",
+    "stderr": "/bin/bash: line 1: /mnt/c/Users/Satvik/AppData/Local/Temp/wslc-gate-vx5foddq/written_outside_dummy.txt: No such file or directory",
+    "drive_root_entries": [
+     "ls:",
+     "cannot",
+     "access",
+     "'/mnt/d':",
+     "No",
+     "such",
+     "file",
+     "or",
+     "directory"
+    ],
+    "exit_code": 0
+   },
+   "utc": "2026-10-18T20:41:09Z"
+  },
+  "network_blocked": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "TCP connect to 1.1.1.1:53, 8.8.8.8:53, 127.0.0.1:53 and DNS lookup of example.com; interface list",
+    "observed": "1.1.1.1 BLOCKED OSError\n8.8.8.8 BLOCKED OSError\n127.0.0.1 BLOCKED ConnectionRefusedError\ndns BLOCKED gaierror\nifaces ['lo']\n",
+    "stderr": ""
+   },
+   "utc": "2026-10-18T20:41:12Z"
+  },
+  "timeout_kill": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "3 background sleeps with timeout=4 s; then the same group-kill used by the runner (timeout -s KILL) on a bash with 2 sleeping grandchildren, counted from /proc by exact command line (`sleep 301`/`sleep 302`), not by substring, so the probe's own command line is not counted",
+    "killed": true,
+    "exit_code": 137,
+    "timed_out_flag": true,
+    "in_container_seconds": 4,
+    "wall_seconds": 7.0,
+    "grandchild_survivors_after_group_kill": "timeout_rc=137\nsurvivors=0\ndetector_control_live_sleep=1",
+    "container_destroyed_after_every_run": true
+   },
+   "utc": "2026-10-18T20:41:25Z"
+  },
+  "output_cap": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "5 MiB of stdout with a 1 MiB cap; an endless `yes`; a small output as control",
+    "five_mib": {
+     "killed": true,
+     "output_capped": true,
+     "returned_chars": 6000,
+     "exit_code": 0
+    },
+    "endless_yes": {
+     "killed": true,
+     "output_capped": true,
+     "returned_chars": 6000,
+     "exit_code": 153,
+     "seconds": 3.1473
+    },
+    "control_small": {
+     "stdout": "small\n",
+     "output_capped": false
+    },
+    "mechanism": "stdout/stderr redirected to files inside the container with a 64 MiB file-size limit (SIGXFSZ ends a flood); only the first cap bytes are returned; the flood never reaches the host"
+   },
+   "utc": "2026-10-18T20:41:33Z"
+  },
+  "limits": {
+   "status": "PASS",
+   "evidence": {
+    "memory": {
+     "session_limit_mb": 384,
+     "attempt": "touch 600 MB",
+     "exit_code": 137,
+     "killed": true,
+     "stdout": "",
+     "enforced": true
+    },
+    "pids": {
+     "attempt": "200 forks",
+     "stdout": "forked 200\n",
+     "enforced": false,
+     "note": "no process-count field in the WSLC V1 policy; provider refuses max_processes"
+    },
+    "cpu": {
+     "attempt": "2 busy processes, same work",
+     "wall_seconds_cpu_count_1": 1.13,
+     "wall_seconds_cpu_count_2": 0.64,
+     "enforced": true
+    },
+    "observed_container_meminfo_default_1536": "MemTotal:        1435680 kB MemFree:         1055452 kB",
+    "host_vmmemWSL_mb": {
+     "before": 2274,
+     "peak_during_gate_runs": 2274
+    },
+    "summary": "memory and CPU limits are enforced and observed; the process-count limit is NOT enforced by WSLC (documented, not claimed)"
+   },
+   "utc": "2026-10-18T20:41:49Z"
+  },
+  "secret_env_absent": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "set a secret-looking variable in the host process, list the container environment",
+    "container_env_names": [
+     "CI",
+     "GOCACHE",
+     "GOFLAGS",
+     "GOPATH",
+     "GOSUMDB",
+     "GOTELEMETRY",
+     "GOTOOLCHAIN",
+     "HOME",
+     "JAVA_HOME",
+     "LANG",
+     "LC_ALL",
+     "NO_COLOR",
+     "OLDPWD",
+     "PATH",
+     "PWD",
+     "PYTHONDONTWRITEBYTECODE",
+     "PYTHONHASHSEED",
+     "SHLVL",
+     "TMPDIR",
+     "_"
+    ]
+   },
+   "utc": "2026-10-18T20:41:52Z"
+  },
+  "protected_mutation_blocked": {
+   "status": "PASS",
+   "evidence": {
+    "attempted": "write, append, delete, rename-over and chmod+write on a protected file; control: write to an unprotected file persists",
+    "results": [
+     {
+      "cmd": "echo hacked > test_prot.py",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     },
+     {
+      "cmd": "echo hacked >> test_prot.py",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     },
+     {
+      "cmd": "rm -f test_prot.py",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     },
+     {
+      "cmd": "mv src.txt test_prot.py",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     },
+     {
+      "cmd": "python3 -c \"open('test_prot.py','w').write('x')\"",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     },
+     {
+      "cmd": "chmod 777 test_prot.py; echo x > test_prot.py",
+      "exit_code": 1,
+      "protected_unchanged": true,
+      "host_file_unchanged": true,
+      "persisted": true
+     }
+    ],
+    "control": {
+     "exit_code": 0,
+     "persisted": true
+    }
+   },
+   "utc": "2026-10-18T20:42:09Z"
+  }
+ }
+}

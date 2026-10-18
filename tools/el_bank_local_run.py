@@ -41,6 +41,7 @@ L2_VERSION = 2
 MIN_FREE_RAM_GB = 3.0
 MIN_FREE_VRAM_GB = 3.5
 MIN_FREE_COMMIT_GB = 4.5      # Agent 1 measured: loading the model fails below about 4.5 GB free system commit (GPU allocations count 1:1 against commit on this PC)
+SOURCE_SHA256: Optional[str] = None      # set once per process in run()
 CRITIC_READ_TIMEOUT_S = 420.0      # first-response wait per critic call (the 120 s of the first run timed out every bank packet: ~122 s per failed attempt)
 CRITIC_TOTAL_TIMEOUT_S = 1800.0
 MAX_CONSECUTIVE_ENGINE_FAILURES = 3
@@ -63,6 +64,15 @@ def git_commit() -> Optional[str]:
         return None
 
 
+def source_tree_sha256() -> Optional[str]:
+    """sha256 over the sorted (path, blob id) listing of the COMMITTED source tree (evidence_ladder, tools, configs); None when git is unavailable."""
+    try:
+        o = subprocess.run(["git", "ls-tree", "-r", "HEAD", "--", "evidence_ladder", "tools", "configs"], cwd=str(ROOT), capture_output=True, text=True, timeout=60).stdout
+        return sha("\n".join(sorted(o.splitlines()))) if o.strip() else None
+    except Exception:      # noqa: BLE001
+        return None
+
+
 def config_hashes() -> Dict[str, str]:
     return {f: sha((ROOT / f).read_bytes()) for f in CONFIG_FILES if (ROOT / f).is_file()}
 
@@ -70,6 +80,11 @@ def config_hashes() -> Dict[str, str]:
 # ------------------------------------------------------------------ tasks (PUBLIC prompt + public tests only)
 def load_tasks(manifest_path: Path = DEFAULT_MANIFEST, root: Path = ROOT, limit: Optional[int] = None) -> List[Dict[str, Any]]:
     man = json.loads(Path(manifest_path).read_text("utf-8"))
+    if man.get("total") is not None and man["total"] != len(man["tasks"]):
+        raise AssertionError("manifest says %d tasks but lists %d" % (man["total"], len(man["tasks"])))
+    if man.get("source") and man.get("source_sha256"):      # a derived manifest pins the manifest it was cut from
+        if hashlib.sha256((root / man["source"]).read_bytes()).hexdigest() != man["source_sha256"]:
+            raise AssertionError("manifest source %s differs from its pinned sha256" % man["source"])
     by: Dict[str, Dict[str, Any]] = {}
     for lang in ("python", "java"):
         src = man["sources"][lang]
@@ -189,6 +204,26 @@ class EngineGuard:
     def run_experiment(self, artifact, experiment): return self._wrap(self.inner.run_experiment, artifact, experiment)
 
 
+class ExecCallRecorder:
+    """Records every ExecutionBackend call EXACTLY as returned to the controller, one JSON line per call (offline replay input of tools/el_bank_replay_check.py):
+    {"method": "run_public"|"run_experiment", "artifact_id", "experiment": dict|null, "result": CheckOutcome list|CheckOutcome}. An exception is not recorded (it propagates)."""
+
+    def __init__(self, inner: Any, path: Path):
+        self.inner, self.path = inner, Path(path)
+
+    def __getattr__(self, name): return getattr(self.inner, name)
+
+    def _append(self, method: str, artifact, experiment, result) -> None:
+        with open(self.path, "a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps({"method": method, "artifact_id": artifact.artifact_id, "experiment": experiment, "result": result}, ensure_ascii=False, default=str) + "\n")
+
+    def run_public(self, artifact, task):
+        r = self.inner.run_public(artifact, task); self._append("run_public", artifact, None, r); return r
+
+    def run_experiment(self, artifact, experiment):
+        r = self.inner.run_experiment(artifact, experiment); self._append("run_experiment", artifact, experiment, r); return r
+
+
 class _EngineFailed(RuntimeError):
     pass
 
@@ -291,12 +326,14 @@ def run_task(rec_in: Dict[str, Any], gen_backend: Any, exe_backend: Any, out: Pa
     d.mkdir(parents=True)
     info = gen_backend.model_info() if hasattr(gen_backend, "model_info") else {}
     rec: Dict[str, Any] = {"task": tid, "pass": "local", "thinking_policy": policy, "scorer": "none", "worker": worker, "gpu": getattr(gen_backend, "gpu_name", None), "engine": engine_label,
-                           "label": LABEL, "wall_cap_s": wall_cap_s, "l2_version": l2_version, "profile_id": info.get("profile_id"), "profile_sha256": info.get("profile_sha256"), "start_utc": B.utc_now()}
+                           "label": LABEL, "wall_cap_s": wall_cap_s, "l2_version": l2_version, "profile_id": info.get("profile_id"), "profile_sha256": info.get("profile_sha256"), "start_utc": B.utc_now(),
+                           "task_prompt_sha256": B.sha(rec_in["prompt"]), "commit": git_commit(), "source_sha256": getattr(exe_backend, "source_sha256", None) or SOURCE_SHA256,
+                           "toolchain": (getattr(exe_backend, "toolchains", None) or {}).get(rec_in["language"])}
     t_start = time.time()
     try:
         task = TaskSpec(tid, ("py1:" if rec_in["language"] == "python" else "java1:") + tid, rec_in["language"], rec_in["language"], rec_in["prompt"], rec_in["public_tests"], rec_in.get("difficulty", ""))
         if hasattr(gen_backend, "language"): gen_backend.language = rec_in["language"]
-        exe = B.TimedExec(exe_backend, tl, tid)
+        exe = B.TimedExec(ExecCallRecorder(exe_backend, d / "exec_calls.jsonl"), tl, tid)
         shim = ThinkShimGen(gen_backend)
         recorder = B.RecordingGen(shim, tid)
         gen = B.TimedGen(recorder, tl, tid, gpu=0)
@@ -304,6 +341,7 @@ def run_task(rec_in: Dict[str, Any], gen_backend: Any, exe_backend: Any, out: Pa
         critic = StagedCriticBroker(d / "glm" / "broker_ledger.jsonl", config=glm_cfg, max_retries=1)
         cfg = {"mode": "ladder", "k": 4, "l2": True, "l2_n": 6, "l2_version": l2_version, "thinking": False, "discriminate": True, "critic": True, "strategies": list(GEN.FROZEN_STRATEGIES),
                "max_new_tokens": max_new_tokens or policy["ceiling"], "max_rounds": 2, "mutant_limit": 8}
+        rec["controller_config"] = cfg
         ctx = ControllerContext(gen, exe, Q.TokenBudget(tid, "D0", GENERATED_TOKEN_CAP), "D0", critic, None, SEEDS, cfg)
         i8 = isolation.deep_context_check(ctx)
         if i8: raise RuntimeError("I8 deep scan found evaluation-only material in the controller context: %s" % i8[:3])
@@ -572,13 +610,21 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
         RS["public_only_guard"] = public_guard(tasks)
     except AssertionError as e:
         RS.update(verdict="PREFLIGHT_REFUSED", error="tasks are not public-only: %s" % str(e)[:300]); B.write_atomic(out / "RUN_SUMMARY.json", json.dumps(RS, indent=1, default=str)); return RS
-    jcap = java_capability(sandbox)
-    RS["java_capability"] = jcap
-    blocked = [t["task_id"] for t in tasks if t["language"] == "java" and not jcap["runnable"]]
+    global SOURCE_SHA256
+    SOURCE_SHA256 = source_tree_sha256()
+    RS["source_sha256"], RS["code_commit"], RS["engine_status"] = SOURCE_SHA256, RS["commit"], "OK"
+    langs = sorted({t["language"] for t in tasks})
+
+    def split(caps: Dict[str, Dict[str, Any]]):
+        bl = [t["task_id"] for t in tasks if not (caps.get(t["language"]) or {}).get("runnable")]
+        return bl
+    caps = {l: (java_capability(sandbox) if l == "java" else {"runnable": True, "status": "RUNNABLE", "reason": ""}) for l in langs}      # preliminary (static) until the backend is probed after its start
+    RS["java_capability"] = caps.get("java")
+    blocked = split(caps)
     finished_before = B.finished_task_ids(out)
     todo, skipped = B.plan_work([t["task_id"] for t in tasks if t["task_id"] not in blocked], finished_before)
     RS["resumed_tasks"] = skipped
-    RS["not_tested"] = {tid: jcap["status"] for tid in blocked}
+    RS["not_tested"] = {tid: caps[by_lang]["status"] for tid in blocked for by_lang in [next(t["language"] for t in tasks if t["task_id"] == tid)]}
     by = {t["task_id"]: t for t in tasks}
     verdict = "RUNNING"
     t0 = time.time()
@@ -599,8 +645,18 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
         # ---- preflight (nothing is loaded or run before it passes)
         with tl.span("preflight"):
             raw_exe = exe_factory(out)
-            hello = raw_exe.start() if hasattr(raw_exe, "start") else None
+            if hasattr(raw_exe, "probe_toolchains"): raw_exe.source_sha256 = SOURCE_SHA256
+            hello = (raw_exe.start(langs) if hasattr(raw_exe, "probe_toolchains") else (raw_exe.start() if hasattr(raw_exe, "start") else None))
             exe = EngineGuard(raw_exe)
+            if hello and hello.get("toolchains") is not None:      # REAL preflight: each language of the manifest was probed INSIDE the backend before the model is loaded
+                caps = {l: hello["toolchains"].get(l) or {"runnable": False, "status": "NOT_TESTED_NO_TOOLCHAIN", "reason": "language was not probed"} for l in langs}
+                RS["toolchains"], RS["java_capability"] = caps, caps.get("java")
+                blocked = split(caps)
+                todo, skipped = B.plan_work([t["task_id"] for t in tasks if t["task_id"] not in blocked], finished_before)
+                RS["resumed_tasks"] = skipped
+                RS["not_tested"] = {tid: caps[next(t["language"] for t in tasks if t["task_id"] == tid)]["status"] for tid in blocked}
+            if hello and hello.get("image_digest"): RS["image_digest"] = hello["image_digest"]
+            if sandbox == "wslc" and hello and hello.get("engine"): RS["engine"] = hello["engine"]
             RS["jail"] = {"status": "PASS", "engine": (hello or {}).get("engine") or sandbox, "java_home": (hello or {}).get("jdk"), "bwrap_swapped": None,
                           "handshake": {k: (hello or {}).get(k) for k in ("os", "python", "bwrap_version", "java_version", "jail_probe_ran", "backend")}}
             res = resources_fn()
@@ -609,7 +665,7 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
             if why:
                 verdict = "PREFLIGHT_REFUSED"; RS["error"] = "; ".join(why); RS["notes"].append("preflight refused: nothing was loaded or run"); save(final=True); return RS
         for tid in blocked:
-            not_tested(by[tid], out, wtl, jcap, policy, RS["jail"]["engine"])
+            not_tested(by[tid], out, wtl, caps[by[tid]["language"]], policy, RS["jail"]["engine"])
         with tl.span("model_load"):
             gen = gen_factory(out)
         info = gen.model_info() if hasattr(gen, "model_info") else {}
@@ -653,6 +709,7 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
     except KeyboardInterrupt:
         verdict = "INTERRUPTED"; RS["notes"].append("interrupted by the user; finished tasks are kept, run again with --resume")
     except BaseException as e:      # noqa: BLE001  setup failure (engine handshake / model load): nothing ran, receipt says why
+        if getattr(e, "infra", False) or type(e).__name__ in ("WslEngineError", "ProviderEngineError"): RS["engine_status"] = "BLOCKED: %s" % str(e)[:300]
         verdict = "SETUP_FAILED"; RS["error"] = "%s: %s" % (type(e).__name__, str(e)[:500]); RS["trace"] = traceback.format_exc()[-3000:]
         if getattr(e, "infra", False) or type(e).__name__ in ("WslEngineError", "ProviderEngineError"): verdict = "ENGINE_UNAVAILABLE"
     finally:
@@ -670,7 +727,7 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
         if finalize and verdict not in ("PREFLIGHT_REFUSED", "SETUP_FAILED") and any((out / "tasks").glob("*/result.json")):
             RS["stage_coverage"] = stage_coverage(out)
             print(RS["stage_coverage"]["line"], flush=True)
-            RS["reports"] = finalize_reports(out, manifest, "mxc" if sandbox == "mxc" else "wsl", [t["task_id"] for t in tasks])
+            RS["reports"] = finalize_reports(out, manifest, "mxc" if sandbox == "mxc" else (str(RS["jail"]["engine"]) if sandbox == "wslc" else "wsl"), [t["task_id"] for t in tasks])
             RS["pipeline_verdict"] = RS["reports"].get("pipeline_verdict")
             save(final=True)
     return RS
@@ -687,16 +744,19 @@ def default_gen_factory(profile: str) -> Callable[[Path], Any]:
     return make
 
 
-def exe_factory_for(sandbox: str) -> Callable[[Path], Any]:
+def exe_factory_for(sandbox: str, trusted: bool = False) -> Callable[[Path], Any]:
     """mxc (default): the new MXC sandbox through the provider port (evidence_ladder/execution/provider_engine.py). wsl: the old WSL bwrap engine, only as an explicitly selected comparison. No fallback either way."""
     def make(out: Path):
         if sandbox == "mxc":
             from evidence_ladder.execution.provider_engine import ProviderExecutionBackend
-            return ProviderExecutionBackend(backend="mxc", scratch=Path(out).resolve() / "_engine")
+            return ProviderExecutionBackend(backend="mxc", scratch=Path(out).resolve() / "_engine", trusted=trusted)
+        if sandbox == "wslc":      # the genuine MXC WSLC container backend (explicit; fail closed when it is not registered or cannot run: no fallback)
+            from evidence_ladder.execution.provider_engine import ProviderExecutionBackend
+            return ProviderExecutionBackend(backend="wslc", scratch=Path(out).resolve() / "_engine", trusted=trusted)
         if sandbox == "wsl":
             from evidence_ladder.execution.wsl_engine import WslExecutionBackend
             return WslExecutionBackend(repo=ROOT, stderr_log=Path(out) / "timeline" / "wsl_server.stderr.log")
-        raise ValueError("--sandbox must be mxc or wsl (there is no auto mode)")
+        raise ValueError("--sandbox must be mxc, wslc or wsl (there is no auto mode)")
     return make
 
 
@@ -834,7 +894,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(description="local bank run (RTX 3050 + MXC sandbox + inline critic)")
     ap.add_argument("out"); ap.add_argument("--tasks", default=str(DEFAULT_MANIFEST)); ap.add_argument("--limit", type=int); ap.add_argument("--resume", action="store_true")
     ap.add_argument("--wall-cap", type=float, default=WALL_CAP_S); ap.add_argument("--profile", default=PROFILE); ap.add_argument("--ceiling", type=int, default=CEILING)
-    ap.add_argument("--sandbox", choices=("mxc", "wsl"), default="mxc", help="mxc = the new MXC sandbox (default). wsl = the old WSL bwrap engine, only as an explicitly selected comparison")
+    ap.add_argument("--sandbox", choices=("mxc", "wslc", "wsl"), default="mxc", help="mxc = the MXC process container (default; python only). wslc = the genuine MXC WSLC container backend (python + java after a real toolchain probe). wsl = the old WSL bwrap engine, only as an explicitly selected comparison. No fallback between them")
+    ap.add_argument("--trusted-verify", action="store_true", help="use evidence_ladder/execution/trusted_verify.py (one fresh process per input, host-side verdicts); recorded as engine_version; default off = legacy runner")
     ap.add_argument("--selftest", action="store_true", help="2 python tasks, tiny fake model, real MXC + real controller + inline critic over a fake transport; exit != 0 when a stage is missing")
     ap.add_argument("--min-free-ram-gb", type=float, default=MIN_FREE_RAM_GB); ap.add_argument("--min-free-vram-gb", type=float, default=MIN_FREE_VRAM_GB); ap.add_argument("--min-free-commit-gb", type=float, default=MIN_FREE_COMMIT_GB)
     ap.add_argument("--critic-read-timeout", type=float, default=CRITIC_READ_TIMEOUT_S, help="seconds one critic call may wait for its first response bytes (reasoning stays max)")
@@ -847,7 +908,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if a.retry_critic and not a.resume:
         ap.error("--retry-critic is used together with --resume")
     tasks = load_tasks(Path(a.tasks), ROOT, a.limit)
-    rs = run(Path(a.out), tasks, default_gen_factory(a.profile), exe_factory_for(a.sandbox), resume=a.resume, sandbox=a.sandbox, wall_cap_s=a.wall_cap, policy=policy_for(a.profile, a.ceiling), gpu_sampler=True,
+    rs = run(Path(a.out), tasks, default_gen_factory(a.profile), exe_factory_for(a.sandbox, a.trusted_verify), resume=a.resume, sandbox=a.sandbox, wall_cap_s=a.wall_cap, policy=policy_for(a.profile, a.ceiling), gpu_sampler=True,
              min_free_ram_gb=a.min_free_ram_gb, min_free_vram_gb=a.min_free_vram_gb, min_free_commit_gb=a.min_free_commit_gb, manifest=Path(a.tasks),
              critic_client=GlmInlineCritic(read_timeout_s=a.critic_read_timeout, total_timeout_s=a.critic_total_timeout), retry_critic=a.retry_critic)
     print(json.dumps({k: rs.get(k) for k in ("verdict", "done", "errors", "pending_not_started", "not_tested", "pipeline_verdict", "total_seconds")}, default=str))
