@@ -1,0 +1,28 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String text = (String) data.get("text");
+        int shiftValue = ((Number) data.get("shift")).intValue();
+        int shiftMod = shiftValue % 26;
+        if (shiftMod < 0) shiftMod += 26;
+
+        StringBuilder result = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+                if (c >= 'A' && c <= 'Z') {
+                    int pos = c - 'A';
+                    int new_pos = (pos + shiftMod) % 26;
+                    result.append((char) ('A' + new_pos));
+                } else {
+                    int pos = c - 'a';
+                    int new_pos = (pos + shiftMod) % 26;
+                    result.append((char) ('a' + new_pos));
+                }
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+}

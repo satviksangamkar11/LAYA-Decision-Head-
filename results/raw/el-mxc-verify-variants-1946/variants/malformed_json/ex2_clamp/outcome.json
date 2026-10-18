@@ -1,0 +1,42 @@
+{
+ "variant": "malformed_json",
+ "base": "ex2_clamp",
+ "why": "one broken object (unescaped quote) inside the array: the valid siblings survive, the broken one is rejected with a reason, the run still decides",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "proposer_codes_any": [
+   "malformed",
+   "malformed_option",
+   "parse"
+  ],
+  "options_ge": 2
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "4ea6a0cb2008bd2120a8af3d3413295c9cfb312874a4849469f6cdb4f4bbf998",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 4,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

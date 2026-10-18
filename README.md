@@ -22,6 +22,8 @@ All numbers in this file were measured in this repository unless marked otherwis
 | [CLAUDE.md](CLAUDE.md) | Project rules (what may and may not be done, and by whose decision) |
 | [DECISION_HEAD.md](DECISION_HEAD.md) | Design record and literature survey for the head |
 | [PLAN.md](PLAN.md) | Runtime plan and step lists |
+| [ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md](ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md) | Current Evidence-Ladder pipeline: components, the replaced (MXC) sandbox, how to plug a model in |
+| [HANDOFF_2026_10_18_EL_ARCH1_LOCAL_RUN.md](HANDOFF_2026_10_18_EL_ARCH1_LOCAL_RUN.md) | Branches, evidence paths, run commands and open items for the next session |
 | [results/increments.md](results/increments.md) | Ledger: one row per major step |
 
 ## Current coding pipeline (2026-10-18)

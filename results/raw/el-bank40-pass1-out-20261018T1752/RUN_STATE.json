@@ -1,0 +1,190 @@
+{
+ "kernel": "el_bank40_run_v1",
+ "mode": "pass1",
+ "started_utc": "2026-10-18T00:07:22Z",
+ "phases": {},
+ "notes": [],
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "bundle": {
+  "files": 104,
+  "manifest_sha256": "bbe8eed19ac916f9283a531c44e0c13ab93a487fd8669dd9482c0f1575bb3f53",
+  "code_commit": "90cc3e528bd4b9e64c84273d14a079eba4bce05f"
+ },
+ "thinking_policy": {
+  "policy": "prompt_brief",
+  "brief_instruction": "Think BRIEFLY: reason in a few short sentences only, do not re-verify the same point, and give the final answer as soon as you have it.",
+  "ceiling": 8192
+ },
+ "public_only_guard": {
+  "files": 104,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "jail": {
+  "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "uid": 0,
+  "status": "PASS",
+  "checks": {
+   "python_in_jail": {
+    "rc": 0,
+    "out": "{\"ok\": true, \"value\": {\"socket\": \"denied\", \"canary\": \"unreadable\"}}\n"
+   },
+   "javac_in_jail": {
+    "rc": 0,
+    "err": "javac 21.0.12\n"
+   }
+  },
+  "bwrap_swapped": true
+ },
+ "gpus": 2,
+ "model": {
+  "dir": "/kaggle/input/datasets/leminhhung0101/qwen3-4b-thinking-2507",
+  "sha256_ok": {
+   "model-00001-of-00003.safetensors": true,
+   "model-00002-of-00003.safetensors": true,
+   "model-00003-of-00003.safetensors": true,
+   "tokenizer.json": true
+  },
+  "pinned": true
+ },
+ "resumed_tasks": [],
+ "shards": {
+  "workers": 2,
+  "tasks_per_worker": [
+   20,
+   20
+  ],
+  "order": [
+   [
+    "J1-01",
+    "J1-03",
+    "J1-05",
+    "J1-07",
+    "J1-09",
+    "J1-11",
+    "J1-13",
+    "J1-15",
+    "J1-18",
+    "J1-21",
+    "P1-01",
+    "P1-03",
+    "P1-05",
+    "P1-07",
+    "P1-09",
+    "P1-11",
+    "P1-13",
+    "P1-16",
+    "P1-18",
+    "P1-21"
+   ],
+   [
+    "J1-02",
+    "J1-04",
+    "J1-06",
+    "J1-08",
+    "J1-10",
+    "J1-12",
+    "J1-14",
+    "J1-16",
+    "J1-19",
+    "J1-22",
+    "P1-02",
+    "P1-04",
+    "P1-06",
+    "P1-08",
+    "P1-10",
+    "P1-12",
+    "P1-15",
+    "P1-17",
+    "P1-20",
+    "P1-22"
+   ]
+  ]
+ },
+ "worker_exit_codes": {
+  "0": 1,
+  "1": 1
+ },
+ "critic_packets": {
+  "exported": 1,
+  "rejected_blinding": {}
+ },
+ "done": 32,
+ "errors": [],
+ "pending_not_started": [
+  "P1-13",
+  "P1-15",
+  "P1-16",
+  "P1-17",
+  "P1-18",
+  "P1-20",
+  "P1-21",
+  "P1-22"
+ ],
+ "time_guard_hit": true,
+ "timeline_summary": {
+  "events": 1713,
+  "first_utc": "2026-10-18T00:07:22.840Z",
+  "last_utc": "2026-10-18T11:22:25.495Z",
+  "wall_seconds": 40502.656,
+  "stages": {
+   "bundle_verify": {
+    "n": 1,
+    "total_s": 0.69,
+    "p50_s": 0.69,
+    "p95_s": 0.69
+   },
+   "generate": {
+    "n": 90,
+    "total_s": 79101.653,
+    "p50_s": 621.383,
+    "p95_s": 2319.375
+   },
+   "model_load": {
+    "n": 2,
+    "total_s": 87.601,
+    "p50_s": 43.8,
+    "p95_s": 43.83
+   },
+   "model_sha": {
+    "n": 1,
+    "total_s": 113.894,
+    "p50_s": 113.894,
+    "p95_s": 113.894
+   },
+   "rootfs_build": {
+    "n": 1,
+    "total_s": 5.12,
+    "p50_s": 5.12,
+    "p95_s": 5.12
+   },
+   "sandbox_experiment": {
+    "n": 543,
+    "total_s": 503.204,
+    "p50_s": 1.352,
+    "p95_s": 1.542
+   },
+   "sandbox_public": {
+    "n": 130,
+    "total_s": 124.988,
+    "p50_s": 1.379,
+    "p95_s": 1.508
+   },
+   "task": {
+    "n": 32,
+    "total_s": 79765.905,
+    "p50_s": 2476.483,
+    "p95_s": 4660.728
+   }
+  },
+  "model_seconds": 79101.653,
+  "sandbox_seconds": 628.192,
+  "model_vs_sandbox": {
+   "model_share": 0.9921
+  }
+ },
+ "verdict": "PARTIAL_TIME_GUARD",
+ "total_seconds": 40504.4,
+ "ended_utc": "2026-10-18T11:22:26Z"
+}

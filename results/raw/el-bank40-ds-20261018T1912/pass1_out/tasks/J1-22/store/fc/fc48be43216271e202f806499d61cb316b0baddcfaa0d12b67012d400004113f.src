@@ -1,0 +1,48 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<String> board = (List<String>) data.get("board");
+        for (int i = 0; i < 9; i++) {
+            String row = board.get(i);
+            Set<Character> seen = new HashSet<>();
+            for (char c : row.toCharArray()) {
+                if (c != '.') {
+                    if (seen.contains(c)) {
+                        return false;
+                    }
+                    seen.add(c);
+                }
+            }
+        }
+        for (int j = 0; j < 9; j++) {
+            Set<Character> seen = new HashSet<>();
+            for (int i = 0; i < 9; i++) {
+                char c = board.get(i).charAt(j);
+                if (c != '.') {
+                    if (seen.contains(c)) {
+                        return false;
+                    }
+                    seen.add(c);
+                }
+            }
+        }
+        for (int boxRow = 0; boxRow < 9; boxRow += 3) {
+            for (int boxCol = 0; boxCol < 9; boxCol += 3) {
+                Set<Character> seen = new HashSet<>();
+                for (int r = 0; r < 3; r++) {
+                    for (int c = 0; c < 3; c++) {
+                        char cell = board.get(boxRow + r).charAt(boxCol + c);
+                        if (cell != '.') {
+                            if (seen.contains(cell)) {
+                                return false;
+                            }
+                            seen.add(cell);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}

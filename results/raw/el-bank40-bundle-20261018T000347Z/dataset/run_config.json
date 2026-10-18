@@ -1,0 +1,29 @@
+{
+ "controller": {
+  "critic": true,
+  "discriminate": true,
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "max_rounds": 2,
+  "mode": "ladder",
+  "mutant_limit": 8
+ },
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "thinking_policy": {
+  "brief_instruction": "Think BRIEFLY: reason in a few short sentences only, do not re-verify the same point, and give the final answer as soon as you have it.",
+  "ceiling": 8192,
+  "policy": "prompt_brief"
+ }
+}

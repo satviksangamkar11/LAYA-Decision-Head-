@@ -1,0 +1,142 @@
+{
+ "probe": "mxc_probe_v1",
+ "seconds": 4.3,
+ "facts": {
+  "python": "3.13.15",
+  "platform": "linux",
+  "uname": [
+   "Linux",
+   "c2d19371be8a",
+   "6.18.48+",
+   "#1 SMP Sun Sep 27 17:32:16 UTC 2026",
+   "x86_64"
+  ],
+  "uid": 0,
+  "gid": 0,
+  "status": {
+   "CapEff": "00000000a80425fb",
+   "CapBnd": "00000000a80425fb",
+   "NoNewPrivs": "0",
+   "Seccomp": "2",
+   "Seccomp_filters": "1"
+  },
+  "userns_clone": "ERR FileNotFoundError",
+  "max_user_namespaces": "128361",
+  "apparmor_restrict_userns": "ERR FileNotFoundError",
+  "cgroup": "0::/",
+  "which": {
+   "bwrap": null,
+   "unshare": "/usr/bin/unshare",
+   "nsenter": "/usr/bin/nsenter",
+   "setpriv": "/usr/bin/setpriv",
+   "runuser": "/usr/sbin/runuser",
+   "chroot": "/usr/sbin/chroot",
+   "prlimit": "/usr/bin/prlimit",
+   "timeout": "/usr/bin/timeout",
+   "node": "/tools/node/bin/node",
+   "npm": "/tools/node/bin/npm",
+   "python3": "/usr/bin/python3",
+   "slirp4netns": null,
+   "firejail": null,
+   "nsjail": null,
+   "apt-get": "/usr/bin/apt-get"
+  }
+ },
+ "checks": [
+  {
+   "check": "unshare_syscall_user",
+   "status": "FAIL",
+   "detail": "unshare(CLONE_NEWUSER) errno e1"
+  },
+  {
+   "check": "unshare_syscall_net",
+   "status": "FAIL",
+   "detail": "unshare(CLONE_NEWNET) errno e1"
+  },
+  {
+   "check": "unshare_syscall_pid",
+   "status": "FAIL",
+   "detail": "unshare(CLONE_NEWPID) errno e1"
+  },
+  {
+   "check": "unshare_syscall_mount",
+   "status": "FAIL",
+   "detail": "unshare(CLONE_NEWMOUNT) errno e1"
+  },
+  {
+   "check": "unshare_cli_user_map_root",
+   "status": "FAIL",
+   "detail": "rc=1 unshare: unshare failed: Operation not permitted"
+  },
+  {
+   "check": "bwrap_binary_present",
+   "status": "FAIL",
+   "detail": "bwrap not on PATH (MXC requires bwrap >= 0.5.0 on PATH; nothing can be installed: no network, no apt)"
+  },
+  {
+   "check": "bwrap_unshare_all_trivial_command",
+   "status": "NOT_AVAILABLE",
+   "detail": "needs bwrap"
+  },
+  {
+   "check": "bwrap_network_blocked",
+   "status": "NOT_AVAILABLE",
+   "detail": "needs a working bwrap --unshare-all"
+  },
+  {
+   "check": "bwrap_protected_file_readonly",
+   "status": "NOT_AVAILABLE",
+   "detail": "needs a working bwrap --unshare-all"
+  },
+  {
+   "check": "bwrap_timeout_kills_tree",
+   "status": "NOT_AVAILABLE",
+   "detail": "needs a working bwrap --unshare-all"
+  },
+  {
+   "check": "bwrap_path_traversal_blocked",
+   "status": "NOT_AVAILABLE",
+   "detail": "needs a working bwrap --unshare-all"
+  },
+  {
+   "check": "node_available",
+   "status": "PASS",
+   "detail": "v20.19.0"
+  },
+  {
+   "check": "node_version_ge_24",
+   "status": "FAIL",
+   "detail": "v20.19.0"
+  },
+  {
+   "check": "fallback_chroot_available",
+   "status": "PASS",
+   "detail": "chroot_ok,setuid_nobody_ok"
+  },
+  {
+   "check": "fallback_uid_drop_available",
+   "status": "PASS",
+   "detail": "chroot_ok,setuid_nobody_ok"
+  },
+  {
+   "check": "kernel_internet_off",
+   "status": "PASS",
+   "detail": "connect failed: TimeoutError"
+  },
+  {
+   "check": "process_group_kill",
+   "status": "PASS",
+   "detail": "killpg reaped the tree in 1.0s (no isolation, only cleanup)"
+  },
+  {
+   "check": "guard_symlink_detected_before_copy",
+   "status": "PASS",
+   "detail": "['evil']"
+  }
+ ],
+ "verdict": {
+  "mxc_linux_bubblewrap_usable": false,
+  "reason": "unusable: unshare_syscall_user=FAIL, bwrap_binary_present=FAIL, bwrap_unshare_all_trivial_command=NOT_AVAILABLE",
+  "if_unusable": "the pipeline must FAIL CLOSED (no unsandboxed fallback). Available substitute: the repo's chroot + uid-drop + seccomp jail (evidence_ladder/execution/kaggle_jail.py), documented as weaker (no pid/net/ipc/uts namespaces)."
+ }
+}

@@ -1,0 +1,31 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String code = (String) data.get("code");
+        String cleaned = code.replace(" ", "").replace("-", "");
+        if (cleaned.length() != 10) {
+            return false;
+        }
+        for (int i = 0; i < 9; i++) {
+            if (!Character.isDigit(cleaned.charAt(i))) {
+                return false;
+            }
+        }
+        char last = cleaned.charAt(9);
+        if (last != 'X' && !Character.isDigit(last)) {
+            return false;
+        }
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            int digit;
+            if (i == 9 && last == 'X') {
+                digit = 10;
+            } else {
+                digit = Character.getNumericValue(cleaned.charAt(i));
+            }
+            sum += (10 - i) * digit;
+        }
+        return sum % 11 == 0;
+    }
+}

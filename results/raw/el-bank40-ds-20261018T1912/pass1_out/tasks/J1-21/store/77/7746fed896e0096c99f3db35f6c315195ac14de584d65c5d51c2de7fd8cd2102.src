@@ -1,0 +1,41 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<List<?>> aList = (List<List<?>>) data.get("a");
+        List<List<?>> bList = (List<List<?>>) data.get("b");
+        
+        int R = aList.size();
+        int K = aList.get(0).size();
+        int C = bList.get(0).size();
+        
+        int[][] a = new int[R][K];
+        int[][] b = new int[K][C];
+        
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < K; j++) {
+                a[i][j] = ((Number) aList.get(i).get(j)).intValue();
+            }
+        }
+        
+        for (int i = 0; i < K; i++) {
+            for (int j = 0; j < C; j++) {
+                b[i][j] = ((Number) bList.get(i).get(j)).intValue();
+            }
+        }
+        
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < R; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j < C; j++) {
+                int sum = 0;
+                for (int k = 0; k < K; k++) {
+                    sum += a[i][k] * b[k][j];
+                }
+                row.add(sum);
+            }
+            result.add(row);
+        }
+        return result;
+    }
+}

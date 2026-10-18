@@ -1,0 +1,8 @@
+def solve(data):
+    nums = data['nums']
+    k = data['k']
+    if not nums:
+        return []
+    n = len(nums)
+    effective_k = k % n
+    return nums[-effective_k:] + nums[:-effective_k]

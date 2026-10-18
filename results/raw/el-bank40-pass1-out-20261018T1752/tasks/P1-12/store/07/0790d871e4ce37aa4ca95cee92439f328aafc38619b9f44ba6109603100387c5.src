@@ -1,0 +1,9 @@
+def solve(data):
+    nums = data['nums']
+    current = nums[0]
+    max_sum = nums[0]
+    for num in nums[1:]:
+        current = max(num, current + num)
+        if current > max_sum:
+            max_sum = current
+    return max_sum

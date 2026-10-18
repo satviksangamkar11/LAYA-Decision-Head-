@@ -1,0 +1,28 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<List<?>> aMat = (List<List<?>>) data.get("a");
+        List<List<?>> bMat = (List<List<?>>) data.get("b");
+        
+        int R = aMat.size();
+        int K = aMat.get(0).size();
+        int C = bMat.get(0).size();
+        
+        List<List<Integer>> result = new ArrayList<>(R);
+        for (int i = 0; i < R; i++) {
+            List<Integer> row = new ArrayList<>(C);
+            for (int j = 0; j < C; j++) {
+                int sum = 0;
+                for (int k = 0; k < K; k++) {
+                    int aVal = ((Number) aMat.get(i).get(k)).intValue();
+                    int bVal = ((Number) bMat.get(k).get(j)).intValue();
+                    sum += aVal * bVal;
+                }
+                row.add(sum);
+            }
+            result.add(row);
+        }
+        return result;
+    }
+}

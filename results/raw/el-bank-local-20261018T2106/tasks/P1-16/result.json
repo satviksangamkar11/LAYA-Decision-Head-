@@ -1,0 +1,117 @@
+{
+ "answer_label": "SUPPORTED",
+ "budget": {
+  "api_errors": 0,
+  "arm": "D0",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 0.0,
+  "problem_id": "P1-16",
+  "qwen_gen_tokens": 1835,
+  "qwen_prefill_tokens": 1364,
+  "scorer_calls": 0,
+  "tool_runs": 0,
+  "wall_seconds": 0.0
+ },
+ "candidates": 4,
+ "ceiling_hits": 0,
+ "clusters": {
+  "computed": false,
+  "extended_clusters": null,
+  "public_clusters": null
+ },
+ "critic": {
+  "called": false,
+  "state": "not_needed"
+ },
+ "critic_called": false,
+ "difficulty": "medium",
+ "discrimination": {
+  "critic": null,
+  "triggered": false
+ },
+ "end_utc": "2026-10-18T15:42:04.310Z",
+ "engine": "mxc-processcontainer",
+ "generate_calls": 3,
+ "generation_failed_at_ceiling": false,
+ "gpu": null,
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "f5c6e598b51a98a02b1029e89478e6c4dae999d2114af25de5fd34233eceace1",
+ "l2": {
+  "dropped": [
+   {
+    "index": 0,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   },
+   {
+    "index": 1,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   },
+   {
+    "index": 2,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   },
+   {
+    "index": 3,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   },
+   {
+    "index": 4,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   },
+   {
+    "index": 5,
+    "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+   }
+  ],
+  "parsed": 6,
+  "reason": "every parsed test dropped",
+  "verdict": "INSUFFICIENT"
+ },
+ "l2_version": 2,
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "python",
+ "pass": "local",
+ "pending_critic_packets": [],
+ "profile_id": "qwen2.5-coder-1.5b-instruct",
+ "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+ "public": {
+  "best": 10,
+  "candidates_passing_all": 1,
+  "candidates_with_examples": 4,
+  "examples": 10
+ },
+ "rounds": 0,
+ "scorer": "none",
+ "seconds": 84.8,
+ "start_utc": "2026-10-18T15:40:39.491Z",
+ "status": "OK",
+ "stop_cause": "decided",
+ "stop_details": "",
+ "task": "P1-16",
+ "think_shim_count": 0,
+ "thinking_policy": {
+  "ceiling": 4096,
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct"
+ },
+ "tokens_generated": 1835,
+ "tokens_prompt": 1364,
+ "wall_cap_s": 3600.0,
+ "worker": 0
+}

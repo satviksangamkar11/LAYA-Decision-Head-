@@ -1,0 +1,61 @@
+{"event": "run_start", "mono": 92189.046, "resumed": 0, "tasks": 3, "ts": 1792337483.273, "ts_utc": "2026-10-18T15:31:23.272Z", "worker": "main"}
+{"event": "preflight_start", "mono": 92189.046, "ts": 1792337483.275, "ts_utc": "2026-10-18T15:31:23.274Z", "worker": "main"}
+{"event": "preflight_end", "mono": 92189.718, "ok": true, "seconds": 0.672, "ts": 1792337483.957, "ts_utc": "2026-10-18T15:31:23.956Z", "worker": "main"}
+{"event": "model_load_start", "mono": 92189.718, "ts": 1792337483.958, "ts_utc": "2026-10-18T15:31:23.957Z", "worker": "main"}
+{"event": "model_load_end", "mono": 92189.734, "ok": true, "seconds": 0.016, "ts": 1792337483.959, "ts_utc": "2026-10-18T15:31:23.958Z", "worker": "main"}
+{"event": "task_start", "language": "python", "mono": 92189.781, "shard": 0, "task": "P1-02", "ts": 1792337484.019, "ts_utc": "2026-10-18T15:31:24.018Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92189.875, "n": 2, "purpose": "sample", "task": "P1-02", "ts": 1792337484.108, "ts_utc": "2026-10-18T15:31:24.107Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92189.875, "task": "P1-02", "tokens_generated": 123, "tokens_prompt": 100, "ts": 1792337484.109, "ts_utc": "2026-10-18T15:31:24.108Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92189.875, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.0, "task": "P1-02", "ts": 1792337484.11, "ts_utc": "2026-10-18T15:31:24.109Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92189.875, "n": 2, "purpose": "sample", "task": "P1-02", "ts": 1792337484.111, "ts_utc": "2026-10-18T15:31:24.110Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92189.875, "task": "P1-02", "tokens_generated": 127, "tokens_prompt": 100, "ts": 1792337484.112, "ts_utc": "2026-10-18T15:31:24.111Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92189.875, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.0, "task": "P1-02", "ts": 1792337484.112, "ts_utc": "2026-10-18T15:31:24.111Z", "worker": "w0"}
+{"artifact": "2d44f5c4874e27f55990cd8e4683a05044ddca4f4f0a0cef7bbf3a801c6f0b5c", "event": "sandbox_public_start", "mono": 92189.875, "task": "P1-02", "ts": 1792337484.113, "ts_utc": "2026-10-18T15:31:24.112Z", "worker": "w0"}
+{"artifact": "2d44f5c4874e27f55990cd8e4683a05044ddca4f4f0a0cef7bbf3a801c6f0b5c", "event": "sandbox_public_end", "mono": 92190.109, "ok": true, "seconds": 0.234, "task": "P1-02", "ts": 1792337484.341, "ts_utc": "2026-10-18T15:31:24.341Z", "worker": "w0"}
+{"artifact": "d31772a33b6e6c4c3150f0959ecda6c5b67529c4bc25a843b3514983f7fa7f77", "event": "sandbox_public_start", "mono": 92190.109, "task": "P1-02", "ts": 1792337484.343, "ts_utc": "2026-10-18T15:31:24.343Z", "worker": "w0"}
+{"artifact": "d31772a33b6e6c4c3150f0959ecda6c5b67529c4bc25a843b3514983f7fa7f77", "event": "sandbox_public_end", "mono": 92190.203, "ok": true, "seconds": 0.094, "task": "P1-02", "ts": 1792337484.427, "ts_utc": "2026-10-18T15:31:24.426Z", "worker": "w0"}
+{"artifact": "2ef3a7bedcef9f6e52d8a069378556847d4c9f11bab954fbeb6be4b95de34076", "event": "sandbox_public_start", "mono": 92190.203, "task": "P1-02", "ts": 1792337484.43, "ts_utc": "2026-10-18T15:31:24.429Z", "worker": "w0"}
+{"artifact": "2ef3a7bedcef9f6e52d8a069378556847d4c9f11bab954fbeb6be4b95de34076", "event": "sandbox_public_end", "mono": 92190.281, "ok": true, "seconds": 0.078, "task": "P1-02", "ts": 1792337484.515, "ts_utc": "2026-10-18T15:31:24.514Z", "worker": "w0"}
+{"artifact": "2644a25fc95e4eaf5e004fd73ed625de94a02fafbfb6fe6b9f4e7dab0158ae32", "event": "sandbox_public_start", "mono": 92190.281, "task": "P1-02", "ts": 1792337484.518, "ts_utc": "2026-10-18T15:31:24.517Z", "worker": "w0"}
+{"artifact": "2644a25fc95e4eaf5e004fd73ed625de94a02fafbfb6fe6b9f4e7dab0158ae32", "event": "sandbox_public_end", "mono": 92190.375, "ok": true, "seconds": 0.094, "task": "P1-02", "ts": 1792337484.601, "ts_utc": "2026-10-18T15:31:24.601Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.375, "n": 1, "purpose": "repair", "task": "P1-02", "ts": 1792337484.603, "ts_utc": "2026-10-18T15:31:24.603Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.375, "task": "P1-02", "tokens_generated": 65, "tokens_prompt": 50, "ts": 1792337484.604, "ts_utc": "2026-10-18T15:31:24.604Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.375, "n": 1, "ok": true, "purpose": "repair", "seconds": 0.0, "task": "P1-02", "ts": 1792337484.605, "ts_utc": "2026-10-18T15:31:24.605Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.375, "n": 1, "purpose": "repair", "task": "P1-02", "ts": 1792337484.606, "ts_utc": "2026-10-18T15:31:24.606Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.375, "task": "P1-02", "tokens_generated": 66, "tokens_prompt": 50, "ts": 1792337484.607, "ts_utc": "2026-10-18T15:31:24.607Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.375, "n": 1, "ok": true, "purpose": "repair", "seconds": 0.0, "task": "P1-02", "ts": 1792337484.607, "ts_utc": "2026-10-18T15:31:24.607Z", "worker": "w0"}
+{"event": "task_end", "language": "python", "mono": 92190.375, "ok": true, "seconds": 0.594, "shard": 0, "task": "P1-02", "ts": 1792337484.613, "ts_utc": "2026-10-18T15:31:24.613Z", "worker": "w0"}
+{"event": "task_start", "language": "python", "mono": 92190.406, "shard": 0, "task": "P1-03", "ts": 1792337484.631, "ts_utc": "2026-10-18T15:31:24.630Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.421, "n": 2, "purpose": "sample", "task": "P1-03", "ts": 1792337484.646, "ts_utc": "2026-10-18T15:31:24.646Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.421, "task": "P1-03", "tokens_generated": 123, "tokens_prompt": 100, "ts": 1792337484.648, "ts_utc": "2026-10-18T15:31:24.647Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.421, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.0, "task": "P1-03", "ts": 1792337484.648, "ts_utc": "2026-10-18T15:31:24.647Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.421, "n": 2, "purpose": "sample", "task": "P1-03", "ts": 1792337484.649, "ts_utc": "2026-10-18T15:31:24.649Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.421, "task": "P1-03", "tokens_generated": 127, "tokens_prompt": 100, "ts": 1792337484.65, "ts_utc": "2026-10-18T15:31:24.650Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.421, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.0, "task": "P1-03", "ts": 1792337484.651, "ts_utc": "2026-10-18T15:31:24.651Z", "worker": "w0"}
+{"artifact": "028a78252c209b0fe0cfae28461f2572015df5907aa1c4a8e4d29475670fcf84", "event": "sandbox_public_start", "mono": 92190.421, "task": "P1-03", "ts": 1792337484.651, "ts_utc": "2026-10-18T15:31:24.651Z", "worker": "w0"}
+{"artifact": "028a78252c209b0fe0cfae28461f2572015df5907aa1c4a8e4d29475670fcf84", "event": "sandbox_public_end", "mono": 92190.5, "ok": true, "seconds": 0.079, "task": "P1-03", "ts": 1792337484.733, "ts_utc": "2026-10-18T15:31:24.733Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.5, "n": 1, "purpose": "repair", "task": "P1-03", "ts": 1792337484.736, "ts_utc": "2026-10-18T15:31:24.736Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.5, "task": "P1-03", "tokens_generated": 65, "tokens_prompt": 50, "ts": 1792337484.736, "ts_utc": "2026-10-18T15:31:24.736Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.5, "n": 1, "ok": true, "purpose": "repair", "seconds": 0.0, "task": "P1-03", "ts": 1792337484.738, "ts_utc": "2026-10-18T15:31:24.737Z", "worker": "w0"}
+{"artifact": "d9afbce365baa3491f47e4a575eefd1574911943159d7956c85119c5b7af4636", "event": "sandbox_public_start", "mono": 92190.5, "task": "P1-03", "ts": 1792337484.738, "ts_utc": "2026-10-18T15:31:24.737Z", "worker": "w0"}
+{"artifact": "d9afbce365baa3491f47e4a575eefd1574911943159d7956c85119c5b7af4636", "event": "sandbox_public_end", "mono": 92190.593, "ok": true, "seconds": 0.093, "task": "P1-03", "ts": 1792337484.821, "ts_utc": "2026-10-18T15:31:24.821Z", "worker": "w0"}
+{"event": "task_end", "language": "python", "mono": 92190.593, "ok": true, "seconds": 0.187, "shard": 0, "task": "P1-03", "ts": 1792337484.827, "ts_utc": "2026-10-18T15:31:24.827Z", "worker": "w0"}
+{"event": "task_start", "language": "python", "mono": 92190.609, "shard": 0, "task": "P1-13", "ts": 1792337484.844, "ts_utc": "2026-10-18T15:31:24.843Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.625, "n": 2, "purpose": "sample", "task": "P1-13", "ts": 1792337484.861, "ts_utc": "2026-10-18T15:31:24.861Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.625, "task": "P1-13", "tokens_generated": 123, "tokens_prompt": 100, "ts": 1792337484.862, "ts_utc": "2026-10-18T15:31:24.862Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.625, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.0, "task": "P1-13", "ts": 1792337484.863, "ts_utc": "2026-10-18T15:31:24.863Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.625, "n": 2, "purpose": "sample", "task": "P1-13", "ts": 1792337484.864, "ts_utc": "2026-10-18T15:31:24.864Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.64, "task": "P1-13", "tokens_generated": 127, "tokens_prompt": 100, "ts": 1792337484.865, "ts_utc": "2026-10-18T15:31:24.865Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.64, "n": 2, "ok": true, "purpose": "sample", "seconds": 0.015, "task": "P1-13", "ts": 1792337484.866, "ts_utc": "2026-10-18T15:31:24.866Z", "worker": "w0"}
+{"artifact": "7ee425cbfbbe50fac475ef4be5a53d35d3159de0f12e6f3fe02e9c4e49050d01", "event": "sandbox_public_start", "mono": 92190.64, "task": "P1-13", "ts": 1792337484.867, "ts_utc": "2026-10-18T15:31:24.867Z", "worker": "w0"}
+{"artifact": "7ee425cbfbbe50fac475ef4be5a53d35d3159de0f12e6f3fe02e9c4e49050d01", "event": "sandbox_public_end", "mono": 92190.734, "ok": true, "seconds": 0.094, "task": "P1-13", "ts": 1792337484.961, "ts_utc": "2026-10-18T15:31:24.961Z", "worker": "w0"}
+{"artifact": "5bb37099409e53e67cbabbd9a0a09bccb23c8682667c2ed89db44808cccd1618", "event": "sandbox_public_start", "mono": 92190.734, "task": "P1-13", "ts": 1792337484.963, "ts_utc": "2026-10-18T15:31:24.963Z", "worker": "w0"}
+{"artifact": "5bb37099409e53e67cbabbd9a0a09bccb23c8682667c2ed89db44808cccd1618", "event": "sandbox_public_end", "mono": 92190.812, "ok": true, "seconds": 0.078, "task": "P1-13", "ts": 1792337485.047, "ts_utc": "2026-10-18T15:31:25.046Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.812, "n": 1, "purpose": "repair", "task": "P1-13", "ts": 1792337485.05, "ts_utc": "2026-10-18T15:31:25.049Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.812, "task": "P1-13", "tokens_generated": 65, "tokens_prompt": 50, "ts": 1792337485.051, "ts_utc": "2026-10-18T15:31:25.050Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.812, "n": 1, "ok": true, "purpose": "repair", "seconds": 0.0, "task": "P1-13", "ts": 1792337485.051, "ts_utc": "2026-10-18T15:31:25.050Z", "worker": "w0"}
+{"event": "generate_start", "gpu": 0, "mono": 92190.812, "n": 1, "purpose": "repair", "task": "P1-13", "ts": 1792337485.052, "ts_utc": "2026-10-18T15:31:25.051Z", "worker": "w0"}
+{"event": "generate_tokens", "mono": 92190.828, "task": "P1-13", "tokens_generated": 66, "tokens_prompt": 50, "ts": 1792337485.053, "ts_utc": "2026-10-18T15:31:25.052Z", "worker": "w0"}
+{"event": "generate_end", "gpu": 0, "mono": 92190.828, "n": 1, "ok": true, "purpose": "repair", "seconds": 0.016, "task": "P1-13", "ts": 1792337485.054, "ts_utc": "2026-10-18T15:31:25.053Z", "worker": "w0"}
+{"event": "task_end", "language": "python", "mono": 92190.828, "ok": true, "seconds": 0.219, "shard": 0, "task": "P1-13", "ts": 1792337485.058, "ts_utc": "2026-10-18T15:31:25.057Z", "worker": "w0"}
+{"event": "run_end", "mono": 92190.843, "ts": 1792337485.074, "ts_utc": "2026-10-18T15:31:25.073Z", "verdict": "OK", "worker": "main"}

@@ -1,0 +1,23 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String timeStr = (String) data.get("time");
+        String[] parts = timeStr.split(":");
+        int h = Integer.parseInt(parts[0]);
+        int m = Integer.parseInt(parts[1]);
+
+        String period = (h < 12) ? "AM" : "PM";
+        int h1 = h;
+        if (h == 0) {
+            h1 = 12;
+        } else if (h > 12) {
+            h1 = h - 12;
+        }
+
+        String formattedH = String.format("%02d", h1);
+        String formattedM = String.format("%02d", m);
+
+        return formattedH + ":" + formattedM + " " + period;
+    }
+}

@@ -1,0 +1,190 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-f4615fcc7d31",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex1_slug"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "dd54872d19180a4c332475bc6935472ed43eb71437f843ee799d0e95624a7478",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "artifact_ref": "python3 test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "4042edde77c5e11bfc99a6a92765c964965f7174d5a55fc0e195ab6b2d53b2c0",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "ffae086138aaf55206533d66e3e3d45cebf57f673f1e9a6e329c363f7a2d0f2a",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "32ea063519394fc47bc70ab02ac0e7c5d632b9723f2eb3fb123db50e7cdfcb3f",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "1f5ffbb563b555687bd90faac70ab0f1f86638b07411dd68027f935d01dd4cd3",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "SUPPORTED",
+   "changed_from": null,
+   "covered": [
+    "examples"
+   ],
+   "facts": {
+    "examples_in_request": 1,
+    "regression_suite": [],
+    "tests_given": false,
+    "type_or_compile_check": false
+   },
+   "loop": "generate-execute-discriminate-repair",
+   "reason": "partial oracle: 1 example(s) in the request",
+   "step": "intake",
+   "tier": "O2"
+  },
+  "kind": "oracle_tier",
+  "prev": "31a2b442a155f2e4832e90b174e744a3dabc37a2c7ebff533209370db090953f",
+  "seq": 5
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "authorized_to_execute": false,
+   "candidate_id": "none",
+   "decision_id": "d-tier-ex1_slug",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "51bce42f221a7b09d0deea0fb66574835ccd5756d66fc139935d4749277fc3e2",
+  "seq": 6
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 0,
+   "budget_hit": false,
+   "cause": "missing_information",
+   "details": "tier O2: no executable test oracle for per-action mode; use the ladder (examples) controller",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex1_slug",
+   "rounds": 0,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "ab8daff30230397cc279f482ddd1db1bc4e541f7a6760e6b8b5ee6a991e4fd53",
+  "seq": 7
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "5b3f25ee16139b8a24e2dacf43275f830f32a2321e433e70acf21b7204627bfc",
+  "seq": 8
+ }
+]

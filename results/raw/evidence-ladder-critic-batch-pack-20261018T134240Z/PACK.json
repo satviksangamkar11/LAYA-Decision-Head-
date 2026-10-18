@@ -1,0 +1,13 @@
+{
+ "code_manifest_sha256": "96f83b480ff077e516b1bb81d526abfc28bc34bfd7c65e3ab0ff9d0abdb238bc",
+ "dataset_id": "sangeetasangamkar/evidence-ladder-critic-packets-v1",
+ "dataset_sources": [
+  "sangeetasangamkar/evidence-ladder-critic-packets-v1"
+ ],
+ "kernel_id": "sangeetasangamkar/evidence-ladder-critic-v1",
+ "kernel_script_sha256": "3af7305ec9ecc25d814f5feb4560dc7f258e4ef671f44969826fb4c8b4b6f7c1",
+ "out": "D:\\local model\\results\\raw\\evidence-ladder-critic-batch-pack-20261018T134240Z",
+ "packets": 1,
+ "packets_manifest_sha256": "fbc47fe494d253e5670d2b730ad2fd82a4eb591c38d40e8e2d06082ef39001fb",
+ "pushed": false
+}

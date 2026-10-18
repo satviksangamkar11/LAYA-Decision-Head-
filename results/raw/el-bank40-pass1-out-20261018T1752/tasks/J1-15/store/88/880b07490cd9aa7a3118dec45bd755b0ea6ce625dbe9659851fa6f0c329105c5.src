@@ -1,0 +1,22 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> coeffs = (List<?>) data.get("coeff");
+        Number xNum = (Number) data.get("x");
+        
+        if (coeffs == null || coeffs.isEmpty()) {
+            return 0;
+        }
+        
+        long x = xNum.longValue();
+        long result = ((Number) coeffs.get(0)).longValue();
+        
+        for (int i = 1; i < coeffs.size(); i++) {
+            Number nextCoeff = (Number) coeffs.get(i);
+            result = result * x + nextCoeff.longValue();
+        }
+        
+        return result;
+    }
+}

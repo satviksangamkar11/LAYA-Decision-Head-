@@ -1,0 +1,20 @@
+# [EL-ARCH-1 A3] Per-problem hard limits, enforced in code (evidence_ladder/controller/limits.py) by controller.py and agentic.py. Written 2026-10-17, BEFORE any run that uses them.
+# New versioned file: configs/thresholds*.toml stay frozen and untouched. A change is a new file (el_arch1_limits_v2.toml) with a written reason, never an edit after results.
+# Exceeding a limit stops the problem with stop_cause "budget" and stop_details "limit:<resource> used=<n> cap=<n>". Every key of a profile is required (no implicit "unlimited").
+
+[reason]
+text = "The audit (rows 16, 39) found wall time recorded as 0 and step/round/token limits only by convention. These are explicit, finite, per-problem caps. Values are conservative defaults chosen from the shape of the three integration targets (<=2-3 actions, one critic call per end state, Qwen generation ~500 tokens per step) and from the program-synthesis arms (k=4 samples, 3 repair rounds, 32 attempts); they are not tuned on results."
+
+[profile.agentic]            # per-action controller (agentic.py): one problem = one small workspace
+max_wall_seconds = 3600.0    # whole problem including cached/replayed Kaggle rounds and the sandbox; the critic call itself is made by the PC sender outside this clock
+max_qwen_tokens  = 60000     # qwen_gen_tokens + qwen_prefill_tokens
+max_glm_tokens   = 200000    # glm_tokens_in + glm_tokens_out (estimated when the provider sends no usage)
+max_actions      = 3         # committed tool actions
+max_rounds       = 3         # decision rounds (one step = one round)
+
+[profile.ladder]             # program-synthesis controller (controller.py), arms A-E
+max_wall_seconds = 3600.0
+max_qwen_tokens  = 400000    # qwen_gen + qwen_prefill over k samples and repair rounds
+max_glm_tokens   = 200000
+max_actions      = 32        # candidate attempts (the controller's max_attempts default)
+max_rounds       = 3         # repair rounds (the controller's max_rounds default)

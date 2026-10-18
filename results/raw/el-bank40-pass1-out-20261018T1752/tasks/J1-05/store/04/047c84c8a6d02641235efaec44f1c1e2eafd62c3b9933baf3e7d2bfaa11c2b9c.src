@@ -1,0 +1,31 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String timeStr = (String) data.get("time");
+        String[] parts = timeStr.split(":");
+        int h = Integer.parseInt(parts[0]);
+        int m = Integer.parseInt(parts[1]);
+        
+        String period;
+        int hour12;
+        if (h == 0) {
+            hour12 = 12;
+            period = "AM";
+        } else if (h == 12) {
+            hour12 = 12;
+            period = "PM";
+        } else if (h < 12) {
+            hour12 = h;
+            period = "AM";
+        } else {
+            hour12 = h - 12;
+            period = "PM";
+        }
+        
+        String hourStr = (hour12 == 12) ? "12" : String.format("%02d", hour12);
+        String minuteStr = String.format("%02d", m);
+        
+        return hourStr + ":" + minuteStr + " " + period;
+    }
+}

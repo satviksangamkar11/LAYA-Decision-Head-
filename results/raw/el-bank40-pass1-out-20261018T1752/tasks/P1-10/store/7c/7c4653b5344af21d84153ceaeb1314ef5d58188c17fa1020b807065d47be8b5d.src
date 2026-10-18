@@ -1,0 +1,5 @@
+import re
+
+def solve(data):
+    text = data['text'].strip()
+    return re.sub(r'\s+', ' ', text)

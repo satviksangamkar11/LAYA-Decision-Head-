@@ -1,0 +1,22 @@
+{
+ "answer_label": null,
+ "difficulty": "hard",
+ "end_utc": "2026-10-18T16:25:20.120Z",
+ "engine": "mxc-processcontainer",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "java",
+ "pass": "local",
+ "reason": "no JDK on the Windows host (java / javac not found, JAVA_HOME unset) and the MXC container runs native Windows executables only",
+ "scorer": "none",
+ "seconds": 0.0,
+ "start_utc": "2026-10-18T16:25:20.120Z",
+ "status": "NOT_TESTED",
+ "stop_cause": "NOT_TESTED_NO_JDK",
+ "task": "J1-33",
+ "thinking_policy": {
+  "ceiling": 4096,
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct"
+ }
+}

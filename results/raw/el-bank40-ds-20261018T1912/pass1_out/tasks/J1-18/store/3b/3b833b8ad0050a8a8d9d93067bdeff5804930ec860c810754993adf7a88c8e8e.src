@@ -1,0 +1,30 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> nums = (List<?>) data.get("nums");
+        Number kNum = (Number) data.get("k");
+        long k = kNum.longValue();
+
+        Map<Long, Long> prefixCount = new HashMap<>();
+        prefixCount.put(0L, 1L);
+        long currentSum = 0;
+        long result = 0;
+
+        for (Object numObj : nums) {
+            Number num = (Number) numObj;
+            long numVal = num.longValue();
+            currentSum += numVal;
+
+            long target = currentSum - k;
+
+            if (prefixCount.containsKey(target)) {
+                result += prefixCount.get(target);
+            }
+
+            prefixCount.put(currentSum, prefixCount.getOrDefault(currentSum, 0L) + 1);
+        }
+
+        return result;
+    }
+}

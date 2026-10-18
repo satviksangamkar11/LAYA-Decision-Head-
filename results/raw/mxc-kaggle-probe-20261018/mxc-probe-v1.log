@@ -1,0 +1,26 @@
+[{"stream_name":"stdout","time":0.85215073,"data":"unshare_syscall_user                         FAIL\n"}
+,{"stream_name":"stdout","time":0.85527573,"data":"unshare_syscall_net                          FAIL\n"}
+,{"stream_name":"stdout","time":0.858112984,"data":"unshare_syscall_pid                          FAIL\n"}
+,{"stream_name":"stdout","time":0.861086027,"data":"unshare_syscall_mount                        FAIL\n"}
+,{"stream_name":"stdout","time":0.873297054,"data":"unshare_cli_user_map_root                    FAIL\n"}
+,{"stream_name":"stdout","time":0.873335153,"data":"bwrap_binary_present                         FAIL\n"}
+,{"stream_name":"stdout","time":0.881734304,"data":"bwrap_unshare_all_trivial_command            NOT_AVAILABLE\n"}
+,{"stream_name":"stdout","time":0.881768401,"data":"bwrap_network_blocked                        NOT_AVAILABLE\n"}
+,{"stream_name":"stdout","time":0.881772639,"data":"bwrap_protected_file_readonly                NOT_AVAILABLE\n"}
+,{"stream_name":"stdout","time":0.881775818,"data":"bwrap_timeout_kills_tree                     NOT_AVAILABLE\n"}
+,{"stream_name":"stdout","time":0.881779075,"data":"bwrap_path_traversal_blocked                 NOT_AVAILABLE\n"}
+,{"stream_name":"stdout","time":1.079263931,"data":"node_available                               PASS\n"}
+,{"stream_name":"stdout","time":1.079303656,"data":"node_version_ge_24                           FAIL\n"}
+,{"stream_name":"stdout","time":1.082289227,"data":"fallback_chroot_available                    PASS\n"}
+,{"stream_name":"stdout","time":1.082319826,"data":"fallback_uid_drop_available                  PASS\n"}
+,{"stream_name":"stdout","time":4.099422187,"data":"kernel_internet_off                          PASS\n"}
+,{"stream_name":"stdout","time":5.10376173,"data":"process_group_kill                           PASS\n"}
+,{"stream_name":"stdout","time":5.105485234,"data":"guard_symlink_detected_before_copy           PASS\n"}
+,{"stream_name":"stdout","time":5.107759797,"data":"VERDICT mxc_linux_bubblewrap_usable = False\n"}
+,{"stream_name":"stderr","time":8.459250455,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":8.45929408,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":8.905607214,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":8.905644118,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":11.013396165,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":12.48257126,"data":"[NbConvertApp] Writing 330868 bytes to __results__.html\n"}
+]

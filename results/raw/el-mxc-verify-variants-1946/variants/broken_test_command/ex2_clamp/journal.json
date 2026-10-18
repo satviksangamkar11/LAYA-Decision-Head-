@@ -1,0 +1,840 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-763267432872",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex2_clamp"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "073e23e8eee744a69989a744cadfa976de6942ae80c63d14bc8d6e4e491228bd",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "artifact_ref": "python3 test_does_not_exist.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_clamp.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "e63d8c72e426991612648c4f7ca6138f09ad1d46f545fd4f9c5c4bf4ab8d8c30",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "ae17632ea7fd966060db015e708c6a6fd0ae4af3af777fece95af245b755503c",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "9f47f358a043f172932a7c096ce978d439c3274cbc91fb267dc05f59b0a4df0b",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "9ae5d7d0128122893702b7d8df54f15283424637db1270e61c8a844edadce142",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "VERIFIED",
+   "changed_from": null,
+   "covered": [
+    "tests"
+   ],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": true,
+    "type_or_compile_check": false
+   },
+   "loop": "generate-execute-repair",
+   "reason": "trusted executable oracle: test_clamp.py",
+   "step": "intake",
+   "tier": "O1"
+  },
+  "kind": "oracle_tier",
+  "prev": "4e61a2298860d0c59ca37c38de1fe0e4c86c1743aee8cf878aa47cd8e3c5cce1",
+  "seq": 5
+ },
+ {
+  "data": {
+   "abstain": null,
+   "accepted": [
+    {
+     "action_key": "Edit:{\"file_path\":\"clamp.py\",\"new_string\":\"return max(lo, min(x, hi))\",\"old_string\":\"return min(lo, max(x, hi))\"}",
+     "arguments": {
+      "file_path": "clamp.py",
+      "new_string": "return max(lo, min(x, hi))",
+      "old_string": "return min(lo, max(x, hi))"
+     },
+     "option_id": "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9",
+     "origin": {
+      "index": 0,
+      "seed": null
+     },
+     "tool": "Edit"
+    }
+   ],
+   "counts": {
+    "accepted": 1,
+    "in": 1,
+    "rejected": 0
+   },
+   "rejected": [],
+   "step": 1
+  },
+  "kind": "candidate_filter",
+  "prev": "31bf18a08d4d76e2208b5d3557c5bb51ae6a9ad219616b5ea9ba586d0b01cae7",
+  "seq": 6
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "check_id": "action_policy_v1",
+    "check_version": "1",
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0001",
+    "independence": "independent",
+    "produced_at": "t1",
+    "receipt_hash": "0ae4ecbe96c43cc0aa7b2bb6df50b9322fdc03ae89a2807913a7f543f93839f7",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "policy check of one proposed action",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_policy_v1",
+    "detail": "",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "8e24980652a84c322f04b98bf8fddfb0a818afdbc1ee741c68b1b75cb4bcae63",
+  "seq": 7
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+    "check_id": "action_dry_run_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\819171eaa4ac4fc29309ac3dc635b5b8\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0002",
+    "independence": "independent",
+    "produced_at": "t2",
+    "receipt_hash": "b35a0bb376231a15af91cd8b1c7c704c3297d87a616d46cdcd5a917129dbe8cf",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "protected test after this single edit (scratch copy)",
+    "source": "environment_observation",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "action_dry_run_v1",
+    "detail": "edit applied in a scratch copy, protected test run",
+    "observed": "exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\819171eaa4ac4fc29309ac3dc635b5b8\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "4277b5494edc26ab2b4fc6c16adb6a5c5810d21158ccc0ec7200b27f50fd8cf7",
+  "seq": 8
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "step1_checked",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "875e01fe94e68771a1369cc56a4f4613c0221f9a430c21f919bb0fde71b0feb0",
+  "seq": 9
+ },
+ {
+  "data": {
+   "can_override_trusted_evidence": false,
+   "decision_id": "ex2_clamp:step1",
+   "laya_ordering_enabled": false,
+   "min_informative_pools": 30,
+   "n_informative_pools": 0,
+   "n_pools": 0,
+   "reason": "0 informative pools (a pool with at least one passing and one failing candidate), minimum 30: no verdict",
+   "status": "INSUFFICIENT_DATA"
+  },
+  "kind": "monotonicity_gate",
+  "prev": "ce9ecaf608b3bc0aaf5d45e5b77379970eb070c414dbb8ae2f56010690f22528",
+  "seq": 10
+ },
+ {
+  "data": {
+   "decision_id": "ex2_clamp:step1",
+   "ids": [
+    "ex2_clamp:step1#0"
+   ],
+   "level": "L0",
+   "provenance": {},
+   "scorer_id": "stub:laya",
+   "scores": [
+    0.187
+   ],
+   "state": "scored"
+  },
+  "kind": "scorer",
+  "prev": "71426b3deebd92ad48c86a6afda1df0ee7b08929febe620442e51a11d0e80fa6",
+  "seq": 11
+ },
+ {
+  "data": {
+   "decision_id": "ex2_clamp:step1",
+   "ids": [
+    "ex2_clamp:step1#0"
+   ],
+   "scores": {
+    "probe": {
+     "role": "mandatory_baseline_linear_probe",
+     "score": [
+      0.326
+     ]
+    },
+    "random_head": {
+     "role": "untrained_random_init_floor_control",
+     "score": [
+      0.879
+     ]
+    }
+   },
+   "selector": false
+  },
+  "kind": "scorer_comparison",
+  "prev": "6a9d1c3d917676a6e3a29ec033c44c26e10b3ca6b592ae019788f044fbf47d04",
+  "seq": 12
+ },
+ {
+  "data": {
+   "items": [
+    {
+     "cluster": 0,
+     "deepconf": 0.0,
+     "id": "ex2_clamp:step1#0",
+     "scorer": 0.187,
+     "trusted_passes": 0,
+     "validated_passes": 0
+    }
+   ],
+   "order": [
+    "ex2_clamp:step1#0"
+   ],
+   "step": "ex2_clamp:step1"
+  },
+  "kind": "ranking",
+  "prev": "7e6eda8f043a733caa8fb7995aa4540b95f45fca33f0c90ca67458287ffa8d7e",
+  "seq": 13
+ },
+ {
+  "data": {
+   "abstain": false,
+   "approved": false,
+   "blocked": [],
+   "decision_id": "ex2_clamp:step1",
+   "derived_by": "controller",
+   "level": "L0_ordering_only",
+   "order": [
+    "ex2_clamp:step1#0"
+   ],
+   "scorer_available": true,
+   "selected_id": "ex2_clamp:step1#0",
+   "selected_index": 0
+  },
+  "kind": "action_decision",
+  "prev": "356ca3ad15cc7acabc01a72b4ebfc5f6341ea86b7942dbfc2e991a9d40f29c54",
+  "seq": 14
+ },
+ {
+  "data": {
+   "allowed": true,
+   "candidate_id": "323922471382c0cf8827142657dc68dce0a6808d8d3e337a3574d462f3c18b8d",
+   "class": "reversible_workspace_edit",
+   "decision_id": "ex2_clamp:step1",
+   "decision_risk": "sandboxed",
+   "missing": [],
+   "requires": [
+    "inside_workspace",
+    "not_protected"
+   ]
+  },
+  "kind": "action_auth",
+  "prev": "8195145695dcd6ed76ee538c82e53d2869859409ee23b0c32a0483bff21a7b48",
+  "seq": 15
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "not_exist.py`): exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\fab19a22089f47b1a7a2c297cf1fe04b\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0003",
+    "independence": "user_provided",
+    "produced_at": "t3",
+    "receipt_hash": "a5376b84c0426af8e7464face3f18c5438df821a2cb347018666fec715c44661",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\fab19a22089f47b1a7a2c297cf1fe04b\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "6dca08f09b02e95863e04c1f34a96d41a38e4299cea54a67b88af49246965080",
+  "seq": 16
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0004",
+    "independence": "independent",
+    "produced_at": "t4",
+    "receipt_hash": "49bbde881f62d964476b6beb0e69fe2f750462fce9aaaec4502d13408c7125f7",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "c3e99f9d2930509206281bf12f8a83871110dd06f70dec6f797b32adfbc2700e",
+  "seq": 17
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "step1"
+  },
+  "kind": "label",
+  "prev": "8ddb689dcebea57cc5acbb2754a75107a73ed8628e67f5d2c8a8ff17f705493a",
+  "seq": 18
+ },
+ {
+  "data": {
+   "classification": "changed",
+   "failure": {
+    "code_location": null,
+    "exception": "",
+    "kind": "unparsed",
+    "message": "",
+    "test_location": null
+   },
+   "failure_sig": "6c20d88b1cd40350",
+   "repeat_blocked_total": 0,
+   "report_sha256": "b40b99510556a6919eb9a7fa16ee094817d132627729d7181588a733685ad9de",
+   "snippet_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "step": 1
+  },
+  "kind": "repair_report",
+  "prev": "e2a6c5ff87fd77b84c8df6f431672f50e4df777a7f6da52fc0e32af15c56e3af",
+  "seq": 19
+ },
+ {
+  "data": {
+   "action": {
+    "allowed": true,
+    "class": "reversible_workspace_edit",
+    "denied": false,
+    "executed": {
+     "arguments": {
+      "file_path": "clamp.py",
+      "new_string": "return max(lo, min(x, hi))",
+      "old_string": "return min(lo, max(x, hi))"
+     },
+     "name": "Edit"
+    }
+   },
+   "decision": {
+    "abstain": false,
+    "allowed_set": [
+     0
+    ],
+    "chosen_index": 0,
+    "filter_counts": {
+     "accepted": 1,
+     "in": 1,
+     "rejected": 0
+    },
+    "scorer_available": true
+   },
+   "decision_id": "ex2_clamp:step1",
+   "inputs": {
+    "context_sha256": "0d7fb6f070a7729e2fcb268cf090f54c5dcc76d009b2ce1d548e32c486dc9c2f",
+    "option_sha256": [
+     "7978769b4708e5012919e6c1c56ef837551f31569ee5fca2b488413be81562e9"
+    ],
+    "pre_state": "df4b8c14abf6dc324456b406c8c3a1bbacba65f16b75082e0760da72e056ecd6"
+   },
+   "outcome": {
+    "authorized": false,
+    "label": "BLOCKED",
+    "post_state": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "protected_unchanged": true,
+    "result_sha256": "8ba1849440f80dba4e5c553c07c7b063a14f5dbe2586ad9f6337cd7db2d2c552",
+    "tests_pass": false
+   },
+   "step": 1
+  },
+  "kind": "step_record",
+  "prev": "3b9d64a5652c4944dde6a1fd8e84a62a467c8c5abc7de8bf7550eb2645ea404c",
+  "seq": 20
+ },
+ {
+  "data": {
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "ceiling": "VERIFIED",
+   "step": "step1_observed",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 1
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 1
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "fe46e0dacd1b350c6f0a72bf4111acc89b15ac87393f31bf10f872cfa68fa8bb",
+  "seq": 21
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_does_not_exist.py",
+     "observed": "not_exist.py`): exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\19ab87e3566e4f71a45555926af84659\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n"
+    },
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0005",
+    "independence": "user_provided",
+    "produced_at": "t5",
+    "receipt_hash": "a5e214e026af4d83ee463b6a4b9ed31dd96fa41a313bb8a6199481f837445c75",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_does_not_exist.py`): exit 2\nC:\\Users\\Satvik\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe: can't open file 'C:\\\\Users\\\\Satvik\\\\AppData\\\\Local\\\\Temp\\\\el-var-rtr1ktc2\\\\_sandbox\\\\runs\\\\19ab87e3566e4f71a45555926af84659\\\\ws\\\\test_does_not_exist.py': [Errno 2] No such file or directory\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "b50cdb6509c5ba7adc4fb2a04e89d39bdf780ab59665fe31dc893fa5fbd9c6dd",
+  "seq": 22
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-763267432872",
+    "evidence_id": "E0006",
+    "independence": "independent",
+    "produced_at": "t6",
+    "receipt_hash": "49bbde881f62d964476b6beb0e69fe2f750462fce9aaaec4502d13408c7125f7",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "e4b3b9b9056a72e4f4c856592ddf8946cf9fe9b1d5c7c94f3d529afa86f9ecee",
+  "seq": 23
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "finalize"
+  },
+  "kind": "label",
+  "prev": "7884fc684c133ec5a198a27d39796016a3c461a046154183b8f759237dc1d570",
+  "seq": 24
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "ok": false,
+   "reason": ""
+  },
+  "kind": "finalize",
+  "prev": "5c54ccfd8cb3da01fcdedd676cb5174c28eda1f3f96bfc95d5573038c262833b",
+  "seq": 25
+ },
+ {
+  "data": {
+   "coverage": {
+    "answer_label": "BLOCKED",
+    "rows": [
+     {
+      "evidence": [
+       {
+        "authoritative": true,
+        "check_id": "protected_tests_v1",
+        "evidence_id": "E0003",
+        "independence": "user_provided",
+        "scope": "the protected test command on the real end state",
+        "source": "user_test",
+        "status": "fail",
+        "trust_class": "authoritative"
+       },
+       {
+        "authoritative": true,
+        "check_id": "protected_tests_v1",
+        "evidence_id": "E0005",
+        "independence": "user_provided",
+        "scope": "the protected test command on the real end state",
+        "source": "user_test",
+        "status": "fail",
+        "trust_class": "authoritative"
+       }
+      ],
+      "kind": "contract",
+      "label": "FAILED",
+      "priority": "hard",
+      "requirement_id": "R1"
+     },
+     {
+      "evidence": [
+       {
+        "authoritative": true,
+        "check_id": "protected_files_unchanged_v1",
+        "evidence_id": "E0004",
+        "independence": "independent",
+        "scope": "sha256 of the protected files before/after the test run",
+        "source": "certified_check",
+        "status": "pass",
+        "trust_class": "authoritative"
+       },
+       {
+        "authoritative": true,
+        "check_id": "protected_files_unchanged_v1",
+        "evidence_id": "E0006",
+        "independence": "independent",
+        "scope": "sha256 of the protected files before/after the test run",
+        "source": "certified_check",
+        "status": "pass",
+        "trust_class": "authoritative"
+       }
+      ],
+      "kind": "contract",
+      "label": "VERIFIED",
+      "priority": "hard",
+      "requirement_id": "R2"
+     }
+    ],
+    "weakest": {
+     "label": "FAILED",
+     "requirement_id": "R1"
+    }
+   },
+   "outcome": {
+    "answer_label": "BLOCKED",
+    "authorized_by_authorize": false,
+    "end_state_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+    "label_ceiling": "VERIFIED",
+    "state_unchanged_since_last_action": true,
+    "tests_pass": false,
+    "trusted_checks_rerun_on_real_end_state": true
+   },
+   "process": {
+    "actions_denied_by_risk_table": 0,
+    "actions_executed": 1,
+    "constraints_respected": true,
+    "diff": {
+     "added": [],
+     "modified": [
+      "clamp.py"
+     ],
+     "removed": []
+    },
+    "diff_scope_ok": true,
+    "diff_violations": [],
+    "protected_unchanged": true,
+    "scope_declared": null,
+    "tier": "O1"
+   }
+  },
+  "kind": "final_report",
+  "prev": "1bddac14c53e2bf4b598626a3e8cd4f4708d9c21dcd465c7e239062b594b18f0",
+  "seq": 26
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "authorized_to_execute": false,
+   "candidate_id": "ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "decision_id": "d-ee4255106316ca84e0017e8f5d7b919dcb2c051ce81afbabbd48bd85fa13b252",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [
+      "E0003",
+      "E0005"
+     ],
+     "label": "FAILED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0004",
+      "E0006"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "4f9b899313c7711740d4fe95a632cc64a34d3dc560773917d69c9ccf1f709c4b",
+  "seq": 27
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 1,
+   "budget_hit": true,
+   "cause": "budget",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex2_clamp",
+   "rounds": 1,
+   "stop_label": "step_cap",
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "5cc4e0fd79814fc26a199965db3525223427795bdc2288bb6d95f0e14aee6e6f",
+  "seq": 28
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "d233caf4aa648c066fec88f724bd02aacda92fae1dbafbdcfe300d9ae310fe58",
+  "seq": 29
+ }
+]

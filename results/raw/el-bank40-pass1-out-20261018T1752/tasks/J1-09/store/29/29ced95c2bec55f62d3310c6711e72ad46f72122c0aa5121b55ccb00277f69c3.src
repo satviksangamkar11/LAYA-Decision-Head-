@@ -1,0 +1,28 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String text = (String) data.get("text");
+        Number shiftNum = (Number) data.get("shift");
+        int shift = shiftNum.intValue();
+        StringBuilder sb = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if (Character.isLetter(c)) {
+                if (Character.isUpperCase(c)) {
+                    int base = 'A';
+                    int offset = (c - base + shift) % 26;
+                    if (offset < 0) offset += 26;
+                    sb.append((char) (base + offset));
+                } else {
+                    int base = 'a';
+                    int offset = (c - base + shift) % 26;
+                    if (offset < 0) offset += 26;
+                    sb.append((char) (base + offset));
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}

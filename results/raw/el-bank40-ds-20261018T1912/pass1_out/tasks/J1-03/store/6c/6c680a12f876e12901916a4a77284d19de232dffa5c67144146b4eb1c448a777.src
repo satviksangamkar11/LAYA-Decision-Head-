@@ -1,0 +1,20 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Number n = (Number) data.get("n");
+        long num = n.longValue();
+        int count = 0;
+        while (num >= 10) {
+            long product = 1;
+            String s = Long.toString(num);
+            for (char c : s.toCharArray()) {
+                int digit = Character.getNumericValue(c);
+                product *= digit;
+            }
+            num = product;
+            count++;
+        }
+        return count;
+    }
+}

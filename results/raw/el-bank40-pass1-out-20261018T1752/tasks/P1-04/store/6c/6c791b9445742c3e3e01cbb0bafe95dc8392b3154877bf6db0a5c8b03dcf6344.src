@@ -1,0 +1,10 @@
+def solve(data):
+    nums = data['nums']
+    k = data['k']
+    if not nums:
+        return []
+    n = len(nums)
+    k_mod = k % n
+    if k_mod == 0:
+        return nums
+    return nums[-k_mod:] + nums[:-k_mod]

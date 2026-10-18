@@ -1,0 +1,25 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> nums = (List<?>) data.get("nums");
+        Number kNum = (Number) data.get("k");
+        long k = kNum.longValue();
+
+        Map<Long, Long> prefixMap = new HashMap<>();
+        prefixMap.put(0L, 1L);
+        long currentSum = 0;
+        long result = 0;
+
+        for (Object numObj : nums) {
+            long num = ((Number) numObj).longValue();
+            currentSum += num;
+            long target = currentSum - k;
+            long count = prefixMap.getOrDefault(target, 0L);
+            result += count;
+            prefixMap.put(currentSum, prefixMap.getOrDefault(currentSum, 0L) + 1);
+        }
+
+        return result;
+    }
+}

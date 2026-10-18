@@ -1,0 +1,134 @@
+{
+ "answer_label": "SUPPORTED",
+ "budget": {
+  "api_errors": 0,
+  "arm": "D0",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 0.0,
+  "problem_id": "P1-13",
+  "qwen_gen_tokens": 315,
+  "qwen_prefill_tokens": 250,
+  "scorer_calls": 0,
+  "tool_runs": 0,
+  "wall_seconds": 0.0
+ },
+ "candidates": 2,
+ "ceiling_hits": 0,
+ "clusters": {
+  "computed": true,
+  "extended_clusters": 2,
+  "public_clusters": 1
+ },
+ "critic": {
+  "accounting": {
+   "calls": 1,
+   "estimated": false,
+   "failed_attempts": 0,
+   "ok": 1,
+   "packets": 1,
+   "retries": 0,
+   "tokens_in": 100,
+   "tokens_out": 50
+  },
+  "applied_in_controller": true,
+  "called": true,
+  "critic_evidence": [
+   {
+    "independence": "model_derived",
+    "status": "pass"
+   }
+  ],
+  "detail": "",
+  "label_after_critic": "SUPPORTED",
+  "label_before_critic": "SUPPORTED",
+  "model": "z-ai/glm-5.3-flash",
+  "packets": 1,
+  "replay_exhausted": true,
+  "responses": 1,
+  "seconds": 0.02,
+  "state": "applied"
+ },
+ "critic_called": true,
+ "difficulty": "medium",
+ "discrimination": {
+  "critic": "applied",
+  "triggered": true
+ },
+ "end_utc": "2026-10-18T15:32:40.011Z",
+ "engine": "mxc-processcontainer",
+ "generate_calls": 3,
+ "generation_failed_at_ceiling": false,
+ "gpu": "selftest-no-gpu",
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "87715bf6fb4dc9088f9d6af73925bb79e8a498a374e31840a339c8f006327021",
+ "l2": {
+  "dropped": [
+   {
+    "index": 0,
+    "reason": "duplicate_of_public_example"
+   },
+   {
+    "index": 1,
+    "reason": "duplicate_of_public_example"
+   },
+   {
+    "index": 2,
+    "reason": "duplicate_of_public_example"
+   },
+   {
+    "index": 3,
+    "reason": "duplicate_of_public_example"
+   }
+  ],
+  "parsed": 4,
+  "reason": "every parsed test dropped",
+  "verdict": "INSUFFICIENT"
+ },
+ "l2_version": 2,
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "python",
+ "pass": "local",
+ "pending_critic_packets": [],
+ "profile_id": "selftest",
+ "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+ "public": {
+  "best": 10,
+  "candidates_passing_all": 2,
+  "candidates_with_examples": 2,
+  "examples": 10
+ },
+ "rounds": 0,
+ "scorer": "none",
+ "seconds": 5.0,
+ "start_utc": "2026-10-18T15:32:34.983Z",
+ "status": "OK",
+ "stop_cause": "decided",
+ "stop_details": "",
+ "task": "P1-13",
+ "think_shim_count": 5,
+ "thinking_policy": {
+  "ceiling": 4096,
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct"
+ },
+ "tokens_generated": 315,
+ "tokens_prompt": 250,
+ "wall_cap_s": 3600.0,
+ "worker": 0
+}

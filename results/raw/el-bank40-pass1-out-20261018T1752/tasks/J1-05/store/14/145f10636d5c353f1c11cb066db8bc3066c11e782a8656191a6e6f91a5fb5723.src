@@ -1,0 +1,28 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String timeStr = (String) data.get("time");
+        String[] parts = timeStr.split(":");
+        int hour24 = Integer.parseInt(parts[0]);
+        String minuteStr = parts[1];
+        
+        String period = "AM";
+        int hour12;
+        if (hour24 == 0) {
+            hour12 = 12;
+        } else if (hour24 == 12) {
+            hour12 = 12;
+            period = "PM";
+        } else if (hour24 > 12) {
+            hour12 = hour24 - 12;
+            period = "PM";
+        } else {
+            hour12 = hour24;
+            period = "AM";
+        }
+        
+        String hourFormatted = String.format("%02d", hour12);
+        return hourFormatted + ":" + minuteStr + " " + period;
+    }
+}

@@ -1,0 +1,81 @@
+{
+ "answer_label": "SUPPORTED",
+ "budget": {
+  "api_errors": 0,
+  "arm": "D0",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 0.0,
+  "problem_id": "P1-11",
+  "qwen_gen_tokens": 18582,
+  "qwen_prefill_tokens": 1298,
+  "scorer_calls": 0,
+  "tool_runs": 0,
+  "wall_seconds": 0.0
+ },
+ "candidates": 4,
+ "ceiling_hits": 0,
+ "clusters": {
+  "computed": true,
+  "extended_clusters": 1,
+  "public_clusters": 1
+ },
+ "difficulty": "medium",
+ "discrimination": {
+  "critic": null,
+  "triggered": false
+ },
+ "end_utc": "2026-10-18T11:22:20.945Z",
+ "generate_calls": 3,
+ "generation_failed_at_ceiling": false,
+ "gpu": "Tesla T4",
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "f2747ceee9181642f6ba85f012d01b8bb93c4dbaa8bc8ed984f5932e91b0e411",
+ "l2": {
+  "dropped": [],
+  "parsed": 0,
+  "reason": "no valid test parsed",
+  "verdict": "INSUFFICIENT"
+ },
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "python",
+ "pass": "pass1",
+ "pending_critic_packets": [],
+ "public": {
+  "best": 10,
+  "candidates_passing_all": 4,
+  "candidates_with_examples": 4,
+  "examples": 10
+ },
+ "replay_exhausted": null,
+ "rounds": 0,
+ "scorer": "none",
+ "seconds": 2038.1,
+ "start_utc": "2026-10-18T10:48:22.886Z",
+ "status": "OK",
+ "stop_cause": "decided",
+ "stop_details": "",
+ "task": "P1-11",
+ "thinking_policy": {
+  "brief_instruction": "Think BRIEFLY: reason in a few short sentences only, do not re-verify the same point, and give the final answer as soon as you have it.",
+  "ceiling": 8192,
+  "policy": "prompt_brief"
+ },
+ "tokens_generated": 18582,
+ "tokens_prompt": 1298,
+ "worker": 0
+}

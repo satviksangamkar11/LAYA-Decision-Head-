@@ -1,0 +1,189 @@
+{
+ "kernel": "el_bank_local_run",
+ "mode": "local",
+ "started_utc": "2026-10-18T15:34:51.120Z",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "engine": "mxc",
+ "sandbox": "mxc",
+ "l2_version": 2,
+ "commit": "87d3b7a865afc742859a0e33b9c10de11d4e751b",
+ "config_sha256": {
+  "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+  "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+  "configs/el_bank80_rest_v1.json": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+  "configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c"
+ },
+ "out_dir_abs": "D:\\local model\\results\\raw\\el-bank-local-20261018T2104",
+ "controller_limits": {
+  "max_wall_seconds": 3600.0,
+  "profile": "ladder"
+ },
+ "token_cap": 100000,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "internal_states": "disabled",
+ "preflight": {
+  "min_free_ram_gb": 3.0,
+  "min_free_vram_gb": 3.5,
+  "min_free_commit_gb": 4.5,
+  "resources": {
+   "free_ram_gb": 1.7,
+   "free_vram_gb": 4.64,
+   "free_commit_gb": 3.93,
+   "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  }
+ },
+ "critic": {
+  "state": "inline",
+  "model": "z-ai/glm-5.3-flash",
+  "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"
+ },
+ "gpus": 1,
+ "notes": [
+  "preflight refused: nothing was loaded or run"
+ ],
+ "public_only_guard": {
+  "files": 1,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "java_capability": {
+  "runnable": false,
+  "status": "NOT_TESTED_NO_JDK",
+  "backend": "mxc",
+  "reason": "no JDK on the Windows host (java / javac not found, JAVA_HOME unset) and the MXC container runs native Windows executables only"
+ },
+ "resumed_tasks": [],
+ "not_tested": {
+  "J1-17": "NOT_TESTED_NO_JDK",
+  "J1-20": "NOT_TESTED_NO_JDK",
+  "J1-23": "NOT_TESTED_NO_JDK",
+  "J1-24": "NOT_TESTED_NO_JDK",
+  "J1-25": "NOT_TESTED_NO_JDK",
+  "J1-26": "NOT_TESTED_NO_JDK",
+  "J1-27": "NOT_TESTED_NO_JDK",
+  "J1-28": "NOT_TESTED_NO_JDK",
+  "J1-29": "NOT_TESTED_NO_JDK",
+  "J1-30": "NOT_TESTED_NO_JDK",
+  "J1-31": "NOT_TESTED_NO_JDK",
+  "J1-32": "NOT_TESTED_NO_JDK",
+  "J1-33": "NOT_TESTED_NO_JDK",
+  "J1-34": "NOT_TESTED_NO_JDK",
+  "J1-35": "NOT_TESTED_NO_JDK",
+  "J1-36": "NOT_TESTED_NO_JDK",
+  "J1-37": "NOT_TESTED_NO_JDK",
+  "J1-38": "NOT_TESTED_NO_JDK",
+  "J1-39": "NOT_TESTED_NO_JDK",
+  "J1-40": "NOT_TESTED_NO_JDK"
+ },
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-processcontainer",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc"
+  }
+ },
+ "error": "free RAM 1.7 GB < required 3.0 GB (close other programs); free system commit 3.93 GB < required 4.5 GB (the model load fails below it; close Ableton or other large programs)",
+ "done": 0,
+ "errors": [],
+ "pending_not_started": [
+  "P1-13",
+  "P1-14",
+  "P1-15",
+  "P1-16",
+  "P1-17",
+  "P1-18",
+  "P1-19",
+  "P1-20",
+  "P1-21",
+  "P1-22",
+  "P1-23",
+  "P1-24",
+  "P1-25",
+  "P1-26",
+  "P1-27",
+  "P1-28",
+  "P1-29",
+  "P1-30",
+  "P1-31",
+  "P1-32",
+  "P1-33",
+  "P1-34",
+  "P1-35",
+  "P1-36",
+  "P1-37",
+  "P1-38",
+  "P1-39",
+  "P1-40"
+ ],
+ "verdict": "PREFLIGHT_REFUSED",
+ "updated_utc": "2026-10-18T15:34:51.961Z",
+ "total_seconds": 0.8,
+ "timeline_summary": {
+  "events": 4,
+  "first_utc": "2026-10-18T15:34:51.184Z",
+  "last_utc": "2026-10-18T15:34:51.944Z",
+  "wall_seconds": 0.761,
+  "stages": {
+   "preflight": {
+    "n": 1,
+    "total_s": 0.765,
+    "p50_s": 0.765,
+    "p95_s": 0.765
+   }
+  },
+  "model_seconds": 0,
+  "sandbox_seconds": 0,
+  "model_vs_sandbox": {
+   "model_share": null
+  }
+ },
+ "ended_utc": "2026-10-18T15:34:51.963Z",
+ "engine_info": {
+  "engine": "mxc-processcontainer",
+  "backend": "mxc",
+  "calls": 0,
+  "sandbox_seconds_total": 0.0,
+  "seconds_per_call": {
+   "n": 0,
+   "p50": null,
+   "max": null
+  },
+  "limits_config": {
+   "py_timeout": 10.0,
+   "max_source_bytes": 131072,
+   "max_output_bytes": 4194304,
+   "max_observed_chars": 2000
+  },
+  "java": {
+   "runnable": false,
+   "status": "NOT_TESTED_NO_JDK",
+   "backend": "mxc",
+   "reason": "no JDK on the Windows host (java / javac not found, JAVA_HOME unset) and the MXC container runs native Windows executables only"
+  },
+  "diagnostics": {},
+  "note": "candidate and runner share one process (as in runner_v2.py); Linux red-team results do not transfer; MXC containment + Job Object limits apply"
+ }
+}

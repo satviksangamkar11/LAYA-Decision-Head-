@@ -1,0 +1,2 @@
+def solve(data):
+    return sum(num for num in data['nums'] if num % 2 == 0)

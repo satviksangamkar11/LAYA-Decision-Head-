@@ -1,0 +1,45 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<List<?>> aList = (List<List<?>>) data.get("a");
+        List<List<?>> bList = (List<List<?>>) data.get("b");
+
+        List<List<Integer>> aMatrix = new ArrayList<>();
+        for (List<?> row : aList) {
+            List<Integer> newRow = new ArrayList<>();
+            for (Object cell : row) {
+                newRow.add(((Number) cell).intValue());
+            }
+            aMatrix.add(newRow);
+        }
+
+        List<List<Integer>> bMatrix = new ArrayList<>();
+        for (List<?> row : bList) {
+            List<Integer> newRow = new ArrayList<>();
+            for (Object cell : row) {
+                newRow.add(((Number) cell).intValue());
+            }
+            bMatrix.add(newRow);
+        }
+
+        int R = aMatrix.size();
+        int K = aMatrix.get(0).size();
+        int C = bMatrix.get(0).size();
+
+        List<List<Integer>> result = new ArrayList<>(R);
+        for (int i = 0; i < R; i++) {
+            List<Integer> row = new ArrayList<>(C);
+            for (int j = 0; j < C; j++) {
+                int sum = 0;
+                for (int k = 0; k < K; k++) {
+                    sum += aMatrix.get(i).get(k) * bMatrix.get(k).get(j);
+                }
+                row.add(sum);
+            }
+            result.add(row);
+        }
+
+        return result;
+    }
+}

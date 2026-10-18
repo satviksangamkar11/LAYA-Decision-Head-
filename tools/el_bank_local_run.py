@@ -41,6 +41,8 @@ L2_VERSION = 2
 MIN_FREE_RAM_GB = 3.0
 MIN_FREE_VRAM_GB = 3.5
 MIN_FREE_COMMIT_GB = 4.5      # Agent 1 measured: loading the model fails below about 4.5 GB free system commit (GPU allocations count 1:1 against commit on this PC)
+CRITIC_READ_TIMEOUT_S = 420.0      # first-response wait per critic call (the 120 s of the first run timed out every bank packet: ~122 s per failed attempt)
+CRITIC_TOTAL_TIMEOUT_S = 1800.0
 MAX_CONSECUTIVE_ENGINE_FAILURES = 3
 LABEL = "development results (D1 waiver), public examples only; hidden grading NOT done"
 DEFAULT_MANIFEST = ROOT / "configs/el_bank80_rest_v1.json"
@@ -205,8 +207,15 @@ class GlmInlineCritic:
     transport=None -> the real streamed NVIDIA transport with keys from key_loader (values never printed, logged or returned); an injected transport (tests, selftest) replaces only the network call.
     Every failure is a RETURNED state (api_unavailable / critic_failed), never an exception: the run continues and the label is never blocked or faked."""
 
-    def __init__(self, transport: Optional[Callable] = None, key_loader: Optional[Callable[[], Dict[str, str]]] = None, max_retries: int = 1):
+    def __init__(self, transport: Optional[Callable] = None, key_loader: Optional[Callable[[], Dict[str, str]]] = None, max_retries: int = 1,
+                 read_timeout_s: float = CRITIC_READ_TIMEOUT_S, total_timeout_s: float = CRITIC_TOTAL_TIMEOUT_S):
+        """read_timeout_s = how long ONE streamed call may wait for its first response bytes (reasoning max can take minutes before the first token; the old 120 s was too short for bank-sized
+        packets); total_timeout_s = cap for the whole stream. Reasoning effort stays max, <= 39 sends/key/min, max_retries 1 (the retry goes to the next key)."""
         self.transport, self.key_loader, self.max_retries = transport, key_loader, max_retries
+        self.read_timeout_s, self.total_timeout_s = float(read_timeout_s), float(total_timeout_s)
+
+    def settings(self) -> Dict[str, Any]:
+        return {"read_timeout_s": self.read_timeout_s, "total_timeout_s": self.total_timeout_s, "max_retries": self.max_retries, "reasoning_effort": "max", "max_sends_per_key_per_minute": 39}
 
     def answer(self, tid: str, requests: Dict[str, Dict[str, Any]], task_dir: Path) -> Dict[str, Any]:
         t0 = time.time()
@@ -231,7 +240,7 @@ class GlmInlineCritic:
             if cdir.exists(): shutil.rmtree(cdir)
             cfg = glm.GlmConfig(reasoning_params=dict(BT.REASONING), allowed_kinds=EXP.SUPPORTED_KINDS)
             labels = list(keys) or ["key_1"]
-            tr = self.transport or make_transport(keys, read_timeout_s=120.0, total_timeout_s=1800.0)
+            tr = self.transport or make_transport(keys, read_timeout_s=self.read_timeout_s, total_timeout_s=self.total_timeout_s)
             runner = BT.BatchRunner(pdir, cdir, tr, labels, load_concurrency(), max_retries=self.max_retries, glm_config=cfg)
             sent = runner.run()
             resp: Dict[str, Any] = {}
@@ -268,7 +277,8 @@ def _make_controller(limits, with_timeline: bool = True):
 
 
 def run_task(rec_in: Dict[str, Any], gen_backend: Any, exe_backend: Any, out: Path, tl: B.Timeline, *, policy: Dict[str, Any], wall_cap_s: float, state_hook: Optional[Callable] = None,
-             worker: int = 0, engine_label: str = "mxc", max_new_tokens: Optional[int] = None, critic_client: Optional[GlmInlineCritic] = None, l2_version: int = L2_VERSION) -> Dict[str, Any]:
+             worker: int = 0, engine_label: str = "mxc", max_new_tokens: Optional[int] = None, critic_client: Optional[GlmInlineCritic] = None, l2_version: int = L2_VERSION,
+             rec_extra: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     from evidence_ladder.common.interfaces import ControllerContext, TaskSpec
     from evidence_ladder.controller import generation as GEN, invariants as INV
     from evidence_ladder.controller.limits import load_limits
@@ -313,7 +323,7 @@ def run_task(rec_in: Dict[str, Any], gen_backend: Any, exe_backend: Any, out: Pa
                 with tl.span("glm_critic", task=tid, packets=len(reqs)):
                     ans = critic_client.answer(tid, reqs, d)
                 crit_rec = {"called": True, "state": ans["state"], "detail": ans.get("detail", ""), "packets": len(reqs), "responses": len(ans.get("responses", {})), "accounting": ans.get("accounting"),
-                            "seconds": ans.get("seconds"), "model": ans.get("model"), "applied_in_controller": False}
+                            "seconds": ans.get("seconds"), "model": ans.get("model"), "applied_in_controller": False, "settings": critic_client.settings()}
                 if ans.get("responses"):
                     try:        # same run: the recorded generations are replayed (prompt-hash checked, nothing regenerated) and the critic answers are applied
                         replay = B.SequenceReplayGen(recorder.calls, {"task": tid})
@@ -372,11 +382,90 @@ def run_task(rec_in: Dict[str, Any], gen_backend: Any, exe_backend: Any, out: Pa
             if logs: B.write_atomic(d / "exec_results.jsonl", "".join(json.dumps(x, ensure_ascii=False, default=str) + "\n" for x in logs))
         except Exception:      # noqa: BLE001
             pass
+    if rec_extra: rec.update(rec_extra)
     rec["end_utc"] = B.utc_now(); rec["seconds"] = round(time.time() - t_start, 1)
     B.write_atomic(d / "result.json", json.dumps(rec, indent=1, ensure_ascii=False, default=str, sort_keys=True))
     if rec["status"] == "OK":
         B.write_atomic(d / "DONE", rec["end_utc"])          # LAST
     return rec
+
+
+class ReplayModel:
+    """Serves the SAVED generations of a finished task (gen_calls.json) in order, prompt-hash checked; used by --retry-critic so nothing is regenerated and no model is needed."""
+    stub = False
+    gpu_name = None
+    language = "python"
+
+    def __init__(self, calls: Sequence[Dict[str, Any]], info: Dict[str, Any]):
+        self._replay, self._info = B.SequenceReplayGen(calls, {"retry": True}), dict(info)
+
+    def model_info(self) -> Dict[str, Any]: return self._info
+
+    def generate(self, request): return self._replay.generate(request)
+
+
+def needs_critic_retry(d: Path) -> bool:
+    """A finished task whose critic did not complete: api_unavailable / critic_failed / pending, or packets still pending in result.json (and the saved generations exist)."""
+    try:
+        if not ((d / "DONE").is_file() and (d / "gen_calls.json").is_file() and (d / "result.json").is_file()):
+            return False
+        r = json.loads((d / "result.json").read_text("utf-8"))
+        c = r.get("critic") or {}
+        return r.get("status") == "OK" and not c.get("applied_in_controller") and (c.get("state") in ("api_unavailable", "critic_failed", "pending") or bool(r.get("pending_critic_packets")))
+    except (OSError, ValueError):
+        return False
+
+
+def _free_dir(base: Path, stem: str) -> Path:
+    n = 1
+    while (base / ("%s.v%d" % (stem, n))).exists(): n += 1
+    return base / ("%s.v%d" % (stem, n))
+
+
+def retry_critic_tasks(out: Path, by: Dict[str, Dict[str, Any]], exe: Any, tl: B.Timeline, critic_client: GlmInlineCritic, *, policy: Dict[str, Any], wall_cap_s: float, engine_label: str,
+                       l2_version: int = L2_VERSION) -> List[Dict[str, Any]]:
+    """For every finished task whose critic did not complete: re-run ONLY the critic step with the SAVED generations (replayed, prompt-hash checked, nothing regenerated) in a staging dir; if the answer
+    was applied, the old task dir is ARCHIVED (tasks_archive/<id>.vN, never deleted) and the new one takes its place atomically with retry provenance in result.json. If the retry fails again, the old task
+    stays untouched and the attempt is archived (retry_archive/) and logged. The label can only move through trusted evidence: the critic stays diagnostic (the same controller path as the inline critic)."""
+    log: List[Dict[str, Any]] = []
+    for d in sorted((out / "tasks").glob("*")):
+        tid = d.name
+        if tid not in by or not needs_critic_retry(d):
+            continue
+        t0 = B.utc_now()
+        old = json.loads((d / "result.json").read_text("utf-8"))
+        entry: Dict[str, Any] = {"task": tid, "started_utc": t0, "previous_critic_state": (old.get("critic") or {}).get("state"), "settings": critic_client.settings()}
+        stage = out / "_retry" / ("%s-%d" % (tid, int(time.time())))
+        (stage / "tasks").mkdir(parents=True, exist_ok=True)
+        try:
+            calls = json.loads((d / "gen_calls.json").read_text("utf-8"))
+            rep = ReplayModel(calls, {"backend": "replay_of_saved_generations", "profile_id": old.get("profile_id"), "profile_sha256": old.get("profile_sha256"), "snapshot_verified": True})
+            extra = {"retry": {"critic_retry": True, "started_utc": t0, "critic_settings": critic_client.settings(), "generations": "replayed from gen_calls.json (nothing regenerated)",
+                               "previous": {"critic": old.get("critic"), "pending_critic_packets": old.get("pending_critic_packets"), "answer_label": old.get("answer_label"), "stop_cause": old.get("stop_cause"),
+                                            "journal_hash": old.get("journal_hash")}}}
+            new = run_task(by[tid], rep, exe, stage, tl, policy=policy, wall_cap_s=wall_cap_s, engine_label=engine_label, critic_client=critic_client, l2_version=l2_version, rec_extra=extra)
+            applied = new.get("status") == "OK" and (new.get("critic") or {}).get("applied_in_controller") is True and (stage / "tasks" / tid / "DONE").is_file()
+            entry.update(new_status=new.get("status"), new_critic_state=(new.get("critic") or {}).get("state"), applied=applied, label_before=old.get("answer_label"), label_after=new.get("answer_label"))
+            if applied:
+                arch = out / "tasks_archive"; arch.mkdir(exist_ok=True)
+                dest = _free_dir(arch, tid)
+                os.replace(str(d), str(dest))                                   # the old evidence is kept, never deleted
+                os.replace(str(stage / "tasks" / tid), str(d))
+                entry["archived_old_to"] = str(dest.relative_to(out)).replace("\\", "/")
+            else:
+                ra = out / "retry_archive"; ra.mkdir(exist_ok=True)
+                dest = _free_dir(ra, tid + ".failed")
+                os.replace(str(stage), str(dest))
+                entry["failed_attempt_kept_at"] = str(dest.relative_to(out)).replace("\\", "/")
+        except BaseException as e:      # noqa: BLE001  a failed retry never touches the finished task
+            if isinstance(e, KeyboardInterrupt): raise
+            entry.update(applied=False, error="%s: %s" % (type(e).__name__, str(e)[:300]))
+        entry["ended_utc"] = B.utc_now()
+        log.append(entry)
+        with open(out / "retry_critic_log.jsonl", "a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
+    shutil.rmtree(out / "_retry", ignore_errors=True)
+    return log
 
 
 def not_tested(rec_in: Dict[str, Any], out: Path, tl: B.Timeline, cap: Dict[str, Any], policy: Dict[str, Any], engine_label: str) -> Dict[str, Any]:
@@ -462,8 +551,10 @@ def java_capability(sandbox: str) -> Dict[str, Any]:
 def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path], Any], exe_factory: Callable[[Path], Any], *, resume: bool = False, wall_cap_s: float = WALL_CAP_S,
         policy: Optional[Dict[str, Any]] = None, state_hook: Optional[Callable[[Path], Any]] = None, gpu_sampler: bool = False, max_new_tokens: Optional[int] = None, sandbox: str = "mxc",
         critic_client: Optional[GlmInlineCritic] = None, resources_fn: Callable[[], Dict[str, Any]] = system_resources, min_free_ram_gb: float = MIN_FREE_RAM_GB,
-        min_free_vram_gb: float = MIN_FREE_VRAM_GB, min_free_commit_gb: float = 0.0, require_verified_model: bool = True, manifest: Optional[Path] = None, finalize: bool = True, l2_version: int = L2_VERSION) -> Dict[str, Any]:
-    out = Path(out)
+        min_free_vram_gb: float = MIN_FREE_VRAM_GB, min_free_commit_gb: float = 0.0, require_verified_model: bool = True, manifest: Optional[Path] = None, finalize: bool = True, l2_version: int = L2_VERSION, retry_critic: bool = False) -> Dict[str, Any]:
+    out = Path(out).resolve()
+    if retry_critic and not resume:
+        raise ValueError("--retry-critic is used together with --resume (it works on finished tasks of an existing run)")      # ABSOLUTE everywhere: a relative scratch path made the MXC container look for runner.py in C:\Windows\system32
     policy = B.check_policy(policy or policy_for())
     if out.exists() and any(out.iterdir()) and not resume:
         raise FileExistsError("output dir is not empty (use --resume to continue, or a new dir): %s" % out)
@@ -473,9 +564,9 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
     wtl = B.Timeline(out / "timeline" / "worker0.jsonl", "w0")
     critic_client = GlmInlineCritic() if critic_client is None else critic_client
     RS: Dict[str, Any] = {"kernel": "el_bank_local_run", "mode": "local", "started_utc": B.utc_now(), "thinking_policy": policy, "scorer": "none", "label": LABEL, "engine": sandbox, "sandbox": sandbox,
-                          "l2_version": l2_version, "commit": git_commit(), "config_sha256": config_hashes(), "controller_limits": {"max_wall_seconds": wall_cap_s, "profile": "ladder"}, "token_cap": GENERATED_TOKEN_CAP,
+                          "l2_version": l2_version, "commit": git_commit(), "config_sha256": config_hashes(), "out_dir_abs": str(out), "controller_limits": {"max_wall_seconds": wall_cap_s, "profile": "ladder"}, "token_cap": GENERATED_TOKEN_CAP,
                           "seeds": list(SEEDS), "internal_states": "disabled" if state_hook is None else "hook", "preflight": {"min_free_ram_gb": min_free_ram_gb, "min_free_vram_gb": min_free_vram_gb, "min_free_commit_gb": min_free_commit_gb},
-                          "critic": {"state": "inline", "model": "z-ai/glm-5.3-flash", "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"},
+                          "critic": {"state": "inline", "model": "z-ai/glm-5.3-flash", "settings": critic_client.settings(), "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"},
                           "gpus": 1, "notes": []}
     try:
         RS["public_only_guard"] = public_guard(tasks)
@@ -555,6 +646,10 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
         else:
             n_ok = len(list((out / "tasks").glob("*/DONE")))
             verdict = "OK" if n_ok == len(tasks) - len(blocked) else "PARTIAL"
+        if retry_critic and verdict in ("OK", "PARTIAL"):      # after the remaining tasks: re-run ONLY the critic step of finished tasks whose critic did not complete (saved generations replayed)
+            with tl.span("retry_critic"):
+                RS["critic_retry"] = retry_critic_tasks(out, by, exe, wtl, critic_client, policy=policy, wall_cap_s=wall_cap_s, engine_label=RS["jail"]["engine"], l2_version=l2_version)
+            save()
     except KeyboardInterrupt:
         verdict = "INTERRUPTED"; RS["notes"].append("interrupted by the user; finished tasks are kept, run again with --resume")
     except BaseException as e:      # noqa: BLE001  setup failure (engine handshake / model load): nothing ran, receipt says why
@@ -597,7 +692,7 @@ def exe_factory_for(sandbox: str) -> Callable[[Path], Any]:
     def make(out: Path):
         if sandbox == "mxc":
             from evidence_ladder.execution.provider_engine import ProviderExecutionBackend
-            return ProviderExecutionBackend(backend="mxc", scratch=Path(out) / "_engine")
+            return ProviderExecutionBackend(backend="mxc", scratch=Path(out).resolve() / "_engine")
         if sandbox == "wsl":
             from evidence_ladder.execution.wsl_engine import WslExecutionBackend
             return WslExecutionBackend(repo=ROOT, stderr_log=Path(out) / "timeline" / "wsl_server.stderr.log")
@@ -742,12 +837,19 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap.add_argument("--sandbox", choices=("mxc", "wsl"), default="mxc", help="mxc = the new MXC sandbox (default). wsl = the old WSL bwrap engine, only as an explicitly selected comparison")
     ap.add_argument("--selftest", action="store_true", help="2 python tasks, tiny fake model, real MXC + real controller + inline critic over a fake transport; exit != 0 when a stage is missing")
     ap.add_argument("--min-free-ram-gb", type=float, default=MIN_FREE_RAM_GB); ap.add_argument("--min-free-vram-gb", type=float, default=MIN_FREE_VRAM_GB); ap.add_argument("--min-free-commit-gb", type=float, default=MIN_FREE_COMMIT_GB)
+    ap.add_argument("--critic-read-timeout", type=float, default=CRITIC_READ_TIMEOUT_S, help="seconds one critic call may wait for its first response bytes (reasoning stays max)")
+    ap.add_argument("--critic-total-timeout", type=float, default=CRITIC_TOTAL_TIMEOUT_S, help="seconds one critic stream may last in total")
+    ap.add_argument("--retry-critic", action="store_true", help="with --resume: after the remaining tasks, re-run ONLY the critic step (saved generations replayed) of finished tasks whose critic did not complete; old task dirs are archived, never deleted")
     a = ap.parse_args(argv)
+    a.out, a.tasks = str(Path(a.out).resolve()), str(Path(a.tasks).resolve())
     if a.selftest:
         return selftest(Path(a.out), Path(a.tasks))
+    if a.retry_critic and not a.resume:
+        ap.error("--retry-critic is used together with --resume")
     tasks = load_tasks(Path(a.tasks), ROOT, a.limit)
     rs = run(Path(a.out), tasks, default_gen_factory(a.profile), exe_factory_for(a.sandbox), resume=a.resume, sandbox=a.sandbox, wall_cap_s=a.wall_cap, policy=policy_for(a.profile, a.ceiling), gpu_sampler=True,
-             min_free_ram_gb=a.min_free_ram_gb, min_free_vram_gb=a.min_free_vram_gb, min_free_commit_gb=a.min_free_commit_gb, manifest=Path(a.tasks))
+             min_free_ram_gb=a.min_free_ram_gb, min_free_vram_gb=a.min_free_vram_gb, min_free_commit_gb=a.min_free_commit_gb, manifest=Path(a.tasks),
+             critic_client=GlmInlineCritic(read_timeout_s=a.critic_read_timeout, total_timeout_s=a.critic_total_timeout), retry_critic=a.retry_critic)
     print(json.dumps({k: rs.get(k) for k in ("verdict", "done", "errors", "pending_not_started", "not_tested", "pipeline_verdict", "total_seconds")}, default=str))
     return 0 if rs["verdict"] in ("OK", "PARTIAL", "STOPPED") else 2
 

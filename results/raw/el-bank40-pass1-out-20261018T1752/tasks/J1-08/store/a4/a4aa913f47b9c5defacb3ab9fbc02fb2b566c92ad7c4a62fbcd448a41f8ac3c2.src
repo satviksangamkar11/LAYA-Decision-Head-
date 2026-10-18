@@ -1,0 +1,8 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String bits = (String) data.get("bits");
+        return new Long(Long.parseLong(bits, 2));
+    }
+}

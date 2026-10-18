@@ -1,0 +1,190 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "e1b16de6af577a25e3621e7eac87b4ac48e1d6899ab6ea1949ccf4acb05a901f",
+   "environment_revision": "env-9101f928ad1c",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex3_wordcount"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "ddeeb7d194c182450e2cc0c5486076f2160ecc2dbac67a1019858178f8b0525a",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "explicit",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "char_end": 155,
+      "char_start": 137,
+      "quote": "python3 test_wc.py",
+      "type": "request_span"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_wc.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "927bd00b7b1a2952950e584850eff98b8a7c793efbc1808ea625aec27a56abe1",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "139d304b30764b3f013a4a2a7a319eda37df978cd5d92285a5ca54a23515b549",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "4f0433b7a4643ee624a3ab74242708056d2c34cad0d103bfcabf34c17a6b667b",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "50cea26d2ec3140338cd3420ab0fa777987e0c8f7677ed215f6923de2a30b452",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "PLAUSIBLE",
+   "changed_from": null,
+   "covered": [],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": false,
+    "type_or_compile_check": false
+   },
+   "loop": "best-effort-coverage-review",
+   "reason": "no tests, examples, type/compile check or regression suite observed",
+   "step": "intake",
+   "tier": "O3"
+  },
+  "kind": "oracle_tier",
+  "prev": "8c057e3a67b7def3d46bb6fec25743de4caebe9f996a212acc9cb672bbcb6734",
+  "seq": 5
+ },
+ {
+  "data": {
+   "answer_label": "BLOCKED",
+   "artifact_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "authorized_to_execute": false,
+   "candidate_id": "none",
+   "decision_id": "d-tier-ex3_wordcount",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "block",
+   "requirement_rows": [
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [],
+     "label": "UNVERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "936e0175a69e3d6e2d6aed41cd4efd85b269a4e0c23afbe852f972f5103a734b",
+  "seq": 6
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 0,
+   "budget_hit": false,
+   "cause": "missing_information",
+   "details": "tier O3: ask_user: no blocking ambiguity, best effort only",
+   "max_attempts": 1,
+   "max_rounds": 1,
+   "mode": "agentic",
+   "problem_id": "ex3_wordcount",
+   "rounds": 0,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "bbb62cce76d055713ffdde69c505ab1043d1696a0f35138471707c0203f55aaa",
+  "seq": 7
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "b4764cfdc33df4b4be1e662147fc126b854608d56ba62f4756ae481a0dfb8c0f",
+  "seq": 8
+ }
+]

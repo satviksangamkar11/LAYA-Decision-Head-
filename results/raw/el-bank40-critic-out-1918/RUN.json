@@ -1,0 +1,6 @@
+{
+ "code_files": 18,
+ "error": "setup failed: ConnectionError",
+ "kernel": "evidence_ladder_critic_batch",
+ "ok": false
+}

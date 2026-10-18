@@ -1,0 +1,8 @@
+import re
+from collections import Counter
+
+def solve(data):
+    text = data['text']
+    words = re.findall(r'[A-Za-z]+', text)
+    words_lower = [word.lower() for word in words]
+    return dict(Counter(words_lower))

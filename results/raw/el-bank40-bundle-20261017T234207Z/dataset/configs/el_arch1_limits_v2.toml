@@ -1,0 +1,22 @@
+# [EL-ARCH-1 A2.5] Per-problem hard limits, v2. Written 2026-10-17, BEFORE any run that uses it. v1 stays untouched (frozen); v2 only ADDS `max_model_calls` (the model-call cap the closure
+# checklist requires) and copies every v1 value unchanged. Exceeding a limit stops the problem with stop_cause "budget" (frozen contract enum) and the journal `stop` entry names the
+# exhausted limit in `stop_label`: step_cap | round_cap | token_cap | wall_time | model_call_cap. Every key of a profile is required (no implicit "unlimited").
+
+[reason]
+text = "v1 had no model-call cap, so 'model_call_cap' could not be enforced or labelled. max_model_calls counts Qwen proposal rounds + scorer calls + GLM calls per problem; the value is a conservative default from the three integration targets (<= 3 rounds x (1 proposal + 1 scorer) + 1 critic call per end state), not tuned on results."
+
+[profile.agentic]
+max_wall_seconds = 3600.0
+max_qwen_tokens  = 60000
+max_glm_tokens   = 200000
+max_actions      = 3
+max_rounds       = 3
+max_model_calls  = 20
+
+[profile.ladder]
+max_wall_seconds = 3600.0
+max_qwen_tokens  = 400000
+max_glm_tokens   = 200000
+max_actions      = 32
+max_rounds       = 3
+max_model_calls  = 200

@@ -1,0 +1,21 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Number n = (Number) data.get("n");
+        long num = n.longValue();
+        int count = 0;
+        while (num >= 10) {
+            long product = 1;
+            long temp = num;
+            while (temp > 0) {
+                int digit = (int) (temp % 10);
+                product *= digit;
+                temp /= 10;
+            }
+            num = product;
+            count++;
+        }
+        return count;
+    }
+}

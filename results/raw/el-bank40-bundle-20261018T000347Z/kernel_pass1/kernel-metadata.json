@@ -1,0 +1,18 @@
+{
+ "id": "sangeetasangamkar/el-bank40-run-pass1-v1",
+ "title": "el-bank40-run-pass1-v1",
+ "code_file": "el_bank40_run_pass1.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": false,
+ "dataset_sources": [
+  "sangeetasangamkar/el-bank40-bundle-v1",
+  "leminhhung0101/qwen3-4b-thinking-2507"
+ ],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

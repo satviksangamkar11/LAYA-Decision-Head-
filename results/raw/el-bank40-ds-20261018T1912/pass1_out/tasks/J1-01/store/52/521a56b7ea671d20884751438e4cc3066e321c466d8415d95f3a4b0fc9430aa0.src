@@ -1,0 +1,21 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String text = (String) data.get("text");
+        StringBuilder filtered = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                filtered.append(Character.toLowerCase(c));
+            }
+        }
+        String s = filtered.toString();
+        int len = s.length();
+        for (int i = 0; i < len / 2; i++) {
+            if (s.charAt(i) != s.charAt(len - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}

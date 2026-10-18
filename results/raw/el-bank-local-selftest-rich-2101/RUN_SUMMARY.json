@@ -1,0 +1,216 @@
+{
+ "kernel": "el_bank_local_run",
+ "mode": "local",
+ "started_utc": "2026-10-18T15:31:23.218Z",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "engine": "mxc",
+ "sandbox": "mxc",
+ "l2_version": 2,
+ "commit": "90cc3e528bd4b9e64c84273d14a079eba4bce05f",
+ "config_sha256": {
+  "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+  "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+  "configs/el_bank80_rest_v1.json": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+  "configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c"
+ },
+ "controller_limits": {
+  "max_wall_seconds": 3600.0,
+  "profile": "ladder"
+ },
+ "token_cap": 100000,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "internal_states": "disabled",
+ "preflight": {
+  "min_free_ram_gb": 0,
+  "min_free_vram_gb": 0,
+  "min_free_commit_gb": 0.0,
+  "resources": {
+   "free_ram_gb": null,
+   "free_vram_gb": null
+  }
+ },
+ "critic": {
+  "state": "inline",
+  "model": "z-ai/glm-5.3-flash",
+  "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"
+ },
+ "gpus": 1,
+ "notes": [],
+ "public_only_guard": {
+  "files": 1,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "java_capability": {
+  "runnable": false,
+  "status": "NOT_TESTED_NO_JDK",
+  "backend": "mxc",
+  "reason": "no JDK on the Windows host (java / javac not found, JAVA_HOME unset) and the MXC container runs native Windows executables only"
+ },
+ "resumed_tasks": [],
+ "not_tested": {},
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-processcontainer",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc"
+  }
+ },
+ "model": {
+  "backend": "selftest-fake",
+  "profile_id": "selftest",
+  "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+  "snapshot_verified": true,
+  "stub": true
+ },
+ "profile": {
+  "id": "selftest",
+  "sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da"
+ },
+ "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+ "done": 3,
+ "errors": [],
+ "pending_not_started": [],
+ "verdict": "OK",
+ "updated_utc": "2026-10-18T15:31:25.135Z",
+ "total_seconds": 1.9,
+ "timeline_summary": {
+  "events": 61,
+  "first_utc": "2026-10-18T15:31:23.272Z",
+  "last_utc": "2026-10-18T15:31:25.073Z",
+  "wall_seconds": 1.801,
+  "stages": {
+   "generate": {
+    "n": 11,
+    "total_s": 0.031,
+    "p50_s": 0.0,
+    "p95_s": 0.015
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 0.016,
+    "p50_s": 0.016,
+    "p95_s": 0.016
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.672,
+    "p50_s": 0.672,
+    "p95_s": 0.672
+   },
+   "sandbox_public": {
+    "n": 8,
+    "total_s": 0.844,
+    "p50_s": 0.093,
+    "p95_s": 0.185
+   },
+   "task": {
+    "n": 3,
+    "total_s": 1.0,
+    "p50_s": 0.219,
+    "p95_s": 0.556
+   }
+  },
+  "model_seconds": 0.031,
+  "sandbox_seconds": 0.844,
+  "model_vs_sandbox": {
+   "model_share": 0.0354
+  }
+ },
+ "engine_info": {
+  "engine": "mxc-processcontainer",
+  "backend": "mxc",
+  "calls": 8,
+  "sandbox_seconds_total": 0.8,
+  "seconds_per_call": {
+   "n": 8,
+   "p50": 0.081,
+   "max": 0.224
+  },
+  "limits_config": {
+   "py_timeout": 10.0,
+   "max_source_bytes": 131072,
+   "max_output_bytes": 4194304,
+   "max_observed_chars": 2000
+  },
+  "java": {
+   "runnable": false,
+   "status": "NOT_TESTED_NO_JDK",
+   "backend": "mxc",
+   "reason": "no JDK on the Windows host (java / javac not found, JAVA_HOME unset) and the MXC container runs native Windows executables only"
+  },
+  "diagnostics": {
+   "backend": "mxc/processcontainer",
+   "cmd": "python3 runner.py 4194304",
+   "persist": true,
+   "timeout": 10,
+   "dialect": "direct",
+   "prepare_ms": 1.5,
+   "mxc_call_ms": 74.6,
+   "mxc_wall_ms": 74,
+   "warnings": [],
+   "output_capped": false,
+   "timed_out": false,
+   "bridge_starts": 1,
+   "limits_enforced": true,
+   "limits": {
+    "memory_mb": 2048,
+    "max_processes": 256,
+    "cpu_percent": 400
+   },
+   "verify_ms": 0.8,
+   "persist_ms": 2.8,
+   "total_ms": 80.3
+  },
+  "note": "candidate and runner share one process (as in runner_v2.py); Linux red-team results do not transfer; MXC containment + Job Object limits apply"
+ },
+ "ended_utc": "2026-10-18T15:31:25.138Z",
+ "stage_coverage": {
+  "executed": 3,
+  "public_pass": 0,
+  "l2_reached": 0,
+  "l2_validated": 0,
+  "clusters_ge2": 0,
+  "critic_triggered": 0,
+  "critic_called": 0,
+  "critic_applied": 0,
+  "repair": 3,
+  "line": "STAGE COVERAGE over 3 finished task(s): public-pass 0, L2 reached 0 (validated 0), clusters>=2 0, critic triggered 0 / called 0 / applied 0, repair round 3"
+ },
+ "reports": {
+  "bank_results": {
+   "tasks_finished": 3,
+   "labels_by_language": {
+    "python": {
+     "BLOCKED": 3
+    }
+   },
+   "not_tested": {}
+  },
+  "pipeline_verdict": "PIPELINE_COMPLETE"
+ },
+ "pipeline_verdict": "PIPELINE_COMPLETE"
+}

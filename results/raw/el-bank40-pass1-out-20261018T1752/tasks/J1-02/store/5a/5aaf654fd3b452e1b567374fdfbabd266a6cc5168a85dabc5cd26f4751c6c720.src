@@ -1,0 +1,15 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Number yearNum = (Number) data.get("year");
+        int year = yearNum.intValue();
+        if (year % 400 == 0) {
+            return true;
+        } else if (year % 4 == 0 && year % 100 != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

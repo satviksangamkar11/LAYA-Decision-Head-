@@ -1,0 +1,24 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        long n = ((Number) data.get("n")).longValue();
+        if (n < 10) {
+            return 0;
+        }
+        int count = 0;
+        long current = n;
+        while (current >= 10) {
+            long product = 1;
+            String numStr = Long.toString(current);
+            for (int i = 0; i < numStr.length(); i++) {
+                char c = numStr.charAt(i);
+                int digit = c - '0';
+                product *= digit;
+            }
+            current = product;
+            count++;
+        }
+        return count;
+    }
+}

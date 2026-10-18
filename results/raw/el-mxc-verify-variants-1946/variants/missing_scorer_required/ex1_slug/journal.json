@@ -1,0 +1,22 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "mode": "agentic_per_action",
+   "task_id": "ex1_slug"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "arm": "E",
+   "component": "scorer",
+   "why": "config['require'] lists it"
+  },
+  "kind": "component_missing",
+  "prev": "7a8b4f3e6f1b82e12edafd18416b17c8f8db5fba972f76c9fb258d01c6cbc392",
+  "seq": 1
+ }
+]

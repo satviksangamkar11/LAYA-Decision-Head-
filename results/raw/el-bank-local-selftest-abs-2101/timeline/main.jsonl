@@ -1,0 +1,6 @@
+{"event": "run_start", "mono": 92210.093, "resumed": 0, "tasks": 3, "ts": 1792337504.32, "ts_utc": "2026-10-18T15:31:44.319Z", "worker": "main"}
+{"event": "preflight_start", "mono": 92210.093, "ts": 1792337504.321, "ts_utc": "2026-10-18T15:31:44.320Z", "worker": "main"}
+{"event": "preflight_end", "mono": 92210.718, "ok": true, "seconds": 0.625, "ts": 1792337504.948, "ts_utc": "2026-10-18T15:31:44.948Z", "worker": "main"}
+{"event": "model_load_start", "mono": 92210.718, "ts": 1792337504.949, "ts_utc": "2026-10-18T15:31:44.949Z", "worker": "main"}
+{"event": "model_load_end", "mono": 92210.718, "ok": true, "seconds": 0.0, "ts": 1792337504.95, "ts_utc": "2026-10-18T15:31:44.950Z", "worker": "main"}
+{"event": "run_end", "mono": 92265.796, "ts": 1792337560.027, "ts_utc": "2026-10-18T15:32:40.027Z", "verdict": "OK", "worker": "main"}

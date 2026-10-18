@@ -1,0 +1,36 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String codeStr = (String) data.get("code");
+        String cleaned = codeStr.replaceAll("[ -]", "");
+        if (cleaned.length() != 10) {
+            return false;
+        }
+        for (int i = 0; i < 9; i++) {
+            if (!Character.isDigit(cleaned.charAt(i))) {
+                return false;
+            }
+        }
+        char lastChar = cleaned.charAt(9);
+        if (lastChar != 'X' && !Character.isDigit(lastChar)) {
+            return false;
+        }
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            char c = cleaned.charAt(i);
+            int d;
+            if (i == 9) {
+                if (c == 'X') {
+                    d = 10;
+                } else {
+                    d = Character.getNumericValue(c);
+                }
+            } else {
+                d = Character.getNumericValue(c);
+            }
+            sum += (10 - i) * d;
+        }
+        return sum % 11 == 0;
+    }
+}

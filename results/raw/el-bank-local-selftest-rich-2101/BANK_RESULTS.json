@@ -1,0 +1,477 @@
+{
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "created_utc": "2026-10-18T15:31:25Z",
+ "tasks_finished": 3,
+ "tasks_expected": 40,
+ "unfinished_or_errored": [],
+ "not_tested": {},
+ "sandbox": "mxc",
+ "pending_not_started": [],
+ "resumed_tasks": [],
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-processcontainer",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc"
+  }
+ },
+ "gpus": 1,
+ "model": {
+  "backend": "selftest-fake",
+  "profile_id": "selftest",
+  "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+  "snapshot_verified": true,
+  "stub": true
+ },
+ "labels_by_language": {
+  "python": {
+   "BLOCKED": 3
+  }
+ },
+ "kernel_wall_seconds": {
+  "pass1": 1.8,
+  "pass2": null,
+  "total": 1.8
+ },
+ "stage_summary": {
+  "events": 61,
+  "first_utc": "2026-10-18T15:31:23.272Z",
+  "last_utc": "2026-10-18T15:31:25.073Z",
+  "wall_seconds": 1.801,
+  "stages": {
+   "generate": {
+    "n": 11,
+    "total_s": 0.031,
+    "p50_s": 0.0,
+    "p95_s": 0.015
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 0.016,
+    "p50_s": 0.016,
+    "p95_s": 0.016
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.672,
+    "p50_s": 0.672,
+    "p95_s": 0.672
+   },
+   "sandbox_public": {
+    "n": 8,
+    "total_s": 0.844,
+    "p50_s": 0.093,
+    "p95_s": 0.185
+   },
+   "task": {
+    "n": 3,
+    "total_s": 1.0,
+    "p50_s": 0.219,
+    "p95_s": 0.556
+   }
+  },
+  "model_seconds": 0.031,
+  "sandbox_seconds": 0.844,
+  "model_vs_sandbox": {
+   "model_share": 0.0354
+  }
+ },
+ "controller_stage_seconds_per_task": {
+  "commit_verify": {
+   "tasks": 3,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "discriminate": {
+   "tasks": 3,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "execute": {
+   "tasks": 3,
+   "total_s": 0.844,
+   "p50_s": 0.172,
+   "p95_s": 0.467
+  },
+  "generate": {
+   "tasks": 3,
+   "total_s": 0.015,
+   "p50_s": 0.0,
+   "p95_s": 0.013
+  },
+  "intake": {
+   "tasks": 3,
+   "total_s": 0.11,
+   "p50_s": 0.016,
+   "p95_s": 0.073
+  },
+  "rank": {
+   "tasks": 3,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "repair": {
+   "tasks": 3,
+   "total_s": 0.016,
+   "p50_s": 0.0,
+   "p95_s": 0.014
+  }
+ },
+ "model_vs_sandbox": {
+  "model_seconds": 0.031,
+  "sandbox_seconds": 0.844,
+  "model_share": 0.0354
+ },
+ "gpu": {
+  "per_gpu": {},
+  "generate_busy_seconds_by_worker": {
+   "w0": 0.0
+  },
+  "wall_seconds": 1.8,
+  "generate_busy_fraction_by_worker": {
+   "w0": 0.017
+  }
+ },
+ "critic": {
+  "packets_exported": null,
+  "pass2_responses": null
+ },
+ "ceiling_hits_total": 0,
+ "rows": [
+  {
+   "task": "P1-02",
+   "language": "python",
+   "difficulty": "easy",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 381,
+    "prompt": 300,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:31:23.999Z",
+   "end_utc": "2026-10-18T15:31:24.622Z",
+   "seconds": 0.6,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:31:24.018Z",
+     "end_utc": "2026-10-18T15:31:24.613Z",
+     "seconds": 0.594,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.107Z",
+     "end_utc": "2026-10-18T15:31:24.109Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.110Z",
+     "end_utc": "2026-10-18T15:31:24.111Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.112Z",
+     "end_utc": "2026-10-18T15:31:24.341Z",
+     "seconds": 0.234,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.343Z",
+     "end_utc": "2026-10-18T15:31:24.426Z",
+     "seconds": 0.094,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.429Z",
+     "end_utc": "2026-10-18T15:31:24.514Z",
+     "seconds": 0.078,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.517Z",
+     "end_utc": "2026-10-18T15:31:24.601Z",
+     "seconds": 0.094,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.603Z",
+     "end_utc": "2026-10-18T15:31:24.605Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.606Z",
+     "end_utc": "2026-10-18T15:31:24.607Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.0,
+    "discriminate": 0.0,
+    "execute": 0.5,
+    "generate": 0.0,
+    "intake": 0.079,
+    "rank": 0.0,
+    "repair": 0.0
+   }
+  },
+  {
+   "task": "P1-03",
+   "language": "python",
+   "difficulty": "easy",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 2,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 2
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "same_failure_twice",
+   "stop_details": "",
+   "rounds": 1,
+   "tokens": {
+    "generated": 315,
+    "prompt": 250,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:31:24.629Z",
+   "end_utc": "2026-10-18T15:31:24.835Z",
+   "seconds": 0.2,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:31:24.630Z",
+     "end_utc": "2026-10-18T15:31:24.827Z",
+     "seconds": 0.187,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.646Z",
+     "end_utc": "2026-10-18T15:31:24.647Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.649Z",
+     "end_utc": "2026-10-18T15:31:24.651Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.651Z",
+     "end_utc": "2026-10-18T15:31:24.733Z",
+     "seconds": 0.079,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.736Z",
+     "end_utc": "2026-10-18T15:31:24.737Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.737Z",
+     "end_utc": "2026-10-18T15:31:24.821Z",
+     "seconds": 0.093,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.0,
+    "discriminate": 0.0,
+    "execute": 0.172,
+    "generate": 0.0,
+    "intake": 0.015,
+    "rank": 0.0,
+    "repair": 0.0
+   }
+  },
+  {
+   "task": "P1-13",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 2,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 2
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 381,
+    "prompt": 300,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:31:24.842Z",
+   "end_utc": "2026-10-18T15:31:25.066Z",
+   "seconds": 0.2,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:31:24.843Z",
+     "end_utc": "2026-10-18T15:31:25.057Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.861Z",
+     "end_utc": "2026-10-18T15:31:24.863Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:24.864Z",
+     "end_utc": "2026-10-18T15:31:24.866Z",
+     "seconds": 0.015,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.867Z",
+     "end_utc": "2026-10-18T15:31:24.961Z",
+     "seconds": 0.094,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:31:24.963Z",
+     "end_utc": "2026-10-18T15:31:25.046Z",
+     "seconds": 0.078,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:25.049Z",
+     "end_utc": "2026-10-18T15:31:25.050Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:31:25.051Z",
+     "end_utc": "2026-10-18T15:31:25.053Z",
+     "seconds": 0.016,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.0,
+    "discriminate": 0.0,
+    "execute": 0.172,
+    "generate": 0.015,
+    "intake": 0.016,
+    "rank": 0.0,
+    "repair": 0.016
+   }
+  }
+ ]
+}

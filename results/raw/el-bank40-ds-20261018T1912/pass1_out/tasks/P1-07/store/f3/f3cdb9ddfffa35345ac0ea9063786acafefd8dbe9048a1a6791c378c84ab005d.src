@@ -1,0 +1,14 @@
+def solve(data):
+    nums = data['nums']
+    if not nums:
+        return []
+    results = []
+    start = nums[0]
+    for i in range(1, len(nums)):
+        if nums[i] == nums[i-1] + 1:
+            continue
+        else:
+            results.append([start, nums[i-1]])
+            start = nums[i]
+    results.append([start, nums[-1]])
+    return results

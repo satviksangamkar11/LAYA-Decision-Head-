@@ -1,0 +1,385 @@
+{
+ "broken": {},
+ "counts": {
+  "broken": 0,
+  "error": 0,
+  "executed": 3,
+  "expected": 3,
+  "missing": 0,
+  "not_tested": 0,
+  "ok": 3
+ },
+ "error": [],
+ "expect_engine": "mxc",
+ "label": "architecture conformance of a run (files only); not an accuracy result",
+ "legacy_kaggle": false,
+ "missing": [],
+ "not_tested": {},
+ "run_checks": {
+  "run_summary": true,
+  "timeline_jsonl": true
+ },
+ "run_dir": "D:\\local model\\results\\raw\\el-bank-local-selftest-abs-2101",
+ "tasks": {
+  "P1-02": {
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "records": 317
+     },
+     "ok": true,
+     "problems": []
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": 6,
+      "reason": null,
+      "verdict": "VALIDATED"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-processcontainer",
+      "expected": "mxc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": "2026-10-18T15:32:33.484426+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:26.377461+00:00"
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T15:32:34.388425+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.221528+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T15:32:34.221528+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:33.484426+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T15:32:08.482192+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:08.330725+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T15:32:08.330725+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:08.324923+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T15:32:08.324923+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:08.299417+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": "2026-10-18T15:32:08.930412+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:08.927894+00:00"
+      },
+      "l2_validate": {
+       "end_utc": "2026-10-18T15:32:26.377461+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:08.930412+00:00"
+      },
+      "rank": {
+       "end_utc": "2026-10-18T15:32:34.221528+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.221528+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [],
+   "task": "P1-02",
+   "verdict": "PIPELINE_OK"
+  },
+  "P1-03": {
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "records": 3
+     },
+     "ok": true,
+     "problems": []
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": 4,
+      "reason": "every parsed test dropped",
+      "verdict": "INSUFFICIENT"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-processcontainer",
+      "expected": "mxc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": null,
+       "explained": "fewer than 2 live candidates",
+       "present": false,
+       "start_utc": null
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T15:32:34.959822+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.796435+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T15:32:34.612823+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.612823+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T15:32:34.612823+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.456844+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T15:32:34.456844+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.451954+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T15:32:34.451954+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.431445+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": "2026-10-18T15:32:34.796435+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.793435+00:00"
+      },
+      "l2_validate": {
+       "end_utc": "2026-10-18T15:32:34.796435+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.796435+00:00"
+      },
+      "order_rule": "repair run: skeleton intake < generate < execute, commit_verify last; discriminate / rank / l2 / cluster may repeat after a repair round",
+      "rank": {
+       "end_utc": "2026-10-18T15:32:34.612823+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:34.612823+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [],
+   "task": "P1-03",
+   "verdict": "PIPELINE_OK"
+  },
+  "P1-13": {
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "records": 31
+     },
+     "ok": true,
+     "problems": []
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": 4,
+      "reason": "every parsed test dropped",
+      "verdict": "INSUFFICIENT"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-processcontainer",
+      "expected": "mxc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": "2026-10-18T15:32:39.518119+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.710665+00:00"
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T15:32:39.994350+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:39.826255+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T15:32:39.826255+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:39.518119+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T15:32:37.550685+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.398275+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T15:32:37.398275+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.392274+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T15:32:37.392274+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.365747+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": "2026-10-18T15:32:37.710665+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.707666+00:00"
+      },
+      "l2_validate": {
+       "end_utc": "2026-10-18T15:32:37.710665+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:37.710665+00:00"
+      },
+      "rank": {
+       "end_utc": "2026-10-18T15:32:39.826255+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:32:39.826255+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [],
+   "task": "P1-13",
+   "verdict": "PIPELINE_OK"
+  }
+ },
+ "verdict": "PIPELINE_COMPLETE"
+}

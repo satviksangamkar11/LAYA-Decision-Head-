@@ -1,0 +1,367 @@
+{
+ "sandbox_label": "mxc-processcontainer",
+ "schema": "el_arch1_run_record_v1",
+ "task": {
+  "task_id": "ex3_wordcount",
+  "user_text": "The function count_words in wc.py miscounts words when the text has repeated spaces or newlines, so test_wc.py fails. Fix wc.py so that `python3 test_wc.py` passes. Do not modify test_wc.py.",
+  "system_text": "system text",
+  "test_cmd": "python3 test_wc.py",
+  "protected": [
+   "test_wc.py"
+  ],
+  "max_steps": 2,
+  "scope": [
+   "wc.py"
+  ],
+  "files": {
+   "test_wc.py": "from wc import count_words\r\n\r\nassert count_words(\"a b c\") == 3, count_words(\"a b c\")\r\nassert count_words(\"a  b\\nc\") == 3, count_words(\"a  b\\nc\")\r\nassert count_words(\"\") == 0, count_words(\"\")\r\nprint(\"all tests passed\")\r\n",
+   "wc.py": "def count_words(text):\r\n    return len(text.split(\" \"))\r\n"
+  }
+ },
+ "arm": "E",
+ "seeds": [
+  0
+ ],
+ "config": {
+  "max_steps": 2,
+  "require": [
+   "scorer"
+  ]
+ },
+ "limits": {
+  "max_wall_seconds": 3600.0,
+  "max_qwen_tokens": 60000,
+  "max_glm_tokens": 200000,
+  "max_actions": 3,
+  "max_rounds": 3
+ },
+ "events": [
+  {
+   "e": "begin"
+  },
+  {
+   "e": "step",
+   "options": [
+    "{\"name\":\"Bash\",\"arguments\":{\"command\":\"echo note > notes.txt\"}}"
+   ],
+   "meta": {}
+  },
+  {
+   "e": "step",
+   "options": [
+    "{\"name\":\"Edit\",\"arguments\":{\"file_path\":\"wc.py\",\"new_string\":\"return len(text.split())\",\"old_string\":\"return len(text.split(\\\" \\\"))\"}}"
+   ],
+   "meta": {}
+  },
+  {
+   "e": "finish"
+  }
+ ],
+ "sandbox": [
+  {
+   "cmd": "echo note > notes.txt",
+   "persist": true,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "0f22e44b43fa6dbe99b767576e93d74dddb772344cb7a3c97dd72efe802a0ee2",
+    "post_tree_sha256": "98d9d817032fb5b797f2db71df3255b9f2c37ee517b082bf9a97f7b0954af631",
+    "persisted": true
+   },
+   "files_after": {
+    "notes.txt": "note\n",
+    "test_wc.py": "from wc import count_words\r\n\r\nassert count_words(\"a b c\") == 3, count_words(\"a b c\")\r\nassert count_words(\"a  b\\nc\") == 3, count_words(\"a  b\\nc\")\r\nassert count_words(\"\") == 0, count_words(\"\")\r\nprint(\"all tests passed\")\r\n",
+    "wc.py": "def count_words(text):\r\n    return len(text.split(\" \"))\r\n"
+   }
+  },
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 1,
+    "killed": false,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/test_wc.py\", line 5, in <module>\n    assert count_words(\"\") == 0, count_words(\"\")\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1\n",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "98d9d817032fb5b797f2db71df3255b9f2c37ee517b082bf9a97f7b0954af631",
+    "post_tree_sha256": "98d9d817032fb5b797f2db71df3255b9f2c37ee517b082bf9a97f7b0954af631",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "post_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "post_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "persisted": false
+   }
+  },
+  {
+   "cmd": "python3 test_wc.py",
+   "persist": false,
+   "result": {
+    "exit_code": 0,
+    "killed": false,
+    "stdout": "all tests passed\n",
+    "stderr": "",
+    "protected_unchanged": true,
+    "pre_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "post_tree_sha256": "ec1ea37ff76ebe578baf38af547e22b091043827f61e56d6d678c47d0b4795fc",
+    "persisted": false
+   }
+  }
+ ],
+ "scorer": {
+  "scorer_id": "stub:laya",
+  "scorer_def": {
+   "weights_hash": "stub:laya",
+   "status": "stub"
+  },
+  "calls": [
+   {
+    "scores": [
+     0.531
+    ],
+    "last": null
+   },
+   {
+    "scores": [
+     0.07
+    ],
+    "last": null
+   }
+  ]
+ },
+ "comparison": {
+  "probe": {
+   "scorer_id": "stub:probe",
+   "scorer_def": {
+    "weights_hash": "stub:probe",
+    "status": "stub"
+   },
+   "calls": [
+    {
+     "scores": [
+      0.786
+     ],
+     "last": null
+    },
+    {
+     "scores": [
+      0.439
+     ],
+     "last": null
+    }
+   ]
+  },
+  "random_head": {
+   "scorer_id": "stub:random_head",
+   "scorer_def": {
+    "weights_hash": "stub:random_head",
+    "status": "stub"
+   },
+   "calls": [
+    {
+     "scores": [
+      0.593
+     ],
+     "last": null
+    },
+    {
+     "scores": [
+      0.773
+     ],
+     "last": null
+    }
+   ]
+  }
+ },
+ "journal_hash": "7534f5d227e1fccb9d6868cb3c0ff71979ddb9a0ce0993f3bed0f18fab84172a",
+ "chain": [
+  "85478b7b617cae0992ff9560c1ec32be752a6561a59cdec42a038adbef8c4a9d",
+  "7972d61a616fb51ba2f01da711ee0f76759ff635a39bc627e7d2fd40f69f2522",
+  "f41ace2cb5ca2b72c93b3944e2f04f9bb82138ac951dca23baf7f6d3ce383f38",
+  "1b76e8a9c459127a54e11bc63de1f0927d43f73c27631a733f6f35893b9aa875",
+  "11a3b9a9513e9d6bc1463484981f98b26c58d9aad180591d1b42edb17d9be164",
+  "8ce44ca0784bb8c72be6b2f73a6a8b81c3a3cdec5fb7b50dedf184da57d3c3eb",
+  "f7d62471b73297bbe32b2eaeea8e7388d5706f45723abdbb7d6d71ff2fcf3838",
+  "3897299a03cd39cdf353c92e89568f831ba8571fb50a1f2e8ec0adb7b16e3eb3",
+  "a8196161cc3177c8c18b4224ea3665b5f21786e98b8676994bb84281a08264ce",
+  "1821b344bac2deefac14f07bbbc4fb562a5f5170ca9a2e64591aaf5c82857267",
+  "6729687d9f6f02eed4d32f25c313d3960aa079b8bee3e5f95f4b3b2a2c8e6670",
+  "1d6fb5fc6ac1a0372744388d48ac972ade4441a10b6fab402d4f4f8d1fdfba38",
+  "c0b615e0f42282c36b10fb33dfec69025598c3f447a2da54370e79d8309d1e66",
+  "703cd7baa6ab40f43396d34fec529dcdab07d79b69d20a06011195b0cd13a222",
+  "ddeecd9b7e39e8d02aca4760e97024db0787a51ebaae04afec9e16d6aaf4030e",
+  "d8cb6fadcd69ba04aa0521830e9aebfbeb3778834fb5f1c35e6d020ceb30a8ca",
+  "78a3f8bce7fbf489ef6639b60b41419667eb9b2753eb6e17a91c81ac995f1e1a",
+  "048927fae183bf4f1b0cc0c8e6073d4c38f9f6794805a3a825e5b4becf97b34e",
+  "992dfa9db8824aaa3d4b72ce369d2597577e6cb0bd6125c865cef160406a9248",
+  "c29f906cbf6ede4e3ed94031013a65f9f72abc74d705719cbec4dc5d70b32347",
+  "09db78b9216571d45d32de061f0b63c13c71e6e24696fe90cac3ed697c68ae0b",
+  "d9c1dacdc4938122611534a17353cbb091b16ed512ecf2db94b6da525041b1e4",
+  "1cdb5d945ac2f3a255f6e94134dd2d1c2e7606740c5cc09f820d454969219ef4",
+  "f94e531662bbbaa197c3124e7f7c5b55721c4298bd36826aef4b8163a79f3c1d",
+  "d9fb1275959ae680281f7fffb8f9871ca23f1d3790e0857a6d1e03b11ff69b23",
+  "fd67aed796309080d02549a1fed85c0e72671c0bfb6b111fe3d37572cc9a4c4b",
+  "141105333258416f05f62763805f6b9ac7f748e420e7692bcb6698a65093a0e8",
+  "118709944f4b021dda035e1c6673eef1d0259241acd683522e3bc4c6b08404fe",
+  "cb2263666cfbfe9dc60d9f0f0f1c349313aecde77569b2731dc99e78a41aef12",
+  "c769bc3188d518ad2261f95776088d112cdb7ee57e3292c256378ce2e318632a",
+  "05f775a079a5e124bdd95fb4e5b6a2499ff82393c975ab9fd7573dc59922636e",
+  "a3a62fa60790c2c5ab0a93417c6d1e050737c63a676c6691de936f9b2f4a1cac",
+  "5e2a4c8e2f04a083e0bb27ff507a39cb9a79e53496cc1236cfa4204c1b695443",
+  "91890ec622d17ef28cd1e17994f0e9e89708e837a6fd5b3469c0107da5e83c41",
+  "038434f8a2fdbd60b94419ab574b9dea0fc0e8c0e8baed4c36fa480b3eec5544",
+  "adf9b30343bda7c94d78f41a6f9d0a962b1b5747384239241a1576ee7dd090c1",
+  "9f8d213fe125aa7a04bdeb62e2843ed1657e7cd5df9267c40a68e74b6e009ccc",
+  "ebb34dd8dcb69c4bade657e37bb029fe4704fa2ad180ddd3dceeea53a5c3b60a",
+  "e859f504faa9d4aabae79d11fb6999d15ec9613cb27a631e805ea96b3741597a",
+  "3a1f4f62a12afec67a68ced5dd1f790ff31c0d6037811c96f5c4027d2069eb44",
+  "125267b10b4d8b54d75809d90f58da7798d3429124002a035e81c1866bce5daf",
+  "2cf3176ba573675de9b08fa47ebab779582fb5ee8d62922c25b08b80fe1f8f68",
+  "534f5624d4794993368c10867a8e008ffd40b7681569848f148d81965aedfb42",
+  "0c77104b03f5e94d17721fadb6786bd8128382d9264b53739ec1939e62bfbaef",
+  "c45eb2db35999196cdab38394f85adcb6c49cc535d256bf459feba69f14c2d7b",
+  "acd2bb235a257073441912394918d496bd8ed27f5977ca8bc59336c4824d5236",
+  "7534f5d227e1fccb9d6868cb3c0ff71979ddb9a0ce0993f3bed0f18fab84172a"
+ ],
+ "kinds": [
+  "run_start",
+  "registry",
+  "requirements",
+  "routing",
+  "risk_table",
+  "oracle_tier",
+  "candidate_filter",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "repair_report",
+  "step_record",
+  "routing",
+  "candidate_filter",
+  "evidence",
+  "evidence",
+  "routing",
+  "monotonicity_gate",
+  "scorer",
+  "scorer_comparison",
+  "ranking",
+  "action_decision",
+  "action_auth",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "step_record",
+  "routing",
+  "evidence",
+  "evidence",
+  "evidence",
+  "label",
+  "finalize",
+  "final_report",
+  "decision",
+  "stop",
+  "registry"
+ ],
+ "code": {
+  "evidence_ladder/controller/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/controller/agentic.py": "880a3baab627208aa4b0e41ee175fef46a577beb4f7ce828de03086e69a403e0",
+  "evidence_ladder/controller/candidate_filter.py": "8c65d727a89c57968b62f5aaa2249ddd57ab11f5c0b05223f2b99ee71cb3a4f3",
+  "evidence_ladder/controller/components.py": "501dac38890c0e3dfacb0d871539bb90581ae667ea9ab4fe3fee49ea283e177c",
+  "evidence_ladder/controller/controller.py": "3e5ae84c4d795fdfef5a660e0e3250d6a5c4de952a2014fa667a04ceaea4c123",
+  "evidence_ladder/controller/decision.py": "044cd9af73cce4a57bd21f712995b33c8e428559e85f53422f23f58ea43cb134",
+  "evidence_ladder/controller/evidence.py": "ce33632f664db2160185a8c25a78c26ad033513e16cd1cfe2b4c312d9355c9c4",
+  "evidence_ladder/controller/final_verify.py": "6dcb8785f738905abc0c6f90641f1c60e372555c5acaec11b3b4da3682b30e3d",
+  "evidence_ladder/controller/generation.py": "fe0ef4b3f754ab0c8136e2a3901daf16458fa495612fd56b9da5c16e39e71949",
+  "evidence_ladder/controller/intake.py": "5e71d71a048e972281bbc7fd63c760550fb1e912d93de645e0a986e8f5106fbc",
+  "evidence_ladder/controller/invariants.py": "c3be2e709435dcae450c61fc01eba4d4f4302d19b1c0f7b5a5c92a7fa9b71f27",
+  "evidence_ladder/controller/investigate.py": "d413b50c2f5ff8c3e01abff2f8fd6c8721effd58bef09125ee46643f0b5164db",
+  "evidence_ladder/controller/journal.py": "e5826f0686be4d68473e29885088f12d3c7e8e6514d22467fe8c7c211397f198",
+  "evidence_ladder/controller/l2.py": "6a0d14f62a8c5b4d81bd7c50ac9c4128a60ee2f549ceac1005fb93e991a8ff48",
+  "evidence_ladder/controller/limits.py": "129a9878d8fdbdf710e89e347dbbcd533fda12315c8e36e63bd1bc159d46ae3d",
+  "evidence_ladder/controller/monotonicity.py": "dcbb26723167fa8d3a339b2c769f2163f9171c6bad116c1f0f8518c329cea4b1",
+  "evidence_ladder/controller/mxc_sandbox.py": "77affce3ebcd7d61a129bed4d30808d78d0a6167c89ff145cf1e1629783e7571",
+  "evidence_ladder/controller/next_action.py": "352b376abf42c9d202c03d62c21ffda9e080c9998e2d3c8bea5d0a6e86665624",
+  "evidence_ladder/controller/pathb_stored.py": "25fb97f5046f67055d308226c7c3ee1ae9bbd34012d9b7b2cd4a87455764fe01",
+  "evidence_ladder/controller/registry.py": "775fbb81418b176d171b3469e0845a70146c7591b0f891e398e1db7c2dda9816",
+  "evidence_ladder/controller/replay.py": "13560685bbe06561269ea7168abfcd46b733c62edfeb752bb793d57275fa0751",
+  "evidence_ladder/controller/risk.py": "d230426604cd10b701cd718bb0da0da9f7229b1ead188e3eada8fab5392cca6f",
+  "evidence_ladder/controller/router.py": "672c7d148733b0cbfda33defa8009c10444ddf40fec7f19ead930c4eab409d13",
+  "evidence_ladder/controller/sandbox_provider.py": "1696341aa813b3f14c7167aed3908689844044f62fec9b8325ef7e864a122f6d",
+  "evidence_ladder/controller/tiers.py": "65ad3ae59fd2d1f9d1964b9e88c390fe1c100e54d79eabe081423d0615fb5824",
+  "evidence_ladder/controller/timeline.py": "79b04e0b392978bc7da3c0ff097d0b0f67cabae12bf6e471499ab918947f4178",
+  "evidence_ladder/controller/win_job.py": "8eaf8917dae9aac6425fa7da66c845e774937bfe5cd0130b5919d6aa96f11833",
+  "evidence_ladder/controller/wsl_sandbox.py": "2501b8546064272233c87f81457bdfe469ceb90ada5b00997fd4346f720dcacc",
+  "evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "evidence_ladder/models/backbone.py": "8940f9b690fd58bb3bc2b29b6d3b9771364cb0a72e417ce66def0c349a8887ba",
+  "evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "evidence_ladder/models/experiments.py": "2ab9b083429f21e14054247a24bd627784e157a672c4789dcd3296065f57d74b",
+  "evidence_ladder/models/gen_entry.py": "a739806a53bd2e34b932a2db1fd3037d92b0777a4090b0dcaf7f050729b936d5",
+  "evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+  "evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "evidence_ladder/models/laya.py": "61e2e629fd61000b8f3b10e6ba7b62cbb7e5ea37e6acda4bbea9565ef049b7e7",
+  "evidence_ladder/models/laya_forward.py": "8a1aacd1c35fe3a981eb4f6506a764cc2b21163f26291fa9b65f66da809f0ad8",
+  "evidence_ladder/models/laya_runtime.py": "061946d68dd719fcbc5de06d5da62566c5289affe92d7abb9564073f361952ad",
+  "evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "evidence_ladder/models/probe.py": "44e21a4addf57aae53d3f74cca451c116af8a70052bdff41a211e7845792d022",
+  "evidence_ladder/models/profile_capture.py": "ba5890525b378978995e9ad0b35b561c4dcffb0a1e15fee83a80060cb5d244cd",
+  "evidence_ladder/models/qwen.py": "343f0480d93a5f2faf04b02f2291ba9f7819634aa518bbf2d5d07c6db49f602e",
+  "evidence_ladder/models/qwen25_fetch.py": "1677ff8a09735a51f3e6fb254f410d079a31ed594012061d38bbbd459f4ef41d",
+  "evidence_ladder/models/qwen25_smoke.py": "970fb3b4bc3bd7509ec868a5f47309c674fe37c4c2385f45107f470793f2b4f9",
+  "evidence_ladder/models/qwen_v2b.py": "7c566cd0c38556500f405d3939ed55ff556fa90d5a7e67eb8b73c70b749e42ee",
+  "evidence_ladder/models/random_head.py": "68f9f0dcceb5fbc926b6ddb01b5887c29283a141286865840a38ad24156fc0d5",
+  "evidence_ladder/models/state_capture.py": "e8b69a33bf1db1df5e1fd83978b22a2ab8cbbcf310ca5000d7fda2a51171b7e8",
+  "evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "evidence_ladder/critic_batch/accounting.py": "724def12c6ae37cab7b6b81d7929bbd325f2d5a9ed0b7dc18463040c55908b73",
+  "evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "evidence_ladder/critic_batch/reconcile.py": "11101f0bd86ad55a2c2f8a6343682eaa10c5b72a6c8d135d3f9d044793ea3b31",
+  "evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+  "evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "configs/el_arch1_limits_v1.toml": "ff91419f8f7f9b1daf866566827041aad5790ae1c182738f196415b3ade30648"
+ },
+ "git_commit": "90cc3e528bd4b9e64c84273d14a079eba4bce05f",
+ "result": {
+  "answer_label": "BLOCKED",
+  "stop_cause": "budget"
+ }
+}

@@ -1,0 +1,9 @@
+from collections import Counter
+
+def solve(data):
+    text = data['text']
+    counts = Counter(text)
+    for idx, char in enumerate(text):
+        if counts[char] == 1:
+            return idx
+    return -1

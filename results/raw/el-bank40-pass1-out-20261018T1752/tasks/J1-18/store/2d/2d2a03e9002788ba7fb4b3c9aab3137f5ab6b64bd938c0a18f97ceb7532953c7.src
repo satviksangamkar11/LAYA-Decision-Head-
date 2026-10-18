@@ -1,0 +1,27 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> nums = (List<?>) data.get("nums");
+        Number kNum = (Number) data.get("k");
+        long k = kNum.longValue();
+        
+        if (nums.isEmpty()) {
+            return 0L;
+        }
+        
+        Map<Long, Long> prefixCount = new HashMap<>();
+        prefixCount.put(0L, 1L);
+        long currentPrefix = 0;
+        long total = 0;
+        
+        for (Object numObj : nums) {
+            Number num = (Number) numObj;
+            currentPrefix += num.longValue();
+            long target = currentPrefix - k;
+            total += prefixCount.getOrDefault(target, 0L);
+            prefixCount.put(currentPrefix, prefixCount.getOrDefault(currentPrefix, 0L) + 1);
+        }
+        return total;
+    }
+}

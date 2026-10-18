@@ -1,0 +1,61 @@
+{
+ "events": 1713,
+ "first_utc": "2026-10-18T00:07:22.840Z",
+ "last_utc": "2026-10-18T11:22:25.495Z",
+ "wall_seconds": 40502.656,
+ "stages": {
+  "bundle_verify": {
+   "n": 1,
+   "total_s": 0.69,
+   "p50_s": 0.69,
+   "p95_s": 0.69
+  },
+  "generate": {
+   "n": 90,
+   "total_s": 79101.653,
+   "p50_s": 621.383,
+   "p95_s": 2319.375
+  },
+  "model_load": {
+   "n": 2,
+   "total_s": 87.601,
+   "p50_s": 43.8,
+   "p95_s": 43.83
+  },
+  "model_sha": {
+   "n": 1,
+   "total_s": 113.894,
+   "p50_s": 113.894,
+   "p95_s": 113.894
+  },
+  "rootfs_build": {
+   "n": 1,
+   "total_s": 5.12,
+   "p50_s": 5.12,
+   "p95_s": 5.12
+  },
+  "sandbox_experiment": {
+   "n": 543,
+   "total_s": 503.204,
+   "p50_s": 1.352,
+   "p95_s": 1.542
+  },
+  "sandbox_public": {
+   "n": 130,
+   "total_s": 124.988,
+   "p50_s": 1.379,
+   "p95_s": 1.508
+  },
+  "task": {
+   "n": 32,
+   "total_s": 79765.905,
+   "p50_s": 2476.483,
+   "p95_s": 4660.728
+  }
+ },
+ "model_seconds": 79101.653,
+ "sandbox_seconds": 628.192,
+ "model_vs_sandbox": {
+  "model_share": 0.9921
+ }
+}

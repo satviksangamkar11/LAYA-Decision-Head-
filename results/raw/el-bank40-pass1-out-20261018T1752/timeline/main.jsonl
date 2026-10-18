@@ -1,0 +1,12 @@
+{"event": "kernel_start", "mode": "pass1", "mono": 215.42, "python": "3.13.15", "ts": 1792282042.84, "ts_utc": "2026-10-18T00:07:22.840Z", "worker": "main"}
+{"event": "bundle_verify_start", "mono": 215.426, "ts": 1792282042.85, "ts_utc": "2026-10-18T00:07:22.850Z", "worker": "main"}
+{"event": "bundle_verify_end", "mono": 216.116, "ok": true, "seconds": 0.69, "ts": 1792282043.54, "ts_utc": "2026-10-18T00:07:23.540Z", "worker": "main"}
+{"event": "rootfs_build_start", "mono": 216.323, "ts": 1792282043.747, "ts_utc": "2026-10-18T00:07:23.747Z", "worker": "main"}
+{"event": "rootfs_build_end", "mono": 221.443, "ok": true, "seconds": 5.12, "ts": 1792282048.867, "ts_utc": "2026-10-18T00:07:28.867Z", "worker": "main"}
+{"event": "model_sha_start", "mono": 222.045, "ts": 1792282049.469, "ts_utc": "2026-10-18T00:07:29.469Z", "worker": "main"}
+{"event": "model_sha_end", "mono": 335.94, "ok": true, "seconds": 113.894, "ts": 1792282163.364, "ts_utc": "2026-10-18T00:09:23.363Z", "worker": "main"}
+{"event": "worker_spawn", "mono": 336.464, "tasks": 20, "ts": 1792282163.889, "ts_utc": "2026-10-18T00:09:23.888Z", "worker": 0}
+{"event": "worker_spawn", "mono": 336.47, "tasks": 20, "ts": 1792282163.894, "ts_utc": "2026-10-18T00:09:23.893Z", "worker": 1}
+{"event": "workers_done", "mono": 40718.071, "rcs": {"0": 1, "1": 1}, "ts": 1792322545.496, "ts_utc": "2026-10-18T11:22:25.495Z", "worker": "main"}
+{"event": "critic_export", "exported": 1, "mono": 40719.398, "rejected": 0, "ts": 1792322546.822, "ts_utc": "2026-10-18T11:22:26.821Z", "worker": "main"}
+{"done": 32, "errors": 0, "event": "kernel_end", "mono": 40719.403, "pending": 8, "ts": 1792322546.827, "ts_utc": "2026-10-18T11:22:26.827Z", "worker": "main"}

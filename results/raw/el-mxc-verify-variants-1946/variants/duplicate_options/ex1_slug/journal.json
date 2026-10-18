@@ -1,0 +1,943 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "config_digest": "fe2d94c1dbadf33684d40ae281518103b789a5b929a52e5c72e617d35b9c7aa9",
+   "environment_revision": "env-f4615fcc7d31",
+   "mode": "agentic_per_action",
+   "seeds": [
+    0
+   ],
+   "task_id": "ex1_slug"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "start",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "e95c4c15a6d05517c70454fd2b718d1439d22610a9aa6ccf76193b96a4c0da2a",
+  "seq": 1
+ },
+ {
+  "data": {
+   "notes": [],
+   "reqs": [
+    {
+     "kind": "explicit",
+     "priority": "hard",
+     "requirement_id": "R1",
+     "source": {
+      "char_end": 144,
+      "char_start": 124,
+      "quote": "python3 test_slug.py",
+      "type": "request_span"
+     },
+     "status": "active",
+     "text": "the protected test command exits 0",
+     "version": 1
+    },
+    {
+     "kind": "contract",
+     "priority": "hard",
+     "requirement_id": "R2",
+     "source": {
+      "artifact_ref": "test_slug.py",
+      "type": "task_metadata"
+     },
+     "status": "active",
+     "text": "the protected test files are not modified",
+     "version": 1
+    }
+   ],
+   "request_sha": "318a1394858529a27111af2717ab95ccfe0c3b67dcd34bfd6e1a826e8a53db3e",
+   "stop": null
+  },
+  "kind": "requirements",
+  "prev": "ed74448c363f9febbd262495fbc7177bee6089396938925b8c4b5b0ab9fc997e",
+  "seq": 2
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "intake",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "b4d9574fe7b08dc815f9e891545a7948d69288de4a4afb8603adc853061375ca",
+  "seq": 3
+ },
+ {
+  "data": {
+   "sha256": "5338841ad05fc1d4420972c55ecccab0b9cbd13cea0f4f9c5a4a6b93145ad216"
+  },
+  "kind": "risk_table",
+  "prev": "c7807bbca94f99f385c8543c46c7da2ec5d452ff36d0c55d3f56388da4f449ed",
+  "seq": 4
+ },
+ {
+  "data": {
+   "ceiling": "VERIFIED",
+   "changed_from": null,
+   "covered": [
+    "tests"
+   ],
+   "facts": {
+    "examples_in_request": 0,
+    "regression_suite": [],
+    "tests_given": true,
+    "type_or_compile_check": false
+   },
+   "loop": "generate-execute-repair",
+   "reason": "trusted executable oracle: test_slug.py",
+   "step": "intake",
+   "tier": "O1"
+  },
+  "kind": "oracle_tier",
+  "prev": "09aa9acd6fd7180e054138406adde8bd9ebfa334a4fe3a9bd062048d5aa55b3e",
+  "seq": 5
+ },
+ {
+  "data": {
+   "generations": [
+    {
+     "model": "stub:scripted",
+     "model_revision": "stub",
+     "prompt_sha256": "scripted",
+     "seed": 0,
+     "template": "qwen_actions_v2"
+    }
+   ],
+   "option_sha256": [],
+   "prompt_sha256": "86e2c7778743ceb5e873ba47fafe9b513798bdc0f2e7cbaaa50402ce0ee37cc7",
+   "raw_sha256": [
+    "6a08051fe94c20291fbfd9e5fa312f098cc9eee64b4f8fd30c3f49855561ed80"
+   ],
+   "rejected": [],
+   "status": "ok",
+   "step": 1
+  },
+  "kind": "proposals",
+  "prev": "66e229fbca1418f7a14680162152557dc8c1af8465582b351844679c4aa15864",
+  "seq": 6
+ },
+ {
+  "data": {
+   "abstain": null,
+   "accepted": [
+    {
+     "action_key": "Edit:{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip(\\\"-\\\")\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}",
+     "arguments": {
+      "file_path": "slug.py",
+      "new_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")",
+      "old_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text)"
+     },
+     "option_id": "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+     "origin": {
+      "index": 0,
+      "seed": null
+     },
+     "tool": "Edit"
+    },
+    {
+     "action_key": "Edit:{\"file_path\":\"slug.py\",\"new_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text).strip()\",\"old_string\":\"return re.sub(r\\\"[^a-z0-9]+\\\", \\\"-\\\", text)\"}",
+     "arguments": {
+      "file_path": "slug.py",
+      "new_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text).strip()",
+      "old_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text)"
+     },
+     "option_id": "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+     "origin": {
+      "index": 2,
+      "seed": null
+     },
+     "tool": "Edit"
+    }
+   ],
+   "counts": {
+    "accepted": 2,
+    "in": 4,
+    "rejected": 2
+   },
+   "rejected": [
+    {
+     "option_id": "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+     "origin": {
+      "index": 1,
+      "seed": null
+     },
+     "reason": "identical to an earlier option",
+     "rule": "duplicate"
+    },
+    {
+     "option_id": "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871",
+     "origin": {
+      "index": 3,
+      "seed": null
+     },
+     "reason": "identical to an earlier option",
+     "rule": "duplicate"
+    }
+   ],
+   "step": 1
+  },
+  "kind": "candidate_filter",
+  "prev": "0125663984ce9e803d0d39fb41535f9351a8c431b0b2be55c1a128d4afeb03a1",
+  "seq": 7
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "check_id": "action_policy_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0001",
+    "independence": "independent",
+    "produced_at": "t1",
+    "receipt_hash": "ebc85a95fa0e2fda9a5fab5a4cf8125d3ea6a8eec30446e56cb5eb195252951b",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "policy check of one proposed action",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_policy_v1",
+    "detail": "",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "f891fa5bc1e108e6651c44c4c97568acece3420a37ac36be404a3cb45e050a39",
+  "seq": 8
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+    "check_id": "action_dry_run_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0002",
+    "independence": "independent",
+    "produced_at": "t2",
+    "receipt_hash": "8fc262dbcb34fae80d3a88ee1baaad6f6271107e0c1fef3410adefa567a76cb7",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "protected test after this single edit (scratch copy)",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_dry_run_v1",
+    "detail": "edit applied in a scratch copy, protected test run",
+    "observed": "exit 0\nall tests passed\n",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "3f35b058f9b72ee788285de884bd24f51efecf6eae81b9692c3f3bd547198937",
+  "seq": 9
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "2fa0ddb9849c730088571d20a9faadf2262caf3f68b7aada469bfc2deffac10e",
+    "candidate_id": "2fa0ddb9849c730088571d20a9faadf2262caf3f68b7aada469bfc2deffac10e",
+    "check_id": "action_policy_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0003",
+    "independence": "independent",
+    "produced_at": "t3",
+    "receipt_hash": "92ad7d3e4353fedb888491c6324d298aad58e435ea519e2ca535e19ba260b950",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "policy check of one proposed action",
+    "source": "environment_observation",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "action_policy_v1",
+    "detail": "",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "604804d249c5582ec6e672bad90f3ae168b0c8e1988658e79a365ef28d276ab8",
+  "seq": 10
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "2fa0ddb9849c730088571d20a9faadf2262caf3f68b7aada469bfc2deffac10e",
+    "candidate_id": "2fa0ddb9849c730088571d20a9faadf2262caf3f68b7aada469bfc2deffac10e",
+    "check_id": "action_dry_run_v1",
+    "check_version": "1",
+    "counterexample": {
+     "expected": "exit 0",
+     "input": "python3 test_slug.py",
+     "observed": "exit 1\nTraceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n"
+    },
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0004",
+    "independence": "independent",
+    "produced_at": "t4",
+    "receipt_hash": "44f91e7784d2574c02eed8b516bf4b125ebde27246c257522fc63c19999ac985",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "protected test after this single edit (scratch copy)",
+    "source": "environment_observation",
+    "status": "fail"
+   },
+   "outcome": {
+    "check_id": "action_dry_run_v1",
+    "detail": "edit applied in a scratch copy, protected test run",
+    "observed": "exit 1\nTraceback (most recent call last):\n  File \"/work/test_slug.py\", line 3, in <module>\n    assert slugify(\"Hello, World!\") == \"hello-world\", slugify(\"Hello, World!\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: hello-world-\n",
+    "status": "fail"
+   }
+  },
+  "kind": "evidence",
+  "prev": "a05cd27690f40bd360fcb53713eeb5fba419d75a59900bf1caa6ebe30b73ff01",
+  "seq": 11
+ },
+ {
+  "data": {
+   "candidate_id": null,
+   "ceiling": "VERIFIED",
+   "step": "step1_checked",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 0
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 0
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "bb23be4b892f978796bb0f54dec48b0016c6732519d8316a6620e53b8d15032e",
+  "seq": 12
+ },
+ {
+  "data": {
+   "can_override_trusted_evidence": false,
+   "decision_id": "ex1_slug:step1",
+   "laya_ordering_enabled": false,
+   "min_informative_pools": 30,
+   "n_informative_pools": 0,
+   "n_pools": 0,
+   "reason": "0 informative pools (a pool with at least one passing and one failing candidate), minimum 30: no verdict",
+   "status": "INSUFFICIENT_DATA"
+  },
+  "kind": "monotonicity_gate",
+  "prev": "88bfa962cd64d841337efb70774e9a46ad9cd8a085ff9c0c7a028e10d051b40c",
+  "seq": 13
+ },
+ {
+  "data": {
+   "decision_id": "ex1_slug:step1",
+   "ids": [
+    "ex1_slug:step1#0",
+    "ex1_slug:step1#1"
+   ],
+   "level": "L0",
+   "provenance": {},
+   "scorer_id": "stub:laya",
+   "scores": [
+    0.018,
+    0.195
+   ],
+   "state": "scored"
+  },
+  "kind": "scorer",
+  "prev": "9233cf14fa79a46887fb968e9100c7e97e73f2440325cbc4ba4d67fb6cd21be3",
+  "seq": 14
+ },
+ {
+  "data": {
+   "decision_id": "ex1_slug:step1",
+   "ids": [
+    "ex1_slug:step1#0",
+    "ex1_slug:step1#1"
+   ],
+   "scores": {
+    "probe": {
+     "role": "mandatory_baseline_linear_probe",
+     "score": [
+      0.015,
+      0.139
+     ]
+    },
+    "random_head": {
+     "role": "untrained_random_init_floor_control",
+     "score": [
+      0.876,
+      0.578
+     ]
+    }
+   },
+   "selector": false
+  },
+  "kind": "scorer_comparison",
+  "prev": "545deb3f92202fb5043a65e5d8968e385521f1723db4c1c2b9f6aa386e7dc2ff",
+  "seq": 15
+ },
+ {
+  "data": {
+   "items": [
+    {
+     "cluster": 0,
+     "deepconf": 0.0,
+     "id": "ex1_slug:step1#0",
+     "scorer": 0.018,
+     "trusted_passes": 2,
+     "validated_passes": 0
+    },
+    {
+     "cluster": 0,
+     "deepconf": 0.0,
+     "id": "ex1_slug:step1#1",
+     "scorer": 0.195,
+     "trusted_passes": 0,
+     "validated_passes": 0
+    }
+   ],
+   "order": [
+    "ex1_slug:step1#0",
+    "ex1_slug:step1#1"
+   ],
+   "step": "ex1_slug:step1"
+  },
+  "kind": "ranking",
+  "prev": "63eaab39c4afcb0ae6382918b602740cc35314562c10002051c58920ea05afeb",
+  "seq": 16
+ },
+ {
+  "data": {
+   "abstain": false,
+   "approved": false,
+   "blocked": [],
+   "decision_id": "ex1_slug:step1",
+   "derived_by": "controller",
+   "level": "L0_ordering_only",
+   "order": [
+    "ex1_slug:step1#0",
+    "ex1_slug:step1#1"
+   ],
+   "scorer_available": true,
+   "selected_id": "ex1_slug:step1#0",
+   "selected_index": 0
+  },
+  "kind": "action_decision",
+  "prev": "25aeffdefb3ca0748d072b92190675c97372ffa3da24aadf941b7c201fa29fd3",
+  "seq": 17
+ },
+ {
+  "data": {
+   "allowed": true,
+   "candidate_id": "aafa765b6f6634f10dd4338ff12ac17afbe179ee6929c24083f33ab0791d7695",
+   "class": "reversible_workspace_edit",
+   "decision_id": "ex1_slug:step1",
+   "decision_risk": "sandboxed",
+   "missing": [],
+   "requires": [
+    "inside_workspace",
+    "not_protected"
+   ]
+  },
+  "kind": "action_auth",
+  "prev": "6657e640176c6cacc5fa17a790dbc3e52edb45eff3b37f28e417f8abeea78387",
+  "seq": 18
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0005",
+    "independence": "user_provided",
+    "produced_at": "t5",
+    "receipt_hash": "6abcd53cf262110f568a5f3bc6d950fe28412feeb0e926325b4a1098508c827c",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_slug.py`): exit 0\nall tests passed\n",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "a5ef4c818b2fbdd453c5ec6c9979d970718fecab4854a8f59e70deec2424bcb0",
+  "seq": 19
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0006",
+    "independence": "independent",
+    "produced_at": "t6",
+    "receipt_hash": "c850cd271f980cae0b48be604f0ee6593a2e9dd1f2ce00cf3e0b71a5c12883be",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "80eb1d7cb8bc57ee13536f80138bf82630b9084ea53f19fe856e1074f19d464a",
+  "seq": 20
+ },
+ {
+  "data": {
+   "answer_label": "VERIFIED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0005"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0006"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "step1"
+  },
+  "kind": "label",
+  "prev": "7b91153e409f569f27c67b84d21c8b77e63a8b8353e9939924a00f431215bf04",
+  "seq": 21
+ },
+ {
+  "data": {
+   "action": {
+    "allowed": true,
+    "class": "reversible_workspace_edit",
+    "denied": false,
+    "executed": {
+     "arguments": {
+      "file_path": "slug.py",
+      "new_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")",
+      "old_string": "return re.sub(r\"[^a-z0-9]+\", \"-\", text)"
+     },
+     "name": "Edit"
+    }
+   },
+   "decision": {
+    "abstain": false,
+    "allowed_set": [
+     0,
+     1
+    ],
+    "chosen_index": 0,
+    "filter_counts": {
+     "accepted": 2,
+     "in": 4,
+     "rejected": 2
+    },
+    "scorer_available": true
+   },
+   "decision_id": "ex1_slug:step1",
+   "inputs": {
+    "context_sha256": "a94db17624cccac1992b641e6e805381988c57bd2691d6d5738f9aeb32f9888d",
+    "option_sha256": [
+     "97126c441756f480ec9f5958b76e05dc95359d2b6c41c847268d911a5db470f4",
+     "bfab08592ebff801564328747ad2f244e3592c0f62137a181229fad925ef3871"
+    ],
+    "pre_state": "fb1fb010897df6b0983beac3f3c34a6b0fdc6af07fb5385bfab99749600de7d8"
+   },
+   "outcome": {
+    "authorized": true,
+    "label": "VERIFIED",
+    "post_state": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "protected_unchanged": true,
+    "result_sha256": "3448bfdac188b506e3849b34cca8b8daf7eadbc224a8085555a7103610f695a2",
+    "tests_pass": true
+   },
+   "step": 1
+  },
+  "kind": "step_record",
+  "prev": "dd072660829f572f22fa056ba00366c707f948744560d61b79055b5d901d442a",
+  "seq": 22
+ },
+ {
+  "data": {
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "ceiling": "VERIFIED",
+   "step": "step1_observed",
+   "table": [
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "explicit",
+     "requirement_id": "R1",
+     "role": "example",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "action_dry_run_v1",
+      "protected_tests_v1"
+     ],
+     "trusted_evidence": 1
+    },
+    {
+     "ceiling": "VERIFIED",
+     "gates": true,
+     "kind": "contract",
+     "requirement_id": "R2",
+     "role": "contract",
+     "route": "trusted_check",
+     "soft_checks": [],
+     "soft_evidence": 0,
+     "trusted_checks": [
+      "protected_files_unchanged_v1"
+     ],
+     "trusted_evidence": 1
+    }
+   ]
+  },
+  "kind": "routing",
+  "prev": "7e2d6dbd34e7aa9116fb93e9465a656e946c133b99487420f8319130e43a09eb",
+  "seq": 23
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_tests_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0007",
+    "independence": "user_provided",
+    "produced_at": "t7",
+    "receipt_hash": "6abcd53cf262110f568a5f3bc6d950fe28412feeb0e926325b4a1098508c827c",
+    "requirement_id": "R1",
+    "requirement_version": 1,
+    "scope": "the protected test command on the real end state",
+    "source": "user_test",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_tests_v1",
+    "observed": "Harness test run (`python3 test_slug.py`): exit 0\nall tests passed\n",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "8c254c1b116f41770674342f5468f656eb5ac76656f33be83359bb094c78c955",
+  "seq": 24
+ },
+ {
+  "data": {
+   "evidence": {
+    "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "check_id": "protected_files_unchanged_v1",
+    "check_version": "1",
+    "environment_revision": "env-f4615fcc7d31",
+    "evidence_id": "E0008",
+    "independence": "independent",
+    "produced_at": "t8",
+    "receipt_hash": "c850cd271f980cae0b48be604f0ee6593a2e9dd1f2ce00cf3e0b71a5c12883be",
+    "requirement_id": "R2",
+    "requirement_version": 1,
+    "scope": "sha256 of the protected files before/after the test run",
+    "source": "certified_check",
+    "status": "pass"
+   },
+   "outcome": {
+    "check_id": "protected_files_unchanged_v1",
+    "status": "pass"
+   }
+  },
+  "kind": "evidence",
+  "prev": "801ee8d8632bca82c0e346b29ca38b5ba5239eddf865167746ed2421428a10b4",
+  "seq": 25
+ },
+ {
+  "data": {
+   "answer_label": "VERIFIED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "rows": [
+    {
+     "evidence_ids": [
+      "E0005",
+      "E0007"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0006",
+      "E0008"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "tag": "finalize"
+  },
+  "kind": "label",
+  "prev": "227e8386f4ef8c533dcbb825896988af2e47d6acce71a719e13be85497b3cf47",
+  "seq": 26
+ },
+ {
+  "data": {
+   "answer_label": "VERIFIED",
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "ok": true,
+   "reason": ""
+  },
+  "kind": "finalize",
+  "prev": "150940231c4a9d419e7e555e674f6dedb652b101840fa34aeef2258848a93fe8",
+  "seq": 27
+ },
+ {
+  "data": {
+   "coverage": {
+    "answer_label": "VERIFIED",
+    "rows": [
+     {
+      "evidence": [
+       {
+        "authoritative": true,
+        "check_id": "protected_tests_v1",
+        "evidence_id": "E0005",
+        "independence": "user_provided",
+        "scope": "the protected test command on the real end state",
+        "source": "user_test",
+        "status": "pass",
+        "trust_class": "authoritative"
+       },
+       {
+        "authoritative": true,
+        "check_id": "protected_tests_v1",
+        "evidence_id": "E0007",
+        "independence": "user_provided",
+        "scope": "the protected test command on the real end state",
+        "source": "user_test",
+        "status": "pass",
+        "trust_class": "authoritative"
+       }
+      ],
+      "kind": "explicit",
+      "label": "VERIFIED",
+      "priority": "hard",
+      "requirement_id": "R1"
+     },
+     {
+      "evidence": [
+       {
+        "authoritative": true,
+        "check_id": "protected_files_unchanged_v1",
+        "evidence_id": "E0006",
+        "independence": "independent",
+        "scope": "sha256 of the protected files before/after the test run",
+        "source": "certified_check",
+        "status": "pass",
+        "trust_class": "authoritative"
+       },
+       {
+        "authoritative": true,
+        "check_id": "protected_files_unchanged_v1",
+        "evidence_id": "E0008",
+        "independence": "independent",
+        "scope": "sha256 of the protected files before/after the test run",
+        "source": "certified_check",
+        "status": "pass",
+        "trust_class": "authoritative"
+       }
+      ],
+      "kind": "contract",
+      "label": "VERIFIED",
+      "priority": "hard",
+      "requirement_id": "R2"
+     }
+    ],
+    "weakest": {
+     "label": "VERIFIED",
+     "requirement_id": "R1"
+    }
+   },
+   "outcome": {
+    "answer_label": "VERIFIED",
+    "authorized_by_authorize": true,
+    "end_state_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+    "label_ceiling": "VERIFIED",
+    "state_unchanged_since_last_action": true,
+    "tests_pass": true,
+    "trusted_checks_rerun_on_real_end_state": true
+   },
+   "process": {
+    "actions_denied_by_risk_table": 0,
+    "actions_executed": 1,
+    "constraints_respected": true,
+    "diff": {
+     "added": [],
+     "modified": [
+      "slug.py"
+     ],
+     "removed": []
+    },
+    "diff_scope_ok": true,
+    "diff_violations": [],
+    "protected_unchanged": true,
+    "scope_declared": null,
+    "tier": "O1"
+   }
+  },
+  "kind": "final_report",
+  "prev": "cb35bf2bcfcf195162d66f87cf5949f46404863f8bcfb677e9ee1f8337565c0f",
+  "seq": 28
+ },
+ {
+  "data": {
+   "answer_label": "VERIFIED",
+   "artifact_hash": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "authorized_to_execute": true,
+   "candidate_id": "175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "decision_id": "d-175d3b7ce394caa21a739064ff05509e835f30a2dce9af5cf92d6fdcd8106ca5",
+   "decision_type": "complete_program",
+   "derived_by": "controller",
+   "next_step": "commit",
+   "requirement_rows": [
+    {
+     "evidence_ids": [
+      "E0005",
+      "E0007"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R1"
+    },
+    {
+     "evidence_ids": [
+      "E0006",
+      "E0008"
+     ],
+     "label": "VERIFIED",
+     "requirement_id": "R2"
+    }
+   ],
+   "risk": "sandboxed"
+  },
+  "kind": "decision",
+  "prev": "8068e9477794baf1adf975d68566761938e527cdbfa33acd168d26165b1100b9",
+  "seq": 29
+ },
+ {
+  "data": {
+   "arm": "E",
+   "attempts": 1,
+   "budget_hit": false,
+   "cause": "decided",
+   "max_attempts": 2,
+   "max_rounds": 2,
+   "mode": "agentic",
+   "problem_id": "ex1_slug",
+   "rounds": 1,
+   "stop_label": null,
+   "wasted_critic": 0
+  },
+  "kind": "stop",
+  "prev": "8102fbf99ac740e54109d29578d68108d6bda505dcd5778b99729c25c0ee3737",
+  "seq": 30
+ },
+ {
+  "data": {
+   "hash": "ba9926a65fec30e6e134c0b2785055f6124f58aabc6861fd5b8afe6e013581c1",
+   "phase": "end",
+   "scorer": "stub:laya"
+  },
+  "kind": "registry",
+  "prev": "742ae8b6391df4904f121c3ab732a668f6619311d8ba1472eb66d45289ce6fee",
+  "seq": 31
+ }
+]

@@ -1,0 +1,194 @@
+{
+ "probe": "qwen25coder15b_smoke_v1",
+ "profile": "qwen2.5-coder-1.5b-instruct",
+ "task": "P1-11",
+ "torch": "2.14.0+cu126",
+ "cuda": "12.6",
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "nvidia_smi_before": {
+  "used_mib": 1246,
+  "total_mib": 6144,
+  "temp_c": 73,
+  "sm_clock_mhz": 210
+ },
+ "model_info_before_load": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": null,
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": false,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "snapshot_verify_seconds": 3.53,
+ "load_seconds": 11.6,
+ "vram_after_load_mib": 2945,
+ "vram_peak_during_load_mib": 2945,
+ "nvidia_smi_after_load": {
+  "used_mib": 4455,
+  "total_mib": 6144,
+  "temp_c": 75,
+  "sm_clock_mhz": 1492
+ },
+ "rss_peak_after_load_mib": 1932,
+ "generations": [
+  {
+   "template": "qwen_sample_v2",
+   "seed": 1,
+   "prompt_tokens": 243,
+   "new_tokens": 236,
+   "seconds": 11.2,
+   "tokens_per_second": 21.07,
+   "extract_status": "ok",
+   "code_parses": true,
+   "text_sha256": "51bf1badccdec2d9a4a8f76bfdb5f606fed4e66947f2d1f0e5260d40632cf89e",
+   "text_head": "```python\nimport json\n\ndef solve(data):\n    text = data['text']\n    stack = []\n    \n    for char in text:\n        if char == '(' or char == '[' or char == '{':\n            stack.append(char)\n        elif char == ')' and stack and stack[-1] == '(':\n            stack.pop()\n        elif char == ']' and",
+   "starts_with_closed_empty_think": true
+  },
+  {
+   "template": "qwen_sample_v2",
+   "seed": 2,
+   "prompt_tokens": 243,
+   "new_tokens": 171,
+   "seconds": 7.31,
+   "tokens_per_second": 23.4,
+   "extract_status": "ok",
+   "code_parses": true,
+   "text_sha256": "feeb40383e755134b7673938a0a3d965d849c9e2d6ad457194d48c799689f499",
+   "text_head": "```python\nimport json\n\ndef solve(data):\n    text = data['text']\n    \n    # Remove all non-bracket characters\n    text = ''.join(char for char in text if char in '([{})]')\n    \n    # Check if the string has any unmatched brackets\n    stack = []\n    for char in text:\n        if char == '(' or char == ",
+   "starts_with_closed_empty_think": true
+  },
+  {
+   "template": "qwen_sample_v2b",
+   "seed": 3,
+   "prompt_tokens": 288,
+   "new_tokens": 430,
+   "seconds": 18.81,
+   "tokens_per_second": 22.85,
+   "extract_status": "ok",
+   "code_parses": true,
+   "text_sha256": "5a80a77d254fc8d48eea12db1118fceaf3045fe81b943c5a875158a781622159",
+   "text_head": "```python\nimport json\n\ndef solve(data):\n    text = data[\"text\"]\n    \n    # Remove all non-bracket characters\n    text = ''.join(char for char in text if char in \"()[]{}\")\n    \n    # Edge cases: empty string, single bracket, two brackets with mismatched types\n    if not text:\n        return True\n    ",
+   "starts_with_closed_empty_think": true
+  },
+  {
+   "template": "qwen_sample_v2b",
+   "seed": 4,
+   "prompt_tokens": 288,
+   "new_tokens": 320,
+   "seconds": 14.73,
+   "tokens_per_second": 21.73,
+   "extract_status": "ok",
+   "code_parses": true,
+   "text_sha256": "2410fb57f8a2b60f1ca60c820fd25ca0503a82f7c7ab61e1d21234d5d0180228",
+   "text_head": "```python\nimport json\n\ndef solve(data):\n    text = data['text']\n    \n    # Edge case: empty or minimal inputs\n    if not text:\n        return True\n    \n    # Boundary values: single opening or closing bracket\n    if len(text) == 1:\n        return False\n    \n    # Duplicate brackets\n    if any(text.c",
+   "starts_with_closed_empty_think": true
+  }
+ ],
+ "tokens_per_second_mean": 22.26,
+ "vram_peak_generation_mib": 2982,
+ "same_seed_same_text": true,
+ "long_context": [
+  {
+   "target_context_tokens": 3500,
+   "prompt_tokens": 3149,
+   "new_tokens": 64,
+   "seconds": 4.16,
+   "vram_peak_mib": 3252,
+   "status": "ok"
+  },
+  {
+   "target_context_tokens": 8000,
+   "prompt_tokens": 7659,
+   "new_tokens": 64,
+   "seconds": 6.1,
+   "vram_peak_mib": 3650,
+   "status": "ok"
+  }
+ ],
+ "nvidia_smi_end": {
+  "used_mib": 5326,
+  "total_mib": 6144,
+  "temp_c": 87,
+  "sm_clock_mhz": 1237
+ },
+ "model_info_after": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "host_rss_peak_mib": 1932,
+ "host_min_free_ram_mib": 907
+}

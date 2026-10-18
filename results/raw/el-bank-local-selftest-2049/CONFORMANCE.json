@@ -1,0 +1,268 @@
+{
+ "broken": {},
+ "counts": {
+  "broken": 0,
+  "error": 0,
+  "executed": 2,
+  "expected": 2,
+  "missing": 0,
+  "not_tested": 0,
+  "ok": 2
+ },
+ "error": [],
+ "expect_engine": "mxc",
+ "label": "architecture conformance of a run (files only); not an accuracy result",
+ "legacy_kaggle": false,
+ "missing": [],
+ "not_tested": {},
+ "run_checks": {
+  "run_summary": true,
+  "timeline_jsonl": true
+ },
+ "run_dir": "results\\raw\\el-bank-local-selftest-2049",
+ "tasks": {
+  "P1-13": {
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "records": 2
+     },
+     "ok": true,
+     "problems": []
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": null,
+      "reason": "L2 stage not reached (no candidate passed the public examples)",
+      "verdict": "INSUFFICIENT"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-processcontainer",
+      "expected": "mxc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": null,
+       "explained": "fewer than 2 live candidates",
+       "present": false,
+       "start_utc": null
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T15:19:41.048282+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.044281+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T15:19:41.039282+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.039282+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T15:19:40.954230+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:40.708526+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T15:19:40.708526+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:40.702527+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T15:19:40.702527+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:40.611456+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": null,
+       "explained": "no candidate passed every example (no trusted reference)",
+       "present": false,
+       "start_utc": null
+      },
+      "l2_validate": {
+       "end_utc": null,
+       "present": false,
+       "start_utc": null
+      },
+      "rank": {
+       "end_utc": "2026-10-18T15:19:41.039282+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.039282+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [],
+   "task": "P1-13",
+   "verdict": "PIPELINE_OK"
+  },
+  "P1-14": {
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "records": 2
+     },
+     "ok": true,
+     "problems": []
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": null,
+      "reason": "L2 stage not reached (no candidate passed the public examples)",
+      "verdict": "INSUFFICIENT"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-processcontainer",
+      "expected": "mxc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": null,
+       "explained": "fewer than 2 live candidates",
+       "present": false,
+       "start_utc": null
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T15:19:41.265842+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.261841+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T15:19:41.256841+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.256841+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T15:19:41.167629+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.084418+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T15:19:41.084418+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.079411+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T15:19:41.079411+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.064896+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": null,
+       "explained": "no candidate passed every example (no trusted reference)",
+       "present": false,
+       "start_utc": null
+      },
+      "l2_validate": {
+       "end_utc": null,
+       "present": false,
+       "start_utc": null
+      },
+      "rank": {
+       "end_utc": "2026-10-18T15:19:41.256841+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T15:19:41.256841+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [],
+   "task": "P1-14",
+   "verdict": "PIPELINE_OK"
+  }
+ },
+ "verdict": "PIPELINE_COMPLETE"
+}

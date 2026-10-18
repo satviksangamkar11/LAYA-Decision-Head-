@@ -1,0 +1,22 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> matrix = (List<?>) data.get("matrix");
+        if (matrix == null || matrix.isEmpty()) {
+            return new ArrayList<>();
+        }
+        int numColumns = matrix.get(0).size();
+        List<List<Integer>> transpose = new ArrayList<>();
+        for (int j = 0; j < numColumns; j++) {
+            List<Integer> column = new ArrayList<>();
+            for (int i = 0; i < matrix.size(); i++) {
+                Object element = matrix.get(i).get(j);
+                int value = ((Number) element).intValue();
+                column.add(value);
+            }
+            transpose.add(column);
+        }
+        return transpose;
+    }
+}

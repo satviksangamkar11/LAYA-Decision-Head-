@@ -1,0 +1,23 @@
+{
+ "bundle": "evidence_ladder_critic_code_v1",
+ "files": {
+  "code/configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c",
+  "code/evidence_ladder/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "code/evidence_ladder/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "code/evidence_ladder/common/contract_import.py": "5cb8aef67235dc33deb7dc7867b663bada9ba88de31b38f0da5b1987d2082d76",
+  "code/evidence_ladder/common/interfaces.py": "bf0f1a92c35fabe1dfec437ddd741d33b757d0c21413ab9994e0170642bcdd99",
+  "code/evidence_ladder/critic_batch/__init__.py": "546894497b140e2243232cc2b6741233ffab0602e51b315b209eee6579cb45cc",
+  "code/evidence_ladder/critic_batch/batch.py": "eff51a80e862ff5c4c573381c726f451338344b4265dc6e98402a9e71e9e4a56",
+  "code/evidence_ladder/critic_batch/config.py": "d48b74a1b7783175790fb96d043cc8f01103dbe2fddc1ede7a3370c7233e29b4",
+  "code/evidence_ladder/critic_batch/transport.py": "d587e193554d2b5f8d2e4d1834117530b528f2896ed3a1438ff3cb66a7cb6a81",
+  "code/evidence_ladder/critic_batch/validator.py": "aeb174163e05637d9a9c386b14373b15d3aa91680677915a9f5470afbf571beb",
+  "code/evidence_ladder/models/__init__.py": "0ebc1aa0b01dc512ad047fd6b0c206f8eeb1846ccc20737549f85bbd539d3443",
+  "code/evidence_ladder/models/_util.py": "d433ebb66263a2eae8c6cf1ee49b54f1f434a9f0b2d779d729226bfe2a0c1171",
+  "code/evidence_ladder/models/broker.py": "7ab849e230438d83d5b709bd856ec19fb2d4ad93e0b1b5d4e7b9a75ed987d09a",
+  "code/evidence_ladder/models/glm.py": "bea4f2f389f5ad968dcb878b96c9133aa3e712977ea88d2526cb0c88bca89d8f",
+  "code/evidence_ladder/models/kaggle_keys.py": "8d143121928b12523d76711fe24d46d4c98e2a0dd54865a738a6a1e56da0e4c6",
+  "code/evidence_ladder/models/pc_sender.py": "881f51f6b0e6852df4e32e4768e63a7ece8416f748a6b87745a4178da54015be",
+  "code/specs/evidence_ladder_v1/contract/contract_lib_v1.py": "6acefd1df50a2298ffd70c631eddd88c98d6c97826cee2a4f95f50f32cccf950",
+  "code/specs/evidence_ladder_v1/schemas_v1.json": "9415b5353f4885d70db8940ea5ba0f7d8ddd63a62491397a916db7f7077703e3"
+ }
+}

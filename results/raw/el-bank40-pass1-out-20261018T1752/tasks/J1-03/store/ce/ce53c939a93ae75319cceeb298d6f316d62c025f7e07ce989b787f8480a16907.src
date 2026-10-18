@@ -1,0 +1,31 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Number nVal = (Number) data.get("n");
+        long n = nVal.longValue();
+        return countSteps(n);
+    }
+
+    private static int countSteps(long n) {
+        if (n < 10) {
+            return 0;
+        }
+        int steps = 0;
+        while (n >= 10) {
+            steps++;
+            n = productOfDigits(n);
+        }
+        return steps;
+    }
+
+    private static long productOfDigits(long num) {
+        long product = 1;
+        while (num > 0) {
+            int digit = (int) (num % 10);
+            product *= digit;
+            num /= 10;
+        }
+        return product;
+    }
+}

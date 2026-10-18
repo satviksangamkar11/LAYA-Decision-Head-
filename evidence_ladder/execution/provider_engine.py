@@ -94,7 +94,7 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
     def __init__(self, sandbox: Any = None, *, backend: str = "mxc", scratch: Optional[Path] = None, store: Optional[ArtifactStore] = None, config: Optional[K.SandboxConfig] = None):
         super().__init__(store, config)
         self.backend_name = backend
-        self.scratch = Path(scratch) if scratch else Path(tempfile.mkdtemp(prefix="el-provider-engine-"))
+        self.scratch = (Path(scratch) if scratch else Path(tempfile.mkdtemp(prefix="el-provider-engine-"))).resolve()      # ABSOLUTE: the MXC container's cwd is not the workspace when a relative path is passed
         self.scratch.mkdir(parents=True, exist_ok=True)
         self._sandbox, self.calls, self.seconds = sandbox, 0, 0.0
         self.python_seconds: List[float] = []
@@ -129,7 +129,7 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
             (wd / "inputs.jsonl").write_bytes("".join(json.dumps(x, ensure_ascii=True) + "\n" for x in inputs).encode("ascii"))
             t0 = time.time()
             try:
-                r = self.sandbox.run(str(wd), "python3 runner.py %d" % cfg.max_output_bytes, persist=True, timeout=int(max(1, round(cfg.py_timeout))))
+                r = self.sandbox.run(str(wd.resolve()), "python3 runner.py %d" % cfg.max_output_bytes, persist=True, timeout=int(max(1, round(cfg.py_timeout))))
             except ProviderEngineError:
                 raise
             except BaseException as e:      # noqa: BLE001  KeyboardInterrupt is re-raised below; everything else is an infrastructure failure

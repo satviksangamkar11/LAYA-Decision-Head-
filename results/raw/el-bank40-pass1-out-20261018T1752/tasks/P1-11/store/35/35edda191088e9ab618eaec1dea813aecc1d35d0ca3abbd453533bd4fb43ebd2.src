@@ -1,0 +1,11 @@
+def solve(data):
+    closing_map = {')': '(', ']': '[', '}': '{'}
+    stack = []
+    for c in data['text']:
+        if c in '([{':
+            stack.append(c)
+        elif c in closing_map:
+            if not stack or stack[-1] != closing_map[c]:
+                return False
+            stack.pop()
+    return not stack

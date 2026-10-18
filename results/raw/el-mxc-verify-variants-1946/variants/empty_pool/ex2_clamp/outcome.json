@@ -1,0 +1,44 @@
+{
+ "variant": "empty_pool",
+ "base": "ex2_clamp",
+ "why": "the model returned an empty array: abstain with an explicit reason, nothing executed",
+ "expected": {
+  "label_not": [
+   "VERIFIED"
+  ],
+  "not_decided": true,
+  "kinds_present": [
+   "abstain"
+  ],
+  "chosen_none": true,
+  "allowed_set": [],
+  "abstain_reason_has": "no options"
+ },
+ "violations": [],
+ "stop_cause": "budget",
+ "stop_details": "task.max_steps used=1 cap=1",
+ "label": "BLOCKED",
+ "tier": "O1",
+ "journal_hash": "bda064cf553d3a1e9202fc772ccb4f4ab959cc0c92799fc5daaffea68f0929a8",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 2,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

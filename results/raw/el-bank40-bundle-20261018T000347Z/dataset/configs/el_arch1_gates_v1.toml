@@ -1,0 +1,27 @@
+# [EL-ARCH-1 C5] Statistical-gate minimum sample sizes and gate parameters. Written 2026-10-17 BEFORE any run that uses them.
+# New versioned file: configs/thresholds_evidence_ladder_v1.toml stays frozen and untouched. A change is a new file (el_arch1_gates_v2.toml) with a written reason, never an edit after results.
+# Every statistical gate returns INSUFFICIENT_DATA (never PASS) when its n is below the minimum here. Every key is required (no implicit default).
+
+[reason]
+text = "Architecture section 9 defines gates (G-0 headroom, per-step equal-compute keep/drop, false-approval cap, safety, I1-I8 before run) without a minimum n, so a 3-problem run could 'pass' them. The minimums are written in advance, not tuned on results: 30 matches the repo's own 'very small' line (orchestrator/stats.py sample_size_warnings: n<30), and it is a floor for REFUSING a verdict, not a power calculation. The ~470-problem power estimate (unmeasured) stays in stats.py; a gate that returns a verdict at n=30 is still underpowered for small effects and the report says so."
+
+[min_n]
+g0_problems = 30                 # G-0: problems with per-sample hidden grades
+step_pairs = 30                  # per-step keep/drop: problems graded under both the step arm and its equal-compute twin
+safety_approved = 30             # false-approval comparison: answers labelled VERIFIED/SUPPORTED, per arm (arm and B1)
+monotonicity_informative_pools = 30   # pools with at least one passing and one failing candidate
+monotonicity_pools_per_rank = 10      # pools that reach a rank position before that position enters the monotone-shape check
+
+[g0]
+headroom_points = 5.0            # architecture section 9: oracle@k minus pass@1 at least 5 points, else stop
+
+[per_step]
+ci_level = 0.95
+bootstrap_resamples = 2000
+compute_match_tolerance = 0.10   # relative: step arm and twin total tokens (qwen_gen+qwen_prefill+glm_in+glm_out) per task must agree within 10% on the median task, else the twin is not equal-compute
+
+[monotonicity]
+auc_lower_bound = 0.5            # bootstrap CI (pools resampled) of pairwise concordance between score and passing must lie above 0.5
+rank_tolerance = 0.05            # pass rate may rise by at most 5 points from one rank position to the next
+ci_level = 0.95
+bootstrap_resamples = 2000

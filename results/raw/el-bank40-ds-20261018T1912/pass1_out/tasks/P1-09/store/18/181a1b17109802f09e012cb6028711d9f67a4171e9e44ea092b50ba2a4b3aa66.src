@@ -1,0 +1,7 @@
+def solve(data):
+    nums = data['nums']
+    distinct = set(nums)
+    if len(distinct) < 2:
+        return None
+    sorted_distinct = sorted(distinct, reverse=True)
+    return sorted_distinct[1]

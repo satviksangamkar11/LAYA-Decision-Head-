@@ -1,0 +1,38 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Object gridObj = data.get("grid");
+        if (gridObj == null || gridObj instanceof List && ((List<?>) gridObj).isEmpty()) {
+            return 0;
+        }
+        List<List<Number>> grid = (List<List<Number>>) gridObj;
+
+        int rows = grid.size();
+        if (rows == 0) {
+            return 0;
+        }
+        int cols = grid.get(0).size();
+
+        int[][] dp = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Number cell = grid.get(i).get(j);
+                int cellValue = cell.intValue();
+                if (cellValue == 1) {
+                    dp[i][j] = 0;
+                } else {
+                    if (i == 0 && j == 0) {
+                        dp[i][j] = 1;
+                    } else {
+                        int top = (i > 0) ? dp[i-1][j] : 0;
+                        int left = (j > 0) ? dp[i][j-1] : 0;
+                        dp[i][j] = top + left;
+                    }
+                }
+            }
+        }
+        return dp[rows-1][cols-1];
+    }
+}

@@ -1,0 +1,53 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Object matrixObj = data.get("matrix");
+        if (matrixObj == null) {
+            return new ArrayList<>();
+        }
+        List<List<?>> matrixList = (List<List<?>>) matrixObj;
+        if (matrixList == null || matrixList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        int rows = matrixList.size();
+        int cols = matrixList.get(0).size();
+        int top = 0;
+        int bottom = rows - 1;
+        int left = 0;
+        int right = cols - 1;
+        List<Integer> result = new ArrayList<>();
+        
+        while (top <= bottom && left <= right) {
+            for (int i = left; i <= right; i++) {
+                Number num = (Number) matrixList.get(top).get(i);
+                result.add(num.intValue());
+            }
+            top++;
+            
+            for (int i = top; i <= bottom; i++) {
+                Number num = (Number) matrixList.get(i).get(right);
+                result.add(num.intValue());
+            }
+            right--;
+            
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    Number num = (Number) matrixList.get(bottom).get(i);
+                    result.add(num.intValue());
+                }
+                bottom--;
+            }
+            
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    Number num = (Number) matrixList.get(i).get(left);
+                    result.add(num.intValue());
+                }
+                left++;
+            }
+        }
+        return result;
+    }
+}

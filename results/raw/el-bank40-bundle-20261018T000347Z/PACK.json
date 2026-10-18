@@ -1,0 +1,19 @@
+{
+ "out": "D:\\local model\\results\\raw\\el-bank40-bundle-20261018T000347Z",
+ "files": 105,
+ "bytes": 832005,
+ "thinking_policy": {
+  "policy": "prompt_brief",
+  "brief_instruction": "Think BRIEFLY: reason in a few short sentences only, do not re-verify the same point, and give the final answer as soon as you have it.",
+  "ceiling": 8192
+ },
+ "commit": "90cc3e528bd4b9e64c84273d14a079eba4bce05f",
+ "import_smoke": true,
+ "held_markers_checked": 16,
+ "kernels": {
+  "pass1": "D:\\local model\\results\\raw\\el-bank40-bundle-20261018T000347Z\\kernel_pass1",
+  "pass2": "D:\\local model\\results\\raw\\el-bank40-bundle-20261018T000347Z\\kernel_pass2"
+ },
+ "dataset": "D:\\local model\\results\\raw\\el-bank40-bundle-20261018T000347Z\\dataset",
+ "manifest_sha256": "15892d195b6b9d80e57f738e9ae94ba6fa79f459d94e50c087ea2ef4f6141db9"
+}

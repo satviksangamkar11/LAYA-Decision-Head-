@@ -1,0 +1,14 @@
+{
+ "bundle": "evidence_ladder_critic_responses_v1",
+ "concurrency_sha256": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c",
+ "count": 1,
+ "delivery": "at-least-once",
+ "model": "z-ai/glm-5.3-flash",
+ "packets_sha256": "5efc3f0c324c0b4ddbe4729ef445726af7c35b5633e8041de6a0dfcca5d94bef",
+ "rejected": [],
+ "responses_sha256": "b617d02239d976eb59253268ab351a0f970fd01e45b09719110cf45265fe59b4",
+ "states": {
+  "ok": 1
+ },
+ "stop_all_critic_calls": false
+}

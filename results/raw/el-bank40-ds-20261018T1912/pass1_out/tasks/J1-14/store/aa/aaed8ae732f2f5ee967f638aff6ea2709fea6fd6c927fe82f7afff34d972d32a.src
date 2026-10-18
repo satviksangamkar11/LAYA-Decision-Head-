@@ -1,0 +1,24 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Object matrixObj = data.get("matrix");
+        if (matrixObj == null || matrixObj instanceof List<?> && ((List<?>) matrixObj).isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<?> matrixList = (List<?>) matrixObj;
+        int n = matrixList.size();
+        List<List<Integer>> result = new ArrayList<>();
+        for (int j = 0; j < n; j++) {
+            List<Integer> newRow = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                Object row = matrixList.get(i);
+                Object elem = ((List<?>) row).get(j);
+                newRow.add(((Number) elem).intValue());
+            }
+            Collections.reverse(newRow);
+            result.add(newRow);
+        }
+        return result;
+    }
+}

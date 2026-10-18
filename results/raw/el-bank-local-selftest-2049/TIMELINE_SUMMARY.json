@@ -1,0 +1,43 @@
+{
+ "events": 42,
+ "first_utc": "2026-10-18T15:19:39.832Z",
+ "last_utc": "2026-10-18T15:19:41.282Z",
+ "wall_seconds": 1.45,
+ "stages": {
+  "generate": {
+   "n": 8,
+   "total_s": 0.016,
+   "p50_s": 0.0,
+   "p95_s": 0.01
+  },
+  "model_load": {
+   "n": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "preflight": {
+   "n": 1,
+   "total_s": 0.703,
+   "p50_s": 0.703,
+   "p95_s": 0.703
+  },
+  "sandbox_public": {
+   "n": 4,
+   "total_s": 0.5,
+   "p50_s": 0.094,
+   "p95_s": 0.213
+  },
+  "task": {
+   "n": 2,
+   "total_s": 0.64,
+   "p50_s": 0.32,
+   "p95_s": 0.425
+  }
+ },
+ "model_seconds": 0.016,
+ "sandbox_seconds": 0.5,
+ "model_vs_sandbox": {
+  "model_share": 0.031
+ }
+}

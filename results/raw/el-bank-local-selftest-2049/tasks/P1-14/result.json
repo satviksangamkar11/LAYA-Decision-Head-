@@ -1,0 +1,90 @@
+{
+ "answer_label": "BLOCKED",
+ "budget": {
+  "api_errors": 0,
+  "arm": "D0",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 0.0,
+  "problem_id": "P1-14",
+  "qwen_gen_tokens": 381,
+  "qwen_prefill_tokens": 300,
+  "scorer_calls": 0,
+  "tool_runs": 0,
+  "wall_seconds": 0.0
+ },
+ "candidates": 2,
+ "ceiling_hits": 0,
+ "clusters": {
+  "computed": false,
+  "extended_clusters": null,
+  "public_clusters": null
+ },
+ "critic": {
+  "called": false,
+  "state": "not_needed"
+ },
+ "critic_called": false,
+ "difficulty": "medium",
+ "discrimination": {
+  "critic": null,
+  "triggered": false
+ },
+ "end_utc": "2026-10-18T15:19:41.275Z",
+ "engine": "mxc-processcontainer",
+ "generate_calls": 4,
+ "generation_failed_at_ceiling": false,
+ "gpu": "selftest-no-gpu",
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "223945ec6ce7e3e7c6d824cf7399f34aaa7e51193419254d4c97f789f33acde1",
+ "l2": {
+  "reason": "L2 stage not reached (no candidate passed the public examples)",
+  "verdict": "INSUFFICIENT"
+ },
+ "l2_version": 2,
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "python",
+ "pass": "local",
+ "pending_critic_packets": [],
+ "profile_id": "selftest",
+ "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+ "public": {
+  "best": 0,
+  "candidates_passing_all": 0,
+  "candidates_with_examples": 2,
+  "examples": 5
+ },
+ "rounds": 2,
+ "scorer": "none",
+ "seconds": 0.2,
+ "start_utc": "2026-10-18T15:19:41.062Z",
+ "status": "OK",
+ "stop_cause": "budget",
+ "stop_details": "round_cap",
+ "task": "P1-14",
+ "think_shim_count": 6,
+ "thinking_policy": {
+  "ceiling": 4096,
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct"
+ },
+ "tokens_generated": 381,
+ "tokens_prompt": 300,
+ "wall_cap_s": 3600.0,
+ "worker": 0
+}

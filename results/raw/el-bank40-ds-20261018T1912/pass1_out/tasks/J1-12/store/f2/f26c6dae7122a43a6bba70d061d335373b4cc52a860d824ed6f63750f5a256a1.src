@@ -1,0 +1,26 @@
+import java.util.*;
+
+public final class Solution {
+    public static String solve(Map<String, Object> data) {
+        String ipStr = (String) data.get("ip");
+        int prefix = ((Number) data.get("prefix")).intValue();
+
+        String[] parts = ipStr.split("\\.");
+        int a = Integer.parseInt(parts[0]);
+        int b = Integer.parseInt(parts[1]);
+        int c = Integer.parseInt(parts[2]);
+        int d = Integer.parseInt(parts[3]);
+
+        int ipInt = (a << 24) | (b << 16) | (c << 8) | d;
+
+        int mask = (0xFFFFFFFF << (32 - prefix)) & 0xFFFFFFFF;
+        int networkInt = ipInt & mask;
+
+        int a1 = (networkInt >> 24) & 0xFF;
+        int b1 = (networkInt >> 16) & 0xFF;
+        int c1 = (networkInt >> 8) & 0xFF;
+        int d1 = networkInt & 0xFF;
+
+        return String.format("%d.%d.%d.%d/%d", a1, b1, c1, d1, prefix);
+    }
+}

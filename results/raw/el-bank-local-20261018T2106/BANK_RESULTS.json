@@ -1,0 +1,6702 @@
+{
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "created_utc": "2026-10-18T17:05:45Z",
+ "tasks_finished": 28,
+ "tasks_expected": 40,
+ "unfinished_or_errored": [],
+ "not_tested": {
+  "J1-17": "NOT_TESTED_NO_JDK",
+  "J1-20": "NOT_TESTED_NO_JDK",
+  "J1-23": "NOT_TESTED_NO_JDK",
+  "J1-24": "NOT_TESTED_NO_JDK",
+  "J1-25": "NOT_TESTED_NO_JDK",
+  "J1-26": "NOT_TESTED_NO_JDK",
+  "J1-27": "NOT_TESTED_NO_JDK",
+  "J1-28": "NOT_TESTED_NO_JDK",
+  "J1-29": "NOT_TESTED_NO_JDK",
+  "J1-30": "NOT_TESTED_NO_JDK",
+  "J1-31": "NOT_TESTED_NO_JDK",
+  "J1-32": "NOT_TESTED_NO_JDK",
+  "J1-33": "NOT_TESTED_NO_JDK",
+  "J1-34": "NOT_TESTED_NO_JDK",
+  "J1-35": "NOT_TESTED_NO_JDK",
+  "J1-36": "NOT_TESTED_NO_JDK",
+  "J1-37": "NOT_TESTED_NO_JDK",
+  "J1-38": "NOT_TESTED_NO_JDK",
+  "J1-39": "NOT_TESTED_NO_JDK",
+  "J1-40": "NOT_TESTED_NO_JDK"
+ },
+ "sandbox": "mxc",
+ "pending_not_started": [],
+ "resumed_tasks": [
+  "P1-13",
+  "P1-14",
+  "P1-15",
+  "P1-16",
+  "P1-17",
+  "P1-18",
+  "P1-19",
+  "P1-20",
+  "P1-21",
+  "P1-22",
+  "P1-23",
+  "P1-24",
+  "P1-25",
+  "P1-26",
+  "P1-27",
+  "P1-28"
+ ],
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-processcontainer",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc"
+  }
+ },
+ "gpus": 1,
+ "model": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "labels_by_language": {
+  "python": {
+   "SUPPORTED": 21,
+   "BLOCKED": 7
+  }
+ },
+ "kernel_wall_seconds": {
+  "pass1": 2426.0,
+  "pass2": null,
+  "total": 2426.0
+ },
+ "stage_summary": {
+  "events": 1407,
+  "first_utc": "2026-10-18T15:36:32.701Z",
+  "last_utc": "2026-10-18T17:05:45.363Z",
+  "wall_seconds": 5352.662,
+  "stages": {
+   "generate": {
+    "n": 107,
+    "total_s": 3027.558,
+    "p50_s": 20.281,
+    "p95_s": 58.3
+   },
+   "glm_critic": {
+    "n": 5,
+    "total_s": 1463.796,
+    "p50_s": 242.328,
+    "p95_s": 434.544
+   },
+   "model_load": {
+    "n": 2,
+    "total_s": 28.75,
+    "p50_s": 14.375,
+    "p95_s": 15.387
+   },
+   "preflight": {
+    "n": 3,
+    "total_s": 2.047,
+    "p50_s": 0.672,
+    "p95_s": 0.7
+   },
+   "retry_critic": {
+    "n": 1,
+    "total_s": 703.641,
+    "p50_s": 703.641,
+    "p95_s": 703.641
+   },
+   "sandbox_experiment": {
+    "n": 315,
+    "total_s": 47.362,
+    "p50_s": 0.156,
+    "p95_s": 0.172
+   },
+   "sandbox_public": {
+    "n": 161,
+    "total_s": 25.343,
+    "p50_s": 0.156,
+    "p95_s": 0.187
+   },
+   "task": {
+    "n": 30,
+    "total_s": 3097.797,
+    "p50_s": 92.336,
+    "p95_s": 196.686
+   },
+   "task_after_critic": {
+    "n": 3,
+    "total_s": 8.233,
+    "p50_s": 2.343,
+    "p95_s": 3.44
+   }
+  },
+  "model_seconds": 3027.558,
+  "sandbox_seconds": 72.705,
+  "model_vs_sandbox": {
+   "model_share": 0.9765
+  }
+ },
+ "controller_stage_seconds_per_task": {
+  "cluster": {
+   "tasks": 13,
+   "total_s": 36.937,
+   "p50_s": 2.782,
+   "p95_s": 3.834
+  },
+  "commit_verify": {
+   "tasks": 28,
+   "total_s": 6.733,
+   "p50_s": 0.288,
+   "p95_s": 0.312
+  },
+  "discriminate": {
+   "tasks": 28,
+   "total_s": 0.015,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "execute": {
+   "tasks": 28,
+   "total_s": 19.363,
+   "p50_s": 0.641,
+   "p95_s": 0.963
+  },
+  "generate": {
+   "tasks": 28,
+   "total_s": 1832.701,
+   "p50_s": 65.82,
+   "p95_s": 99.879
+  },
+  "intake": {
+   "tasks": 28,
+   "total_s": 0.83,
+   "p50_s": 0.031,
+   "p95_s": 0.082
+  },
+  "l2_generate": {
+   "tasks": 21,
+   "total_s": 642.062,
+   "p50_s": 16.703,
+   "p95_s": 189.922
+  },
+  "l2_validate": {
+   "tasks": 21,
+   "total_s": 0.313,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "rank": {
+   "tasks": 28,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "repair": {
+   "tasks": 8,
+   "total_s": 291.295,
+   "p50_s": 36.484,
+   "p95_s": 51.735
+  }
+ },
+ "model_vs_sandbox": {
+  "model_seconds": 3027.558,
+  "sandbox_seconds": 72.705,
+  "model_share": 0.9765
+ },
+ "gpu": {
+  "per_gpu": {
+   "0": {
+    "samples": 154,
+    "mean_util_pct": 38.5,
+    "p50": 51.0,
+    "p95": 70.0,
+    "idle_samples_pct": 32.5
+   }
+  },
+  "generate_busy_seconds_by_worker": {
+   "w0": 3027.6
+  },
+  "wall_seconds": 5352.7,
+  "generate_busy_fraction_by_worker": {
+   "w0": 0.566
+  }
+ },
+ "critic": {
+  "packets_exported": null,
+  "pass2_responses": null
+ },
+ "ceiling_hits_total": 3,
+ "rows": [
+  {
+   "task": "P1-13",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1854,
+    "prompt": 1249,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:36:48.972Z",
+   "end_utc": "2026-10-18T15:38:17.255Z",
+   "seconds": 88.3,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:36:49.124Z",
+     "end_utc": "2026-10-18T15:38:17.241Z",
+     "seconds": 88.125,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:36:49.236Z",
+     "end_utc": "2026-10-18T15:37:05.389Z",
+     "seconds": 16.156,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:37:05.390Z",
+     "end_utc": "2026-10-18T15:38:02.717Z",
+     "seconds": 57.328,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:38:02.718Z",
+     "end_utc": "2026-10-18T15:38:03.158Z",
+     "seconds": 0.437,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:38:03.162Z",
+     "end_utc": "2026-10-18T15:38:03.333Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:38:03.336Z",
+     "end_utc": "2026-10-18T15:38:03.499Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:38:03.502Z",
+     "end_utc": "2026-10-18T15:38:03.678Z",
+     "seconds": 0.188,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:38:03.680Z",
+     "end_utc": "2026-10-18T15:38:14.165Z",
+     "seconds": 10.484,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.166Z",
+     "end_utc": "2026-10-18T15:38:14.322Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.325Z",
+     "end_utc": "2026-10-18T15:38:14.488Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.489Z",
+     "end_utc": "2026-10-18T15:38:14.640Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.642Z",
+     "end_utc": "2026-10-18T15:38:14.796Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.797Z",
+     "end_utc": "2026-10-18T15:38:14.952Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:14.953Z",
+     "end_utc": "2026-10-18T15:38:15.110Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.112Z",
+     "end_utc": "2026-10-18T15:38:15.264Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.265Z",
+     "end_utc": "2026-10-18T15:38:15.416Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.417Z",
+     "end_utc": "2026-10-18T15:38:15.571Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.572Z",
+     "end_utc": "2026-10-18T15:38:15.723Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.725Z",
+     "end_utc": "2026-10-18T15:38:15.879Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:15.880Z",
+     "end_utc": "2026-10-18T15:38:16.033Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.034Z",
+     "end_utc": "2026-10-18T15:38:16.188Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.189Z",
+     "end_utc": "2026-10-18T15:38:16.334Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.336Z",
+     "end_utc": "2026-10-18T15:38:16.484Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.485Z",
+     "end_utc": "2026-10-18T15:38:16.638Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.639Z",
+     "end_utc": "2026-10-18T15:38:16.797Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:38:16.798Z",
+     "end_utc": "2026-10-18T15:38:16.946Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:38:16.948Z",
+     "end_utc": "2026-10-18T15:38:17.109Z",
+     "seconds": 0.157,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.781,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.969,
+    "generate": 73.484,
+    "intake": 0.11,
+    "l2_generate": 10.484,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-14",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "duplicate_of_public_example"
+     },
+     {
+      "index": 1,
+      "reason": "duplicate_of_public_example"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "duplicate_of_public_example"
+     },
+     {
+      "index": 4,
+      "reason": "every trusted reference fails or errors on it (a model-written check never overrules trusted evidence)"
+     },
+     {
+      "index": 5,
+      "reason": "every trusted reference fails or errors on it (a model-written check never overrules trusted evidence)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1605,
+    "prompt": 1624,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:38:17.267Z",
+   "end_utc": "2026-10-18T15:39:31.787Z",
+   "seconds": 74.5,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:38:17.398Z",
+     "end_utc": "2026-10-18T15:39:31.773Z",
+     "seconds": 74.375,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:38:17.428Z",
+     "end_utc": "2026-10-18T15:38:41.734Z",
+     "seconds": 24.297,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:38:41.734Z",
+     "end_utc": "2026-10-18T15:39:13.318Z",
+     "seconds": 31.593,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:39:13.319Z",
+     "end_utc": "2026-10-18T15:39:13.469Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:39:13.473Z",
+     "end_utc": "2026-10-18T15:39:13.622Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:39:13.625Z",
+     "end_utc": "2026-10-18T15:39:13.774Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:39:13.776Z",
+     "end_utc": "2026-10-18T15:39:13.927Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:39:13.931Z",
+     "end_utc": "2026-10-18T15:39:31.173Z",
+     "seconds": 17.234,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:39:31.175Z",
+     "end_utc": "2026-10-18T15:39:31.326Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:39:31.327Z",
+     "end_utc": "2026-10-18T15:39:31.475Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:39:31.477Z",
+     "end_utc": "2026-10-18T15:39:31.622Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.296,
+    "discriminate": 0.0,
+    "execute": 0.61,
+    "generate": 55.89,
+    "intake": 0.032,
+    "l2_generate": 17.234,
+    "l2_validate": 0.313,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-15",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1391,
+    "prompt": 1630,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:39:31.797Z",
+   "end_utc": "2026-10-18T15:40:39.479Z",
+   "seconds": 67.7,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:39:31.901Z",
+     "end_utc": "2026-10-18T15:40:39.462Z",
+     "seconds": 67.563,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:39:31.923Z",
+     "end_utc": "2026-10-18T15:39:52.554Z",
+     "seconds": 20.641,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:39:52.555Z",
+     "end_utc": "2026-10-18T15:40:18.877Z",
+     "seconds": 26.312,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:40:18.878Z",
+     "end_utc": "2026-10-18T15:40:19.034Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:40:19.037Z",
+     "end_utc": "2026-10-18T15:40:19.192Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:40:19.194Z",
+     "end_utc": "2026-10-18T15:40:19.343Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:40:19.346Z",
+     "end_utc": "2026-10-18T15:40:19.508Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:40:19.512Z",
+     "end_utc": "2026-10-18T15:40:36.213Z",
+     "seconds": 16.703,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:36.214Z",
+     "end_utc": "2026-10-18T15:40:36.371Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:36.372Z",
+     "end_utc": "2026-10-18T15:40:36.531Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:36.532Z",
+     "end_utc": "2026-10-18T15:40:36.691Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:36.692Z",
+     "end_utc": "2026-10-18T15:40:36.848Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:36.849Z",
+     "end_utc": "2026-10-18T15:40:37.006Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.007Z",
+     "end_utc": "2026-10-18T15:40:37.164Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.166Z",
+     "end_utc": "2026-10-18T15:40:37.331Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.332Z",
+     "end_utc": "2026-10-18T15:40:37.497Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.498Z",
+     "end_utc": "2026-10-18T15:40:37.669Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.671Z",
+     "end_utc": "2026-10-18T15:40:37.840Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:37.842Z",
+     "end_utc": "2026-10-18T15:40:38.005Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.007Z",
+     "end_utc": "2026-10-18T15:40:38.175Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.176Z",
+     "end_utc": "2026-10-18T15:40:38.327Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.329Z",
+     "end_utc": "2026-10-18T15:40:38.481Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.482Z",
+     "end_utc": "2026-10-18T15:40:38.635Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.636Z",
+     "end_utc": "2026-10-18T15:40:38.792Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:38.794Z",
+     "end_utc": "2026-10-18T15:40:39.006Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:40:39.007Z",
+     "end_utc": "2026-10-18T15:40:39.160Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:40:39.162Z",
+     "end_utc": "2026-10-18T15:40:39.323Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.953,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.641,
+    "generate": 46.953,
+    "intake": 0.016,
+    "l2_generate": 16.703,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-16",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1835,
+    "prompt": 1364,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:40:39.491Z",
+   "end_utc": "2026-10-18T15:42:04.310Z",
+   "seconds": 84.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:40:39.626Z",
+     "end_utc": "2026-10-18T15:42:04.297Z",
+     "seconds": 84.672,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:40:39.655Z",
+     "end_utc": "2026-10-18T15:40:57.642Z",
+     "seconds": 17.985,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:40:57.643Z",
+     "end_utc": "2026-10-18T15:41:46.238Z",
+     "seconds": 48.594,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:41:46.239Z",
+     "end_utc": "2026-10-18T15:41:46.400Z",
+     "seconds": 0.171,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:41:46.403Z",
+     "end_utc": "2026-10-18T15:41:46.561Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:41:46.564Z",
+     "end_utc": "2026-10-18T15:41:46.711Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:41:46.715Z",
+     "end_utc": "2026-10-18T15:41:46.869Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:41:46.873Z",
+     "end_utc": "2026-10-18T15:42:04.003Z",
+     "seconds": 17.125,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:42:04.004Z",
+     "end_utc": "2026-10-18T15:42:04.157Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.64,
+    "generate": 66.579,
+    "intake": 0.031,
+    "l2_generate": 17.125,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-17",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 2,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 5,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 2
+   },
+   "critic_used": true,
+   "critic_state": "applied",
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 2027,
+    "prompt": 1843,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:54:01.705Z",
+   "end_utc": "2026-10-18T17:01:58.579Z",
+   "seconds": 476.9,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:42:04.429Z",
+     "end_utc": "2026-10-18T15:43:40.887Z",
+     "seconds": 96.453,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:42:04.448Z",
+     "end_utc": "2026-10-18T15:42:23.322Z",
+     "seconds": 18.875,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:42:23.323Z",
+     "end_utc": "2026-10-18T15:43:19.820Z",
+     "seconds": 56.5,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:43:19.822Z",
+     "end_utc": "2026-10-18T15:43:19.978Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:43:19.982Z",
+     "end_utc": "2026-10-18T15:43:20.137Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:43:20.139Z",
+     "end_utc": "2026-10-18T15:43:20.299Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:43:20.304Z",
+     "end_utc": "2026-10-18T15:43:20.463Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:43:20.468Z",
+     "end_utc": "2026-10-18T15:43:38.842Z",
+     "seconds": 18.375,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:38.844Z",
+     "end_utc": "2026-10-18T15:43:38.996Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:38.997Z",
+     "end_utc": "2026-10-18T15:43:39.152Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.154Z",
+     "end_utc": "2026-10-18T15:43:39.309Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.311Z",
+     "end_utc": "2026-10-18T15:43:39.464Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.465Z",
+     "end_utc": "2026-10-18T15:43:39.617Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.618Z",
+     "end_utc": "2026-10-18T15:43:39.773Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.774Z",
+     "end_utc": "2026-10-18T15:43:39.940Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:39.942Z",
+     "end_utc": "2026-10-18T15:43:40.105Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:40.107Z",
+     "end_utc": "2026-10-18T15:43:40.268Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:40.269Z",
+     "end_utc": "2026-10-18T15:43:40.437Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:40.438Z",
+     "end_utc": "2026-10-18T15:43:40.593Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:43:40.594Z",
+     "end_utc": "2026-10-18T15:43:40.755Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T15:43:40.888Z",
+     "end_utc": "2026-10-18T15:47:43.219Z",
+     "seconds": 242.328,
+     "ok": true
+    },
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:54:01.707Z",
+     "end_utc": "2026-10-18T16:54:04.329Z",
+     "seconds": 2.609,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:54:01.733Z",
+     "end_utc": "2026-10-18T16:54:01.735Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:54:01.736Z",
+     "end_utc": "2026-10-18T16:54:01.737Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:54:01.738Z",
+     "end_utc": "2026-10-18T16:54:01.885Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:54:01.889Z",
+     "end_utc": "2026-10-18T16:54:02.043Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:54:02.046Z",
+     "end_utc": "2026-10-18T16:54:02.198Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:54:02.201Z",
+     "end_utc": "2026-10-18T16:54:02.358Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:54:02.361Z",
+     "end_utc": "2026-10-18T16:54:02.362Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:02.363Z",
+     "end_utc": "2026-10-18T16:54:02.512Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:02.513Z",
+     "end_utc": "2026-10-18T16:54:02.663Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:02.664Z",
+     "end_utc": "2026-10-18T16:54:02.813Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:02.815Z",
+     "end_utc": "2026-10-18T16:54:02.966Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:02.967Z",
+     "end_utc": "2026-10-18T16:54:03.113Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:03.115Z",
+     "end_utc": "2026-10-18T16:54:03.277Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:03.278Z",
+     "end_utc": "2026-10-18T16:54:03.496Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:03.497Z",
+     "end_utc": "2026-10-18T16:54:03.674Z",
+     "seconds": 0.187,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:03.676Z",
+     "end_utc": "2026-10-18T16:54:03.842Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:03.843Z",
+     "end_utc": "2026-10-18T16:54:04.007Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:04.008Z",
+     "end_utc": "2026-10-18T16:54:04.170Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:54:04.171Z",
+     "end_utc": "2026-10-18T16:54:04.319Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T16:54:04.329Z",
+     "end_utc": "2026-10-18T17:01:56.218Z",
+     "seconds": 471.891,
+     "ok": true
+    },
+    {
+     "stage": "task_after_critic",
+     "start_utc": "2026-10-18T17:01:56.219Z",
+     "end_utc": "2026-10-18T17:01:58.563Z",
+     "seconds": 2.343,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:56.239Z",
+     "end_utc": "2026-10-18T17:01:56.241Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:56.242Z",
+     "end_utc": "2026-10-18T17:01:56.244Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:56.245Z",
+     "end_utc": "2026-10-18T17:01:56.381Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:56.384Z",
+     "end_utc": "2026-10-18T17:01:56.515Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:56.518Z",
+     "end_utc": "2026-10-18T17:01:56.654Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:56.657Z",
+     "end_utc": "2026-10-18T17:01:56.795Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:56.798Z",
+     "end_utc": "2026-10-18T17:01:56.799Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:56.800Z",
+     "end_utc": "2026-10-18T17:01:56.933Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:56.934Z",
+     "end_utc": "2026-10-18T17:01:57.070Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.071Z",
+     "end_utc": "2026-10-18T17:01:57.200Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.202Z",
+     "end_utc": "2026-10-18T17:01:57.354Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.355Z",
+     "end_utc": "2026-10-18T17:01:57.486Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.488Z",
+     "end_utc": "2026-10-18T17:01:57.618Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.619Z",
+     "end_utc": "2026-10-18T17:01:57.747Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.748Z",
+     "end_utc": "2026-10-18T17:01:57.880Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:57.881Z",
+     "end_utc": "2026-10-18T17:01:58.011Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:58.012Z",
+     "end_utc": "2026-10-18T17:01:58.144Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:58.145Z",
+     "end_utc": "2026-10-18T17:01:58.279Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:58.280Z",
+     "end_utc": "2026-10-18T17:01:58.412Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:58.414Z",
+     "end_utc": "2026-10-18T17:01:58.415Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:58.416Z",
+     "end_utc": "2026-10-18T17:01:58.417Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:58.418Z",
+     "end_utc": "2026-10-18T17:01:58.553Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 1.61,
+    "commit_verify": 0.14,
+    "discriminate": 0.0,
+    "execute": 0.547,
+    "generate": 0.0,
+    "intake": 0.016,
+    "l2_generate": 0.015,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-18",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 4,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1359,
+    "prompt": 1482,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:47:43.242Z",
+   "end_utc": "2026-10-18T15:48:46.309Z",
+   "seconds": 63.1,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:47:43.340Z",
+     "end_utc": "2026-10-18T15:48:46.291Z",
+     "seconds": 62.953,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:47:43.356Z",
+     "end_utc": "2026-10-18T15:47:53.931Z",
+     "seconds": 10.578,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:47:53.931Z",
+     "end_utc": "2026-10-18T15:48:24.532Z",
+     "seconds": 30.593,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:48:24.533Z",
+     "end_utc": "2026-10-18T15:48:24.687Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:48:24.689Z",
+     "end_utc": "2026-10-18T15:48:24.838Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:48:24.842Z",
+     "end_utc": "2026-10-18T15:48:24.983Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:48:24.985Z",
+     "end_utc": "2026-10-18T15:48:25.135Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:48:25.138Z",
+     "end_utc": "2026-10-18T15:48:42.264Z",
+     "seconds": 17.125,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:42.265Z",
+     "end_utc": "2026-10-18T15:48:42.423Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:42.424Z",
+     "end_utc": "2026-10-18T15:48:42.579Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:42.580Z",
+     "end_utc": "2026-10-18T15:48:42.729Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:42.730Z",
+     "end_utc": "2026-10-18T15:48:42.884Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:42.885Z",
+     "end_utc": "2026-10-18T15:48:43.036Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.037Z",
+     "end_utc": "2026-10-18T15:48:43.186Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.188Z",
+     "end_utc": "2026-10-18T15:48:43.345Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.346Z",
+     "end_utc": "2026-10-18T15:48:43.509Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.510Z",
+     "end_utc": "2026-10-18T15:48:43.675Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.677Z",
+     "end_utc": "2026-10-18T15:48:43.839Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:43.841Z",
+     "end_utc": "2026-10-18T15:48:43.998Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.001Z",
+     "end_utc": "2026-10-18T15:48:44.159Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.161Z",
+     "end_utc": "2026-10-18T15:48:44.315Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.316Z",
+     "end_utc": "2026-10-18T15:48:44.468Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.469Z",
+     "end_utc": "2026-10-18T15:48:44.627Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.628Z",
+     "end_utc": "2026-10-18T15:48:44.786Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.787Z",
+     "end_utc": "2026-10-18T15:48:44.947Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:44.948Z",
+     "end_utc": "2026-10-18T15:48:45.108Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.109Z",
+     "end_utc": "2026-10-18T15:48:45.255Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.256Z",
+     "end_utc": "2026-10-18T15:48:45.407Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.408Z",
+     "end_utc": "2026-10-18T15:48:45.554Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.555Z",
+     "end_utc": "2026-10-18T15:48:45.701Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.702Z",
+     "end_utc": "2026-10-18T15:48:45.850Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:48:45.852Z",
+     "end_utc": "2026-10-18T15:48:46.001Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:48:46.002Z",
+     "end_utc": "2026-10-18T15:48:46.163Z",
+     "seconds": 0.172,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 3.734,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.61,
+    "generate": 41.171,
+    "intake": 0.016,
+    "l2_generate": 17.125,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-19",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 1,
+   "tokens": {
+    "generated": 2909,
+    "prompt": 2088,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:48:46.320Z",
+   "end_utc": "2026-10-18T15:50:58.379Z",
+   "seconds": 132.1,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:48:46.453Z",
+     "end_utc": "2026-10-18T15:50:58.366Z",
+     "seconds": 131.922,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:48:46.474Z",
+     "end_utc": "2026-10-18T15:49:16.962Z",
+     "seconds": 30.484,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:49:16.963Z",
+     "end_utc": "2026-10-18T15:50:18.680Z",
+     "seconds": 61.719,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:18.681Z",
+     "end_utc": "2026-10-18T15:50:18.841Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:18.845Z",
+     "end_utc": "2026-10-18T15:50:18.995Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:18.998Z",
+     "end_utc": "2026-10-18T15:50:19.146Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:19.149Z",
+     "end_utc": "2026-10-18T15:50:19.295Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:50:19.298Z",
+     "end_utc": "2026-10-18T15:50:44.443Z",
+     "seconds": 25.156,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:44.444Z",
+     "end_utc": "2026-10-18T15:50:44.593Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:50:44.596Z",
+     "end_utc": "2026-10-18T15:50:58.099Z",
+     "seconds": 13.516,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:50:58.101Z",
+     "end_utc": "2026-10-18T15:50:58.250Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.265,
+    "discriminate": 0.0,
+    "execute": 0.75,
+    "generate": 92.203,
+    "intake": 0.032,
+    "l2_generate": 13.516,
+    "l2_validate": 0.0,
+    "rank": 0.0,
+    "repair": 25.156
+   }
+  },
+  {
+   "task": "P1-20",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 1,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2429,
+    "prompt": 2756,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:50:58.392Z",
+   "end_utc": "2026-10-18T15:52:48.948Z",
+   "seconds": 110.6,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:50:58.530Z",
+     "end_utc": "2026-10-18T15:52:48.933Z",
+     "seconds": 110.407,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:50:58.558Z",
+     "end_utc": "2026-10-18T15:51:20.196Z",
+     "seconds": 21.64,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:51:20.197Z",
+     "end_utc": "2026-10-18T15:52:18.211Z",
+     "seconds": 58.016,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:52:18.212Z",
+     "end_utc": "2026-10-18T15:52:18.361Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:52:18.364Z",
+     "end_utc": "2026-10-18T15:52:18.531Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:52:18.534Z",
+     "end_utc": "2026-10-18T15:52:18.678Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:52:18.681Z",
+     "end_utc": "2026-10-18T15:52:18.826Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:52:18.829Z",
+     "end_utc": "2026-10-18T15:52:38.187Z",
+     "seconds": 19.36,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:52:38.188Z",
+     "end_utc": "2026-10-18T15:52:48.783Z",
+     "seconds": 10.593,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.157,
+    "discriminate": 0.0,
+    "execute": 0.609,
+    "generate": 79.656,
+    "intake": 0.032,
+    "rank": 0.0,
+    "repair": 29.953
+   }
+  },
+  {
+   "task": "P1-21",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 2,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 2
+   },
+   "critic_used": true,
+   "critic_state": "applied",
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1637,
+    "prompt": 1517,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T17:01:58.583Z",
+   "end_utc": "2026-10-18T17:05:45.337Z",
+   "seconds": 226.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:52:49.095Z",
+     "end_utc": "2026-10-18T15:54:06.606Z",
+     "seconds": 77.516,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:52:49.117Z",
+     "end_utc": "2026-10-18T15:52:58.998Z",
+     "seconds": 9.875,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:52:58.999Z",
+     "end_utc": "2026-10-18T15:53:49.622Z",
+     "seconds": 50.625,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:53:49.623Z",
+     "end_utc": "2026-10-18T15:53:49.801Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:53:49.804Z",
+     "end_utc": "2026-10-18T15:53:49.968Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:53:49.972Z",
+     "end_utc": "2026-10-18T15:53:50.134Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:53:50.136Z",
+     "end_utc": "2026-10-18T15:53:50.294Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:53:50.297Z",
+     "end_utc": "2026-10-18T15:54:04.242Z",
+     "seconds": 13.953,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:04.243Z",
+     "end_utc": "2026-10-18T15:54:04.419Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:04.420Z",
+     "end_utc": "2026-10-18T15:54:04.633Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:04.635Z",
+     "end_utc": "2026-10-18T15:54:04.835Z",
+     "seconds": 0.203,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:04.836Z",
+     "end_utc": "2026-10-18T15:54:05.005Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.006Z",
+     "end_utc": "2026-10-18T15:54:05.165Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.166Z",
+     "end_utc": "2026-10-18T15:54:05.333Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.335Z",
+     "end_utc": "2026-10-18T15:54:05.507Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.509Z",
+     "end_utc": "2026-10-18T15:54:05.715Z",
+     "seconds": 0.203,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.716Z",
+     "end_utc": "2026-10-18T15:54:05.894Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:05.896Z",
+     "end_utc": "2026-10-18T15:54:06.075Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:06.076Z",
+     "end_utc": "2026-10-18T15:54:06.298Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T15:54:06.299Z",
+     "end_utc": "2026-10-18T15:54:06.466Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T15:54:06.608Z",
+     "end_utc": "2026-10-18T15:58:08.832Z",
+     "seconds": 242.218,
+     "ok": true
+    },
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T17:01:58.587Z",
+     "end_utc": "2026-10-18T17:02:00.784Z",
+     "seconds": 2.203,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:58.603Z",
+     "end_utc": "2026-10-18T17:01:58.604Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:58.605Z",
+     "end_utc": "2026-10-18T17:01:58.607Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:58.614Z",
+     "end_utc": "2026-10-18T17:01:58.745Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:58.748Z",
+     "end_utc": "2026-10-18T17:01:58.884Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:58.887Z",
+     "end_utc": "2026-10-18T17:01:59.025Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:01:59.029Z",
+     "end_utc": "2026-10-18T17:01:59.162Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:01:59.164Z",
+     "end_utc": "2026-10-18T17:01:59.166Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.167Z",
+     "end_utc": "2026-10-18T17:01:59.301Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.303Z",
+     "end_utc": "2026-10-18T17:01:59.435Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.436Z",
+     "end_utc": "2026-10-18T17:01:59.571Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.573Z",
+     "end_utc": "2026-10-18T17:01:59.705Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.707Z",
+     "end_utc": "2026-10-18T17:01:59.838Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.840Z",
+     "end_utc": "2026-10-18T17:01:59.973Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:01:59.976Z",
+     "end_utc": "2026-10-18T17:02:00.111Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:02:00.112Z",
+     "end_utc": "2026-10-18T17:02:00.240Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:02:00.241Z",
+     "end_utc": "2026-10-18T17:02:00.371Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:02:00.372Z",
+     "end_utc": "2026-10-18T17:02:00.504Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:02:00.505Z",
+     "end_utc": "2026-10-18T17:02:00.644Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:02:00.645Z",
+     "end_utc": "2026-10-18T17:02:00.773Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T17:02:00.785Z",
+     "end_utc": "2026-10-18T17:05:42.995Z",
+     "seconds": 222.203,
+     "ok": true
+    },
+    {
+     "stage": "task_after_critic",
+     "start_utc": "2026-10-18T17:05:42.996Z",
+     "end_utc": "2026-10-18T17:05:45.320Z",
+     "seconds": 2.328,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:05:43.012Z",
+     "end_utc": "2026-10-18T17:05:43.014Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:05:43.014Z",
+     "end_utc": "2026-10-18T17:05:43.016Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:05:43.016Z",
+     "end_utc": "2026-10-18T17:05:43.158Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:05:43.162Z",
+     "end_utc": "2026-10-18T17:05:43.288Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:05:43.290Z",
+     "end_utc": "2026-10-18T17:05:43.426Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:05:43.429Z",
+     "end_utc": "2026-10-18T17:05:43.562Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T17:05:43.564Z",
+     "end_utc": "2026-10-18T17:05:43.566Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:43.567Z",
+     "end_utc": "2026-10-18T17:05:43.700Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:43.701Z",
+     "end_utc": "2026-10-18T17:05:43.833Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:43.835Z",
+     "end_utc": "2026-10-18T17:05:43.977Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:43.978Z",
+     "end_utc": "2026-10-18T17:05:44.110Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.111Z",
+     "end_utc": "2026-10-18T17:05:44.243Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.244Z",
+     "end_utc": "2026-10-18T17:05:44.378Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.379Z",
+     "end_utc": "2026-10-18T17:05:44.511Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.512Z",
+     "end_utc": "2026-10-18T17:05:44.643Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.643Z",
+     "end_utc": "2026-10-18T17:05:44.773Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.774Z",
+     "end_utc": "2026-10-18T17:05:44.904Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:44.905Z",
+     "end_utc": "2026-10-18T17:05:45.039Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:45.040Z",
+     "end_utc": "2026-10-18T17:05:45.172Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:45.174Z",
+     "end_utc": "2026-10-18T17:05:45.175Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T17:05:45.176Z",
+     "end_utc": "2026-10-18T17:05:45.177Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T17:05:45.178Z",
+     "end_utc": "2026-10-18T17:05:45.309Z",
+     "seconds": 0.125,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 1.609,
+    "commit_verify": 0.141,
+    "discriminate": 0.0,
+    "execute": 0.562,
+    "generate": 0.0,
+    "intake": 0.016,
+    "l2_generate": 0.0,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-22",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 2263,
+    "prompt": 1555,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:58:08.854Z",
+   "end_utc": "2026-10-18T15:59:48.546Z",
+   "seconds": 99.7,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:58:08.966Z",
+     "end_utc": "2026-10-18T15:59:48.533Z",
+     "seconds": 99.562,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:58:08.988Z",
+     "end_utc": "2026-10-18T15:58:39.251Z",
+     "seconds": 30.265,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:58:39.252Z",
+     "end_utc": "2026-10-18T15:59:30.757Z",
+     "seconds": 51.516,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:59:30.758Z",
+     "end_utc": "2026-10-18T15:59:30.917Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:59:30.920Z",
+     "end_utc": "2026-10-18T15:59:31.076Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:59:31.079Z",
+     "end_utc": "2026-10-18T15:59:31.224Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:59:31.226Z",
+     "end_utc": "2026-10-18T15:59:31.383Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:59:31.386Z",
+     "end_utc": "2026-10-18T15:59:48.271Z",
+     "seconds": 16.89,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:59:48.273Z",
+     "end_utc": "2026-10-18T15:59:48.429Z",
+     "seconds": 0.157,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.25,
+    "discriminate": 0.0,
+    "execute": 0.625,
+    "generate": 81.781,
+    "intake": 0.016,
+    "l2_generate": 16.89,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-23",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 6,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 2,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 6
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2150,
+    "prompt": 2194,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:59:48.559Z",
+   "end_utc": "2026-10-18T16:01:25.942Z",
+   "seconds": 97.4,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:59:48.683Z",
+     "end_utc": "2026-10-18T16:01:25.927Z",
+     "seconds": 97.25,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:59:48.701Z",
+     "end_utc": "2026-10-18T16:00:09.780Z",
+     "seconds": 21.078,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:00:09.781Z",
+     "end_utc": "2026-10-18T16:00:48.036Z",
+     "seconds": 38.266,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:00:48.038Z",
+     "end_utc": "2026-10-18T16:00:48.194Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:00:48.198Z",
+     "end_utc": "2026-10-18T16:00:48.348Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:00:48.351Z",
+     "end_utc": "2026-10-18T16:00:48.501Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:00:48.503Z",
+     "end_utc": "2026-10-18T16:00:48.653Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:00:48.658Z",
+     "end_utc": "2026-10-18T16:01:08.320Z",
+     "seconds": 19.672,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:01:08.321Z",
+     "end_utc": "2026-10-18T16:01:08.473Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:01:08.477Z",
+     "end_utc": "2026-10-18T16:01:25.654Z",
+     "seconds": 17.171,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:01:25.655Z",
+     "end_utc": "2026-10-18T16:01:25.799Z",
+     "seconds": 0.141,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.125,
+    "discriminate": 0.0,
+    "execute": 0.923,
+    "generate": 59.344,
+    "intake": 0.015,
+    "rank": 0.0,
+    "repair": 36.843
+   }
+  },
+  {
+   "task": "P1-24",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1258,
+    "prompt": 1324,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:01:25.954Z",
+   "end_utc": "2026-10-18T16:02:24.249Z",
+   "seconds": 58.3,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:01:26.084Z",
+     "end_utc": "2026-10-18T16:02:24.236Z",
+     "seconds": 58.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:01:26.102Z",
+     "end_utc": "2026-10-18T16:01:30.511Z",
+     "seconds": 4.406,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:01:30.512Z",
+     "end_utc": "2026-10-18T16:02:09.129Z",
+     "seconds": 38.609,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:02:09.130Z",
+     "end_utc": "2026-10-18T16:02:09.279Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:02:09.282Z",
+     "end_utc": "2026-10-18T16:02:09.454Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:02:09.456Z",
+     "end_utc": "2026-10-18T16:02:09.604Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:02:09.607Z",
+     "end_utc": "2026-10-18T16:02:09.757Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:02:09.759Z",
+     "end_utc": "2026-10-18T16:02:23.871Z",
+     "seconds": 14.109,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:02:23.873Z",
+     "end_utc": "2026-10-18T16:02:24.088Z",
+     "seconds": 0.219,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.36,
+    "discriminate": 0.0,
+    "execute": 0.625,
+    "generate": 43.031,
+    "intake": 0.016,
+    "l2_generate": 14.109,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-25",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 3,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 3
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1549,
+    "prompt": 1482,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:02:24.263Z",
+   "end_utc": "2026-10-18T16:03:39.613Z",
+   "seconds": 75.3,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:02:24.375Z",
+     "end_utc": "2026-10-18T16:03:39.599Z",
+     "seconds": 75.235,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:02:24.397Z",
+     "end_utc": "2026-10-18T16:02:54.362Z",
+     "seconds": 29.954,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:02:54.363Z",
+     "end_utc": "2026-10-18T16:03:19.994Z",
+     "seconds": 25.64,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:03:19.995Z",
+     "end_utc": "2026-10-18T16:03:20.146Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:03:20.149Z",
+     "end_utc": "2026-10-18T16:03:20.291Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:03:20.294Z",
+     "end_utc": "2026-10-18T16:03:20.443Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:03:20.446Z",
+     "end_utc": "2026-10-18T16:03:36.515Z",
+     "seconds": 16.063,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:36.516Z",
+     "end_utc": "2026-10-18T16:03:36.666Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:36.667Z",
+     "end_utc": "2026-10-18T16:03:36.824Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:36.826Z",
+     "end_utc": "2026-10-18T16:03:36.973Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:36.973Z",
+     "end_utc": "2026-10-18T16:03:37.122Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.124Z",
+     "end_utc": "2026-10-18T16:03:37.270Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.271Z",
+     "end_utc": "2026-10-18T16:03:37.418Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.420Z",
+     "end_utc": "2026-10-18T16:03:37.570Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.571Z",
+     "end_utc": "2026-10-18T16:03:37.722Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.723Z",
+     "end_utc": "2026-10-18T16:03:37.876Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:37.878Z",
+     "end_utc": "2026-10-18T16:03:38.036Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.037Z",
+     "end_utc": "2026-10-18T16:03:38.186Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.187Z",
+     "end_utc": "2026-10-18T16:03:38.340Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.341Z",
+     "end_utc": "2026-10-18T16:03:38.506Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.507Z",
+     "end_utc": "2026-10-18T16:03:38.656Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.657Z",
+     "end_utc": "2026-10-18T16:03:38.817Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.818Z",
+     "end_utc": "2026-10-18T16:03:38.977Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:38.979Z",
+     "end_utc": "2026-10-18T16:03:39.147Z",
+     "seconds": 0.171,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:03:39.148Z",
+     "end_utc": "2026-10-18T16:03:39.302Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:03:39.303Z",
+     "end_utc": "2026-10-18T16:03:39.453Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.797,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.453,
+    "generate": 55.594,
+    "intake": 0.031,
+    "l2_generate": 16.063,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-26",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 6,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 2,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 6
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 1495,
+    "prompt": 2247,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:03:39.632Z",
+   "end_utc": "2026-10-18T16:04:50.676Z",
+   "seconds": 71.0,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:03:39.765Z",
+     "end_utc": "2026-10-18T16:04:50.661Z",
+     "seconds": 70.906,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:03:39.795Z",
+     "end_utc": "2026-10-18T16:04:00.548Z",
+     "seconds": 20.75,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:04:00.549Z",
+     "end_utc": "2026-10-18T16:04:23.919Z",
+     "seconds": 23.375,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:23.920Z",
+     "end_utc": "2026-10-18T16:04:24.081Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:24.084Z",
+     "end_utc": "2026-10-18T16:04:24.249Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:24.253Z",
+     "end_utc": "2026-10-18T16:04:24.411Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:24.414Z",
+     "end_utc": "2026-10-18T16:04:24.581Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:04:24.584Z",
+     "end_utc": "2026-10-18T16:04:38.557Z",
+     "seconds": 13.969,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:38.557Z",
+     "end_utc": "2026-10-18T16:04:38.711Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:04:38.714Z",
+     "end_utc": "2026-10-18T16:04:50.357Z",
+     "seconds": 11.641,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:04:50.358Z",
+     "end_utc": "2026-10-18T16:04:50.520Z",
+     "seconds": 0.171,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.141,
+    "discriminate": 0.0,
+    "execute": 0.999,
+    "generate": 44.125,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 25.61
+   }
+  },
+  {
+   "task": "P1-27",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 2
+   },
+   "critic_used": true,
+   "critic_state": "applied",
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 2039,
+    "prompt": 1802,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:04:50.695Z",
+   "end_utc": "2026-10-18T16:11:16.543Z",
+   "seconds": 385.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:04:50.818Z",
+     "end_utc": "2026-10-18T16:06:27.809Z",
+     "seconds": 96.985,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:04:50.844Z",
+     "end_utc": "2026-10-18T16:05:27.150Z",
+     "seconds": 36.312,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:05:27.151Z",
+     "end_utc": "2026-10-18T16:06:06.731Z",
+     "seconds": 39.579,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:06:06.732Z",
+     "end_utc": "2026-10-18T16:06:06.884Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:06:06.887Z",
+     "end_utc": "2026-10-18T16:06:07.036Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:06:07.038Z",
+     "end_utc": "2026-10-18T16:06:07.186Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:06:07.190Z",
+     "end_utc": "2026-10-18T16:06:07.348Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:06:07.350Z",
+     "end_utc": "2026-10-18T16:06:24.824Z",
+     "seconds": 17.468,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:24.826Z",
+     "end_utc": "2026-10-18T16:06:24.979Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:24.980Z",
+     "end_utc": "2026-10-18T16:06:25.130Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.132Z",
+     "end_utc": "2026-10-18T16:06:25.286Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.287Z",
+     "end_utc": "2026-10-18T16:06:25.447Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.449Z",
+     "end_utc": "2026-10-18T16:06:25.604Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.605Z",
+     "end_utc": "2026-10-18T16:06:25.757Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.758Z",
+     "end_utc": "2026-10-18T16:06:25.922Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:25.923Z",
+     "end_utc": "2026-10-18T16:06:26.084Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.086Z",
+     "end_utc": "2026-10-18T16:06:26.243Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.245Z",
+     "end_utc": "2026-10-18T16:06:26.399Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.400Z",
+     "end_utc": "2026-10-18T16:06:26.558Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.560Z",
+     "end_utc": "2026-10-18T16:06:26.716Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.717Z",
+     "end_utc": "2026-10-18T16:06:26.875Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:26.876Z",
+     "end_utc": "2026-10-18T16:06:27.035Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:27.036Z",
+     "end_utc": "2026-10-18T16:06:27.196Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:27.197Z",
+     "end_utc": "2026-10-18T16:06:27.366Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:27.368Z",
+     "end_utc": "2026-10-18T16:06:27.524Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:06:27.525Z",
+     "end_utc": "2026-10-18T16:06:27.677Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T16:06:27.810Z",
+     "end_utc": "2026-10-18T16:11:12.969Z",
+     "seconds": 285.156,
+     "ok": true
+    },
+    {
+     "stage": "task_after_critic",
+     "start_utc": "2026-10-18T16:11:12.971Z",
+     "end_utc": "2026-10-18T16:11:16.524Z",
+     "seconds": 3.562,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:11:12.998Z",
+     "end_utc": "2026-10-18T16:11:13.000Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:11:13.001Z",
+     "end_utc": "2026-10-18T16:11:13.002Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:11:13.003Z",
+     "end_utc": "2026-10-18T16:11:13.151Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:11:13.155Z",
+     "end_utc": "2026-10-18T16:11:13.291Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:11:13.295Z",
+     "end_utc": "2026-10-18T16:11:13.428Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:11:13.432Z",
+     "end_utc": "2026-10-18T16:11:13.566Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:11:13.570Z",
+     "end_utc": "2026-10-18T16:11:13.572Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:13.573Z",
+     "end_utc": "2026-10-18T16:11:13.706Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:13.708Z",
+     "end_utc": "2026-10-18T16:11:13.848Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:13.849Z",
+     "end_utc": "2026-10-18T16:11:13.985Z",
+     "seconds": 0.125,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:13.987Z",
+     "end_utc": "2026-10-18T16:11:14.133Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.135Z",
+     "end_utc": "2026-10-18T16:11:14.288Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.290Z",
+     "end_utc": "2026-10-18T16:11:14.463Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.465Z",
+     "end_utc": "2026-10-18T16:11:14.631Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.632Z",
+     "end_utc": "2026-10-18T16:11:14.784Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.786Z",
+     "end_utc": "2026-10-18T16:11:14.939Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:14.940Z",
+     "end_utc": "2026-10-18T16:11:15.104Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.106Z",
+     "end_utc": "2026-10-18T16:11:15.268Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.270Z",
+     "end_utc": "2026-10-18T16:11:15.415Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.416Z",
+     "end_utc": "2026-10-18T16:11:15.582Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.584Z",
+     "end_utc": "2026-10-18T16:11:15.775Z",
+     "seconds": 0.187,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.777Z",
+     "end_utc": "2026-10-18T16:11:15.928Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:15.929Z",
+     "end_utc": "2026-10-18T16:11:16.072Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:16.073Z",
+     "end_utc": "2026-10-18T16:11:16.219Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:16.220Z",
+     "end_utc": "2026-10-18T16:11:16.361Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:16.365Z",
+     "end_utc": "2026-10-18T16:11:16.366Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:16.367Z",
+     "end_utc": "2026-10-18T16:11:16.368Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:11:16.369Z",
+     "end_utc": "2026-10-18T16:11:16.370Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:11:16.371Z",
+     "end_utc": "2026-10-18T16:11:16.511Z",
+     "seconds": 0.141,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.782,
+    "commit_verify": 0.156,
+    "discriminate": 0.015,
+    "execute": 0.578,
+    "generate": 0.0,
+    "intake": 0.031,
+    "l2_generate": 0.0,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-28",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 5,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 2199,
+    "prompt": 1499,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:11:16.562Z",
+   "end_utc": "2026-10-18T16:12:56.269Z",
+   "seconds": 99.7,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:11:16.680Z",
+     "end_utc": "2026-10-18T16:12:56.248Z",
+     "seconds": 99.562,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:11:16.706Z",
+     "end_utc": "2026-10-18T16:11:52.662Z",
+     "seconds": 35.969,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:11:52.662Z",
+     "end_utc": "2026-10-18T16:12:37.195Z",
+     "seconds": 44.531,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:12:37.196Z",
+     "end_utc": "2026-10-18T16:12:37.359Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:12:37.362Z",
+     "end_utc": "2026-10-18T16:12:37.514Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:12:37.516Z",
+     "end_utc": "2026-10-18T16:12:37.664Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:12:37.666Z",
+     "end_utc": "2026-10-18T16:12:37.820Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:12:37.823Z",
+     "end_utc": "2026-10-18T16:12:55.933Z",
+     "seconds": 18.11,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:12:55.934Z",
+     "end_utc": "2026-10-18T16:12:56.116Z",
+     "seconds": 0.187,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.312,
+    "discriminate": 0.0,
+    "execute": 0.625,
+    "generate": 80.5,
+    "intake": 0.015,
+    "l2_generate": 18.11,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-29",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 2,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 0,
+    "dropped": [],
+    "reason": "no valid test parsed"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 5277,
+    "prompt": 1507,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 1,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:25:33.437Z",
+   "end_utc": "2026-10-18T16:29:44.535Z",
+   "seconds": 251.1,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:25:33.586Z",
+     "end_utc": "2026-10-18T16:29:44.517Z",
+     "seconds": 246.031,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:25:33.700Z",
+     "end_utc": "2026-10-18T16:25:51.617Z",
+     "seconds": 17.922,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:25:51.618Z",
+     "end_utc": "2026-10-18T16:26:26.658Z",
+     "seconds": 35.031,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:26:26.659Z",
+     "end_utc": "2026-10-18T16:26:27.051Z",
+     "seconds": 0.391,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:26:27.055Z",
+     "end_utc": "2026-10-18T16:26:27.207Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:26:27.210Z",
+     "end_utc": "2026-10-18T16:26:27.353Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:26:27.355Z",
+     "end_utc": "2026-10-18T16:26:27.507Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:26:27.510Z",
+     "end_utc": "2026-10-18T16:29:42.342Z",
+     "seconds": 189.922,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:42.345Z",
+     "end_utc": "2026-10-18T16:29:42.497Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:42.498Z",
+     "end_utc": "2026-10-18T16:29:42.645Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:42.646Z",
+     "end_utc": "2026-10-18T16:29:42.793Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:42.794Z",
+     "end_utc": "2026-10-18T16:29:42.947Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:42.948Z",
+     "end_utc": "2026-10-18T16:29:43.092Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.093Z",
+     "end_utc": "2026-10-18T16:29:43.246Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.249Z",
+     "end_utc": "2026-10-18T16:29:43.404Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.405Z",
+     "end_utc": "2026-10-18T16:29:43.579Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.581Z",
+     "end_utc": "2026-10-18T16:29:43.759Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.761Z",
+     "end_utc": "2026-10-18T16:29:43.927Z",
+     "seconds": 0.171,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:43.928Z",
+     "end_utc": "2026-10-18T16:29:44.075Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:29:44.076Z",
+     "end_utc": "2026-10-18T16:29:44.234Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:29:44.235Z",
+     "end_utc": "2026-10-18T16:29:44.393Z",
+     "seconds": 0.172,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 1.89,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.86,
+    "generate": 52.953,
+    "intake": 0.109,
+    "l2_generate": 189.922,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-30",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 4,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1815,
+    "prompt": 1644,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:29:44.558Z",
+   "end_utc": "2026-10-18T16:31:13.572Z",
+   "seconds": 89.0,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:29:44.685Z",
+     "end_utc": "2026-10-18T16:31:13.557Z",
+     "seconds": 88.875,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:29:44.711Z",
+     "end_utc": "2026-10-18T16:30:09.468Z",
+     "seconds": 24.75,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:30:09.468Z",
+     "end_utc": "2026-10-18T16:30:53.539Z",
+     "seconds": 44.078,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:30:53.540Z",
+     "end_utc": "2026-10-18T16:30:53.702Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:30:53.705Z",
+     "end_utc": "2026-10-18T16:30:53.863Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:30:53.866Z",
+     "end_utc": "2026-10-18T16:30:54.026Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:30:54.028Z",
+     "end_utc": "2026-10-18T16:30:54.188Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:30:54.190Z",
+     "end_utc": "2026-10-18T16:31:10.541Z",
+     "seconds": 16.344,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:10.542Z",
+     "end_utc": "2026-10-18T16:31:10.693Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:10.694Z",
+     "end_utc": "2026-10-18T16:31:10.849Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:10.850Z",
+     "end_utc": "2026-10-18T16:31:11.005Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.006Z",
+     "end_utc": "2026-10-18T16:31:11.160Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.161Z",
+     "end_utc": "2026-10-18T16:31:11.314Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.315Z",
+     "end_utc": "2026-10-18T16:31:11.465Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.467Z",
+     "end_utc": "2026-10-18T16:31:11.622Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.623Z",
+     "end_utc": "2026-10-18T16:31:11.781Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.782Z",
+     "end_utc": "2026-10-18T16:31:11.936Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:11.937Z",
+     "end_utc": "2026-10-18T16:31:12.084Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.085Z",
+     "end_utc": "2026-10-18T16:31:12.239Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.240Z",
+     "end_utc": "2026-10-18T16:31:12.392Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.393Z",
+     "end_utc": "2026-10-18T16:31:12.537Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.538Z",
+     "end_utc": "2026-10-18T16:31:12.687Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.688Z",
+     "end_utc": "2026-10-18T16:31:12.830Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.832Z",
+     "end_utc": "2026-10-18T16:31:12.977Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:12.978Z",
+     "end_utc": "2026-10-18T16:31:13.120Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:31:13.121Z",
+     "end_utc": "2026-10-18T16:31:13.262Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:31:13.264Z",
+     "end_utc": "2026-10-18T16:31:13.423Z",
+     "seconds": 0.171,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.719,
+    "commit_verify": 0.296,
+    "discriminate": 0.0,
+    "execute": 0.656,
+    "generate": 68.828,
+    "intake": 0.032,
+    "l2_generate": 16.344,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-31",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 3,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2911,
+    "prompt": 2345,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:31:13.595Z",
+   "end_utc": "2026-10-18T16:33:30.106Z",
+   "seconds": 136.5,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:31:13.707Z",
+     "end_utc": "2026-10-18T16:33:30.087Z",
+     "seconds": 136.375,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:31:13.737Z",
+     "end_utc": "2026-10-18T16:31:53.708Z",
+     "seconds": 39.969,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:31:53.709Z",
+     "end_utc": "2026-10-18T16:32:52.141Z",
+     "seconds": 58.422,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:32:52.142Z",
+     "end_utc": "2026-10-18T16:32:52.308Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:32:52.311Z",
+     "end_utc": "2026-10-18T16:32:52.460Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:32:52.463Z",
+     "end_utc": "2026-10-18T16:32:52.607Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:32:52.609Z",
+     "end_utc": "2026-10-18T16:32:52.750Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:32:52.753Z",
+     "end_utc": "2026-10-18T16:33:13.043Z",
+     "seconds": 20.281,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:33:13.044Z",
+     "end_utc": "2026-10-18T16:33:29.783Z",
+     "seconds": 16.75,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:33:29.784Z",
+     "end_utc": "2026-10-18T16:33:29.935Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.141,
+    "discriminate": 0.0,
+    "execute": 0.766,
+    "generate": 98.406,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 37.031
+   }
+  },
+  {
+   "task": "P1-32",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 4,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1494,
+    "prompt": 1449,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:33:30.128Z",
+   "end_utc": "2026-10-18T16:34:44.876Z",
+   "seconds": 74.7,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:33:30.268Z",
+     "end_utc": "2026-10-18T16:34:44.858Z",
+     "seconds": 74.578,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:33:30.292Z",
+     "end_utc": "2026-10-18T16:33:56.351Z",
+     "seconds": 26.062,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:33:56.353Z",
+     "end_utc": "2026-10-18T16:34:21.522Z",
+     "seconds": 25.172,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:34:21.524Z",
+     "end_utc": "2026-10-18T16:34:21.681Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:34:21.684Z",
+     "end_utc": "2026-10-18T16:34:21.841Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:34:21.845Z",
+     "end_utc": "2026-10-18T16:34:21.994Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:34:21.997Z",
+     "end_utc": "2026-10-18T16:34:22.152Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:34:22.156Z",
+     "end_utc": "2026-10-18T16:34:40.869Z",
+     "seconds": 18.719,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:40.871Z",
+     "end_utc": "2026-10-18T16:34:41.022Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.024Z",
+     "end_utc": "2026-10-18T16:34:41.169Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.170Z",
+     "end_utc": "2026-10-18T16:34:41.317Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.319Z",
+     "end_utc": "2026-10-18T16:34:41.466Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.467Z",
+     "end_utc": "2026-10-18T16:34:41.612Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.613Z",
+     "end_utc": "2026-10-18T16:34:41.755Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.757Z",
+     "end_utc": "2026-10-18T16:34:41.912Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:41.912Z",
+     "end_utc": "2026-10-18T16:34:42.077Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.078Z",
+     "end_utc": "2026-10-18T16:34:42.231Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.232Z",
+     "end_utc": "2026-10-18T16:34:42.382Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.383Z",
+     "end_utc": "2026-10-18T16:34:42.539Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.540Z",
+     "end_utc": "2026-10-18T16:34:42.694Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.695Z",
+     "end_utc": "2026-10-18T16:34:42.850Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:42.851Z",
+     "end_utc": "2026-10-18T16:34:43.009Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.010Z",
+     "end_utc": "2026-10-18T16:34:43.172Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.173Z",
+     "end_utc": "2026-10-18T16:34:43.324Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.325Z",
+     "end_utc": "2026-10-18T16:34:43.481Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.482Z",
+     "end_utc": "2026-10-18T16:34:43.634Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.635Z",
+     "end_utc": "2026-10-18T16:34:43.790Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.791Z",
+     "end_utc": "2026-10-18T16:34:43.941Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:43.942Z",
+     "end_utc": "2026-10-18T16:34:44.097Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:44.098Z",
+     "end_utc": "2026-10-18T16:34:44.256Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:44.257Z",
+     "end_utc": "2026-10-18T16:34:44.416Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:34:44.417Z",
+     "end_utc": "2026-10-18T16:34:44.572Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:34:44.573Z",
+     "end_utc": "2026-10-18T16:34:44.719Z",
+     "seconds": 0.141,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 3.703,
+    "commit_verify": 0.281,
+    "discriminate": 0.0,
+    "execute": 0.625,
+    "generate": 51.234,
+    "intake": 0.016,
+    "l2_generate": 18.719,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-33",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1813,
+    "prompt": 1522,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:34:44.901Z",
+   "end_utc": "2026-10-18T16:36:11.129Z",
+   "seconds": 86.2,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:34:45.041Z",
+     "end_utc": "2026-10-18T16:36:11.114Z",
+     "seconds": 86.078,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:34:45.064Z",
+     "end_utc": "2026-10-18T16:35:13.971Z",
+     "seconds": 28.906,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:35:13.972Z",
+     "end_utc": "2026-10-18T16:35:53.443Z",
+     "seconds": 39.469,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:35:53.444Z",
+     "end_utc": "2026-10-18T16:35:53.616Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:35:53.618Z",
+     "end_utc": "2026-10-18T16:35:53.765Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:35:53.768Z",
+     "end_utc": "2026-10-18T16:35:53.927Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:35:53.930Z",
+     "end_utc": "2026-10-18T16:35:54.082Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:35:54.086Z",
+     "end_utc": "2026-10-18T16:36:10.843Z",
+     "seconds": 16.75,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:36:10.844Z",
+     "end_utc": "2026-10-18T16:36:11.000Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.281,
+    "discriminate": 0.0,
+    "execute": 0.641,
+    "generate": 68.375,
+    "intake": 0.031,
+    "l2_generate": 16.75,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-34",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 3,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 3
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 0,
+    "dropped": [],
+    "reason": "no valid test parsed"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 8691,
+    "prompt": 1487,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 2,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:36:11.146Z",
+   "end_utc": "2026-10-18T16:42:58.701Z",
+   "seconds": 407.6,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:36:11.286Z",
+     "end_utc": "2026-10-18T16:42:58.685Z",
+     "seconds": 407.39,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:36:11.307Z",
+     "end_utc": "2026-10-18T16:36:18.704Z",
+     "seconds": 7.391,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:36:18.704Z",
+     "end_utc": "2026-10-18T16:39:45.643Z",
+     "seconds": 206.953,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:39:45.644Z",
+     "end_utc": "2026-10-18T16:39:45.798Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:39:45.800Z",
+     "end_utc": "2026-10-18T16:39:45.953Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:39:45.956Z",
+     "end_utc": "2026-10-18T16:39:46.106Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:39:46.109Z",
+     "end_utc": "2026-10-18T16:42:58.380Z",
+     "seconds": 192.282,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:42:58.381Z",
+     "end_utc": "2026-10-18T16:42:58.531Z",
+     "seconds": 0.14,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.296,
+    "discriminate": 0.0,
+    "execute": 0.453,
+    "generate": 214.344,
+    "intake": 0.015,
+    "l2_generate": 192.282,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-35",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 4,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1943,
+    "prompt": 1530,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:42:58.726Z",
+   "end_utc": "2026-10-18T16:44:34.646Z",
+   "seconds": 95.9,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:42:58.839Z",
+     "end_utc": "2026-10-18T16:44:34.628Z",
+     "seconds": 95.797,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:42:58.868Z",
+     "end_utc": "2026-10-18T16:43:17.402Z",
+     "seconds": 18.531,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:43:17.402Z",
+     "end_utc": "2026-10-18T16:44:14.253Z",
+     "seconds": 56.86,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:44:14.254Z",
+     "end_utc": "2026-10-18T16:44:14.409Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:44:14.412Z",
+     "end_utc": "2026-10-18T16:44:14.570Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:44:14.572Z",
+     "end_utc": "2026-10-18T16:44:14.720Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:44:14.723Z",
+     "end_utc": "2026-10-18T16:44:14.880Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:44:14.884Z",
+     "end_utc": "2026-10-18T16:44:30.749Z",
+     "seconds": 15.859,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:30.750Z",
+     "end_utc": "2026-10-18T16:44:30.921Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:30.922Z",
+     "end_utc": "2026-10-18T16:44:31.079Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.081Z",
+     "end_utc": "2026-10-18T16:44:31.231Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.232Z",
+     "end_utc": "2026-10-18T16:44:31.385Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.386Z",
+     "end_utc": "2026-10-18T16:44:31.544Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.546Z",
+     "end_utc": "2026-10-18T16:44:31.698Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.699Z",
+     "end_utc": "2026-10-18T16:44:31.849Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.850Z",
+     "end_utc": "2026-10-18T16:44:31.997Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:31.999Z",
+     "end_utc": "2026-10-18T16:44:32.141Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.142Z",
+     "end_utc": "2026-10-18T16:44:32.288Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.289Z",
+     "end_utc": "2026-10-18T16:44:32.434Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.435Z",
+     "end_utc": "2026-10-18T16:44:32.581Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.582Z",
+     "end_utc": "2026-10-18T16:44:32.728Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.730Z",
+     "end_utc": "2026-10-18T16:44:32.872Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:32.873Z",
+     "end_utc": "2026-10-18T16:44:33.023Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.024Z",
+     "end_utc": "2026-10-18T16:44:33.169Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.171Z",
+     "end_utc": "2026-10-18T16:44:33.317Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.319Z",
+     "end_utc": "2026-10-18T16:44:33.470Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.471Z",
+     "end_utc": "2026-10-18T16:44:33.611Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.612Z",
+     "end_utc": "2026-10-18T16:44:33.755Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.756Z",
+     "end_utc": "2026-10-18T16:44:33.900Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:33.902Z",
+     "end_utc": "2026-10-18T16:44:34.048Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:34.049Z",
+     "end_utc": "2026-10-18T16:44:34.198Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:44:34.199Z",
+     "end_utc": "2026-10-18T16:44:34.341Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:44:34.342Z",
+     "end_utc": "2026-10-18T16:44:34.500Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 3.594,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.625,
+    "generate": 75.391,
+    "intake": 0.031,
+    "l2_generate": 15.859,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-36",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 6,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 3,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 6
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2366,
+    "prompt": 2827,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:44:34.672Z",
+   "end_utc": "2026-10-18T16:46:27.434Z",
+   "seconds": 112.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:44:34.810Z",
+     "end_utc": "2026-10-18T16:46:27.417Z",
+     "seconds": 112.61,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:44:34.838Z",
+     "end_utc": "2026-10-18T16:44:51.503Z",
+     "seconds": 16.672,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:44:51.504Z",
+     "end_utc": "2026-10-18T16:45:40.875Z",
+     "seconds": 49.359,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:45:40.876Z",
+     "end_utc": "2026-10-18T16:45:41.024Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:45:41.026Z",
+     "end_utc": "2026-10-18T16:45:41.196Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:45:41.199Z",
+     "end_utc": "2026-10-18T16:45:41.346Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:45:41.348Z",
+     "end_utc": "2026-10-18T16:45:41.500Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:45:41.503Z",
+     "end_utc": "2026-10-18T16:46:03.967Z",
+     "seconds": 22.453,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:46:03.968Z",
+     "end_utc": "2026-10-18T16:46:04.123Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:46:04.127Z",
+     "end_utc": "2026-10-18T16:46:27.150Z",
+     "seconds": 23.015,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:46:27.150Z",
+     "end_utc": "2026-10-18T16:46:27.300Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.11,
+    "discriminate": 0.0,
+    "execute": 0.953,
+    "generate": 66.047,
+    "intake": 0.032,
+    "rank": 0.0,
+    "repair": 45.468
+   }
+  },
+  {
+   "task": "P1-37",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 3,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2570,
+    "prompt": 2500,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:46:27.452Z",
+   "end_utc": "2026-10-18T16:48:29.214Z",
+   "seconds": 121.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:46:27.572Z",
+     "end_utc": "2026-10-18T16:48:29.202Z",
+     "seconds": 121.625,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:46:27.594Z",
+     "end_utc": "2026-10-18T16:47:01.739Z",
+     "seconds": 34.156,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:47:01.740Z",
+     "end_utc": "2026-10-18T16:47:33.187Z",
+     "seconds": 31.437,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:47:33.188Z",
+     "end_utc": "2026-10-18T16:47:33.343Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:47:33.345Z",
+     "end_utc": "2026-10-18T16:47:33.499Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:47:33.502Z",
+     "end_utc": "2026-10-18T16:47:33.650Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:47:33.653Z",
+     "end_utc": "2026-10-18T16:47:33.799Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:47:33.802Z",
+     "end_utc": "2026-10-18T16:47:58.892Z",
+     "seconds": 25.094,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:47:58.893Z",
+     "end_utc": "2026-10-18T16:47:59.042Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:47:59.044Z",
+     "end_utc": "2026-10-18T16:48:29.062Z",
+     "seconds": 30.015,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.141,
+    "discriminate": 0.0,
+    "execute": 0.766,
+    "generate": 65.593,
+    "intake": 0.016,
+    "rank": 0.0,
+    "repair": 55.109
+   }
+  },
+  {
+   "task": "P1-38",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 4,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 2577,
+    "prompt": 1394,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:48:29.232Z",
+   "end_utc": "2026-10-18T16:50:35.123Z",
+   "seconds": 125.9,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:48:29.339Z",
+     "end_utc": "2026-10-18T16:50:35.105Z",
+     "seconds": 125.765,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:48:29.358Z",
+     "end_utc": "2026-10-18T16:48:52.336Z",
+     "seconds": 22.985,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:48:52.336Z",
+     "end_utc": "2026-10-18T16:50:10.025Z",
+     "seconds": 77.687,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:50:10.026Z",
+     "end_utc": "2026-10-18T16:50:10.212Z",
+     "seconds": 0.188,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:50:10.214Z",
+     "end_utc": "2026-10-18T16:50:10.371Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:50:10.374Z",
+     "end_utc": "2026-10-18T16:50:10.559Z",
+     "seconds": 0.187,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:50:10.563Z",
+     "end_utc": "2026-10-18T16:50:10.762Z",
+     "seconds": 0.204,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:50:10.764Z",
+     "end_utc": "2026-10-18T16:50:30.816Z",
+     "seconds": 20.062,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:30.817Z",
+     "end_utc": "2026-10-18T16:50:30.977Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:30.978Z",
+     "end_utc": "2026-10-18T16:50:31.135Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.136Z",
+     "end_utc": "2026-10-18T16:50:31.308Z",
+     "seconds": 0.171,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.309Z",
+     "end_utc": "2026-10-18T16:50:31.469Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.470Z",
+     "end_utc": "2026-10-18T16:50:31.627Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.628Z",
+     "end_utc": "2026-10-18T16:50:31.781Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.781Z",
+     "end_utc": "2026-10-18T16:50:31.940Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:31.941Z",
+     "end_utc": "2026-10-18T16:50:32.101Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.103Z",
+     "end_utc": "2026-10-18T16:50:32.255Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.256Z",
+     "end_utc": "2026-10-18T16:50:32.409Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.411Z",
+     "end_utc": "2026-10-18T16:50:32.565Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.566Z",
+     "end_utc": "2026-10-18T16:50:32.719Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.720Z",
+     "end_utc": "2026-10-18T16:50:32.876Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:32.877Z",
+     "end_utc": "2026-10-18T16:50:33.041Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.042Z",
+     "end_utc": "2026-10-18T16:50:33.254Z",
+     "seconds": 0.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.256Z",
+     "end_utc": "2026-10-18T16:50:33.483Z",
+     "seconds": 0.218,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.484Z",
+     "end_utc": "2026-10-18T16:50:33.651Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.652Z",
+     "end_utc": "2026-10-18T16:50:33.829Z",
+     "seconds": 0.188,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.830Z",
+     "end_utc": "2026-10-18T16:50:33.994Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:33.996Z",
+     "end_utc": "2026-10-18T16:50:34.163Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:34.164Z",
+     "end_utc": "2026-10-18T16:50:34.329Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:34.329Z",
+     "end_utc": "2026-10-18T16:50:34.487Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:34.489Z",
+     "end_utc": "2026-10-18T16:50:34.647Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:50:34.648Z",
+     "end_utc": "2026-10-18T16:50:34.797Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:50:34.799Z",
+     "end_utc": "2026-10-18T16:50:34.958Z",
+     "seconds": 0.157,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 3.984,
+    "commit_verify": 0.297,
+    "discriminate": 0.0,
+    "execute": 0.735,
+    "generate": 100.672,
+    "intake": 0.015,
+    "l2_generate": 20.062,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-39",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 3,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 1
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 1645,
+    "prompt": 1374,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:50:35.151Z",
+   "end_utc": "2026-10-18T16:51:55.993Z",
+   "seconds": 80.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:50:35.276Z",
+     "end_utc": "2026-10-18T16:51:55.978Z",
+     "seconds": 80.703,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:50:35.305Z",
+     "end_utc": "2026-10-18T16:50:49.465Z",
+     "seconds": 14.157,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:50:49.466Z",
+     "end_utc": "2026-10-18T16:51:37.399Z",
+     "seconds": 47.937,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:51:37.400Z",
+     "end_utc": "2026-10-18T16:51:37.574Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:51:37.576Z",
+     "end_utc": "2026-10-18T16:51:37.799Z",
+     "seconds": 0.234,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:51:37.803Z",
+     "end_utc": "2026-10-18T16:51:37.966Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:51:37.970Z",
+     "end_utc": "2026-10-18T16:51:38.137Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:51:38.140Z",
+     "end_utc": "2026-10-18T16:51:52.883Z",
+     "seconds": 14.75,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:52.884Z",
+     "end_utc": "2026-10-18T16:51:53.046Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.047Z",
+     "end_utc": "2026-10-18T16:51:53.206Z",
+     "seconds": 0.172,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.207Z",
+     "end_utc": "2026-10-18T16:51:53.362Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.364Z",
+     "end_utc": "2026-10-18T16:51:53.518Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.519Z",
+     "end_utc": "2026-10-18T16:51:53.673Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.674Z",
+     "end_utc": "2026-10-18T16:51:53.827Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.828Z",
+     "end_utc": "2026-10-18T16:51:53.983Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:53.984Z",
+     "end_utc": "2026-10-18T16:51:54.139Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.140Z",
+     "end_utc": "2026-10-18T16:51:54.296Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.297Z",
+     "end_utc": "2026-10-18T16:51:54.450Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.452Z",
+     "end_utc": "2026-10-18T16:51:54.602Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.603Z",
+     "end_utc": "2026-10-18T16:51:54.752Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.754Z",
+     "end_utc": "2026-10-18T16:51:54.909Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:54.910Z",
+     "end_utc": "2026-10-18T16:51:55.060Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:55.062Z",
+     "end_utc": "2026-10-18T16:51:55.217Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:55.218Z",
+     "end_utc": "2026-10-18T16:51:55.370Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:55.371Z",
+     "end_utc": "2026-10-18T16:51:55.518Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T16:51:55.520Z",
+     "end_utc": "2026-10-18T16:51:55.671Z",
+     "seconds": 0.141,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:51:55.672Z",
+     "end_utc": "2026-10-18T16:51:55.826Z",
+     "seconds": 0.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 2.781,
+    "commit_verify": 0.312,
+    "discriminate": 0.0,
+    "execute": 0.735,
+    "generate": 62.094,
+    "intake": 0.031,
+    "l2_generate": 14.75,
+    "l2_validate": 0.0,
+    "rank": 0.0
+   }
+  },
+  {
+   "task": "P1-40",
+   "language": "python",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 3,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2631,
+    "prompt": 2548,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T16:51:56.022Z",
+   "end_utc": "2026-10-18T16:54:01.676Z",
+   "seconds": 125.7,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T16:51:56.128Z",
+     "end_utc": "2026-10-18T16:54:01.662Z",
+     "seconds": 125.531,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:51:56.147Z",
+     "end_utc": "2026-10-18T16:52:26.896Z",
+     "seconds": 30.75,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:52:26.897Z",
+     "end_utc": "2026-10-18T16:53:24.597Z",
+     "seconds": 57.703,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:53:24.598Z",
+     "end_utc": "2026-10-18T16:53:24.756Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:53:24.759Z",
+     "end_utc": "2026-10-18T16:53:24.913Z",
+     "seconds": 0.156,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:53:24.916Z",
+     "end_utc": "2026-10-18T16:53:25.059Z",
+     "seconds": 0.14,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:53:25.062Z",
+     "end_utc": "2026-10-18T16:53:25.209Z",
+     "seconds": 0.157,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:53:25.212Z",
+     "end_utc": "2026-10-18T16:53:40.173Z",
+     "seconds": 14.968,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T16:53:40.175Z",
+     "end_utc": "2026-10-18T16:54:01.342Z",
+     "seconds": 21.157,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T16:54:01.343Z",
+     "end_utc": "2026-10-18T16:54:01.507Z",
+     "seconds": 0.172,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.156,
+    "discriminate": 0.0,
+    "execute": 0.782,
+    "generate": 88.453,
+    "intake": 0.015,
+    "rank": 0.0,
+    "repair": 36.125
+   }
+  }
+ ]
+}

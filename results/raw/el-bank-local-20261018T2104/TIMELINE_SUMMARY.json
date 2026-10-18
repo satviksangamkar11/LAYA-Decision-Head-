@@ -1,0 +1,19 @@
+{
+ "events": 4,
+ "first_utc": "2026-10-18T15:34:51.184Z",
+ "last_utc": "2026-10-18T15:34:51.944Z",
+ "wall_seconds": 0.761,
+ "stages": {
+  "preflight": {
+   "n": 1,
+   "total_s": 0.765,
+   "p50_s": 0.765,
+   "p95_s": 0.765
+  }
+ },
+ "model_seconds": 0,
+ "sandbox_seconds": 0,
+ "model_vs_sandbox": {
+  "model_share": null
+ }
+}

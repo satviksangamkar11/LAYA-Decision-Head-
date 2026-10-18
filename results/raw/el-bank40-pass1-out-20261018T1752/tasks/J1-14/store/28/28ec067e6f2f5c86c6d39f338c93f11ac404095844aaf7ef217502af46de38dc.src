@@ -1,0 +1,26 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        List<?> matrix = (List<?>) data.get("matrix");
+        if (matrix == null || matrix.isEmpty()) {
+            return new ArrayList<>();
+        }
+        int n = matrix.size();
+        List<List<Integer>> transposed = new ArrayList<>();
+        for (int j = 0; j < n; j++) {
+            List<Integer> newRow = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                Number num = (Number) ((List<?>) matrix.get(i)).get(j);
+                newRow.add(num.intValue());
+            }
+            transposed.add(newRow);
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        for (List<Integer> row : transposed) {
+            Collections.reverse(row);
+            result.add(row);
+        }
+        return result;
+    }
+}

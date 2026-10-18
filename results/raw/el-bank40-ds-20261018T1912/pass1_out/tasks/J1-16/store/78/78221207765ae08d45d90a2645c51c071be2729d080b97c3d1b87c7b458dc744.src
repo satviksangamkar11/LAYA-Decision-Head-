@@ -1,0 +1,34 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String text = (String) data.get("text");
+        int k = ((Number) data.get("k")).intValue();
+        
+        List<Character> stack = new ArrayList<>();
+        
+        for (char c : text.toCharArray()) {
+            stack.add(c);
+            
+            while (stack.size() >= k) {
+                char last = stack.get(stack.size() - 1);
+                boolean allSame = true;
+                for (int i = 1; i < k; i++) {
+                    if (stack.get(stack.size() - i) != last) {
+                        allSame = false;
+                        break;
+                    }
+                }
+                if (allSame) {
+                    for (int i = 0; i < k; i++) {
+                        stack.remove(stack.size() - 1);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        return stack.stream().map(Object::toString).collect(Collectors.joining());
+    }
+}

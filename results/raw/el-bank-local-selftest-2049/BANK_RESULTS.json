@@ -1,0 +1,367 @@
+{
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "created_utc": "2026-10-18T15:19:41Z",
+ "tasks_finished": 2,
+ "tasks_expected": 40,
+ "unfinished_or_errored": [],
+ "not_tested": {},
+ "sandbox": "mxc",
+ "pending_not_started": [],
+ "resumed_tasks": [],
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-processcontainer",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc"
+  }
+ },
+ "gpus": 1,
+ "model": {
+  "backend": "selftest-fake",
+  "profile_id": "selftest",
+  "profile_sha256": "d354caf95d3e6516b85e558edc25f44a260802e9a2daa18a01fc1cf8459673da",
+  "snapshot_verified": true,
+  "stub": true
+ },
+ "labels_by_language": {
+  "python": {
+   "BLOCKED": 2
+  }
+ },
+ "kernel_wall_seconds": {
+  "pass1": 1.5,
+  "pass2": null,
+  "total": 1.5
+ },
+ "stage_summary": {
+  "events": 42,
+  "first_utc": "2026-10-18T15:19:39.832Z",
+  "last_utc": "2026-10-18T15:19:41.282Z",
+  "wall_seconds": 1.45,
+  "stages": {
+   "generate": {
+    "n": 8,
+    "total_s": 0.016,
+    "p50_s": 0.0,
+    "p95_s": 0.01
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 0.0,
+    "p50_s": 0.0,
+    "p95_s": 0.0
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.703,
+    "p50_s": 0.703,
+    "p95_s": 0.703
+   },
+   "sandbox_public": {
+    "n": 4,
+    "total_s": 0.5,
+    "p50_s": 0.094,
+    "p95_s": 0.213
+   },
+   "task": {
+    "n": 2,
+    "total_s": 0.64,
+    "p50_s": 0.32,
+    "p95_s": 0.425
+   }
+  },
+  "model_seconds": 0.016,
+  "sandbox_seconds": 0.5,
+  "model_vs_sandbox": {
+   "model_share": 0.031
+  }
+ },
+ "controller_stage_seconds_per_task": {
+  "commit_verify": {
+   "tasks": 2,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "discriminate": {
+   "tasks": 2,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "execute": {
+   "tasks": 2,
+   "total_s": 0.5,
+   "p50_s": 0.25,
+   "p95_s": 0.32
+  },
+  "generate": {
+   "tasks": 2,
+   "total_s": 0.032,
+   "p50_s": 0.016,
+   "p95_s": 0.016
+  },
+  "intake": {
+   "tasks": 2,
+   "total_s": 0.108,
+   "p50_s": 0.054,
+   "p95_s": 0.089
+  },
+  "rank": {
+   "tasks": 2,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "repair": {
+   "tasks": 2,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  }
+ },
+ "model_vs_sandbox": {
+  "model_seconds": 0.016,
+  "sandbox_seconds": 0.5,
+  "model_share": 0.031
+ },
+ "gpu": {
+  "per_gpu": {},
+  "generate_busy_seconds_by_worker": {
+   "w0": 0.0
+  },
+  "wall_seconds": 1.5,
+  "generate_busy_fraction_by_worker": {
+   "w0": 0.011
+  }
+ },
+ "critic": {
+  "packets_exported": null,
+  "pass2_responses": null
+ },
+ "ceiling_hits_total": 0,
+ "rows": [
+  {
+   "task": "P1-13",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 2,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 2
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 381,
+    "prompt": 300,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:19:40.584Z",
+   "end_utc": "2026-10-18T15:19:41.055Z",
+   "seconds": 0.5,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:19:40.609Z",
+     "end_utc": "2026-10-18T15:19:41.048Z",
+     "seconds": 0.437,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:40.702Z",
+     "end_utc": "2026-10-18T15:19:40.705Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:40.706Z",
+     "end_utc": "2026-10-18T15:19:40.707Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:19:40.708Z",
+     "end_utc": "2026-10-18T15:19:40.951Z",
+     "seconds": 0.234,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:19:40.954Z",
+     "end_utc": "2026-10-18T15:19:41.037Z",
+     "seconds": 0.094,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.039Z",
+     "end_utc": "2026-10-18T15:19:41.041Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.042Z",
+     "end_utc": "2026-10-18T15:19:41.043Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.0,
+    "discriminate": 0.0,
+    "execute": 0.328,
+    "generate": 0.016,
+    "intake": 0.093,
+    "rank": 0.0,
+    "repair": 0.0
+   }
+  },
+  {
+   "task": "P1-14",
+   "language": "python",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 2,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 2
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 381,
+    "prompt": 300,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T15:19:41.062Z",
+   "end_utc": "2026-10-18T15:19:41.275Z",
+   "seconds": 0.2,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T15:19:41.063Z",
+     "end_utc": "2026-10-18T15:19:41.265Z",
+     "seconds": 0.203,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.080Z",
+     "end_utc": "2026-10-18T15:19:41.082Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.082Z",
+     "end_utc": "2026-10-18T15:19:41.084Z",
+     "seconds": 0.016,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:19:41.084Z",
+     "end_utc": "2026-10-18T15:19:41.165Z",
+     "seconds": 0.078,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T15:19:41.167Z",
+     "end_utc": "2026-10-18T15:19:41.254Z",
+     "seconds": 0.094,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.256Z",
+     "end_utc": "2026-10-18T15:19:41.258Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T15:19:41.259Z",
+     "end_utc": "2026-10-18T15:19:41.260Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.0,
+    "discriminate": 0.0,
+    "execute": 0.172,
+    "generate": 0.016,
+    "intake": 0.015,
+    "rank": 0.0,
+    "repair": 0.0
+   }
+  }
+ ]
+}

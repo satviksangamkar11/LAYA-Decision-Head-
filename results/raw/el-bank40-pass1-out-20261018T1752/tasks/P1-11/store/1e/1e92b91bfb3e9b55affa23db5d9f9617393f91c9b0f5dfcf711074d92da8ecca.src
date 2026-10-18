@@ -1,0 +1,11 @@
+def solve(data):
+    text = data['text']
+    stack = []
+    mapping = {')': '(', ']': '[', '}': '{'}
+    for char in text:
+        if char in '([{':
+            stack.append(char)
+        elif char in mapping:
+            if not stack or stack.pop() != mapping[char]:
+                return False
+    return len(stack) == 0

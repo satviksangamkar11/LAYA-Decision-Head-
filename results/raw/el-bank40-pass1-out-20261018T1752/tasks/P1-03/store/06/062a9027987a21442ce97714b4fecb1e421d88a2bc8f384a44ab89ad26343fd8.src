@@ -1,0 +1,11 @@
+def solve(data):
+    text = data['text']
+    if not text:
+        return -1
+    count = {}
+    for char in text:
+        count[char] = count.get(char, 0) + 1
+    for idx, char in enumerate(text):
+        if count[char] == 1:
+            return idx
+    return -1

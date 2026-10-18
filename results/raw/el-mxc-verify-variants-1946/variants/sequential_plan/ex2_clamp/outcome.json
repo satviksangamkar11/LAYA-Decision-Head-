@@ -1,0 +1,41 @@
+{
+ "variant": "sequential_plan",
+ "base": "ex2_clamp",
+ "why": "Read -> Edit -> Bash written as one list of 'alternatives' is a plan: the later steps are rejected (rule sequential_plan_step), only the independent first action competes",
+ "expected": {
+  "stop_cause": "decided",
+  "label": "VERIFIED",
+  "proposer_codes_any": [
+   "sequential_plan_step",
+   "sequential_plan"
+  ],
+  "first_step_never_ran_edit": true
+ },
+ "violations": [],
+ "stop_cause": "decided",
+ "stop_details": "",
+ "label": "VERIFIED",
+ "tier": "O1",
+ "journal_hash": "69f484fdaf76400bd4525e3efe6aea5831eb76a33f76cf41b887b90508cf8a0c",
+ "invariants": [
+  "I1",
+  "I2",
+  "I3",
+  "I4",
+  "I5",
+  "I6",
+  "I7",
+  "I8"
+ ],
+ "sandbox_calls": 5,
+ "stub_components": [
+  "qwen",
+  "laya",
+  "glm"
+ ],
+ "stub": true,
+ "real_components": [
+  "controller",
+  "wsl_sandbox"
+ ]
+}

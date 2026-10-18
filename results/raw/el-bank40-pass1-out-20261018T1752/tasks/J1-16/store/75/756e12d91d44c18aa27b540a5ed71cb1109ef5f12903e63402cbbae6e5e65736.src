@@ -1,0 +1,39 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        String text = (String) data.get("text");
+        int k = ((Number) data.get("k")).intValue();
+        
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+        
+        List<Character> stackChars = new ArrayList<>();
+        List<Integer> stackCounts = new ArrayList<>();
+        
+        for (char c : text.toCharArray()) {
+            if (!stackChars.isEmpty() && stackChars.get(stackChars.size() - 1) == c) {
+                stackCounts.set(stackChars.size() - 1, stackCounts.get(stackChars.size() - 1) + 1);
+            } else {
+                stackChars.add(c);
+                stackCounts.add(1);
+            }
+            
+            if (stackCounts.get(stackCounts.size() - 1) >= k) {
+                stackChars.remove(stackChars.size() - 1);
+                stackCounts.remove(stackCounts.size() - 1);
+            }
+        }
+        
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < stackChars.size(); i++) {
+            char ch = stackChars.get(i);
+            int count = stackCounts.get(i);
+            for (int j = 0; j < count; j++) {
+                result.append(ch);
+            }
+        }
+        return result.toString();
+    }
+}

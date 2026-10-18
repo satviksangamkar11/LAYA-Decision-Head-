@@ -1,0 +1,42 @@
+import java.util.*;
+
+public final class Solution {
+    private static List<List<Integer>> convertMatrix(List<List<?>> matrix) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (List<?> row : matrix) {
+            List<Integer> newRow = new ArrayList<>();
+            for (Object cell : row) {
+                newRow.add(((Number) cell).intValue());
+            }
+            result.add(newRow);
+        }
+        return result;
+    }
+
+    private static List<List<Integer>> multiplyMatrices(List<List<Integer>> a, List<List<Integer>> b) {
+        int R = a.size();
+        int K = a.get(0).size();
+        int C = b.get(0).size();
+        List<List<Integer>> result = new ArrayList<>(R);
+        for (int i = 0; i < R; i++) {
+            List<Integer> row = new ArrayList<>(C);
+            for (int j = 0; j < C; j++) {
+                int sum = 0;
+                for (int k = 0; k < K; k++) {
+                    sum += a.get(i).get(k) * b.get(k).get(j);
+                }
+                row.add(sum);
+            }
+            result.add(row);
+        }
+        return result;
+    }
+
+    public static Object solve(Map<String, Object> data) {
+        List<List<?>> a = (List<List<?>>) data.get("a");
+        List<List<?>> b = (List<List<?>>) data.get("b");
+        List<List<Integer>> aInt = convertMatrix(a);
+        List<List<Integer>> bInt = convertMatrix(b);
+        return multiplyMatrices(aInt, bInt);
+    }
+}

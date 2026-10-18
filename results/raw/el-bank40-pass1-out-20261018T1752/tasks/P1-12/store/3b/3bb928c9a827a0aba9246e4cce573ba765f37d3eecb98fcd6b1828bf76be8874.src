@@ -1,0 +1,9 @@
+def solve(data):
+    nums = data['nums']
+    current_max = nums[0]
+    global_max = nums[0]
+    for num in nums[1:]:
+        current_max = max(num, current_max + num)
+        if current_max > global_max:
+            global_max = current_max
+    return global_max

@@ -1,0 +1,22 @@
+[
+ {
+  "data": {
+   "arm": "E",
+   "mode": "agentic_per_action",
+   "task_id": "ex2_clamp"
+  },
+  "kind": "run_start",
+  "prev": "1229badc3b2e58af2b96fc3598f3fd21cbcc0087ab93fa4005938d3aec63b2ba",
+  "seq": 0
+ },
+ {
+  "data": {
+   "arm": "E",
+   "component": "scorer",
+   "why": "config['require'] lists it"
+  },
+  "kind": "component_missing",
+  "prev": "d6cce870796a7a77df1883f2668e06c9308d1eb9ad758e47f030d33a461b7563",
+  "seq": 1
+ }
+]

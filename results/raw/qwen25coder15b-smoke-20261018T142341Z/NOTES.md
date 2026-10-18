@@ -1,0 +1,7 @@
+# Qwen2.5-Coder-1.5B-Instruct local smoke: notes (written after the receipt; the receipt itself is untouched)
+- Receipt: RECEIPT.json in this directory. Parser check on the real model: ../qwen25coder15b-parsers-20261018T142534Z/RECEIPT.json.
+- Measured (RTX 3050 6 GB, fp16 resident, torch 2.14+cu126): snapshot sha256 verify 3.5 s, load 11.6 s, VRAM 2.9 GiB after load (peak 2.98 GiB in generation), 22.3 tokens/s mean (21-23.4, 4 generations of 171-430 tokens), same seed -> same text (True),
+  3149-token prompt: 4.2 s, peak 3.25 GiB; 7659-token prompt: 6.1 s, peak 3.65 GiB (both OK). Host RSS peak 1.9 GB, lowest free RAM 0.9 GB. GPU 87 C at the end of the run (thermal throttling likely over long runs).
+- LOAD IS FLAKY ON THIS HOST (5 failed attempts before this success): on Windows/WDDM every GPU allocation also consumes SYSTEM COMMIT (measured 1:1), free commit swung between 1.1 and 8.9 GB during the session (vmmemWSL 1-2.7 GB, browsers, other agents),
+  and one process is limited to ~4 GiB of GPU allocations. Failures were OutOfMemoryError / MemoryError / segfault. Rule of thumb: start the model when >= 4.5 GB commit is free (Win32 GlobalMemoryStatusEx ullAvailPageFile, or Get-CimInstance Win32_OperatingSystem FreeVirtualMemory); load ONCE per run and keep the backend object.
+  Fix already in qwen.py: transformers' `caching_allocator_warmup` (one block as big as the model) is skipped for local loads; it failed even with 5 GB free.

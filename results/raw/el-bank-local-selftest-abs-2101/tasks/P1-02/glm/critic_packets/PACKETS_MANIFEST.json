@@ -1,0 +1,9 @@
+{
+ "bundle": "evidence_ladder_critic_packets_v1",
+ "count": 1,
+ "model": "z-ai/glm-5.3-flash",
+ "packet_ids": [
+  "70c4586eb470f1b8731a0b5a2a764576627056ab3c1f7c4b4dceb90de2a4e8ec"
+ ],
+ "packets_sha256": "5efc3f0c324c0b4ddbe4729ef445726af7c35b5633e8041de6a0dfcca5d94bef"
+}

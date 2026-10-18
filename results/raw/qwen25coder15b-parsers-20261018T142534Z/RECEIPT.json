@@ -1,0 +1,167 @@
+{
+ "probe": "qwen25coder15b_parsers_v1",
+ "profile": "qwen2.5-coder-1.5b-instruct",
+ "tasks": [
+  {
+   "task": "P1-03",
+   "code": {
+    "extract_status": "ok",
+    "tokens": 84,
+    "code_head": "def solve(data):\n    text = data['text']\n    char_count = {}\n    \n    for char in text:\n        if char in char_count:\n            char_count[char] += 1\n       "
+   },
+   "tests": {
+    "parse_status": "no_valid_check",
+    "n_checks": 0,
+    "rejected": [
+     {
+      "index": 0,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     },
+     {
+      "index": 1,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     },
+     {
+      "index": 2,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     }
+    ],
+    "text_head": "```json\n[\n    {\n        \"input\": {\"text\": \"\"},\n        \"expected\": -1\n    },\n    {\n        \"input\": {\"text\": \"aabb\"},\n        \"expected\": -1\n    },\n    {\n        \"input\": {\"text\": \"leetcode\"},\n        \"expected\": 0\n    },\n    {\n        \"input\": {\"text\": \"aAbA\"},\n        \"expected\": 0\n    },\n    {\n  ",
+    "tokens": 167
+   },
+   "actions": {
+    "strict_status": "ok",
+    "strict_n": 3,
+    "v2_status": "ok",
+    "v2_n": 3,
+    "v2_salvaged": false,
+    "rejected": [],
+    "text_head": "```json\n[\n    {\n        \"name\": \"Read\",\n        \"arguments\": {\n            \"file_path\": \"solution.py\"\n        }\n    },\n    {\n        \"name\": \"Edit\",\n        \"arguments\": {\n            \"file_path\": \"solution.py\",\n            \"old_string\": \"'return i'\",\n            \"new_string\": \"'return -1'\"\n        ",
+    "tokens": 120
+   }
+  },
+  {
+   "task": "P1-11",
+   "code": {
+    "extract_status": "ok",
+    "tokens": 236,
+    "code_head": "import json\n\ndef solve(data):\n    text = data['text']\n    stack = []\n    \n    for char in text:\n        if char == '(' or char == '[' or char == '{':\n          "
+   },
+   "tests": {
+    "parse_status": "not_json_array",
+    "n_checks": 0,
+    "rejected": [
+     {
+      "index": null,
+      "reason": "answer is not exactly one JSON value: Expecting value: line 3 column 18 (char 25)"
+     }
+    ],
+    "text_head": "```json\n[\n    {\n        \"input\": '{\"text\": \"[{[[]]}]\"}',\n        \"expected\": true\n    },\n    {\n        \"input\": '{\"text\": \"{[(])}\"}',\n        \"expected\": false\n    },\n    {\n        \"input\": '{\"text\": \"[[[][]]]\"}',\n        \"expected\": true\n    },\n    {\n        \"input\": '{\"text\": \"[[[{}]]]\"}',\n       ",
+    "tokens": 151
+   },
+   "actions": {
+    "strict_status": "ok",
+    "strict_n": 3,
+    "v2_status": "ok",
+    "v2_n": 3,
+    "v2_salvaged": false,
+    "rejected": [
+     {
+      "index": 3,
+      "reason": "duplicate"
+     }
+    ],
+    "text_head": "```json\n[\n    {\"name\": \"Read\", \"arguments\": {\"file_path\": \"solution.py\"}},\n    {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"solution.py\", \"old_string\": \"stack = []\", \"new_string\": \"stack = []\"}},\n    {\"name\": \"Bash\", \"arguments\": {\"command\": \"echo $?\"}},\n    {\"name\": \"Read\", \"arguments\": {\"file_path",
+    "tokens": 98
+   }
+  },
+  {
+   "task": "P1-15",
+   "code": {
+    "extract_status": "ok",
+    "tokens": 341,
+    "code_head": "from typing import List\n\ndef solve(data):\n    intervals = data['intervals']\n    \n    # Sort the intervals based on their start values\n    intervals.sort(key=lam"
+   },
+   "tests": {
+    "parse_status": "no_valid_check",
+    "n_checks": 0,
+    "rejected": [
+     {
+      "index": 0,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     },
+     {
+      "index": 1,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     },
+     {
+      "index": 2,
+      "reason": "item is not exactly {\"input\": object, \"expected\": value, \"quote\": string}"
+     }
+    ],
+    "text_head": "```json\n[\n    {\n        \"input\": {\"intervals\": [[1, 4], [2, 6], [3, 7]]},\n        \"expected\": [[1, 7]]\n    },\n    {\n        \"input\": {\"intervals\": [[1, 2], [2, 3], [3, 4], [4, 5]]},\n        \"expected\": [[1, 5]]\n    },\n    {\n        \"input\": {\"intervals\": [[1, 10], [2, 20], [3, 30]]},\n        \"expect",
+    "tokens": 265
+   },
+   "actions": {
+    "strict_status": "ok",
+    "strict_n": 4,
+    "v2_status": "ok",
+    "v2_n": 4,
+    "v2_salvaged": false,
+    "rejected": [],
+    "text_head": "```json\n[\n    {\"name\": \"Read\", \"arguments\": {\"file_path\": \"solution.py\"}},\n    {\"name\": \"Edit\", \"arguments\": {\"file_path\": \"solution.py\", \"old_string\": \"from typing import List\\n\\ndef solve(data):\", \"new_string\": \"from typing import List\\n\\ndef solve(data):\\n    intervals = data['intervals']\"}},\n   ",
+    "tokens": 141
+   }
+  }
+ ],
+ "summary": {
+  "code_ok": 3,
+  "tests_ok": 0,
+  "actions_strict_ok": 3,
+  "actions_v2_ok": 3,
+  "n": 3
+ },
+ "model_info": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ }
+}

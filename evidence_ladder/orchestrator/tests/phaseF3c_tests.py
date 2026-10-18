@@ -561,6 +561,115 @@ def t_REAL_mxc_works_with_relative_paths_everywhere():
         shutil.rmtree(base, ignore_errors=True)
 
 
+@test
+def t_critic_timeouts_are_configurable_recorded_and_reach_the_transport():
+    import evidence_ladder.critic_batch.transport as TR
+    seen = {}
+    real = TR.make_transport
+    ok_body = {"choices": [{"message": {"role": "assistant", "content": json.dumps({"experiment": {"kind": "function_call", "payload": "{}", "expected_by_candidate": {}}, "implications": "probe"}),
+                                       "reasoning_content": "r"}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 10, "completion_tokens": 5}}
+
+    def fake_make(keys, **kw):
+        seen.update(kw, labels=list(keys))
+        return lambda packet, label: (200, ok_body)
+    TR.make_transport = fake_make
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        c = LR.GlmInlineCritic(key_loader=lambda: {"key_1": "k1", "key_2": "k2"})
+        assert c.settings()["read_timeout_s"] == 420.0 and c.settings()["total_timeout_s"] == 1800.0 and c.settings()["reasoning_effort"] == "max" and c.settings()["max_retries"] == 1
+        rs, _, _ = _run(tmp / "o", _tasks("P1-13"), critic_client=LR.GlmInlineCritic(key_loader=lambda: {"key_1": "k1", "key_2": "k2"}, read_timeout_s=555.0, total_timeout_s=900.0))
+        assert seen["read_timeout_s"] == 555.0 and seen["total_timeout_s"] == 900.0 and seen["labels"] == ["key_1", "key_2"]
+        assert rs["critic"]["settings"]["read_timeout_s"] == 555.0 and rs["critic"]["settings"]["total_timeout_s"] == 900.0
+        r = json.loads((tmp / "o/tasks/P1-13/result.json").read_text("utf-8"))
+        assert r["critic"]["state"] == "applied" and r["critic"]["settings"]["read_timeout_s"] == 555.0
+        assert "k1" not in json.dumps(r) and "k2" not in json.dumps(rs, default=str).replace("key_2", "")          # key values never recorded
+    finally:
+        TR.make_transport = real
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+@test
+def t_critic_first_call_times_out_then_the_bounded_retry_succeeds():
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        n = {"calls": 0}
+
+        def flaky(packet, label):
+            n["calls"] += 1
+            if n["calls"] == 1:
+                e = TimeoutError("timed out waiting for response headers"); e.el_phase = "connect"; raise e
+            body = {"choices": [{"message": {"role": "assistant", "content": json.dumps({"experiment": {"kind": "function_call", "payload": "{}", "expected_by_candidate": {}}, "implications": "probe"}),
+                                             "reasoning_content": "r"}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 10, "completion_tokens": 5}}
+            return 200, body
+        rs, _, _ = _run(tmp / "o", _tasks("P1-13"), critic_client=LR.GlmInlineCritic(transport=flaky))
+        r = json.loads((tmp / "o/tasks/P1-13/result.json").read_text("utf-8"))
+        assert n["calls"] == 2 and r["critic"]["state"] == "applied" and r["critic"]["applied_in_controller"] is True and (tmp / "o/tasks/P1-13/DONE").is_file()
+        n["calls"] = 0
+        def always(packet, label):
+            n["calls"] += 1
+            raise TimeoutError("timed out")
+        rs2, _, _ = _run(tmp / "p", _tasks("P1-13"), critic_client=LR.GlmInlineCritic(transport=always))
+        r2 = json.loads((tmp / "p/tasks/P1-13/result.json").read_text("utf-8"))
+        assert n["calls"] == 2 and r2["critic"]["state"] == "api_unavailable" and r2["status"] == "OK" and (tmp / "p/tasks/P1-13/DONE").is_file()      # bounded (1 + 1 retry), then explicit state, task still finished
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+@test
+def t_retry_critic_reruns_only_the_critic_step_with_saved_generations_and_archives_the_old_task():
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        out = tmp / "o"
+        rs, _, _ = _run(out, _tasks("P1-13", "P1-14"))                                                              # first run: no key -> api_unavailable on both
+        old = json.loads((out / "tasks/P1-13/result.json").read_text("utf-8"))
+        assert old["critic"]["state"] == "api_unavailable" and old["pending_critic_packets"] and LR.needs_critic_retry(out / "tasks/P1-13")
+        calls = []
+
+        class NoRegeneration(FakeGen):
+            def generate(self, req): calls.append(req.task_id); return super().generate(req)
+
+        def ok(packet, label):
+            body = {"choices": [{"message": {"role": "assistant", "content": json.dumps({"experiment": {"kind": "function_call", "payload": "{}", "expected_by_candidate": {}}, "implications": "probe"}),
+                                             "reasoning_content": "r"}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 10, "completion_tokens": 5}}
+            return 200, body
+        rs2, _, _ = _run(out, _tasks("P1-13", "P1-14"), gen=NoRegeneration(), resume=True, retry_critic=True, finalize=True, critic_client=LR.GlmInlineCritic(transport=ok))
+        assert calls == [], calls                                                                                       # nothing was regenerated: the saved generations were replayed
+        assert [e["applied"] for e in rs2["critic_retry"]] == [True, True]
+        for tid in ("P1-13", "P1-14"):
+            new = json.loads((out / "tasks" / tid / "result.json").read_text("utf-8"))
+            assert new["critic"]["state"] == "applied" and new["critic"]["applied_in_controller"] and new["retry"]["critic_retry"] is True and (out / "tasks" / tid / "DONE").is_file()
+            assert new["retry"]["previous"]["critic"]["state"] == "api_unavailable" and new["retry"]["critic_settings"]["read_timeout_s"] == 420.0 and new["retry"]["started_utc"]
+            assert new["pending_critic_packets"] == []
+            arch = out / "tasks_archive" / (tid + ".v1")
+            assert (arch / "result.json").is_file() and json.loads((arch / "result.json").read_text("utf-8"))["critic"]["state"] == "api_unavailable" and (arch / "journal.jsonl").is_file()     # old evidence kept
+            assert new["journal_hash"] != old["journal_hash"] or tid != "P1-13"                                        # the critic entry is in the new journal
+        assert (out / "retry_critic_log.jsonl").is_file() and len((out / "retry_critic_log.jsonl").read_text("utf-8").splitlines()) == 2
+        assert not (out / "_retry").exists() and (out / "BANK_RESULTS.json").is_file() and (out / "CONFORMANCE.json").is_file()      # reports rebuilt at the end
+        assert not LR.needs_critic_retry(out / "tasks/P1-13")                                                           # nothing left to retry
+        # label: the controller decides through trusted evidence only; both labels are recorded in the log
+        assert all("label_before" in e and "label_after" in e for e in rs2["critic_retry"])
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+@test
+def t_retry_critic_failure_leaves_the_finished_task_untouched_and_keeps_the_attempt():
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        out = tmp / "o"
+        _run(out, _tasks("P1-13"))
+        before = (out / "tasks/P1-13/result.json").read_bytes()
+
+        def dead(packet, label): raise TimeoutError("timed out")
+        rs, _, _ = _run(out, _tasks("P1-13"), resume=True, retry_critic=True, critic_client=LR.GlmInlineCritic(transport=dead))
+        assert rs["critic_retry"][0]["applied"] is False and rs["critic_retry"][0].get("failed_attempt_kept_at")
+        assert (out / "tasks/P1-13/result.json").read_bytes() == before and (out / "tasks/P1-13/DONE").is_file() and not (out / "tasks_archive").exists()      # the original is untouched
+        assert (out / rs["critic_retry"][0]["failed_attempt_kept_at"]).is_dir()
+        raises(ValueError, _run, tmp / "x", _tasks("P1-13"), retry_critic=True)                                         # --retry-critic needs --resume
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 # ------------------------------------------------------------------ REAL sandboxes (skipped when unavailable)
 def _p101():
     t = next(json.loads(l) for l in (REPO / "results/raw/codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl").read_text("utf-8").splitlines() if '"P1-01"' in l[:40])

@@ -1,0 +1,61 @@
+{
+ "events": 770,
+ "first_utc": "2026-10-18T15:31:44.319Z",
+ "last_utc": "2026-10-18T15:32:40.027Z",
+ "wall_seconds": 55.707,
+ "stages": {
+  "generate": {
+   "n": 16,
+   "total_s": 0.046,
+   "p50_s": 0.0,
+   "p95_s": 0.015
+  },
+  "glm_critic": {
+   "n": 2,
+   "total_s": 0.14,
+   "p50_s": 0.07,
+   "p95_s": 0.105
+  },
+  "model_load": {
+   "n": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "preflight": {
+   "n": 1,
+   "total_s": 0.625,
+   "p50_s": 0.625,
+   "p95_s": 0.625
+  },
+  "sandbox_experiment": {
+   "n": 334,
+   "total_s": 51.276,
+   "p50_s": 0.156,
+   "p95_s": 0.188
+  },
+  "sandbox_public": {
+   "n": 17,
+   "total_s": 2.672,
+   "p50_s": 0.156,
+   "p95_s": 0.194
+  },
+  "task": {
+   "n": 3,
+   "total_s": 26.062,
+   "p50_s": 2.359,
+   "p95_s": 21.091
+  },
+  "task_after_critic": {
+   "n": 2,
+   "total_s": 28.719,
+   "p50_s": 14.36,
+   "p95_s": 24.921
+  }
+ },
+ "model_seconds": 0.046,
+ "sandbox_seconds": 53.948,
+ "model_vs_sandbox": {
+  "model_share": 0.0009
+ }
+}

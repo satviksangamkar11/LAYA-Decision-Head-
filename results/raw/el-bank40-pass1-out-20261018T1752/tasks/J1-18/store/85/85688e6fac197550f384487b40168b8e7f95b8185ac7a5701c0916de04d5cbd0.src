@@ -1,0 +1,33 @@
+import java.util.*;
+
+public final class Solution {
+    public static Object solve(Map<String, Object> data) {
+        Number kNum = (Number) data.get("k");
+        long k = kNum.longValue();
+        
+        List<?> numsList = (List<?>) data.get("nums");
+        
+        Map<Long, Long> prefixMap = new HashMap<>();
+        prefixMap.put(0L, 1L);
+        
+        long currentSum = 0;
+        long count = 0;
+        
+        for (Object numObj : numsList) {
+            Number num = (Number) numObj;
+            long numVal = num.longValue();
+            
+            currentSum += numVal;
+            
+            long required = currentSum - k;
+            
+            if (prefixMap.containsKey(required)) {
+                count += prefixMap.get(required);
+            }
+            
+            prefixMap.put(currentSum, prefixMap.getOrDefault(currentSum, 0L) + 1);
+        }
+        
+        return (Object) Long.valueOf(count);
+    }
+}
