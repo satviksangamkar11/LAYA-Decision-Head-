@@ -731,3 +731,6 @@ Older items: `autojev/` and the JDownloader installer were deleted 2026-10-03 (d
 
 
 **Status 2026-10-04:** a new head from Coding_Decision_Agent on frozen Qwen3-4B states is planned (PLAN.md 14, DECISION_HEAD.md 20); nothing trained yet. State capture on Kaggle: 45,500 of 46,826 decisions. The synthetic hard negatives are flagged by the shortcut check, so real wrong options were researched and a tiered builder written (PLAN.md 15); its counts have not been run on the full data and recapture waits for them.
+
+## 2026-10-19: WSLC backend, trusted verifier, 20 Java tasks
+Branch el-arch1-wslc-java20-2026-10-18 (37cf87d3, 78e5bd40, b41f5129). MXC WSLC backend qualified (pids limit not enforced), trusted verifier built (`--trusted-verify`), runner `--sandbox wslc`, Java parity 6/6 vs WSL, smoke J1-17 SUPPORTED. 20-task run in `results/raw/el-bank-java20-wslc-20261018T211547` (result pending at freeze). LAYA scorer off (user, 2026-10-19). Full details: HANDOFF_2026_10_18_EL_ARCH1_LOCAL_RUN.md.

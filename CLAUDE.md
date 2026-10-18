@@ -341,3 +341,6 @@ pass the same gate as everything else.
 - Keep a running ledger `results/increments.md`: step, what changed, benchmark before, after, delta,
   and whether the gain exceeds the paired-bootstrap interval. A step that does not move the benchmark
   is recorded as such, not dropped. The benchmark is never changed to make a step look better.
+
+## User rules 2026-10-19 (chat)
+- **WSLC / Java:** GO to implement the MXC WSLC backend and run the 20 Java tasks (`configs/el_bank_java20_wslc_v1.json`) locally with Qwen2.5-Coder-1.5B; real WSLC only, no silent fallback (mxc-wslc backend label); trusted verifier (`--trusted-verify`) separates candidate execution from verdict admission; commit and push to a NEW branch approved, never merge into main. Local image import only (no registry pull). Resource-exhaustion tests are scaled down. Learned LAYA scoring stays OFF for the 1.5B run, recorded as `scorer: none`. No sub-agents; agents work sequentially; one WSLC user at a time.
