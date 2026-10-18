@@ -405,6 +405,42 @@ def t_runner_loads_the_model_then_starts_the_engine_and_probes_before_any_task()
 
 
 @test
+def t_receipts_carry_the_providers_own_backend_label_not_the_factory_name():
+    NL = chr(10)
+
+    class ProvSandbox:
+        env_label = "mxc-wslc"
+
+        def provenance(self): return {"backend": "mxc-wslc", "image_digest": "sha256:" + "ee" * 32, "toolchain": {"javac": "javac 26.0.1", "java": "openjdk 26", "python": "Python 3.13.11", "go": "go1.26.4"}}
+
+        def run(self, workspace, cmd, persist=False, timeout=60):
+            if cmd.startswith("python3 --version"): return dict(R0, stdout="Python 3.13.11" + NL)
+            if "javac -version" in cmd: return dict(R0, stdout="javac 26.0.1" + NL)
+            p = subprocess.run([sys.executable] + cmd.split()[1:], cwd=workspace, capture_output=True, text=True, timeout=timeout)       # python runner, host python: contract test only
+            return dict(R0, exit_code=p.returncode, stdout=p.stdout, stderr=p.stderr)
+    be = PE.ProviderExecutionBackend(ProvSandbox(), backend="wslc", scratch=Path(tempfile.mkdtemp()))
+    h = be.start(["python", "java"])
+    assert h["backend"] == "mxc-wslc" and h["engine"] == "mxc-wslc" and h["image_digest"] == "sha256:" + "ee" * 32
+    spec = TaskSpec("P1-99", "py1:P1-99", "python", "python", "p", [{"input": {"x": 1}, "expected": 2}])
+    be.run_public(Artifact.make("P1-99", "python", "def solve(d):" + NL + "    return d['x'] * 2" + NL), spec)
+    r = be.exec_log[0]
+    assert r["backend"] == "mxc-wslc" and r["engine"] == "mxc-wslc" and r["image_digest"] == "sha256:" + "ee" * 32 and r["toolchain"]["javac"] == "javac 26.0.1" and r["toolchain"]["java"] == "openjdk 26"
+    info = be.backend_info()
+    assert info["backend"] == "mxc-wslc" and info["factory_backend"] == "wslc"
+    be2 = PE.ProviderExecutionBackend(LocalNoProv(), backend="mxc", scratch=Path(tempfile.mkdtemp()))
+    be2.run_public(Artifact.make("P1-99", "python", "def solve(d):" + NL + "    return d['x'] * 2" + NL), spec)
+    assert be2.exec_log[0]["backend"] == "mxc"                                                                       # a provider without provenance(): the factory name, as before
+
+
+class LocalNoProv:
+    env_label = "mxc-processcontainer"
+
+    def run(self, workspace, cmd, persist=False, timeout=60):
+        p = subprocess.run([sys.executable] + cmd.split()[1:], cwd=workspace, capture_output=True, text=True, timeout=timeout)
+        return dict(R0, exit_code=p.returncode, stdout=p.stdout, stderr=p.stderr)
+
+
+@test
 def t_REAL_mxc_python_with_the_trusted_verifier_flag_matches_the_legacy_runner():
     from evidence_ladder.controller.sandbox_provider import backend_available
     if not backend_available("mxc")["available"]: raise Skip("MXC unavailable")

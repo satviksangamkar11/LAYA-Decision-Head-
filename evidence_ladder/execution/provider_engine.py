@@ -119,14 +119,27 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
                 raise ProviderEngineError("sandbox backend %r unavailable: %s: %s" % (self.backend_name, type(e).__name__, str(e)[:300])) from e
         return self._sandbox
 
+    def _provenance(self) -> Dict[str, Any]:
+        """The backend's own identity (sandbox.provenance(): e.g. backend 'mxc-wslc', image_digest, toolchain) when it offers one; cached after the first successful call."""
+        if getattr(self, "_prov", None) is None and self._sandbox is not None and hasattr(self._sandbox, "provenance"):
+            try:
+                self._prov = dict(self._sandbox.provenance())
+            except Exception:      # noqa: BLE001
+                self._prov = None
+        return getattr(self, "_prov", None) or {}
+
+    def _backend_id(self) -> str:
+        """Name recorded in every receipt: the provider's own backend label ('mxc-wslc'), not the factory name ('wslc')."""
+        return str(self._provenance().get("backend") or self.backend_name)
+
     def _image_digest(self) -> Optional[str]:
         sb = self._sandbox
-        return getattr(sb, "image_digest", None) or ((getattr(sb, "last_diagnostics", None) or {}).get("image_digest") if sb is not None else None)
+        return self._provenance().get("image_digest") or getattr(sb, "image_digest", None) or ((getattr(sb, "last_diagnostics", None) or {}).get("image_digest") if sb is not None else None)
 
     def start(self, languages=("python", "java")) -> Dict[str, Any]:
         sb = self.sandbox
         self.probe_toolchains(languages)
-        return {"engine": getattr(sb, "env_label", self.backend_name), "backend": self.backend_name, "toolchains": self.toolchains, "image_digest": self._image_digest()}
+        return {"engine": getattr(sb, "env_label", self.backend_name), "backend": self._backend_id(), "toolchains": self.toolchains, "image_digest": self._image_digest()}
 
     def probe_toolchains(self, languages) -> Dict[str, Dict[str, Any]]:
         """REAL preflight inside the chosen backend: every probe command of a language must exit 0 there. A command the backend cannot even start (UnsupportedCommand / UnsupportedPolicy, e.g. `sh -c`
@@ -162,11 +175,14 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
         return out
 
     def toolchain_versions(self) -> Dict[str, Any]:
-        return {k: v.get("version") for k, v in self.toolchains.items() if v.get("runnable")}
+        v = {k: x.get("version") for k, x in self.toolchains.items() if x.get("runnable")}
+        for k, x in (self._provenance().get("toolchain") or {}).items():      # javac / java / python / go as the provider itself reports them
+            v[k] = x
+        return v
 
     def _record(self, r: Dict[str, Any], language: str) -> None:
         d = {k: r[k] for k in ("exit_code", "killed", "stdout", "stderr", "protected_unchanged", "pre_tree_sha256", "post_tree_sha256", "persisted")}
-        d.update(backend=self.backend_name, engine=getattr(self._sandbox, "env_label", self.backend_name), image_digest=self._image_digest(), toolchain=self.toolchain_versions(), source_sha256=self.source_sha256,
+        d.update(backend=self._backend_id(), engine=getattr(self._sandbox, "env_label", self.backend_name), image_digest=self._image_digest(), toolchain=self.toolchain_versions(), source_sha256=self.source_sha256,
                  language=language)
         self.exec_log.append(d)
 
@@ -377,7 +393,7 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
     def backend_info(self) -> Dict[str, Any]:
         sb = self._sandbox
         ps = sorted(self.python_seconds)
-        return {"engine": getattr(sb, "env_label", self.backend_name) if sb is not None else self.backend_name, "backend": self.backend_name, "calls": self.calls, "sandbox_seconds_total": round(self.seconds, 2),
+        return {"engine": getattr(sb, "env_label", self.backend_name) if sb is not None else self.backend_name, "backend": self._backend_id(), "factory_backend": self.backend_name, "calls": self.calls, "sandbox_seconds_total": round(self.seconds, 2),
                 "seconds_per_call": {"n": len(ps), "p50": ps[len(ps) // 2] if ps else None, "max": ps[-1] if ps else None},
                 "limits_config": {k: getattr(self.cfg, k) for k in ("py_timeout", "max_source_bytes", "max_output_bytes", "max_observed_chars")}, "java": java_capability(self.backend_name), "toolchains": self.toolchains, "image_digest": self._image_digest(), "source_sha256": self.source_sha256,
                 "diagnostics": getattr(sb, "last_diagnostics", None),
