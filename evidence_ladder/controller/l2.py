@@ -55,6 +55,92 @@ def parse_checks(text: str, max_checks: int = 8) -> Dict[str, Any]:
     return {"status": "ok" if checks else "no_valid_check", "checks": checks, "rejected": rej}
 
 
+# ------------------------------------------------------------------ [F2c] qwen_tests_v2: prompt and parser that agree with each other
+# Diagnosis on the saved Kaggle 4B run (results/raw/el-bank40-pass1-out-20261018T1752, 26 'tests' generations): the FROZEN qwen_tests_v1 prompt asks for the keys "input" and "expected"
+# only, but parse_checks() above requires exactly {"input","expected","quote"}; 24 of 26 answers were valid fenced JSON arrays and ALL 144 items had exactly the two requested keys, so every
+# item was rejected ("no valid test parsed") although the model had done what it was asked. (2 of 26 hit the 8192-token ceiling inside the thinking block: model behaviour.)
+# v1 stays untouched (frozen, replayable). v2 = a NEW template that asks for the quote, and a NEW parser that (a) does not require </think> for a non-thinking model, (b) names the reason of
+# every rejected item in a closed set, (c) requires the input to be an object with exactly the keys of the public examples. The span rule is NOT relaxed: an item without a verbatim quote is
+# rejected (reason missing_quote), never repaired and never given an invented quote; validate_checks() (span, L3, reference, mutants) is unchanged and L2 still never approves.
+TEMPLATE_V2_ID = "qwen_tests_v2"
+TEMPLATE_V2 = (
+    "{task_prompt}\n\n"
+    "Public examples (input and expected output):\n{examples}\n\n"
+    "Write {n_tests} additional test cases that follow from the statement above. Do not copy the public examples. Keep any reasoning short. "
+    "Output ONE fenced json code block and nothing after it: a list of objects with exactly the keys \"input\", \"expected\" and \"quote\". "
+    "\"input\" must be a JSON object with exactly the keys {input_keys} (a JSON object, not a string). "
+    "\"quote\" must be a span of at least 8 characters copied character for character from the statement above that justifies the expected output."
+)
+TEMPLATE_V2_HASH = sha256_text(TEMPLATE_V2)
+REJECT_CODES = ("no_think_close", "not_json", "not_array", "not_object", "missing_quote", "unexpected_keys", "input_not_object", "input_keys_mismatch", "quote_not_string", "beyond_max_checks")
+
+
+def render_tests_v2(task_prompt: str, examples: str, n_tests: int, input_keys: Sequence[str]) -> Tuple[str, str]:
+    p = TEMPLATE_V2.format(task_prompt=task_prompt, examples=examples, n_tests=n_tests, input_keys=", ".join('"%s"' % k for k in input_keys))
+    return p, sha256_text(p)
+
+
+def _answer_text(text: str, require_think_close: bool) -> Tuple[Optional[str], Optional[str]]:
+    i = text.rfind(THINK_CLOSE)
+    if i < 0:
+        if require_think_close:
+            return None, "no_think_close"
+        ans = text
+    else:
+        ans = text[i + len(THINK_CLOSE):]
+    ans = ans.strip()
+    if FENCE in ans:      # ONE fenced block (the instruction); anything outside it is formatting. With several fences the LAST complete one is taken, nothing is guessed.
+        parts = ans.split(FENCE)
+        if len(parts) >= 3:
+            body = parts[-2]
+            first, _, rest = body.partition("\n")
+            ans = (rest if first.strip().lower() in ("", "json") else body).strip()
+    return ans, None
+
+
+def parse_checks_v2(text: str, max_checks: int = 8, input_keys: Optional[Sequence[str]] = None, require_think_close: bool = True) -> Dict[str, Any]:
+    """-> {"status", "checks": [{"index","input","expected","quote"}], "rejected": [{"index","code","reason"}], "counts": {code: n}}. Nothing is repaired or invented."""
+    ans, bad = _answer_text(text, require_think_close)
+    rej: List[Dict[str, Any]] = []
+
+    def out(status, checks=()):
+        counts: Dict[str, int] = {}
+        for r in rej:
+            counts[r["code"]] = counts.get(r["code"], 0) + 1
+        return {"status": status, "checks": list(checks), "rejected": rej, "counts": counts}
+    if bad:
+        rej.append({"index": None, "code": bad, "reason": "thinking never finished (no </think>)"})
+        return out("no_think_close")
+    try:
+        arr = json.loads(ans)
+    except ValueError as e:
+        rej.append({"index": None, "code": "not_json", "reason": "answer is not exactly one JSON value: %s" % str(e)[:80]})
+        return out("not_json_array")
+    if not isinstance(arr, list):
+        rej.append({"index": None, "code": "not_array", "reason": "top-level JSON value is not an array"})
+        return out("not_json_array")
+    want = None if input_keys is None else sorted(input_keys)
+    checks = []
+    for n, a in enumerate(arr):
+        if not isinstance(a, dict):
+            rej.append({"index": n, "code": "not_object", "reason": "item is not an object"})
+        elif "quote" not in a and set(a) == {"input", "expected"}:
+            rej.append({"index": n, "code": "missing_quote", "reason": 'no "quote": the span rule needs a verbatim span of the request; none is invented'})
+        elif set(a) != {"input", "expected", "quote"}:
+            rej.append({"index": n, "code": "unexpected_keys", "reason": "keys are %s, not exactly input, expected, quote" % sorted(a)})
+        elif not isinstance(a["input"], dict):
+            rej.append({"index": n, "code": "input_not_object", "reason": "input is a %s, not a JSON object" % type(a["input"]).__name__})
+        elif want is not None and sorted(a["input"]) != want:
+            rej.append({"index": n, "code": "input_keys_mismatch", "reason": "input keys %s differ from the public examples' %s" % (sorted(a["input"]), want)})
+        elif not isinstance(a["quote"], str):
+            rej.append({"index": n, "code": "quote_not_string", "reason": "quote is not a string"})
+        elif len(checks) >= max_checks:
+            rej.append({"index": n, "code": "beyond_max_checks", "reason": "beyond max_checks=%d" % max_checks})
+        else:
+            checks.append({"index": n, "input": a["input"], "expected": a["expected"], "quote": a["quote"]})
+    return out("ok" if checks else "no_valid_check", checks)
+
+
 # ------------------------------------------------------------------ deterministic mutants
 _CMP = {ast.Lt: ast.LtE, ast.LtE: ast.Lt, ast.Gt: ast.GtE, ast.GtE: ast.Gt, ast.Eq: ast.NotEq, ast.NotEq: ast.Eq}
 _BIN = {ast.Add: ast.Sub, ast.Sub: ast.Add, ast.Mult: ast.Add, ast.FloorDiv: ast.Mult, ast.Mod: ast.Mult, ast.Div: ast.Mult}

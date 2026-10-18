@@ -39,11 +39,12 @@ def read_run(d: Path) -> Dict[str, Any]:
     pol = summ.get("thinking_policy")
     if summ.get("verdict") not in ("REFUSED_NO_THINKING_POLICY",):
         B.check_policy(pol or {})                      # a run without an explicit policy is not a result
-    tasks, done = {}, set()
+    tasks, done, not_tested = {}, set(), {}
     for p in sorted((d / "tasks").glob("*/result.json")):
         r = jload(p)
         if r.get("thinking_policy") != pol: raise IngestError("task %s was run with a different thinking policy than the run summary" % p.parent.name)
         tasks[p.parent.name] = r
+        if r.get("status") == "NOT_TESTED": not_tested[p.parent.name] = r.get("stop_cause")
         ct = p.parent / "controller_timeline.json"
         if ct.is_file():
             try: r["_controller_timeline_summary"] = jload(ct).get("summary")
@@ -51,7 +52,7 @@ def read_run(d: Path) -> Dict[str, Any]:
         if (p.parent / "DONE").exists(): done.add(p.parent.name)
     ev = B.read_events(d / "TIMELINE.jsonl") if (d / "TIMELINE.jsonl").is_file() else []
     gpu = [json.loads(l) for l in (d / "timeline" / "gpu_util.jsonl").read_text("utf-8").splitlines() if l.strip()] if (d / "timeline" / "gpu_util.jsonl").is_file() else []
-    return {"dir": d, "summary": summ, "tasks": tasks, "done": done, "events": ev, "gpu": gpu}
+    return {"dir": d, "summary": summ, "tasks": tasks, "done": done, "events": ev, "gpu": gpu, "not_tested": not_tested}
 
 
 def merge_runs(runs: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
@@ -66,7 +67,8 @@ def merge_runs(runs: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
             if tid in r["done"] or tid not in done: tasks[tid] = res
         done |= r["done"]
     summ = dict(runs[-1]["summary"]); summ["total_seconds"] = round(sum(r["summary"].get("total_seconds") or 0 for r in runs), 1); summ["kernel_versions_seconds"] = [r["summary"].get("total_seconds") for r in runs]
-    return {"dir": runs[-1]["dir"], "summary": summ, "tasks": tasks, "done": done, "events": sorted([e for r in runs for e in r["events"]], key=lambda e: (e["ts"], e["mono"])), "gpu": [g for r in runs for g in r["gpu"]]}
+    return {"dir": runs[-1]["dir"], "summary": summ, "tasks": tasks, "done": done, "events": sorted([e for r in runs for e in r["events"]], key=lambda e: (e["ts"], e["mono"])), "gpu": [g for r in runs for g in r["gpu"]],
+            "not_tested": {k: v for r in runs for k, v in (r.get("not_tested") or {}).items()}}
 
 
 def steps_of(events: Sequence[Dict[str, Any]], task: str) -> List[Dict[str, Any]]:
@@ -117,7 +119,8 @@ def compile_results(pass1: Dict[str, Any], pass2: Optional[Dict[str, Any]] = Non
     if pass2:
         for tid in sorted(pass2["done"]): final[tid] = pass2["tasks"][tid]
     rows = [row_of(t, r, events) for t, r in sorted(final.items())]
-    unfinished = sorted((set(pass1["tasks"]) | set(pass2["tasks"] if pass2 else [])) - set(final))
+    nt = dict(pass1.get("not_tested") or {})
+    unfinished = sorted((set(pass1["tasks"]) | set(pass2["tasks"] if pass2 else [])) - set(final) - set(nt))
     allids = {t["task_id"] for t in []}
     stages = B.summarize(events)
     agg: Dict[str, List[float]] = {}
@@ -130,7 +133,7 @@ def compile_results(pass1: Dict[str, Any], pass2: Optional[Dict[str, Any]] = Non
     pol = pass1["summary"].get("thinking_policy")
     secs = [s for s in (pass1["summary"].get("total_seconds"), pass2["summary"].get("total_seconds") if pass2 else None) if s]
     return {"label": LABEL, "scorer": "none", "thinking_policy": pol, "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "tasks_finished": len(rows), "tasks_expected": 40,
-            "unfinished_or_errored": unfinished, "pending_not_started": pass1["summary"].get("pending_not_started"), "resumed_tasks": pass1["summary"].get("resumed_tasks"),
+            "unfinished_or_errored": unfinished, "not_tested": nt, "sandbox": pass1["summary"].get("engine") or (pass1["summary"].get("jail") or {}).get("engine"), "pending_not_started": pass1["summary"].get("pending_not_started"), "resumed_tasks": pass1["summary"].get("resumed_tasks"),
             "jail": pass1["summary"].get("jail"), "gpus": pass1["summary"].get("gpus"), "model": pass1["summary"].get("model"), "labels_by_language": per_lang,
             "kernel_wall_seconds": {"pass1": pass1["summary"].get("total_seconds"), "pass2": pass2["summary"].get("total_seconds") if pass2 else None, "total": round(sum(secs), 1)},
             "stage_summary": stages, "controller_stage_seconds_per_task": controller_stages, "model_vs_sandbox": {"model_seconds": stages["model_seconds"], "sandbox_seconds": stages["sandbox_seconds"], **stages["model_vs_sandbox"]},
@@ -143,7 +146,8 @@ def render_md(c: Dict[str, Any]) -> str:
     L = ["# BANK40 RESULTS", "", "**%s**" % c["label"], "",
          "thinking_policy: `%s`; scorer: none (no LAYA); tasks finished %d / %d; created %s" % (json.dumps(pol, sort_keys=True), c["tasks_finished"], c["tasks_expected"], c["created_utc"]),
          "jail: %s; GPUs: %s; kernel wall seconds: %s" % (json.dumps({k: v for k, v in (c["jail"] or {}).items() if k in ("status", "java_home", "bwrap_swapped")}), c["gpus"], json.dumps(c["kernel_wall_seconds"])),
-         "unfinished / errored: %s; pending (time guard): %s; resumed from earlier version: %s" % (c["unfinished_or_errored"], c["pending_not_started"], c["resumed_tasks"]), ""]
+         "unfinished / errored: %s; pending (time guard): %s; resumed from earlier version: %s" % (c["unfinished_or_errored"], c["pending_not_started"], c["resumed_tasks"]),
+         "sandbox: %s; NOT_TESTED (not run, never moved to another sandbox): %s" % (c.get("sandbox"), json.dumps(c.get("not_tested") or {}, sort_keys=True)), ""]
     if pol.get("policy") == "prompt_brief": L += ["generations that hit the technical token ceiling (counted as FAILED generations, never as success): %s" % c["ceiling_hits_total"], ""]
     L += ["labels by language: " + json.dumps(c["labels_by_language"], sort_keys=True), "",
           "| task | lang | diff | cand | public ex (best/total; cands all-pass) | L2 | clusters pub/ext | critic | label | stop | tokens gen/prompt | seconds | start UTC | end UTC |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]

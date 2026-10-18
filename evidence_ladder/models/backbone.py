@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Mapping, Optional, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONFIG_REL = "configs/backbones_v1.toml"
+CONFIG_V2_REL = "configs/backbones_v2.toml"
 DEFAULT_ID = "qwen3-4b-thinking-2507"          # states of records written before profiles existed are, by definition, this profile's
 
 _BUILTIN_4B: Dict[str, Any] = {
@@ -76,14 +77,17 @@ def from_dict(pid: str, d: Mapping[str, Any]) -> Profile:
 
 def load_all(path: Optional[Path] = None) -> Dict[str, Profile]:
     out = {DEFAULT_ID: from_dict(DEFAULT_ID, _BUILTIN_4B)}
-    p = Path(path) if path else REPO_ROOT / CONFIG_REL
-    if p.is_file():
-        import tomllib
-        for pid, d in tomllib.loads(p.read_text(encoding="utf-8")).get("backbone", {}).items():
-            prof = from_dict(pid, d)
-            if pid == DEFAULT_ID and prof != out[DEFAULT_ID]:
-                raise ProfileError("%s differs from the 4B profile embedded in backbone.py" % CONFIG_REL)
-            out[pid] = prof
+    files = [Path(path)] if path else [REPO_ROOT / CONFIG_REL, REPO_ROOT / CONFIG_V2_REL]      # v2 (new models) is additive: v1 entries are never overridden
+    for p in files:
+        if p.is_file():
+            import tomllib
+            for pid, d in tomllib.loads(p.read_text(encoding="utf-8")).get("backbone", {}).items():
+                prof = from_dict(pid, d)
+                if pid == DEFAULT_ID and prof != out[DEFAULT_ID]:
+                    raise ProfileError("%s differs from the 4B profile embedded in backbone.py" % p.name)
+                if pid in out and p.name != CONFIG_REL.split("/")[-1] and pid != DEFAULT_ID:
+                    raise ProfileError("profile %r in %s redefines an existing profile" % (pid, p.name))
+                out[pid] = prof
     return out
 
 

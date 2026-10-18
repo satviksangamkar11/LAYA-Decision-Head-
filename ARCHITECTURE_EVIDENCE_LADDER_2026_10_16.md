@@ -343,3 +343,10 @@ ERROR, not pass), and planted flawed candidates.
 | Thresholds file, prep script, invariant tests | NOT DONE | waits for D6 |
 | Any compute | NOT DONE | waits for D1, D6 and Kaggle GO |
 | D1-D6 | WAITING ON USER | section 11 |
+
+## 13. Revision R3 (2026-10-18): what changed since this document, in one place
+Full table with state and "used by the local run" per change: [ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md](ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md). Frozen findings: [FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md](FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md).
+- The eight invariants, the ladder L0-L5, the router O1-O3 and the eight stages are unchanged. Two final paths are kept apart: PATH A (live model; LAYA only on the exact accepted pool) and PATH B (stored 4B scores on exact stored contexts).
+- New: candidate filter (frozen interface v1), per-step Timeline (hash-neutral), enforced caps with named stop labels, the execution provider port with **MXC** as the replacement sandbox (fail closed, WSL kept for rollback), the Kaggle chroot+seccomp jail (MXC's Linux backend cannot start on Kaggle), the thinking policies recorded in every result, the bank-40 runner, and the local runner for the Qwen2.5-Coder-1.5B model with internal-state capture (diagnostic only).
+- Measured so far: toy examples 3/3 VERIFIED on Kaggle 4B with a thinking budget; bank run 32/40 tasks done (30 SUPPORTED, public examples only, hidden grading not done); L2 INSUFFICIENT on all 32 (parser fix in progress).
+

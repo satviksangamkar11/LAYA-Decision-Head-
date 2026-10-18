@@ -162,3 +162,51 @@ One explicit setting in the packer: `--thinking-policy budget --think-budget N -
 - The parent process flow (GPU count, spawning two workers, merge, critic export) is only exercised on Kaggle; on the PC I tested the worker end to end with a fake model + fake executor + the real controller/critic broker (pass 1 -> blinded packet validated -> pass 2 replay -> compiler) and the kernel's fail-closed paths in a subprocess (no jail, no policy, tampered bundle, leaked case file).
 - The real Kaggle jail, the real executor and Java behaviour inside the ladder controller are untested here (FC-1 proved the jail; the Java ladder path is new). A per-task crash is recorded as ERROR with its traceback and retried on resume.
 - `model_variant` needs a registered non-thinking profile (see above).
+
+---
+# LOCAL BANK RUN (RTX 3050 + MXC sandbox), 2026-10-18: built; selftest PASS on real MXC; the real model run is the coordinator's
+
+Suites (tools/el_arch1_run_suites.py): **418 / 418 pass**, incl. `phaseF3c_tests.py` 24/24 (two of them REAL: the MXC sandbox on P1-01's public examples, the WSL comparison adapter; plus the selftest on real MXC).
+
+## Files (mine)
+`tools/el_bank_local_run.py` (the one command), `evidence_ladder/execution/provider_engine.py` (bank engine over the sandbox provider port = MXC), `evidence_ladder/execution/wsl_engine.py` (WSL comparison adapter, only with `--sandbox wsl`), `evidence_ladder/orchestrator/tests/phaseF3c_tests.py`; driver `tools/el_bank40_driver.py` now understands NOT_TESTED tasks.
+
+## What one command does
+`PYTHONPATH=. .venv/Scripts/python.exe tools/el_bank_local_run.py results/raw/el-bank-local-<UTC> [--tasks configs/el_bank80_rest_v1.json] [--limit N] [--resume] [--sandbox mxc|wsl]`
+1. **Preflight** (nothing loaded/run before it passes; verdict PREFLIGHT_REFUSED with the reason): MXC capability probe + engine handshake, Java capability, free RAM >= 3 GB and free VRAM >= 3.5 GB (unknown VRAM = refusal; thresholds are CLI values), model `snapshot_verified` must be true, tasks public-only (RUN_SUMMARY.public_only_guard).
+2. **Per task** (ladder mode, **L2 v2**, `thinking: false`, seeds 1-8, k=4, 3600 s wall cap as a config value, token cap 100000): generation on the GPU, candidates executed in **MXC** (python3 runner.py through `sandbox.run`, ~0.14-0.4 s per candidate run measured), L1 clustering, **inline GLM critic**: when the controller stops `critic_pending`, the task's blinded packets go to z-ai/glm-5.3-flash right then (BatchRunner/PcSender/broker as glm_live; keys read from .secrets in memory only; <= 39 sends/key/min; bounded retries), the answers are fed back with the RECORDED generations replayed (prompt-hash checked, 0 regenerations) and the task completes in the same run (`journal_before_critic.jsonl` keeps the first pass). No key file / API failure -> `api_unavailable` / `critic_failed` recorded, the run continues, nothing faked, critic is diagnostic only.
+3. **Resilience**: per-task atomic files, DONE last; a crash is recorded and the run continues; an engine failure during a task invalidates it (no DONE; the controller would otherwise swallow it as a tool failure); 3 engine failures in a row -> ENGINE_UNAVAILABLE, resumable (`--resume`); STOP file; RUN_SUMMARY/TIMELINE rewritten after every task.
+4. **Automatic end**: BANK_RESULTS.md/json (driver compile) and CONFORMANCE.md/json (Agent 2's `el_bank_conformance.audit_run`; expected ids written normalised to EXPECTED_TASKS.json because that tool does not read the el_bank80 manifest format) with `pipeline_verdict` in RUN_SUMMARY.
+5. **Provenance in RUN_SUMMARY**: sandbox label (`mxc-processcontainer`), thinking policy (model_variant, profile qwen2.5-coder-1.5b-instruct, ceiling 4096), profile id + sha256, l2_version 2, git commit, config hashes, java capability, public-only guard, internal_states (disabled | hook), resumed/not_tested/pending lists, engine_info (seconds per sandbox call).
+6. Per task also `exec_results.jsonl` (one raw sandbox dict, the 8 contract keys, per `sandbox.run`), `controller_timeline.json`, `gen_calls.json`, `critic_requests.json`, `glm/` ledgers.
+
+## Java
+No JDK on the host and the MXC dialect runs `python3|python <args>` only: all 20 Java tasks of the manifest are recorded `NOT_TESTED_NO_JDK` (result.json status/reason + NOT_TESTED marker, no DONE, listed in RUN_SUMMARY.not_tested and in BANK_RESULTS), never run in WSL, never faked. Only 28 python tasks run.
+
+## Selftest (`... <out> --selftest`, REAL MXC + real controller on CPU, ~10 s)
+```
+{"selftest": "PASS", "missing": [], "verdict": "OK", "pipeline_verdict": "PIPELINE_COMPLETE", "done": 2, "engine": "mxc-processcontainer", "seconds": 10.3}
+```
+It checks per task: DONE, result/journal/gen_calls/controller_timeline/exec_results/critic_requests files, journal kinds generation_request, candidate, evidence, l2_checks, behaviour_clusters, critic_trigger, critic, ranking, decision, stop; critic applied in the controller; L2 v2 recorded; clusters computed; controller stages present; run-level BANK_RESULTS, CONFORMANCE, TIMELINE files; verdict OK; PIPELINE_COMPLETE; states hook disabled. A missing stage returns exit 1 (negative test: deleting controller_timeline.json is reported).
+
+## Needs from Agent 1 (`models.qwen.build_local_backend(profile_id, log_path=None, think_policy=None)`)
+`model_info()` must carry `profile_id`, `profile_sha256` and `snapshot_verified: true` (else PREFLIGHT_REFUSED); a `language` attribute is set per task; `generate(request)` per the GenerationRequest contract. The frozen extractor needs a closing think tag, which a non-thinking model never writes: `ThinkShimGen` in the runner prefixes an EMPTY think block (counted as `think_shim_count`; no-op if the backend already does it). The state-capture hook is a callable `state_hook(task_states_dir) -> StateCapture` (optional; the CLI does not enable it by default).
+
+## Estimate (unmeasured)
+`estimate (unmeasured)`: 28 python tasks; MXC adds about 0.15-0.4 s per candidate execution (measured), so sandbox time is small; generation dominates. A 1.5B non-thinking model on the 3050 at roughly 40-70 tok/s, about 15-25 generations of 150-600 tokens per task, plus the inline critic (reasoning max, minutes per packet on the provider side) -> about 3-8 minutes per task, **about 1.5-4 hours** for 28 tasks.
+
+## Open / not covered
+- The real model, the real GLM call and the real per-task controller behaviour on the true bank prompts have not run here (CPU only, GPU belongs to Agent 1).
+- Candidate and runner share one process in the MXC engine (same as the Linux runner_v2); Linux red-team results do not transfer.
+- An unrelated flake seen once: phaseB/phaseC failed once while the machine was heavily loaded (fork failures) and passed on re-run.
+
+---
+# LOCAL BANK RUN, follow-up 2 (2026-10-18): rich selftest + stage coverage + preflight commit check
+
+- `--selftest` now runs THREE public bank tasks on real MXC with a fake model and a fake critic transport: **P1-02 (rich)**: 4 candidates, three behaviours that all pass the 4 public examples (reference, a `abs(x) < 1000` variant, a `len > 50` variant, a loop version), L2 v2 answer = valid JSON of new inputs with a quote copied verbatim from the statement; **P1-03 (repair)**: round-1 candidates fail the public examples, the repair prompt gets the failure, the repaired candidate passes; **P1-13 (cheap)**: lookup tables. It exits non-zero unless: rich task has L2 VALIDATED, extended clusters >= 2, discrimination triggered, critic called + applied in the controller (replayed generations) with ONLY model_derived critic evidence, timeline stages l2_generate/l2_validate/cluster/discriminate with UTC; repair task has a `repair:` candidate, a repair generation request and rounds >= 1; every task has the baseline journal kinds, exec_results.jsonl, controller timeline with UTC rows; run level BANK_RESULTS + CONFORMANCE = PIPELINE_COMPLETE, states hook disabled, stage coverage shows validated L2, clusters, critic and repair.
+- Result: `selftest PASS, pipeline_verdict PIPELINE_COMPLETE, done 3, engine mxc-processcontainer, 52.7 s` and `STAGE COVERAGE over 3 finished task(s): public-pass 3, L2 reached 3 (validated 1), clusters>=2 2, critic triggered 2 / called 2 / applied 2, repair round 1`.
+- Every real run prints that coverage line at its end (and stores `stage_coverage` in RUN_SUMMARY), computed from the journals.
+- Conformance found a real audit bug on the repair path (stage order); Agent 2 fixed the audit (order relaxed when a repair stage exists), verified by this selftest.
+- Preflight also checks free system commit (>= 4.5 GB, the figure Agent 1 measured as needed for the model load) and loads the model once inside the factory so `snapshot_verified` is true before the first task.
+- Honest limit: the critic evidence is checked to be model_derived only (label authority: invariants I1-I8 pass); a separate "label unchanged by the critic" control run was not added.
+- Suites: 418 / 418.

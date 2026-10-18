@@ -23,6 +23,13 @@ the MXFP4 weights, the 6 GB streaming design and the expert loader stay as PLAN.
 Where the runbook and PLAN.md disagree on the decision layer, the runbook wins. Where either
 disagrees with this file, this file wins.
 
+## User rules 2026-10-18 (chat) — override everything below where they differ
+
+- **Local run for the remaining bank tasks:** the user approved, in chat, downloading `Qwen/Qwen2.5-Coder-1.5B-Instruct` (about 3.1 GB, Apache-2.0, pinned revision in `configs/backbones_v2.toml`) and running the full bank pipeline LOCALLY on the RTX 3050 for the 48 tasks in `configs/el_bank80_rest_v1.json`. This overrides the "compute on Kaggle" rules for that task only. One GPU process at a time; the frozen 4B LAYA head is never given these states (hidden 1536); the model's internal states are captured and used only in a diagnostic probe.
+- **Sandbox:** the replaced sandbox (MXC provider, `LAYA_SANDBOX_BACKEND=mxc`) is the one to use on desktop hosts; WSL is the explicitly selected rollback, never a silent fallback. On Kaggle the chroot+seccomp jail is used (MXC's Linux backend cannot start there).
+- **Thinking:** lowest thinking, no cutoff of thinking by a token count; only a large technical safety ceiling, and a sample that hits it counts as a failure.
+- **Reporting:** results are development results (public examples only, hidden grading not done) and say so.
+
 ## User rules 2026-10-11 (chat) — override everything below where they differ
 
 - **NVIDIA calls:** the 800 / 1,000-call cap applied to the first hard-pool experiment only. There is no overall call cap now. Every

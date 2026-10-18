@@ -12,6 +12,14 @@ Rules: [CLAUDE.md](CLAUDE.md). Design record and survey: [DECISION_HEAD.md](DECI
 Tags: **[M]** measured here, **[A]** reported by an author and not reproduced, **[E]** estimate.
 Last updated: 2026-10-12 01:18 IST (status of the Fable imitation data work: [HANDOFF_2026_10_11_STATUS.md](HANDOFF_2026_10_11_STATUS.md)).
 
+## UPDATE - 2026-10-18: Evidence-Ladder coding pipeline closure, Kaggle bank run, local run with the new MXC sandbox
+
+- Architecture and the full list of changes: [ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md](ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md); frozen findings: [FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md](FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md); report: ARCHITECTURE_FINAL_REPORT.md and ARCHITECTURE_FINAL_REPORT_4B_LOWTHINK.md (43 PASS / 0 FAIL / 7 INSUFFICIENT_DATA).
+- Toy tasks ex1/ex2/ex3: 3/3 VERIFIED on Kaggle (Qwen3-4B-Thinking, thinking budget 512). Replay identical offline and in WSL, invariants I1-I8 pass.
+- Bank run on Kaggle (T4 x2, 4B, prompt_brief policy, no thinking cutoff, ceiling 8192): 32 of 40 tasks in 11.25 h, time guard hit; 30 SUPPORTED, 1 UNVERIFIED, 1 BLOCKED (public examples only; no hidden grading); L2 INSUFFICIENT on 32/32; model time 99.2%, sandbox 0.8%; thinking mean 4,295 tokens per sample (the brief prompt was mostly ignored). The critic call for J1-05 is still open (the Kaggle critic notebook failed at secret loading).
+- MXC (Microsoft) is the replacement execution sandbox on desktop hosts (branch mxc-execution-provider-2026-10-18, verdict MXC_REPLACEMENT_PARTIAL, p95 20-61% faster than WSL when warm; WSL stays the default and the rollback). MXC's Linux backend cannot start on Kaggle (probe, 2026-10-18): Kaggle uses the chroot+seccomp jail.
+- User decision 2026-10-18 (chat): run the remaining 48 bank tasks LOCALLY on the RTX 3050 with Qwen2.5-Coder-1.5B-Instruct (non-thinking, 3.1 GB download approved), using the MXC sandbox; capture and use the model's internal states (diagnostic probe, comparison-only). Java needs a JDK that MXC can run (open decision).
+
 ## FULL STATUS REPORT - 2026-10-12, 01:18 IST (2026-10-11, 19:48 UTC)
 
 Everything below is measured unless marked otherwise. Full record with file paths: [HANDOFF_2026_10_11_STATUS.md](HANDOFF_2026_10_11_STATUS.md)

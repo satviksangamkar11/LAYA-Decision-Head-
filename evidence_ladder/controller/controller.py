@@ -171,7 +171,7 @@ class _Run:
         seeds = self.next_seeds(n)
         if purpose == "sample":
             self.tlc("enter", "generate", purpose=purpose, n=n)
-        template = {"sample": "qwen_sample_v2", "repair": "repair_v1", "tests": "qwen_tests_v1"}.get(purpose, purpose)
+        template = {"sample": "qwen_sample_v2", "repair": "repair_v1", "tests": "qwen_tests_v2" if int(self.cfg.get("l2_version", 1)) == 2 else "qwen_tests_v1"}.get(purpose, purpose)
         if purpose == "sample" and self.cfg.get("strategies"):
             # [EL-ARCH-1 B3] the frozen prompt strategies (qwen_sample_v2 x2, qwen_sample_v2b x2, ... each with the solution-format block): one request per consecutive strategy run
             from . import generation as GEN
@@ -497,10 +497,20 @@ class _Run:
         self.l2_done = True
         self.tlc("enter", "l2_generate")
         from evidence_ladder.models import qwen as _Q
-        prompt, _ = _Q.render("qwen_tests_v1", task_prompt=self.task.prompt, examples=_Q.format_examples(self.task.public_tests), n_tests=int(self.cfg.get("l2_n", 6)))
+        v2 = int(self.cfg.get("l2_version", 1)) == 2      # [F2c] qwen_tests_v2 prompt + parse_checks_v2 (opt-in; v1 stays the default and is unchanged)
+        pt = self.task.public_tests
+        keys = sorted(pt[0]["input"]) if pt and isinstance(pt[0].get("input"), dict) else []
+        if v2:
+            prompt, _ = L2.render_tests_v2(self.task.prompt, _Q.format_examples(pt), int(self.cfg.get("l2_n", 6)), keys)
+        else:
+            prompt, _ = _Q.render("qwen_tests_v1", task_prompt=self.task.prompt, examples=_Q.format_examples(pt), n_tests=int(self.cfg.get("l2_n", 6)))
         parsed, rejected = [], []
         for g in self.generate("tests", prompt, 1):
-            pc = L2.parse_checks(g.text, int(self.cfg.get("l2_n", 6)))
+            if v2:
+                pc = L2.parse_checks_v2(g.text, int(self.cfg.get("l2_n", 6)), keys or None, require_think_close=bool(self.cfg.get("thinking", True)))
+                self.note("l2_parse", {"version": 2, "status": pc["status"], "counts": pc["counts"], "n_checks": len(pc["checks"]), "answer_sha256": sha256_text(g.text)[:16]})
+            else:
+                pc = L2.parse_checks(g.text, int(self.cfg.get("l2_n", 6)))
             parsed += pc["checks"]
             rejected += pc["rejected"]
         self.tlc("enter", "l2_validate")

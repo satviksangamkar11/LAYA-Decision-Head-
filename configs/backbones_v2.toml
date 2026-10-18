@@ -1,0 +1,19 @@
+# [local bank run] BACKBONE PROFILES v2: additive; v1 (4B, 0.6B) is untouched. Written 2026-10-18 (user: run the rest of the bank locally with Qwen2.5-Coder-1.5B on the 6 GB GPU).
+# head_compatible = [] : this model's states can never enter the frozen 4B adapters (hidden 1536 vs 2560); they are diagnostic data (probe / future adapter).
+# enable_thinking = false : NON-thinking model (no think block); the backend wraps its output in an EMPTY think block so every existing parser sees a closed block (documented in qwen.py NONTHINK_PREFIX).
+[backbone."qwen2.5-coder-1.5b-instruct"]
+repo = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
+revision = "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+local_path = "models/qwen2.5-coder-1.5b-instruct"
+hidden_size = 1536
+num_layers = 28
+depths = [14, 19, 23]
+dtype = "float16"
+local_device_policy = "resident"
+device_classes = ["NVIDIA GeForce RTX 3050"]
+recipe_id = "fable_capture_v1"
+query_cue = "\n\nNext action:"
+option_prefix = " "
+head_compatible = []
+generation = { do_sample = true, temperature = 0.7, top_p = 0.8, top_k = 20, repetition_penalty = 1.1 }
+enable_thinking = false

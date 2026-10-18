@@ -24,6 +24,10 @@ All numbers in this file were measured in this repository unless marked otherwis
 | [PLAN.md](PLAN.md) | Runtime plan and step lists |
 | [results/increments.md](results/increments.md) | Ledger: one row per major step |
 
+## Current coding pipeline (2026-10-18)
+
+The decision work now sits inside the **Evidence-Ladder coding pipeline**: a model proposes candidates, a deterministic filter prunes them, the sandbox runs the public examples, trusted evidence ranks them (a learned score, including this head, never approves), a blinded critic is diagnostic only, and every step is timestamped and journalled. The sandbox is the **MXC** execution provider on desktop hosts (fail closed, WSL kept for rollback) and a chroot+seccomp jail on Kaggle. Architecture, every change and what must be run: [ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md](ARCHITECTURE_AND_RUN_PLAN_2026_10_18.md). Frozen findings: [FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md](FINDINGS_FROZEN_EL_ARCH1_2026_10_18.md). Sandbox research: [research/](research/).
+
 ## Contents
 
 - [How it works](#how-it-works)

@@ -1,0 +1,292 @@
+{
+ "name": "el_bank80_rest_v1",
+ "created": "2026-10-18",
+ "purpose": "the bank tasks NOT completed in the Kaggle 4B run (32 done), to be run locally with Qwen2.5-Coder-1.5B-Instruct; development results under the D1 waiver, public examples only",
+ "done_in_kaggle_run": [
+  "J1-01",
+  "J1-02",
+  "J1-03",
+  "J1-04",
+  "J1-05",
+  "J1-06",
+  "J1-07",
+  "J1-08",
+  "J1-09",
+  "J1-10",
+  "J1-11",
+  "J1-12",
+  "J1-13",
+  "J1-14",
+  "J1-15",
+  "J1-16",
+  "J1-18",
+  "J1-19",
+  "J1-21",
+  "J1-22",
+  "P1-01",
+  "P1-02",
+  "P1-03",
+  "P1-04",
+  "P1-05",
+  "P1-06",
+  "P1-07",
+  "P1-08",
+  "P1-09",
+  "P1-10",
+  "P1-11",
+  "P1-12"
+ ],
+ "sources": {
+  "python": {
+   "file": "results/raw/codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl",
+   "sha256": "dd5d945c85d7537da953c897f939d0958703252deb493b8091ce899c0bdcc2eb"
+  },
+  "java": {
+   "file": "results/raw/codex-pilot1-java-20261016/kit/Pilot1_Java/worker/tasks.jsonl",
+   "sha256": "3211290a072a07ca656902b3ea6e00e899e9398f0a5810ec6358ea3821b5e064"
+  }
+ },
+ "tasks": [
+  {
+   "task": "P1-13",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-14",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-15",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-16",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-17",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-18",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-19",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-20",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-21",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-22",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-23",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-24",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-25",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-26",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-27",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-28",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-29",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-30",
+   "language": "python",
+   "difficulty": "medium"
+  },
+  {
+   "task": "P1-31",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-32",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-33",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-34",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-35",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-36",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-37",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-38",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-39",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "P1-40",
+   "language": "python",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-17",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-20",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-23",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-24",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-25",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-26",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-27",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-28",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-29",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-30",
+   "language": "java",
+   "difficulty": "medium"
+  },
+  {
+   "task": "J1-31",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-32",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-33",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-34",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-35",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-36",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-37",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-38",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-39",
+   "language": "java",
+   "difficulty": "hard"
+  },
+  {
+   "task": "J1-40",
+   "language": "java",
+   "difficulty": "hard"
+  }
+ ],
+ "total": 48
+}

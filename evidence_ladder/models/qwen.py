@@ -207,6 +207,11 @@ def budget_needs_force(phase1_text: str) -> bool:
     return "</think>" not in phase1_text
 
 
+# [local bank run] NON-thinking models (profile enable_thinking == False, e.g. Qwen2.5-Coder) have no think block. Every parser downstream expects a closed one, so the backend returns the model's raw answer
+# behind an EMPTY think block (exactly what Qwen3's own non-thinking template inserts). The prefix is added by the backend, is documented here, and model_info() says so; the raw text is unchanged after it.
+NONTHINK_PREFIX = "<think>\n\n</think>\n\n"
+
+
 class HFQwenBackend:
     """Real Qwen3-4B-Thinking-2507 generation (fp16, thinking mode, T=0.6 top_p=0.95 top_k=20). Runs only on Kaggle.
     Gate (checked in __init__ and again in generate): authorized is True, path /kaggle exists, env EVIDENCE_LADDER_ALLOW_INFERENCE == "1".
@@ -233,6 +238,7 @@ class HFQwenBackend:
         self._model = None
         self._tok = None
         self.snapshot_verified = False
+        self.device_name: Optional[str] = None      # set after the model is on the GPU; carried in model_info()
         self._greedy: Dict[Any, Generation] = {}      # greedy profiles only: first generation per (prompt, cap, language)
 
     def _gate(self) -> None:
@@ -245,7 +251,7 @@ class HFQwenBackend:
 
     def model_info(self) -> Dict[str, Any]:
         p = self.profile
-        return {"backend": "hf", "repo": p.repo, "revision": p.revision, "dtype": "fp16", "thinking": True, "enable_thinking": p.enable_thinking, "generation": dict(p.generation), "sampling": dict(SAMPLING),
+        return {"backend": "hf", "repo": p.repo, "revision": p.revision, "dtype": "fp16", "thinking": p.enable_thinking is not False, "nonthinking_empty_think_prefix": p.enable_thinking is False, "enable_thinking": p.enable_thinking, "generation": dict(p.generation), "sampling": {k: v for k, v in p.generation.items() if k != "do_sample"}, "do_sample": bool(p.generation.get("do_sample", True)), "device": self.device_name, "seed_recorded": True,
                 "profile_id": p.id, "profile_sha256": p.sha256, "local": self.local, "templates": dict(TEMPLATE_HASHES), "snapshot_verified": self.snapshot_verified, "pinned_files": sorted(self.verify_files),
                 **({"think_budget": self.think_budget, "answer_tokens": self.answer_tokens, "force_close_text_sha256": sha256_text(FORCE_CLOSE)} if self.think_budget else {})}
 
@@ -269,13 +275,35 @@ class HFQwenBackend:
             src = self.model_dir or self.profile.repo
             rev = None if self.model_dir else self.profile.revision
             self._tok = AutoTokenizer.from_pretrained(src, revision=rev)
-            self._model = AutoModelForCausalLM.from_pretrained(src, revision=rev, torch_dtype=torch.float16).to("cuda").eval()
+            if self.local:      # [local bank run] load shards directly onto the GPU (low RAM host): no full CPU copy
+                # transformers first reserves ONE block as large as the whole model ("caching_allocator_warmup", a speed-only optimisation). On this Windows/WDDM host GPU allocations also consume system
+                # commit and a single process is limited to ~4 GiB, so that block fails (measured: OOM at 2.88 GiB with 5 GiB free). It is skipped for the duration of the load; weights are unchanged.
+                try:
+                    import transformers.modeling_utils as _mu
+                    _orig_warm = getattr(_mu, "caching_allocator_warmup", None)
+                    if _orig_warm is not None:
+                        _mu.caching_allocator_warmup = lambda *a, **k: None
+                except ImportError:
+                    _mu, _orig_warm = None, None
+                try:
+                    self._model = AutoModelForCausalLM.from_pretrained(src, revision=rev, torch_dtype=torch.float16, device_map="cuda", low_cpu_mem_usage=True).eval()
+                finally:
+                    if _mu is not None and _orig_warm is not None:
+                        _mu.caching_allocator_warmup = _orig_warm
+            else:
+                self._model = AutoModelForCausalLM.from_pretrained(src, revision=rev, torch_dtype=torch.float16).to("cuda").eval()
+        if self.device_name is None:
+            try:
+                self.device_name = torch.cuda.get_device_name(0)
+            except Exception:       # noqa: BLE001  informational only (stub torch in unit tests, or no CUDA query)
+                self.device_name = "cuda"
         return self._model, self._tok
 
     def _generate_one(self, torch, model, tok, request: GenerationRequest, seed: int, prompt_sha: str, lang: str) -> Generation:
         torch.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
-        tkw = {} if self.profile.enable_thinking is None else {"enable_thinking": self.profile.enable_thinking}     # the 4B template takes no argument (always thinks): nothing is passed, as before
+        tmpl = getattr(tok, "chat_template", None) or ""
+        tkw = {} if (self.profile.enable_thinking is None or "enable_thinking" not in str(tmpl)) else {"enable_thinking": self.profile.enable_thinking}      # a template that has no such switch (Qwen2.5-Coder, Qwen3-4B-Thinking) gets nothing     # the 4B template takes no argument (always thinks): nothing is passed, as before
         chat = tok.apply_chat_template([{"role": "user", "content": request.prompt}], tokenize=False, add_generation_prompt=True, **tkw)
         enc = tok(chat, return_tensors="pt", add_special_tokens=False).to(model.device)
         n_prompt = int(enc["input_ids"].shape[1])
@@ -287,7 +315,10 @@ class HFQwenBackend:
         with torch.no_grad():
             ids = model.generate(**enc, max_new_tokens=request.max_new_tokens, pad_token_id=tok.eos_token_id, eos_token_id=stops, **gen)
         new = ids[0, n_prompt:]
-        return make_generation(tok.decode(new, skip_special_tokens=True), tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
+        text = tok.decode(new, skip_special_tokens=True)
+        if self.profile.enable_thinking is False:
+            text = NONTHINK_PREFIX + text      # see NONTHINK_PREFIX
+        return make_generation(text, tokens_prompt=n_prompt, tokens_generated=int(new.shape[0]), seed=seed,
                                prompt_template_id=request.prompt_template_id, prompt_sha256=prompt_sha, language=lang, wall_seconds=time.time() - t0,
                                model=self.profile.repo, model_revision=self.profile.revision)
 
@@ -400,3 +431,19 @@ class TokenBudget:
                 "glm_tokens_in": self.used["glm_in"], "glm_tokens_out": self.used["glm_out"], "glm_calls": int(self.extra["glm_calls"]),
                 "scorer_calls": int(self.extra["scorer_calls"]), "tool_runs": int(self.extra["tool_runs"]), "gpu_seconds": float(self.extra["gpu_seconds"]),
                 "wall_seconds": float(self.extra["wall_seconds"]), "api_errors": int(self.extra["api_errors"])}
+
+
+def build_local_backend(profile_id: str, log_path: Optional[str] = None, think_policy: Optional[Mapping[str, Any]] = None):
+    """[local bank run] The ONE entry point for local runs on the PC GPU: a real HFQwenBackend for a registered profile, local=True, the pinned snapshot sha256-verified on first load
+    (models/<dir>/MANIFEST_pinned.json). Non-thinking profiles get the empty-think wrapper; thinking profiles may take think_policy {"think_budget": N, "answer_tokens": M}."""
+    prof = BB.get(profile_id)
+    mdir = prof.model_dir()
+    man = mdir / "MANIFEST_pinned.json"
+    verify = {}
+    if man.is_file():
+        verify = {f: m["sha256"] for f, m in json.loads(man.read_text("utf-8"))["files"].items() if f.endswith((".safetensors", ".json")) and f != "MANIFEST_pinned.json"}
+    os.environ.setdefault(HFQwenBackend.INFERENCE_ENV, "1")
+    tp = dict(think_policy or {})
+    if prof.enable_thinking is False and tp.get("think_budget"):
+        raise ValueError("profile %r is non-thinking: a think_budget makes no sense for it" % profile_id)
+    return HFQwenBackend(authorized=True, model_dir=str(mdir), log_path=log_path, verify_files=verify, profile=prof, local=True, think_budget=tp.get("think_budget"), answer_tokens=int(tp.get("answer_tokens", 700)))
