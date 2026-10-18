@@ -277,6 +277,23 @@ def main():
         lf = open(OUT / ("worker%d.log" % i), "w", encoding="utf-8")
         procs.append((i, subprocess.Popen([sys.executable, os.path.abspath(__file__), "--worker", str(i), str(tf)], env=env, stdout=lf, stderr=subprocess.STDOUT)))
         tl.event("worker_spawn", worker=i, tasks=len(todo_all[i]))
+    # live visibility: the workers write to worker<i>.log files; echo their new lines into THIS process's stdout (the notebook log) and report finished-task progress
+    pos, last_done = {i: 0 for i, _ in procs}, -1
+    while True:
+        alive = any(p.poll() is None for _, p in procs)
+        for i, _ in procs:
+            try:
+                with open(OUT / ("worker%d.log" % i), "r", encoding="utf-8", errors="replace") as wf:
+                    wf.seek(pos[i]); chunk = wf.read(); pos[i] = wf.tell()
+                for ln in chunk.splitlines():
+                    if ln.strip(): log("[w%d]" % i, ln[:300])
+            except OSError:
+                pass
+        n_done = len(list((OUT / "tasks").glob("*/DONE")))
+        if n_done != last_done:
+            log("progress: tasks DONE =", n_done); last_done = n_done
+        if not alive: break
+        time.sleep(20)
     rcs = {i: p.wait() for i, p in procs}
     stop_gpu.set()
     tl.event("workers_done", rcs=rcs)
