@@ -642,13 +642,29 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
     consecutive = 0
     try:
         tl.event("run_start", tasks=len(todo), resumed=len(skipped))
-        # ---- preflight (nothing is loaded or run before it passes)
+        # ---- 1. resource preflight (nothing is loaded, no container / VM exists yet: the engine object is constructed lazily)
         with tl.span("preflight"):
             raw_exe = exe_factory(out)
             if hasattr(raw_exe, "probe_toolchains"): raw_exe.source_sha256 = SOURCE_SHA256
-            hello = (raw_exe.start(langs) if hasattr(raw_exe, "probe_toolchains") else (raw_exe.start() if hasattr(raw_exe, "start") else None))
             exe = EngineGuard(raw_exe)
-            if hello and hello.get("toolchains") is not None:      # REAL preflight: each language of the manifest was probed INSIDE the backend before the model is loaded
+            res = resources_fn()
+            RS["preflight"]["resources"] = res
+            why = check_resources(res, min_free_ram_gb, min_free_vram_gb, min_free_commit_gb)
+            if why:
+                verdict = "PREFLIGHT_REFUSED"; RS["error"] = "; ".join(why); RS["notes"].append("preflight refused: nothing was loaded or run"); save(final=True); return RS
+        # ---- 2. the model goes onto the GPU BEFORE the sandbox VM starts (the WSLC VM alone takes ~1.7 GB of RAM)
+        with tl.span("model_load"):
+            gen = gen_factory(out)
+        info = gen.model_info() if hasattr(gen, "model_info") else {}
+        RS["model"] = info
+        RS["profile"] = {"id": info.get("profile_id") or policy["profile_id"], "sha256": info.get("profile_sha256")}
+        RS["profile_sha256"] = info.get("profile_sha256")
+        if require_verified_model and not info.get("snapshot_verified"):
+            verdict = "PREFLIGHT_REFUSED"; RS["error"] = "the model snapshot is not verified (snapshot_verified is not true)"; RS["notes"].append("preflight refused: no task was run"); save(final=True); return RS
+        # ---- 3. engine start + REAL toolchain probe inside the backend (this is what creates the VM); if it fails here no task starts
+        with tl.span("engine_start"):
+            hello = (raw_exe.start(langs) if hasattr(raw_exe, "probe_toolchains") else (raw_exe.start() if hasattr(raw_exe, "start") else None))
+            if hello and hello.get("toolchains") is not None:
                 caps = {l: hello["toolchains"].get(l) or {"runnable": False, "status": "NOT_TESTED_NO_TOOLCHAIN", "reason": "language was not probed"} for l in langs}
                 RS["toolchains"], RS["java_capability"] = caps, caps.get("java")
                 blocked = split(caps)
@@ -659,21 +675,8 @@ def run(out: Path, tasks: Sequence[Dict[str, Any]], gen_factory: Callable[[Path]
             if sandbox == "wslc" and hello and hello.get("engine"): RS["engine"] = hello["engine"]
             RS["jail"] = {"status": "PASS", "engine": (hello or {}).get("engine") or sandbox, "java_home": (hello or {}).get("jdk"), "bwrap_swapped": None,
                           "handshake": {k: (hello or {}).get(k) for k in ("os", "python", "bwrap_version", "java_version", "jail_probe_ran", "backend")}}
-            res = resources_fn()
-            RS["preflight"]["resources"] = res
-            why = check_resources(res, min_free_ram_gb, min_free_vram_gb, min_free_commit_gb)
-            if why:
-                verdict = "PREFLIGHT_REFUSED"; RS["error"] = "; ".join(why); RS["notes"].append("preflight refused: nothing was loaded or run"); save(final=True); return RS
         for tid in blocked:
             not_tested(by[tid], out, wtl, caps[by[tid]["language"]], policy, RS["jail"]["engine"])
-        with tl.span("model_load"):
-            gen = gen_factory(out)
-        info = gen.model_info() if hasattr(gen, "model_info") else {}
-        RS["model"] = info
-        RS["profile"] = {"id": info.get("profile_id") or policy["profile_id"], "sha256": info.get("profile_sha256")}
-        RS["profile_sha256"] = info.get("profile_sha256")
-        if require_verified_model and not info.get("snapshot_verified"):
-            verdict = "PREFLIGHT_REFUSED"; RS["error"] = "the model snapshot is not verified (snapshot_verified is not true)"; RS["notes"].append("preflight refused: no task was run"); save(final=True); return RS
         if gpu_sampler:
             def sampler():
                 while not stop_gpu.is_set():

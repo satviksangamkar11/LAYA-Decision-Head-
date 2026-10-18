@@ -387,7 +387,7 @@ def t_runner_wslc_unavailable_blocks_the_run_with_a_reason_and_runs_nothing():
 
 
 @test
-def t_runner_probes_before_the_model_is_loaded():
+def t_runner_loads_the_model_then_starts_the_engine_and_probes_before_any_task():
     tmp = Path(tempfile.mkdtemp())
     try:
         order = []
@@ -399,7 +399,7 @@ def t_runner_probes_before_the_model_is_loaded():
         def gen_factory(o): order.append("model"); return FakeGen()
         LR.run(tmp / "o", _jtasks("J1-17"), gen_factory, lambda o: Exe(True), sandbox="wslc", critic_client=LR.GlmInlineCritic(key_loader=lambda: {}), finalize=False,
                resources_fn=lambda: {"free_ram_gb": 16.0, "free_vram_gb": 5.0, "free_commit_gb": 9.0})
-        assert order == ["probe", "model"]
+        assert order == ["model", "probe"]      # the model is on the GPU before the sandbox VM starts (RAM)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
