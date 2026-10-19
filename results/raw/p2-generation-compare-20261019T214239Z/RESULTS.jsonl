@@ -1,0 +1,1 @@
+{"task": "P1-20", "language": "python", "arm": "fresh", "label": "BLOCKED", "selected": null, "selected_round": null, "candidates": 28, "rounds": 13, "round1_tokens_generated": 1767, "round1_tokens_prompt": 1582, "arm_tokens_generated": 8226, "arm_tokens_prompt": 9492, "budget": 6000, "overshoot": 2226, "sandbox_seconds": 8.42}
