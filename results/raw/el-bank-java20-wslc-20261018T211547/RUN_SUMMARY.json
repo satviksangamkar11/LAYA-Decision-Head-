@@ -1,0 +1,243 @@
+{
+ "kernel": "el_bank_local_run",
+ "mode": "local",
+ "started_utc": "2026-10-18T21:15:47.445Z",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "engine": "mxc-wslc",
+ "sandbox": "wslc",
+ "l2_version": 2,
+ "commit": "b41f5129e576e9bbed11aa8924fe938b88113d88",
+ "config_sha256": {
+  "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+  "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+  "configs/el_bank80_rest_v1.json": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+  "configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c"
+ },
+ "out_dir_abs": "D:\\local model\\results\\raw\\el-bank-java20-wslc-20261018T211547",
+ "controller_limits": {
+  "max_wall_seconds": 3600.0,
+  "profile": "ladder"
+ },
+ "token_cap": 100000,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "internal_states": "disabled",
+ "preflight": {
+  "min_free_ram_gb": 3.0,
+  "min_free_vram_gb": 3.5,
+  "min_free_commit_gb": 4.5,
+  "resources": {
+   "free_ram_gb": 4.54,
+   "free_vram_gb": 4.84,
+   "free_commit_gb": 6.24,
+   "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  }
+ },
+ "critic": {
+  "state": "inline",
+  "model": "z-ai/glm-5.3-flash",
+  "settings": {
+   "read_timeout_s": 420.0,
+   "total_timeout_s": 1800.0,
+   "max_retries": 1,
+   "reasoning_effort": "max",
+   "max_sends_per_key_per_minute": 39
+  },
+  "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"
+ },
+ "gpus": 1,
+ "notes": [],
+ "public_only_guard": {
+  "files": 1,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "source_sha256": "9d848505a1cd12709d74a6131100a7902f297c44c6e703235f21445f4a666fb2",
+ "code_commit": "b41f5129e576e9bbed11aa8924fe938b88113d88",
+ "engine_status": "OK",
+ "java_capability": {
+  "runnable": true,
+  "status": "RUNNABLE",
+  "reason": "",
+  "version": "javac 26.0.1"
+ },
+ "resumed_tasks": [],
+ "not_tested": {},
+ "model": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "profile": {
+  "id": "qwen2.5-coder-1.5b-instruct",
+  "sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4"
+ },
+ "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+ "toolchains": {
+  "java": {
+   "runnable": true,
+   "status": "RUNNABLE",
+   "reason": "",
+   "version": "javac 26.0.1"
+  }
+ },
+ "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-wslc",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc-wslc"
+  }
+ },
+ "done": 3,
+ "errors": [],
+ "pending_not_started": [
+  "J1-24",
+  "J1-25",
+  "J1-26",
+  "J1-27",
+  "J1-28",
+  "J1-29",
+  "J1-30",
+  "J1-31",
+  "J1-32",
+  "J1-33",
+  "J1-34",
+  "J1-35",
+  "J1-36",
+  "J1-37",
+  "J1-38",
+  "J1-39",
+  "J1-40"
+ ],
+ "verdict": "OK",
+ "updated_utc": "2026-10-18T21:28:57.654Z",
+ "total_seconds": 790.1,
+ "timeline_summary": {
+  "events": 151,
+  "first_utc": "2026-10-18T21:15:47.535Z",
+  "last_utc": "2026-10-18T21:28:57.632Z",
+  "wall_seconds": 790.098,
+  "stages": {
+   "engine_start": {
+    "n": 1,
+    "total_s": 10.328,
+    "p50_s": 10.328,
+    "p95_s": 10.328
+   },
+   "generate": {
+    "n": 14,
+    "total_s": 280.064,
+    "p50_s": 17.258,
+    "p95_s": 45.14
+   },
+   "glm_critic": {
+    "n": 1,
+    "total_s": 165.047,
+    "p50_s": 165.047,
+    "p95_s": 165.047
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 17.391,
+    "p50_s": 17.391,
+    "p95_s": 17.391
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.062,
+    "p50_s": 0.062,
+    "p95_s": 0.062
+   },
+   "sandbox_experiment": {
+    "n": 26,
+    "total_s": 141.343,
+    "p50_s": 5.875,
+    "p95_s": 6.043
+   },
+   "sandbox_public": {
+    "n": 20,
+    "total_s": 174.466,
+    "p50_s": 6.094,
+    "p95_s": 14.06
+   },
+   "task": {
+    "n": 3,
+    "total_s": 466.47,
+    "p50_s": 168.61,
+    "p95_s": 180.971
+   },
+   "task_after_critic": {
+    "n": 1,
+    "total_s": 130.187,
+    "p50_s": 130.187,
+    "p95_s": 130.187
+   }
+  },
+  "model_seconds": 280.064,
+  "sandbox_seconds": 315.809,
+  "model_vs_sandbox": {
+   "model_share": 0.47
+  }
+ }
+}

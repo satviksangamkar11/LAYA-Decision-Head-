@@ -1,0 +1,633 @@
+{
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "created_utc": "2026-10-18T21:13:01Z",
+ "tasks_finished": 1,
+ "tasks_expected": 40,
+ "unfinished_or_errored": [],
+ "not_tested": {},
+ "sandbox": "mxc-wslc",
+ "pending_not_started": [],
+ "resumed_tasks": [],
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-wslc",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "wslc"
+  }
+ },
+ "gpus": 1,
+ "model": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "labels_by_language": {
+  "java": {
+   "SUPPORTED": 1
+  }
+ },
+ "kernel_wall_seconds": {
+  "pass1": 832.7,
+  "pass2": null,
+  "total": 832.7
+ },
+ "stage_summary": {
+  "events": 102,
+  "first_utc": "2026-10-18T20:59:08.783Z",
+  "last_utc": "2026-10-18T21:13:01.455Z",
+  "wall_seconds": 832.671,
+  "stages": {
+   "engine_start": {
+    "n": 1,
+    "total_s": 7.485,
+    "p50_s": 7.485,
+    "p95_s": 7.485
+   },
+   "generate": {
+    "n": 6,
+    "total_s": 46.844,
+    "p50_s": 6.649,
+    "p95_s": 17.144
+   },
+   "glm_critic": {
+    "n": 1,
+    "total_s": 507.063,
+    "p50_s": 507.063,
+    "p95_s": 507.063
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 16.687,
+    "p50_s": 16.687,
+    "p95_s": 16.687
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.047,
+    "p50_s": 0.047,
+    "p95_s": 0.047
+   },
+   "sandbox_experiment": {
+    "n": 26,
+    "total_s": 141.781,
+    "p50_s": 5.844,
+    "p95_s": 6.184
+   },
+   "sandbox_public": {
+    "n": 9,
+    "total_s": 112.016,
+    "p50_s": 13.781,
+    "p95_s": 16.028
+   },
+   "task": {
+    "n": 1,
+    "total_s": 168.593,
+    "p50_s": 168.593,
+    "p95_s": 168.593
+   },
+   "task_after_critic": {
+    "n": 1,
+    "total_s": 132.546,
+    "p50_s": 132.546,
+    "p95_s": 132.546
+   }
+  },
+  "model_seconds": 46.844,
+  "sandbox_seconds": 253.797,
+  "model_vs_sandbox": {
+   "model_share": 0.1558
+  }
+ },
+ "controller_stage_seconds_per_task": {
+  "cluster": {
+   "tasks": 1,
+   "total_s": 70.828,
+   "p50_s": 70.828,
+   "p95_s": 70.828
+  },
+  "commit_verify": {
+   "tasks": 1,
+   "total_s": 13.828,
+   "p50_s": 13.828,
+   "p95_s": 13.828
+  },
+  "discriminate": {
+   "tasks": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "execute": {
+   "tasks": 1,
+   "total_s": 47.844,
+   "p50_s": 47.844,
+   "p95_s": 47.844
+  },
+  "generate": {
+   "tasks": 1,
+   "total_s": 0.016,
+   "p50_s": 0.016,
+   "p95_s": 0.016
+  },
+  "intake": {
+   "tasks": 1,
+   "total_s": 0.015,
+   "p50_s": 0.015,
+   "p95_s": 0.015
+  },
+  "l2_generate": {
+   "tasks": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "l2_validate": {
+   "tasks": 1,
+   "total_s": 0.015,
+   "p50_s": 0.015,
+   "p95_s": 0.015
+  },
+  "rank": {
+   "tasks": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  }
+ },
+ "model_vs_sandbox": {
+  "model_seconds": 46.844,
+  "sandbox_seconds": 253.797,
+  "model_share": 0.1558
+ },
+ "gpu": {
+  "per_gpu": {
+   "0": {
+    "samples": 27,
+    "mean_util_pct": 3.4,
+    "p50": 0.0,
+    "p95": 15.5,
+    "idle_samples_pct": 88.9
+   }
+  },
+  "generate_busy_seconds_by_worker": {
+   "w0": 46.8
+  },
+  "wall_seconds": 832.7,
+  "generate_busy_fraction_by_worker": {
+   "w0": 0.056
+  }
+ },
+ "critic": {
+  "packets_exported": null,
+  "pass2_responses": null
+ },
+ "ceiling_hits_total": 0,
+ "rows": [
+  {
+   "task": "J1-17",
+   "language": "java",
+   "difficulty": "medium",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 4,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 2,
+    "candidates_with_examples": 4
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 6,
+    "dropped": [
+     {
+      "index": 0,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 1,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 2,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 3,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 4,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     },
+     {
+      "index": 5,
+      "reason": "quote is not a verbatim span of the request (or shorter than 8 chars)"
+     }
+    ],
+    "reason": "every parsed test dropped"
+   },
+   "clusters": {
+    "public": 1,
+    "extended": 2
+   },
+   "critic_used": true,
+   "critic_state": "applied",
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 0,
+   "tokens": {
+    "generated": 980,
+    "prompt": 1800,
+    "generate_calls": 3
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T20:59:33.053Z",
+   "end_utc": "2026-10-18T21:13:01.446Z",
+   "seconds": 808.4,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T20:59:33.217Z",
+     "end_utc": "2026-10-18T21:02:21.812Z",
+     "seconds": 168.593,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T20:59:33.315Z",
+     "end_utc": "2026-10-18T20:59:46.609Z",
+     "seconds": 13.281,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T20:59:46.610Z",
+     "end_utc": "2026-10-18T21:00:02.639Z",
+     "seconds": 16.032,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:00:02.640Z",
+     "end_utc": "2026-10-18T21:00:19.873Z",
+     "seconds": 17.234,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:00:19.876Z",
+     "end_utc": "2026-10-18T21:00:25.692Z",
+     "seconds": 5.812,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:00:25.695Z",
+     "end_utc": "2026-10-18T21:00:39.237Z",
+     "seconds": 13.547,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:00:39.241Z",
+     "end_utc": "2026-10-18T21:00:53.029Z",
+     "seconds": 13.781,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:00:53.032Z",
+     "end_utc": "2026-10-18T21:01:10.562Z",
+     "seconds": 17.515,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:10.564Z",
+     "end_utc": "2026-10-18T21:01:16.645Z",
+     "seconds": 6.078,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:16.758Z",
+     "end_utc": "2026-10-18T21:01:23.075Z",
+     "seconds": 6.312,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:23.077Z",
+     "end_utc": "2026-10-18T21:01:29.034Z",
+     "seconds": 5.969,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:29.035Z",
+     "end_utc": "2026-10-18T21:01:35.000Z",
+     "seconds": 5.953,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:35.002Z",
+     "end_utc": "2026-10-18T21:01:40.884Z",
+     "seconds": 5.875,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:40.885Z",
+     "end_utc": "2026-10-18T21:01:46.641Z",
+     "seconds": 5.75,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:46.642Z",
+     "end_utc": "2026-10-18T21:01:52.459Z",
+     "seconds": 5.813,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:52.460Z",
+     "end_utc": "2026-10-18T21:01:58.314Z",
+     "seconds": 5.859,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:01:58.315Z",
+     "end_utc": "2026-10-18T21:02:04.160Z",
+     "seconds": 5.844,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:02:04.161Z",
+     "end_utc": "2026-10-18T21:02:10.001Z",
+     "seconds": 5.844,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:02:10.002Z",
+     "end_utc": "2026-10-18T21:02:15.819Z",
+     "seconds": 5.812,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:02:15.820Z",
+     "end_utc": "2026-10-18T21:02:21.671Z",
+     "seconds": 5.844,
+     "ok": true
+    },
+    {
+     "stage": "glm_critic",
+     "start_utc": "2026-10-18T21:02:21.813Z",
+     "end_utc": "2026-10-18T21:10:48.879Z",
+     "seconds": 507.063,
+     "ok": true
+    },
+    {
+     "stage": "task_after_critic",
+     "start_utc": "2026-10-18T21:10:48.881Z",
+     "end_utc": "2026-10-18T21:13:01.429Z",
+     "seconds": 132.546,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:10:48.905Z",
+     "end_utc": "2026-10-18T21:10:48.907Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:10:48.907Z",
+     "end_utc": "2026-10-18T21:10:48.909Z",
+     "seconds": 0.016,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:10:48.910Z",
+     "end_utc": "2026-10-18T21:11:03.132Z",
+     "seconds": 14.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:11:03.135Z",
+     "end_utc": "2026-10-18T21:11:09.100Z",
+     "seconds": 5.968,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:11:09.104Z",
+     "end_utc": "2026-10-18T21:11:23.092Z",
+     "seconds": 13.985,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:11:23.100Z",
+     "end_utc": "2026-10-18T21:11:36.760Z",
+     "seconds": 13.657,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:11:36.763Z",
+     "end_utc": "2026-10-18T21:11:36.765Z",
+     "seconds": 0.0,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:11:36.767Z",
+     "end_utc": "2026-10-18T21:11:42.652Z",
+     "seconds": 5.875,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:11:42.654Z",
+     "end_utc": "2026-10-18T21:11:48.861Z",
+     "seconds": 6.219,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:11:48.862Z",
+     "end_utc": "2026-10-18T21:11:54.914Z",
+     "seconds": 6.047,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:11:54.915Z",
+     "end_utc": "2026-10-18T21:12:00.750Z",
+     "seconds": 5.828,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:00.751Z",
+     "end_utc": "2026-10-18T21:12:06.546Z",
+     "seconds": 5.797,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:06.546Z",
+     "end_utc": "2026-10-18T21:12:12.287Z",
+     "seconds": 5.75,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:12.288Z",
+     "end_utc": "2026-10-18T21:12:17.977Z",
+     "seconds": 5.687,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:17.978Z",
+     "end_utc": "2026-10-18T21:12:23.808Z",
+     "seconds": 5.828,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:23.809Z",
+     "end_utc": "2026-10-18T21:12:29.557Z",
+     "seconds": 5.75,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:29.558Z",
+     "end_utc": "2026-10-18T21:12:35.636Z",
+     "seconds": 6.079,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:35.637Z",
+     "end_utc": "2026-10-18T21:12:41.633Z",
+     "seconds": 6.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:41.634Z",
+     "end_utc": "2026-10-18T21:12:47.595Z",
+     "seconds": 5.968,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:47.598Z",
+     "end_utc": "2026-10-18T21:12:47.600Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_experiment",
+     "start_utc": "2026-10-18T21:12:47.601Z",
+     "end_utc": "2026-10-18T21:12:47.602Z",
+     "seconds": 0.0,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:12:47.604Z",
+     "end_utc": "2026-10-18T21:13:01.421Z",
+     "seconds": 13.813,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "cluster": 70.828,
+    "commit_verify": 13.828,
+    "discriminate": 0.0,
+    "execute": 47.844,
+    "generate": 0.016,
+    "intake": 0.015,
+    "l2_generate": 0.0,
+    "l2_validate": 0.015,
+    "rank": 0.0
+   }
+  }
+ ]
+}

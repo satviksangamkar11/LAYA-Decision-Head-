@@ -1,0 +1,193 @@
+{
+ "broken": {
+  "J1-17": [
+   "exec_results: silent fallback: exec record 0 ran on backend 'wslc', expected 'mxc-wslc'"
+  ]
+ },
+ "counts": {
+  "broken": 1,
+  "error": 0,
+  "executed": 1,
+  "expected": 1,
+  "missing": 0,
+  "not_tested": 0,
+  "ok": 0
+ },
+ "error": [],
+ "expect_engine": "mxc-wslc",
+ "label": "architecture conformance of a run (files only); not an accuracy result",
+ "legacy_kaggle": false,
+ "missing": [],
+ "not_tested": {},
+ "run_checks": {
+  "run_summary": true,
+  "timeline_jsonl": true
+ },
+ "run_dir": "D:\\local model\\results\\raw\\el-bank-java-smoke3-20261018T205908",
+ "tasks": {
+  "J1-17": {
+   "candidate": {
+    "answer_label": "SUPPORTED",
+    "note": "candidate result, reported separately: an honest candidate failure is still PIPELINE_OK when every stage was recorded",
+    "public": {
+     "best": 10,
+     "candidates_passing_all": 2,
+     "candidates_with_examples": 4,
+     "examples": 10
+    },
+    "stop_cause": "decided"
+   },
+   "checks": {
+    "chain": {
+     "ok": true,
+     "problems": []
+    },
+    "exec_results": {
+     "info": {
+      "backends": [
+       "wslc"
+      ],
+      "image_digests": [],
+      "records": 1
+     },
+     "ok": false,
+     "problems": [
+      "silent fallback: exec record 0 ran on backend 'wslc', expected 'mxc-wslc'"
+     ]
+    },
+    "invariants": {
+     "ok": true,
+     "problems": []
+    },
+    "l2": {
+     "info": {
+      "parsed": 6,
+      "reason": "every parsed test dropped",
+      "verdict": "INSUFFICIENT"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "policy": {
+     "info": {
+      "l2_version": 2,
+      "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+      "thinking_policy": "model_variant",
+      "waived": []
+     },
+     "ok": true,
+     "problems": []
+    },
+    "public_only": {
+     "ok": true,
+     "problems": []
+    },
+    "sandbox": {
+     "info": {
+      "engine": "mxc-wslc",
+      "expected": "mxc-wslc"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "stages": {
+     "info": {
+      "cluster": {
+       "end_utc": "2026-10-18T21:12:47.596763+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:11:36.767555+00:00"
+      },
+      "commit_verify": {
+       "end_utc": "2026-10-18T21:13:01.429839+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:12:47.604763+00:00"
+      },
+      "discriminate": {
+       "end_utc": "2026-10-18T21:12:47.604763+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:12:47.596763+00:00"
+      },
+      "execute": {
+       "end_utc": "2026-10-18T21:11:03.135093+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:10:48.910156+00:00"
+      },
+      "generate": {
+       "end_utc": "2026-10-18T21:10:48.910156+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:10:48.904162+00:00"
+      },
+      "intake": {
+       "end_utc": "2026-10-18T21:10:48.904162+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:10:48.882154+00:00"
+      },
+      "investigate": {
+       "present": false,
+       "status": "NOT_APPLICABLE (function-level ladder: no workspace to inspect; intake routing + oracle_tier journaled)"
+      },
+      "l2_generate": {
+       "end_utc": "2026-10-18T21:11:36.766550+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:11:36.763499+00:00"
+      },
+      "l2_validate": {
+       "end_utc": "2026-10-18T21:11:36.767555+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:11:36.766550+00:00"
+      },
+      "rank": {
+       "end_utc": "2026-10-18T21:12:47.604763+00:00",
+       "present": true,
+       "start_utc": "2026-10-18T21:12:47.604763+00:00"
+      }
+     },
+     "ok": true,
+     "problems": []
+    },
+    "states": {
+     "info": {
+      "states": "none (capture off or not run)"
+     },
+     "ok": true,
+     "problems": []
+    },
+    "utc_rows": {
+     "ok": true,
+     "problems": []
+    }
+   },
+   "problems": [
+    "exec_results: silent fallback: exec record 0 ran on backend 'wslc', expected 'mxc-wslc'"
+   ],
+   "task": "J1-17",
+   "verdict": "BROKEN"
+  }
+ },
+ "verdict": "PIPELINE_BROKEN",
+ "wslc": {
+  "candidate_results": {
+   "J1-17": {
+    "answer_label": "SUPPORTED",
+    "note": "candidate result, reported separately: an honest candidate failure is still PIPELINE_OK when every stage was recorded",
+    "public": {
+     "best": 10,
+     "candidates_passing_all": 2,
+     "candidates_with_examples": 4,
+     "examples": 10
+    },
+    "stop_cause": "decided"
+   }
+  },
+  "criteria": {
+   "all_receipts_complete": false,
+   "engine_status": "OK",
+   "executed_count_matches": true,
+   "expected_count": null,
+   "zero_not_tested": true,
+   "zero_not_tested_no_jdk": true,
+   "zero_silent_fallback": false
+  },
+  "not_tested_no_jdk": []
+ }
+}

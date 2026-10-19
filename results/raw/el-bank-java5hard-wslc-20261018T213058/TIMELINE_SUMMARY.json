@@ -1,0 +1,49 @@
+{
+ "events": 137,
+ "first_utc": "2026-10-18T21:30:59.307Z",
+ "last_utc": "2026-10-18T21:49:21.435Z",
+ "wall_seconds": 1102.128,
+ "stages": {
+  "engine_start": {
+   "n": 1,
+   "total_s": 10.641,
+   "p50_s": 10.641,
+   "p95_s": 10.641
+  },
+  "generate": {
+   "n": 21,
+   "total_s": 842.641,
+   "p50_s": 19.828,
+   "p95_s": 200.593
+  },
+  "model_load": {
+   "n": 1,
+   "total_s": 16.562,
+   "p50_s": 16.562,
+   "p95_s": 16.562
+  },
+  "preflight": {
+   "n": 1,
+   "total_s": 0.063,
+   "p50_s": 0.063,
+   "p95_s": 0.063
+  },
+  "sandbox_public": {
+   "n": 28,
+   "total_s": 230.268,
+   "p50_s": 7.046,
+   "p95_s": 15.065
+  },
+  "task": {
+   "n": 5,
+   "total_s": 1073.874,
+   "p50_s": 137.937,
+   "p95_s": 372.188
+  }
+ },
+ "model_seconds": 842.641,
+ "sandbox_seconds": 230.268,
+ "model_vs_sandbox": {
+  "model_share": 0.7854
+ }
+}

@@ -1,0 +1,306 @@
+{
+ "kernel": "el_bank_local_run",
+ "mode": "local",
+ "started_utc": "2026-10-18T20:59:08.674Z",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "engine": "mxc-wslc",
+ "sandbox": "wslc",
+ "l2_version": 2,
+ "commit": "78e5bd4009fb57e9bcf8c267f1553d2be369c8ec",
+ "config_sha256": {
+  "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+  "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+  "configs/el_bank80_rest_v1.json": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+  "configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c"
+ },
+ "out_dir_abs": "D:\\local model\\results\\raw\\el-bank-java-smoke3-20261018T205908",
+ "controller_limits": {
+  "max_wall_seconds": 3600.0,
+  "profile": "ladder"
+ },
+ "token_cap": 100000,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "internal_states": "disabled",
+ "preflight": {
+  "min_free_ram_gb": 3.0,
+  "min_free_vram_gb": 3.5,
+  "min_free_commit_gb": 4.5,
+  "resources": {
+   "free_ram_gb": 4.14,
+   "free_vram_gb": 4.84,
+   "free_commit_gb": 5.8,
+   "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  }
+ },
+ "critic": {
+  "state": "inline",
+  "model": "z-ai/glm-5.3-flash",
+  "settings": {
+   "read_timeout_s": 420.0,
+   "total_timeout_s": 1800.0,
+   "max_retries": 1,
+   "reasoning_effort": "max",
+   "max_sends_per_key_per_minute": 39
+  },
+  "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"
+ },
+ "gpus": 1,
+ "notes": [],
+ "public_only_guard": {
+  "files": 1,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "source_sha256": "fe3856e23e460a3d8838c3df52307b9759ce07a4d2b8fcc588fae98c592ccabb",
+ "code_commit": "78e5bd4009fb57e9bcf8c267f1553d2be369c8ec",
+ "engine_status": "OK",
+ "java_capability": {
+  "runnable": true,
+  "status": "RUNNABLE",
+  "reason": "",
+  "version": "javac 26.0.1"
+ },
+ "resumed_tasks": [],
+ "not_tested": {},
+ "model": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "profile": {
+  "id": "qwen2.5-coder-1.5b-instruct",
+  "sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4"
+ },
+ "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+ "toolchains": {
+  "java": {
+   "runnable": true,
+   "status": "RUNNABLE",
+   "reason": "",
+   "version": "javac 26.0.1"
+  }
+ },
+ "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-wslc",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "wslc"
+  }
+ },
+ "done": 1,
+ "errors": [],
+ "pending_not_started": [],
+ "verdict": "OK",
+ "updated_utc": "2026-10-18T21:13:01.529Z",
+ "total_seconds": 832.7,
+ "timeline_summary": {
+  "events": 102,
+  "first_utc": "2026-10-18T20:59:08.783Z",
+  "last_utc": "2026-10-18T21:13:01.455Z",
+  "wall_seconds": 832.671,
+  "stages": {
+   "engine_start": {
+    "n": 1,
+    "total_s": 7.485,
+    "p50_s": 7.485,
+    "p95_s": 7.485
+   },
+   "generate": {
+    "n": 6,
+    "total_s": 46.844,
+    "p50_s": 6.649,
+    "p95_s": 17.144
+   },
+   "glm_critic": {
+    "n": 1,
+    "total_s": 507.063,
+    "p50_s": 507.063,
+    "p95_s": 507.063
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 16.687,
+    "p50_s": 16.687,
+    "p95_s": 16.687
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.047,
+    "p50_s": 0.047,
+    "p95_s": 0.047
+   },
+   "sandbox_experiment": {
+    "n": 26,
+    "total_s": 141.781,
+    "p50_s": 5.844,
+    "p95_s": 6.184
+   },
+   "sandbox_public": {
+    "n": 9,
+    "total_s": 112.016,
+    "p50_s": 13.781,
+    "p95_s": 16.028
+   },
+   "task": {
+    "n": 1,
+    "total_s": 168.593,
+    "p50_s": 168.593,
+    "p95_s": 168.593
+   },
+   "task_after_critic": {
+    "n": 1,
+    "total_s": 132.546,
+    "p50_s": 132.546,
+    "p95_s": 132.546
+   }
+  },
+  "model_seconds": 46.844,
+  "sandbox_seconds": 253.797,
+  "model_vs_sandbox": {
+   "model_share": 0.1558
+  }
+ },
+ "engine_info": {
+  "engine": "mxc-wslc",
+  "backend": "wslc",
+  "calls": 33,
+  "sandbox_seconds_total": 0.0,
+  "seconds_per_call": {
+   "n": 0,
+   "p50": null,
+   "max": null
+  },
+  "limits_config": {
+   "py_timeout": 10.0,
+   "max_source_bytes": 131072,
+   "max_output_bytes": 4194304,
+   "max_observed_chars": 2000
+  },
+  "java": {
+   "runnable": true,
+   "status": "RUNNABLE_PENDING_PROBE",
+   "backend": "wslc",
+   "reason": "decided by the toolchain probe inside the backend (ProviderExecutionBackend.probe_toolchains)"
+  },
+  "toolchains": {
+   "java": {
+    "runnable": true,
+    "status": "RUNNABLE",
+    "reason": "",
+    "version": "javac 26.0.1"
+   }
+  },
+  "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+  "source_sha256": "fe3856e23e460a3d8838c3df52307b9759ce07a4d2b8fcc588fae98c592ccabb",
+  "diagnostics": {
+   "backend": "mxc-wslc",
+   "cmd": "sh -c 'java -Xmx128m -Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8 -cp . Runner < in.json'",
+   "persist": false,
+   "timeout": 10,
+   "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+   "runner_sha256": "4e29054e2fcfdaad8d71d66e049ace322ed4e65f5f0317996b96032c54945aca",
+   "cpu_count": 2,
+   "memory_mb": 1536,
+   "prepare_ms": 4.4,
+   "wslc_call_ms": 2624.6,
+   "mxc_wall_ms": 2624,
+   "warnings": [],
+   "timed_out": false,
+   "output_capped": false,
+   "in_container_seconds": 0,
+   "bridge_starts": 1,
+   "verify_ms": 2.2,
+   "total_ms": 2633.0
+  },
+  "engine_version": "trusted_verify_v1",
+  "note": "trusted verifier: one fresh process per input, verdicts host-side"
+ },
+ "ended_utc": "2026-10-18T21:13:01.533Z",
+ "stage_coverage": {
+  "executed": 1,
+  "public_pass": 1,
+  "l2_reached": 1,
+  "l2_validated": 0,
+  "clusters_ge2": 1,
+  "critic_triggered": 1,
+  "critic_called": 1,
+  "critic_applied": 1,
+  "repair": 0,
+  "line": "STAGE COVERAGE over 1 finished task(s): public-pass 1, L2 reached 1 (validated 0), clusters>=2 1, critic triggered 1 / called 1 / applied 1, repair round 0"
+ },
+ "reports": {
+  "bank_results": {
+   "tasks_finished": 1,
+   "labels_by_language": {
+    "java": {
+     "SUPPORTED": 1
+    }
+   },
+   "not_tested": {}
+  },
+  "pipeline_verdict": "PIPELINE_BROKEN"
+ },
+ "pipeline_verdict": "PIPELINE_BROKEN"
+}

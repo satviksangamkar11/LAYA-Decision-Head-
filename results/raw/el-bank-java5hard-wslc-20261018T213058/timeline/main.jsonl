@@ -1,0 +1,8 @@
+{"event": "run_start", "mono": 113760.171, "resumed": 0, "tasks": 5, "ts": 1792359059.307, "ts_utc": "2026-10-18T21:30:59.307Z", "worker": "main"}
+{"event": "preflight_start", "mono": 113760.171, "ts": 1792359059.308, "ts_utc": "2026-10-18T21:30:59.308Z", "worker": "main"}
+{"event": "preflight_end", "mono": 113760.234, "ok": true, "seconds": 0.063, "ts": 1792359059.362, "ts_utc": "2026-10-18T21:30:59.362Z", "worker": "main"}
+{"event": "model_load_start", "mono": 113760.234, "ts": 1792359059.362, "ts_utc": "2026-10-18T21:30:59.362Z", "worker": "main"}
+{"event": "model_load_end", "mono": 113776.796, "ok": true, "seconds": 16.562, "ts": 1792359075.934, "ts_utc": "2026-10-18T21:31:15.934Z", "worker": "main"}
+{"event": "engine_start_start", "mono": 113776.796, "ts": 1792359075.935, "ts_utc": "2026-10-18T21:31:15.935Z", "worker": "main"}
+{"event": "engine_start_end", "mono": 113787.437, "ok": true, "seconds": 10.641, "ts": 1792359086.57, "ts_utc": "2026-10-18T21:31:26.570Z", "worker": "main"}
+{"event": "run_end", "mono": 114862.296, "ts": 1792360161.435, "ts_utc": "2026-10-18T21:49:21.435Z", "verdict": "OK", "worker": "main"}

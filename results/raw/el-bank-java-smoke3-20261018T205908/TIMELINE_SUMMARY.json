@@ -1,0 +1,67 @@
+{
+ "events": 102,
+ "first_utc": "2026-10-18T20:59:08.783Z",
+ "last_utc": "2026-10-18T21:13:01.455Z",
+ "wall_seconds": 832.671,
+ "stages": {
+  "engine_start": {
+   "n": 1,
+   "total_s": 7.485,
+   "p50_s": 7.485,
+   "p95_s": 7.485
+  },
+  "generate": {
+   "n": 6,
+   "total_s": 46.844,
+   "p50_s": 6.649,
+   "p95_s": 17.144
+  },
+  "glm_critic": {
+   "n": 1,
+   "total_s": 507.063,
+   "p50_s": 507.063,
+   "p95_s": 507.063
+  },
+  "model_load": {
+   "n": 1,
+   "total_s": 16.687,
+   "p50_s": 16.687,
+   "p95_s": 16.687
+  },
+  "preflight": {
+   "n": 1,
+   "total_s": 0.047,
+   "p50_s": 0.047,
+   "p95_s": 0.047
+  },
+  "sandbox_experiment": {
+   "n": 26,
+   "total_s": 141.781,
+   "p50_s": 5.844,
+   "p95_s": 6.184
+  },
+  "sandbox_public": {
+   "n": 9,
+   "total_s": 112.016,
+   "p50_s": 13.781,
+   "p95_s": 16.028
+  },
+  "task": {
+   "n": 1,
+   "total_s": 168.593,
+   "p50_s": 168.593,
+   "p95_s": 168.593
+  },
+  "task_after_critic": {
+   "n": 1,
+   "total_s": 132.546,
+   "p50_s": 132.546,
+   "p95_s": 132.546
+  }
+ },
+ "model_seconds": 46.844,
+ "sandbox_seconds": 253.797,
+ "model_vs_sandbox": {
+  "model_share": 0.1558
+ }
+}

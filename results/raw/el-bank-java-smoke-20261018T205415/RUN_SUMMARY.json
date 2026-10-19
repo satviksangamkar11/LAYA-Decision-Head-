@@ -1,0 +1,190 @@
+{
+ "kernel": "el_bank_local_run",
+ "mode": "local",
+ "started_utc": "2026-10-18T20:54:16.004Z",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "scorer": "none",
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "engine": "mxc-wslc",
+ "sandbox": "wslc",
+ "l2_version": 2,
+ "commit": "37cf87d34458b6935314b6d445e77cfdc77fca2a",
+ "config_sha256": {
+  "configs/el_arch1_limits_v2.toml": "21983c589dc0fa62af212c225282265257dad5dd2a169e607d9c61be1d7bd310",
+  "configs/backbones_v1.toml": "1c579c6aa5a2a1217d73513795bde80bc73afaf5699083b8f6ce511e1ea32600",
+  "configs/el_bank80_rest_v1.json": "05a7d3c387c2c63679f1aac3338b104f4b01544da38d3cc111865d6eb73afcb9",
+  "configs/critic_concurrency_v1.toml": "41914670851fbec0df32649904dd5f09e7b6f25423fe21ff0073826b85dc9e5c"
+ },
+ "out_dir_abs": "D:\\local model\\results\\raw\\el-bank-java-smoke-20261018T205415",
+ "controller_limits": {
+  "max_wall_seconds": 3600.0,
+  "profile": "ladder"
+ },
+ "token_cap": 100000,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "internal_states": "disabled",
+ "preflight": {
+  "min_free_ram_gb": 3.0,
+  "min_free_vram_gb": 3.5,
+  "min_free_commit_gb": 4.5,
+  "resources": {
+   "free_ram_gb": 2.44,
+   "free_vram_gb": 4.83,
+   "free_commit_gb": 4.35,
+   "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  }
+ },
+ "critic": {
+  "state": "inline",
+  "model": "z-ai/glm-5.3-flash",
+  "settings": {
+   "read_timeout_s": 420.0,
+   "total_timeout_s": 1800.0,
+   "max_retries": 1,
+   "reasoning_effort": "max",
+   "max_sends_per_key_per_minute": 39
+  },
+  "note": "called inside the run when discrimination triggers a packet; diagnostic only; api_unavailable / critic_failed are recorded and the run continues"
+ },
+ "gpus": 1,
+ "notes": [
+  "preflight refused: nothing was loaded or run"
+ ],
+ "public_only_guard": {
+  "files": 1,
+  "markers_checked": 0,
+  "violations": 0
+ },
+ "source_sha256": "52736ce398aeaa2cb24ab74cf17963b94d01d3249f8b8203917767ff9850a4d8",
+ "code_commit": "37cf87d34458b6935314b6d445e77cfdc77fca2a",
+ "engine_status": "OK",
+ "java_capability": {
+  "runnable": true,
+  "status": "RUNNABLE",
+  "reason": "",
+  "version": "javac 26.0.1"
+ },
+ "resumed_tasks": [],
+ "not_tested": {},
+ "toolchains": {
+  "java": {
+   "runnable": true,
+   "status": "RUNNABLE",
+   "reason": "",
+   "version": "javac 26.0.1"
+  }
+ },
+ "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-wslc",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "wslc"
+  }
+ },
+ "error": "free RAM 2.44 GB < required 3.0 GB (close other programs); free system commit 4.35 GB < required 4.5 GB (the model load fails below it; close Ableton or other large programs)",
+ "done": 0,
+ "errors": [],
+ "pending_not_started": [
+  "J1-17"
+ ],
+ "verdict": "PREFLIGHT_REFUSED",
+ "updated_utc": "2026-10-18T20:54:22.930Z",
+ "total_seconds": 6.8,
+ "timeline_summary": {
+  "events": 4,
+  "first_utc": "2026-10-18T20:54:16.090Z",
+  "last_utc": "2026-10-18T20:54:22.906Z",
+  "wall_seconds": 6.815,
+  "stages": {
+   "preflight": {
+    "n": 1,
+    "total_s": 6.812,
+    "p50_s": 6.812,
+    "p95_s": 6.812
+   }
+  },
+  "model_seconds": 0,
+  "sandbox_seconds": 0,
+  "model_vs_sandbox": {
+   "model_share": null
+  }
+ },
+ "ended_utc": "2026-10-18T20:54:22.933Z",
+ "engine_info": {
+  "engine": "mxc-wslc",
+  "backend": "wslc",
+  "calls": 0,
+  "sandbox_seconds_total": 0.0,
+  "seconds_per_call": {
+   "n": 0,
+   "p50": null,
+   "max": null
+  },
+  "limits_config": {
+   "py_timeout": 10.0,
+   "max_source_bytes": 131072,
+   "max_output_bytes": 4194304,
+   "max_observed_chars": 2000
+  },
+  "java": {
+   "runnable": true,
+   "status": "RUNNABLE_PENDING_PROBE",
+   "backend": "wslc",
+   "reason": "decided by the toolchain probe inside the backend (ProviderExecutionBackend.probe_toolchains)"
+  },
+  "toolchains": {
+   "java": {
+    "runnable": true,
+    "status": "RUNNABLE",
+    "reason": "",
+    "version": "javac 26.0.1"
+   }
+  },
+  "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+  "source_sha256": "52736ce398aeaa2cb24ab74cf17963b94d01d3249f8b8203917767ff9850a4d8",
+  "diagnostics": {
+   "backend": "mxc-wslc",
+   "cmd": "sh -c 'timeout 30 javac -version 2>&1 && timeout 30 java -version 2>&1'",
+   "persist": false,
+   "timeout": 60,
+   "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+   "runner_sha256": "4e29054e2fcfdaad8d71d66e049ace322ed4e65f5f0317996b96032c54945aca",
+   "cpu_count": 2,
+   "memory_mb": 1536,
+   "prepare_ms": 1.7,
+   "wslc_call_ms": 2797.9,
+   "mxc_wall_ms": 2656,
+   "warnings": [],
+   "timed_out": false,
+   "output_capped": false,
+   "in_container_seconds": 0,
+   "bridge_starts": 1,
+   "verify_ms": 0.6,
+   "total_ms": 2801.4
+  },
+  "engine_version": "trusted_verify_v1",
+  "note": "trusted verifier: one fresh process per input, verdicts host-side"
+ }
+}

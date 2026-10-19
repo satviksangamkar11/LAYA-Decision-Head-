@@ -1,0 +1,4 @@
+{"event": "run_start", "mono": 111556.953, "resumed": 0, "tasks": 1, "ts": 1792356856.091, "ts_utc": "2026-10-18T20:54:16.090Z", "worker": "main"}
+{"event": "preflight_start", "mono": 111556.953, "ts": 1792356856.093, "ts_utc": "2026-10-18T20:54:16.092Z", "worker": "main"}
+{"event": "preflight_end", "mono": 111563.765, "ok": true, "seconds": 6.812, "ts": 1792356862.905, "ts_utc": "2026-10-18T20:54:22.905Z", "worker": "main"}
+{"event": "run_end", "mono": 111563.765, "ts": 1792356862.906, "ts_utc": "2026-10-18T20:54:22.906Z", "verdict": "PREFLIGHT_REFUSED", "worker": "main"}

@@ -1,0 +1,116 @@
+{
+ "answer_label": "BLOCKED",
+ "budget": {
+  "api_errors": 0,
+  "arm": "D0",
+  "glm_calls": 0,
+  "glm_tokens_in": 0,
+  "glm_tokens_out": 0,
+  "gpu_seconds": 0.0,
+  "problem_id": "J1-34",
+  "qwen_gen_tokens": 1713,
+  "qwen_prefill_tokens": 3153,
+  "scorer_calls": 0,
+  "tool_runs": 0,
+  "wall_seconds": 0.0
+ },
+ "candidates": 5,
+ "ceiling_hits": 0,
+ "clusters": {
+  "computed": false,
+  "extended_clusters": null,
+  "public_clusters": null
+ },
+ "commit": "759cca69fa2f8af8aca0e81efd63de0d9fa37cd5",
+ "controller_config": {
+  "critic": true,
+  "discriminate": true,
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "l2_version": 2,
+  "max_new_tokens": 4096,
+  "max_rounds": 2,
+  "mode": "ladder",
+  "mutant_limit": 8,
+  "strategies": [
+   "qwen_sample_v2",
+   "qwen_sample_v2b"
+  ],
+  "thinking": false
+ },
+ "critic": {
+  "called": false,
+  "state": "not_needed"
+ },
+ "critic_called": false,
+ "difficulty": "hard",
+ "discrimination": {
+  "critic": null,
+  "triggered": false
+ },
+ "end_utc": "2026-10-18T21:47:03.318Z",
+ "engine": "mxc-wslc",
+ "generate_calls": 4,
+ "generation_failed_at_ceiling": false,
+ "gpu": null,
+ "invariants": {
+  "checked": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6",
+   "I7",
+   "I8"
+  ],
+  "failed": null
+ },
+ "journal_chain_ok": true,
+ "journal_hash": "1188603c8021be1676d63001bc9f80120051349e0f55ca66670b92b12b992524",
+ "l2": {
+  "reason": "L2 stage not reached (no candidate passed the public examples)",
+  "verdict": "INSUFFICIENT"
+ },
+ "l2_version": 2,
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "language": "java",
+ "pass": "local",
+ "pending_critic_packets": [],
+ "profile_id": "qwen2.5-coder-1.5b-instruct",
+ "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+ "public": {
+  "best": 2,
+  "candidates_passing_all": 0,
+  "candidates_with_examples": 5,
+  "examples": 5
+ },
+ "rounds": 2,
+ "scorer": "none",
+ "seconds": 124.4,
+ "source_sha256": "9d848505a1cd12709d74a6131100a7902f297c44c6e703235f21445f4a666fb2",
+ "start_utc": "2026-10-18T21:44:58.885Z",
+ "status": "OK",
+ "stop_cause": "budget",
+ "stop_details": "round_cap",
+ "task": "J1-34",
+ "task_prompt_sha256": "404647231316822313549d09c9dba929c62c7d55e9f4f7a09e7593c518e10b88",
+ "think_shim_count": 0,
+ "thinking_policy": {
+  "ceiling": 4096,
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct"
+ },
+ "tokens_generated": 1713,
+ "tokens_prompt": 3153,
+ "toolchain": {
+  "reason": "",
+  "runnable": true,
+  "status": "RUNNABLE",
+  "version": "javac 26.0.1"
+ },
+ "wall_cap_s": 3600.0,
+ "worker": 0
+}

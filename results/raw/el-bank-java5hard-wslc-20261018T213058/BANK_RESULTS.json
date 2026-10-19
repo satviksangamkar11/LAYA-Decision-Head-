@@ -1,0 +1,880 @@
+{
+ "label": "development results (D1 waiver), public examples only; hidden grading NOT done",
+ "scorer": "none",
+ "thinking_policy": {
+  "policy": "model_variant",
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "model_glob": "local:qwen2.5-coder-1.5b-instruct",
+  "ceiling": 4096
+ },
+ "created_utc": "2026-10-18T21:49:21Z",
+ "tasks_finished": 5,
+ "tasks_expected": 40,
+ "unfinished_or_errored": [],
+ "not_tested": {},
+ "sandbox": "mxc-wslc",
+ "pending_not_started": [],
+ "resumed_tasks": [],
+ "jail": {
+  "status": "PASS",
+  "engine": "mxc-wslc",
+  "java_home": null,
+  "bwrap_swapped": null,
+  "handshake": {
+   "os": null,
+   "python": null,
+   "bwrap_version": null,
+   "java_version": null,
+   "jail_probe_ran": null,
+   "backend": "mxc-wslc"
+  }
+ },
+ "gpus": 1,
+ "model": {
+  "backend": "hf",
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "dtype": "fp16",
+  "thinking": false,
+  "nonthinking_empty_think_prefix": true,
+  "enable_thinking": false,
+  "generation": {
+   "do_sample": true,
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "repetition_penalty": 1.1
+  },
+  "do_sample": true,
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "seed_recorded": true,
+  "profile_id": "qwen2.5-coder-1.5b-instruct",
+  "profile_sha256": "7a2c4e6a1a9e63fba64a981aaa0ee877ebf9b44b6095f5576a2d5e42fbd5beb4",
+  "local": true,
+  "templates": {
+   "qwen_sample_v1": "a285f1c5b4e2f8cba9ef3122aab9dc1d48306a6c4a5b6e2c2df945039e46ff89",
+   "qwen_sample_v2": "adde05a2177c18c01723a4eb5bfd2b0a3e0a7bc5c5f7809a004226e9ce97b328",
+   "qwen_repair_v1": "bf6b65f3a0f4fd5bbd0b94f2c7199a405676f38c5e35a542c86fe94ea0d8bdd8",
+   "qwen_tests_v1": "6080a1a7621b6bbed1447b173a77f5d1f900b4636a22e0678370dee8089174dd"
+  },
+  "snapshot_verified": true,
+  "pinned_files": [
+   "config.json",
+   "generation_config.json",
+   "model.safetensors",
+   "tokenizer.json",
+   "tokenizer_config.json",
+   "vocab.json"
+  ]
+ },
+ "labels_by_language": {
+  "java": {
+   "SUPPORTED": 1,
+   "BLOCKED": 4
+  }
+ },
+ "kernel_wall_seconds": {
+  "pass1": 1102.2,
+  "pass2": null,
+  "total": 1102.2
+ },
+ "stage_summary": {
+  "events": 137,
+  "first_utc": "2026-10-18T21:30:59.307Z",
+  "last_utc": "2026-10-18T21:49:21.435Z",
+  "wall_seconds": 1102.128,
+  "stages": {
+   "engine_start": {
+    "n": 1,
+    "total_s": 10.641,
+    "p50_s": 10.641,
+    "p95_s": 10.641
+   },
+   "generate": {
+    "n": 21,
+    "total_s": 842.641,
+    "p50_s": 19.828,
+    "p95_s": 200.593
+   },
+   "model_load": {
+    "n": 1,
+    "total_s": 16.562,
+    "p50_s": 16.562,
+    "p95_s": 16.562
+   },
+   "preflight": {
+    "n": 1,
+    "total_s": 0.063,
+    "p50_s": 0.063,
+    "p95_s": 0.063
+   },
+   "sandbox_public": {
+    "n": 28,
+    "total_s": 230.268,
+    "p50_s": 7.046,
+    "p95_s": 15.065
+   },
+   "task": {
+    "n": 5,
+    "total_s": 1073.874,
+    "p50_s": 137.937,
+    "p95_s": 372.188
+   }
+  },
+  "model_seconds": 842.641,
+  "sandbox_seconds": 230.268,
+  "model_vs_sandbox": {
+   "model_share": 0.7854
+  }
+ },
+ "controller_stage_seconds_per_task": {
+  "commit_verify": {
+   "tasks": 5,
+   "total_s": 17.796,
+   "p50_s": 0.125,
+   "p95_s": 13.866
+  },
+  "discriminate": {
+   "tasks": 5,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "execute": {
+   "tasks": 5,
+   "total_s": 213.189,
+   "p50_s": 39.657,
+   "p95_s": 61.572
+  },
+  "generate": {
+   "tasks": 5,
+   "total_s": 445.578,
+   "p50_s": 55.344,
+   "p95_s": 193.484
+  },
+  "intake": {
+   "tasks": 5,
+   "total_s": 0.233,
+   "p50_s": 0.031,
+   "p95_s": 0.093
+  },
+  "l2_generate": {
+   "tasks": 1,
+   "total_s": 204.063,
+   "p50_s": 204.063,
+   "p95_s": 204.063
+  },
+  "l2_validate": {
+   "tasks": 1,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "rank": {
+   "tasks": 5,
+   "total_s": 0.0,
+   "p50_s": 0.0,
+   "p95_s": 0.0
+  },
+  "repair": {
+   "tasks": 5,
+   "total_s": 193.015,
+   "p50_s": 35.859,
+   "p95_s": 48.2
+  }
+ },
+ "model_vs_sandbox": {
+  "model_seconds": 842.641,
+  "sandbox_seconds": 230.268,
+  "model_share": 0.7854
+ },
+ "gpu": {
+  "per_gpu": {
+   "0": {
+    "samples": 36,
+    "mean_util_pct": 46.7,
+    "p50": 54.0,
+    "p95": 77.5,
+    "idle_samples_pct": 25.0
+   }
+  },
+  "generate_busy_seconds_by_worker": {
+   "w0": 842.6
+  },
+  "wall_seconds": 1102.1,
+  "generate_busy_fraction_by_worker": {
+   "w0": 0.765
+  }
+ },
+ "critic": {
+  "packets_exported": null,
+  "pass2_responses": null
+ },
+ "ceiling_hits_total": 2,
+ "rows": [
+  {
+   "task": "J1-31",
+   "language": "java",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 6,
+   "public_examples": {
+    "examples": 10,
+    "best_candidate_passes": 10,
+    "candidates_passing_all": 1,
+    "candidates_with_examples": 6
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "parsed": 0,
+    "dropped": [],
+    "reason": "no valid test parsed"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "SUPPORTED",
+   "stop_cause": "decided",
+   "stop_details": "",
+   "rounds": 2,
+   "tokens": {
+    "generated": 6248,
+    "prompt": 3308,
+    "generate_calls": 5
+   },
+   "ceiling_hits": 1,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T21:31:26.611Z",
+   "end_utc": "2026-10-18T21:37:58.154Z",
+   "seconds": 391.5,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T21:31:26.821Z",
+     "end_utc": "2026-10-18T21:37:58.129Z",
+     "seconds": 391.313,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:31:26.929Z",
+     "end_utc": "2026-10-18T21:31:36.944Z",
+     "seconds": 10.016,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:31:36.946Z",
+     "end_utc": "2026-10-18T21:32:35.920Z",
+     "seconds": 58.969,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:32:35.921Z",
+     "end_utc": "2026-10-18T21:32:45.820Z",
+     "seconds": 9.906,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:32:45.824Z",
+     "end_utc": "2026-10-18T21:32:51.900Z",
+     "seconds": 6.078,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:32:51.903Z",
+     "end_utc": "2026-10-18T21:33:05.985Z",
+     "seconds": 14.094,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:33:05.989Z",
+     "end_utc": "2026-10-18T21:33:12.138Z",
+     "seconds": 6.141,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:33:12.142Z",
+     "end_utc": "2026-10-18T21:33:30.351Z",
+     "seconds": 18.203,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:33:30.353Z",
+     "end_utc": "2026-10-18T21:33:44.574Z",
+     "seconds": 14.219,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:33:44.578Z",
+     "end_utc": "2026-10-18T21:34:02.231Z",
+     "seconds": 17.656,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:34:02.232Z",
+     "end_utc": "2026-10-18T21:34:16.774Z",
+     "seconds": 14.547,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:34:16.778Z",
+     "end_utc": "2026-10-18T21:37:40.830Z",
+     "seconds": 204.063,
+     "ok": true,
+     "purpose": "tests"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:37:40.833Z",
+     "end_utc": "2026-10-18T21:37:57.987Z",
+     "seconds": 17.156,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 17.297,
+    "discriminate": 0.0,
+    "execute": 65.0,
+    "generate": 68.985,
+    "intake": 0.109,
+    "l2_generate": 204.063,
+    "l2_validate": 0.0,
+    "rank": 0.0,
+    "repair": 35.859
+   }
+  },
+  {
+   "task": "J1-32",
+   "language": "java",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 6,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 1,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 6
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 1644,
+    "prompt": 2304,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T21:37:58.165Z",
+   "end_utc": "2026-10-18T21:40:02.990Z",
+   "seconds": 124.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T21:37:58.295Z",
+     "end_utc": "2026-10-18T21:40:02.967Z",
+     "seconds": 124.672,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:37:58.319Z",
+     "end_utc": "2026-10-18T21:38:10.548Z",
+     "seconds": 12.234,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:38:10.549Z",
+     "end_utc": "2026-10-18T21:38:44.726Z",
+     "seconds": 34.172,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:38:44.727Z",
+     "end_utc": "2026-10-18T21:38:54.041Z",
+     "seconds": 9.313,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:38:54.044Z",
+     "end_utc": "2026-10-18T21:39:02.747Z",
+     "seconds": 8.703,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:39:02.750Z",
+     "end_utc": "2026-10-18T21:39:05.794Z",
+     "seconds": 3.047,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:39:05.796Z",
+     "end_utc": "2026-10-18T21:39:14.721Z",
+     "seconds": 8.937,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:39:14.723Z",
+     "end_utc": "2026-10-18T21:39:27.627Z",
+     "seconds": 12.907,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:39:27.629Z",
+     "end_utc": "2026-10-18T21:39:36.508Z",
+     "seconds": 8.875,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:39:36.511Z",
+     "end_utc": "2026-10-18T21:39:53.856Z",
+     "seconds": 17.343,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:39:53.857Z",
+     "end_utc": "2026-10-18T21:40:02.833Z",
+     "seconds": 8.985,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.125,
+    "discriminate": 0.0,
+    "execute": 47.86,
+    "generate": 46.406,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 30.25
+   }
+  },
+  {
+   "task": "J1-33",
+   "language": "java",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 0,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 5746,
+    "prompt": 3278,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 1,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T21:40:02.999Z",
+   "end_utc": "2026-10-18T21:44:58.874Z",
+   "seconds": 295.8,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T21:40:03.170Z",
+     "end_utc": "2026-10-18T21:44:58.856Z",
+     "seconds": 295.687,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:40:03.196Z",
+     "end_utc": "2026-10-18T21:40:27.206Z",
+     "seconds": 24.016,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:40:27.207Z",
+     "end_utc": "2026-10-18T21:43:47.800Z",
+     "seconds": 200.593,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:43:47.801Z",
+     "end_utc": "2026-10-18T21:43:54.616Z",
+     "seconds": 6.813,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:43:54.619Z",
+     "end_utc": "2026-10-18T21:44:01.700Z",
+     "seconds": 7.078,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:44:01.704Z",
+     "end_utc": "2026-10-18T21:44:05.467Z",
+     "seconds": 3.766,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:44:05.471Z",
+     "end_utc": "2026-10-18T21:44:28.891Z",
+     "seconds": 23.407,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:44:28.892Z",
+     "end_utc": "2026-10-18T21:44:35.467Z",
+     "seconds": 6.563,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:44:35.472Z",
+     "end_utc": "2026-10-18T21:44:55.310Z",
+     "seconds": 19.828,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:44:55.311Z",
+     "end_utc": "2026-10-18T21:44:58.707Z",
+     "seconds": 3.407,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.14,
+    "discriminate": 0.0,
+    "execute": 27.657,
+    "generate": 224.609,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 43.25
+   }
+  },
+  {
+   "task": "J1-34",
+   "language": "java",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 2,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 1713,
+    "prompt": 3153,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T21:44:58.885Z",
+   "end_utc": "2026-10-18T21:47:03.318Z",
+   "seconds": 124.4,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T21:44:59.044Z",
+     "end_utc": "2026-10-18T21:47:03.302Z",
+     "seconds": 124.265,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:44:59.070Z",
+     "end_utc": "2026-10-18T21:45:15.584Z",
+     "seconds": 16.516,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:45:15.584Z",
+     "end_utc": "2026-10-18T21:45:49.309Z",
+     "seconds": 33.718,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:45:49.310Z",
+     "end_utc": "2026-10-18T21:45:53.109Z",
+     "seconds": 3.797,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:45:53.114Z",
+     "end_utc": "2026-10-18T21:45:57.168Z",
+     "seconds": 4.047,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:45:57.172Z",
+     "end_utc": "2026-10-18T21:46:03.741Z",
+     "seconds": 6.578,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:46:03.745Z",
+     "end_utc": "2026-10-18T21:46:13.618Z",
+     "seconds": 9.875,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:46:13.623Z",
+     "end_utc": "2026-10-18T21:46:31.042Z",
+     "seconds": 17.422,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:46:31.043Z",
+     "end_utc": "2026-10-18T21:46:46.380Z",
+     "seconds": 15.344,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:46:46.383Z",
+     "end_utc": "2026-10-18T21:47:03.179Z",
+     "seconds": 16.796,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.125,
+    "discriminate": 0.0,
+    "execute": 39.657,
+    "generate": 50.234,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 34.218
+   }
+  },
+  {
+   "task": "J1-35",
+   "language": "java",
+   "difficulty": "hard",
+   "pass": "local",
+   "status": "OK",
+   "candidates": 5,
+   "public_examples": {
+    "examples": 5,
+    "best_candidate_passes": 2,
+    "candidates_passing_all": 0,
+    "candidates_with_examples": 5
+   },
+   "l2": "INSUFFICIENT",
+   "l2_detail": {
+    "reason": "L2 stage not reached (no candidate passed the public examples)"
+   },
+   "clusters": {
+    "public": null,
+    "extended": null
+   },
+   "critic_used": false,
+   "critic_state": null,
+   "final_label": "BLOCKED",
+   "stop_cause": "budget",
+   "stop_details": "round_cap",
+   "rounds": 2,
+   "tokens": {
+    "generated": 2180,
+    "prompt": 2708,
+    "generate_calls": 4
+   },
+   "ceiling_hits": 0,
+   "invariants_failed": null,
+   "start_utc": "2026-10-18T21:47:03.329Z",
+   "end_utc": "2026-10-18T21:49:21.424Z",
+   "seconds": 138.1,
+   "worker": 0,
+   "steps": [
+    {
+     "stage": "task",
+     "start_utc": "2026-10-18T21:47:03.460Z",
+     "end_utc": "2026-10-18T21:49:21.405Z",
+     "seconds": 137.937,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:47:03.488Z",
+     "end_utc": "2026-10-18T21:47:29.138Z",
+     "seconds": 25.641,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:47:29.139Z",
+     "end_utc": "2026-10-18T21:47:58.840Z",
+     "seconds": 29.703,
+     "ok": true,
+     "purpose": "sample"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:47:58.841Z",
+     "end_utc": "2026-10-18T21:48:05.852Z",
+     "seconds": 7.015,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:48:05.856Z",
+     "end_utc": "2026-10-18T21:48:09.743Z",
+     "seconds": 3.891,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:48:09.747Z",
+     "end_utc": "2026-10-18T21:48:16.351Z",
+     "seconds": 6.609,
+     "ok": true
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:48:16.354Z",
+     "end_utc": "2026-10-18T21:48:28.153Z",
+     "seconds": 11.797,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:48:28.157Z",
+     "end_utc": "2026-10-18T21:48:58.041Z",
+     "seconds": 29.875,
+     "ok": true,
+     "purpose": "repair"
+    },
+    {
+     "stage": "sandbox_public",
+     "start_utc": "2026-10-18T21:48:58.043Z",
+     "end_utc": "2026-10-18T21:49:01.720Z",
+     "seconds": 3.687,
+     "ok": true
+    },
+    {
+     "stage": "generate",
+     "start_utc": "2026-10-18T21:49:01.725Z",
+     "end_utc": "2026-10-18T21:49:21.292Z",
+     "seconds": 19.563,
+     "ok": true,
+     "purpose": "repair"
+    }
+   ],
+   "error": null,
+   "controller_stage_seconds": {
+    "commit_verify": 0.109,
+    "discriminate": 0.0,
+    "execute": 33.015,
+    "generate": 55.344,
+    "intake": 0.031,
+    "rank": 0.0,
+    "repair": 49.438
+   }
+  }
+ ]
+}
