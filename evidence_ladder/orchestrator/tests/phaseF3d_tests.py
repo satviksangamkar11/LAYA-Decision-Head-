@@ -451,7 +451,7 @@ def t_REAL_mxc_python_with_the_trusted_verifier_flag_matches_the_legacy_runner()
     good = "import json" + NL + "T = %r" % table + NL + "def solve(d):" + NL + "    return T[json.dumps(d, sort_keys=True)]" + NL
     legacy = PE.ProviderExecutionBackend(backend="mxc", scratch=Path(tempfile.mkdtemp()))
     trusted = PE.ProviderExecutionBackend(backend="mxc", scratch=Path(tempfile.mkdtemp()), trusted=True)
-    assert legacy.backend_info()["engine_version"] == "legacy_runner" and trusted.backend_info()["engine_version"] == "trusted_verify_v1"
+    assert legacy.backend_info()["engine_version"] == "legacy_runner" and trusted.backend_info()["engine_version"] == "trusted_verify_v2"
     for src in (good, "def solve(d):" + NL + "    return None" + NL, "def solve(d:" + NL + "  pass", "def solve(d):" + NL + "    raise ValueError('x')" + NL):
         art = Artifact.make("P1-01", "python", src)
         assert _summary(legacy.run_public(art, spec)) == _summary(trusted.run_public(art, spec)), src[:30]

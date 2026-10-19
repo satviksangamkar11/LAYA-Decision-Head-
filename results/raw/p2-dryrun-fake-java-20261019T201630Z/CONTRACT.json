@@ -1,0 +1,18 @@
+{
+ "arms": [
+  "fresh",
+  "failure",
+  "counterexample"
+ ],
+ "budget_generated_tokens_beyond_round1": 1400,
+ "round_n": 2,
+ "max_new_tokens": 4096,
+ "profile": "qwen2.5-coder-1.5b-instruct",
+ "fake_model": true,
+ "seeds": "round r>=2 uses seeds 100+2*r .. (same for every arm)",
+ "selection": "first candidate passing every public example",
+ "scorer": "none (LAYA correctness scoring disabled)",
+ "oracle": "public examples only; development grader not imported",
+ "tool_sha256": "9302c299bee7ddbf93d1066cf393a8cfe0f4bff6eeaf4b1ce89bc844a933511b",
+ "started_utc": "2026-10-19T20:16:30Z"
+}

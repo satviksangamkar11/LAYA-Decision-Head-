@@ -43,7 +43,7 @@ from typing import Any, Callable, Dict, List, Optional, Sequence
 from . import config as K
 from . import engine
 
-VERSION = "trusted_verify_v1"
+VERSION = "trusted_verify_v2"      # v2 (2026-10-20, P2 prep): time accounting split into per-input candidate timeout / candidate compute total / harness budget (infrastructure)
 TAG = "@@TV@@"          # result frame prefix on stdout; NOT a secret and NOT proof: every line is just a claim of the candidate's process
 RESULT_KEYS = ("exit_code", "killed", "stdout", "stderr", "protected_unchanged", "pre_tree_sha256", "post_tree_sha256", "persisted")
 
@@ -92,8 +92,17 @@ class TrustedVerifier:
     VERSION = VERSION
 
     def __init__(self, run: Callable[..., Dict[str, Any]], cfg: Optional[K.SandboxConfig] = None, *, scratch: Optional[Path] = None, java: Optional[JavaCommands] = None,
-                 per_input_timeout: Optional[float] = None, total_timeout: Optional[float] = None, java_support: Optional[Path] = None):
-        """run(workspace: str, cmd: str, persist: bool = False, timeout: int = 60) -> dict with the 8 contract keys (the sandbox port). Expected values are never an argument anywhere."""
+                 per_input_timeout: Optional[float] = None, total_timeout: Optional[float] = None, java_support: Optional[Path] = None,
+                 launch_overhead: Optional[float] = None):
+        """run(workspace: str, cmd: str, persist: bool = False, timeout: int = 60) -> dict with the 8 contract keys (the sandbox port). Expected values are never an argument anywhere.
+
+        Time accounting (v2). One fresh process per input costs a launch overhead that the legacy one-process runner paid once; v1 charged it to the candidate, so a correct
+        Java program with 40 inputs on WSLC (about 2.7 s per launch) "timed out" (P1, J1-17). Four outcomes are now kept apart:
+          * per-input candidate timeout: the sandbox kills one input after per_input_timeout + launch overhead -> RunResult timeout (a candidate outcome);
+          * candidate compute total: sum over inputs of (wall - launch overhead) above the legacy batch limit (cfg.py_timeout / cfg.java_run_timeout) -> timeout (candidate);
+          * harness budget: total wall above total_timeout (default: n_inputs x (per-input kill + 1 s) + compile) -> sandbox_error (infrastructure, never a verdict);
+          * sandbox port failure -> TrustedVerifyInfraError (infrastructure).
+        launch_overhead: seconds per launch; None = measured once per language on this port (minimum of 2 trivial launches, so candidate time is never under-counted)."""
         self._run = run
         self.cfg = cfg or K.SandboxConfig()
         self.scratch = Path(scratch or tempfile.mkdtemp(prefix="el-trusted-")).resolve()
@@ -101,7 +110,9 @@ class TrustedVerifier:
         self.java = java or JavaCommands()
         self.java_support = Path(java_support or K.JAVA_SUPPORT)
         self.per_input_timeout = float(per_input_timeout or self.cfg.py_timeout)
-        self.total_timeout = float(total_timeout or self.cfg.py_timeout * 2)
+        self.total_timeout = float(total_timeout) if total_timeout else None          # None = sized per run from the number of inputs
+        self.launch_overhead: Dict[str, float] = {} if launch_overhead is None else {"python": float(launch_overhead), "java": float(launch_overhead)}
+        self.accounting: Dict[str, Any] = {}            # last run: overhead, candidate seconds, harness seconds, limits, outcome
         self.records: List[Dict[str, Any]] = []         # raw sandbox results (8 keys) + what the supervisor staged
         self.observations: List[Dict[str, Any]] = []    # per input: exit code, killed, output sha256 / length, seconds
         self._trusted_java: Optional[Dict[str, bytes]] = None
@@ -130,6 +141,32 @@ class TrustedVerifier:
         out, self.observations = self.observations, []
         return out
 
+    def _overhead(self, language: str) -> float:
+        if language not in self.launch_overhead:
+            cmd = "python3 -c 0" if language == "python" else self.java.run.format(script=shlex.quote("java %s -version" % self.cfg.java_xmx))
+            ts = []
+            for k in range(2):
+                wd = self.scratch / "calib" / uuid.uuid4().hex
+                wd.mkdir(parents=True)
+                try:
+                    t0 = time.time()
+                    r = self._call(wd, cmd, False, 120, "calibrate_%s_%d" % (language, k))
+                    ts.append(time.time() - t0)
+                finally:
+                    shutil.rmtree(wd, ignore_errors=True)
+                if r["killed"] or int(r["exit_code"]) != 0:
+                    raise TrustedVerifyInfraError("launch-overhead calibration failed for %s (exit %s, killed %s)" % (language, r["exit_code"], r["killed"]))
+            self.launch_overhead[language] = min(ts)
+        return self.launch_overhead[language]
+
+    def _budgets(self, language: str, n: int, per_input: float, batch_limit: float):
+        oh = self._overhead(language)
+        kill = per_input + oh
+        harness = self.total_timeout if self.total_timeout else n * (kill + 1.0)
+        self.accounting = {"language": language, "inputs": n, "launch_overhead_s": round(oh, 3), "per_input_kill_s": round(kill, 3), "candidate_limit_s": batch_limit,
+                           "harness_budget_s": round(harness, 3), "candidate_s": 0.0, "harness_s": 0.0, "outcome": "ran"}
+        return oh, kill, harness
+
     def run(self, language: str, raw: bytes, inputs: Sequence[Any]) -> engine.RunResult:
         return self.run_python(raw, inputs) if language == "python" else self.run_java(raw, inputs)
 
@@ -151,12 +188,18 @@ class TrustedVerifier:
             return engine.RunResult("oversized", detail="source %d bytes > %d" % (len(raw), cfg.max_source_bytes))
         lines: List[str] = []
         res = engine.RunResult("ran", returncode=0)
+        oh, kill, harness = self._budgets("python", len(inputs), self.per_input_timeout, cfg.py_timeout)
+        acc = self.accounting
         t_all = time.time()
         stderr_tail = ""
         for i, inp in enumerate(inputs):
-            if time.time() - t_all > self.total_timeout:
-                res.phase_status, res.timed_out = "timeout", True
-                res.detail = "total wall budget %.0fs used before input %d" % (self.total_timeout, i)
+            if time.time() - t_all > harness:
+                res.phase_status, res.detail = "sandbox_error", "harness budget %.0fs used before input %d (infrastructure, not a candidate verdict)" % (harness, i)
+                acc["outcome"] = "harness_budget"
+                break
+            if acc["candidate_s"] > cfg.py_timeout:
+                res.phase_status, res.timed_out, res.detail = "timeout", True, "candidate compute %.1fs > %.0fs before input %d" % (acc["candidate_s"], cfg.py_timeout, i)
+                acc["outcome"] = "candidate_total_timeout"
                 break
             wd = self.scratch / "py" / uuid.uuid4().hex
             wd.mkdir(parents=True)
@@ -165,16 +208,19 @@ class TrustedVerifier:
                 (wd / "wrap.py").write_bytes(PY_WRAPPER.encode("utf-8"))                          # fresh host-written copy for EVERY input: editing it only hurts the candidate's own workspace
                 (wd / "in.json").write_bytes(json.dumps(inp, ensure_ascii=True).encode("ascii"))
                 t0 = time.time()
-                r = self._call(wd, "python3 wrap.py %s" % TAG, False, self.per_input_timeout, "python_input_%d" % i)          # persist=False: NOTHING is read back from the workspace
+                r = self._call(wd, "python3 wrap.py %s" % TAG, False, kill, "python_input_%d" % i)          # persist=False: NOTHING is read back from the workspace
                 dt = time.time() - t0
             finally:
                 shutil.rmtree(wd, ignore_errors=True)
             self._obs(i, r, dt)
+            acc["candidate_s"] = round(acc["candidate_s"] + max(0.0, dt - oh), 3)
+            acc["harness_s"] = round(time.time() - t_all, 3)
             stderr_tail = str(r.get("stderr", ""))[-1500:]
             res.duration += dt
             so = str(r.get("stdout", ""))
             if r["killed"]:
                 res.phase_status, res.timed_out, res.returncode, res.stderr_tail = "timeout", True, r["exit_code"], stderr_tail
+                res.detail, acc["outcome"] = "per-input timeout on input %d" % i, "per_input_timeout"
                 break
             if len(so.encode("utf-8", "replace")) > cfg.max_output_bytes:
                 res.overflow, res.returncode, res.stderr_tail = True, r["exit_code"], stderr_tail
@@ -268,11 +314,18 @@ class TrustedVerifier:
         # 2. one process per input; stdin staged as a file; host-compiled Runner / Json classes re-staged fresh next to the candidate's classes
         lines: List[str] = []
         res = engine.RunResult("ran", returncode=0)
+        oh, kill, harness = self._budgets("java", len(inputs), cfg.java_run_timeout, cfg.java_run_timeout)
+        acc = self.accounting
         t_all = time.time()
         script = "java %s -Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8 -cp . Runner < in.json" % cfg.java_xmx
         for i, inp in enumerate(inputs):
-            if time.time() - t_all > max(self.total_timeout, cfg.java_run_timeout * 2):
-                res.phase_status, res.timed_out, res.detail = "timeout", True, "total wall budget used before input %d" % i
+            if time.time() - t_all > harness:
+                res.phase_status, res.detail = "sandbox_error", "harness budget %.0fs used before input %d (infrastructure, not a candidate verdict)" % (harness, i)
+                acc["outcome"] = "harness_budget"
+                break
+            if acc["candidate_s"] > cfg.java_run_timeout:
+                res.phase_status, res.timed_out, res.detail = "timeout", True, "candidate compute %.1fs > %.0fs before input %d" % (acc["candidate_s"], cfg.java_run_timeout, i)
+                acc["outcome"] = "candidate_total_timeout"
                 break
             wd = self.scratch / "java" / uuid.uuid4().hex
             wd.mkdir(parents=True)
@@ -283,16 +336,19 @@ class TrustedVerifier:
                     (wd / n).write_bytes(b)
                 (wd / "in.json").write_bytes((json.dumps(inp, ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8", "replace"))
                 t0 = time.time()
-                r = self._call(wd, self.java.run.format(script=shlex.quote(script)), False, cfg.java_run_timeout, "java_input_%d" % i)
+                r = self._call(wd, self.java.run.format(script=shlex.quote(script)), False, kill, "java_input_%d" % i)
                 dt = time.time() - t0
             finally:
                 shutil.rmtree(wd, ignore_errors=True)
             self._obs(i, r, dt)
+            acc["candidate_s"] = round(acc["candidate_s"] + max(0.0, dt - oh), 3)
+            acc["harness_s"] = round(time.time() - t_all, 3)
             res.duration += dt
             so = str(r.get("stdout", ""))
             res.stderr_tail = str(r.get("stderr", ""))[-1500:]
             if r["killed"]:
                 res.phase_status, res.timed_out, res.returncode = "timeout", True, r["exit_code"]
+                res.detail, acc["outcome"] = "per-input timeout on input %d" % i, "per_input_timeout"
                 break
             if len(so.encode("utf-8", "replace")) > cfg.max_output_bytes:
                 res.overflow, res.returncode = True, r["exit_code"]

@@ -24,6 +24,7 @@ from evidence_ladder.execution import config as K
 from evidence_ladder.execution import engine
 from evidence_ladder.execution.protected import ProtectedGrader, SelectionGate
 from evidence_ladder.execution.provider_engine import ProviderExecutionBackend
+from evidence_ladder.execution.trusted_verify import VERSION as TV_VERSION
 
 BACKEND = {"python": "mxc", "java": "wslc"}      # the backends the original runs used
 ANSWERED = ("SUPPORTED", "VERIFIED", "PLAUSIBLE")
@@ -80,7 +81,7 @@ def main(out: Path, runs: list) -> int:
                 b = ProviderExecutionBackend(backend=BACKEND[lang], scratch=out / "_scratch" / lang, config=cfg, trusted=True)
                 info = b.start(languages=(lang,))
                 backends[lang] = b
-                provenance.setdefault("backends", {})[lang] = {k: info[k] for k in ("engine", "backend", "image_digest")} | {"toolchains": info["toolchains"], "engine_version": "trusted_verify_v1"}
+                provenance.setdefault("backends", {})[lang] = {k: info[k] for k in ("engine", "backend", "image_digest")} | {"toolchains": info["toolchains"], "engine_version": TV_VERSION}
             b = backends[lang]
             rows = []
             for c in t["cands"].values():

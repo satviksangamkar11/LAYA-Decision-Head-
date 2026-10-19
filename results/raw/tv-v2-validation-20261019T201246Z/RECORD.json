@@ -1,0 +1,23 @@
+{
+ "verifier_version": "trusted_verify_v2",
+ "code_sha256": {
+  "evidence_ladder/execution/trusted_verify.py": "805862377e0150bb667256ff8ddc86f9de00bbcdb00afb6610450e4615b2315d",
+  "evidence_ladder/controller/tests/phaseF2d_tests.py": "1b0b9965178fd1aae0999546ae42ea1626e397a6508de0d72ac744cc08e84771",
+  "evidence_ladder/orchestrator/tests/phaseF3d_tests.py": "db2b6a49f327efe7d5d296b4edf72ddbc4ff0570f10cdee30ded890352174e66",
+  "tools/el_tv_parity_check.py": "ee18fed37cb24cfb45033ac3ea17358708206d43dab114d3e0c5c482ca54d0d1",
+  "tools/el_p2_generation_compare.py": "709c016592a88fe9f8b236d03d632c07ae95be938d08712c806be6e2a15c7e7c"
+ },
+ "phaseF2d": "26/26 pass (run before this record; includes 2 new v2 accounting tests)",
+ "phaseF3d": "16/16 pass (phaseF3d_tests.log)",
+ "parity_wslc": {
+  "checked": 4,
+  "agree": 4
+ },
+ "limitations": [
+  "candidate compute = wall time minus calibrated launch overhead (min of 2 trivial launches); launch jitter is counted against the candidate, never in its favour",
+  "per-input kill = per-input limit + launch overhead, so one input may run up to that long before the kill",
+  "Java candidate total limit excludes JVM start-up, so it is slightly more lenient than the legacy single-JVM batch limit (by one start-up)",
+  "WSLC still has no process-count (pids) limit; memory limit + timeouts + container destruction contain fork activity",
+  "harness budget exhaustion is reported as sandbox_error (infrastructure), never as a candidate verdict"
+ ]
+}

@@ -1,0 +1,24 @@
+{
+ "tests": 16,
+ "passed": 16,
+ "failed": {},
+ "skipped": {},
+ "measured": {
+  "java_seconds_per_candidate_run_via_wsl_shell_double": {
+   "reference": 0.7,
+   "always_true": 0.71,
+   "compile_error": 0.5,
+   "throws": 0.74,
+   "infinite_loop": 10.65,
+   "wrong_type": 0.66
+  },
+  "parity_candidates": [
+   "reference",
+   "always_true",
+   "compile_error",
+   "throws",
+   "infinite_loop",
+   "wrong_type"
+  ]
+ }
+}

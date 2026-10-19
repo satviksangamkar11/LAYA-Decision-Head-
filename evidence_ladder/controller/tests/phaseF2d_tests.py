@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import traceback
 from pathlib import Path
 
@@ -67,7 +68,7 @@ class LocalPort:
 
 def verifier(port=None, **kw):
     port = port or LocalPort()
-    return TV.TrustedVerifier(port, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), **kw), port
+    return TV.TrustedVerifier(port, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), **{"launch_overhead": 0.0, **kw}), port
 
 
 def verdict(code, cases, tv=None, **kw):
@@ -91,6 +92,60 @@ def need_py_mod():
         raise B.Skip("the receipted python grading module (strict_equal) is not on this machine: %s" % K.PY_GRADE_SCRIPT)
 
 
+# ====================================================================== v2 time accounting (2026-10-20): launch overhead is not the candidate's time; harness budget is infrastructure
+class SlowLaunchPort(LocalPort):
+    """LocalPort that adds a fixed delay per launch (simulates WSLC / JVM start-up)."""
+    def __init__(self, delay):
+        super().__init__()
+        self.delay = delay
+
+    def __call__(self, workspace, cmd, persist=False, timeout=60):
+        time.sleep(self.delay)
+        return super().__call__(workspace, cmd, persist, timeout)
+
+
+@test
+def tv_v2_launch_overhead_is_not_charged_to_the_candidate_logic():
+    need_py_mod()
+    cfg = K.SandboxConfig(py_timeout=1.0)                     # legacy batch limit 1 s; 20 inputs x 0.15 s launch = 3 s of pure overhead (v1 called this a candidate timeout)
+    port = SlowLaunchPort(0.15)
+    tv = TV.TrustedVerifier(port, cfg, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), per_input_timeout=1.0)      # overhead calibrated on this port
+    cases = [{"input": {"x": i}, "expected": i * 2} for i in range(20)]
+    res = tv.run("python", HONEST.encode("utf-8"), [c["input"] for c in cases])
+    v, _ = engine.judge_each("python", res, cases, cfg)
+    assert v.status == "pass", (v, tv.accounting)
+    assert tv.accounting["launch_overhead_s"] >= 0.15 and tv.accounting["candidate_s"] < cfg.py_timeout and tv.accounting["outcome"] == "ran"
+    assert any(c["cmd"] == "python3 -c 0" for c in port.calls)                    # calibration ran on the same port
+
+
+@test
+def tv_v2_four_outcomes_are_kept_apart_logic():
+    need_py_mod()
+    cases = [{"input": {"x": i}, "expected": i * 2} for i in range(6)]
+    slow = "import time\ndef solve(d):\n    time.sleep(0.4)\n    return d['x'] * 2\n"
+    # candidate compute total above the legacy batch limit -> candidate timeout
+    tv = TV.TrustedVerifier(LocalPort(), K.SandboxConfig(py_timeout=1.0), scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), per_input_timeout=5.0, launch_overhead=0.0)
+    v, _ = engine.judge_each("python", tv.run("python", slow.encode(), [c["input"] for c in cases]), cases, CFG)
+    assert v.status == "timeout" and v.failure_class == "timeout" and tv.accounting["outcome"] == "candidate_total_timeout", tv.accounting
+    # one input above the per-input kill -> candidate timeout
+    tv = TV.TrustedVerifier(LocalPort(), K.SandboxConfig(py_timeout=30.0), scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), per_input_timeout=1.0, launch_overhead=0.0)
+    v, _ = engine.judge_each("python", tv.run("python", b"import time\ndef solve(d):\n    time.sleep(20)\n", [c["input"] for c in cases]), cases, CFG)
+    assert v.status == "timeout" and tv.accounting["outcome"] == "per_input_timeout", tv.accounting
+    # harness budget exhausted -> sandbox_error (infrastructure), never a candidate verdict
+    tv = TV.TrustedVerifier(SlowLaunchPort(0.3), K.SandboxConfig(py_timeout=30.0), scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), per_input_timeout=5.0, total_timeout=0.5, launch_overhead=0.0)
+    v, _ = engine.judge_each("python", tv.run("python", HONEST.encode(), [c["input"] for c in cases]), cases, CFG)
+    assert v.status == "error" and v.failure_class == "sandbox_error" and tv.accounting["outcome"] == "harness_budget", (v, tv.accounting)
+    # sandbox port failure -> raises
+    def dead(*a, **k):
+        raise OSError("port down")
+    tv = TV.TrustedVerifier(dead, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), launch_overhead=0.0)
+    try:
+        tv.run("python", HONEST.encode(), [1])
+        raise AssertionError("no raise")
+    except TV.TrustedVerifyInfraError:
+        pass
+
+
 # ====================================================================== PHASE 2: trusted verifier, python
 @test
 def tv_honest_candidate_passes_and_expected_values_never_reach_the_sandbox_logic():
@@ -100,7 +155,7 @@ def tv_honest_candidate_passes_and_expected_values_never_reach_the_sandbox_logic
     sig = inspect.signature(TV.TrustedVerifier.run)
     assert list(sig.parameters) == ["self", "language", "raw", "inputs"]                                                     # there is no parameter through which an expected value could enter
     v, each, res, _ = verdict(HONEST, CASES, tv)
-    assert v.status == "pass" and [s for s, _, _ in each] == ["pass"] * 3 and res.returncode == 0 and tv.VERSION == "trusted_verify_v1"
+    assert v.status == "pass" and [s for s, _, _ in each] == ["pass"] * 3 and res.returncode == 0 and tv.VERSION == "trusted_verify_v2"
     assert len(port.calls) == 3 and all(c["cmd"].startswith("python3 wrap.py ") and c["persist"] is False for c in port.calls)    # one process per input; nothing is read back from the workspace
     blob = b"".join(b for st in port.staged for b in st.values())
     assert b"CANARY-EXPECTED" not in blob and set().union(*[set(st) for st in port.staged]) == {"cand.py", "wrap.py", "in.json"}
@@ -110,7 +165,7 @@ def tv_honest_candidate_passes_and_expected_values_never_reach_the_sandbox_logic
     obs = tv.drain_observations()
     assert len(obs) == 3 and all(o["exit_code"] == 0 and not o["killed"] and len(o["stdout_sha256"]) == 64 for o in obs)
     recs = tv.drain_exec_records()
-    assert len(recs) == 3 and all(set(TV.RESULT_KEYS) <= set(r) and r["engine_version"] == "trusted_verify_v1" for r in recs)
+    assert len(recs) == 3 and all(set(TV.RESULT_KEYS) <= set(r) and r["engine_version"] == "trusted_verify_v2" for r in recs)
 
 
 @test
@@ -223,13 +278,13 @@ def tv_ordinary_candidate_failures_stay_candidate_outcomes_and_infra_failures_ra
     # infrastructure: the port raises -> raised, never a verdict; a port that returns a result without the contract fields is also infrastructure
     def dead(*a, **k):
         raise OSError("sandbox gone")
-    tv = TV.TrustedVerifier(dead, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")))
+    tv = TV.TrustedVerifier(dead, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), launch_overhead=0.0)
     try:
         tv.run("python", HONEST.encode(), [{"x": 1}])
         assert False
     except TV.TrustedVerifyInfraError as e:
         assert e.infra is True
-    tv2 = TV.TrustedVerifier(lambda *a, **k: {"exit_code": 0}, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")))
+    tv2 = TV.TrustedVerifier(lambda *a, **k: {"exit_code": 0}, CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), launch_overhead=0.0)
     try:
         tv2.run("python", HONEST.encode(), [{"x": 1}])
         assert False
@@ -245,7 +300,7 @@ def tv_resource_exhaustion_reported_by_the_backend_is_never_a_pass_scripted_logi
                    {"exit_code": -1, "killed": False, "stdout": "", "stderr": "fork: Resource temporarily unavailable"},       # fork exhaustion
                    {"exit_code": -9, "killed": True, "stdout": "%s V 2\n" % TV.TAG, "stderr": "wall-clock"}):                     # killed after printing a frame
         full = dict({"protected_unchanged": True, "pre_tree_sha256": "a" * 64, "post_tree_sha256": "b" * 64, "persisted": False}, **result)
-        tv = TV.TrustedVerifier(lambda ws, cmd, persist=False, timeout=60, _r=full: dict(_r), CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")))
+        tv = TV.TrustedVerifier(lambda ws, cmd, persist=False, timeout=60, _r=full: dict(_r), CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), launch_overhead=0.0)
         res = tv.run("python", HONEST.encode(), [c["input"] for c in CASES])
         v, each = engine.judge_each("python", res, CASES, CFG)
         never_pass(v, each)
@@ -318,7 +373,7 @@ def tv_java_one_process_per_input_with_host_compiled_runner_scripted_logic():
             raise AssertionError(mode)
         return run
     def jv(mode, src=b"class Solution {}"):
-        tv = TV.TrustedVerifier(port(mode), CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), java_support=support)
+        tv = TV.TrustedVerifier(port(mode), CFG, scratch=Path(tempfile.mkdtemp(prefix="f2d-tv-")), java_support=support, launch_overhead=0.0)
         res = tv.run("java", src, [c["input"] for c in cases])
         v, each = engine.judge_each("java", res, cases, CFG)
         return tv, res, v, each
@@ -859,7 +914,7 @@ def tv_wslc_java_forgery_attempts_never_produce_an_accepted_pass_wslc():
         return v, each, res
     head = "import java.util.*;\npublic final class Solution {\n    public static Object solve(Map<String,Object> data) {\n"
     v, each, _ = go(head + "        return ((Number) data.get(\"x\")).intValue() * 2;\n    }\n}\n")
-    assert v.status == "pass" and tv.VERSION == "trusted_verify_v1"                                                           # control: an honest candidate passes through compile + one java process per input
+    assert v.status == "pass" and tv.VERSION == "trusted_verify_v2"                                                           # control: an honest candidate passes through compile + one java process per input
     v, each, _ = go(head + "        System.out.println(\"PASS\"); System.out.println(\"ALL TESTS PASSED\");\n        return -1;\n    }\n}\n")
     never_pass(v, each)
     v, each, _ = go(head + "        try { java.nio.file.Files.write(java.nio.file.Paths.get(\"Runner.class\"), new byte[]{1}); java.nio.file.Files.write(java.nio.file.Paths.get(\"result.json\"), \"pass\".getBytes()); } catch (Exception e) {}\n        return -7;\n    }\n}\n")
