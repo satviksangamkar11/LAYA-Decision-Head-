@@ -1,0 +1,79 @@
+{
+ "backends": {
+  "java": {
+   "backend": "mxc-wslc",
+   "engine": "mxc-wslc",
+   "engine_version": "trusted_verify_v1",
+   "image_digest": "sha256:5d7bc6d2ec900598e4839b6505dbbc7267d4c407a70c892f3b4e10ef490929ff",
+   "toolchains": {
+    "java": {
+     "reason": "",
+     "runnable": true,
+     "status": "RUNNABLE",
+     "version": "javac 26.0.1"
+    }
+   }
+  },
+  "python": {
+   "backend": "mxc",
+   "engine": "mxc-processcontainer",
+   "engine_version": "trusted_verify_v1",
+   "image_digest": null,
+   "toolchains": {
+    "python": {
+     "reason": "",
+     "runnable": true,
+     "status": "RUNNABLE",
+     "version": "Python 3.12.13"
+    }
+   }
+  }
+ },
+ "finished_utc": "2026-10-19T19:37:51Z",
+ "runs": {
+  "results\\raw\\el-bank-java20-wslc-20261018T211547": {
+   "J1-17": "8b93005be8b11f614f8c428cee7e9d3abe47779ba81586c5e14e3826cf3b430a",
+   "J1-20": "6dfaf19c9812f611fb39dae0d1e7cf900848ed9661977ef80b7388c8ad7d2bf5",
+   "J1-23": "bac5880e54e34a3123515a15ec7f9054fee67b331b7998ac1b4b9b206a42c555"
+  },
+  "results\\raw\\el-bank-java5hard-wslc-20261018T213058": {
+   "J1-31": "217bb23e2721ada3d934453fdcd8c0b3b614891518c6d29f6fe2d74f6bdfa67a",
+   "J1-32": "58881d200e70e783c8030360e3011fa0d7511daef5a523cec7751e0e7455adb2",
+   "J1-33": "e04a335c697eadbd41118acbeb9c5b85328e0a4d5ad8c0b020a9484e4450f30f",
+   "J1-34": "2f681dc8e613c507daf072fbbc055790d09cf4ceb24df6da5cf78e518f4b97ae",
+   "J1-35": "13cb63586ad4a020063d378dbf2f150e4e5d3e891a97125c5026cec7cd74b15d"
+  },
+  "results\\raw\\el-bank-local-20261018T2106": {
+   "P1-13": "495fbe6e2d253b79cc28e0a6f188fdab2c6eb6c97c74123ed9ac052bb308f3ea",
+   "P1-14": "28268e042d1799167d8d03e362f900cd9a95a09b480bb6221318fd5964fda7a1",
+   "P1-15": "03b49440e9498f9881a73ce8da1e2301ea160f70f7f680d7f31ff96fe5bad78a",
+   "P1-16": "53792a1bf9d67699d078d172457c4000249d56e2c0b88b5b18a3b9a1deab2750",
+   "P1-17": "fbee2eff3402961a12f96751ea8f881887edd6494ddc744cbfe6c26f94953a43",
+   "P1-18": "e2aea5ac97d2e74131c6fafec95a2264c730e915d4568ab1ea4465b1999d9dce",
+   "P1-19": "40158d7724ebcb9c99d7a46870fac30a3cdac78ab0bc9d01a1aee6e593f91f91",
+   "P1-20": "594707436a92304748018775aaf86f28966b7cd04cb67b4d7b86d383519e9a5a",
+   "P1-21": "bb29b3f60f8231643150d82c59335883f556aa85b215a5f75b56b97b86b8bf0b",
+   "P1-22": "0e9ebc40ed14f5a03d8fd194f37990a1357098a1301026741b75ceae20c5a7ea",
+   "P1-23": "890cea13a1dba19001928e185cd4cee4efdc50db8843adc3e471e88fc2906ac1",
+   "P1-24": "7a9dd1caff338aefaec736f0c6caa1dcd42f7302e7e8c19be1180129ece0f0d0",
+   "P1-25": "9b31b48989ef62eb8dffe456b79abd8e8a6fa9d8466bacff9b9680c930006cbb",
+   "P1-26": "3f4f3c39fc92bd938c0416bf644447f3223034fb475985bf1a313e3280a75342",
+   "P1-27": "8e006f370dbf0eb72a353ed18ae74f5fc8406831e72ea6c39c27820eba30763a",
+   "P1-28": "c1dca29b13e63adbe9dbfc3280e951d29c17f3d2c06aab593432fbde407c4dd9",
+   "P1-29": "a95a07413bf64ccef656e063a87de902de9858e2c81d51846a4bbb9ff25e6737",
+   "P1-30": "90c8a844644477b47d24c0daa9c4b680bdcf17badbcba1f14365ede47f246865",
+   "P1-31": "a55caf0655dec7645d0a82b8abd9f45b5ce64ae37dd6ae65995d8325cbdf66ab",
+   "P1-32": "f36fb3ccb72461319e20d4d867fc3414126ff145f73786903d2c80517bc4e900",
+   "P1-33": "26322cff0f1e345e9f83bef5ec6e1c4d1ddc508d5dfa24fb61a62c429ba381d3",
+   "P1-34": "4456d28e08eabe1e72cd9a75f25adcd22253d88e6f86ee6edc7da5c5427736fa",
+   "P1-35": "86fab406c88a6a0705a020dcc5f7aa8359ad228a40b033dc45b91446bfc7c702",
+   "P1-36": "cbb41b07ef13150dbd81406a70523966220a74811b82231ae08bb52036cc06d3",
+   "P1-37": "2183c6713dbeae32c823a73d7bc2578f90cee4f3c0e4199a44ceb0a2375a5c23",
+   "P1-38": "6dd251650fe96b5ccd1ea7068e52aa6d255fb54f4a1ba3f3d4cb65643204e50a",
+   "P1-39": "a8acd2dd1ce067784ab0abb8c611cafd4754555e2754e0a9ac5ce546ec6bc22b",
+   "P1-40": "4772efecdf803c2299887bcaf8f69bb8730ddc954ff9f078d611dcd6f06969d9"
+  }
+ },
+ "started_utc": "2026-10-19T19:24:46Z",
+ "tool_sha256": "a538e909a75b6f6456b131b377f029673185f384759644180201b2b847ff9cc5"
+}

@@ -1,0 +1,72 @@
+{
+ "answered_but_dev_fail": [
+  "P1-14",
+  "P1-21",
+  "P1-24",
+  "P1-27",
+  "P1-28",
+  "P1-34",
+  "J1-31",
+  "J1-17"
+ ],
+ "chosen_pass": 15,
+ "fully_evaluated_tasks": 36,
+ "generation_gap_tasks": [
+  "P1-14",
+  "P1-20",
+  "P1-23",
+  "P1-24",
+  "P1-26",
+  "P1-27",
+  "P1-28",
+  "P1-31",
+  "P1-34",
+  "P1-36",
+  "P1-37",
+  "P1-40",
+  "J1-31",
+  "J1-32",
+  "J1-33",
+  "J1-34",
+  "J1-35",
+  "J1-17",
+  "J1-20",
+  "J1-23"
+ ],
+ "infra_errors": 0,
+ "label": "DEVELOPMENT evidence only: the development grader cases are public in Git history; offline, after selection; no model calls",
+ "not_evaluated": 0,
+ "oracle_at_k": 16,
+ "public_count_mismatch_vs_result_json": [],
+ "public_pass_multi": [
+  "P1-13",
+  "P1-15",
+  "P1-17",
+  "P1-18",
+  "P1-21",
+  "P1-25",
+  "P1-27",
+  "P1-29",
+  "P1-30",
+  "P1-32",
+  "P1-35",
+  "P1-38",
+  "P1-39",
+  "J1-17"
+ ],
+ "public_pass_single": [
+  "P1-14",
+  "P1-16",
+  "P1-19",
+  "P1-22",
+  "P1-24",
+  "P1-28",
+  "P1-33",
+  "P1-34",
+  "J1-31"
+ ],
+ "selection_misses": [
+  "P1-21"
+ ],
+ "tasks": 36
+}
