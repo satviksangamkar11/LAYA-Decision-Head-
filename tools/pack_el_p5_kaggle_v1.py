@@ -28,16 +28,25 @@ def main() -> int:
     for rel in extra:
         files[rel] = (ROOT / rel).read_bytes()
     T = L.load()
+    final = "--final" in sys.argv          # FINAL bundle: the locked task set (configs/p5_final_lock_v1.json), public LCB data only
+    lock = json.loads((ROOT / "configs/p5_final_lock_v1.json").read_text("utf-8")) if final else None
+    lcb_ids = lock["lcb_ids"] if final else SEL["smoke_lcb"]
     rows = []
-    for tid in SEL["smoke_lcb"]:
+    for tid in lcb_ids:
         r = json.loads(next(l for l in (ROOT / "data/livecodebench/v6/test6.jsonl").read_text("utf-8").splitlines() if json.loads(l)["question_id"] == tid))
         r["private_test_cases"] = ""          # PUBLIC ONLY: the private tests never leave the PC
         rows.append(r)
         assert T[tid]["public_view"]["public_tests"]
+    assert all(r["private_test_cases"] == "" for r in rows)
     files["lcb_public_smoke.jsonl"] = "".join(json.dumps(r, sort_keys=True) + "\n" for r in rows).encode("utf-8")
-    files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v1", "purpose": "SMOKE only (not the final evaluation)", "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
-                                        "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
-                                        "shards": [{"name": "smoke_lcb", "cohort": "lcb", "tasks": SEL["smoke_lcb"]}, {"name": "smoke_bank", "cohort": "bank", "tasks": SEL["smoke_bank"]}]},
+    if final:      # shards run one after the other; each writes its own run dir, so a lost session loses at most the running shard
+        shards = [{"name": "final_lcb_%d" % (k // 17 + 1), "cohort": "lcb", "tasks": lcb_ids[k:k + 17]} for k in range(0, len(lcb_ids), 17)]
+        shards.append({"name": "final_contract", "cohort": "contract", "tasks": lock["contract_ids"]})
+        files["p5_final_lock_v1.json"] = (ROOT / "configs/p5_final_lock_v1.json").read_bytes()
+    else:
+        shards = [{"name": "smoke_lcb", "cohort": "lcb", "tasks": SEL["smoke_lcb"]}, {"name": "smoke_bank", "cohort": "bank", "tasks": SEL["smoke_bank"]}]
+    files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v1", "purpose": "FINAL evaluation (locked set)" if final else "SMOKE only (not the final evaluation)",
+                                        "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct", "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a", "shards": shards},
                                        indent=1).encode("utf-8")
     PK.B.assert_public_bundle(files, PK.held_markers(ROOT))
     for k, v in files.items():
@@ -46,7 +55,7 @@ def main() -> int:
     files["BUNDLE_MANIFEST.json"] = json.dumps({"bundle": "el_p5_v1", "commit": commit, "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                                                 "files": {k: PK.sha(v) for k, v in files.items()},
                                                 "note": "code + public task data only; no private/hidden tests, graders, references, keys or model weights"}, indent=1, sort_keys=True).encode("utf-8")
-    out = ROOT / "results/raw" / ("el-p5-kaggle-bundle-" + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()))
+    out = ROOT / "results/raw" / (("el-p5-kaggle-final-bundle-" if final else "el-p5-kaggle-bundle-") + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()))
     ds, kd = out / "dataset", out / "kernel"
     ds.mkdir(parents=True); kd.mkdir(parents=True)
     for rel, data in files.items():
