@@ -33,7 +33,7 @@ def load(path: Path = V6):
                             "contest_date": r["contest_date"], "statement": r["question_content"], "starter_code": r["starter_code"],
                             "fn_name": meta.get("func_name"), "format": "functional" if meta.get("func_name") else "stdin",
                             "public_tests": json.loads(r["public_test_cases"])},
-            "grader_only": {"private_tests": _private(r["private_test_cases"])},
+            "grader_only": {"private_tests": _private(r["private_test_cases"]) if r.get("private_test_cases") else []},      # a public-only file (Kaggle bundle) has none
         }
     return out
 

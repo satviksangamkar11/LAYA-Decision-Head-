@@ -1,0 +1,64 @@
+"""[P5 Kaggle smoke] Pack: code (bank-40 bundle rules: no protected grader), P5 runner + qualification + harness, frozen contract tasks + registry, selection, a PUBLIC-ONLY
+LiveCodeBench file for the 6 smoke problems (statement, starter code, fn_name, public tests; NO private tests), bank sources for the 3 bank smoke tasks, model manifest,
+kernel. Asserts the public-bundle rule (no held-case marker, no key-shaped string). Usage: PYTHONPATH=. .venv/Scripts/python.exe tools/pack_el_p5_kaggle_v1.py"""
+import json
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+import pack_el_bank40_v1 as PK      # noqa: E402
+import lcb_tasks as L               # noqa: E402
+
+BUNDLE_DS = "%s/el-p5-bundle-v1" % PK.OWNER
+SEL = json.loads((ROOT / "configs/p5_selection_v1.json").read_text("utf-8"))
+
+
+def main() -> int:
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(ROOT), capture_output=True, text=True).stdout.strip()
+    files = dict(PK.code_files(ROOT))
+    man = json.loads((ROOT / "configs/el_bank80_rest_v1.json").read_text("utf-8"))
+    extra = PK.SANDBOX_FILES + PK.SPECS + ["configs/backbones_v1.toml", "configs/backbones_v2.toml", "configs/el_bank80_rest_v1.json", "configs/el_arch1_limits_v1.toml",
+                                           "configs/el_arch1_limits_v2.toml", "configs/critic_concurrency_v1.toml", "configs/p5_selection_v1.json", "P5_PROTOCOL_v1.md",
+                                           "tools/el_p5_run.py", "tools/el_p2_generation_compare.py", "tools/el_kaggle_port_qual.py", "tools/lcb_tasks.py", "tools/el_bank_local_run.py",
+                                           "kaggle/el_bank40_run_v1.py", "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json"] + [s["file"] for s in man["sources"].values()]
+    extra += [p.relative_to(ROOT).as_posix() for p in (ROOT / "configs/p5_contract_tasks_v1").rglob("*") if p.is_file()]
+    for rel in extra:
+        files[rel] = (ROOT / rel).read_bytes()
+    T = L.load()
+    rows = []
+    for tid in SEL["smoke_lcb"]:
+        r = json.loads(next(l for l in (ROOT / "data/livecodebench/v6/test6.jsonl").read_text("utf-8").splitlines() if json.loads(l)["question_id"] == tid))
+        r["private_test_cases"] = ""          # PUBLIC ONLY: the private tests never leave the PC
+        rows.append(r)
+        assert T[tid]["public_view"]["public_tests"]
+    files["lcb_public_smoke.jsonl"] = "".join(json.dumps(r, sort_keys=True) + "\n" for r in rows).encode("utf-8")
+    files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v1", "purpose": "SMOKE only (not the final evaluation)", "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+                                        "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+                                        "shards": [{"name": "smoke_lcb", "cohort": "lcb", "tasks": SEL["smoke_lcb"]}, {"name": "smoke_bank", "cohort": "bank", "tasks": SEL["smoke_bank"]}]},
+                                       indent=1).encode("utf-8")
+    PK.B.assert_public_bundle(files, PK.held_markers(ROOT))
+    for k, v in files.items():
+        assert b"EXPECTED-CANARY" not in v or k == "tools/el_kaggle_port_qual.py", k
+        assert not k.startswith("results/raw/p5-eval-only"), k
+    files["BUNDLE_MANIFEST.json"] = json.dumps({"bundle": "el_p5_v1", "commit": commit, "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                                                "files": {k: PK.sha(v) for k, v in files.items()},
+                                                "note": "code + public task data only; no private/hidden tests, graders, references, keys or model weights"}, indent=1, sort_keys=True).encode("utf-8")
+    out = ROOT / "results/raw" / ("el-p5-kaggle-bundle-" + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()))
+    ds, kd = out / "dataset", out / "kernel"
+    ds.mkdir(parents=True); kd.mkdir(parents=True)
+    for rel, data in files.items():
+        p = ds / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(data)
+    (ds / "dataset-metadata.json").write_text(json.dumps({"title": "el-p5-bundle-v1", "id": BUNDLE_DS, "licenses": [{"name": "other"}]}, indent=1), encoding="utf-8")
+    (kd / "el_p5_run_v1.py").write_bytes((ROOT / "kaggle/el_p5_run_v1.py").read_bytes())
+    meta = PK.kernel_meta("el-p5-run-v1", "el_p5_run_v1.py", True, [BUNDLE_DS], [])
+    meta["enable_internet"] = True
+    (kd / "kernel-metadata.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
+    print(json.dumps({"out": str(out), "files": len(files), "bytes": sum(len(v) for v in files.values()), "commit": commit}, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

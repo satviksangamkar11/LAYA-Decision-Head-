@@ -77,7 +77,7 @@ class FakeGen:
                                   prompt_template_id=rq.prompt_template_id, prompt_sha256=sha(rq.prompt), language="python") for s in list(rq.seeds)[:rq.n]]
 
 
-def load_tasks(cohort: str, ids: List[str]):
+def load_tasks(cohort: str, ids: List[str], lcb_file=None):
     if cohort == "bank":                 # smoke only: exposed development tasks; contracts only through the allowlisted declaration parser
         import el_bank_local_run as RUN
         return [(TaskSpec(r["task_id"], "bank:" + r["task_id"], "python", "python", r["prompt"], r["public_tests"], r.get("difficulty", "")), None)
@@ -86,7 +86,7 @@ def load_tasks(cohort: str, ids: List[str]):
         recs = {json.loads(l)["task_id"]: json.loads(l) for l in (ROOT / "configs/p5_contract_tasks_v1/tasks.jsonl").read_text("utf-8").splitlines()}
         return [(TaskSpec(i, "p5:" + i, "python", "python", recs[i]["prompt"], recs[i]["public_tests"], recs[i]["difficulty"]), None) for i in ids], tuple(GEN.FROZEN_STRATEGIES)
     import lcb_tasks as L
-    T = L.load()
+    T = L.load(Path(lcb_file)) if lcb_file else L.load()
     out = []
     for i in ids:
         pv = T[i]["public_view"]
@@ -103,26 +103,47 @@ def main() -> int:
     ap.add_argument("--arms", default="A,B,C,D")
     ap.add_argument("--profile", default="qwen2.5-coder-1.5b-instruct")
     ap.add_argument("--fake", action="store_true")
+    ap.add_argument("--exec", default="mxc", choices=("mxc", "kaggle"), help="one sandbox for ALL arms: MXC process container (PC) or the Kaggle jail port (Kaggle)")
+    ap.add_argument("--model-dir"); ap.add_argument("--model-manifest")
+    ap.add_argument("--lcb-file", help="public-only LiveCodeBench task file (Kaggle bundle)")
     a = ap.parse_args()
     out = Path(a.out).resolve()
     if out.exists():
         print("refusing: %s exists" % out); return 2
     arms = a.arms.split(",")
-    tasks, strategies = load_tasks(a.cohort, a.tasks.split(","))
+    tasks, strategies = load_tasks(a.cohort, a.tasks.split(","), a.lcb_file)
     out.mkdir(parents=True)
     from evidence_ladder.controller.sandbox_provider import make_sandbox
     from evidence_ladder.execution.provider_engine import ProviderExecutionBackend
     from evidence_ladder.execution.lcb_runner import LcbExecutionBackend, LcbRunner
     meta = {t.task_id: m for t, m in tasks if m}
-    exe = (ProviderExecutionBackend(backend="mxc", scratch=out / "_engine", trusted=True) if a.cohort in ("contract", "bank")
-           else LcbExecutionBackend(LcbRunner(make_sandbox(out / "_sandbox", [], backend="mxc").run, out / "_lcb"), meta))
+    if a.exec == "kaggle":
+        from evidence_ladder.execution.kaggle_port import KaggleJailPort
+        port = KaggleJailPort()
+        exe = (ProviderExecutionBackend(port, backend="kaggle-jail", scratch=out / "_engine", trusted=True) if a.cohort in ("contract", "bank")
+               else LcbExecutionBackend(LcbRunner(port.run, out / "_lcb"), meta))
+    else:
+        exe = (ProviderExecutionBackend(backend="mxc", scratch=out / "_engine", trusted=True) if a.cohort in ("contract", "bank")
+               else LcbExecutionBackend(LcbRunner(make_sandbox(out / "_sandbox", [], backend="mxc").run, out / "_lcb"), meta))
+    if hasattr(exe, "start"):
+        exe.start(languages=("python",))
     files = {n: open(out / n, "a", encoding="utf-8") for n in ("CALLS.jsonl", "RESULTS.jsonl", "ANSWERS.jsonl", "P2CALLS.jsonl", "P2CANDIDATES.jsonl")}
     w = lambda n: (lambda row: (files[n].write(json.dumps(row) + "\n"), files[n].flush()))
-    inner = FakeGen() if a.fake else Q.build_local_backend(a.profile, log_path=str(out / "gen_log.jsonl"), think_policy=None)
+    if a.fake:
+        inner = FakeGen()
+    elif a.model_dir:
+        import os
+        from evidence_ladder.models import backbone as BB
+        man = json.loads(Path(a.model_manifest).read_text(encoding="utf-8"))
+        verify = {f: m["sha256"] for f, m in man["files"].items() if f.endswith((".safetensors", ".json")) and f != "MANIFEST_pinned.json"}
+        os.environ.setdefault(Q.HFQwenBackend.INFERENCE_ENV, "1")
+        inner = Q.HFQwenBackend(authorized=True, model_dir=a.model_dir, log_path=str(out / "gen_log.jsonl"), verify_files=verify, profile=BB.get(a.profile), local=True)
+    else:
+        inner = Q.build_local_backend(a.profile, log_path=str(out / "gen_log.jsonl"), think_policy=None)
     gen = CacheGen(inner, w("CALLS.jsonl"))
     contract_cfg = {"registry": str(ROOT / "configs/p5_contract_tasks_v1/REGISTRY_v1.json") if a.cohort == "contract" else None, "root": str(ROOT), "parsers": ["decl_v1"], "n_derived": 6}
     (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P5_PROTOCOL_v1", "cohort": a.cohort, "tasks": [t.task_id for t, _ in tasks], "arms": arms, "G": G_BUDGET, "max_new": MAX_NEW,
-                                                     "v1_cfg": V1_CFG, "contracts": contract_cfg, "strategies": list(strategies), "fake": a.fake,
+                                                     "v1_cfg": V1_CFG, "contracts": contract_cfg, "strategies": list(strategies), "fake": a.fake, "exec": a.exec,
                                                      "tool_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, indent=1))
     for task, _ in tasks:
         gen.task = task.task_id
