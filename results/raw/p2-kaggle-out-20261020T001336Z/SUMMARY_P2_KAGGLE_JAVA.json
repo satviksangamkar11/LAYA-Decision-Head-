@@ -1,0 +1,235 @@
+{
+ "dirs": [
+  "results/raw/p2-kaggle-out-20261020T001336Z/p2_shard0",
+  "results/raw/p2-kaggle-out-20261020T001336Z/p2_shard1"
+ ],
+ "tasks": [
+  "J1-32",
+  "J1-33",
+  "J1-34",
+  "J1-35",
+  "J1-20",
+  "J1-23"
+ ],
+ "per_arm": {
+  "fresh": {
+   "tasks": 6,
+   "available": 1,
+   "public_solved": 1,
+   "selected_correct": 1,
+   "false_supported": 0,
+   "tokens_generated": 30422,
+   "tokens_prompt": 47798,
+   "model_seconds": 1237.4,
+   "sandbox_seconds": 132.9,
+   "calls": 125,
+   "candidates": 119,
+   "correct_candidates": 1
+  },
+  "failure": {
+   "tasks": 6,
+   "available": 0,
+   "public_solved": 1,
+   "selected_correct": 0,
+   "false_supported": 1,
+   "tokens_generated": 33478,
+   "tokens_prompt": 81930,
+   "model_seconds": 1381.6,
+   "sandbox_seconds": 150.3,
+   "calls": 134,
+   "candidates": 127,
+   "correct_candidates": 0
+  },
+  "counterexample_guided": {
+   "tasks": 6,
+   "available": 1,
+   "public_solved": 1,
+   "selected_correct": 1,
+   "false_supported": 0,
+   "tokens_generated": 31617,
+   "tokens_prompt": 45194,
+   "model_seconds": 1287.6,
+   "sandbox_seconds": 116.6,
+   "calls": 95,
+   "candidates": 108,
+   "correct_candidates": 1
+  }
+ },
+ "per_task": [
+  {
+   "task": "J1-32",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 40
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 20,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 44
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 21,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 24
+   }
+  },
+  {
+   "task": "J1-33",
+   "round1_candidates": 3,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 25,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 23
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 20
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 18,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   }
+  },
+  {
+   "task": "J1-34",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 28,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 25
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 26,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 23
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   }
+  },
+  {
+   "task": "J1-35",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 23,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 20
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 23,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 21,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 18
+   }
+  },
+  {
+   "task": "J1-20",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 6,
+    "correct_candidates": 1,
+    "tokens_generated": 422,
+    "calls": 2
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 17,
+    "correct_candidates": 0,
+    "tokens_generated": 3478,
+    "calls": 13
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 9,
+    "correct_candidates": 1,
+    "tokens_generated": 1617,
+    "calls": 5
+   }
+  },
+  {
+   "task": "J1-23",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 18,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 17,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 14
+   }
+  }
+ ],
+ "label": "development evidence; grader cases public in Git; 13 tasks: descriptive, no significance claim"
+}

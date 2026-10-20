@@ -1,0 +1,265 @@
+{
+ "dirs": [
+  "results/raw/p2-kaggle-out-20261020T001336Z/p2_shard0",
+  "results/raw/p2-kaggle-out-20261020T001336Z/p2_shard1"
+ ],
+ "tasks": [
+  "P1-20",
+  "P1-23",
+  "P1-26",
+  "P1-31",
+  "P1-36",
+  "P1-37",
+  "P1-40"
+ ],
+ "per_arm": {
+  "fresh": {
+   "tasks": 7,
+   "available": 1,
+   "public_solved": 1,
+   "selected_correct": 1,
+   "false_supported": 0,
+   "tokens_generated": 37487,
+   "tokens_prompt": 35831,
+   "model_seconds": 1629.8,
+   "sandbox_seconds": 22.7,
+   "calls": 108,
+   "candidates": 130,
+   "correct_candidates": 1
+  },
+  "failure": {
+   "tasks": 7,
+   "available": 0,
+   "public_solved": 2,
+   "selected_correct": 0,
+   "false_supported": 2,
+   "tokens_generated": 32807,
+   "tokens_prompt": 43449,
+   "model_seconds": 1330.8,
+   "sandbox_seconds": 31.6,
+   "calls": 91,
+   "candidates": 114,
+   "correct_candidates": 0
+  },
+  "counterexample_guided": {
+   "tasks": 7,
+   "available": 1,
+   "public_solved": 3,
+   "selected_correct": 1,
+   "false_supported": 2,
+   "tokens_generated": 34145,
+   "tokens_prompt": 35472,
+   "model_seconds": 1376.4,
+   "sandbox_seconds": 33.4,
+   "calls": 92,
+   "candidates": 119,
+   "correct_candidates": 1
+  }
+ },
+ "per_task": [
+  {
+   "task": "P1-20",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   }
+  },
+  {
+   "task": "P1-23",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 20,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 17
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 11,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 9
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 21,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 18
+   }
+  },
+  {
+   "task": "P1-26",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 26,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 23
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 27,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 24
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 27,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 23
+   }
+  },
+  {
+   "task": "P1-31",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 8,
+    "correct_candidates": 1,
+    "tokens_generated": 1487,
+    "calls": 4
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 9,
+    "correct_candidates": 0,
+    "tokens_generated": 1616,
+    "calls": 5
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 11,
+    "correct_candidates": 0,
+    "tokens_generated": 3055,
+    "calls": 7
+   }
+  },
+  {
+   "task": "P1-36",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 18,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 16
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 18,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 14
+   }
+  },
+  {
+   "task": "P1-37",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 16
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 15
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 17,
+    "correct_candidates": 0,
+    "tokens_generated": 5968,
+    "calls": 13
+   }
+  },
+  {
+   "task": "P1-40",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 17,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 14
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 7,
+    "correct_candidates": 0,
+    "tokens_generated": 1191,
+    "calls": 3
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 6,
+    "correct_candidates": 1,
+    "tokens_generated": 1122,
+    "calls": 2
+   }
+  }
+ ],
+ "label": "development evidence; grader cases public in Git; 13 tasks: descriptive, no significance claim"
+}

@@ -1,0 +1,264 @@
+{
+ "dirs": [
+  "D:/local model/results/raw/p2-generation-compare-v2-20261019T215005Z"
+ ],
+ "tasks": [
+  "P1-20",
+  "P1-23",
+  "P1-26",
+  "P1-31",
+  "P1-36",
+  "P1-37",
+  "P1-40"
+ ],
+ "per_arm": {
+  "fresh": {
+   "tasks": 7,
+   "available": 2,
+   "public_solved": 3,
+   "selected_correct": 2,
+   "false_supported": 1,
+   "tokens_generated": 27792,
+   "tokens_prompt": 33499,
+   "model_seconds": 886.2,
+   "sandbox_seconds": 32.7,
+   "calls": 102,
+   "candidates": 126,
+   "correct_candidates": 2
+  },
+  "failure": {
+   "tasks": 7,
+   "available": 0,
+   "public_solved": 2,
+   "selected_correct": 0,
+   "false_supported": 2,
+   "tokens_generated": 33632,
+   "tokens_prompt": 48330,
+   "model_seconds": 1072.3,
+   "sandbox_seconds": 39.7,
+   "calls": 104,
+   "candidates": 129,
+   "correct_candidates": 0
+  },
+  "counterexample_guided": {
+   "tasks": 7,
+   "available": 1,
+   "public_solved": 3,
+   "selected_correct": 1,
+   "false_supported": 2,
+   "tokens_generated": 28741,
+   "tokens_prompt": 32254,
+   "model_seconds": 886.7,
+   "sandbox_seconds": 32.0,
+   "calls": 84,
+   "candidates": 109,
+   "correct_candidates": 1
+  }
+ },
+ "per_task": [
+  {
+   "task": "P1-20",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 26,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 23
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 25,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 21
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 18
+   }
+  },
+  {
+   "task": "P1-23",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 22,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 19
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 20,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 17
+   }
+  },
+  {
+   "task": "P1-26",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 35,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 32
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 30,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 26
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 27,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 24
+   }
+  },
+  {
+   "task": "P1-31",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 7,
+    "correct_candidates": 1,
+    "tokens_generated": 605,
+    "calls": 3
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 7,
+    "correct_candidates": 0,
+    "tokens_generated": 1480,
+    "calls": 3
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 5,
+    "correct_candidates": 0,
+    "tokens_generated": 261,
+    "calls": 1
+   }
+  },
+  {
+   "task": "P1-36",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 7,
+    "correct_candidates": 1,
+    "tokens_generated": 1067,
+    "calls": 3
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 16
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "PASS",
+    "candidates": 7,
+    "correct_candidates": 1,
+    "tokens_generated": 1144,
+    "calls": 3
+   }
+  },
+  {
+   "task": "P1-37",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 19,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 16
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 16,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 13
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "selected_dev": null,
+    "candidates": 17,
+    "correct_candidates": 0,
+    "tokens_generated": 6000,
+    "calls": 14
+   }
+  },
+  {
+   "task": "P1-40",
+   "round1_candidates": 4,
+   "round1_correct": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 10,
+    "correct_candidates": 0,
+    "tokens_generated": 2120,
+    "calls": 6
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 10,
+    "correct_candidates": 0,
+    "tokens_generated": 2152,
+    "calls": 6
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "selected_dev": "FAIL",
+    "candidates": 11,
+    "correct_candidates": 0,
+    "tokens_generated": 3336,
+    "calls": 7
+   }
+  }
+ ],
+ "label": "development evidence; grader cases public in Git; 13 tasks: descriptive, no significance claim"
+}

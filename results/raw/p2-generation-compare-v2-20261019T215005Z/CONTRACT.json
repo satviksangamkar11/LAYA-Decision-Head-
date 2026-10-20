@@ -1,0 +1,20 @@
+{
+ "arms": [
+  "fresh",
+  "failure",
+  "counterexample_guided"
+ ],
+ "budget_generated_tokens_beyond_round1": 6000,
+ "round_n": 2,
+ "max_new_tokens_per_sample": 4096,
+ "profile": "qwen2.5-coder-1.5b-instruct",
+ "fake_model": false,
+ "seeds": "round r>=2: 100+round_n*r+j, identical across arms",
+ "requests": "one sample per request",
+ "selection": "first candidate with a complete passing public result",
+ "scorer": "none (LAYA correctness scoring disabled)",
+ "oracle": "public examples only; development grader not imported",
+ "preflight": "all 13 task prompts equal the stored round-1 prompts",
+ "tool_sha256": "f4d6be353e36d5883b31081d638d58d43efc41fadd511f9e0b906d3b4a36026e",
+ "started_utc": "2026-10-19T21:50:05Z"
+}

@@ -1,0 +1,1 @@
+2026-10-20: CRASHED after 2 of 18 rows: WSLC infrastructure error (WslcListSessionImages HRESULT 0x80070057) during a public check; harness failed closed. Not used for results; GRADED.jsonl here was produced from this partial output by mistake and is not used. Re-run: see the next p2-generation-compare-java-v3-* directory.

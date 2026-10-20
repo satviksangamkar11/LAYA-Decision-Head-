@@ -1,0 +1,35 @@
+{
+ "kernel": "el_p2_run_v1",
+ "started_utc": "2026-10-19T21:55:44Z",
+ "bundle": {
+  "files": 126,
+  "commit": "2ccfd99af4bcfe7acf2500dd36a27a752a11e0a4"
+ },
+ "jail": {
+  "checks": {
+   "python_in_jail": {
+    "rc": 0,
+    "out": "{\"ok\": true, \"value\": {\"socket\": \"denied\", \"canary\": \"unreadable\"}}\n"
+   },
+   "javac_in_jail": {
+    "rc": 0,
+    "err": "javac 21.0.12\n"
+   }
+  },
+  "status": "PASS",
+  "bwrap_swapped": true
+ },
+ "model": {
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "sha256_ok": true
+ },
+ "gpus": 2,
+ "shard_exit_codes": {
+  "0": 0,
+  "1": 0
+ },
+ "verdict": "OK",
+ "total_seconds": 5000.9,
+ "ended_utc": "2026-10-19T23:19:05Z"
+}

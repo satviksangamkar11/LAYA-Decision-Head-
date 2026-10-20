@@ -1,0 +1,413 @@
+{
+ "per_task": [
+  {
+   "task": "P1-20",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 26,
+    "selected": null,
+    "gen": 6000,
+    "calls": 23
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 25,
+    "selected": null,
+    "gen": 6000,
+    "calls": 21
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 22,
+    "selected": null,
+    "gen": 6000,
+    "calls": 18
+   }
+  },
+  {
+   "task": "P1-23",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 22,
+    "selected": null,
+    "gen": 6000,
+    "calls": 19
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 22,
+    "selected": null,
+    "gen": 6000,
+    "calls": 19
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 20,
+    "selected": null,
+    "gen": 6000,
+    "calls": 17
+   }
+  },
+  {
+   "task": "P1-26",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 35,
+    "selected": null,
+    "gen": 6000,
+    "calls": 32
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 30,
+    "selected": null,
+    "gen": 6000,
+    "calls": 26
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 27,
+    "selected": null,
+    "gen": 6000,
+    "calls": 24
+   }
+  },
+  {
+   "task": "P1-31",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 1,
+    "cands": 7,
+    "selected": "PASS",
+    "gen": 605,
+    "calls": 3
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 0,
+    "cands": 7,
+    "selected": "FAIL",
+    "gen": 1480,
+    "calls": 3
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 0,
+    "cands": 5,
+    "selected": "FAIL",
+    "gen": 261,
+    "calls": 1
+   }
+  },
+  {
+   "task": "P1-36",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 1,
+    "cands": 7,
+    "selected": "PASS",
+    "gen": 1067,
+    "calls": 3
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 19,
+    "selected": null,
+    "gen": 6000,
+    "calls": 16
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 1,
+    "cands": 7,
+    "selected": "PASS",
+    "gen": 1144,
+    "calls": 3
+   }
+  },
+  {
+   "task": "P1-37",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 19,
+    "selected": null,
+    "gen": 6000,
+    "calls": 16
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 16,
+    "selected": null,
+    "gen": 6000,
+    "calls": 13
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 17,
+    "selected": null,
+    "gen": 6000,
+    "calls": 14
+   }
+  },
+  {
+   "task": "P1-40",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 0,
+    "cands": 10,
+    "selected": "FAIL",
+    "gen": 2120,
+    "calls": 6
+   },
+   "failure": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 0,
+    "cands": 10,
+    "selected": "FAIL",
+    "gen": 2152,
+    "calls": 6
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 0,
+    "cands": 11,
+    "selected": "FAIL",
+    "gen": 3336,
+    "calls": 7
+   }
+  },
+  {
+   "task": "J1-32",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 17,
+    "selected": null,
+    "gen": 6000,
+    "calls": 42
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 17,
+    "selected": null,
+    "gen": 6000,
+    "calls": 37
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 21,
+    "selected": null,
+    "gen": 6000,
+    "calls": 28
+   }
+  },
+  {
+   "task": "J1-33",
+   "r1_cands": 3,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 20,
+    "selected": null,
+    "gen": 6000,
+    "calls": 18
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 20,
+    "selected": null,
+    "gen": 6000,
+    "calls": 18
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 19,
+    "selected": null,
+    "gen": 6000,
+    "calls": 17
+   }
+  },
+  {
+   "task": "J1-34",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 27,
+    "selected": null,
+    "gen": 6000,
+    "calls": 24
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 24,
+    "selected": null,
+    "gen": 6000,
+    "calls": 21
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 22,
+    "selected": null,
+    "gen": 6000,
+    "calls": 19
+   }
+  },
+  {
+   "task": "J1-35",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 24,
+    "selected": null,
+    "gen": 6000,
+    "calls": 22
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 26,
+    "selected": null,
+    "gen": 6000,
+    "calls": 23
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 22,
+    "selected": null,
+    "gen": 6000,
+    "calls": 19
+   }
+  },
+  {
+   "task": "J1-20",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 5,
+    "cands": 27,
+    "selected": null,
+    "gen": 6000,
+    "calls": 24
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 3,
+    "cands": 24,
+    "selected": null,
+    "gen": 6000,
+    "calls": 21
+   },
+   "counterexample_guided": {
+    "label": "SUPPORTED",
+    "dev_pass_cands": 1,
+    "cands": 6,
+    "selected": "PASS",
+    "gen": 326,
+    "calls": 2
+   }
+  },
+  {
+   "task": "J1-23",
+   "r1_cands": 4,
+   "r1_dev_pass": 0,
+   "fresh": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 21,
+    "selected": null,
+    "gen": 6000,
+    "calls": 18
+   },
+   "failure": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 18,
+    "selected": null,
+    "gen": 6000,
+    "calls": 15
+   },
+   "counterexample_guided": {
+    "label": "BLOCKED",
+    "dev_pass_cands": 0,
+    "cands": 16,
+    "selected": null,
+    "gen": 6000,
+    "calls": 13
+   }
+  }
+ ],
+ "per_arm": {
+  "fresh": {
+   "avail": 3,
+   "selected_ok": 2,
+   "false_supp": 1,
+   "public": 3,
+   "gen": 63792,
+   "prompt": 90741,
+   "secs": 2742.0080000000003,
+   "calls": 250
+  },
+  "failure": {
+   "avail": 1,
+   "selected_ok": 0,
+   "false_supp": 2,
+   "public": 2,
+   "gen": 69632,
+   "prompt": 131404,
+   "secs": 2919.053,
+   "calls": 239
+  },
+  "counterexample_guided": {
+   "avail": 2,
+   "selected_ok": 2,
+   "false_supp": 2,
+   "public": 4,
+   "gen": 59067,
+   "prompt": 78466,
+   "secs": 2416.708,
+   "calls": 182
+  }
+ }
+}
