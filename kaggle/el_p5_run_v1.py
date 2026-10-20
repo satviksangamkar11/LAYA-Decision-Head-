@@ -16,6 +16,8 @@ def log(*a): print("[%7.1fs]" % (time.time() - T0), *a, flush=True)
 def finish(verdict, **kw):
     RS.update(verdict=verdict, total_seconds=round(time.time() - T0, 1), ended_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), **kw)
     (OUT / "RUN_SUMMARY.json").write_text(json.dumps(RS, indent=1, default=str), encoding="utf-8")
+    for d in ("qwen25coder15b", "bundle"):          # every exit path: never leave the ~3 GB model or the bundle copy in the downloadable output
+        shutil.rmtree(OUT / d, ignore_errors=True)
     log("VERDICT", verdict); sys.stdout.flush(); os._exit(0)
 
 
