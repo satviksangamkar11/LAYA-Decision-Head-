@@ -1,0 +1,11 @@
+{
+ "created_utc": "2026-10-20T05:54:01Z",
+ "engine": "reference engine (WSL bubblewrap, engine.run)",
+ "sandbox_runs": 68,
+ "seconds": 26.4,
+ "specs_sha256": "154187b36d88b29ee13fc9cebfbca7314a71feece6236f41d487edcf1c3f7662",
+ "tool_sha256": "96ca05e740fd1be772ee05518a430c6fe8b721c11c669ad604763fa0a835df6f",
+ "decisions_sha256": "5b14925299f5a7a8e312817bc9d67ca152cf07bb3f1ebe879f2663908406b6e6",
+ "pools_sha256": "d84dffcc959329b59ce6ca1c9777569a41b8a486a7026d791af82dd82f85c1ec",
+ "grader_accessed": false
+}
