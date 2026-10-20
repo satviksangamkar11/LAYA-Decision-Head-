@@ -62,7 +62,10 @@ def main():
             if h.hexdigest() != m["sha256"]: shabad.append(f)
     if shabad: finish("FAILED_MODEL_SHA", files=shabad)
     RS["model"] = {"repo": plan["model_repo"], "revision": plan["model_revision"], "sha256_ok": True}
-    ng = len([l for l in subprocess.run(["nvidia-smi", "-L"], capture_output=True, text=True).stdout.splitlines() if l.startswith("GPU")])
+    try:
+        ng = len([l for l in subprocess.run(["nvidia-smi", "-L"], capture_output=True, text=True).stdout.splitlines() if l.startswith("GPU")])
+    except FileNotFoundError:          # CPU-only machine (the pre-generation dry run): stop cleanly below
+        ng = 0
     RS["gpus"] = ng
     if ng < 1: finish("FAILED_NO_GPU")
     gc = subprocess.run([sys.executable, "-c", "import torch; x = torch.ones(64, 64, device='cuda', dtype=torch.float16); "
