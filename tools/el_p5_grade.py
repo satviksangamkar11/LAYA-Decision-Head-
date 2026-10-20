@@ -1,8 +1,10 @@
 """[P5] OFFLINE grading of a finished P5 run's answers (after every arm's selection is final). The ONLY P5 component that reads evaluation material.
-contract cohort: results/raw/p5-eval-only-v1/hidden_cases.json (Agent 2, from statements only), judged by the trusted verifier on MXC (engine.judge_each);
+contract cohort (P5_PROTOCOL_v2): the grading set is NAMED explicitly (primary = blind private/p5-eval-v3/cases_v3.json; secondary = public
+results/raw/p5-eval-only-v1/hidden_cases.json; nonblind = private/p5-eval-v2/cases_v2.json) and its sha256 must equal configs/p5_final_lock_v2.json, else the
+grader refuses (no default, no fallback); judged by the trusted verifier on MXC (engine.judge_each);
 lcb cohort: LiveCodeBench public + private tests (official comparison rules, lcb_runner) on MXC; bank cohort (smoke): the development grader (protected.py).
 Writes <run>/GRADED.jsonl (create-only): per task and arm PASS / FAIL / NO_ANSWER, counts only. Usage: PYTHONPATH=. .venv/Scripts/python.exe tools/el_p5_grade.py <run dir>
-[out name] [contract cases json]. P5 v2 contract cohort: primary = private/p5-eval-v2/cases_v2.json -> GRADED_private_v2.jsonl; secondary = default public set -> GRADED.jsonl."""
+[out name] [primary|secondary|nonblind  (contract cohort only, required)]. E.g. ... <run> GRADED_primary.jsonl primary"""
 import json
 import sys
 from pathlib import Path
@@ -38,9 +40,23 @@ else:
     cfg = K.SandboxConfig()
     exe = ProviderExecutionBackend(backend="mxc", scratch=run / "_grade_engine", config=cfg, trusted=True)
     exe.start(languages=("python",))
-    if cohort == "contract":
-        cases_path = Path(sys.argv[3]) if len(sys.argv) > 3 else ROOT / "results/raw/p5-eval-only-v1/hidden_cases.json"     # [P5 v2] primary: the private set (outside git); secondary: the public set
-        cases_by = json.loads(cases_path.read_text("utf-8"))
+    if cohort == "contract":      # [P5 v2] fail closed: the grading set is named explicitly and its bytes must match configs/p5_final_lock_v2.json; no default, no fallback
+        import hashlib
+        SETS = {"primary": ("private/p5-eval-v3/cases_v3.json", lambda g: g["primary"]["cases_sha256"]),
+                "secondary": ("results/raw/p5-eval-only-v1/hidden_cases.json", lambda g: g["secondary"]["files"]["hidden_cases.json"]),
+                "nonblind": ("private/p5-eval-v2/cases_v2.json", lambda g: g["disclosed_non_blind_validation"]["files"]["cases_v2.json"])}
+        which = sys.argv[3] if len(sys.argv) > 3 else None
+        if which not in SETS:
+            sys.exit("refusing: the contract cohort needs an explicit grading set: primary | secondary | nonblind")
+        rel, locked = SETS[which]
+        want = locked(json.loads((ROOT / "configs/p5_final_lock_v2.json").read_text("utf-8"))["grading"])
+        raw = (ROOT / rel).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != want:
+            sys.exit("refusing: %s does not match its locked sha256 %s" % (rel, want))
+        cases_by = json.loads(raw.decode("utf-8"))
+        missing = sorted({a["task"] for a in answers} - set(cases_by))
+        if missing:
+            sys.exit("refusing: grading set %s has no cases for %s" % (which, missing))
     else:
         from evidence_ladder.execution.protected import ProtectedGrader, SelectionGate
         gate = SelectionGate(); gate.close(); pg = ProtectedGrader(gate)
