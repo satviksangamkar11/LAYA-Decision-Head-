@@ -1,0 +1,227 @@
+{
+ "label": "development evidence only; decisions frozen before scoring (commit e6ff22a0)",
+ "per_candidate": {
+  "P1": {
+   "public_passing": 51,
+   "grader_correct": 41,
+   "grader_wrong": 10,
+   "true_catch": 3,
+   "incorrect_downgrade": 0,
+   "missed_wrong": 7
+  },
+  "P2local": {
+   "public_passing": 8,
+   "grader_correct": 3,
+   "grader_wrong": 5,
+   "true_catch": 2,
+   "incorrect_downgrade": 0,
+   "missed_wrong": 3
+  },
+  "P2kaggle": {
+   "public_passing": 9,
+   "grader_correct": 4,
+   "grader_wrong": 5,
+   "true_catch": 2,
+   "incorrect_downgrade": 0,
+   "missed_wrong": 3
+  }
+ },
+ "per_answer": {
+  "P1": {
+   "pools_answered": 23,
+   "before_correct": 16,
+   "before_false_supported": 7,
+   "after_correct": 17,
+   "after_false_supported": 5,
+   "after_blocked": 1,
+   "answer_changed": 2,
+   "shadow_flag": 2,
+   "shadow_flag_on_wrong_answer": 1,
+   "shadow_flag_on_correct_answer": 1
+  },
+  "P2local": {
+   "pools_answered": 8,
+   "before_correct": 3,
+   "before_false_supported": 5,
+   "after_correct": 3,
+   "after_false_supported": 3,
+   "after_blocked": 2,
+   "answer_changed": 2,
+   "shadow_flag": 0,
+   "shadow_flag_on_wrong_answer": 0,
+   "shadow_flag_on_correct_answer": 0
+  },
+  "P2kaggle": {
+   "pools_answered": 9,
+   "before_correct": 4,
+   "before_false_supported": 5,
+   "after_correct": 4,
+   "after_false_supported": 3,
+   "after_blocked": 2,
+   "answer_changed": 2,
+   "shadow_flag": 0,
+   "shadow_flag_on_wrong_answer": 0,
+   "shadow_flag_on_correct_answer": 0
+  }
+ },
+ "rows": [
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-14",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-21",
+   "before": "FAIL",
+   "after": "PASS",
+   "changed": true,
+   "shadow": true,
+   "hard_checks": [
+    "property:literal_pattern_equality"
+   ]
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-24",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-25",
+   "before": "PASS",
+   "after": "PASS",
+   "changed": false,
+   "shadow": true,
+   "hard_checks": [
+    "property:minus1_iff_absent"
+   ]
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-27",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-28",
+   "before": "FAIL",
+   "after": "BLOCKED",
+   "changed": true,
+   "shadow": false,
+   "hard_checks": [
+    "crash_on_valid_input"
+   ]
+  },
+  {
+   "pool": "P1:el-bank-local-20261018T2106:P1-34",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P1:el-bank-java5hard-wslc-20261018T213058:J1-31",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2local:p2-generation-compare-v2-20261019T215005Z:P1-31:failure",
+   "before": "FAIL",
+   "after": "BLOCKED",
+   "changed": true,
+   "shadow": false,
+   "hard_checks": [
+    "property:int_range"
+   ]
+  },
+  {
+   "pool": "P2local:p2-generation-compare-v2-20261019T215005Z:P1-31:counterexample_guided",
+   "before": "FAIL",
+   "after": "BLOCKED",
+   "changed": true,
+   "shadow": false,
+   "hard_checks": [
+    "property:int_range"
+   ]
+  },
+  {
+   "pool": "P2local:p2-generation-compare-v2-20261019T215005Z:P1-40:fresh",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2local:p2-generation-compare-v2-20261019T215005Z:P1-40:failure",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2local:p2-generation-compare-v2-20261019T215005Z:P1-40:counterexample_guided",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2kaggle:p2_shard0:P1-31:failure",
+   "before": "FAIL",
+   "after": "BLOCKED",
+   "changed": true,
+   "shadow": false,
+   "hard_checks": [
+    "property:int_range"
+   ]
+  },
+  {
+   "pool": "P2kaggle:p2_shard0:P1-31:counterexample_guided",
+   "before": "FAIL",
+   "after": "BLOCKED",
+   "changed": true,
+   "shadow": false,
+   "hard_checks": [
+    "property:int_range"
+   ]
+  },
+  {
+   "pool": "P2kaggle:p2_shard1:P1-37:counterexample_guided",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2kaggle:p2_shard1:P1-40:failure",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  },
+  {
+   "pool": "P2kaggle:p2_shard1:J1-20:failure",
+   "before": "FAIL",
+   "after": "FAIL",
+   "changed": false,
+   "shadow": false,
+   "hard_checks": []
+  }
+ ]
+}
