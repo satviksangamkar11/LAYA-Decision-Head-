@@ -34,7 +34,10 @@ def main() -> int:
         files[rel] = (ROOT / rel).read_bytes()
     T = L.load()
     final = "--final" in sys.argv          # FINAL bundle: the locked task set (configs/p5_final_lock_v1.json), public LCB data only
-    lock = json.loads((ROOT / "configs/p5_final_lock_v1.json").read_text("utf-8")) if final else None
+    lock_p = ROOT / "configs/p5_final_lock_v2.json"          # [P5 v2] the v2 lock (same ids and order as v1, plus protocol and grading hashes) is required
+    if final and not lock_p.exists():
+        sys.exit("refusing: configs/p5_final_lock_v2.json does not exist yet")
+    lock = json.loads(lock_p.read_text("utf-8")) if final else None
     lcb_ids = lock["lcb_ids"] if final else SEL["smoke_lcb"]
     rows = []
     for tid in lcb_ids:
@@ -47,7 +50,7 @@ def main() -> int:
     if final:      # shards run one after the other; each writes its own run dir, so a lost session loses at most the running shard
         shards = [{"name": "final_lcb_%d" % (k // 17 + 1), "cohort": "lcb", "tasks": lcb_ids[k:k + 17]} for k in range(0, len(lcb_ids), 17)]
         shards.append({"name": "final_contract", "cohort": "contract", "tasks": lock["contract_ids"]})
-        files["p5_final_lock_v1.json"] = (ROOT / "configs/p5_final_lock_v1.json").read_bytes()
+        files["p5_final_lock_v2.json"] = lock_p.read_bytes()
     else:
         shards = [{"name": "smoke_lcb", "cohort": "lcb", "tasks": SEL["smoke_lcb"]}, {"name": "smoke_bank", "cohort": "bank", "tasks": SEL["smoke_bank"]}]
     files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v1", "purpose": "FINAL evaluation (locked set)" if final else "SMOKE only (not the final evaluation)",

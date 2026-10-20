@@ -44,7 +44,13 @@ def near(b, x, y, w=300):
 coarse_input_hits = sum(1 for p in pairs if len(p[0]) > 12 and p[0].encode() in blob)
 pair_hits = [(f, p) for p in pairs for f, b in files.items() if p[0].encode() in b and near(b, p[0].encode(), ('"expected": ' + p[1]).encode())]
 checks["no_hidden_input_expected_pairs"] = not pair_hits
-lock = json.loads((ROOT / "configs/p5_final_lock_v1.json").read_text("utf-8"))
+lock = json.loads((ROOT / ("configs/p5_final_lock_v2.json" if "p5_final_lock_v2.json" in files else "configs/p5_final_lock_v1.json")).read_text("utf-8"))
+checks["bundled_lock_matches_repo"] = ("p5_final_lock_v2.json" not in files) or json.loads(files["p5_final_lock_v2.json"]) == lock
+PRIV = [ROOT / "private/p5-eval-v2/cases_v2.json", ROOT / "private/p5-eval-v3/cases_v3.json"]        # private grading sets: no case (input + expected) may be in the bundle
+priv_pairs = [(json.dumps(c["input"], sort_keys=True), json.dumps(c["expected"])) for p in PRIV if p.exists() for cs in json.loads(p.read_text("utf-8")).values() for c in cs]
+priv_hits = [(f, x) for x in priv_pairs if x[0] not in pub for f, b in files.items() if x[0].encode() in b and near(b, x[0].encode(), ('"expected": ' + x[1]).encode())]
+checks["no_private_set_pairs"] = not priv_hits
+checks["no_private_folder_files"] = not [f for f in files if f.startswith("private/") or "p5-eval-v" in f]
 rows = [json.loads(l) for l in files["lcb_public_smoke.jsonl"].decode().splitlines()]
 checks["lcb_rows_are_locked_ids"] = [r["question_id"] for r in rows] == lock["lcb_ids"]
 checks["lcb_private_tests_empty"] = all(r["private_test_cases"] == "" for r in rows)
@@ -58,6 +64,7 @@ lt = [t for s in plan["shards"] if s["cohort"] == "lcb" for t in s["tasks"]]
 checks["plan_covers_lock"] = lt == lock["lcb_ids"] and [t for s in plan["shards"] if s["cohort"] == "contract" for t in s["tasks"]] == lock["contract_ids"]
 print(json.dumps({"bundle": str(ds), "commit": man.get("commit"), "files": len(files), "bytes": sum(map(len, files.values())), "all_ok": all(checks.values()),
                   "checks": checks, "reference_line_hits_coarse": len(hits), "reference_line_suspect": suspect[:10],
-                  "hidden_inputs_present_coarse": coarse_input_hits, "hidden_input_expected_pairs": pair_hits[:5], "shards": [(s["name"], s["cohort"], len(s["tasks"])) for s in plan["shards"]],
+                  "hidden_inputs_present_coarse": coarse_input_hits, "hidden_input_expected_pairs": pair_hits[:5],
+                  "private_set_pairs_scanned": len(priv_pairs), "private_set_pair_hits": priv_hits[:5], "shards": [(s["name"], s["cohort"], len(s["tasks"])) for s in plan["shards"]],
                   "hidden_pairs_scanned": len(pairs), "reference_lines_scanned": len(lines)}, indent=1))
 sys.exit(0 if all(checks.values()) else 1)
