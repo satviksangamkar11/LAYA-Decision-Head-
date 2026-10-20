@@ -1,0 +1,73 @@
+{
+ "kernel": "el_p5_run_v1",
+ "started_utc": "2026-10-20T12:06:17Z",
+ "bundle": {
+  "files": 154,
+  "commit": "f808bc6199e481e602530b5b3a10b7c1cdb82609"
+ },
+ "jail": {
+  "checks": {
+   "python_in_jail": {
+    "rc": 0,
+    "out": "{\"ok\": true, \"value\": {\"socket\": \"denied\", \"canary\": \"unreadable\"}}\n"
+   },
+   "javac_in_jail": {
+    "rc": 0,
+    "err": "javac 21.0.12\n"
+   }
+  },
+  "status": "PASS"
+ },
+ "qualification": {
+  "port": "kaggle-jail",
+  "verifier": "trusted_verify_v3",
+  "checks": {
+   "honest_pass": {
+    "ok": true
+   },
+   "forged_frames_never_pass": {
+    "ok": true
+   },
+   "claim_then_crash_never_pass": {
+    "ok": true
+   },
+   "hang_is_killed": {
+    "ok": true
+   },
+   "socket_denied": {
+    "ok": true
+   },
+   "host_paths_unreadable": {
+    "ok": true
+   },
+   "expected_values_never_staged": {
+    "ok": true
+   },
+   "lcb_stdin_honest_pass": {
+    "ok": true
+   },
+   "lcb_stdin_wrong_fails": {
+    "ok": true
+   },
+   "lcb_functional_honest_pass": {
+    "ok": true
+   }
+  },
+  "all_ok": true,
+  "jail_calls": 32
+ },
+ "model": {
+  "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "sha256_ok": true
+ },
+ "gpus": 2,
+ "gpu_check": "2.11.0+cu128 Tesla T4 (7, 5) inf\n",
+ "shard_exit_codes": {
+  "smoke_lcb": 0,
+  "smoke_bank": 0
+ },
+ "verdict": "OK",
+ "total_seconds": 2045.4,
+ "ended_utc": "2026-10-20T12:40:22Z"
+}
