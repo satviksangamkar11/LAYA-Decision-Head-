@@ -77,3 +77,23 @@ Report: `results/raw/p5-cd-parity-P1-21-v3.json` and its two journal files.
 1. **Log the trusted verifier's time accounting and per-input observations for every execution call into the run directory.** This is logging only; no limit or retry changes. Without it, the next timeout cannot be attributed.
 2. **Run shards one after another even when Kaggle gives 2 GPUs,** so only one process uses the jail at a time. The kernel today runs them in parallel when it gets ≥2 GPUs. This is a precaution: contention between two jail users is the untested remaining suspect.
 3. **Next test, if approved:** Test A with a second process running jail executions concurrently, to see whether that reproduces the timeout.
+
+## Follow-up (approved 2026-10-20): A2 with a concurrent jail user — REPRODUCED, cause found
+
+`kaggle/el_p5_jail_flake_v2.py` → `results/raw/p5-jail-flake-v2/FLAKE2.json`. Same candidate, path and limits as A; 20 trials per condition; Kaggle CPU, 4 vCPU; launch overhead calibrated 0.60 s.
+
+| Condition (load avg 1 min) | Per-input s p50 / max | Example 4 alone: timeouts | Full public batch: timeouts (outcome) |
+|---|---|---|---|
+| isolated (0.7) | 0.61 / 0.82 | 0 / 20 | 0 / 20 |
+| peer runs trivial jail programs in a loop (1.1) | 0.94 / 1.32 | 0 / 20 | 0 / 20 |
+| peer runs a busy-loop program the LCB runner kills at 6 s (1.0) | **7.01 / 7.25** | 0 / 20 | **20 / 20 (`candidate_total_timeout`)** |
+
+**Cause:** `evidence_ladder/execution/kaggle_jail.py:183` runs one jailed program at a time through a global `flock`, by design, because the jail has no PID namespace and reaps leftover processes. A second jail user's long run makes every launch wait for the lock, up to the other run's 6–7 s kill. That wait falls inside the trusted verifier's timed window, so it is charged as candidate time. Two waits exceed the 10 s candidate total, which is the smoke's failure on example index 3. Load average stays near 1: the cause is lock waiting, not CPU.
+
+**Fix:** workload isolation, with no limit, timeout or retry changed. The P5 kernel now always runs shards one after another, so only one process uses the jail at a time. The isolated condition above is that arrangement: 0 timeouts in 40 runs. Within a shard, execution calls are already sequential.
+
+**Effect on the Kaggle smoke:** the smoke ran its two shards in parallel, so any jail observation in it may include lock waiting. Journals with timeout evidence are P1-21 D (2), 3722 C (4) and 3722 D (4). The 3722 timeouts are LCB-runner kills that cannot be attributed after the fact. The smoke's Kaggle answers are therefore not usable for any timing-dependent comparison; they are a plumbing result only.
+
+**Logging (approved):** `tools/el_p5_run.py` now writes `EXEC.jsonl`, one row per execution call, with the verifier's time accounting and per-input observations. A future timeout can be attributed to the limit that fired. It changes no result; fake-model checks on MXC passed for the bank and LCB cohorts.
+
+**Not changed:** the timing semantics (lock wait counted as candidate time) stay as they are. Sequential use makes the wait zero. Excluding the wait from the candidate's time would be a verifier change and needs its own decision.

@@ -1,6 +1,6 @@
-"""[P5 Kaggle smoke] Runs tools/el_p5_run.py on Kaggle (1 GPU: P100, or 2 x T4 in parallel): (1) bundle hash check, (2) Kaggle jail rootfs + bank-40 self-check (fail closed), (3) pinned model download,
+"""[P5 Kaggle smoke] Runs tools/el_p5_run.py on Kaggle (shards run one after the other on any GPU count): (1) bundle hash check, (2) Kaggle jail rootfs + bank-40 self-check (fail closed), (3) pinned model download,
 every file sha256-checked (fail closed), (4) QUALIFICATION of the jail port for the trusted verifier (tools/el_kaggle_port_qual.py; fail closed: no generation if any
-check fails), (5) one process per GPU on its own task shard, all four arms on the SAME sandbox (Kaggle jail port + trusted verifier). No grader, no private test,
+check fails), (5) task shards one after the other (one jail user at a time), all four arms on the SAME sandbox (Kaggle jail port + trusted verifier). No grader, no private test,
 no reference, no key: answers are graded offline on the PC afterwards with the same grader as every other run."""
 import glob, hashlib, json, os, shutil, subprocess, sys, time, traceback
 from pathlib import Path
@@ -70,7 +70,7 @@ def main():
     RS["gpu_check"] = (gc.stdout or gc.stderr)[-400:]
     if gc.returncode != 0: finish("GPU_UNSUPPORTED", note="torch cannot run fp16 on this GPU (e.g. P100 sm_60 dropped by the image's torch build)")
     procs = []
-    sequential = ng < 2                     # one GPU: shards run one after the other (never two model processes on one GPU)
+    sequential = True                       # always one shard at a time (user, 2026-10-20): one jail user at a time, even when Kaggle gives 2 GPUs
     for i, sh in enumerate(plan["shards"]):
         if sequential and procs:
             procs[-1][1].wait()

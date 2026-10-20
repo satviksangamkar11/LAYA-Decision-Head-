@@ -68,6 +68,34 @@ class CacheGen:
         return getattr(self.inner, "model_info", lambda: {})()
 
 
+class ExecLog:
+    """Logging only (P5 Step 1 follow-up): one EXEC.jsonl row per execution call: task, arm, method, artifact, wall seconds, check statuses and, on the trusted
+    verifier, its time accounting (launch overhead, per-input kill, candidate seconds, harness seconds, outcome) and per-input observations. Changes no result."""
+    def __init__(self, inner, log):
+        self.inner, self.log, self.who = inner, log, lambda: ("", "")
+
+    def __getattr__(self, name):
+        f = getattr(self.inner, name)
+        if not name.startswith("run_"):
+            return f
+
+        def call(*a, **k):
+            tv = getattr(self.inner, "trusted_verifier", None)
+            if tv is not None:
+                tv.drain_observations()
+            t0 = time.monotonic()
+            r = f(*a, **k)
+            task, arm = self.who()
+            art = next((x for x in a if isinstance(x, Artifact)), None)
+            row = {"task": task, "arm": arm, "method": name, "artifact": art.artifact_id if art else None, "wall_s": round(time.monotonic() - t0, 3),
+                   "statuses": [(o.get("check_id"), o.get("example_index"), o.get("status"), o.get("duration_s")) for o in r] if isinstance(r, list) else None}
+            if tv is not None:
+                row.update(accounting=dict(tv.accounting), per_input=tv.drain_observations())
+            self.log(row)
+            return r
+        return call
+
+
 class FakeGen:
     language = "python"
 
@@ -129,6 +157,8 @@ def main() -> int:
         exe.start(languages=("python",))
     files = {n: open(out / n, "a", encoding="utf-8") for n in ("CALLS.jsonl", "RESULTS.jsonl", "ANSWERS.jsonl", "P2CALLS.jsonl", "P2CANDIDATES.jsonl")}
     w = lambda n: (lambda row: (files[n].write(json.dumps(row) + "\n"), files[n].flush()))
+    files["EXEC.jsonl"] = open(out / "EXEC.jsonl", "a", encoding="utf-8")
+    exe = ExecLog(exe, w("EXEC.jsonl"))
     if a.fake:
         inner = FakeGen()
     elif a.model_dir:
@@ -141,6 +171,7 @@ def main() -> int:
     else:
         inner = Q.build_local_backend(a.profile, log_path=str(out / "gen_log.jsonl"), think_policy=None)
     gen = CacheGen(inner, w("CALLS.jsonl"))
+    exe.who = lambda: (gen.task, gen.arm)
     contract_cfg = {"registry": str(ROOT / "configs/p5_contract_tasks_v1/REGISTRY_v1.json") if a.cohort == "contract" else None, "root": str(ROOT), "parsers": ["decl_v1"], "n_derived": 6}
     (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P5_PROTOCOL_v1", "cohort": a.cohort, "tasks": [t.task_id for t, _ in tasks], "arms": arms, "G": G_BUDGET, "max_new": MAX_NEW,
                                                      "v1_cfg": V1_CFG, "contracts": contract_cfg, "strategies": list(strategies), "fake": a.fake, "exec": a.exec,
