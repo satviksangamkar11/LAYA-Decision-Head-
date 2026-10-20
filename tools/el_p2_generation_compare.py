@@ -122,7 +122,8 @@ def set_language(gen: Any, lang: str) -> None:
 
 
 def run_arm(gen: Any, run_public: Callable[[Artifact], List[Dict[str, Any]]], task: TaskSpec, arm: str, r1_hist: List[Dict[str, Any]], n_r1: int,
-            budget: int, round_n: int, log_call: Callable[[Dict[str, Any]], None], log_cand: Callable[[Dict[str, Any]], None]) -> Dict[str, Any]:
+            budget: int, round_n: int, log_call: Callable[[Dict[str, Any]], None], log_cand: Callable[[Dict[str, Any]], None],
+            strategies=None) -> Dict[str, Any]:
     lang = task.language
     hist = [dict(h) for h in r1_hist]
     for h in hist:
@@ -139,7 +140,7 @@ def run_arm(gen: Any, run_public: Callable[[Artifact], List[Dict[str, Any]]], ta
             if sel is not None or used_gen >= budget:          # corrections 2 and 3: no request after a selection or at the ceiling
                 break
             seed = 100 + round_n * rnd + j
-            template = GEN.strategy_for(n_r1 + (rnd - 2) * round_n + j)
+            template = GEN.strategy_for(n_r1 + (rnd - 2) * round_n + j, *( (strategies,) if strategies else () ))
             prompt = GEN.render_sample_prompt(template, task)[0] + note
             mx = min(MAX_NEW, budget - used_gen)
             rq = GenerationRequest(task.task_id, prompt, 1, (seed,), mx, "sample", True, template + ("" if arm == "fresh" else "+" + arm))

@@ -95,7 +95,13 @@ class LcbExecutionBackend:
             st = "pass" if o["status"] == "pass" else ("timeout" if o["status"] == "timeout" else "fail")
             res.append({"check_id": "public_examples_v1", "example_index": i, "status": st, "failure_class": "" if st == "pass" else o["status"], "observed": o.get("observed", o["status"]),
                         "duration_s": o["seconds"]})
+        if res and all(r["status"] == "pass" for r in res):
+            res.insert(0, {"check_id": "parse_v1", "status": "pass", "detail": "the program loaded and ran every public test"})
         return res
+
+    def backend_info(self) -> Dict[str, Any]:
+        return {"engine": "lcb_runner_v1", "sandbox": "sandbox port (MXC process container in P5)", "time_limit_s": TIME_LIMIT,
+                "comparison": "LiveCodeBench testing_util rules (stdin: stripped lines then Decimal tokens; functional: json ==)", "public_tests_only": True}
 
     def run_experiment(self, artifact, experiment):
         return {"check_id": "critic_experiment_v1", "status": "error", "failure_class": "sandbox_error", "detail": "experiments are not supported for LiveCodeBench tasks (critic off in P5)"}
