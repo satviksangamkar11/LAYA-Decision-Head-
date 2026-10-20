@@ -1,0 +1,65 @@
+{
+ "bundle": "results\\raw\\el-p5-kaggle-final-bundle-20261020T164942Z\\dataset",
+ "commit": "e81537a17ca8505b00b90429794a6e20a438c953",
+ "files": 165,
+ "bytes": 1438219,
+ "all_ok": false,
+ "checks": {
+  "manifest_hashes": true,
+  "no_eval_only_paths": true,
+  "no_reference_or_generator_lines": true,
+  "no_hidden_input_expected_pairs": false,
+  "lcb_rows_are_locked_ids": true,
+  "lcb_private_tests_empty": true,
+  "contract_tasks_public_only": true,
+  "no_grader_script": true,
+  "no_key_strings": true,
+  "plan_covers_lock": true
+ },
+ "reference_line_hits_coarse": 10,
+ "reference_line_suspect": [],
+ "hidden_inputs_present_coarse": 5,
+ "hidden_input_expected_pairs": [
+  [
+   "configs/p5_qual_tasks_v1/tasks.jsonl",
+   [
+    "{\"nums\": [2]}",
+    "[2]"
+   ]
+  ]
+ ],
+ "shards": [
+  [
+   "final_lcb_1",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_2",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_3",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_4",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_5",
+   "lcb",
+   17
+  ],
+  [
+   "final_contract",
+   "contract",
+   20
+  ]
+ ],
+ "hidden_pairs_scanned": 604,
+ "reference_lines_scanned": 262
+}

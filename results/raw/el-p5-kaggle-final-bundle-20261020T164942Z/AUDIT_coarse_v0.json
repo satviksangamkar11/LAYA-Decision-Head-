@@ -1,0 +1,117 @@
+{
+ "bundle": "results\\raw\\el-p5-kaggle-final-bundle-20261020T164942Z\\dataset",
+ "commit": "e81537a17ca8505b00b90429794a6e20a438c953",
+ "files": 165,
+ "bytes": 1438219,
+ "all_ok": false,
+ "checks": {
+  "manifest_hashes": true,
+  "no_eval_only_paths": true,
+  "no_reference_or_generator_lines": false,
+  "no_hidden_case_inputs": false,
+  "lcb_rows_are_locked_ids": true,
+  "lcb_private_tests_empty": true,
+  "contract_tasks_public_only": true,
+  "no_grader_script": true,
+  "no_key_strings": true,
+  "plan_covers_lock": true
+ },
+ "reference_line_hits": [
+  [
+   "configs/p5_contract_tasks_v1/contract_props.py",
+   "digits = \"0123456789abcdefghijklmnopqrstuvwxyz\""
+  ],
+  [
+   "configs/p5_contract_tasks_v1/contract_props.py",
+   "from collections import Counter"
+  ],
+  [
+   "evidence_ladder/critic_batch/batch.py",
+   "from collections import Counter"
+  ],
+  [
+   "evidence_ladder/critic_batch/batch.py",
+   "out.mkdir(parents=True, exist_ok=True)"
+  ],
+  [
+   "evidence_ladder/critic_batch/validator.py",
+   "out.mkdir(parents=True, exist_ok=True)"
+  ],
+  [
+   "evidence_ladder/models/pc_sender.py",
+   "from collections import Counter"
+  ],
+  [
+   "evidence_ladder/orchestrator/report.py",
+   "from collections import Counter"
+  ],
+  [
+   "evidence_ladder/testing/record_execution_fixtures.py",
+   "out.mkdir(parents=True, exist_ok=True)"
+  ],
+  [
+   "results/raw/codex-pilot1-20261016/fixed_v2/grader/sandbox/grade_sandboxed_v2.py",
+   "HERE = Path(__file__).resolve().parent"
+  ],
+  [
+   "tools/el_kaggle_port_qual.py",
+   "out.mkdir(parents=True, exist_ok=True)"
+  ]
+ ],
+ "hidden_input_hits": [
+  [
+   "{\"nums\": [1, 2, 3, 4]}",
+   "[1, 2, 3, 4]"
+  ],
+  [
+   "{\"nums\": [1]}",
+   "[1]"
+  ],
+  [
+   "{\"nums\": [0, 0, 0]}",
+   "[0, 0, 0]"
+  ],
+  [
+   "{\"nums\": [2]}",
+   "[2]"
+  ],
+  [
+   "{\"nums\": [1]}",
+   "[1, \"1\"]"
+  ]
+ ],
+ "shards": [
+  [
+   "final_lcb_1",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_2",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_3",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_4",
+   "lcb",
+   17
+  ],
+  [
+   "final_lcb_5",
+   "lcb",
+   17
+  ],
+  [
+   "final_contract",
+   "contract",
+   20
+  ]
+ ],
+ "hidden_pairs_scanned": 604,
+ "reference_lines_scanned": 262
+}
