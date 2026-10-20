@@ -54,3 +54,18 @@ Receipts: `results/raw/p5-final-dryrun-v2/` (RUN_SUMMARY, QUAL), `results/raw/p5
 ## 6. Disclosures carried into the final report
 Q03 diagnostic-contract effect; Kaggle smoke parallel-shard jail contention; compute estimate 7.2 h is a linear extrapolation (contract rate borrowed from bank
 tasks); public secondary set; non-blind v2 set and its author's exposure; the 853→849 count correction.
+
+## 7. Provenance correction (user GO, 2026-10-20; metadata only, before any final candidate)
+| Item | Before | After |
+|---|---|---|
+| `configs/p5_final_lock_v2.json` (amended in place) | sha256 `71d197fb138c21a11c6185ec5913b011ef181dd140735adbf865d19171416e22`; `protocol_sha256` held the v1 hash (inherited from lock v1) | sha256 **`7714aa0c996b56c68fbdd930d306b3daa172ef8c963f08c7b2f57ee5956d121c`**; `protocol_sha256` = `3c5326a4…dac` (committed P5_PROTOCOL_v2); inherited v1 value renamed `protocol_v1_sha256` = `3d26566c…961b`; an `amendment` record holds the previous lock hash and the reason |
+| final plan (`p5_plan.json`) | `"protocol": "P5_PROTOCOL_v1"` | `"protocol": "P5_PROTOCOL_v2"` (smoke plan unchanged) |
+| final bundle protocol documents | v1 only | v1 (audit history) + v2 |
+| runner `RUN_CONFIG.json` stamp / docstring | `P5_PROTOCOL_v1`; "MXC" | `P5_PROTOCOL_v2`; Kaggle jail for the final run, MXC for local smoke and tests (no execution change) |
+| final bundle | commit d955ed40, 152 files, audit 13/13 | commit **1dc2e66e**, 153 files, audit **16/16** (13 + plan names v2, bundled v2 document = lock `protocol_sha256`, runner stamps v2), uploaded as the latest `el-p5-bundle-v1` version |
+
+No code reads the old lock field. Remaining "P5_PROTOCOL_v1" strings in the bundle are expected: the manifest entry of the kept v1 document, the lock's
+`protocol_v1_*` fields, protocol v2's own text, and the frozen `configs/p5_selection_v1.json` (pinned by hash in the lock; it records the protocol it was made under).
+Unchanged: tasks (85 + 20), order, grading datasets and their hashes, model, sampling, arms, budget, sandbox behavior, success criteria. No new dry run (metadata only).
+Cleanup: the incomplete model download and the leftover bundle copy under `results/raw/p5-final-dryrun-v1/` were deleted (~3.5 MB); its RUN_SUMMARY,
+jail self-check and qualification receipts are kept.
