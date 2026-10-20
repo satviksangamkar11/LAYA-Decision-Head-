@@ -155,7 +155,7 @@ def tv_honest_candidate_passes_and_expected_values_never_reach_the_sandbox_logic
     sig = inspect.signature(TV.TrustedVerifier.run)
     assert list(sig.parameters) == ["self", "language", "raw", "inputs"]                                                     # there is no parameter through which an expected value could enter
     v, each, res, _ = verdict(HONEST, CASES, tv)
-    assert v.status == "pass" and [s for s, _, _ in each] == ["pass"] * 3 and res.returncode == 0 and tv.VERSION == "trusted_verify_v2"
+    assert v.status == "pass" and [s for s, _, _ in each] == ["pass"] * 3 and res.returncode == 0 and tv.VERSION == "trusted_verify_v3"
     assert len(port.calls) == 3 and all(c["cmd"].startswith("python3 wrap.py ") and c["persist"] is False for c in port.calls)    # one process per input; nothing is read back from the workspace
     blob = b"".join(b for st in port.staged for b in st.values())
     assert b"CANARY-EXPECTED" not in blob and set().union(*[set(st) for st in port.staged]) == {"cand.py", "wrap.py", "in.json"}
@@ -165,7 +165,7 @@ def tv_honest_candidate_passes_and_expected_values_never_reach_the_sandbox_logic
     obs = tv.drain_observations()
     assert len(obs) == 3 and all(o["exit_code"] == 0 and not o["killed"] and len(o["stdout_sha256"]) == 64 for o in obs)
     recs = tv.drain_exec_records()
-    assert len(recs) == 3 and all(set(TV.RESULT_KEYS) <= set(r) and r["engine_version"] == "trusted_verify_v2" for r in recs)
+    assert len(recs) == 3 and all(set(TV.RESULT_KEYS) <= set(r) and r["engine_version"] == "trusted_verify_v3" for r in recs)
 
 
 @test
@@ -353,8 +353,9 @@ def tv_java_one_process_per_input_with_host_compiled_runner_scripted_logic():
             files = {p.name: p.read_bytes() for p in w.iterdir() if p.is_file()}
             log.append((cmd, persist, files))
             base = {"protected_unchanged": True, "pre_tree_sha256": "a" * 64, "post_tree_sha256": "b" * 64, "persisted": persist}
-            if cmd.startswith("javac") and b"HOST-STUB" in files["Solution.java"]:
-                (w / "Json.class").write_bytes(b"HOST-JSON"); (w / "Runner.class").write_bytes(b"HOST-RUNNER"); (w / "Solution.class").write_bytes(b"STUB")
+            if cmd.startswith("javac") and "-cp ." in cmd:
+                assert "Solution.java" not in files and files.get("Solution.class") == b"SOL"          # the link step sees host sources + the candidate's CLASS only, never its source
+                (w / "Json.class").write_bytes(b"HOST-JSON"); (w / "Runner.class").write_bytes(b"HOST-RUNNER")
                 return dict(base, exit_code=0, killed=False, stdout="", stderr="")
             if cmd.startswith("javac"):
                 if b"SYNTAXERR" in files["Solution.java"]:
@@ -914,7 +915,7 @@ def tv_wslc_java_forgery_attempts_never_produce_an_accepted_pass_wslc():
         return v, each, res
     head = "import java.util.*;\npublic final class Solution {\n    public static Object solve(Map<String,Object> data) {\n"
     v, each, _ = go(head + "        return ((Number) data.get(\"x\")).intValue() * 2;\n    }\n}\n")
-    assert v.status == "pass" and tv.VERSION == "trusted_verify_v2"                                                           # control: an honest candidate passes through compile + one java process per input
+    assert v.status == "pass" and tv.VERSION == "trusted_verify_v3"                                                           # control: an honest candidate passes through compile + one java process per input
     v, each, _ = go(head + "        System.out.println(\"PASS\"); System.out.println(\"ALL TESTS PASSED\");\n        return -1;\n    }\n}\n")
     never_pass(v, each)
     v, each, _ = go(head + "        try { java.nio.file.Files.write(java.nio.file.Paths.get(\"Runner.class\"), new byte[]{1}); java.nio.file.Files.write(java.nio.file.Paths.get(\"result.json\"), \"pass\".getBytes()); } catch (Exception e) {}\n        return -7;\n    }\n}\n")

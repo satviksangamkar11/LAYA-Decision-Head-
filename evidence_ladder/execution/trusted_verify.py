@@ -43,7 +43,7 @@ from typing import Any, Callable, Dict, List, Optional, Sequence
 from . import config as K
 from . import engine
 
-VERSION = "trusted_verify_v2"      # v2 (2026-10-20, P2 prep): time accounting split into per-input candidate timeout / candidate compute total / harness budget (infrastructure)
+VERSION = "trusted_verify_v3"      # v3 (2026-10-20, P2 finding): host Runner/Json compiled against the candidate's compiled Solution (real solve signature); v2 time accounting kept      # v2 (2026-10-20, P2 prep): time accounting split into per-input candidate timeout / candidate compute total / harness budget (infrastructure)
 TAG = "@@TV@@"          # result frame prefix on stdout; NOT a secret and NOT proof: every line is just a claim of the candidate's process
 RESULT_KEYS = ("exit_code", "killed", "stdout", "stderr", "protected_unchanged", "pre_tree_sha256", "post_tree_sha256", "persisted")
 
@@ -72,7 +72,6 @@ sys.exit(0)
 '''
 
 
-STUB_SOLUTION = "import java.util.*;\npublic final class Solution {\n    // HOST-STUB: only so the host's own Runner compiles; never used\n    public static Object solve(Map<String,Object> data) { return null; }\n}\n"
 
 
 class TrustedVerifyInfraError(RuntimeError):
@@ -84,7 +83,7 @@ class TrustedVerifyInfraError(RuntimeError):
 class JavaCommands:
     """the per-call command strings; the backend dialect may override them (WSLC: sh available). Workspace = cwd."""
     compile: str = "javac -proc:none -encoding UTF-8 -d . Json.java Runner.java Solution.java"
-    compile_trusted: str = "javac -proc:none -encoding UTF-8 -d . Json.java Runner.java Solution.java"      # Runner references Solution: a host-written stub is compiled with them, its class is discarded
+    compile_link: str = "javac -proc:none -encoding UTF-8 -cp . -d . Json.java Runner.java"      # host sources only; the candidate's compiled Solution*.class on the class path supplies the real solve signature
     run: str = "sh -c {script}"      # {script} = quoted `java ... -cp . Runner < in.json`
 
 
@@ -115,7 +114,6 @@ class TrustedVerifier:
         self.accounting: Dict[str, Any] = {}            # last run: overhead, candidate seconds, harness seconds, limits, outcome
         self.records: List[Dict[str, Any]] = []         # raw sandbox results (8 keys) + what the supervisor staged
         self.observations: List[Dict[str, Any]] = []    # per input: exit code, killed, output sha256 / length, seconds
-        self._trusted_java: Optional[Dict[str, bytes]] = None
         self.wrapper_sha256 = hashlib.sha256(PY_WRAPPER.encode("utf-8")).hexdigest()
 
     # ---------------------------------------------------------------- plumbing
@@ -258,24 +256,33 @@ class TrustedVerifier:
         return res
 
     # ---------------------------------------------------------------- java
-    def _trusted_classes(self) -> Dict[str, bytes]:
-        """compile the host's own Json.java / Runner.java ONCE in a candidate-free workspace; these class bytes are what every run stage uses (the candidate never gets to influence them)"""
-        if self._trusted_java is not None:
-            return self._trusted_java
-        wd = self.scratch / "javaprep" / uuid.uuid4().hex
+    def _link_trusted(self, cand_classes: Dict[str, bytes]):
+        """compile the host's own Json.java / Runner.java in a workspace that holds NO candidate source, only the candidate's compiled Solution*.class on the class path, so the
+        host Runner's call binds to the candidate's real solve signature. v1/v2 compiled Runner once against a stub `Object solve(Map)`: a candidate declaring e.g.
+        `List<Boolean> solve(Map)` then failed every input with NoSuchMethodError although it is correct (P2, J1-20). Candidate code does not run during javac.
+        -> (classes, None) | (None, RunResult) where a failing link is the candidate's outcome (its solve cannot be called as the task requires)."""
+        wd = self.scratch / "javalink" / uuid.uuid4().hex
         wd.mkdir(parents=True)
         try:
             for f in ("Json.java", "Runner.java"):
                 shutil.copyfile(self.java_support / f, wd / f)
-            (wd / "Solution.java").write_text(STUB_SOLUTION, encoding="utf-8")
-            r = self._call(wd, self.java.compile_trusted, True, self.cfg.java_compile_timeout, "java_prep")
-            if r["killed"] or int(r["exit_code"]) != 0 or not r.get("persisted"):
-                raise TrustedVerifyInfraError("the toolchain cannot compile the host's own support classes (exit %s, killed %s): %s" % (r["exit_code"], r["killed"], str(r.get("stderr", ""))[-300:]))
-            classes = {p.name: p.read_bytes() for p in wd.glob("*.class") if not p.name.startswith("Solution")}      # the stub is never used
+            for n, b in cand_classes.items():
+                (wd / n).write_bytes(b)
+            t0 = time.time()
+            r = self._call(wd, self.java.compile_link, True, self.cfg.java_compile_timeout, "java_link")
+            dt = time.time() - t0
+            self._obs(-2, r, dt, "link")
+            if r["killed"]:
+                return None, engine.RunResult("timeout", timed_out=True, detail="compile timeout", returncode=r["exit_code"], duration=dt)
+            if int(r["exit_code"]) != 0:
+                return None, engine.RunResult("compile_error", returncode=int(r["exit_code"]), stderr_tail=str(r.get("stderr", ""))[-1500:], duration=dt,
+                                              detail="the host Runner cannot call this Solution.solve")
+            if not r.get("persisted"):
+                return None, engine.RunResult("sandbox_error", detail="the link step persisted nothing (class files unavailable)", duration=dt)
+            classes = {p.name: p.read_bytes() for p in wd.glob("*.class") if p.name.startswith(("Runner", "Json"))}
             if "Runner.class" not in classes:
-                raise TrustedVerifyInfraError("javac produced no Runner.class for the support sources")
-            self._trusted_java = classes
-            return classes
+                raise TrustedVerifyInfraError("javac produced no Runner.class for the host support sources")
+            return classes, None
         finally:
             shutil.rmtree(wd, ignore_errors=True)
 
@@ -283,7 +290,6 @@ class TrustedVerifier:
         cfg = self.cfg
         if len(raw) > cfg.max_source_bytes:
             return engine.RunResult("oversized", detail="source %d bytes > %d" % (len(raw), cfg.max_source_bytes))
-        trusted = self._trusted_classes()
         # 1. compile the candidate (raw exit status and compiler output come from the sandbox port's capture of the javac process)
         wd = self.scratch / "java" / uuid.uuid4().hex
         wd.mkdir(parents=True)
@@ -311,6 +317,9 @@ class TrustedVerifier:
             shutil.rmtree(wd, ignore_errors=True)
         if not cand_classes:
             return engine.RunResult("compile_error", detail="javac exited 0 but produced no Solution class", returncode=0)
+        trusted, failed = self._link_trusted(cand_classes)
+        if failed is not None:
+            return failed
         # 2. one process per input; stdin staged as a file; host-compiled Runner / Json classes re-staged fresh next to the candidate's classes
         lines: List[str] = []
         res = engine.RunResult("ran", returncode=0)
