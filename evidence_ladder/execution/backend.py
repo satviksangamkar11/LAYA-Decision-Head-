@@ -38,6 +38,23 @@ class SandboxExecutionBackend:
     def _bytes(self, artifact: Artifact) -> bytes:
         return self.store.verified_bytes(artifact)
 
+    # ------------------------------------------------------------- arbitrary inputs (P4: contract checks)
+    def _run_engine(self, language: str, raw: bytes, inputs: List[Any]):
+        return engine.run(language, raw, inputs, self.cfg)
+
+    def run_inputs(self, artifact: Artifact, task: TaskSpec, inputs: List[Any]):
+        """-> (results, term): results[k] = (ok, value) for input k, or None when the runner produced no result for it; term = why output stopped.
+        No expected value is involved: the caller (contracts/contract_v1.evaluate) applies the task contract. Integrity/sandbox failures raise."""
+        if artifact.language != task.language or artifact.task_id != task.task_id:
+            raise ValueError("artifact/task mismatch")
+        res = self._run_engine(artifact.language, self._bytes(artifact), list(inputs))
+        if getattr(res, "phase_status", "") == "sandbox_error":
+            raise RuntimeError("sandbox error while running contract inputs: %s" % str(getattr(res, "detail", ""))[:200])
+        items, term = engine._parse(artifact.language, res)
+        if getattr(res, "phase_status", "") == "compile_error" or (term or "").startswith("fatal"):
+            items, term = [], "crash"
+        return [items[k] if k < len(items) else None for k in range(len(inputs))], term
+
     # ------------------------------------------------------------- public checks
     def run_public(self, artifact: Artifact, task: TaskSpec) -> List[CheckOutcome]:
         """Returns [parse_v1, then ONE public_examples_v1 outcome per public example, in task.public_tests order, each with example_index]."""

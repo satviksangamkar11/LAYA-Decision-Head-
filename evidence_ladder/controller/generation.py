@@ -256,7 +256,12 @@ def strategy_for(index: int, strategies: Sequence[str] = FROZEN_STRATEGIES) -> s
     return strategies[index % len(strategies)]
 
 
+LCB_TEMPLATE_ID = "lcb_generic_v1"      # [P5] LiveCodeBench's generic prompt: the task prompt IS the rendered LiveCodeBench prompt (tools/lcb_tasks.render_prompt)
+
+
 def render_sample_prompt(template_id: str, task) -> Tuple[str, str]:
+    if template_id == LCB_TEMPLATE_ID:
+        return task.prompt, LCB_TEMPLATE_ID
     fields = dict(task_prompt=task.prompt, examples=Q.format_examples(task.public_tests), solution_format=Q.SOLUTION_FORMATS[task.language], language=task.language)
     return V2B.render(template_id, **fields)
 

@@ -248,12 +248,45 @@ class _Run:
         recs, summary = public_records(self.task, c.art, outcomes, self.intake, self.fac)
         self.record(recs)
         c.summary, c.sigs = summary, set(summary["sigs"])
+        if getattr(self, "contract", None) is not None and summary["examples"] and all(e["status"] == "pass" for e in summary["examples"]):
+            self.contract_check(c)
         if summary["tool_failure"]:
             self.tool_failure = True
         c.first_fail = self.first_failure(summary)
         self.relabel(c)
         if self.l2_checks:
             self.apply_l2(c)
+
+    def contract_check(self, c) -> None:
+        """[P4, V1.5] Trusted runtime verification: the contract's permitted edge inputs + derived inputs, judged by contracts/contract_v1.evaluate.
+        Authoritative contract -> check contract_checks_v1 (rejecting_only: a failure blocks the candidate, a pass verifies nothing);
+        otherwise contract_checks_shadow_v1 (diagnostic). A sandbox failure is a tool failure, never a candidate verdict."""
+        import json as _json
+        from evidence_ladder.contracts import contract_v1 as CV
+        from . import l2 as _l2
+        ct = self.contract
+        inputs = list(ct.edges) + _l2.derive_inputs(list(self.task.public_tests), n=int(self.cfg["contracts"].get("n_derived", 6)))
+        try:
+            results, term = self.ctx.execution.run_inputs(c.art, self.task, inputs)
+        except Exception as ex:      # noqa: BLE001
+            self.note("tool_failure", {"candidate": c.id, "error": "contract checks: %s: %s" % (type(ex).__name__, str(ex)[:200])})
+            self.tool_failure = True
+            return
+        ev = CV.evaluate(ct, inputs, results, whole_run_crashed=(term == "crash"))
+        auth = ev["mode"] == "authoritative"
+        st = "fail" if ev["hard"] else "pass"
+        h0 = ev["hard"][0] if ev["hard"] else None
+        cx = None
+        if h0:
+            r0 = results[h0["input"]]
+            cx = {"input": _json.dumps(inputs[h0["input"]], ensure_ascii=False)[:500], "expected": "the task contract's %s" % h0["check"],
+                  "observed": str(r0[1] if r0 else "no result")[:300]}
+        out = {"check_id": "contract_checks", "status": st, "hard": ev["hard"][:10], "uncertain": ev["uncertain"][:10], "valid_inputs": ev["checked_valid_inputs"],
+               "inputs": len(inputs), "contract_source": ct.source, "authority": ct.authority}
+        self.journal.add_evidence(self.fac.make(c.art, self.intake.all_inputs_id, "contract_checks_v1" if auth else "contract_checks_shadow_v1",
+                                                "certified_check" if auth else "model_test", "independent" if auth else "model_derived", st,
+                                                "task contract: input domain + stated properties on %d valid inputs" % ev["checked_valid_inputs"], out, cx), trim(out))
+        self.note("contract_check", {"candidate": c.id, "authority": ct.authority, "status": st, "hard": len(ev["hard"]), "uncertain": len(ev["uncertain"])})
 
     def first_failure(self, summary) -> Optional[Dict[str, str]]:
         for ex in summary["examples"]:
@@ -721,7 +754,14 @@ class _Run:
         self.tlc("enter", "intake")
         self.intake = intake_mod.build(task, self.cfg.get("proposed_requirements"))
         self.reqs = self.intake.reqs
-        self.registry = build_registry(self.intake.example_ids)
+        ccfg = self.cfg.get("contracts")                 # [P4, V1.5] None = V1 behaviour (registry and journal unchanged)
+        self.registry = build_registry(self.intake.example_ids, contracts=bool(ccfg))
+        self.contract = None
+        if ccfg:
+            from pathlib import Path as _P
+            from evidence_ladder.contracts import registry as _CR
+            reg = _CR.load_registry(_P(ccfg["registry"])) if ccfg.get("registry") else None
+            self.contract = _CR.trusted_contract(self.task.task_id, reg, _P(ccfg.get("root", ".")), self.task.prompt, list(ccfg.get("parsers", [])))
         self.ctl._registry = self.registry
         self.reg_hash0 = digest(self.registry)
         self.journal = EvidenceJournal(self.registry)

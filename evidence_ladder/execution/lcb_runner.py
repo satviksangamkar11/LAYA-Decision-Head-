@@ -75,6 +75,35 @@ def functional_equal(pred: Any, gt_text: str) -> bool:
     return pred == json.loads(gt_text)
 
 
+class LcbExecutionBackend:
+    """[P5] ExecutionBackend for the Evidence-Ladder controller on LiveCodeBench tasks: run_public() on the PUBLIC tests only (the private tests are never given to it).
+    meta: task_id -> {"format": "stdin"|"functional", "fn_name": str|None, "public": [LiveCodeBench public cases]}."""
+    def __init__(self, runner: "LcbRunner", meta: Dict[str, Dict[str, Any]]):
+        self.runner, self.meta = runner, meta
+
+    def run_public(self, artifact, task) -> List[Dict[str, Any]]:
+        import hashlib
+        if hashlib.sha256(artifact.source.encode("utf-8")).hexdigest() != artifact.artifact_id:
+            return [{"check_id": "parse_v1", "status": "error", "failure_class": "sandbox_error", "detail": "artifact integrity"}]
+        m = self.meta[task.task_id]
+        try:
+            outs = [self.runner.run_case(artifact.source, c, m["fn_name"]) for c in m["public"]]
+        except LcbInfraError as e:
+            return [{"check_id": "parse_v1", "status": "error", "failure_class": "sandbox_error", "detail": str(e)[:200]}]
+        res = []
+        for i, o in enumerate(outs):
+            st = "pass" if o["status"] == "pass" else ("timeout" if o["status"] == "timeout" else "fail")
+            res.append({"check_id": "public_examples_v1", "example_index": i, "status": st, "failure_class": "" if st == "pass" else o["status"], "observed": o.get("observed", o["status"]),
+                        "duration_s": o["seconds"]})
+        return res
+
+    def run_experiment(self, artifact, experiment):
+        return {"check_id": "critic_experiment_v1", "status": "error", "failure_class": "sandbox_error", "detail": "experiments are not supported for LiveCodeBench tasks (critic off in P5)"}
+
+    def run_inputs(self, artifact, task, inputs):
+        raise RuntimeError("contract inputs are not supported for LiveCodeBench tasks (no trusted contract exists)")
+
+
 class LcbRunner:
     def __init__(self, run: Callable[..., Dict[str, Any]], scratch: Path, launch_overhead: Optional[float] = None):
         self._run, self.scratch = run, Path(scratch).resolve()
@@ -123,7 +152,8 @@ class LcbRunner:
         if r["killed"]:
             return {"status": "timeout", "seconds": round(dt, 3), "detail": "killed at %.1fs" % kill}
         if int(r["exit_code"]) != 0:
-            return {"status": "runtime_error", "seconds": round(dt, 3), "detail": str(r.get("stderr", ""))[-200:]}
+            err = str(r.get("stderr", "")).strip().splitlines()
+            return {"status": "runtime_error", "seconds": round(dt, 3), "detail": str(r.get("stderr", ""))[-200:], "observed": "<error: %s>" % (err[-1][:200] if err else "nonzero exit")}
         out = str(r.get("stdout", ""))
         if case["testtype"] == "stdin":
             ok = stdio_equal(out, case["output"])
@@ -135,7 +165,7 @@ class LcbRunner:
                 ok = functional_equal(json.loads(frames[0]), case["output"])
             except ValueError:
                 return {"status": "wrong_answer", "seconds": round(dt, 3), "detail": "unparsable result"}
-        return {"status": "pass" if ok else "wrong_answer", "seconds": round(dt, 3), "detail": ""}
+        return {"status": "pass" if ok else "wrong_answer", "seconds": round(dt, 3), "detail": "", "observed": out.strip()[:300] if case["testtype"] == "stdin" else (frames[0][:300] if frames else "")}
 
     def grade(self, code: str, cases: List[Dict[str, Any]], fn_name: Optional[str], stop_at_first_fail: bool = True) -> Dict[str, Any]:
         res = []

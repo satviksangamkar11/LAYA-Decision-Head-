@@ -186,6 +186,9 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
                  language=language)
         self.exec_log.append(d)
 
+    def _run_engine(self, language: str, raw: bytes, inputs: List[Any]) -> engine.RunResult:      # run_inputs (P4) uses the same launch path
+        return self._engine_run(language, raw, inputs)
+
     # ---------------------------------------------------------------- the one place a process is launched
     def _engine_run(self, language: str, raw: bytes, inputs: List[Any]) -> engine.RunResult:
         tc, cap = TC.get(language), self.toolchains.get(language)

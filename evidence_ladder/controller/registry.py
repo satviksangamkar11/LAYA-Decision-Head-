@@ -15,8 +15,12 @@ def _chk(check_id, kind, trust, covers, vis=True, grader=False, limitations=()):
             "covers": list(covers), "runtime_visible": vis, "grader_only": grader, "limitations": list(limitations)}
 
 
-def check_defs(example_req_ids: List[str]) -> List[dict]:
-    return [
+def check_defs(example_req_ids: List[str], contracts: bool = False) -> List[dict]:
+    extra = [_chk("contract_checks_v1", "certified_invariant", "rejecting_only", [],
+                  limitations=["only the input domain and properties a host-registered task contract states; a pass never verifies correctness"]),
+             _chk("contract_checks_shadow_v1", "certified_invariant", "diagnostic", [],
+                  limitations=["unregistered or model-proposed contract: shadow only, never rejects"])] if contracts else []
+    return extra + [
         _chk("parse_v1", "parse", "rejecting_only", ["syntax"], limitations=["says nothing about behaviour"]),
         _chk("public_examples_v1", "public_test", "authoritative_in_scope", example_req_ids,
              limitations=["examples are few: passing them does not verify the problem"]),
@@ -28,8 +32,8 @@ def check_defs(example_req_ids: List[str]) -> List[dict]:
     ]
 
 
-def build_registry(example_req_ids: List[str]):
-    return C.Registry(check_defs(example_req_ids))
+def build_registry(example_req_ids: List[str], contracts: bool = False):
+    return C.Registry(check_defs(example_req_ids, contracts))
 
 
 def digest(reg) -> str:
