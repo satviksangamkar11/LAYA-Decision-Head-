@@ -25,6 +25,8 @@ def main() -> int:
                                            "tools/el_p5_run.py", "tools/el_p5_contract_qual.py", "tools/el_p2_generation_compare.py", "tools/el_kaggle_port_qual.py", "tools/lcb_tasks.py", "tools/el_bank_local_run.py",
                                            "kaggle/el_bank40_run_v1.py", "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json"] + [s["file"] for s in man["sources"].values()]
     extra += [p.relative_to(ROOT).as_posix() for d in ("configs/p5_contract_tasks_v1", "configs/p5_qual_tasks_v1") for p in (ROOT / d).rglob("*") if p.is_file() and "__pycache__" not in p.parts]
+    if "--final" in sys.argv:          # the qualification fixtures (Step 2) are not used by the final run; Q01 shares one trivial case with the contract cohort's hidden set
+        extra = [r for r in extra if not r.startswith("configs/p5_qual_tasks_v1/") and r != "tools/el_p5_contract_qual.py"]
     for rel in extra:
         files[rel] = (ROOT / rel).read_bytes()
     T = L.load()
