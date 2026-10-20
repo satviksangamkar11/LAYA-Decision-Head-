@@ -1,0 +1,13 @@
+{"task": "abc388_a", "format": "stdin", "variant": "correct", "expected_pass": true, "pass": true, "passed": 42, "total_run": 42, "first_fail": null, "as_expected": true, "seconds": 5.9}
+{"task": "abc388_a", "format": "stdin", "variant": "wrong", "expected_pass": false, "pass": false, "passed": 0, "total_run": 42, "first_fail": "wrong_answer", "as_expected": true, "seconds": 0.14}
+{"task": "abc388_a", "format": "stdin", "variant": "crash", "expected_pass": false, "pass": false, "passed": 0, "total_run": 42, "first_fail": "runtime_error", "as_expected": true, "seconds": 0.14}
+{"task": "abc388_a", "format": "stdin", "variant": "loop", "expected_pass": false, "pass": false, "passed": 0, "total_run": 42, "first_fail": "timeout", "as_expected": true, "seconds": 6.05}
+{"task": "abc389_a", "format": "stdin", "variant": "correct", "expected_pass": true, "pass": true, "passed": 42, "total_run": 42, "first_fail": null, "as_expected": true, "seconds": 5.87}
+{"task": "abc389_a", "format": "stdin", "variant": "wrong", "expected_pass": false, "pass": false, "passed": 0, "total_run": 42, "first_fail": "wrong_answer", "as_expected": true, "seconds": 0.14}
+{"task": "abc389_a", "format": "stdin", "variant": "float_ok", "expected_pass": true, "pass": true, "passed": 42, "total_run": 42, "first_fail": null, "as_expected": true, "seconds": 5.84}
+{"task": "3747", "format": "functional", "variant": "correct", "expected_pass": true, "pass": true, "passed": 33, "total_run": 33, "first_fail": null, "as_expected": true, "seconds": 4.49}
+{"task": "3747", "format": "functional", "variant": "wrong", "expected_pass": false, "pass": false, "passed": 0, "total_run": 33, "first_fail": "wrong_answer", "as_expected": true, "seconds": 0.14}
+{"task": "3747", "format": "functional", "variant": "forge", "expected_pass": false, "pass": false, "passed": 0, "total_run": 33, "first_fail": "wrong_answer", "as_expected": true, "seconds": 0.13}
+{"task": "3753", "format": "functional", "variant": "correct", "expected_pass": true, "pass": true, "passed": 33, "total_run": 33, "first_fail": null, "as_expected": true, "seconds": 4.53}
+{"task": "3753", "format": "functional", "variant": "wrong", "expected_pass": false, "pass": false, "passed": 0, "total_run": 33, "first_fail": "wrong_answer", "as_expected": true, "seconds": 0.14}
+{"task": "3753", "format": "functional", "variant": "tuple", "expected_pass": true, "pass": true, "passed": 33, "total_run": 33, "first_fail": null, "as_expected": true, "seconds": 4.48}

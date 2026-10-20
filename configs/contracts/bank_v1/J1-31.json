@@ -1,0 +1,38 @@
+{
+ "contract_version": "task_contract_v1",
+ "task_id": "J1-31",
+ "provenance": {
+  "source": "author",
+  "author": "coordinator (P3 specs)",
+  "created_utc": "2026-10-20",
+  "written_before_candidates": false,
+  "basis": "task text + public examples only; no grader case read"
+ },
+ "input": {
+  "type": "any"
+ },
+ "output": null,
+ "edges": [
+  {
+   "a": "9999999999999999999999999999999999999999",
+   "b": "9999999999999999999999999999999999999999"
+  },
+  {
+   "a": "0000000000000000000000000000000000000000",
+   "b": "1"
+  },
+  {
+   "a": "1000000000000000000000000000000000000000",
+   "b": "1000000000000000000000000000000000000000"
+  },
+  {
+   "a": "00000",
+   "b": "0"
+  }
+ ],
+ "properties_module": {
+  "path": "tools/p3_specs_v1.py",
+  "sha256": "154187b36d88b29ee13fc9cebfbca7314a71feece6236f41d487edcf1c3f7662",
+  "spec_key": "J1-31"
+ }
+}

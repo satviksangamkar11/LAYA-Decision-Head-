@@ -1,0 +1,15 @@
+{
+ "dataset": "livecodebench/code_generation_lite",
+ "file": "test6.jsonl (incremental v6 subset)",
+ "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+ "bytes": 134303240,
+ "sha256": "bb4c364f71921c4495a6ad15abe1a927350b720009f4933e2e71f8af0f6fd1f5",
+ "license": "cc (dataset card)",
+ "downloaded_utc": "2026-10-20",
+ "approved_by": "user, chat 2026-10-20 (P5 evaluation source)",
+ "rows": 175, "platforms": {"atcoder": 112, "leetcode": 63}, "formats": {"stdin": 112, "functional": 63}, "difficulty": {"easy": 43, "medium": 52, "hard": 80},
+ "contest_dates": ["2025-01-04", "2025-04-06"],
+ "model_weights_date": "Qwen/Qwen2.5-Coder-1.5B-Instruct weights uploaded 2024-09-18; pinned revision 2e1fd397 (2025-01-12) changed only README/configs after 2024-11-18",
+ "contamination_note": "all problems postdate the weights by >= 3.5 months; reduces but does not exclude contamination; the 'private' tests are public in this dataset and must stay out of generation and runtime selection",
+ "safety_note": "private_test_cases are base64(zlib(pickle(str))); decode ONLY with a restricted unpickler that refuses every class (strings only)"
+}

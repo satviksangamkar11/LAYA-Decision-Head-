@@ -1,0 +1,20 @@
+{
+ "candidates": 68,
+ "same_as_p3": 67,
+ "changed": [
+  {
+   "pool": "P1:el-bank-java5hard-wslc-20261018T213058:J1-31",
+   "candidate": "95c13a4f508f",
+   "p3": false,
+   "p4": true,
+   "checks": [
+    "crash_on_valid_input"
+   ]
+  }
+ ],
+ "contracts": 28,
+ "self_check_problems": {},
+ "modes": [
+  "diagnostic"
+ ]
+}

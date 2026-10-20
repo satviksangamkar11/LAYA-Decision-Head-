@@ -1,0 +1,14 @@
+{
+ "checked": 13,
+ "as_expected": 13,
+ "sandbox": "mxc processcontainer",
+ "launch_overhead_s": 0.065,
+ "sandbox_calls": 234,
+ "seconds": 38.3,
+ "validation_tasks_excluded_from_eval": [
+  "3747",
+  "3753",
+  "abc388_a",
+  "abc389_a"
+ ]
+}
