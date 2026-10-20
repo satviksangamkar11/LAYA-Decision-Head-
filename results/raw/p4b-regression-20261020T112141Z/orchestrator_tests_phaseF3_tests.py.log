@@ -1,0 +1,6 @@
+{"replayed": 2, "refused": 1, "pools": 3, "laya_probe_random_head_all_stored_and_equal": true, "comparison_only": true, "negative_controls_refused": true}
+{
+ "tests": 30,
+ "passed": 30,
+ "failed": {}
+}

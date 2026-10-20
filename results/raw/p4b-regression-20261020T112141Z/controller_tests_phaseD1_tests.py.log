@@ -1,0 +1,14 @@
+{"mode": "offline_rehearsal", "examples": {"ex1_slug": ["VERIFIED", "decided", 8, true], "ex2_clamp": ["VERIFIED", "decided", 8, true], "ex3_wordcount": ["VERIFIED", "decided", 8, true]}, "gates": {"invariants": {"status": "PASS"}, "monotonicity": {"status": "INSUFFICIENT_DATA", "laya_ordering_enabled": false}, "overall": "INSUFFICIENT_DATA (3 examples; not a performance result)"}, "variants_ok": true, "secret_scan_hits": []}
+WAITING_FOR_KAGGLE gen round 1 -- see C:\Users\Satvik\AppData\Local\Temp\phaseD1-b527pppb\fin\handoff\round1
+WAITING_FOR_KAGGLE score round 1 -- see C:\Users\Satvik\AppData\Local\Temp\phaseD1-b527pppb\fin\handoff\round1
+WAITING_FOR_KAGGLE gen round 2 -- see C:\Users\Satvik\AppData\Local\Temp\phaseD1-b527pppb\fin\handoff\round2
+WAITING_FOR_KAGGLE score round 2 -- see C:\Users\Satvik\AppData\Local\Temp\phaseD1-b527pppb\fin\handoff\round2
+WAITING_FOR_GLM 3 packet(s) -- see C:\Users\Satvik\AppData\Local\Temp\phaseD1-b527pppb\fin\glm\WAITING_GLM.txt
+{"mode": "final", "examples": {"ex1_slug": ["VERIFIED", "decided", 8, true], "ex2_clamp": ["VERIFIED", "decided", 8, true], "ex3_wordcount": ["VERIFIED", "decided", 8, true]}, "gates": {"invariants": {"status": "PASS"}, "monotonicity": {"status": "INSUFFICIENT_DATA", "laya_ordering_enabled": false}, "overall": "INSUFFICIENT_DATA (3 examples; not a performance result)"}, "variants_ok": true, "secret_scan_hits": []}
+{"REAL PASS": 0, "LOGIC-ONLY": 57, "IMPLEMENTED": 7, "NOT APPLICABLE": 7, "BLOCKED": 5}
+{
+ "tests": 21,
+ "passed": 21,
+ "failed": {},
+ "skipped": {}
+}

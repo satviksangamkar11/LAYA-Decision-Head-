@@ -1,0 +1,30 @@
+STAGE COVERAGE over 3 finished task(s): public-pass 3, L2 reached 3 (validated 1), clusters>=2 2, critic triggered 2 / called 2 / applied 2, repair round 1
+{
+ "selftest": "PASS",
+ "missing": [],
+ "verdict": "OK",
+ "pipeline_verdict": "PIPELINE_COMPLETE",
+ "done": 3,
+ "engine": "mxc-processcontainer",
+ "stage_coverage": "STAGE COVERAGE over 3 finished task(s): public-pass 3, L2 reached 3 (validated 1), clusters>=2 2, critic triggered 2 / called 2 / applied 2, repair round 1",
+ "seconds": 47.9
+}
+STAGE COVERAGE over 2 finished task(s): public-pass 2, L2 reached 2 (validated 0), clusters>=2 2, critic triggered 2 / called 2 / applied 2, repair round 0
+{
+ "tests": 29,
+ "passed": 29,
+ "failed": {},
+ "skipped": {},
+ "measured": {
+  "mxc_seconds_per_candidate_run": {
+   "lookup": 0.132,
+   "wrong": 0.133,
+   "syntax": 0.127,
+   "raises": 0.129,
+   "hard_crash": 0.127,
+   "network": 0.187,
+   "forged_print": 0.13,
+   "host_file": 0.131
+  }
+ }
+}

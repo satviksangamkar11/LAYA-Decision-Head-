@@ -1,0 +1,15 @@
+controller/tests/run_tests.py exit=0
+controller/tests/phaseA_tests.py exit=0
+controller/tests/phaseB_tests.py exit=0
+controller/tests/phaseD1_tests.py exit=0
+controller/tests/phaseF1_tests.py exit=0
+controller/tests/phaseF1b_tests.py exit=0
+controller/tests/phaseF2_tests.py exit=0
+controller/tests/phaseF2b_tests.py exit=0
+controller/tests/phaseF2c_tests.py exit=0
+orchestrator/tests/run_tests.py exit=0
+orchestrator/tests/phaseC_tests.py exit=0
+orchestrator/tests/phaseF3_tests.py exit=0
+orchestrator/tests/phaseF3b_tests.py exit=0
+orchestrator/tests/phaseF3c_tests.py exit=0
+controller/tests/phaseMXC_tests.py exit=0

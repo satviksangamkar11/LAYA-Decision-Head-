@@ -1,0 +1,24 @@
+{
+ "out": "C:\\Users\\Satvik\\AppData\\Local\\Temp\\tmp149c2w1d\\el-bank40-bundle-20261020T112532Z",
+ "files": 121,
+ "bytes": 1019048,
+ "thinking_policy": {
+  "policy": "budget",
+  "think_budget": 512,
+  "answer_tokens": 1500
+ },
+ "commit": "b29f5ca657a77831fca24cadef1fb2d503663251",
+ "import_smoke": true,
+ "held_markers_checked": 16,
+ "kernels": {
+  "pass1": "C:\\Users\\Satvik\\AppData\\Local\\Temp\\tmp149c2w1d\\el-bank40-bundle-20261020T112532Z\\kernel_pass1",
+  "pass2": "C:\\Users\\Satvik\\AppData\\Local\\Temp\\tmp149c2w1d\\el-bank40-bundle-20261020T112532Z\\kernel_pass2"
+ },
+ "dataset": "C:\\Users\\Satvik\\AppData\\Local\\Temp\\tmp149c2w1d\\el-bank40-bundle-20261020T112532Z\\dataset",
+ "manifest_sha256": "19c9c35e0cbc82801f3d690fb9d0f35d039d5bfb5411805e30041fddf5a6b706"
+}
+{
+ "tests": 21,
+ "passed": 21,
+ "failed": {}
+}
