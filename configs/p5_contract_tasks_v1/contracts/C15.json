@@ -1,0 +1,61 @@
+{
+ "contract_version": "task_contract_v1",
+ "task_id": "C15",
+ "provenance": {
+  "source": "author",
+  "author": "coordinator",
+  "created_utc": "2026-10-20",
+  "written_before_candidates": true,
+  "basis": "statement of the task only; no candidate, hidden test or reference solution existed"
+ },
+ "input": {
+  "type": "object",
+  "fields": {
+   "nums": {
+    "type": "list",
+    "items": {
+     "type": "int",
+     "min": 1,
+     "max": 1000000
+    },
+    "min_len": 1
+   }
+  },
+  "exact": true
+ },
+ "output": null,
+ "edges": [
+  {
+   "nums": [
+    1
+   ]
+  },
+  {
+   "nums": [
+    1000000,
+    999999
+   ]
+  },
+  {
+   "nums": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37
+   ]
+  }
+ ],
+ "properties_module": {
+  "path": "configs/p5_contract_tasks_v1/contract_props.py",
+  "sha256": "05c9bc2adef82e64b049e192f39d0ebf7be5a42224615ad9c9fce599ef1df851",
+  "spec_key": "C15"
+ }
+}

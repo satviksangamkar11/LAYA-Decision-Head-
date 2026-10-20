@@ -1,0 +1,42 @@
+{
+ "contract_version": "task_contract_v1",
+ "task_id": "C09",
+ "provenance": {
+  "source": "author",
+  "author": "coordinator",
+  "created_utc": "2026-10-20",
+  "written_before_candidates": true,
+  "basis": "statement of the task only; no candidate, hidden test or reference solution existed"
+ },
+ "input": {
+  "type": "object",
+  "fields": {
+   "n": {
+    "type": "int",
+    "min": 1,
+    "max": 3999
+   }
+  },
+  "exact": true
+ },
+ "output": null,
+ "edges": [
+  {
+   "n": 3888
+  },
+  {
+   "n": 444
+  },
+  {
+   "n": 9
+  },
+  {
+   "n": 2000
+  }
+ ],
+ "properties_module": {
+  "path": "configs/p5_contract_tasks_v1/contract_props.py",
+  "sha256": "05c9bc2adef82e64b049e192f39d0ebf7be5a42224615ad9c9fce599ef1df851",
+  "spec_key": "C09"
+ }
+}
