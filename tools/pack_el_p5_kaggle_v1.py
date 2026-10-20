@@ -27,6 +27,9 @@ def main() -> int:
     extra += [p.relative_to(ROOT).as_posix() for d in ("configs/p5_contract_tasks_v1", "configs/p5_qual_tasks_v1") for p in (ROOT / d).rglob("*") if p.is_file() and "__pycache__" not in p.parts]
     if "--final" in sys.argv:          # the qualification fixtures (Step 2) are not used by the final run; Q01 shares one trivial case with the contract cohort's hidden set
         extra = [r for r in extra if not r.startswith("configs/p5_qual_tasks_v1/") and r != "tools/el_p5_contract_qual.py"]
+        # unused in a python-only final run: the Java pilot grader and support, and the bank pilot task lists (no bank cohort). The python sandbox scripts
+        # (grade_sandboxed_v2.py: strict_equal used by judge_each; runner_v2.py: jail self-check) are runtime code and stay.
+        extra = [r for r in extra if "codex-pilot1-java-20261016/" not in r and not r.endswith("codex-pilot1-20261016/fixed_v2/worker/tasks.jsonl")]
     for rel in extra:
         files[rel] = (ROOT / rel).read_bytes()
     T = L.load()
