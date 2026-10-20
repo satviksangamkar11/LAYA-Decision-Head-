@@ -1,0 +1,5134 @@
+{
+ "kernel": "el_p5_jail_flake_v1",
+ "started_utc": "2026-10-20T13:06:13Z",
+ "nproc": 4,
+ "bundle_commit": "f808bc6199e481e602530b5b3a10b7c1cdb82609",
+ "public_examples": 4,
+ "example4_input": {
+  "text": "abc",
+  "pattern": "a*d"
+ },
+ "launch_overhead_s": 0.49986696243286133,
+ "load_processes": 4,
+ "summary": {
+  "isolated/example4_alone": {
+   "n": 20,
+   "all_pass": 20,
+   "timeouts": 0,
+   "outcomes": {
+    "ran": 20
+   },
+   "max_input_s": 0.559
+  },
+  "isolated/full_public_batch": {
+   "n": 20,
+   "all_pass": 0,
+   "timeouts": 0,
+   "outcomes": {
+    "ran": 20
+   },
+   "max_input_s": 0.559
+  },
+  "loaded/example4_alone": {
+   "n": 20,
+   "all_pass": 20,
+   "timeouts": 0,
+   "outcomes": {
+    "ran": 20
+   },
+   "max_input_s": 1.087
+  },
+  "loaded/full_public_batch": {
+   "n": 20,
+   "all_pass": 0,
+   "timeouts": 0,
+   "outcomes": {
+    "ran": 20
+   },
+   "max_input_s": 1.119
+  }
+ },
+ "rows": [
+  {
+   "condition": "isolated",
+   "trial": 0,
+   "shape": "example4_alone",
+   "wall_s": 1.571,
+   "loadavg": [
+    0.4375,
+    0.48046875,
+    0.23486328125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.059,
+    "harness_s": 0.559,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.559,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 0,
+   "shape": "full_public_batch",
+   "wall_s": 2.058,
+   "loadavg": [
+    0.4375,
+    0.48046875,
+    0.23486328125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.056,
+    "harness_s": 2.058,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.513,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.521,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 1,
+   "shape": "example4_alone",
+   "wall_s": 0.504,
+   "loadavg": [
+    0.4375,
+    0.48046875,
+    0.23486328125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.003,
+    "harness_s": 0.503,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.503,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 1,
+   "shape": "full_public_batch",
+   "wall_s": 2.053,
+   "loadavg": [
+    0.48291015625,
+    0.4892578125,
+    0.2392578125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.05,
+    "harness_s": 2.053,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.516,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.514,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 2,
+   "shape": "example4_alone",
+   "wall_s": 0.512,
+   "loadavg": [
+    0.48291015625,
+    0.4892578125,
+    0.2392578125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.012,
+    "harness_s": 0.512,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 2,
+   "shape": "full_public_batch",
+   "wall_s": 2.055,
+   "loadavg": [
+    0.48291015625,
+    0.4892578125,
+    0.2392578125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.052,
+    "harness_s": 2.054,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.516,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.513,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.516,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 3,
+   "shape": "example4_alone",
+   "wall_s": 0.512,
+   "loadavg": [
+    0.48291015625,
+    0.4892578125,
+    0.2392578125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.012,
+    "harness_s": 0.512,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 3,
+   "shape": "full_public_batch",
+   "wall_s": 2.082,
+   "loadavg": [
+    0.5244140625,
+    0.498046875,
+    0.24365234375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.079,
+    "harness_s": 2.081,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.517,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.508,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.544,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 4,
+   "shape": "example4_alone",
+   "wall_s": 0.528,
+   "loadavg": [
+    0.5244140625,
+    0.498046875,
+    0.24365234375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.027,
+    "harness_s": 0.528,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.527,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 4,
+   "shape": "full_public_batch",
+   "wall_s": 2.039,
+   "loadavg": [
+    0.5244140625,
+    0.498046875,
+    0.24365234375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.037,
+    "harness_s": 2.039,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.52,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.506,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.503,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 5,
+   "shape": "example4_alone",
+   "wall_s": 0.513,
+   "loadavg": [
+    0.5244140625,
+    0.498046875,
+    0.24365234375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.012,
+    "harness_s": 0.513,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 5,
+   "shape": "full_public_batch",
+   "wall_s": 2.04,
+   "loadavg": [
+    0.5625,
+    0.5068359375,
+    0.248046875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.038,
+    "harness_s": 2.04,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 6,
+   "shape": "example4_alone",
+   "wall_s": 0.511,
+   "loadavg": [
+    0.5625,
+    0.5068359375,
+    0.248046875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.011,
+    "harness_s": 0.511,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 6,
+   "shape": "full_public_batch",
+   "wall_s": 2.043,
+   "loadavg": [
+    0.5625,
+    0.5068359375,
+    0.248046875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.041,
+    "harness_s": 2.043,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.509,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 7,
+   "shape": "example4_alone",
+   "wall_s": 0.516,
+   "loadavg": [
+    0.5625,
+    0.5068359375,
+    0.248046875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.015,
+    "harness_s": 0.516,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.515,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 7,
+   "shape": "full_public_batch",
+   "wall_s": 2.098,
+   "loadavg": [
+    0.59765625,
+    0.51513671875,
+    0.25244140625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.095,
+    "harness_s": 2.098,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.518,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.515,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.526,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.536,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 8,
+   "shape": "example4_alone",
+   "wall_s": 0.516,
+   "loadavg": [
+    0.59765625,
+    0.51513671875,
+    0.25244140625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.015,
+    "harness_s": 0.516,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.515,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 8,
+   "shape": "full_public_batch",
+   "wall_s": 2.042,
+   "loadavg": [
+    0.59765625,
+    0.51513671875,
+    0.25244140625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.04,
+    "harness_s": 2.041,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.517,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.506,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.509,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 9,
+   "shape": "example4_alone",
+   "wall_s": 0.513,
+   "loadavg": [
+    0.59765625,
+    0.51513671875,
+    0.25244140625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.012,
+    "harness_s": 0.512,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 9,
+   "shape": "full_public_batch",
+   "wall_s": 2.079,
+   "loadavg": [
+    0.6298828125,
+    0.5234375,
+    0.2568359375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.077,
+    "harness_s": 2.079,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.529,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.524,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 10,
+   "shape": "example4_alone",
+   "wall_s": 0.524,
+   "loadavg": [
+    0.6298828125,
+    0.5234375,
+    0.2568359375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.023,
+    "harness_s": 0.523,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.523,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 10,
+   "shape": "full_public_batch",
+   "wall_s": 2.069,
+   "loadavg": [
+    0.6298828125,
+    0.5234375,
+    0.2568359375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.066,
+    "harness_s": 2.069,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.514,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.509,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.517,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.526,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 11,
+   "shape": "example4_alone",
+   "wall_s": 0.511,
+   "loadavg": [
+    0.65966796875,
+    0.53173828125,
+    0.26123046875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.01,
+    "harness_s": 0.51,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 11,
+   "shape": "full_public_batch",
+   "wall_s": 2.125,
+   "loadavg": [
+    0.65966796875,
+    0.53173828125,
+    0.26123046875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.122,
+    "harness_s": 2.124,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.559,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.542,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 12,
+   "shape": "example4_alone",
+   "wall_s": 0.527,
+   "loadavg": [
+    0.65966796875,
+    0.53173828125,
+    0.26123046875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.026,
+    "harness_s": 0.527,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.526,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 12,
+   "shape": "full_public_batch",
+   "wall_s": 2.063,
+   "loadavg": [
+    0.65966796875,
+    0.53173828125,
+    0.26123046875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.061,
+    "harness_s": 2.063,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.513,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.515,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.521,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 13,
+   "shape": "example4_alone",
+   "wall_s": 0.514,
+   "loadavg": [
+    0.68701171875,
+    0.53955078125,
+    0.265625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.013,
+    "harness_s": 0.513,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.513,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 13,
+   "shape": "full_public_batch",
+   "wall_s": 2.061,
+   "loadavg": [
+    0.68701171875,
+    0.53955078125,
+    0.265625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.06,
+    "harness_s": 2.061,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.529,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.506,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 14,
+   "shape": "example4_alone",
+   "wall_s": 0.508,
+   "loadavg": [
+    0.68701171875,
+    0.53955078125,
+    0.265625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.007,
+    "harness_s": 0.507,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 14,
+   "shape": "full_public_batch",
+   "wall_s": 2.044,
+   "loadavg": [
+    0.68701171875,
+    0.53955078125,
+    0.265625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.042,
+    "harness_s": 2.043,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 15,
+   "shape": "example4_alone",
+   "wall_s": 0.521,
+   "loadavg": [
+    0.71240234375,
+    0.54736328125,
+    0.27001953125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.02,
+    "harness_s": 0.521,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.52,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 15,
+   "shape": "full_public_batch",
+   "wall_s": 2.093,
+   "loadavg": [
+    0.71240234375,
+    0.54736328125,
+    0.27001953125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.09,
+    "harness_s": 2.093,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.529,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.531,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.527,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.503,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 16,
+   "shape": "example4_alone",
+   "wall_s": 0.51,
+   "loadavg": [
+    0.71240234375,
+    0.54736328125,
+    0.27001953125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.009,
+    "harness_s": 0.509,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.509,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 16,
+   "shape": "full_public_batch",
+   "wall_s": 2.052,
+   "loadavg": [
+    0.73583984375,
+    0.55517578125,
+    0.2744140625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.05,
+    "harness_s": 2.052,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.515,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 17,
+   "shape": "example4_alone",
+   "wall_s": 0.522,
+   "loadavg": [
+    0.73583984375,
+    0.55517578125,
+    0.2744140625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.021,
+    "harness_s": 0.522,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.521,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 17,
+   "shape": "full_public_batch",
+   "wall_s": 2.062,
+   "loadavg": [
+    0.73583984375,
+    0.55517578125,
+    0.2744140625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.058,
+    "harness_s": 2.061,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.516,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.512,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.518,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 18,
+   "shape": "example4_alone",
+   "wall_s": 0.511,
+   "loadavg": [
+    0.73583984375,
+    0.55517578125,
+    0.2744140625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.011,
+    "harness_s": 0.511,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.511,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 18,
+   "shape": "full_public_batch",
+   "wall_s": 2.038,
+   "loadavg": [
+    0.75732421875,
+    0.56298828125,
+    0.2783203125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.036,
+    "harness_s": 2.037,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.509,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.508,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.508,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 19,
+   "shape": "example4_alone",
+   "wall_s": 0.508,
+   "loadavg": [
+    0.75732421875,
+    0.56298828125,
+    0.2783203125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.007,
+    "harness_s": 0.507,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.507,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "isolated",
+   "trial": 19,
+   "shape": "full_public_batch",
+   "wall_s": 2.075,
+   "loadavg": [
+    0.75732421875,
+    0.56298828125,
+    0.2783203125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 0.074,
+    "harness_s": 2.075,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.518,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.54,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.505,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.51,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 0,
+   "shape": "example4_alone",
+   "wall_s": 0.854,
+   "loadavg": [
+    1.01708984375,
+    0.6201171875,
+    0.29833984375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.35,
+    "harness_s": 0.853,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.85,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 0,
+   "shape": "full_public_batch",
+   "wall_s": 3.603,
+   "loadavg": [
+    1.33642578125,
+    0.69287109375,
+    0.32373046875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.6,
+    "harness_s": 3.602,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.866,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.77,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.862,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.102,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 1,
+   "shape": "example4_alone",
+   "wall_s": 0.757,
+   "loadavg": [
+    1.33642578125,
+    0.69287109375,
+    0.32373046875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.254,
+    "harness_s": 0.757,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.754,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 1,
+   "shape": "full_public_batch",
+   "wall_s": 3.384,
+   "loadavg": [
+    1.6298828125,
+    0.7646484375,
+    0.34912109375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.381,
+    "harness_s": 3.383,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.787,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.851,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.802,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.941,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 2,
+   "shape": "example4_alone",
+   "wall_s": 1.059,
+   "loadavg": [
+    1.6298828125,
+    0.7646484375,
+    0.34912109375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.558,
+    "harness_s": 1.059,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.058,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 2,
+   "shape": "full_public_batch",
+   "wall_s": 3.344,
+   "loadavg": [
+    1.89990234375,
+    0.83544921875,
+    0.37451171875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.337,
+    "harness_s": 3.342,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.815,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.777,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.761,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.984,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 3,
+   "shape": "example4_alone",
+   "wall_s": 1.075,
+   "loadavg": [
+    1.89990234375,
+    0.83544921875,
+    0.37451171875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.574,
+    "harness_s": 1.075,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.074,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 3,
+   "shape": "full_public_batch",
+   "wall_s": 3.631,
+   "loadavg": [
+    2.1484375,
+    0.90478515625,
+    0.3994140625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.628,
+    "harness_s": 3.63,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.97,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.778,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.835,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.044,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 4,
+   "shape": "example4_alone",
+   "wall_s": 0.932,
+   "loadavg": [
+    2.1484375,
+    0.90478515625,
+    0.3994140625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.432,
+    "harness_s": 0.932,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.932,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 4,
+   "shape": "full_public_batch",
+   "wall_s": 3.932,
+   "loadavg": [
+    2.376953125,
+    0.97314453125,
+    0.42431640625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.931,
+    "harness_s": 3.932,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.946,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.896,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.038,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.048,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 5,
+   "shape": "example4_alone",
+   "wall_s": 0.97,
+   "loadavg": [
+    2.376953125,
+    0.97314453125,
+    0.42431640625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.469,
+    "harness_s": 0.97,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.969,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 5,
+   "shape": "full_public_batch",
+   "wall_s": 4.011,
+   "loadavg": [
+    2.58740234375,
+    1.0400390625,
+    0.44921875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 2.007,
+    "harness_s": 4.011,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.065,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.93,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.093,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.918,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 6,
+   "shape": "example4_alone",
+   "wall_s": 0.823,
+   "loadavg": [
+    2.58740234375,
+    1.0400390625,
+    0.44921875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.322,
+    "harness_s": 0.823,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.822,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 6,
+   "shape": "full_public_batch",
+   "wall_s": 3.966,
+   "loadavg": [
+    2.86083984375,
+    1.12255859375,
+    0.4794921875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.964,
+    "harness_s": 3.966,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.948,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.021,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.001,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.992,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 7,
+   "shape": "example4_alone",
+   "wall_s": 0.824,
+   "loadavg": [
+    2.86083984375,
+    1.12255859375,
+    0.4794921875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.321,
+    "harness_s": 0.824,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.821,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 7,
+   "shape": "full_public_batch",
+   "wall_s": 3.721,
+   "loadavg": [
+    2.86083984375,
+    1.12255859375,
+    0.4794921875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.718,
+    "harness_s": 3.721,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.004,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.826,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.845,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.043,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 8,
+   "shape": "example4_alone",
+   "wall_s": 0.876,
+   "loadavg": [
+    3.0322265625,
+    1.18701171875,
+    0.50390625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.374,
+    "harness_s": 0.876,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.874,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 8,
+   "shape": "full_public_batch",
+   "wall_s": 3.719,
+   "loadavg": [
+    3.0322265625,
+    1.18701171875,
+    0.50390625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.717,
+    "harness_s": 3.719,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.926,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.963,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.921,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.907,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 9,
+   "shape": "example4_alone",
+   "wall_s": 0.839,
+   "loadavg": [
+    3.18994140625,
+    1.25048828125,
+    0.5283203125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.338,
+    "harness_s": 0.838,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.838,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 9,
+   "shape": "full_public_batch",
+   "wall_s": 3.962,
+   "loadavg": [
+    3.18994140625,
+    1.25048828125,
+    0.5283203125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.959,
+    "harness_s": 3.961,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.023,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.057,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.98,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.898,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 10,
+   "shape": "example4_alone",
+   "wall_s": 0.823,
+   "loadavg": [
+    3.18994140625,
+    1.25048828125,
+    0.5283203125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.322,
+    "harness_s": 0.823,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.822,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 10,
+   "shape": "full_public_batch",
+   "wall_s": 3.451,
+   "loadavg": [
+    3.3349609375,
+    1.31298828125,
+    0.552734375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.445,
+    "harness_s": 3.451,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.884,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.887,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.848,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.826,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 11,
+   "shape": "example4_alone",
+   "wall_s": 0.858,
+   "loadavg": [
+    3.3349609375,
+    1.31298828125,
+    0.552734375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.357,
+    "harness_s": 0.857,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.857,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 11,
+   "shape": "full_public_batch",
+   "wall_s": 3.42,
+   "loadavg": [
+    3.46875,
+    1.37451171875,
+    0.57666015625
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.415,
+    "harness_s": 3.42,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.805,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.771,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.868,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.97,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 12,
+   "shape": "example4_alone",
+   "wall_s": 0.934,
+   "loadavg": [
+    3.46875,
+    1.37451171875,
+    0.57666015625
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.433,
+    "harness_s": 0.934,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.933,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 12,
+   "shape": "full_public_batch",
+   "wall_s": 3.599,
+   "loadavg": [
+    3.591796875,
+    1.43505859375,
+    0.6005859375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.596,
+    "harness_s": 3.599,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.878,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.8,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.978,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.94,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 13,
+   "shape": "example4_alone",
+   "wall_s": 0.905,
+   "loadavg": [
+    3.591796875,
+    1.43505859375,
+    0.6005859375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.404,
+    "harness_s": 0.905,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.904,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 13,
+   "shape": "full_public_batch",
+   "wall_s": 4.092,
+   "loadavg": [
+    3.70458984375,
+    1.49462890625,
+    0.62451171875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 2.089,
+    "harness_s": 4.092,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.897,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.981,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.119,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.092,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 14,
+   "shape": "example4_alone",
+   "wall_s": 0.87,
+   "loadavg": [
+    3.70458984375,
+    1.49462890625,
+    0.62451171875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.369,
+    "harness_s": 0.869,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.869,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 14,
+   "shape": "full_public_batch",
+   "wall_s": 3.273,
+   "loadavg": [
+    3.80859375,
+    1.55322265625,
+    0.6484375
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.27,
+    "harness_s": 3.272,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.822,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.769,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.819,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.859,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 15,
+   "shape": "example4_alone",
+   "wall_s": 0.919,
+   "loadavg": [
+    3.80859375,
+    1.55322265625,
+    0.6484375
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.418,
+    "harness_s": 0.918,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.918,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 15,
+   "shape": "full_public_batch",
+   "wall_s": 3.704,
+   "loadavg": [
+    3.904296875,
+    1.61083984375,
+    0.671875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.701,
+    "harness_s": 3.704,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.978,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.981,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.813,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.929,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 16,
+   "shape": "example4_alone",
+   "wall_s": 1.088,
+   "loadavg": [
+    3.904296875,
+    1.61083984375,
+    0.671875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.587,
+    "harness_s": 1.088,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.087,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 16,
+   "shape": "full_public_batch",
+   "wall_s": 3.749,
+   "loadavg": [
+    3.9921875,
+    1.66748046875,
+    0.6953125
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.743,
+    "harness_s": 3.749,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.79,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.031,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.936,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.986,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 17,
+   "shape": "example4_alone",
+   "wall_s": 0.898,
+   "loadavg": [
+    3.9921875,
+    1.66748046875,
+    0.6953125
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.397,
+    "harness_s": 0.898,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.897,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 17,
+   "shape": "full_public_batch",
+   "wall_s": 3.597,
+   "loadavg": [
+    4.0732421875,
+    1.72314453125,
+    0.71875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.594,
+    "harness_s": 3.597,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.93,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.969,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.873,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.822,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 18,
+   "shape": "example4_alone",
+   "wall_s": 0.815,
+   "loadavg": [
+    4.0732421875,
+    1.72314453125,
+    0.71875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.314,
+    "harness_s": 0.815,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.814,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 18,
+   "shape": "full_public_batch",
+   "wall_s": 3.766,
+   "loadavg": [
+    4.0732421875,
+    1.72314453125,
+    0.71875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.763,
+    "harness_s": 3.766,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.112,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.83,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 1.035,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.786,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 19,
+   "shape": "example4_alone",
+   "wall_s": 0.9,
+   "loadavg": [
+    4.1474609375,
+    1.77783203125,
+    0.7421875
+   ],
+   "statuses": [
+    [
+     0,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 1,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 11.5,
+    "candidate_s": 0.399,
+    "harness_s": 0.9,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.899,
+     "note": ""
+    }
+   ]
+  },
+  {
+   "condition": "loaded",
+   "trial": 19,
+   "shape": "full_public_batch",
+   "wall_s": 3.652,
+   "loadavg": [
+    4.1474609375,
+    1.77783203125,
+    0.7421875
+   ],
+   "statuses": [
+    [
+     0,
+     "fail",
+     "runtime_error"
+    ],
+    [
+     1,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     2,
+     "fail",
+     "wrong_answer"
+    ],
+    [
+     3,
+     "pass",
+     ""
+    ]
+   ],
+   "accounting": {
+    "language": "python",
+    "inputs": 4,
+    "launch_overhead_s": 0.5,
+    "per_input_kill_s": 10.5,
+    "candidate_limit_s": 10.0,
+    "harness_budget_s": 45.999,
+    "candidate_s": 1.649,
+    "harness_s": 3.652,
+    "outcome": "ran"
+   },
+   "per_input": [
+    {
+     "input": 0,
+     "exit_code": 2,
+     "killed": false,
+     "stdout_len": 23,
+     "stdout_sha256": "06e4cfa943fb47dc6d30fcef77205752c287db31c81a01c70112e06c15842845",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.871,
+     "note": ""
+    },
+    {
+     "input": 1,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.961,
+     "note": ""
+    },
+    {
+     "input": 2,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.962,
+     "note": ""
+    },
+    {
+     "input": 3,
+     "exit_code": 0,
+     "killed": false,
+     "stdout_len": 16,
+     "stdout_sha256": "5f956ee129b091d47aa492e83584cac485f456e8a7280ead64646f1187877e60",
+     "stderr_tail_sha256": "50e31b712644548df2ea205f2e49aed62d938a59070d48f36338db20c2753895",
+     "seconds": 0.854,
+     "note": ""
+    }
+   ]
+  }
+ ],
+ "ended_utc": "2026-10-20T13:09:21Z"
+}

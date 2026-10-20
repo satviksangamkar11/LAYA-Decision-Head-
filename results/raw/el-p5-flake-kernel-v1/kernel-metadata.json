@@ -1,0 +1,1 @@
+{"id": "sangeetasangamkar/el-p5-jail-flake-v1", "title": "el-p5-jail-flake-v1", "code_file": "el_p5_jail_flake_v1.py", "language": "python", "kernel_type": "script", "is_private": true, "enable_gpu": false, "enable_tpu": false, "enable_internet": false, "dataset_sources": ["sangeetasangamkar/el-p5-bundle-v1"], "kernel_sources": [], "competition_sources": [], "model_sources": []}

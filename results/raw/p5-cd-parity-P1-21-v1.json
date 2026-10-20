@@ -1,0 +1,214 @@
+{
+ "test": "p5_cd_parity_v1",
+ "task": "P1-21",
+ "result": "PASS",
+ "requests_equal": true,
+ "requests": {
+  "C": [
+   [
+    "sample",
+    1,
+    "0207bb3b8819e800b958818a2eda5084406ecf8212edf4453c3d24b3dd72a51a"
+   ],
+   [
+    "sample",
+    2,
+    "0207bb3b8819e800b958818a2eda5084406ecf8212edf4453c3d24b3dd72a51a"
+   ],
+   [
+    "sample",
+    3,
+    "abe7f78fac79c6f57c3d36d40800f514585e81584789e0f94a1655910e551ec4"
+   ],
+   [
+    "sample",
+    4,
+    "abe7f78fac79c6f57c3d36d40800f514585e81584789e0f94a1655910e551ec4"
+   ],
+   [
+    "repair",
+    5,
+    "619d3ce3696d67ae64afa405ee1eaa091349a766487bda9b5486e1b68edc894e"
+   ],
+   [
+    "repair",
+    6,
+    "fbbd97679dcfbfbc6a779f025e1d9125742d922995138abd836f14b7f2a73215"
+   ]
+  ],
+  "D": [
+   [
+    "sample",
+    1,
+    "0207bb3b8819e800b958818a2eda5084406ecf8212edf4453c3d24b3dd72a51a"
+   ],
+   [
+    "sample",
+    2,
+    "0207bb3b8819e800b958818a2eda5084406ecf8212edf4453c3d24b3dd72a51a"
+   ],
+   [
+    "sample",
+    3,
+    "abe7f78fac79c6f57c3d36d40800f514585e81584789e0f94a1655910e551ec4"
+   ],
+   [
+    "sample",
+    4,
+    "abe7f78fac79c6f57c3d36d40800f514585e81584789e0f94a1655910e551ec4"
+   ],
+   [
+    "repair",
+    5,
+    "619d3ce3696d67ae64afa405ee1eaa091349a766487bda9b5486e1b68edc894e"
+   ],
+   [
+    "repair",
+    6,
+    "fbbd97679dcfbfbc6a779f025e1d9125742d922995138abd836f14b7f2a73215"
+   ]
+  ]
+ },
+ "first_decision_divergence": null,
+ "decision_entries_compared": [
+  67,
+  67
+ ],
+ "final": {
+  "C": {
+   "label": "BLOCKED",
+   "stop": "budget",
+   "rounds": 2,
+   "decision": {
+    "answer_label": "BLOCKED",
+    "artifact_hash": "3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "authorized_to_execute": false,
+    "candidate_id": "3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "decision_id": "d-3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "decision_type": "complete_program",
+    "derived_by": "controller",
+    "next_step": "block",
+    "requirement_rows": [
+     {
+      "evidence_ids": [
+       "E0035"
+      ],
+      "label": "SUPPORTED",
+      "requirement_id": "R1"
+     },
+     {
+      "evidence_ids": [
+       "E0036"
+      ],
+      "label": "UNVERIFIED",
+      "requirement_id": "R2"
+     },
+     {
+      "evidence_ids": [
+       "E0031"
+      ],
+      "label": "VERIFIED",
+      "requirement_id": "R3"
+     },
+     {
+      "evidence_ids": [
+       "E0032"
+      ],
+      "label": "FAILED",
+      "requirement_id": "R4"
+     },
+     {
+      "evidence_ids": [
+       "E0033"
+      ],
+      "label": "FAILED",
+      "requirement_id": "R5"
+     },
+     {
+      "evidence_ids": [
+       "E0034"
+      ],
+      "label": "VERIFIED",
+      "requirement_id": "R6"
+     }
+    ],
+    "risk": "sandboxed"
+   }
+  },
+  "D": {
+   "label": "BLOCKED",
+   "stop": "budget",
+   "rounds": 2,
+   "decision": {
+    "answer_label": "BLOCKED",
+    "artifact_hash": "3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "authorized_to_execute": false,
+    "candidate_id": "3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "decision_id": "d-3c461b30f5da1aea44c5b54160f591fae296551f168d25d7c6734503b7a8aea1",
+    "decision_type": "complete_program",
+    "derived_by": "controller",
+    "next_step": "block",
+    "requirement_rows": [
+     {
+      "evidence_ids": [
+       "E0035"
+      ],
+      "label": "SUPPORTED",
+      "requirement_id": "R1"
+     },
+     {
+      "evidence_ids": [
+       "E0036"
+      ],
+      "label": "UNVERIFIED",
+      "requirement_id": "R2"
+     },
+     {
+      "evidence_ids": [
+       "E0031"
+      ],
+      "label": "VERIFIED",
+      "requirement_id": "R3"
+     },
+     {
+      "evidence_ids": [
+       "E0032"
+      ],
+      "label": "FAILED",
+      "requirement_id": "R4"
+     },
+     {
+      "evidence_ids": [
+       "E0033"
+      ],
+      "label": "FAILED",
+      "requirement_id": "R5"
+     },
+     {
+      "evidence_ids": [
+       "E0034"
+      ],
+      "label": "VERIFIED",
+      "requirement_id": "R6"
+     }
+    ],
+    "risk": "sandboxed"
+   }
+  }
+ },
+ "live_execution_calls": {
+  "C": 6
+ },
+ "d_calls_not_made_by_c": [],
+ "unrecorded_generations": [],
+ "non_decision_kinds_differ": {
+  "registry": false,
+  "run_start": false
+ },
+ "d_registry_has_contract_checks": true,
+ "d_contract": {
+  "authority": "authoritative",
+  "source": "derived:decl_v1"
+ },
+ "note": "environment_revision is computed from backend_info(), which includes running call counters; frozen here, reported separately"
+}
