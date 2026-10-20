@@ -11,8 +11,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 from evidence_ladder.common.interfaces import Artifact          # noqa: E402
 from evidence_ladder.execution import config as K, engine       # noqa: E402
 
-run = Path(sys.argv[1])
-out = run / "GRADED.jsonl"
+run = Path(sys.argv[1]).resolve()        # ABSOLUTE: a relative scratch path makes the MXC container start in C:\Windows\System32 (known; it broke the first smoke grading)
+out = run / (sys.argv[2] if len(sys.argv) > 2 else "GRADED.jsonl")      # create-only; a re-grade after a grader fix uses a new name
 if out.exists():
     sys.exit("refusing: %s exists" % out)
 cfgr = json.loads((run / "RUN_CONFIG.json").read_text("utf-8"))

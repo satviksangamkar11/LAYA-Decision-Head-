@@ -1,0 +1,12 @@
+{"task": "P1-13", "arm": "A", "grade": "FAIL", "passed": 0, "total": 51, "first_fail": "runtime_error"}
+{"task": "P1-13", "arm": "B", "grade": "PASS", "passed": 51, "total": 51, "first_fail": null}
+{"task": "P1-13", "arm": "C", "grade": "PASS", "passed": 51, "total": 51, "first_fail": null}
+{"task": "P1-13", "arm": "D", "grade": "PASS", "passed": 51, "total": 51, "first_fail": null}
+{"task": "P1-21", "arm": "A", "grade": "FAIL", "passed": 14, "total": 66, "first_fail": "runtime_error"}
+{"task": "P1-21", "arm": "B", "grade": "FAIL", "passed": 48, "total": 66, "first_fail": "wrong_answer"}
+{"task": "P1-21", "arm": "C", "grade": "FAIL", "passed": 48, "total": 66, "first_fail": "wrong_answer"}
+{"task": "P1-21", "arm": "D", "grade": "FAIL", "passed": 48, "total": 66, "first_fail": "wrong_answer"}
+{"task": "P1-31", "arm": "A", "grade": "FAIL", "passed": 1, "total": 40, "first_fail": "wrong_answer"}
+{"task": "P1-31", "arm": "B", "grade": "PASS", "passed": 40, "total": 40, "first_fail": null}
+{"task": "P1-31", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "P1-31", "arm": "D", "grade": "NO_ANSWER"}

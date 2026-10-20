@@ -1,0 +1,30 @@
+{"task": "3722", "arm": "A", "label": "ANSWERED", "answer_sha256": "7d2ccdee4f4ab61865aa4615346b2716b2233e4cbc1a8716d9257cd27b3ac1a1", "tokens_generated": 178, "tokens_prompt": 409}
+{"task": "3722", "arm": "B", "label": "BLOCKED", "answer_sha256": null, "tokens_generated": 6817, "tokens_prompt": 13497, "calls": 33, "seconds": 196.9}
+{"task": "3722", "arm": "C", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 6, "tokens_generated": 1609, "tokens_prompt": 3360, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 29.7}
+{"task": "3722", "arm": "D", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 6, "tokens_generated": 1609, "tokens_prompt": 3360, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 2.8}
+{"task": "3722", "arm": "_task", "wall_seconds": 229.5, "round1_tokens_generated": 817}
+{"task": "3750", "arm": "A", "label": "ANSWERED", "answer_sha256": "d9decca610882f7dc913067eb17793c940427fc0f9273b47810b1ff358ea9c3a", "tokens_generated": 249, "tokens_prompt": 516}
+{"task": "3750", "arm": "B", "label": "BLOCKED", "answer_sha256": null, "tokens_generated": 7019, "tokens_prompt": 15996, "calls": 31, "seconds": 236.9}
+{"task": "3750", "arm": "C", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 1795, "tokens_prompt": 4265, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 31.3}
+{"task": "3750", "arm": "D", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 1795, "tokens_prompt": 4265, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 2.5}
+{"task": "3750", "arm": "_task", "wall_seconds": 270.7, "round1_tokens_generated": 1019}
+{"task": "3754", "arm": "A", "label": "ANSWERED", "answer_sha256": "69836e1e3777a65bcb6e4f3ba137e8b01d2207a22aadb6e9c33bbfab638a35d6", "tokens_generated": 170, "tokens_prompt": 592}
+{"task": "3754", "arm": "B", "label": "BLOCKED", "answer_sha256": null, "tokens_generated": 6786, "tokens_prompt": 17168, "calls": 29, "seconds": 241.7}
+{"task": "3754", "arm": "C", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 1642, "tokens_prompt": 4360, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 37.1}
+{"task": "3754", "arm": "D", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 1642, "tokens_prompt": 4360, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 2.5}
+{"task": "3754", "arm": "_task", "wall_seconds": 281.3, "round1_tokens_generated": 786}
+{"task": "3793", "arm": "A", "label": "ANSWERED", "answer_sha256": "bf1382979177a9966f18d53f017413da38ddec6ce76bcb722ab0d885889c2845", "tokens_generated": 287, "tokens_prompt": 401}
+{"task": "3793", "arm": "B", "label": "BLOCKED", "answer_sha256": null, "tokens_generated": 7215, "tokens_prompt": 14035, "calls": 35, "seconds": 254.1}
+{"task": "3793", "arm": "C", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 2053, "tokens_prompt": 3392, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 35.9}
+{"task": "3793", "arm": "D", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 5, "tokens_generated": 2053, "tokens_prompt": 3392, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 4.1}
+{"task": "3793", "arm": "_task", "wall_seconds": 294.0, "round1_tokens_generated": 1215}
+{"task": "abc394_b", "arm": "A", "label": "ANSWERED", "answer_sha256": "26dcbcd3c932ee9839e7ec3b448bd3c7fb9c6f47d220a69e9e9afe0a4fb0174a", "tokens_generated": 10, "tokens_prompt": 391}
+{"task": "abc394_b", "arm": "B", "label": "SUPPORTED", "answer_sha256": "7d209e72a2b03e445012a7f2b3ec2345e6fd388b433c472178be01155193fb0f", "tokens_generated": 307, "tokens_prompt": 1564, "calls": 4, "seconds": 1.3}
+{"task": "abc394_b", "arm": "C", "label": "SUPPORTED", "answer_sha256": "119a988340acf61d1485942ea8106e0bc8f62c5b4fa84b42677487a50af41dd7", "stop": "decided", "rounds": 0, "candidates": 4, "tokens_generated": 992, "tokens_prompt": 2109, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 26.7}
+{"task": "abc394_b", "arm": "D", "label": "SUPPORTED", "answer_sha256": "119a988340acf61d1485942ea8106e0bc8f62c5b4fa84b42677487a50af41dd7", "stop": "decided", "rounds": 0, "candidates": 4, "tokens_generated": 992, "tokens_prompt": 2109, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 2.6}
+{"task": "abc394_b", "arm": "_task", "wall_seconds": 30.6, "round1_tokens_generated": 307}
+{"task": "abc396_d", "arm": "A", "label": "ANSWERED", "answer_sha256": "79ee2825528d3889fbd63ebc60bdcbcc9bd77ffe5977cba445b36075ac82ca20", "tokens_generated": 278, "tokens_prompt": 980}
+{"task": "abc396_d", "arm": "B", "label": "BLOCKED", "answer_sha256": null, "tokens_generated": 7090, "tokens_prompt": 27440, "calls": 28, "seconds": 222.9}
+{"task": "abc396_d", "arm": "C", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 6, "tokens_generated": 1917, "tokens_prompt": 7924, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 33.9}
+{"task": "abc396_d", "arm": "D", "label": "BLOCKED", "answer_sha256": null, "stop": "budget", "rounds": 2, "candidates": 6, "tokens_generated": 1917, "tokens_prompt": 7924, "contract_checks": 0, "contract_fails": 0, "contract_authority": [], "seconds": 3.9}
+{"task": "abc396_d", "arm": "_task", "wall_seconds": 260.7, "round1_tokens_generated": 1090}

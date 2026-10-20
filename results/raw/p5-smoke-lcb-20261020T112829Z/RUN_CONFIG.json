@@ -1,0 +1,47 @@
+{
+ "protocol": "P5_PROTOCOL_v1",
+ "cohort": "lcb",
+ "tasks": [
+  "3722",
+  "3750",
+  "3754",
+  "3793",
+  "abc394_b",
+  "abc396_d"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "G": 6000,
+ "max_new": 4096,
+ "v1_cfg": {
+  "mode": "ladder",
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "l2_version": 2,
+  "thinking": false,
+  "discriminate": true,
+  "critic": false,
+  "max_new_tokens": 4096,
+  "max_rounds": 2,
+  "mutant_limit": 8
+ },
+ "contracts": {
+  "registry": null,
+  "root": "D:\\local model",
+  "parsers": [
+   "decl_v1"
+  ],
+  "n_derived": 6
+ },
+ "strategies": [
+  "lcb_generic_v1"
+ ],
+ "fake": false,
+ "tool_sha256": "4a7d72b1f0e2716ed6afbdb122502705303f16db5a74cf375c1f00efa0736cd9",
+ "started_utc": "2026-10-20T11:28:31Z"
+}

@@ -1,4 +1,4 @@
-"""[P5 Kaggle smoke] Runs tools/el_p5_run.py on Kaggle (2 x T4): (1) bundle hash check, (2) Kaggle jail rootfs + bank-40 self-check (fail closed), (3) pinned model download,
+"""[P5 Kaggle smoke] Runs tools/el_p5_run.py on Kaggle (1 GPU: P100, or 2 x T4 in parallel): (1) bundle hash check, (2) Kaggle jail rootfs + bank-40 self-check (fail closed), (3) pinned model download,
 every file sha256-checked (fail closed), (4) QUALIFICATION of the jail port for the trusted verifier (tools/el_kaggle_port_qual.py; fail closed: no generation if any
 check fails), (5) one process per GPU on its own task shard, all four arms on the SAME sandbox (Kaggle jail port + trusted verifier). No grader, no private test,
 no reference, no key: answers are graded offline on the PC afterwards with the same grader as every other run."""
@@ -65,8 +65,15 @@ def main():
     ng = len([l for l in subprocess.run(["nvidia-smi", "-L"], capture_output=True, text=True).stdout.splitlines() if l.startswith("GPU")])
     RS["gpus"] = ng
     if ng < 1: finish("FAILED_NO_GPU")
+    gc = subprocess.run([sys.executable, "-c", "import torch; x = torch.ones(64, 64, device='cuda', dtype=torch.float16); "
+                         "print(torch.__version__, torch.cuda.get_device_name(0), torch.cuda.get_device_capability(0), (x @ x).sum().item())"], capture_output=True, text=True)
+    RS["gpu_check"] = (gc.stdout or gc.stderr)[-400:]
+    if gc.returncode != 0: finish("GPU_UNSUPPORTED", note="torch cannot run fp16 on this GPU (e.g. P100 sm_60 dropped by the image's torch build)")
     procs = []
+    sequential = ng < 2                     # one GPU: shards run one after the other (never two model processes on one GPU)
     for i, sh in enumerate(plan["shards"]):
+        if sequential and procs:
+            procs[-1][1].wait()
         env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(i % ng), PYTHONPATH=str(work))
         cmd = [sys.executable, str(work / "tools/el_p5_run.py"), str(OUT / ("p5_%s" % sh["name"])), "--cohort", sh["cohort"], "--tasks", ",".join(sh["tasks"]), "--exec", "kaggle",
                "--model-dir", str(md), "--model-manifest", str(work / "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json"), "--lcb-file", str(work / "lcb_public_smoke.jsonl")]

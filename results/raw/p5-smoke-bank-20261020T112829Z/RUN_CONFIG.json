@@ -1,0 +1,46 @@
+{
+ "protocol": "P5_PROTOCOL_v1",
+ "cohort": "bank",
+ "tasks": [
+  "P1-13",
+  "P1-21",
+  "P1-31"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "G": 6000,
+ "max_new": 4096,
+ "v1_cfg": {
+  "mode": "ladder",
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "l2_version": 2,
+  "thinking": false,
+  "discriminate": true,
+  "critic": false,
+  "max_new_tokens": 4096,
+  "max_rounds": 2,
+  "mutant_limit": 8
+ },
+ "contracts": {
+  "registry": null,
+  "root": "D:\\local model",
+  "parsers": [
+   "decl_v1"
+  ],
+  "n_derived": 6
+ },
+ "strategies": [
+  "qwen_sample_v2",
+  "qwen_sample_v2b"
+ ],
+ "fake": false,
+ "exec": "mxc",
+ "tool_sha256": "df08811284292df72bf7a02d3f181022acf069d8893b085ce537394e3f4e88ae",
+ "started_utc": "2026-10-20T11:54:33Z"
+}
