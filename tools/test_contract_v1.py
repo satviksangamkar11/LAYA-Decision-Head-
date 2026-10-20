@@ -1,8 +1,12 @@
 """Focused checks for evidence_ladder/contracts/contract_v1.py (no sandbox, no model). Run: PYTHONPATH=. .venv/Scripts/python.exe tools/test_contract_v1.py"""
+import hashlib
 import json
 import sys
+import tempfile
+from pathlib import Path
 
 from evidence_ladder.contracts import contract_v1 as CV
+from evidence_ladder.contracts import registry as RG
 
 BASE = {"contract_version": CV.VERSION, "task_id": "T", "provenance": {"source": "author", "written_before_candidates": True},
         "input": {"type": "object", "fields": {"n": {"type": "int", "min": 1, "max": 10}}, "exact": True}, "output": {"type": "int", "min": 0}, "edges": [{"n": 10}]}
@@ -27,16 +31,29 @@ def test_schema_closed_language():
     assert not CV.matches({"type": "int"}, True)                                  # bool is not an int
 
 
+def _reg(tmp, d, authority="authoritative"):
+    p = tmp / "c.json"; p.write_text(json.dumps(d), encoding="utf-8")
+    return {"registry_version": RG.REGISTRY_VERSION, "entries": {"T": {"path": "c.json", "sha256": hashlib.sha256(p.read_bytes()).hexdigest(), "authority": authority}}}
+
+
 def test_provenance_and_trust():
-    assert CV.load(doc()).authoritative
-    assert not CV.load(doc(provenance={"source": "model:qwen", "written_before_candidates": True})).authoritative        # model-proposed: diagnostic, always
-    assert not CV.load(doc(provenance={"source": "author", "written_before_candidates": False})).authoritative          # written after candidates: diagnostic
+    tmp = Path(tempfile.mkdtemp())
+    assert not CV.load(doc()).authoritative                                                        # a document alone never grants authority (self-claims ignored)
+    assert RG.trusted_contract("T", _reg(tmp, doc()), tmp).authoritative                           # only the host registry does
+    assert not RG.trusted_contract("T", _reg(tmp, doc(provenance={"source": "model:qwen", "written_before_candidates": True})), tmp).authoritative   # model: never
+    assert not RG.trusted_contract("T", _reg(tmp, doc(), "diagnostic"), tmp).authoritative
+    reg = _reg(tmp, doc()); (tmp / "c.json").write_text(json.dumps(doc(edges=[])), encoding="utf-8")
+    assert raises(lambda: RG.trusted_contract("T", reg, tmp))                                      # tampered after pinning: fail closed
+    assert RG.trusted_contract("X", reg, tmp) is None                                              # no entry, no parser: no contract, no verdict
+    d = RG.trusted_contract("J", None, tmp, 'Input {"n": integer 1..9}. Return ...', parsers=[CV.PARSER_ID])
+    assert d is not None and d.authoritative
+    assert raises(lambda: RG.trusted_contract("J", None, tmp, "x", parsers=["llm_guess"]))         # only allowlisted parsers
     assert raises(lambda: CV.load(doc(provenance={"source": "guess"})))
     assert raises(lambda: CV.load(doc(edges=[{"n": 11}])))                                                             # an edge outside the schema
 
 
 def test_validity_and_hard_checks():
-    c = CV.load(doc())
+    c = CV.load(doc()); c.authority = "authoritative"
     inputs = [{"n": 3}, {"n": 0}, {"n": 5}, {"n": 7}]
     ev = CV.evaluate(c, inputs, [(True, 4), (False, "boom"), (True, -1), (False, "ValueError")])
     checks = sorted((h["input"], h["check"]) for h in ev["hard"])

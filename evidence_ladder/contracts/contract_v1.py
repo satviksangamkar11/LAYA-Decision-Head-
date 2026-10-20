@@ -12,8 +12,10 @@ Schema (closed mini-language; anything else is a ContractError):
   {"type": "list", "items": <schema>, "min_len": a, "max_len": b} | {"type": "object", "fields": {name: <schema>}, "exact": true}
   {"type": "any_of", "options": [<schema>, ...]} | {"type": "any"}   (any = no constraint; validity then rests on the author's valid())
 
-TRUST (user rule 2026-10-20): author contracts and deterministic derivations from explicit task declarations are AUTHORITATIVE; model-proposed contracts are
+TRUST (user rules 2026-10-20): author contracts and deterministic derivations from explicit task declarations can be AUTHORITATIVE; model-proposed contracts are
 DIAGNOSTIC only (shadow), whatever they pass, because passing the public examples does not prove a property. No trustworthy contract -> no verdict (uncertainty kept).
+Authority is HOST-CONTROLLED: load() always returns a diagnostic contract; only contracts/registry.py (a pinned, host-written registry entry with the contract's sha256,
+or an allowlisted deterministic parser run by the host) can mark a contract authoritative. Provenance fields inside the document are recorded, never trusted.
 
 Checks on an executed candidate (outputs per input): HARD failure = a crash on a VALID input, an output that violates the declared output schema on a VALID input,
 or a property returning False on a VALID input. Invalid inputs are never evidence; uncertain inputs (valid() is None) are skipped. A whole-run crash in a sequential
@@ -91,10 +93,11 @@ class Contract:
     props: Optional[Callable[[Any, Any], List[Tuple[str, Optional[bool]]]]] = None
     extra_valid: Optional[Callable[[Any], Optional[bool]]] = None     # author code may narrow validity (True/False/None); never widens the schema
     raw: Dict[str, Any] = field(default_factory=dict)
+    authority: str = "diagnostic"            # set ONLY by the host: contracts/registry.py (pinned registry entry) or an allowlisted parser; the document's own claims never grant it
 
     @property
     def authoritative(self) -> bool:
-        return self.source.split(":")[0] in AUTHORITATIVE and bool(self.raw.get("provenance", {}).get("written_before_candidates", self.source.startswith("derived")))
+        return self.authority == "authoritative"
 
     def valid(self, inp: Any) -> Optional[bool]:
         if not matches(self.input_schema, inp):
