@@ -97,3 +97,37 @@ Report: `results/raw/p5-cd-parity-P1-21-v3.json` and its two journal files.
 **Logging (approved):** `tools/el_p5_run.py` now writes `EXEC.jsonl`, one row per execution call, with the verifier's time accounting and per-input observations. A future timeout can be attributed to the limit that fired. It changes no result; fake-model checks on MXC passed for the bank and LCB cohorts.
 
 **Not changed:** the timing semantics (lock wait counted as candidate time) stay as they are. Sequential use makes the wait zero. Excluding the wait from the candidate's time would be a verifier change and needs its own decision.
+
+## Step 2 (GO 2026-10-20): contract-route qualification on excluded tasks — PASS on MXC and on Kaggle
+
+**Setup:**
+- **Tasks:** `configs/p5_qual_tasks_v1`, four synthetic tasks Q01–Q04 with their own hash-pinned registry. None of the 20 final contract tasks is used.
+- **Model:** scripted (`tools/el_p5_contract_qual.py`), alternating a public-passing hard-coded program with a correct program.
+- **Config:** P5 `V1_CFG`. D's contract config matches the contract cohort's except for the registry.
+- **Kaggle run:** kernel `el-p5-contract-qual-v1`; the jail port qualification passed first; bundle commit 118ad777.
+- **Results:** `results/raw/p5-contract-qual-kaggle-v1/qual/QUAL.json`, plus 10 journals and `EXEC.jsonl`.
+
+| Case | Route | C | D | MXC | Kaggle jail |
+|---|---|---|---|---|---|
+| Q01, both candidates offered | registry, author contract, authoritative | correct | authoritative FAIL on the hard-code, PASS on correct; answers correct | pass | pass |
+| Q01, hard-code only | same | **hard-code (SUPPORTED)** | authoritative FAIL; **BLOCKED, no answer** | pass | pass |
+| Q02 | registry entry marked diagnostic | correct | diagnostic notes only; correct | pass | pass |
+| Q03 | model-sourced contract, registry says authoritative | hard-code | host downgraded the contract to diagnostic; correct | pass | pass |
+| Q04 | no registry entry; parser `decl_v1` | correct | the hard-code crashed on derived valid inputs: authoritative FAIL; correct | pass | pass |
+
+**Across all cases:**
+- C never has a contract check in its registry or contract evidence in its journal.
+- Kaggle: 108 execution calls (27 `run_public`, 9 `run_inputs`, 72 `run_experiment`), 0 timeouts. The contract `run_inputs` path works through the jail port.
+
+**Finding: a diagnostic contract can change D's choice.**
+- On Q03, D chose the correct program while C chose the hard-code.
+- Cause: the frozen V1 rule `contract_lib_v1.row_label`. A row is SUPPORTED only if no applicable evidence fails, whatever the source. A diagnostic failure therefore never makes a row FAILED, but it withholds SUPPORTED.
+- My first-draft condition, "on the diagnostic routes D chooses exactly what C chooses", failed on Q03. The applied condition is "no FAILED row that C doesn't have"; the strict result stays recorded as `strict_same_choice_as_C`.
+- The final cohorts should not be affected: the contract cohort has 20 authoritative contracts and LCB has none.
+- Not changed: whether a non-authoritative check may influence choices at all is a design decision for the user.
+
+**Finding: line endings vs. pinned hashes.**
+- `core.autocrlf=true`. C01–C20 were written with CRLF and pinned on the CRLF bytes, while git stores LF. All 20 committed blobs differ from their pins; the Windows working copy and the Kaggle bundle, which is packed from the working copy, match.
+- A Linux checkout from GitHub would make the registry refuse those contracts. It fails closed, but the failure would stop a run.
+- Q01–Q03 are the reverse case: pinned on LF, and they may become CRLF on a later Windows checkout.
+- Proposed fix, not made: a `.gitattributes` rule `-text` for `configs/p5_*_tasks_v1/**` and `results/raw/p5-eval-only-v1/**`, with the files re-added so git stores the pinned bytes exactly. The pins stay unchanged.

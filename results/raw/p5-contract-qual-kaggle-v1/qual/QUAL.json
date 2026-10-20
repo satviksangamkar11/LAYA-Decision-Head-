@@ -1,0 +1,236 @@
+{
+ "test": "p5_contract_qual_v1",
+ "exec": "kaggle",
+ "env": "kaggle-jail",
+ "all_pass": true,
+ "checks": {
+  "Q01_mixed": true,
+  "Q01_hardcode_only": true,
+  "Q02_mixed": true,
+  "Q03_mixed": true,
+  "Q04_mixed": true
+ },
+ "cases": [
+  {
+   "case": "Q01_mixed",
+   "pass": true,
+   "C": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": false,
+    "failed_rows": [],
+    "contract_notes": [],
+    "contract": null
+   },
+   "D": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": true,
+    "failed_rows": [
+     [
+      "hardcode",
+      "R2"
+     ]
+    ],
+    "contract_notes": [
+     {
+      "candidate": "hardcode",
+      "authority": "authoritative",
+      "status": "fail",
+      "violations": ""
+     },
+     {
+      "candidate": "correct",
+      "authority": "authoritative",
+      "status": "pass",
+      "violations": ""
+     }
+    ],
+    "contract": {
+     "authority": "authoritative",
+     "source": "author"
+    }
+   },
+   "strict_same_choice_as_C": null
+  },
+  {
+   "case": "Q01_hardcode_only",
+   "pass": true,
+   "C": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "hardcode",
+    "decision_candidate": "hardcode",
+    "registry_has_contract_check": false,
+    "failed_rows": [],
+    "contract_notes": [],
+    "contract": null
+   },
+   "D": {
+    "label": "BLOCKED",
+    "stop": "no_progress_2",
+    "answer": null,
+    "decision_candidate": "hardcode",
+    "registry_has_contract_check": true,
+    "failed_rows": [
+     [
+      "hardcode",
+      "R2"
+     ]
+    ],
+    "contract_notes": [
+     {
+      "candidate": "hardcode",
+      "authority": "authoritative",
+      "status": "fail",
+      "violations": ""
+     }
+    ],
+    "contract": {
+     "authority": "authoritative",
+     "source": "author"
+    }
+   },
+   "strict_same_choice_as_C": null
+  },
+  {
+   "case": "Q02_mixed",
+   "pass": true,
+   "C": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": false,
+    "failed_rows": [],
+    "contract_notes": [],
+    "contract": null
+   },
+   "D": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": true,
+    "failed_rows": [],
+    "contract_notes": [
+     {
+      "candidate": "hardcode",
+      "authority": "diagnostic",
+      "status": "fail",
+      "violations": ""
+     },
+     {
+      "candidate": "correct",
+      "authority": "diagnostic",
+      "status": "pass",
+      "violations": ""
+     }
+    ],
+    "contract": {
+     "authority": "diagnostic",
+     "source": "author"
+    }
+   },
+   "strict_same_choice_as_C": true
+  },
+  {
+   "case": "Q03_mixed",
+   "pass": true,
+   "C": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "hardcode",
+    "decision_candidate": "hardcode",
+    "registry_has_contract_check": false,
+    "failed_rows": [],
+    "contract_notes": [],
+    "contract": null
+   },
+   "D": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": true,
+    "failed_rows": [],
+    "contract_notes": [
+     {
+      "candidate": "hardcode",
+      "authority": "diagnostic",
+      "status": "fail",
+      "violations": ""
+     },
+     {
+      "candidate": "correct",
+      "authority": "diagnostic",
+      "status": "pass",
+      "violations": ""
+     }
+    ],
+    "contract": {
+     "authority": "diagnostic",
+     "source": "model:qualification-fixture"
+    }
+   },
+   "strict_same_choice_as_C": false
+  },
+  {
+   "case": "Q04_mixed",
+   "pass": true,
+   "C": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": false,
+    "failed_rows": [],
+    "contract_notes": [],
+    "contract": null
+   },
+   "D": {
+    "label": "SUPPORTED",
+    "stop": "decided",
+    "answer": "correct",
+    "decision_candidate": "correct",
+    "registry_has_contract_check": true,
+    "failed_rows": [
+     [
+      "hardcode",
+      "R2"
+     ]
+    ],
+    "contract_notes": [
+     {
+      "candidate": "hardcode",
+      "authority": "authoritative",
+      "status": "fail",
+      "violations": ""
+     },
+     {
+      "candidate": "correct",
+      "authority": "authoritative",
+      "status": "pass",
+      "violations": ""
+     }
+    ],
+    "contract": {
+     "authority": "authoritative",
+     "source": "derived:decl_v1"
+    }
+   },
+   "strict_same_choice_as_C": null
+  }
+ ],
+ "exec_calls": {
+  "run_experiment": 72,
+  "run_inputs": 9,
+  "run_public": 27
+ },
+ "exec_timeouts": 0,
+ "finished_utc": "2026-10-20T13:35:25Z"
+}
