@@ -1,0 +1,34 @@
+{
+ "contract_version": "task_contract_v1",
+ "task_id": "Q02",
+ "provenance": {
+  "source": "author",
+  "author": "qualification",
+  "created_utc": "2026-10-20",
+  "written_before_candidates": true,
+  "basis": "synthetic qualification task (P5 Step 2), excluded from every evaluation cohort"
+ },
+ "input": {
+  "type": "object",
+  "fields": {
+   "s": {
+    "type": "str"
+   }
+  },
+  "exact": true
+ },
+ "output": null,
+ "edges": [
+  {
+   "s": "xyz"
+  },
+  {
+   "s": "a"
+  }
+ ],
+ "properties_module": {
+  "path": "configs/p5_qual_tasks_v1/contract_props.py",
+  "sha256": "fd7b183203b0445d1e8d1d8f2f5b56559c6cb1a68e46051d5364872141d9f1e3",
+  "spec_key": "Q02"
+ }
+}

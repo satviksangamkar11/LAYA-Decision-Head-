@@ -22,9 +22,9 @@ def main() -> int:
     man = json.loads((ROOT / "configs/el_bank80_rest_v1.json").read_text("utf-8"))
     extra = PK.SANDBOX_FILES + PK.SPECS + ["configs/backbones_v1.toml", "configs/backbones_v2.toml", "configs/el_bank80_rest_v1.json", "configs/el_arch1_limits_v1.toml",
                                            "configs/el_arch1_limits_v2.toml", "configs/critic_concurrency_v1.toml", "configs/p5_selection_v1.json", "P5_PROTOCOL_v1.md",
-                                           "tools/el_p5_run.py", "tools/el_p2_generation_compare.py", "tools/el_kaggle_port_qual.py", "tools/lcb_tasks.py", "tools/el_bank_local_run.py",
+                                           "tools/el_p5_run.py", "tools/el_p5_contract_qual.py", "tools/el_p2_generation_compare.py", "tools/el_kaggle_port_qual.py", "tools/lcb_tasks.py", "tools/el_bank_local_run.py",
                                            "kaggle/el_bank40_run_v1.py", "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json"] + [s["file"] for s in man["sources"].values()]
-    extra += [p.relative_to(ROOT).as_posix() for p in (ROOT / "configs/p5_contract_tasks_v1").rglob("*") if p.is_file()]
+    extra += [p.relative_to(ROOT).as_posix() for d in ("configs/p5_contract_tasks_v1", "configs/p5_qual_tasks_v1") for p in (ROOT / d).rglob("*") if p.is_file() and "__pycache__" not in p.parts]
     for rel in extra:
         files[rel] = (ROOT / rel).read_bytes()
     T = L.load()
