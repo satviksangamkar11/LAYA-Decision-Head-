@@ -61,6 +61,10 @@ KEY = re.compile(rb"nvapi-[A-Za-z0-9_\-]{20,}|hf_[A-Za-z0-9]{30,}|sk-[A-Za-z0-9]
 checks["no_key_strings"] = not [f for f, b in files.items() if KEY.search(b)]
 plan = json.loads(files["p5_plan.json"])
 lt = [t for s in plan["shards"] if s["cohort"] == "lcb" for t in s["tasks"]]
+if "p5_final_lock_v2.json" in files:      # [P5 v2 provenance] the final bundle names v2 and carries the exact protocol bytes the lock pins
+    checks["plan_names_protocol_v2"] = plan.get("protocol") == "P5_PROTOCOL_v2"
+    checks["bundled_protocol_v2_matches_lock"] = "P5_PROTOCOL_v2.md" in files and hashlib.sha256(files["P5_PROTOCOL_v2.md"]).hexdigest() == lock["protocol_sha256"]
+    checks["runner_stamps_protocol_v2"] = b'"protocol": "P5_PROTOCOL_v2"' in files["tools/el_p5_run.py"] and b'"protocol": "P5_PROTOCOL_v1"' not in files["tools/el_p5_run.py"]
 checks["plan_covers_lock"] = lt == lock["lcb_ids"] and [t for s in plan["shards"] if s["cohort"] == "contract" for t in s["tasks"]] == lock["contract_ids"]
 print(json.dumps({"bundle": str(ds), "commit": man.get("commit"), "files": len(files), "bytes": sum(map(len, files.values())), "all_ok": all(checks.values()),
                   "checks": checks, "reference_line_hits_coarse": len(hits), "reference_line_suspect": suspect[:10],

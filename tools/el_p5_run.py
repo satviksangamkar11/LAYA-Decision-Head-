@@ -1,4 +1,4 @@
-"""[P5] Four-arm evaluation run (protocol: P5_PROTOCOL_v1.md). Selection only: NO grader, NO hidden case and NO reference solution is imported here;
+"""[P5] Four-arm evaluation run (protocol: P5_PROTOCOL_v2.md, which amends v1; final run on the Kaggle jail, --exec kaggle). Selection only: NO grader, NO hidden case and NO reference solution is imported here;
 grading happens afterwards with tools/el_p5_grade.py.
 
 Arms (same model, same sampling, same sandbox per cohort):
@@ -8,7 +8,8 @@ Arms (same model, same sampling, same sandbox per cohort):
   D V1.5         : C + task contracts (host registry; allowlisted parser decl_v1); model-proposed contracts never authoritative
 Shared generation cache: a request (prompt sha256, seed, max_new_tokens) that an earlier arm already made returns the SAME recorded generation; tokens are
 attributed to every arm that uses them ("attributed"), wall time is counted once ("actual").
-Cohorts: contract (configs/p5_contract_tasks_v1/tasks.jsonl, MXC process container + trusted verifier) or lcb (LiveCodeBench v6 via the LCB backend on MXC).
+Cohorts: contract (configs/p5_contract_tasks_v1/tasks.jsonl, trusted verifier) or lcb (LiveCodeBench v6 via the LCB backend). Sandbox for every arm: --exec kaggle =
+the Kaggle jail port (the final run, P5_PROTOCOL_v2: shards sequential, one jail user), --exec mxc = the MXC process container (PC; local smoke and tests).
 Usage: PYTHONPATH=. .venv/Scripts/python.exe tools/el_p5_run.py <new out dir> --cohort contract|lcb --tasks id1,id2,... [--arms A,B,C,D] [--fake]"""
 from __future__ import annotations
 
@@ -173,7 +174,7 @@ def main() -> int:
     gen = CacheGen(inner, w("CALLS.jsonl"))
     exe.who = lambda: (gen.task, gen.arm)
     contract_cfg = {"registry": str(ROOT / "configs/p5_contract_tasks_v1/REGISTRY_v1.json") if a.cohort == "contract" else None, "root": str(ROOT), "parsers": ["decl_v1"], "n_derived": 6}
-    (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P5_PROTOCOL_v1", "cohort": a.cohort, "tasks": [t.task_id for t, _ in tasks], "arms": arms, "G": G_BUDGET, "max_new": MAX_NEW,
+    (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P5_PROTOCOL_v2", "cohort": a.cohort, "tasks": [t.task_id for t, _ in tasks], "arms": arms, "G": G_BUDGET, "max_new": MAX_NEW,
                                                      "v1_cfg": V1_CFG, "contracts": contract_cfg, "strategies": list(strategies), "fake": a.fake, "exec": a.exec,
                                                      "tool_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, indent=1))
     for task, _ in tasks:

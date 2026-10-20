@@ -37,7 +37,8 @@ lock = json.loads((ROOT / "configs/p5_final_lock_v1.json").read_text("utf-8"))
 lock.update({
     "lock_version": "p5_final_lock_v2",
     "supersedes": "configs/p5_final_lock_v1.json (kept; task ids and order unchanged)",
-    "protocol": "P5_PROTOCOL_v2", "protocol_sha256_committed": committed("P5_PROTOCOL_v2.md"), "protocol_v1_sha256_committed": committed("P5_PROTOCOL_v1.md"),
+    "protocol": "P5_PROTOCOL_v2", "protocol_sha256": committed("P5_PROTOCOL_v2.md"), "protocol_v1_sha256": lock.pop("protocol_sha256"),
+    "protocol_sha256_committed": committed("P5_PROTOCOL_v2.md"), "protocol_v1_sha256_committed": committed("P5_PROTOCOL_v1.md"),
     "lock_v1_sha256": sha((ROOT / "configs/p5_final_lock_v1.json").read_bytes()),
     "grading": {
         "primary": {"set": "blind private v3", "location": "private/p5-eval-v3 (outside git and Kaggle)", "cases_sha256": sha((v3 / "cases_v3.json").read_bytes()),

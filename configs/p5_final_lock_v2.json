@@ -1,6 +1,7 @@
 {
  "protocol": "P5_PROTOCOL_v2",
- "protocol_sha256": "3d26566ca19504d32dfe252c2e84efe3a6581f62e307a6af4303b80a2695961b",
+ "protocol_sha256": "3c5326a4f6f0f9a677993be22ce15322e1c0b6bbda5e896a330cc6475c945dac",
+ "protocol_v1_sha256": "3d26566ca19504d32dfe252c2e84efe3a6581f62e307a6af4303b80a2695961b",
  "rule": "largest N <= 91 with N x rate <= 10 h at the smoke-measured rate (slower of the two measured smoke runs), minimum 40; first N of final_lcb_order",
  "smoke_rates_s_per_lcb_task": {
   "local_rtx3050_mxc": {
@@ -210,5 +211,11 @@
     "PROVENANCE.md": "d09e9a8be06a0f2d76f3ae1f2ab71077a23898358e2f8880a3fbcab86f75f974"
    }
   }
+ },
+ "amendment": {
+  "utc": "2026-10-20T18:16:45Z",
+  "previous_lock_sha256": "71d197fb138c21a11c6185ec5913b011ef181dd140735adbf865d19171416e22",
+  "change": "metadata only: the field protocol_sha256 inherited from lock v1 held the P5_PROTOCOL_v1 hash; renamed to protocol_v1_sha256, and protocol_sha256 now holds the committed P5_PROTOCOL_v2 hash (= protocol_sha256_committed). Task ids, order, grading hashes, model, arms, budget unchanged.",
+  "authorized": "user, 2026-10-20, before any final candidate was generated"
  }
 }

@@ -53,7 +53,9 @@ def main() -> int:
         files["p5_final_lock_v2.json"] = lock_p.read_bytes()
     else:
         shards = [{"name": "smoke_lcb", "cohort": "lcb", "tasks": SEL["smoke_lcb"]}, {"name": "smoke_bank", "cohort": "bank", "tasks": SEL["smoke_bank"]}]
-    files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v1", "purpose": "FINAL evaluation (locked set)" if final else "SMOKE only (not the final evaluation)",
+    if final:      # the final bundle carries both protocol documents (v1 for audit history); the smoke bundle stays as it was
+        files["P5_PROTOCOL_v2.md"] = (ROOT / "P5_PROTOCOL_v2.md").read_bytes()
+    files["p5_plan.json"] = json.dumps({"protocol": "P5_PROTOCOL_v2" if final else "P5_PROTOCOL_v1", "purpose": "FINAL evaluation (locked set)" if final else "SMOKE only (not the final evaluation)",
                                         "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct", "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a", "shards": shards},
                                        indent=1).encode("utf-8")
     PK.B.assert_public_bundle(files, PK.held_markers(ROOT))
