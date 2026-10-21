@@ -15,7 +15,10 @@ SMOKE_LIMIT_S = 1800     # smoke only (user GO 2026-10-21): whole session incl. 
 def log(*a): print("[%7.1fs]" % (time.time() - T0), *a, flush=True)
 
 
-def over(plan): return plan.get("mode") == "smoke" and time.time() - T0 >= SMOKE_LIMIT_S
+def limit(plan): return plan.get("time_limit_s") or (SMOKE_LIMIT_S if plan.get("mode") == "smoke" else None)     # final: per-kernel cap from the deployment plan
+
+
+def over(plan): return limit(plan) is not None and time.time() - T0 >= limit(plan)
 
 
 def done_tasks(d):
@@ -53,7 +56,7 @@ def main():
     except BaseException as e:      # noqa: BLE001
         finish("JAIL_UNAVAILABLE", error=repr(e)[:600])
     q = subprocess.run([sys.executable, str(work / "tools/el_kaggle_port_qual.py"), str(OUT / "qualification")], cwd=str(work), env=dict(os.environ, PYTHONPATH=str(work)),
-                       capture_output=True, text=True, timeout=max(60, SMOKE_LIMIT_S - (time.time() - T0)) if plan.get("mode") == "smoke" else 1800)
+                       capture_output=True, text=True, timeout=max(60, min(1800, limit(plan) - (time.time() - T0))) if limit(plan) else 1800)
     RS["qualification_ok"] = q.returncode == 0
     if q.returncode != 0: finish("PORT_NOT_QUALIFIED", detail=(q.stdout + q.stderr)[-800:])
     md = OUT / "qwen25coder15b"
@@ -76,9 +79,9 @@ def main():
                         capture_output=True, text=True)
     RS["gpu_check"] = (gc.stdout or gc.stderr)[-300:]
     if gc.returncode != 0: finish("GPU_UNAVAILABLE")
-    if over(plan): finish("SMOKE_TIME_LIMIT", stage="before_shards", incomplete_tasks={s["name"]: s["tasks"] for s in plan["shards"]})
+    if over(plan): finish("TIME_LIMIT", stage="before_shards", incomplete_tasks={s["name"]: s["tasks"] for s in plan["shards"]})
     codes, incomplete = {}, {}
-    RS["smoke_limit_s"] = SMOKE_LIMIT_S if plan.get("mode") == "smoke" else None
+    RS["time_limit_s"] = limit(plan)
     RS["setup_seconds"] = round(time.time() - T0, 1)
     for sh in plan["shards"]:
         if over(plan):
@@ -91,7 +94,7 @@ def main():
             pos = 0
             killed = False
             while p.poll() is None:
-                time.sleep(5 if plan.get("mode") == "smoke" else 30)
+                time.sleep(5 if limit(plan) else 30)
                 if over(plan) and p.poll() is None:
                     p.kill(); p.wait(); killed = True; log("SMOKE TIME LIMIT reached: shard", sh["name"], "stopped")
                 with open(lp, encoding="utf-8", errors="replace") as f:
@@ -103,7 +106,7 @@ def main():
         if left: incomplete[sh["name"]] = left
         log("shard", sh["name"], "exit", codes[sh["name"]])
     RS["shard_exit_codes"], RS["incomplete_tasks"] = codes, incomplete
-    finish("OK" if all(v == 0 for v in codes.values()) and not incomplete else "SMOKE_TIME_LIMIT" if any(isinstance(v, str) for v in codes.values()) else "PARTIAL")
+    finish("OK" if all(v == 0 for v in codes.values()) and not incomplete else "TIME_LIMIT" if any(isinstance(v, str) for v in codes.values()) else "PARTIAL")
 
 
 if __name__ == "__main__":
