@@ -74,6 +74,7 @@
   "2037/B",
   "2060/D"
  ],
- "tests_manifest_sha256": "89d48ef7e96d1fb5e61d01e2a65269966e04fe69dcbf2f46350962c6f5916df0",
- "answers_sha256": "a9fcf6ac9ffa7379f969215555a5e7010163ed9a4f0c4650af18e385edc87f07"
+ "tests_manifest_sha256": "584cd46a1d266911be194ca9eb0789d6ff63a065596d450a324bcac43ce25955",
+ "answers_sha256": "a9fcf6ac9ffa7379f969215555a5e7010163ed9a4f0c4650af18e385edc87f07",
+ "tests_manifest_sha256_note": "configs/p6_final_lock_v1_CORRECTION_1.md"
 }

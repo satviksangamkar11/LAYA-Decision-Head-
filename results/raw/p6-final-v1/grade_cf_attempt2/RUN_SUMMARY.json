@@ -1,0 +1,7 @@
+{
+ "kernel": "el_p6_cf_grade_v1",
+ "started_utc": "2026-10-21T22:31:42Z",
+ "answers_file": "/kaggle/input/datasets/sangeetasangamkar/el-p6-grade-input-v1/ANSWERS_cf.jsonl",
+ "verdict": "REFUSED_TESTS_MANIFEST_MISMATCH",
+ "total_seconds": 8.9
+}
