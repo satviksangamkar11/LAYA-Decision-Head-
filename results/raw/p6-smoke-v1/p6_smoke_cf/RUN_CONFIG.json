@@ -1,0 +1,22 @@
+{
+ "protocol": "P6_PROTOCOL_v1",
+ "amendment": "P6_PROTOCOL_v1.1 (logging only)",
+ "cohort": "cf",
+ "tasks": [
+  "2033/A",
+  "2039/A",
+  "2044/A"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "V2"
+ ],
+ "G": 6000,
+ "v2min": "v2min_v1.2",
+ "template": "lcb_generic_v1",
+ "exec": "kaggle",
+ "fake": false,
+ "tool_sha256": "a1767336f7db728bfbbd46b7c6a06c5f4386b9689e0434b1ba04ee2a95a2e499",
+ "started_utc": "2026-10-21T18:01:43Z"
+}

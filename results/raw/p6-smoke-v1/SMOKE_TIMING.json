@@ -1,0 +1,45 @@
+{
+ "protocol": "P6_PROTOCOL_v1 section 4 (frozen N rule)",
+ "smoke_kernel": "sangeetasangamkar/el-p6-run-smoke-v1 v1",
+ "bundle_commit": "ef435d91",
+ "verdict": "OK",
+ "total_kernel_seconds": 895.5,
+ "setup_seconds_before_shards": 90.5,
+ "model_load_seconds_estimate": {
+  "cf_shard": 55.3,
+  "dev_shard": 25.2,
+  "method": "first fresh call seconds minus its tokens x measured sec/token of the other fresh calls (estimate)"
+ },
+ "cf_task_wall_seconds": {
+  "2033/A": 97.6,
+  "2039/A": 431.3,
+  "2044/A": 15.0
+ },
+ "cf_mean": 181.3,
+ "dev_task_wall_seconds": {
+  "P1-13": 93.6,
+  "P1-21": 95.4,
+  "P1-31": 62.5
+ },
+ "dev_mean": 83.8,
+ "r_cf": 426.0,
+ "r_ct": 150.0,
+ "N": 72,
+ "rule_seconds": 33672.0,
+ "cache": {
+  "cf": {
+   "calls": 130,
+   "reused": 71,
+   "fresh": 59,
+   "candidates_rows": 59
+  },
+  "dev": {
+   "calls": 44,
+   "reused": 28,
+   "fresh": 16,
+   "candidates_rows": 16
+  }
+ },
+ "identity_cf": "3/3 identical (same answer, requests, tokens; V2 verdicts unavailable; V2 all reused)",
+ "incomplete_tasks": {}
+}

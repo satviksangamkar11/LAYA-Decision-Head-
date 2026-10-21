@@ -1,0 +1,22 @@
+{
+ "protocol": "P6_PROTOCOL_v1",
+ "amendment": "P6_PROTOCOL_v1.1 (logging only)",
+ "cohort": "dev",
+ "tasks": [
+  "P1-13",
+  "P1-21",
+  "P1-31"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "V2"
+ ],
+ "G": 6000,
+ "v2min": "v2min_v1.2",
+ "template": "qwen_sample_v2+v2b",
+ "exec": "kaggle",
+ "fake": false,
+ "tool_sha256": "a1767336f7db728bfbbd46b7c6a06c5f4386b9689e0434b1ba04ee2a95a2e499",
+ "started_utc": "2026-10-21T18:10:53Z"
+}

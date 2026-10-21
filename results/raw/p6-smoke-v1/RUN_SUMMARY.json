@@ -1,0 +1,48 @@
+{
+ "kernel": "el_p6_run_v1",
+ "started_utc": "2026-10-21T18:00:12Z",
+ "bundle": {
+  "files": 159,
+  "commit": "ef435d9199ec935f3d517553791d8507e7baf3f6"
+ },
+ "plan": {
+  "protocol": "P6_PROTOCOL_v1",
+  "mode": "smoke",
+  "shards": [
+   {
+    "name": "smoke_cf",
+    "cohort": "cf",
+    "tasks": [
+     "2033/A",
+     "2039/A",
+     "2044/A"
+    ]
+   },
+   {
+    "name": "smoke_dev",
+    "cohort": "dev",
+    "tasks": [
+     "P1-13",
+     "P1-21",
+     "P1-31"
+    ]
+   }
+  ],
+  "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+ },
+ "jail": "PASS",
+ "qualification_ok": true,
+ "model_sha256_ok": true,
+ "gpu_check": "Tesla T4 512.0\n",
+ "smoke_limit_s": 1800,
+ "setup_seconds": 90.5,
+ "shard_exit_codes": {
+  "smoke_cf": 0,
+  "smoke_dev": 0
+ },
+ "incomplete_tasks": {},
+ "verdict": "OK",
+ "total_seconds": 895.5,
+ "ended_utc": "2026-10-21T18:15:08Z"
+}
