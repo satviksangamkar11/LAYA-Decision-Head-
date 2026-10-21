@@ -9,7 +9,18 @@ OUT = Path("/kaggle/working")
 RS = {"kernel": "el_p6_run_v1", "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
 
 
+SMOKE_LIMIT_S = 1800     # smoke only (user GO 2026-10-21): whole session incl. jail, model download and loading; stop, keep outputs, never restart
+
+
 def log(*a): print("[%7.1fs]" % (time.time() - T0), *a, flush=True)
+
+
+def over(plan): return plan.get("mode") == "smoke" and time.time() - T0 >= SMOKE_LIMIT_S
+
+
+def done_tasks(d):
+    p = d / "RESULTS.jsonl"
+    return {json.loads(l)["task"] for l in p.read_text("utf-8").splitlines() if l.strip() and json.loads(l)["arm"] == "_task"} if p.exists() else set()
 
 
 def finish(verdict, **kw):
@@ -42,7 +53,7 @@ def main():
     except BaseException as e:      # noqa: BLE001
         finish("JAIL_UNAVAILABLE", error=repr(e)[:600])
     q = subprocess.run([sys.executable, str(work / "tools/el_kaggle_port_qual.py"), str(OUT / "qualification")], cwd=str(work), env=dict(os.environ, PYTHONPATH=str(work)),
-                       capture_output=True, text=True, timeout=1800)
+                       capture_output=True, text=True, timeout=max(60, SMOKE_LIMIT_S - (time.time() - T0)) if plan.get("mode") == "smoke" else 1800)
     RS["qualification_ok"] = q.returncode == 0
     if q.returncode != 0: finish("PORT_NOT_QUALIFIED", detail=(q.stdout + q.stderr)[-800:])
     md = OUT / "qwen25coder15b"
@@ -65,24 +76,34 @@ def main():
                         capture_output=True, text=True)
     RS["gpu_check"] = (gc.stdout or gc.stderr)[-300:]
     if gc.returncode != 0: finish("GPU_UNAVAILABLE")
-    codes = {}
+    if over(plan): finish("SMOKE_TIME_LIMIT", stage="before_shards", incomplete_tasks={s["name"]: s["tasks"] for s in plan["shards"]})
+    codes, incomplete = {}, {}
+    RS["smoke_limit_s"] = SMOKE_LIMIT_S if plan.get("mode") == "smoke" else None
+    RS["setup_seconds"] = round(time.time() - T0, 1)
     for sh in plan["shards"]:
-        cmd = [sys.executable, str(work / "tools/el_p6_run.py"), str(OUT / ("p6_" + sh["name"])), "--cohort", sh["cohort"], "--tasks", ",".join(sh["tasks"]), "--exec", "kaggle",
+        if over(plan):
+            codes[sh["name"]] = "not_started_time_limit"; incomplete[sh["name"]] = sh["tasks"]; continue
+        cmd =[sys.executable, str(work / "tools/el_p6_run.py"), str(OUT / ("p6_" + sh["name"])), "--cohort", sh["cohort"], "--tasks", ",".join(sh["tasks"]), "--exec", "kaggle",
                "--model-dir", str(md), "--model-manifest", str(work / "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json")]
         lp = OUT / ("%s.log" % sh["name"])
         with open(lp, "w", encoding="utf-8") as lf:
             p = subprocess.Popen(cmd, cwd=str(work), env=dict(os.environ, CUDA_VISIBLE_DEVICES="0", PYTHONPATH=str(work)), stdout=lf, stderr=subprocess.STDOUT)
             pos = 0
+            killed = False
             while p.poll() is None:
-                time.sleep(30)
+                time.sleep(5 if plan.get("mode") == "smoke" else 30)
+                if over(plan) and p.poll() is None:
+                    p.kill(); p.wait(); killed = True; log("SMOKE TIME LIMIT reached: shard", sh["name"], "stopped")
                 with open(lp, encoding="utf-8", errors="replace") as f:
                     f.seek(pos); chunk = f.read(); pos = f.tell()
                 for ln in chunk.splitlines():
                     if ln.strip() and "Loading weights" not in ln: log("[%s]" % sh["name"], ln[:300])
-        codes[sh["name"]] = p.returncode
-        log("shard", sh["name"], "exit", p.returncode)
-    RS["shard_exit_codes"] = codes
-    finish("OK" if all(v == 0 for v in codes.values()) else "PARTIAL")
+        codes[sh["name"]] = "killed_time_limit" if killed else p.returncode
+        left = [t for t in sh["tasks"] if t not in done_tasks(OUT / ("p6_" + sh["name"]))]
+        if left: incomplete[sh["name"]] = left
+        log("shard", sh["name"], "exit", codes[sh["name"]])
+    RS["shard_exit_codes"], RS["incomplete_tasks"] = codes, incomplete
+    finish("OK" if all(v == 0 for v in codes.values()) and not incomplete else "SMOKE_TIME_LIMIT" if any(isinstance(v, str) for v in codes.values()) else "PARTIAL")
 
 
 if __name__ == "__main__":
