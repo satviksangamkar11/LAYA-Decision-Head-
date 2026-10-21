@@ -1,0 +1,115 @@
+{
+ "backend": "kaggle-jail",
+ "verifier": "trusted_verify_v3 + trusted_native_v1",
+ "launcher_sha256": "afc6801acc7dffce4f6fce7d9456c0d86e4afa03e4eee421bf82064fcf19113a",
+ "utc": "2026-10-21T14:45:39Z",
+ "languages": {
+  "cpp": {
+   "state": "qualified",
+   "version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 2.95
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 1.85
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 1.71
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.76
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 3.3,
+     "seconds": 3.29
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "compile_error",
+     "seconds": 0.16
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 2.02
+    },
+    "socket_denied": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "listener_connections": 0,
+     "observed": [
+      "\"denied\\n\""
+     ],
+     "seconds": 0.75
+    },
+    "host_paths_unreadable": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"denied\\n\""
+     ],
+     "seconds": 0.75
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.77
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "capture_limit": 1048576,
+     "seconds": 0.77
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 2.24
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.81
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 1.03
+    }
+   }
+  }
+ },
+ "note": "Kaggle chroot+uid+seccomp jail (rootfs /tmp/kjail-root)",
+ "capture_limit": 1048576,
+ "listener_positive_control": true,
+ "spy_expected_hits": [],
+ "sandbox_calls": 41,
+ "all_runnable_ok": true
+}

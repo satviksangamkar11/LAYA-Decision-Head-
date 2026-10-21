@@ -1,0 +1,1621 @@
+{
+ "2021/B": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "284537664",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 24.4
+   }
+  ],
+  "validated": true
+ },
+ "2022/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "285701370",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 29,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.5
+   },
+   {
+    "submission_id": "285701495",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.4
+   }
+  ],
+  "validated": true
+ },
+ "2024/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "286905229",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.0
+   }
+  ],
+  "validated": true
+ },
+ "2024/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "286912850",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.9
+   }
+  ],
+  "validated": true
+ },
+ "2025/A": {
+  "tests": 23,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "285841991",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 23,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 14.5
+   }
+  ],
+  "validated": true
+ },
+ "2025/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "285842471",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.0
+   }
+  ],
+  "validated": true
+ },
+ "2026/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "288510442",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.8
+   }
+  ],
+  "validated": true
+ },
+ "2027/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "288110550",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.0
+   }
+  ],
+  "validated": true
+ },
+ "2027/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "288111902",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 14.9
+   }
+  ],
+  "validated": true
+ },
+ "2028/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "290888195",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 27,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.4
+   },
+   {
+    "submission_id": "290888218",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.7
+   }
+  ],
+  "validated": true
+ },
+ "2029/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "290705164",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.4
+   }
+  ],
+  "validated": true
+ },
+ "2029/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "290706977",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.8
+   }
+  ],
+  "validated": true
+ },
+ "2030/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "286714989",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.2
+   }
+  ],
+  "validated": true
+ },
+ "2030/C": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "286725902",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.4
+   }
+  ],
+  "validated": true
+ },
+ "2031/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "291577182",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.0
+   }
+  ],
+  "validated": true
+ },
+ "2031/B": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "291581178",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.2
+   }
+  ],
+  "validated": true
+ },
+ "2032/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "289186522",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.0
+   }
+  ],
+  "validated": true
+ },
+ "2033/A": {
+  "tests": 2,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "287679467",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 1,
+    "other": 0,
+    "seconds": 0.4
+   },
+   {
+    "submission_id": "287679525",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 2,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 3.4
+   }
+  ],
+  "validated": true
+ },
+ "2033/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "287682500",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.5
+   }
+  ],
+  "validated": true
+ },
+ "2034/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294004769",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.8
+   }
+  ],
+  "validated": true
+ },
+ "2034/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294009925",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.1
+   }
+  ],
+  "validated": true
+ },
+ "2035/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "288294287",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 1,
+    "other": 0,
+    "seconds": 0.4
+   },
+   {
+    "submission_id": "288294383",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.4
+   }
+  ],
+  "validated": true
+ },
+ "2035/B": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "288297168",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.6
+   }
+  ],
+  "validated": true
+ },
+ "2036/A": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "289462717",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.3
+   }
+  ],
+  "validated": true
+ },
+ "2036/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "289467755",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.8
+   }
+  ],
+  "validated": true
+ },
+ "2036/C": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "289475624",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 9,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 18,
+    "seconds": 25.0
+   },
+   {
+    "submission_id": "289479471",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 9,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 18,
+    "seconds": 22.7
+   },
+   {
+    "submission_id": "289481829",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 9,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 18,
+    "seconds": 22.4
+   }
+  ],
+  "validated": false
+ },
+ "2037/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "291945467",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.9
+   }
+  ],
+  "validated": true
+ },
+ "2037/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "291951751",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 30.5
+   }
+  ],
+  "validated": true
+ },
+ "2038/J": {
+  "tests": 20,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "292158903",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 20,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 12.4
+   }
+  ],
+  "validated": true
+ },
+ "2038/N": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "292158389",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.5
+   }
+  ],
+  "validated": true
+ },
+ "2039/A": {
+  "tests": 2,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "292905549",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 2,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 2.3
+   },
+   {
+    "submission_id": "292905712",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 2,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 3.2
+   }
+  ],
+  "validated": true
+ },
+ "2039/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "292911624",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.4
+   }
+  ],
+  "validated": true
+ },
+ "2039/C1": {
+  "tests": 22,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "292911379",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 22,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 30.7
+   }
+  ],
+  "validated": true
+ },
+ "2040/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "295567581",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.7
+   }
+  ],
+  "validated": true
+ },
+ "2040/B": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "295572562",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.6
+   }
+  ],
+  "validated": true
+ },
+ "2041/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "293040966",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.4
+   }
+  ],
+  "validated": true
+ },
+ "2042/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294389932",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.0
+   }
+  ],
+  "validated": true
+ },
+ "2042/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294393541",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.3
+   }
+  ],
+  "validated": true
+ },
+ "2043/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "298199271",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 1,
+    "other": 0,
+    "seconds": 0.2
+   },
+   {
+    "submission_id": "298199473",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.8
+   }
+  ],
+  "validated": true
+ },
+ "2043/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "298205157",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.0
+   }
+  ],
+  "validated": true
+ },
+ "2044/A": {
+  "tests": 3,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "296582697",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 3,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 3.7
+   }
+  ],
+  "validated": true
+ },
+ "2044/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "296585211",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.8
+   }
+  ],
+  "validated": true
+ },
+ "2046/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294532971",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.5
+   }
+  ],
+  "validated": true
+ },
+ "2047/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294532911",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.5
+   }
+  ],
+  "validated": true
+ },
+ "2048/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297248788",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.9
+   }
+  ],
+  "validated": true
+ },
+ "2048/B": {
+  "tests": 21,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297250719",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 21,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.8
+   }
+  ],
+  "validated": true
+ },
+ "2050/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294987508",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 23.7
+   }
+  ],
+  "validated": true
+ },
+ "2050/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294990204",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 1,
+    "other": 0,
+    "seconds": 0.5
+   },
+   {
+    "submission_id": "294990738",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 21.7
+   }
+  ],
+  "validated": true
+ },
+ "2050/C": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "294998722",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 21.2
+   }
+  ],
+  "validated": true
+ },
+ "2051/A": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297812442",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 19.1
+   }
+  ],
+  "validated": true
+ },
+ "2051/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297813648",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 19.6
+   }
+  ],
+  "validated": true
+ },
+ "2051/C": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297822534",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 26.5
+   }
+  ],
+  "validated": true
+ },
+ "2051/D": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "297831161",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 24.7
+   }
+  ],
+  "validated": true
+ },
+ "2053/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "298808142",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.8
+   }
+  ],
+  "validated": true
+ },
+ "2053/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "298811671",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 16,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 11,
+    "seconds": 42.4
+   },
+   {
+    "submission_id": "298812271",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 16,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 11,
+    "seconds": 27.0
+   },
+   {
+    "submission_id": "298812897",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 16,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 11,
+    "seconds": 33.0
+   }
+  ],
+  "validated": false
+ },
+ "2055/A": {
+  "tests": 25,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "300650849",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 25,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.2
+   }
+  ],
+  "validated": true
+ },
+ "2055/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "300656034",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 19.1
+   }
+  ],
+  "validated": true
+ },
+ "2056/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "301387805",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 18.0
+   }
+  ],
+  "validated": true
+ },
+ "2057/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "299601211",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 19.0
+   }
+  ],
+  "validated": true
+ },
+ "2057/B": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "299605914",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 26.6
+   }
+  ],
+  "validated": true
+ },
+ "2059/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "304069264",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.6
+   }
+  ],
+  "validated": true
+ },
+ "2060/A": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "301738756",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 26,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.3
+   },
+   {
+    "submission_id": "301738772",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 13.9
+   }
+  ],
+  "validated": true
+ },
+ "2060/B": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "301746434",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 14.9
+   }
+  ],
+  "validated": true
+ },
+ "2060/C": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "301751194",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.2
+   }
+  ],
+  "validated": true
+ },
+ "2060/D": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "301749527",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 20.7
+   }
+  ],
+  "validated": true
+ },
+ "2061/A": {
+  "tests": 25,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "302047118",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 25,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.3
+   }
+  ],
+  "validated": true
+ },
+ "2062/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "303045173",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.4
+   }
+  ],
+  "validated": true
+ },
+ "2062/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "303051545",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.1
+   }
+  ],
+  "validated": true
+ },
+ "2062/C": {
+  "tests": 26,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "303058327",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 26,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.3
+   }
+  ],
+  "validated": true
+ },
+ "2063/A": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "302362743",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.9
+   }
+  ],
+  "validated": true
+ },
+ "2063/B": {
+  "tests": 24,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "302371459",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 24,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 17.1
+   }
+  ],
+  "validated": true
+ },
+ "2065/A": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305137111",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.5
+   }
+  ],
+  "validated": true
+ },
+ "2065/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305142444",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.7
+   }
+  ],
+  "validated": true
+ },
+ "2065/C1": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305166153",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 20.4
+   }
+  ],
+  "validated": true
+ },
+ "2065/D": {
+  "tests": 29,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305176497",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 29,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 19.5
+   }
+  ],
+  "validated": true
+ },
+ "2067/A": {
+  "tests": 27,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305612751",
+    "language": "C++17 (GCC 7-32)",
+    "runner_language": "cpp",
+    "pass": 0,
+    "wrong_answer": 27,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 16.3
+   },
+   {
+    "submission_id": "305612949",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 27,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 15.6
+   }
+  ],
+  "validated": true
+ },
+ "2067/B": {
+  "tests": 28,
+  "references_available": 3,
+  "attempts": [
+   {
+    "submission_id": "305619083",
+    "language": "C++20 (GCC 13-64)",
+    "runner_language": "cpp",
+    "pass": 28,
+    "wrong_answer": 0,
+    "timeout": 0,
+    "runtime_error": 0,
+    "compile_error": 0,
+    "other": 0,
+    "seconds": 28.8
+   }
+  ],
+  "validated": true
+ }
+}

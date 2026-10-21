@@ -1,0 +1,25 @@
+{
+ "kernel": "el_p6_cf_validate_v3",
+ "rules": "P6_CF_QUALIFICATION_RULES_v2",
+ "started_utc": "2026-10-21T14:43:51Z",
+ "candidates": 77,
+ "bundle_commit": "bca45ad91c1d961b722a74af2590ba261eabbb02",
+ "rootfs": {
+  "rootfs": "/tmp/kjail-root",
+  "bytes": 804163068,
+  "python": "/usr/bin/python3.13",
+  "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "libs": 78,
+  "toolchains": {
+   "cpp": {
+    "bytes_added": 380989305
+   }
+  }
+ },
+ "python_port_qualified": true,
+ "cpp_qualification_exit": 0,
+ "verdict": "OK",
+ "total_seconds": 1752.8,
+ "validated": 75,
+ "with_reference": 77
+}
