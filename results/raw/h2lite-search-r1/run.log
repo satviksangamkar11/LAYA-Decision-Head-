@@ -1,0 +1,106 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:   0%|          | 1/338 [00:00<04:57,  1.13it/s]Loading weights:  33%|███▎      | 113/338 [00:00<00:01, 156.01it/s]Loading weights:  52%|█████▏    | 176/338 [00:01<00:00, 204.70it/s]Loading weights:  67%|██████▋   | 226/338 [00:01<00:00, 230.98it/s]Loading weights:  80%|███████▉  | 269/338 [00:01<00:00, 240.16it/s]Loading weights:  91%|█████████ | 306/338 [00:01<00:00, 261.17it/s]Loading weights: 100%|██████████| 338/338 [00:01<00:00, 198.54it/s]
+{"config": "baseline", "task": "P1-02", "accepted": true, "contract": "unavailable", "tokens_generated": 145, "tokens_prompt": 1102, "candidates": 1, "rounds": 1, "seconds": 42.2}
+{"config": "baseline", "task": "P1-04", "accepted": true, "contract": "unavailable", "tokens_generated": 696, "tokens_prompt": 1242, "candidates": 4, "rounds": 1, "seconds": 33.6}
+{"config": "baseline", "task": "P1-06", "accepted": true, "contract": "unavailable", "tokens_generated": 263, "tokens_prompt": 1270, "candidates": 2, "rounds": 1, "seconds": 13.3}
+{"config": "baseline", "task": "P1-07", "accepted": true, "contract": "unavailable", "tokens_generated": 1416, "tokens_prompt": 1194, "candidates": 1, "rounds": 1, "seconds": 56.5}
+{"config": "baseline", "task": "P1-09", "accepted": true, "contract": "unavailable", "tokens_generated": 628, "tokens_prompt": 1090, "candidates": 1, "rounds": 1, "seconds": 25.9}
+{"config": "baseline", "task": "P1-12", "accepted": true, "contract": "unavailable", "tokens_generated": 1069, "tokens_prompt": 1122, "candidates": 1, "rounds": 1, "seconds": 43.8}
+{"config": "baseline", "task": "P1-29", "accepted": true, "contract": "unavailable", "tokens_generated": 1063, "tokens_prompt": 1218, "candidates": 1, "rounds": 1, "seconds": 43.0}
+{"config": "baseline", "task": "P1-30", "accepted": true, "contract": "pass", "tokens_generated": 1348, "tokens_prompt": 1330, "candidates": 2, "rounds": 1, "seconds": 57.6}
+{"config": "baseline", "task": "P1-35", "accepted": true, "contract": "unavailable", "tokens_generated": 1889, "tokens_prompt": 1238, "candidates": 1, "rounds": 1, "seconds": 75.3}
+{"config": "baseline", "task": "P1-38", "accepted": true, "contract": "unavailable", "tokens_generated": 1515, "tokens_prompt": 1130, "candidates": 2, "rounds": 1, "seconds": 62.1}
+{"config": "baseline", "task": "P1-39", "accepted": true, "contract": "unavailable", "tokens_generated": 1086, "tokens_prompt": 1114, "candidates": 1, "rounds": 1, "seconds": 43.5}
+{"config": "baseline", "task": "P1-11", "accepted": true, "contract": "pass", "tokens_generated": 1065, "tokens_prompt": 1038, "candidates": 3, "rounds": 1, "seconds": 48.5}
+{"config": "baseline", "task": "P1-21", "accepted": true, "contract": "pass", "tokens_generated": 1766, "tokens_prompt": 2452, "candidates": 8, "rounds": 3, "seconds": 78.9}
+{"config": "baseline", "task": "P1-23", "accepted": false, "contract": null, "tokens_generated": 7350, "tokens_prompt": 6414, "candidates": 20, "rounds": 10, "seconds": 307.4}
+{"config": "baseline", "task": "P1-26", "accepted": false, "contract": null, "tokens_generated": 7229, "tokens_prompt": 8469, "candidates": 26, "rounds": 13, "seconds": 299.4}
+{"config": "baseline", "task": "P1-34", "accepted": true, "contract": "unavailable", "tokens_generated": 5485, "tokens_prompt": 3283, "candidates": 9, "rounds": 5, "seconds": 233.4}
+{"config": "baseline", "task": "P1-16", "accepted": true, "contract": "unavailable", "tokens_generated": 1346, "tokens_prompt": 1106, "candidates": 1, "rounds": 1, "seconds": 54.4}
+{"config": "baseline", "task": "P1-28", "accepted": true, "contract": "unavailable", "tokens_generated": 1449, "tokens_prompt": 1214, "candidates": 1, "rounds": 1, "seconds": 57.8}
+{"config": "baseline", "task": "P1-37", "accepted": false, "contract": null, "tokens_generated": 7368, "tokens_prompt": 5930, "candidates": 19, "rounds": 9, "seconds": 298.9}
+{"config": "baseline", "task": "P1-14", "accepted": true, "contract": "unavailable", "tokens_generated": 1042, "tokens_prompt": 1314, "candidates": 1, "rounds": 1, "seconds": 42.1}
+{"config": "baseline", "task": "P1-20", "accepted": false, "contract": null, "tokens_generated": 7349, "tokens_prompt": 9074, "candidates": 22, "rounds": 11, "seconds": 313.8}
+{"config": "baseline", "task": "P1-25", "accepted": true, "contract": "unavailable", "tokens_generated": 1028, "tokens_prompt": 1198, "candidates": 1, "rounds": 1, "seconds": 41.8}
+{"config": "general", "task": "P1-02", "accepted": true, "contract": "unavailable", "tokens_generated": 1437, "tokens_prompt": 1246, "candidates": 1, "rounds": 1, "seconds": 57.3}
+{"config": "general", "task": "P1-04", "accepted": true, "contract": "unavailable", "tokens_generated": 2064, "tokens_prompt": 1386, "candidates": 2, "rounds": 1, "seconds": 83.3}
+{"config": "general", "task": "P1-06", "accepted": true, "contract": "unavailable", "tokens_generated": 2698, "tokens_prompt": 1414, "candidates": 1, "rounds": 1, "seconds": 105.8}
+{"config": "general", "task": "P1-07", "accepted": true, "contract": "unavailable", "tokens_generated": 4497, "tokens_prompt": 2676, "candidates": 8, "rounds": 3, "seconds": 184.9}
+{"config": "general", "task": "P1-09", "accepted": true, "contract": "unavailable", "tokens_generated": 5259, "tokens_prompt": 1234, "candidates": 2, "rounds": 1, "seconds": 212.6}
+{"config": "general", "task": "P1-12", "accepted": true, "contract": "unavailable", "tokens_generated": 1960, "tokens_prompt": 1266, "candidates": 1, "rounds": 1, "seconds": 76.6}
+{"config": "general", "task": "P1-29", "accepted": true, "contract": "unavailable", "tokens_generated": 2194, "tokens_prompt": 1362, "candidates": 2, "rounds": 1, "seconds": 87.3}
+{"config": "general", "task": "P1-30", "accepted": true, "contract": "pass", "tokens_generated": 3356, "tokens_prompt": 1474, "candidates": 2, "rounds": 1, "seconds": 134.9}
+{"config": "general", "task": "P1-35", "accepted": true, "contract": "unavailable", "tokens_generated": 2664, "tokens_prompt": 1382, "candidates": 1, "rounds": 1, "seconds": 103.6}
+{"config": "general", "task": "P1-38", "accepted": true, "contract": "unavailable", "tokens_generated": 6489, "tokens_prompt": 1274, "candidates": 1, "rounds": 1, "seconds": 257.0}
+{"config": "general", "task": "P1-39", "accepted": true, "contract": "unavailable", "tokens_generated": 2171, "tokens_prompt": 1258, "candidates": 1, "rounds": 1, "seconds": 84.9}
+{"config": "general", "task": "P1-11", "accepted": true, "contract": "pass", "tokens_generated": 5648, "tokens_prompt": 1182, "candidates": 1, "rounds": 1, "seconds": 226.6}
+{"config": "general", "task": "P1-21", "accepted": true, "contract": "pass", "tokens_generated": 8380, "tokens_prompt": 2034, "candidates": 5, "rounds": 2, "seconds": 338.2}
+{"config": "general", "task": "P1-23", "accepted": false, "contract": null, "tokens_generated": 12006, "tokens_prompt": 4774, "candidates": 12, "rounds": 6, "seconds": 482.7}
+{"config": "general", "task": "P1-26", "accepted": false, "contract": null, "tokens_generated": 8229, "tokens_prompt": 4886, "candidates": 13, "rounds": 6, "seconds": 334.6}
+{"config": "general", "task": "P1-34", "accepted": false, "contract": null, "tokens_generated": 12018, "tokens_prompt": 2692, "candidates": 6, "rounds": 3, "seconds": 478.2}
+{"config": "general", "task": "P1-16", "accepted": true, "contract": "unavailable", "tokens_generated": 4462, "tokens_prompt": 2500, "candidates": 8, "rounds": 3, "seconds": 189.3}
+{"config": "general", "task": "P1-28", "accepted": true, "contract": "unavailable", "tokens_generated": 6817, "tokens_prompt": 1687, "candidates": 4, "rounds": 2, "seconds": 272.3}
+{"config": "general", "task": "P1-37", "accepted": true, "contract": "unavailable", "tokens_generated": 9008, "tokens_prompt": 3990, "candidates": 12, "rounds": 5, "seconds": 359.7}
+{"config": "general", "task": "P1-14", "accepted": true, "contract": "unavailable", "tokens_generated": 2199, "tokens_prompt": 1458, "candidates": 4, "rounds": 1, "seconds": 88.6}
+{"config": "general", "task": "P1-20", "accepted": true, "contract": "unavailable", "tokens_generated": 2160, "tokens_prompt": 1726, "candidates": 3, "rounds": 1, "seconds": 86.8}
+{"config": "general", "task": "P1-25", "accepted": true, "contract": "unavailable", "tokens_generated": 5638, "tokens_prompt": 1342, "candidates": 1, "rounds": 1, "seconds": 223.6}
+{"config": "coding", "task": "P1-02", "accepted": true, "contract": "unavailable", "tokens_generated": 606, "tokens_prompt": 1368, "candidates": 1, "rounds": 1, "seconds": 24.7}
+{"config": "coding", "task": "P1-04", "accepted": true, "contract": "unavailable", "tokens_generated": 765, "tokens_prompt": 1508, "candidates": 1, "rounds": 1, "seconds": 30.7}
+{"config": "coding", "task": "P1-06", "accepted": true, "contract": "unavailable", "tokens_generated": 955, "tokens_prompt": 1536, "candidates": 2, "rounds": 1, "seconds": 39.4}
+{"config": "coding", "task": "P1-07", "accepted": true, "contract": "unavailable", "tokens_generated": 990, "tokens_prompt": 1460, "candidates": 1, "rounds": 1, "seconds": 39.1}
+{"config": "coding", "task": "P1-09", "accepted": true, "contract": "unavailable", "tokens_generated": 440, "tokens_prompt": 1356, "candidates": 1, "rounds": 1, "seconds": 18.5}
+{"config": "coding", "task": "P1-12", "accepted": true, "contract": "unavailable", "tokens_generated": 1383, "tokens_prompt": 1388, "candidates": 1, "rounds": 1, "seconds": 53.9}
+{"config": "coding", "task": "P1-29", "accepted": true, "contract": "unavailable", "tokens_generated": 827, "tokens_prompt": 1484, "candidates": 1, "rounds": 1, "seconds": 32.9}
+{"config": "coding", "task": "P1-30", "accepted": true, "contract": "pass", "tokens_generated": 1768, "tokens_prompt": 1596, "candidates": 1, "rounds": 1, "seconds": 70.8}
+{"config": "coding", "task": "P1-35", "accepted": true, "contract": "unavailable", "tokens_generated": 1853, "tokens_prompt": 1504, "candidates": 1, "rounds": 1, "seconds": 71.9}
+{"config": "coding", "task": "P1-38", "accepted": true, "contract": "unavailable", "tokens_generated": 1272, "tokens_prompt": 1396, "candidates": 2, "rounds": 1, "seconds": 51.2}
+{"config": "coding", "task": "P1-39", "accepted": true, "contract": "unavailable", "tokens_generated": 846, "tokens_prompt": 1380, "candidates": 1, "rounds": 1, "seconds": 33.6}
+{"config": "coding", "task": "P1-11", "accepted": true, "contract": "pass", "tokens_generated": 1071, "tokens_prompt": 1304, "candidates": 2, "rounds": 1, "seconds": 45.8}
+{"config": "coding", "task": "P1-21", "accepted": true, "contract": "pass", "tokens_generated": 4767, "tokens_prompt": 4476, "candidates": 12, "rounds": 5, "seconds": 197.6}
+{"config": "coding", "task": "P1-23", "accepted": false, "contract": null, "tokens_generated": 7137, "tokens_prompt": 8952, "candidates": 23, "rounds": 11, "seconds": 303.9}
+{"config": "coding", "task": "P1-26", "accepted": false, "contract": null, "tokens_generated": 7705, "tokens_prompt": 9144, "candidates": 23, "rounds": 11, "seconds": 316.5}
+{"config": "coding", "task": "P1-34", "accepted": true, "contract": "unavailable", "tokens_generated": 1734, "tokens_prompt": 2936, "candidates": 8, "rounds": 3, "seconds": 87.0}
+{"config": "coding", "task": "P1-16", "accepted": true, "contract": "unavailable", "tokens_generated": 794, "tokens_prompt": 1372, "candidates": 3, "rounds": 1, "seconds": 33.3}
+{"config": "coding", "task": "P1-28", "accepted": true, "contract": "unavailable", "tokens_generated": 4679, "tokens_prompt": 4440, "candidates": 12, "rounds": 5, "seconds": 193.8}
+{"config": "coding", "task": "P1-37", "accepted": false, "contract": null, "tokens_generated": 7831, "tokens_prompt": 6498, "candidates": 17, "rounds": 8, "seconds": 312.3}
+{"config": "coding", "task": "P1-14", "accepted": true, "contract": "unavailable", "tokens_generated": 1366, "tokens_prompt": 1580, "candidates": 1, "rounds": 1, "seconds": 53.5}
+{"config": "coding", "task": "P1-20", "accepted": false, "contract": null, "tokens_generated": 7517, "tokens_prompt": 11976, "candidates": 25, "rounds": 12, "seconds": 319.0}
+{"config": "coding", "task": "P1-25", "accepted": true, "contract": "unavailable", "tokens_generated": 1470, "tokens_prompt": 1464, "candidates": 1, "rounds": 1, "seconds": 57.2}
+{
+ "baseline": {
+  "accepted": 18,
+  "contract_violations_among_accepted": 0,
+  "extraction_failures": 5,
+  "samples": 174,
+  "actual_generated_tokens": 53595,
+  "seconds": 2273.4,
+  "score": 18,
+  "adapter": null
+ },
+ "general": {
+  "accepted": 19,
+  "contract_violations_among_accepted": 0,
+  "extraction_failures": 11,
+  "samples": 131,
+  "actual_generated_tokens": 111354,
+  "seconds": 4468.8,
+  "score": 19,
+  "adapter": [
+   "h2_general",
+   "c64b5fd440fce73c23c8fa302cddfaba9687b41d6c9217b901bb32771ce89f1f"
+  ]
+ },
+ "coding": {
+  "accepted": 18,
+  "contract_violations_among_accepted": 0,
+  "extraction_failures": 4,
+  "samples": 184,
+  "actual_generated_tokens": 57776,
+  "seconds": 2386.6,
+  "score": 18,
+  "adapter": [
+   "h2_coding",
+   "cfca62403f58339db3ee0a95fc9d9ffcd7479e608682ee6d85ce9e2b934e3a22"
+  ]
+ }
+}

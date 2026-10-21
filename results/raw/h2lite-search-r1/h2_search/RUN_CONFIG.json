@@ -1,0 +1,46 @@
+{
+ "plan": "H2LITE_PLAN_v1",
+ "phase": "search",
+ "tasks": [
+  "P1-02",
+  "P1-04",
+  "P1-06",
+  "P1-07",
+  "P1-09",
+  "P1-12",
+  "P1-29",
+  "P1-30",
+  "P1-35",
+  "P1-38",
+  "P1-39",
+  "P1-11",
+  "P1-21",
+  "P1-23",
+  "P1-26",
+  "P1-34",
+  "P1-16",
+  "P1-28",
+  "P1-37",
+  "P1-14",
+  "P1-20",
+  "P1-25"
+ ],
+ "configs": {
+  "baseline": null,
+  "general": [
+   "h2_general",
+   "c64b5fd440fce73c23c8fa302cddfaba9687b41d6c9217b901bb32771ce89f1f"
+  ],
+  "coding": [
+   "h2_coding",
+   "cfca62403f58339db3ee0a95fc9d9ffcd7479e608682ee6d85ce9e2b934e3a22"
+  ]
+ },
+ "G": 6000,
+ "policy": "arm B (v2min.sample_loop, no gate)",
+ "exec": "kaggle",
+ "fake": false,
+ "tool_sha256": "fbdfaaf0cfbb1c048a9cfe7d4cee4981c2f8b1191c1f5578ef1a638d0cf659a3",
+ "v2min": "v2min_v1.2",
+ "started_utc": "2026-10-21T13:29:35Z"
+}
