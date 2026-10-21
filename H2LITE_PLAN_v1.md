@@ -1,6 +1,6 @@
 # H2-lite feasibility plan v1 (DRAFT for review) — 2026-10-21
 
-Status: DRAFT. No GLM call, no model generation, no GPU run and no download is authorized by this document. It freezes the experimental contract for review.
+Status: DRAFT (updated 2026-10-21: adapter implemented, roles separated). No GLM call, no model generation, no GPU run and no download is authorized by this document. It freezes the experimental contract for review.
 
 ## 1. Question
 Can better offline instructions make the UNCHANGED Qwen2.5-Coder-1.5B-Instruct (revision `2e1fd397…`) produce more independently correct programs for the same
@@ -28,23 +28,28 @@ SEARCH: 22 tasks (5 easy, 12 medium, 5 hard). CONFIRMATION: 18 tasks (5 easy, 8 
 P1-13, P1-21 and P1-31 appeared in the P5 smoke runs; they stay where their family puts them (development tasks, already exposed).
 
 ## 3. What may be edited (the only harness surface)
-- The text of the two frozen sampling templates `qwen_sample_v2` and `qwen_sample_v2b` (`evidence_ladder/models/qwen_v2b.py`), as NEW template ids
-  (`h2_sample_v1`, `h2_sample_v1b`); the frozen templates are never modified.
+- The text of the two frozen sampling templates `qwen_sample_v2` (`evidence_ladder/models/qwen.py`) and `qwen_sample_v2b`
+  (`evidence_ladder/models/qwen_v2b.py`), supplied as a versioned `PromptAdapter` (`evidence_ladder/v2min.py`, v2min_v1.2): template slot ids become
+  `<frozen id>@<adapter version>`, the adapter carries a sha256 of its texts; the frozen templates are never modified.
+- Implemented and mechanically proven (tools/test_v2min.py, checks 11-13): an identity adapter reproduces arm B call for call; an edited adapter keeps every
+  seed, position, template slot and token limit and changes only the prompt text; rule violations are refused at construction.
 - Allowed: task-independent instruction text (how to read the input object, edge cases to consider in general, how to structure the answer).
   Each edit at most +400 characters over the template it replaces; the placeholders `{task_prompt}`, `{examples}`, `{solution_format}` stay and the required
   solution-format block (`SOLUTION_FORMATS["python"]`) is unchanged.
 - NOT allowed: task-specific facts or hints, example solutions, any text derived from a hidden grade, a skills system, memory or an experience library,
   sampling parameters, budget, number of samples, seeds, extraction, public-check rules, tools, critics, repair.
 
-## 4. The editor (offline only)
+## 4. The editor (offline only) and role independence
 GLM on the NVIDIA endpoint already used by this project, called offline under the existing logging and key rules; nothing from the editor runs at
 inference. Before any call: check the current model id, quota and Rs 0 status (not verified yet). The editor sees ONLY: the current template text, the
 search-split statements and public examples, and the runtime-visible outcome table of each variant (section 5). It never sees a hidden grade, a confirmation
 task, or the P5/P6 tasks. Per editor round it proposes exactly two variants: one general (how to approach any task) and one coding-specific (input handling,
 edge cases), the Harness² invariant / domain pair.
+Role independence (user, 2026-10-21): the editor (GLM) never generates, sees or inspects any P6 task, P6 contract, P6 grading case or P6 result; the P6
+contract tasks are written by the coordinator, and the P6 blind grading set by a separate fresh-context author with no access to the editor, contracts or results.
 
 ## 5. Search procedure (search split only)
-- Policy for every variant: arm B (`v2min.sample_loop` with no gate = P5 arm B, call-for-call), budget G = 6,000 generated tokens beyond the 4 round-1
+- Policy for every variant: arm B (`v2min.sample_loop` with no gate = P5 arm B, call-for-call) with the variant's `PromptAdapter` (none for the baseline), budget G = 6,000 generated tokens beyond the 4 round-1
   samples, the same seeds for every variant (paired), Kaggle T4, sequential, the trusted verifier on the Kaggle jail.
 - Runtime-visible score per variant, over the 22 search tasks (no hidden grade is computed during the search):
   `accepted` (tasks with a candidate passing every public example), `contract_violations_among_accepted` (decl_v1 parser contracts, the runtime gate),
