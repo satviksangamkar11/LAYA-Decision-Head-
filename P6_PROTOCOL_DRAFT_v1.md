@@ -17,12 +17,16 @@ actual spend?
 LAYA scorer OFF, critic OFF, no repair, no training. V1.5 (arm D of P5) is not re-run; its P5 result stands.
 
 ## 3. Fresh tasks (sourced only after this protocol is frozen)
-1. Benchmark cohort: recent (2026) contest problems, easy + medium. Requirements (user, 2026-10-21):
-   - reliable independent grading: official complete test data (or an equivalent independently produced test set), never model-written tests;
-   - deduplication against LiveCodeBench v6 (all 175), every P5 task and the development bank (by source id, and by normalized statement text);
-   - clear provenance per problem: contest, date, URL, license / terms of use;
-   - initial downloads at most 250 MB in total; the source is chosen BEFORE looking at any problem's content, from the investigation report
-     (`P6_DATA_SOURCES_2026_10_21.md`).
+1. Benchmark cohort (user decision 2026-10-21, option C): a HELD-OUT CODEFORCES COHORT, October 2024 – February 2025, from the `test` split of
+   Hugging Face `open-r1/codeforces` (`verifiable` config). It is NOT a 2026 contest benchmark (no 2026 source offers validated tests; see
+   `P6_DATA_SOURCES_2026_10_21.md`). Candidate pool: rating <= 1200, contest start >= 2024-10-01, single-answer (no checker), non-interactive (77 problems);
+   the pool is not the final benchmark. Before freezing, each problem must show: tests retrievable within the download allowance; sufficient grading coverage;
+   no overlap with LiveCodeBench v6, P5 tasks or the development bank (source id and normalized statement); and a working statement / stdin interface / time
+   limit / expected-output path through the trusted grader.
+   Grading: the dataset's generated tests, whose outputs were validated by agreement of several correct human solutions, plus the complete official tests
+   where present. They are NOT complete official Codeforces tests and are never described as such.
+   Contamination: Qwen2.5-Coder was released in September 2024, so the date filter selects post-release problems; this does not by itself prove that the
+   problems are absent from the model's training data.
    Ids, order (seeded) and hashes are locked before any candidate exists.
 2. Contract cohort: 20 NEW tasks (bank format), statements + contracts authored and hashed before any candidate (as P5); a NEW blind private grading set
    authored from the statements only by a fresh-context author with no access to contracts, earlier sets or results, validated, hashed before inference, kept
