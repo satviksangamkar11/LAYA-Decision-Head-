@@ -1,0 +1,39 @@
+{
+ "protocol": "P6_PROTOCOL_v1",
+ "amendment": "P6_PROTOCOL_v1.1 (logging only)",
+ "cohort": "contract",
+ "tasks": [
+  "D01",
+  "D02",
+  "D03",
+  "D04",
+  "D05",
+  "D06",
+  "D07",
+  "D08",
+  "D09",
+  "D10",
+  "D11",
+  "D12",
+  "D13",
+  "D14",
+  "D15",
+  "D16",
+  "D17",
+  "D18",
+  "D19",
+  "D20"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "V2"
+ ],
+ "G": 6000,
+ "v2min": "v2min_v1.2",
+ "template": "qwen_sample_v2+v2b",
+ "exec": "kaggle",
+ "fake": false,
+ "tool_sha256": "a1767336f7db728bfbbd46b7c6a06c5f4386b9689e0434b1ba04ee2a95a2e499",
+ "started_utc": "2026-10-21T21:51:40Z"
+}

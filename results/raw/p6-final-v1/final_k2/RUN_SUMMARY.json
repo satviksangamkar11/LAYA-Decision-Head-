@@ -1,0 +1,103 @@
+{
+ "kernel": "el_p6_run_v1",
+ "started_utc": "2026-10-21T18:47:39Z",
+ "bundle": {
+  "files": 160,
+  "commit": "4cf5832bccd22ee84beaf13bf2bf101bfb618baf"
+ },
+ "plan": {
+  "protocol": "P6_PROTOCOL_v1",
+  "mode": "final_k2",
+  "time_limit_s": null,
+  "shards": [
+   {
+    "name": "final_cf_2",
+    "cohort": "cf",
+    "tasks": [
+     "2057/A",
+     "2063/A",
+     "2038/J",
+     "2044/B",
+     "2060/C",
+     "2029/A",
+     "2025/A",
+     "2050/C",
+     "2051/D",
+     "2062/B",
+     "2021/B",
+     "2038/N",
+     "2053/A",
+     "2065/B",
+     "2039/C1",
+     "2033/B",
+     "2048/A",
+     "2067/B",
+     "2037/A",
+     "2060/A",
+     "2027/B",
+     "2065/D",
+     "2031/B",
+     "2050/B",
+     "2043/B",
+     "2041/B",
+     "2062/A",
+     "2042/A",
+     "2063/B",
+     "2028/A",
+     "2029/B",
+     "2055/B",
+     "2035/B",
+     "2036/B",
+     "2030/A",
+     "2047/A",
+     "2035/A",
+     "2057/B",
+     "2037/B",
+     "2060/D"
+    ]
+   },
+   {
+    "name": "final_contract",
+    "cohort": "contract",
+    "tasks": [
+     "D01",
+     "D02",
+     "D03",
+     "D04",
+     "D05",
+     "D06",
+     "D07",
+     "D08",
+     "D09",
+     "D10",
+     "D11",
+     "D12",
+     "D13",
+     "D14",
+     "D15",
+     "D16",
+     "D17",
+     "D18",
+     "D19",
+     "D20"
+    ]
+   }
+  ],
+  "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+ },
+ "jail": "PASS",
+ "qualification_ok": true,
+ "model_sha256_ok": true,
+ "gpu_check": "Tesla T4 512.0\n",
+ "time_limit_s": null,
+ "setup_seconds": 90.0,
+ "shard_exit_codes": {
+  "final_cf_2": 0,
+  "final_contract": 0
+ },
+ "incomplete_tasks": {},
+ "verdict": "OK",
+ "total_seconds": 12570.2,
+ "ended_utc": "2026-10-21T22:17:09Z"
+}

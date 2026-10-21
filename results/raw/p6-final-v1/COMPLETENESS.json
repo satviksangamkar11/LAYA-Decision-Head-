@@ -1,0 +1,841 @@
+{
+ "lock": "configs\\p6_final_lock_v1.json",
+ "tasks_expected": 92,
+ "tasks_found": 92,
+ "missing": [],
+ "extra": [],
+ "duplicated": [],
+ "incomplete": [],
+ "run_problems": [],
+ "complete": true,
+ "per_task": {
+  "2030/C": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2032/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2056/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2061/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2059/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2026/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2065/C1": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2065/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2022/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2046/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2024/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2051/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2050/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2040/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2042/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2034/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2067/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2051/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2025/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2048/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2055/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2043/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2051/C": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2036/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2031/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2034/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2062/C": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2060/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2024/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2039/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2040/B": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2027/A": {
+   "run": "p6_final_cf_1",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2057/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2063/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2038/J": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2044/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2060/C": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2029/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2025/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2050/C": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2051/D": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2062/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2021/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2038/N": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2053/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2065/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2039/C1": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2033/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2048/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2067/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2037/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2060/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2027/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2065/D": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2031/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2050/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2043/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2041/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2062/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2042/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2063/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2028/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2029/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2055/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2035/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2036/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2030/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2047/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2035/A": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2057/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2037/B": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "2060/D": {
+   "run": "p6_final_cf_2",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D01": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D02": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D03": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D04": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D05": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D06": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D07": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D08": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D09": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D10": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D11": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D12": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D13": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D14": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D15": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D16": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D17": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D18": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D19": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  },
+  "D20": {
+   "run": "p6_final_contract",
+   "results_arms": true,
+   "answer_arms": true,
+   "candidate_use": true,
+   "candidates": true,
+   "identity": true,
+   "complete": true
+  }
+ }
+}
