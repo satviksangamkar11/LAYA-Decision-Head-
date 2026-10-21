@@ -5,8 +5,9 @@ when no gate is applied):
   "b_veto"  REFERENCE: run B unchanged; if B's selected candidate fails an authoritative contract, return no answer (veto).
   "gate"    PROPOSED: every candidate that passes all public examples is checked by the contract gate before acceptance; a proven failure is rejected and sampling
             continues; the first candidate passing every applicable check is returned at once (no further samples); budget exhausted -> abstain.
-Contract gate verdicts: "pass" (authoritative contract checked, no violation), "fail" (authoritative violation: proven failure), "unavailable" (no authoritative
-contract for the task; public-only acceptance). A sandbox / tool failure raises ContractToolError: infrastructure, never a candidate verdict.
+Contract gate verdicts: "pass" (authoritative contract checked >= 1 valid input, every valid input produced a result, no violation), "fail" (authoritative
+violation: proven failure), "inconclusive" (authoritative contract but an incomplete check: no valid input checked or a valid input without a result; accepted on
+public evidence, recorded as such), "unavailable" (no authoritative contract; public-only acceptance). A sandbox / tool failure raises ContractToolError: infrastructure, never a candidate verdict.
 Labels: "SUPPORTED" (accepted; `checks` says whether the contract passed or was unavailable) or "BLOCKED" (no answer). Never "VERIFIED"."""
 from __future__ import annotations
 
@@ -18,7 +19,7 @@ from typing import Any, Callable, Dict, List, Optional
 from evidence_ladder.common.interfaces import Artifact, GenerationRequest, TaskSpec
 from evidence_ladder.controller import generation as GEN
 
-VERSION = "v2min_v1"
+VERSION = "v2min_v1.1"      # v1.1: incomplete contract checks are "inconclusive", never "pass"
 MAX_NEW = 4096
 POLICIES = ("b_veto", "gate")
 
@@ -67,7 +68,18 @@ class ContractGate:
             results, term = self.execution.run_inputs(art, task, inputs)
         except Exception as e:      # noqa: BLE001
             raise ContractToolError("contract check could not run for %s: %s: %s" % (task.task_id, type(e).__name__, str(e)[:200])) from e
-        return "fail" if CV.evaluate(ct, inputs, results, whole_run_crashed=(term == "crash"))["hard"] else "pass"
+        return verdict(CV.evaluate(ct, inputs, results, whole_run_crashed=(term == "crash")))
+
+
+def verdict(ev: Dict[str, Any]) -> str:
+    """contract_v1.evaluate result -> gate verdict. 'fail' = a proven violation; 'pass' only when the contract actually checked at least one valid input and
+    every valid input produced a result; otherwise 'inconclusive' (incomplete check: not a failure, not a pass — the candidate is accepted on public evidence
+    and the record says so)."""
+    if ev["hard"]:
+        return "fail"
+    if ev["checked_valid_inputs"] == 0 or ev["uncertain"]:
+        return "inconclusive"
+    return "pass"
 
 
 def _accept(gate: Optional[Callable[[TaskSpec, Artifact], str]], task: TaskSpec, art: Artifact, log: List[Dict[str, Any]]) -> Optional[str]:

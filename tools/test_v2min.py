@@ -8,6 +8,7 @@
  7 public-failing candidates never reach the gate
  8 contract tool failure -> ContractToolError (infrastructure), never a verdict
  9 no result carries the label VERIFIED
+10 an incomplete contract check (no valid input checked, or a valid input without a result) is "inconclusive", never "pass"; a violation still fails
 Usage: PYTHONPATH=. .venv/Scripts/python.exe tools/test_v2min.py"""
 import json
 import sys
@@ -167,6 +168,10 @@ for name, fn in (("2_gate_rejects_and_continues", t2), ("2b_stops_after_acceptan
                  ("4_unavailable_contract_public_only", t4), ("5_parser_contract_rejects_crash", t5), ("6_budget_exhausted_abstains", t6),
                  ("7_public_failures_never_gated", t7), ("8_tool_failure_raises", t8)):
     check(name, fn)
+check("10_incomplete_check_is_inconclusive", lambda: V.verdict({"hard": [], "uncertain": [], "checked_valid_inputs": 0}) == "inconclusive"
+      and V.verdict({"hard": [], "uncertain": ["no result for valid input 3"], "checked_valid_inputs": 5}) == "inconclusive"
+      and V.verdict({"hard": [{"input": 0}], "uncertain": ["x"], "checked_valid_inputs": 0}) == "fail"
+      and V.verdict({"hard": [], "uncertain": [], "checked_valid_inputs": 4}) == "pass")
 check("9_never_VERIFIED", lambda: results and all(r["label"] in ("SUPPORTED", "BLOCKED") for r in results))
 print(json.dumps({"version": V.VERSION, "checks": checks, "all_ok": all(checks.values())}, indent=1))
 sys.exit(0 if all(checks.values()) else 1)
