@@ -30,9 +30,11 @@ B's saved calls in their real order (shared round 1 included), whole candidates 
 | Contract (blind): solved / answered / false SUPPORTED | 13 / 15 / 2 | **15** / 17 / 2 | 16 / 18 / 2 |
 | tokens | 29,347 | 11,042 | 33,691 |
 
-**On LiveCodeBench, B's 9-task advantage disappears at C's spend (18 = 18)** and B then makes slightly more false SUPPORTED claims (11 vs 9). The gap in P5 comes
-from B spending about 3× more, which the ladder's round limit never allowed it to do (it stopped with most of its token cap unused). On the contract cohort, B at
-C's spend solves 2 more with fewer tokens (small n: 20 tasks).
+**On LiveCodeBench, at a per-task ceiling derived from C's actual expenditure, B and C each solved 18 problems, and B spent FEWER tokens (84,965 vs
+110,716)** because the replay cuts at whole candidates and B stops at its first public pass; B then makes slightly more false SUPPORTED claims (11 vs 9).
+(Correction, user 2026-10-21: this is not an equal-expenditure comparison, so it neither proves equal-budget superiority for either strategy nor shows that
+spending alone caused B's original nine-problem advantage.) The ladder stopped with most of its token cap unused (round limit). On the contract cohort, B under
+the same per-task ceiling solves 2 more with fewer tokens (small n: 20 tasks).
 
 ## D. Disagreement feasibility (distinguishing inputs)
 | Cohort | Tasks with ≥ 2 distinct public-passing candidates | With a disagreement on derived inputs | Authoritatively resolved | Disagreements that contain a correct class | Output-voting (plurality) picks a correct class |
@@ -53,7 +55,8 @@ at runtime; stdin derived inputs are of unknown validity. A selector that abstai
 
 Readings (exploratory, from data the final evaluation already used):
 1. "B's search + D's trusted check" dominates D here (16 vs 13 solved, same 1 false SUPPORTED) and loses no correct answer.
-2. The repair ladder's deficit is generation within a 2-round limit, not selection; at equal actual spend on LiveCodeBench, fresh sampling only ties it.
-   P5 therefore does not show that fresh sampling beats repair per token; it shows the ladder stopped too early.
+2. The repair ladder's deficit is generation within a 2-round limit, not selection; under C's per-task ceiling, fresh sampling ties it on LiveCodeBench
+   (with fewer tokens spent). P5 therefore does not show that fresh sampling beats repair per token, nor the reverse; it shows the ladder stopped early.
+   Contract checks cost CPU execution (no extra model generation in this retrospective test); they are not free.
 3. The distinguishing-input selector of the V2 document is not supported by this data; it should not be built first.
 Any design chosen from these readings needs a fresh evaluation set for an unbiased claim.
