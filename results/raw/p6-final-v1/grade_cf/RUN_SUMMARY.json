@@ -1,0 +1,18 @@
+{
+ "kernel": "el_p6_cf_grade_v1",
+ "started_utc": "2026-10-21T22:33:46Z",
+ "answers_file": "/kaggle/input/datasets/sangeetasangamkar/el-p6-grade-input-v1/ANSWERS_cf.jsonl",
+ "answers": 216,
+ "bundle_commit": "bca45ad91c1d961b722a74af2590ba261eabbb02",
+ "rootfs": {
+  "rootfs": "/tmp/kjail-root",
+  "bytes": 379772747,
+  "python": "/usr/bin/python3.13",
+  "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "libs": 51
+ },
+ "python_port_qualified": true,
+ "verdict": "OK",
+ "total_seconds": 4625.7,
+ "graded": 216
+}

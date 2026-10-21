@@ -1,0 +1,151 @@
+{
+ "protocol": "P6_PROTOCOL_v1",
+ "note": "development results: public acceptance (label) and graded correctness are separate; tokens are logical, seconds are wall time",
+ "cf": {
+  "tasks_in_lock": 72,
+  "arms": {
+   "A": {
+    "tasks_complete": 72,
+    "solved": 1,
+    "wrong_answer": 71,
+    "no_answer": 0,
+    "tokens_generated_logical": 15407,
+    "tokens_generated_own": 0,
+    "seconds_median": 0.0,
+    "calls": 0,
+    "wrong_answers_unclaimed": 71
+   },
+   "B": {
+    "tasks_complete": 72,
+    "solved": 8,
+    "wrong_answer": 7,
+    "no_answer": 57,
+    "tokens_generated_logical": 410966,
+    "tokens_generated_own": 351273,
+    "seconds_median": 254.7,
+    "calls": 1997,
+    "false_acceptances": 7,
+    "supported": 15,
+    "blocked": 57
+   }
+  },
+  "B_minus_A": {
+   "n_tasks": 72,
+   "solved_x": 1,
+   "solved_y": 8,
+   "diff_point": 0.09722222222222222,
+   "ci95": [
+    0.027777777777777776,
+    0.16666666666666666
+   ],
+   "ci_excludes_0": true
+  },
+  "extra_correct_B_over_A": 7,
+  "token_ratio_B_over_A": {
+   "logical": 26.673979360031154,
+   "A_logical": 15407,
+   "B_logical": 410966,
+   "B_own": 351273
+  },
+  "own_tokens_per_extra_correct": 50181.857142857145,
+  "identity": {
+   "tasks_checked": 72,
+   "failures": [],
+   "pass": true,
+   "note": "any failure is an IMPLEMENTATION failure (V2 must equal B exactly, every gate verdict unavailable)"
+  }
+ },
+ "contract": {
+  "tasks_in_lock": 20,
+  "arms": {
+   "A": {
+    "tasks_complete": 20,
+    "solved": 9,
+    "wrong_answer": 11,
+    "no_answer": 0,
+    "tokens_generated_logical": 3209,
+    "tokens_generated_own": 0,
+    "seconds_median": 0.0,
+    "calls": 0,
+    "wrong_answers_unclaimed": 11
+   },
+   "B": {
+    "tasks_complete": 20,
+    "solved": 16,
+    "wrong_answer": 3,
+    "no_answer": 1,
+    "tokens_generated_logical": 30594,
+    "tokens_generated_own": 11460,
+    "seconds_median": 2.3,
+    "calls": 123,
+    "false_acceptances": 3,
+    "supported": 19,
+    "blocked": 1
+   },
+   "V2": {
+    "tasks_complete": 20,
+    "solved": 16,
+    "wrong_answer": 3,
+    "no_answer": 1,
+    "tokens_generated_logical": 30594,
+    "tokens_generated_own": 0,
+    "seconds_median": 4.75,
+    "calls": 123,
+    "false_acceptances": 3,
+    "supported": 19,
+    "blocked": 1
+   }
+  },
+  "V2_minus_B": {
+   "n_tasks": 20,
+   "solved_x": 16,
+   "solved_y": 16,
+   "diff_point": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "ci_excludes_0": false
+  },
+  "B_minus_A": {
+   "n_tasks": 20,
+   "solved_x": 9,
+   "solved_y": 16,
+   "diff_point": 0.35,
+   "ci95": [
+    0.15,
+    0.55
+   ],
+   "ci_excludes_0": true
+  },
+  "transitions_B_to_V2": {
+   "unchanged": 20,
+   "wrong_answer_prevented": 0,
+   "wrong_answer_repaired": 0,
+   "correct_lost": 0,
+   "correct_gained": 0,
+   "other_changed": 0
+  },
+  "tasks_in_transitions": 20,
+  "V2_gate_verdict_mix": {
+   "pass": 19
+  }
+ },
+ "criteria": {
+  "cf_B_beats_A": true,
+  "cf_identity_check_pass": true,
+  "contract_V2_false_acceptances_le_B": true,
+  "contract_correct_lost_is_0": true,
+  "contract_V2_solves_ge_B": true,
+  "contract_gate_ok": true
+ },
+ "infrastructure": {
+  "missing_rows": [],
+  "missing_grades": [],
+  "duplicate_rows": [],
+  "unexpected_tasks": [],
+  "identity_missing": [],
+  "complete": true,
+  "note": "implementation/infrastructure failures, never candidate failures; criteria above use only complete tasks"
+ }
+}

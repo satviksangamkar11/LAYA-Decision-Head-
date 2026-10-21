@@ -1,0 +1,38 @@
+{
+ "port": "kaggle-jail",
+ "verifier": "trusted_verify_v3",
+ "checks": {
+  "honest_pass": {
+   "ok": true
+  },
+  "forged_frames_never_pass": {
+   "ok": true
+  },
+  "claim_then_crash_never_pass": {
+   "ok": true
+  },
+  "hang_is_killed": {
+   "ok": true
+  },
+  "socket_denied": {
+   "ok": true
+  },
+  "host_paths_unreadable": {
+   "ok": true
+  },
+  "expected_values_never_staged": {
+   "ok": true
+  },
+  "lcb_stdin_honest_pass": {
+   "ok": true
+  },
+  "lcb_stdin_wrong_fails": {
+   "ok": true
+  },
+  "lcb_functional_honest_pass": {
+   "ok": true
+  }
+ },
+ "all_ok": true,
+ "jail_calls": 32
+}
