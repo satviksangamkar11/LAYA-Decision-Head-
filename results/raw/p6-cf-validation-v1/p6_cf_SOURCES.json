@@ -1,0 +1,207 @@
+{
+ "verifiable/test": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/verifiable/test-00000-of-00001.parquet",
+  "bytes": 27485804,
+  "sha256": "fb1389c7f0f151154af58f799af0dd1ac5163fff12a92b63d772a36b20e221e3"
+ },
+ "generated_tests/test_cases_2021.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2021.parquet",
+  "bytes": 437418002,
+  "sha256": "a09b787e87caf773e1513a233fcdb9f83cd5df9e08a8a14778f04071117f602e"
+ },
+ "generated_tests/test_cases_2022.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2022.parquet",
+  "bytes": 13288993,
+  "sha256": "8247aab2e357a6001bf429fc39551e0b9d4a1662630c285bc4ac98b380e9ef4a"
+ },
+ "generated_tests/test_cases_2024.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2024.parquet",
+  "bytes": 31288017,
+  "sha256": "e944d71f2de721fa4150f5e6b8596889c64172cd29c27f60aa9d86a1b27ebf2b"
+ },
+ "generated_tests/test_cases_2025.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2025.parquet",
+  "bytes": 172005179,
+  "sha256": "9ba7f07ba56c41c26ce3faa13a9a7bfc3a50fb2db6d859dc0098bfb4d2edba65"
+ },
+ "generated_tests/test_cases_2026.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2026.parquet",
+  "bytes": 288634045,
+  "sha256": "b1e57dff8e7259f23cf354504409acd0f9023c2cb3f84c2ffbcc4f71eb9fbaa7"
+ },
+ "generated_tests/test_cases_2027.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2027.parquet",
+  "bytes": 36126714,
+  "sha256": "ff1b6ad12976c0a59bbf86aa4a300619ac5bc0741c29fb1ddb6354873fa5caa2"
+ },
+ "generated_tests/test_cases_2028.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2028.parquet",
+  "bytes": 148208906,
+  "sha256": "acdd39bccbd9962950b29765ccd016713e87d320c426ccba5ce311736eeeb4bd"
+ },
+ "generated_tests/test_cases_2029.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2029.parquet",
+  "bytes": 121979944,
+  "sha256": "bd998b203657ba6ece20be56ca5caae33442384a2aed39ce44c899ab049cda60"
+ },
+ "generated_tests/test_cases_2030.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2030.parquet",
+  "bytes": 307312345,
+  "sha256": "1bf35d78829c5a86e2b5d4bb0ce613b544ec75c2d57bfafe69e92992d8deca4b"
+ },
+ "generated_tests/test_cases_2031.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2031.parquet",
+  "bytes": 74544140,
+  "sha256": "c3baafab04c1f44f18cb7712d78f8782667936e07435a9f09089e5d00eda9c61"
+ },
+ "generated_tests/test_cases_2032.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2032.parquet",
+  "bytes": 155755385,
+  "sha256": "0d7d5be3e6347d6a894d907f331576f4d4ee9fc724a45273a49ea1273a1c8901"
+ },
+ "generated_tests/test_cases_2033.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2033.parquet",
+  "bytes": 265395497,
+  "sha256": "353b1a3d61ea341237f7a2193c72b31fc2267a6371f73d95af5d0272da90f3fa"
+ },
+ "generated_tests/test_cases_2034.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2034.parquet",
+  "bytes": 64727983,
+  "sha256": "e70b9d27280e1bf3ee142a79e93264bc772607ac62e86f0482b3dc640686b594"
+ },
+ "generated_tests/test_cases_2035.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2035.parquet",
+  "bytes": 97915657,
+  "sha256": "5292fa6109f736686b3852ef135f8f328e5168c8fedf2062cfb67a59347a03bd"
+ },
+ "generated_tests/test_cases_2036.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2036.parquet",
+  "bytes": 104612600,
+  "sha256": "a4c2c45a5ed14aa42b14cfbff2aa9e130b453abe28303f8cd71af4abd64c7b5e"
+ },
+ "generated_tests/test_cases_2037.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2037.parquet",
+  "bytes": 76676413,
+  "sha256": "c3c66c8deea9adf566910bfccd7146b63b91644660c162fd9680b6eaddd923da"
+ },
+ "generated_tests/test_cases_2038.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2038.parquet",
+  "bytes": 64233551,
+  "sha256": "6a061cae6c6f067df071b770b020226c97d83f5226d3a459c4e519e93e28bd2d"
+ },
+ "generated_tests/test_cases_2039.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2039.parquet",
+  "bytes": 112587420,
+  "sha256": "a167446086c0469cac68c582962fb013e3f66f984d021d02af66237dad027764"
+ },
+ "generated_tests/test_cases_2040.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2040.parquet",
+  "bytes": 3533998,
+  "sha256": "fd87e16e6c1d418fdbaecd37ca1a23552140a82b80695bee2c701e9ccb45fe7c"
+ },
+ "generated_tests/test_cases_2041.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2041.parquet",
+  "bytes": 258119378,
+  "sha256": "59ad1283c754d8a2facc0eb2d07c931d874eb09986b4133eea2543e9dd6faa22"
+ },
+ "generated_tests/test_cases_2042.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2042.parquet",
+  "bytes": 145919752,
+  "sha256": "a50d8ed72495896f75f8d346f9e07c4e45a0c5ef8a2cad608a3e280e4b305125"
+ },
+ "generated_tests/test_cases_2043.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2043.parquet",
+  "bytes": 202208432,
+  "sha256": "4a2c83689d3eefb11bd43634cf86166f647a7415a7126cc33e8973c211fdf7ab"
+ },
+ "generated_tests/test_cases_2044.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2044.parquet",
+  "bytes": 493046326,
+  "sha256": "912cdcbbf8618265005ed6f4cb4d33d2b9c13181dadd068f93e9fab29419e94a"
+ },
+ "generated_tests/test_cases_2046.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2046.parquet",
+  "bytes": 84113276,
+  "sha256": "f3d8c6ec4e5e478bfa986cafc827f9d77363e3b109b1cbd2256fbcf6a9828706"
+ },
+ "generated_tests/test_cases_2047.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2047.parquet",
+  "bytes": 1186637,
+  "sha256": "3b2f7e36b2c0cb72cf188e1f3815b11d5a4187f28db83a27bc08ae51de52aef9"
+ },
+ "generated_tests/test_cases_2048.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2048.parquet",
+  "bytes": 66668654,
+  "sha256": "078650f176f7838b70d7760fcec1e461cb384c57c893616d84716b8020b71b7a"
+ },
+ "generated_tests/test_cases_2050.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2050.parquet",
+  "bytes": 113291279,
+  "sha256": "8eca91fa920a20af501d03950e56204ca327d4d6ee205f0839e4c5aada9c2e34"
+ },
+ "generated_tests/test_cases_2051.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2051.parquet",
+  "bytes": 243097533,
+  "sha256": "4235bea3d1b9f7558a8c9c2db5cd25db760a013f2bb6abb7994d1d65a85942c5"
+ },
+ "generated_tests/test_cases_2053.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2053.parquet",
+  "bytes": 480080029,
+  "sha256": "e99c207f7101ea4a064eb95bf867b305e49a294ffa7077bb06333f714fd34f1d"
+ },
+ "generated_tests/test_cases_2055.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2055.parquet",
+  "bytes": 498889604,
+  "sha256": "8f8ad192381c067b50608169a3486d86b0713a12a57c82fe6f7e6995520ac6d3"
+ },
+ "generated_tests/test_cases_2056.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2056.parquet",
+  "bytes": 18300003,
+  "sha256": "b61498652de4ba35e22c2da6c225c4737b8e0b641f96e30d5cb1e5bc8b9877bf"
+ },
+ "generated_tests/test_cases_2057.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2057.parquet",
+  "bytes": 208254436,
+  "sha256": "30dbe101ade769d14cc67800a724be071d607a487b05f10622f6bbeeb517e678"
+ },
+ "generated_tests/test_cases_2059.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2059.parquet",
+  "bytes": 127409007,
+  "sha256": "3ddfd4d5fd56b41117de29680e921f1936f7b84b49d09c668106c62961f18594"
+ },
+ "generated_tests/test_cases_2060.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2060.parquet",
+  "bytes": 189557304,
+  "sha256": "342c9ae0084659bc0e642f36e6df0ca75cba9bfbb56ad5dd3cc1759d1f9e9e27"
+ },
+ "generated_tests/test_cases_2061.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2061.parquet",
+  "bytes": 122065773,
+  "sha256": "f0188a1fccadeac4de86da0e5d6aab55173313087d889ee7d8d2095efb594500"
+ },
+ "generated_tests/test_cases_2062.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2062.parquet",
+  "bytes": 43038841,
+  "sha256": "539f68a783d9b00fcdb0e7519608f061eb82db8b7f1ee88d45246ed8e47bd7df"
+ },
+ "generated_tests/test_cases_2063.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2063.parquet",
+  "bytes": 267087328,
+  "sha256": "fe736d6dd55aeea0983b38448c84b129d80dbf89e0bfd0c994d60bca71e5b32a"
+ },
+ "generated_tests/test_cases_2065.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2065.parquet",
+  "bytes": 357066956,
+  "sha256": "c8176fab09fd65c888507fb1a622ab52b5cab9e50f760178f2061dde44f6a9a9"
+ },
+ "generated_tests/test_cases_2067.parquet": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces/resolve/fbe3f6e903ee854eec2e69e9d96d0306cde59baf/generated_tests/test_cases_2067.parquet",
+  "bytes": 8396002,
+  "sha256": "136ad3e6d60d11c9a00fdc891fbbaae21167e9a019168ce26a01bf918c1f1c5e"
+ },
+ "selected_accepted": {
+  "url": "https://huggingface.co/datasets/open-r1/codeforces-submissions/resolve/07e7bf31f284b0e90e02dfc7ab675d5821e1c068/selected_accepted/train-00000-of-00001.parquet",
+  "bytes": 73893557,
+  "sha256": "ec63c336172356318feb072f3adfa3d4a75e836c9b91f1b56285ad679951be2a"
+ }
+}

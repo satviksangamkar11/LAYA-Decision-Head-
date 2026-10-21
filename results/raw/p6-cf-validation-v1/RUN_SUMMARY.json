@@ -1,0 +1,14 @@
+{
+ "kernel": "el_p6_cf_tests_v1",
+ "started_utc": "2026-10-21T13:21:25Z",
+ "rev_codeforces": "fbe3f6e903ee854eec2e69e9d96d0306cde59baf",
+ "rev_submissions": "07e7bf31f284b0e90e02dfc7ab675d5821e1c068",
+ "candidates": 77,
+ "contests": 39,
+ "bundle_commit": "1dc2e66e6987b5419adf679f88b0f9071e1c3205",
+ "verdict": "OK",
+ "total_seconds": 622.8,
+ "export_bytes": 584159659,
+ "validated": 2,
+ "downloaded_bytes": 6605420700
+}

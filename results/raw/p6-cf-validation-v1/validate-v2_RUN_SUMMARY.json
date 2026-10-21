@@ -1,0 +1,12 @@
+{
+ "kernel": "el_p6_cf_validate_v2",
+ "started_utc": "2026-10-21T14:02:09Z",
+ "rev_submissions": "07e7bf31f284b0e90e02dfc7ab675d5821e1c068",
+ "candidates": 77,
+ "v1_manifest_files": 80,
+ "verdict": "OK",
+ "total_seconds": 177.7,
+ "validated": 2,
+ "with_reference": 2,
+ "downloaded_bytes": 5554509577
+}
