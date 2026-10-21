@@ -1,0 +1,68 @@
+{
+ "kernel": "el_p6_run_v1",
+ "started_utc": "2026-10-21T18:47:34Z",
+ "bundle": {
+  "files": 160,
+  "commit": "4cf5832bccd22ee84beaf13bf2bf101bfb618baf"
+ },
+ "plan": {
+  "protocol": "P6_PROTOCOL_v1",
+  "mode": "final_k1",
+  "time_limit_s": 14100,
+  "shards": [
+   {
+    "name": "final_cf_1",
+    "cohort": "cf",
+    "tasks": [
+     "2030/C",
+     "2032/A",
+     "2056/A",
+     "2061/A",
+     "2059/A",
+     "2026/A",
+     "2065/C1",
+     "2065/A",
+     "2022/A",
+     "2046/A",
+     "2024/B",
+     "2051/A",
+     "2050/A",
+     "2040/A",
+     "2042/B",
+     "2034/B",
+     "2067/A",
+     "2051/B",
+     "2025/B",
+     "2048/B",
+     "2055/A",
+     "2043/A",
+     "2051/C",
+     "2036/A",
+     "2031/A",
+     "2034/A",
+     "2062/C",
+     "2060/B",
+     "2024/A",
+     "2039/B",
+     "2040/B",
+     "2027/A"
+    ]
+   }
+  ],
+  "model_repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+ },
+ "jail": "PASS",
+ "qualification_ok": true,
+ "model_sha256_ok": true,
+ "gpu_check": "Tesla T4 512.0\n",
+ "time_limit_s": 14100,
+ "setup_seconds": 186.3,
+ "shard_exit_codes": {
+  "final_cf_1": 0
+ },
+ "incomplete_tasks": {},
+ "verdict": "OK",
+ "total_seconds": 8481.9,
+ "ended_utc": "2026-10-21T21:08:56Z"
+}
