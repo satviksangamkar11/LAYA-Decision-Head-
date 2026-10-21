@@ -1,0 +1,19 @@
+{
+ "id": "sangeetasangamkar/el-p6-cf-validate-v3",
+ "title": "el-p6-cf-validate-v3",
+ "code_file": "el_p6_cf_validate_v3.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": false,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "dataset_sources": [
+  "sangeetasangamkar/el-ml-bundle-v1"
+ ],
+ "kernel_sources": [
+  "sangeetasangamkar/el-p6-cf-tests-v1"
+ ],
+ "competition_sources": [],
+ "model_sources": []
+}
