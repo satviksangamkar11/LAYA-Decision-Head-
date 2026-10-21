@@ -29,7 +29,16 @@ def main():
         finish("FAILED_BUNDLE_HASH")
     plan = json.load(open(next(iter(glob.glob("/kaggle/input/**/P6_GRADE_PLAN.json", recursive=True)))))
     ap = plan["answers_path"]
-    answers = [json.loads(l) for l in open(ap if ap.startswith("/") else os.path.join("/kaggle/input", ap), encoding="utf-8").read().splitlines() if l.strip()]
+    ap = ap if ap.startswith("/") else os.path.join("/kaggle/input", ap)
+    if not os.path.isfile(ap):      # path fix 2026-10-22 (mount layout differs): exactly one file of that name under /kaggle/input, hash-checked below
+        hits = glob.glob("/kaggle/input/**/" + os.path.basename(ap), recursive=True)
+        if len(hits) != 1:
+            finish("FAILED_ANSWERS_NOT_FOUND", hits=hits[:5])
+        ap = hits[0]
+    if plan.get("answers_sha256") and hashlib.sha256(open(ap, "rb").read()).hexdigest() != plan["answers_sha256"]:
+        finish("REFUSED_ANSWERS_HASH_MISMATCH")
+    RS["answers_file"] = ap
+    answers = [json.loads(l) for l in open(ap, encoding="utf-8").read().splitlines() if l.strip()]
     bad = sorted({a["task"] for a in answers} - set(plan["final_ids"]))
     if bad:
         finish("REFUSED_TASK_NOT_IN_PLAN", tasks=bad)
