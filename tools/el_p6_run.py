@@ -35,8 +35,8 @@ class Cache:
     """One sample per inner call; identical (prompt sha, seed, max_new_tokens, purpose) reuse the recorded generation (the P5 CacheGen rule) and every call is logged."""
     language = "python"
 
-    def __init__(self, inner, log):
-        self.inner, self.log, self.cache, self.arm, self.task = inner, log, {}, "", ""
+    def __init__(self, inner, log, log_new=lambda r: None):
+        self.inner, self.log, self.log_new, self.cache, self.arm, self.task = inner, log, log_new, {}, "", ""
 
     def generate(self, rq: GenerationRequest):
         out = []
@@ -48,6 +48,10 @@ class Cache:
                 self.inner.language = "python"
                 self.cache[key] = list(self.inner.generate(GenerationRequest(rq.task_id, rq.prompt, 1, (int(s),), rq.max_new_tokens, rq.purpose, rq.thinking,
                                                                              rq.prompt_template_id)))[0]
+                c = self.cache[key]     # v1.1: every NEW generation is logged here, whether or not any arm later evaluates it
+                self.log_new({"task": self.task, "generated_by_arm": self.arm, "seed": int(s), "purpose": rq.purpose, "template": rq.prompt_template_id,
+                              "prompt_sha256": key[0], "max_new_tokens": int(rq.max_new_tokens), "extract_status": c.extract_status,
+                              "tokens_generated": c.tokens_generated, "code_sha256": sha(c.code) if c.code else None, "code": c.code or None, "text": c.text})
             g = self.cache[key]
             self.log({"task": self.task, "arm": self.arm, "seed": int(s), "purpose": rq.purpose, "template": rq.prompt_template_id, "prompt_sha256": key[0],
                       "max_new_tokens": int(rq.max_new_tokens), "reused": hit, "tokens_prompt": g.tokens_prompt, "tokens_generated": g.tokens_generated,
@@ -110,7 +114,7 @@ def main():
     if hasattr(exe, "start"):
         exe.start(languages=("python",))
     gate = V.ContractGate(exe, REGISTRY if a.cohort == "contract" else None, ROOT, parsers=("decl_v1",))
-    names = ("CALLS.jsonl", "RESULTS.jsonl", "ANSWERS.jsonl", "IDENTITY.jsonl", "EXEC.jsonl")
+    names = ("CALLS.jsonl", "RESULTS.jsonl", "ANSWERS.jsonl", "IDENTITY.jsonl", "EXEC.jsonl", "CANDIDATES.jsonl", "CANDIDATE_USE.jsonl")
     files = {n: open(out / n, "a", encoding="utf-8") for n in names}
     w = lambda n: (lambda row: (files[n].write(json.dumps(row) + "\n"), files[n].flush()))
     exe = P5.ExecLog(exe, w("EXEC.jsonl"))
@@ -127,9 +131,9 @@ def main():
         inner = Q.HFQwenBackend(authorized=True, model_dir=a.model_dir, log_path=str(out / "gen_log.jsonl"), verify_files=verify, profile=BB.get(a.profile), local=True)
     calls = []
     log_calls = w("CALLS.jsonl")
-    cache = Cache(inner, lambda r: (calls.append(r), log_calls(r)))
+    cache = Cache(inner, lambda r: (calls.append(r), log_calls(r)), w("CANDIDATES.jsonl"))
     exe.who = lambda: (cache.task, cache.arm)
-    (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P6_PROTOCOL_v1", "cohort": a.cohort, "tasks": [t.task_id for t in tasks], "arms": ["A", "B", "V2"], "G": G,
+    (out / "RUN_CONFIG.json").write_text(json.dumps({"protocol": "P6_PROTOCOL_v1", "amendment": "P6_PROTOCOL_v1.1 (logging only)","cohort": a.cohort, "tasks": [t.task_id for t in tasks], "arms": ["A", "B", "V2"], "G": G,
                                                      "v2min": V.VERSION, "template": strategies[0] if a.cohort == "cf" else "qwen_sample_v2+v2b", "exec": a.exec, "fake": a.fake or bool(a.script),
                                                      "tool_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                                                      "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, indent=1))
@@ -181,7 +185,12 @@ def main():
                    "v2_all_reused": all(c["reused"] for c in res["V2"]["calls"])}
             idn["identical"] = all(idn[k] for k in ("same_answer", "same_requests", "same_tokens", "all_unavailable", "v2_all_reused"))
             w("IDENTITY.jsonl")(idn)
-        w("RESULTS.jsonl")({"cohort": a.cohort, "task": task.task_id, "arm": "_task", "wall_seconds": round(time.monotonic() - t_task, 1), "round1_tokens_generated": r1_tok})
+        # v1.1: which generated seeds each arm actually evaluated (B/V2: public check run; A: seed 1 if it had code); any other seed = not_evaluated
+        w("CANDIDATE_USE.jsonl")({"task": task.task_id, "A": [1] if src_a else [],
+                                  **{arm: [{"seed": h["seed"], "public_pass": h["public"]["pass_all"], "contract": h["contract"]} for h in res[arm]["r"]["candidates"]]
+                                     for arm in ("B", "V2")},
+                                  "generated_seeds": sorted({c["seed"] for c in calls if c["task"] == task.task_id})})
+        w("RESULTS.jsonl")({"cohort": a.cohort, "task": task.task_id, "arm": "_task","wall_seconds": round(time.monotonic() - t_task, 1), "round1_tokens_generated": r1_tok})
     (out / "DONE.json").write_text(json.dumps({"finished_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}))
     for f in files.values():
         f.close()

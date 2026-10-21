@@ -30,7 +30,7 @@ def main() -> int:
     files = dict(PK.code_files(ROOT))
     man = json.loads((ROOT / "configs/el_bank80_rest_v1.json").read_text("utf-8"))
     extra = PK.SANDBOX_FILES + PK.SPECS + ["configs/backbones_v1.toml", "configs/backbones_v2.toml", "configs/el_bank80_rest_v1.json", "configs/el_arch1_limits_v1.toml",
-                                           "configs/el_arch1_limits_v2.toml", "configs/critic_concurrency_v1.toml", "P6_PROTOCOL_v1.md", "P6_OUTPUT_SCHEMA_v1.md",
+                                           "configs/el_arch1_limits_v2.toml", "configs/critic_concurrency_v1.toml", "P6_PROTOCOL_v1.md", "P6_OUTPUT_SCHEMA_v1.md", "P6_PROTOCOL_v1.1_AMENDMENT.md",
                                            "configs/p6_cf_public_v1.jsonl", "tools/el_p6_run.py", "tools/p6_cf_tasks.py", "tools/lcb_tasks.py", "tools/el_p5_run.py",
                                            "tools/el_p2_generation_compare.py", "tools/el_kaggle_port_qual.py", "tools/el_bank_local_run.py", "kaggle/el_bank40_run_v1.py",
                                            "models/qwen2.5-coder-1.5b-instruct/MANIFEST_pinned.json"]
