@@ -19,7 +19,7 @@ from typing import Any, Callable, Dict, List, Optional
 from evidence_ladder.common.interfaces import Artifact, GenerationRequest, TaskSpec
 from evidence_ladder.controller import generation as GEN
 
-VERSION = "v2min_v1.1"      # v1.1: incomplete contract checks are "inconclusive", never "pass"
+VERSION = "v2min_v1.2"      # v1.1: incomplete contract checks are "inconclusive", never "pass"; v1.2: unexpected verdicts raise; H2-lite prompt adapter
 MAX_NEW = 4096
 POLICIES = ("b_veto", "gate")
 
@@ -82,21 +82,76 @@ def verdict(ev: Dict[str, Any]) -> str:
     return "pass"
 
 
+ADMIT = ("pass", "inconclusive", "unavailable")      # verdicts that admit a public-passing candidate; "fail" rejects it; anything else is an error
+
+
+class GateVerdictError(RuntimeError):
+    """The gate returned a value outside pass / fail / inconclusive / unavailable. Fail closed: infrastructure error, never an acceptance."""
+
+
 def _accept(gate: Optional[Callable[[TaskSpec, Artifact], str]], task: TaskSpec, art: Artifact, log: List[Dict[str, Any]]) -> Optional[str]:
-    """None = accepted without a gate (B); else the gate verdict, logged. 'fail' means rejected."""
+    """None = accepted without a gate (B); else the gate verdict, logged. 'fail' means rejected; an unexpected verdict raises."""
     if gate is None:
         return None
     v = gate(task, art)
+    if v != "fail" and v not in ADMIT:
+        raise GateVerdictError("unexpected gate verdict %r for %s" % (v, task.task_id))
     log.append({"candidate": art.artifact_id, "contract": v})
     return v
 
 
+# ---------------------------------------------------------------- [H2-lite] versioned prompt adapter: only the template TEXT may change
+FIELDS = {"task_prompt", "examples", "solution_format", "language"}
+MAX_EXTRA_CHARS = 400
+
+
+def frozen_template(template_id: str) -> str:
+    from evidence_ladder.models import qwen as Q, qwen_v2b as V2B
+    return Q.TEMPLATES["qwen_sample_v2"] if template_id == "qwen_sample_v2" else {V2B.TEMPLATE_ID: V2B.TEMPLATE}[template_id]
+
+
+class PromptAdapter:
+    """Maps each frozen sampling template id to a replacement TEXT (H2-lite plan section 3). Seeds, order, batching, budget and extraction are untouched:
+    sample_loop asks the frozen plan for every request and only re-renders its prompt. Rules enforced at construction: the replacement keeps exactly the
+    frozen placeholders, is at most MAX_EXTRA_CHARS longer, and still contains the required-solution-format block."""
+
+    def __init__(self, version: str, texts: Dict[str, str]):
+        import string
+        if set(texts) != set(GEN.FROZEN_STRATEGIES):
+            raise ValueError("an adapter must map exactly %s" % (GEN.FROZEN_STRATEGIES,))
+        for tid, txt in texts.items():
+            fields = {f for _, f, _, _ in string.Formatter().parse(txt) if f}
+            if fields != FIELDS:
+                raise ValueError("%s: placeholders %s, required exactly %s" % (tid, sorted(fields), sorted(FIELDS)))
+            if len(txt) > len(frozen_template(tid)) + MAX_EXTRA_CHARS:
+                raise ValueError("%s: %d characters, limit %d" % (tid, len(txt), len(frozen_template(tid)) + MAX_EXTRA_CHARS))
+            if "Required solution format:\n{solution_format}" not in txt:
+                raise ValueError("%s: the required-solution-format block must stay" % tid)
+        self.version, self.texts = version, dict(texts)
+        self.sha256 = sha("\n".join("%s\n%s" % (k, self.texts[k]) for k in sorted(self.texts)))
+
+    def adapted_id(self, frozen_id: str) -> str:
+        return "%s@%s" % (frozen_id, self.version)
+
+    def render(self, frozen_id: str, task: TaskSpec) -> str:
+        from evidence_ladder.models import qwen as Q
+        return self.texts[frozen_id].format(task_prompt=task.prompt, examples=Q.format_examples(task.public_tests),
+                                            solution_format=Q.SOLUTION_FORMATS[task.language], language=task.language)
+
+    def adapt(self, rq: GenerationRequest, task: TaskSpec) -> GenerationRequest:
+        return GenerationRequest(rq.task_id, self.render(rq.prompt_template_id, task), rq.n, tuple(rq.seeds), rq.max_new_tokens, rq.purpose, rq.thinking,
+                                 self.adapted_id(rq.prompt_template_id))
+
+
 def sample_loop(gen: Any, run_public: Callable[[Artifact], List[Dict[str, Any]]], task: TaskSpec, budget: int, round_n: int = 2, n_r1: int = 4,
                 strategies=None, gate: Optional[Callable[[TaskSpec, Artifact], str]] = None, log_call: Callable[[Dict[str, Any]], None] = lambda r: None,
-                log_cand: Callable[[Dict[str, Any]], None] = lambda r: None) -> Dict[str, Any]:
+                log_cand: Callable[[Dict[str, Any]], None] = lambda r: None, adapter: Optional[PromptAdapter] = None) -> Dict[str, Any]:
     """Round 1 = GEN.plan_samples over seeds 1..n_r1 (as P5), then fresh rounds of round_n samples (seeds 100 + round_n*rnd + j, templates GEN.strategy_for),
-    while no candidate is accepted and the generated tokens beyond round 1 stay below `budget`. With gate=None this is exactly arm B."""
+    while no candidate is accepted and the generated tokens beyond round 1 stay below `budget`. With gate=None this is exactly arm B.
+    adapter (H2-lite): every request is planned exactly as without it; only its prompt text (and template label) is replaced."""
     lang, strategies = task.language, tuple(strategies or GEN.FROZEN_STRATEGIES)
+    if adapter is not None and strategies != tuple(GEN.FROZEN_STRATEGIES):
+        raise ValueError("a prompt adapter maps the frozen strategies only")
     hist: List[Dict[str, Any]] = []
     gate_log: List[Dict[str, Any]] = []
     r1_gen = r1_prompt = 0
@@ -120,6 +175,8 @@ def sample_loop(gen: Any, run_public: Callable[[Artifact], List[Dict[str, Any]]]
                 sel = h
 
     for rq in GEN.plan_samples(task, n_r1, list(range(1, n_r1 + 1)), 0, strategies, MAX_NEW):
+        if adapter is not None:
+            rq = adapter.adapt(rq, task)
         for g in gen.generate(rq):
             r1_gen += int(g.tokens_generated); r1_prompt += int(g.tokens_prompt)
             log_call({"task": task.task_id, "round": 1, "seed": g.seed, "tokens_generated": g.tokens_generated, "tokens_prompt": g.tokens_prompt})
@@ -134,7 +191,8 @@ def sample_loop(gen: Any, run_public: Callable[[Artifact], List[Dict[str, Any]]]
                 break
             seed = 100 + round_n * rnd + j
             template = GEN.strategy_for(n_r1 + (rnd - 2) * round_n + j, strategies)
-            prompt = GEN.render_sample_prompt(template, task)[0]
+            prompt = adapter.render(template, task) if adapter is not None else GEN.render_sample_prompt(template, task)[0]
+            template = adapter.adapted_id(template) if adapter is not None else template
             mx = min(MAX_NEW, budget - used_gen)
             g = list(gen.generate(GenerationRequest(task.task_id, prompt, 1, (seed,), mx, "sample", True, template)))[0]
             calls += 1
@@ -159,11 +217,12 @@ def solve(policy: str, gen: Any, run_public: Callable[[Artifact], List[Dict[str,
     else:
         r = sample_loop(gen, run_public, task, budget, gate=None, **kw)
         sel = r["selected"]
-        contract = gate(task, Artifact.make(task.task_id, task.language, sel["source"])) if (sel and gate is not None) else ("unavailable" if sel else None)
+        contract = _accept(gate, task, Artifact.make(task.task_id, task.language, sel["source"]), []) if (sel and gate is not None) else ("unavailable" if sel else None)
         vetoed = sel["id"] if contract == "fail" else None
         if vetoed:
             sel = None
-    return {"version": VERSION, "policy": policy, "task": task.task_id, "label": "SUPPORTED" if sel else "BLOCKED",
+    ad = kw.get("adapter")
+    return {"version": VERSION, "policy": policy, "task": task.task_id, "prompt_adapter": (ad.version, ad.sha256) if ad else None, "label": "SUPPORTED" if sel else "BLOCKED",
             "answer": sel["source"] if sel else None, "checks": {"public": "pass" if sel else None, "contract": contract if sel else None},
             "vetoed": vetoed, "rejected_by_contract": [g["candidate"] for g in r["gate_log"] if g["contract"] == "fail"],
             "candidates": len(r["candidates"]), "rounds": r["rounds"], "tokens_generated": r["tokens_generated"], "tokens_prompt": r["tokens_prompt"],

@@ -8,6 +8,9 @@
  7 public-failing candidates never reach the gate
  8 contract tool failure -> ContractToolError (infrastructure), never a verdict
  9 no result carries the label VERIFIED
+11-13 H2-lite prompt adapter: identity adapter = arm B call-for-call; an edited adapter keeps every seed, position, template slot and token limit and changes
+      only the prompt text; rule violations (placeholders, +400 characters, solution-format block, exact mapping) are refused
+14 an unexpected gate verdict raises GateVerdictError under both policies (fail closed)
 10 an incomplete contract check (no valid input checked, or a valid input without a result) is "inconclusive", never "pass"; a violation still fails
 Usage: PYTHONPATH=. .venv/Scripts/python.exe tools/test_v2min.py"""
 import json
@@ -40,7 +43,7 @@ class Script:
     language = "python"
 
     def __init__(self, programs, tok=100):
-        self.programs, self.tok, self.k, self.requests = list(programs), tok, 0, []
+        self.programs, self.tok, self.k, self.requests, self.detail = list(programs), tok, 0, [], []
 
     def generate(self, rq):
         out = []
@@ -48,6 +51,7 @@ class Script:
             code = self.programs[min(self.k, len(self.programs) - 1)]
             self.k += 1
             self.requests.append((int(s), V.sha(rq.prompt), int(rq.max_new_tokens)))
+            self.detail.append({"seed": int(s), "max_new": int(rq.max_new_tokens), "template": rq.prompt_template_id, "prompt": rq.prompt})
             out.append(Q.make_generation("<think>\n\n</think>\n\n```python\n%s```\n" % code, tokens_prompt=50, tokens_generated=self.tok, seed=s,
                                          prompt_template_id=rq.prompt_template_id, prompt_sha256=V.sha(rq.prompt), language="python"))
         return out
@@ -92,6 +96,55 @@ def equivalence():
 
 
 check("1_equivalence_with_arm_B", equivalence)
+
+# ---------------------------------------------------------------- H2-lite prompt adapter (pure python)
+PROGS = ["def solve(d):\n    return %d\n" % i for i in range(9)] + ["def solve(d):\n    return 'MARK_PASS'\n"]
+FROZEN = {tid: V.frozen_template(tid) for tid in GEN.FROZEN_STRATEGIES}
+EXTRA = "\nBefore coding, restate the input fields and their types in one line."
+
+
+def runs(adapter, budget):
+    s = Script(PROGS)
+    V.sample_loop(s, fake_public, task("Q01"), budget, strategies=tuple(GEN.FROZEN_STRATEGIES), adapter=adapter)
+    return s
+
+
+def adapter_identity():
+    ident = V.PromptAdapter("identity", FROZEN)
+    return all(runs(None, b).requests == runs(ident, b).requests for b in (350, 5000))
+
+
+def adapter_h2_same_plan():
+    h2 = V.PromptAdapter("h2test", {k: v + EXTRA for k, v in FROZEN.items()})
+    for b in (350, 5000):
+        x, y = runs(None, b).detail, runs(h2, b).detail
+        if [(d["seed"], d["max_new"]) for d in x] != [(d["seed"], d["max_new"]) for d in y]:
+            return False
+        if [d["template"] + "@h2test" for d in x] != [d["template"] for d in y]:
+            return False
+        if not all(e["prompt"] == d["prompt"] + EXTRA for d, e in zip(x, y)):      # only the text differs
+            return False
+    return True
+
+
+def adapter_rejects():
+    bad = [{k: v.replace("{examples}", "") for k, v in FROZEN.items()},                         # placeholder removed
+           {k: v + "{extra}" for k, v in FROZEN.items()},                                       # placeholder added
+           {k: v + "x" * (V.MAX_EXTRA_CHARS + 1) for k, v in FROZEN.items()},                   # too long
+           {k: v.replace("Required solution format:\n{solution_format}", "{solution_format}") for k, v in FROZEN.items()},   # format block dropped
+           {"qwen_sample_v2": FROZEN["qwen_sample_v2"]}]                                          # mapping not exact
+    for texts in bad:
+        try:
+            V.PromptAdapter("bad", texts)
+            return False
+        except ValueError:
+            pass
+    return True
+
+
+check("11_adapter_identity_equals_B", adapter_identity)
+check("12_adapter_same_seeds_order_budget_only_text_differs", adapter_h2_same_plan)
+check("13_adapter_rejects_rule_violations", adapter_rejects)
 
 # ---------------------------------------------------------------- sandbox-backed checks
 exe = ProviderExecutionBackend(backend="mxc", scratch=Path(tempfile.mkdtemp(prefix="v2min-")).resolve(), trusted=True)
@@ -172,6 +225,18 @@ check("10_incomplete_check_is_inconclusive", lambda: V.verdict({"hard": [], "unc
       and V.verdict({"hard": [], "uncertain": ["no result for valid input 3"], "checked_valid_inputs": 5}) == "inconclusive"
       and V.verdict({"hard": [{"input": 0}], "uncertain": ["x"], "checked_valid_inputs": 0}) == "fail"
       and V.verdict({"hard": [], "uncertain": [], "checked_valid_inputs": 4}) == "pass")
+def unexpected_verdict():
+    t = task("Q01")
+    for pol in ("gate", "b_veto"):
+        try:
+            V.solve(pol, Script([GOOD["Q01"]]), rp(t), t, 2000, lambda tk, art: "Fail")
+            return False
+        except V.GateVerdictError:
+            pass
+    return True
+
+
+check("14_unexpected_verdict_raises_both_policies", unexpected_verdict)
 check("9_never_VERIFIED", lambda: results and all(r["label"] in ("SUPPORTED", "BLOCKED") for r in results))
 print(json.dumps({"version": V.VERSION, "checks": checks, "all_ok": all(checks.values())}, indent=1))
 sys.exit(0 if all(checks.values()) else 1)
