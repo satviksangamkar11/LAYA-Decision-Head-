@@ -1,0 +1,25 @@
+{
+ "round": 1,
+ "request_id": "h2lite-r1-c1",
+ "variants": [
+  {
+   "name": "general",
+   "texts": {
+    "qwen_sample_v2": "{task_prompt}\n\nPublic examples (input and expected output):\n{examples}\n\nRequired solution format:\n{solution_format}\n\nThink step by step, briefly: (1) state in one line what the output must look like; (2) write a short plan; (3) check the plan against every public example above and fix it if any expected output would not match. Then give the final complete, runnable solution in {language} as ONE fenced code block. The code block must be the last thing in your answer.",
+    "qwen_sample_v2b": "{task_prompt}\n\nPublic examples (input and expected output):\n{examples}\n\nRequired solution format:\n{solution_format}\n\nThink step by step: (1) list the edge cases the examples suggest (empty input, single item, duplicates, minimal and large sizes) and the expected output for each; (2) write a short plan; (3) trace the plan by hand on every public example and confirm it matches, fixing the plan if not. Keep the reasoning concise. Then give the final complete, runnable solution in {language} as ONE fenced code block. The code block must be the last thing in your answer."
+   },
+   "sha256": "c64b5fd440fce73c23c8fa302cddfaba9687b41d6c9217b901bb32771ce89f1f",
+   "rationale": "Replaces open-ended thinking with a compact plan-then-verify loop: restate the output shape, plan briefly, and check the plan against every public example before coding, which targets small-model drift and rambling."
+  },
+  {
+   "name": "coding",
+   "texts": {
+    "qwen_sample_v2": "{task_prompt}\n\nPublic examples (input and expected output):\n{examples}\n\nRequired solution format:\n{solution_format}\n\nThink briefly. Implement exactly the required function. Read all inputs from the dictionary argument, using the keys shown in the examples; never hardcode example results. Handle empty and minimal inputs first. Return a value of the same type as the expected outputs (numbers, booleans, lists, strings, null/None), never its printed form. Do not print or read stdin. Give the final complete, runnable solution in {language} as ONE fenced code block. The code block must be the last thing in your answer.",
+    "qwen_sample_v2b": "{task_prompt}\n\nPublic examples (input and expected output):\n{examples}\n\nRequired solution format:\n{solution_format}\n\nThink step by step: (1) list the edge cases the examples suggest (empty input, single item, duplicates, minimal and large sizes) with the expected output and its type for each; (2) plan how the required function reads the dictionary argument and what it returns in every case; (3) trace the plan by hand on every public example and confirm it matches, fixing the plan if not. Return values of the same type as the expected outputs, never their printed form; never hardcode example results, print output, or read stdin. Give the final complete, runnable solution in {language} as ONE fenced code block. The code block must be the last thing in your answer."
+   },
+   "sha256": "cfca62403f58339db3ee0a95fc9d9ffcd7479e608682ee6d85ce9e2b934e3a22",
+   "rationale": "Pins generation to the harness contract: read only from the dictionary argument, never hardcode or print, return a native value of the expected type, and handle empty and minimal inputs first."
+  }
+ ],
+ "note": "proposals only; the winner is chosen by the pre-registered search"
+}

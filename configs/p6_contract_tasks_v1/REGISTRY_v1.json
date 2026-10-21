@@ -1,0 +1,145 @@
+{
+ "registry_version": "contract_registry_v1",
+ "entries": {
+  "D01": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D01.json",
+   "sha256": "3c137ff46f373994beb7b2da855608014548562f9c7d8299b465f5bb8a83db51",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D02": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D02.json",
+   "sha256": "99e088b61f4b872e33e5f868bb77dbdccd79f94974fc93f31291b0f2e247f6bb",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D03": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D03.json",
+   "sha256": "44c13fbb38fde437d38374ff2ad3bcbf21cb64699f7cec37162ee9d7ccf2f0a0",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D04": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D04.json",
+   "sha256": "73e5959ac5bf3a9c057401e4010f67844b154a86760ea5adfc529e07013e8e59",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D05": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D05.json",
+   "sha256": "06aba5d79002f42bf399afbb2401b69d1549da8af2b44a2edab48c43f9771a76",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D06": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D06.json",
+   "sha256": "e6c2453e213baef69f6566763596c47ae45a426e38736bc04af9df6a240fcf43",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D07": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D07.json",
+   "sha256": "347e36dc5563e793257087d2627b8921f632db3e753f42b3027e027c84505f26",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D08": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D08.json",
+   "sha256": "95668e635c1f92dbc9bf08a32383c4421033a52ed95f333e1d11d8cd78eafdec",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D09": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D09.json",
+   "sha256": "c975bbfd9d5c8cc7dc87a47eaca932cb6b67ffe179bf25c49627bdd78486cdb9",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D10": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D10.json",
+   "sha256": "be644723b4b23388eec13411a494d91742f036c064e86d89784f28b7c361b850",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D11": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D11.json",
+   "sha256": "c79d0501143cdf23b78c59c0923ad0b27f0396cbb26d116ca59b73cb81826e27",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D12": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D12.json",
+   "sha256": "f82606d370c948a186b56c05e99e1c02ecadc83b83fce62ff4ef442eb6c6e357",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D13": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D13.json",
+   "sha256": "0d51d52fd08ef76f318dcff886eb4eff3be957638c6455775ec7e60786bf6985",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D14": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D14.json",
+   "sha256": "4d3279f2acf7368e5f3eccaca46014b3c2bccf4ebf7813c58661930d452781a6",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D15": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D15.json",
+   "sha256": "89f871078ae4490ff49c4beaad8db681624e3652d55d668832e94c27bdede6be",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D16": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D16.json",
+   "sha256": "096b91cc7bec8b8f08aaf8679f1c057f105c1a93b829288885d8f78affbafb03",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D17": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D17.json",
+   "sha256": "69512966417f0aa41bbf7f5eb81f7d0b50bf39b0a83c15c524611d017d83a4e3",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D18": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D18.json",
+   "sha256": "9fc15da1e8004e19b7145b911a4216b96bf1b07d368555bd492b372f75c1644b",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D19": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D19.json",
+   "sha256": "b20ef35c456ed483165598fb114c3b10ff27f3e3ebf285e5002630b4e43cbb89",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  },
+  "D20": {
+   "path": "configs/p6_contract_tasks_v1/contracts/D20.json",
+   "sha256": "f76e5c38f142307fcd840ea664900e57c92ebaafc533c6a807e3ad6a2c5819a0",
+   "authority": "authoritative",
+   "basis": "author contract written from the statement before any candidate (P6 contract cohort)",
+   "frozen_utc": "2026-10-21"
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "contract_version": "task_contract_v1",
+ "task_id": "D17",
+ "provenance": {
+  "source": "author",
+  "author": "coordinator",
+  "created_utc": "2026-10-21",
+  "written_before_candidates": true,
+  "basis": "statement of the task only; no candidate, hidden test or reference solution existed (P6 contract cohort)"
+ },
+ "input": {
+  "type": "object",
+  "fields": {
+   "matrix": {
+    "type": "list",
+    "items": {
+     "type": "list",
+     "items": {
+      "type": "int"
+     },
+     "min_len": 1
+    },
+    "min_len": 1
+   },
+   "k": {
+    "type": "int",
+    "min": 1
+   }
+  },
+  "exact": true
+ },
+ "output": null,
+ "edges": [
+  {
+   "matrix": [
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     2
+    ]
+   ],
+   "k": 4
+  },
+  {
+   "matrix": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ]
+   ],
+   "k": 1
+  }
+ ],
+ "properties_module": {
+  "path": "configs/p6_contract_tasks_v1/contract_props.py",
+  "sha256": "3b45ff15b3a42f5f46604783fac033feb491e73578055123ec89623e70aee8fa",
+  "spec_key": "D17"
+ }
+}

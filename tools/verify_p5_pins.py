@@ -9,13 +9,17 @@ from pathlib import Path
 
 root = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parents[1])
 pins = []
-for f, rel_to in (("configs/p5_contract_tasks_v1/FROZEN_SHA256.txt", ""), ("results/raw/p5-eval-only-v1/SHA256SUMS.txt", "results/raw/p5-eval-only-v1/")):
+LISTS = [("configs/p5_contract_tasks_v1/FROZEN_SHA256.txt", ""), ("results/raw/p5-eval-only-v1/SHA256SUMS.txt", "results/raw/p5-eval-only-v1/")]
+if (root / "configs/p6_contract_tasks_v1/FROZEN_SHA256.txt").exists():
+    LISTS.append(("configs/p6_contract_tasks_v1/FROZEN_SHA256.txt", ""))
+for f, rel_to in LISTS:
     for ln in (root / f).read_text("utf-8").splitlines():
         if ln.strip():
             h, p = ln.split(None, 1)
             pins.append((f, rel_to + p.strip().lstrip("*"), h))
 docs = []
-for reg in ("configs/p5_contract_tasks_v1/REGISTRY_v1.json", "configs/p5_qual_tasks_v1/REGISTRY_qual_v1.json"):
+for reg in [r for r in ("configs/p5_contract_tasks_v1/REGISTRY_v1.json", "configs/p5_qual_tasks_v1/REGISTRY_qual_v1.json", "configs/p6_contract_tasks_v1/REGISTRY_v1.json")
+            if (root / r).exists()]:
     for tid, e in json.loads((root / reg).read_text("utf-8"))["entries"].items():
         pins.append((reg, e["path"], e["sha256"]))
         docs.append(e["path"])
