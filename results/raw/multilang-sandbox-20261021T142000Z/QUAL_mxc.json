@@ -1,0 +1,39 @@
+{
+ "backend": "mxc",
+ "verifier": "trusted_verify_v3 + trusted_native_v1",
+ "launcher_sha256": "afc6801acc7dffce4f6fce7d9456c0d86e4afa03e4eee421bf82064fcf19113a",
+ "utc": "2026-10-21T14:18:33Z",
+ "languages": {
+  "c": {
+   "state": "unavailable",
+   "status": "NOT_TESTED_NO_GCC",
+   "reason": "probe 'gcc --version' exited 127: /bin/bash: line 1: gcc: command not found"
+  },
+  "cpp": {
+   "state": "unavailable",
+   "status": "NOT_TESTED_NO_GPP",
+   "reason": "probe 'g++ --version' exited 127: /bin/bash: line 1: g++: command not found"
+  },
+  "javascript": {
+   "state": "unavailable",
+   "status": "NOT_TESTED_NO_NODE",
+   "reason": "probe 'python3 launch.py -- node --version' exited 1: launcher: child exit 3221225794 (0xC0000142)"
+  },
+  "go": {
+   "state": "unavailable",
+   "status": "NOT_TESTED_NO_GO",
+   "reason": "probe 'go version' exited 127: /bin/bash: line 1: go: command not found"
+  },
+  "rust": {
+   "state": "unavailable",
+   "status": "NOT_TESTED_NO_RUSTC",
+   "reason": "probe 'rustc --version' exited 127: /bin/bash: line 1: rustc: command not found"
+  }
+ },
+ "note": "Windows MXC processcontainer; node from the Windows host",
+ "capture_limit": 6000,
+ "listener_positive_control": true,
+ "spy_expected_hits": [],
+ "sandbox_calls": 5,
+ "all_runnable_ok": true
+}

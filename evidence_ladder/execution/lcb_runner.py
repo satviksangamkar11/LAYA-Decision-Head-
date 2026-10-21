@@ -146,8 +146,51 @@ class LcbRunner:
             self.overhead = min(ts)
         return self.overhead
 
-    def run_case(self, code: str, case: Dict[str, Any], fn_name: Optional[str]) -> Dict[str, Any]:
+    # ---------------------------------------------------------------- [MULTILANG 2026-10-21] stdin programs in c / cpp / javascript / go / rust (trusted_native.py); python is untouched
+    def _native_case(self, code: str, case: Dict[str, Any], language: str) -> Dict[str, Any]:
+        import hashlib
+        from . import trusted_native as N
+        if language not in N.NATIVE_LANGUAGES:
+            raise LcbInfraError("language %r has no native runner" % language)
+        if case["testtype"] != "stdin":
+            raise LcbInfraError("functional (class Solution) LiveCodeBench tests are Python-only; %s supports stdin tests" % language)
+        if getattr(self, "_nc", None) is None:
+            def port(wd, cmd, persist, timeout, role):
+                try:
+                    r = self._run(str(wd), cmd, persist=persist, timeout=int(max(1, round(timeout))))
+                except KeyboardInterrupt:
+                    raise
+                except BaseException as e:      # noqa: BLE001
+                    raise LcbInfraError("sandbox.run failed: %s: %s" % (type(e).__name__, str(e)[:300])) from e
+                if any(k not in r for k in RESULT_KEYS):
+                    raise LcbInfraError("sandbox result lacks contract fields")
+                self.calls += 1
+                return r
+            self._nc, self._compiled = N.NativeCore(port, self.scratch / "native", infra=LcbInfraError), {}
+        key = (language, hashlib.sha256(code.encode("utf-8")).hexdigest())
+        if key not in self._compiled:
+            self._compiled[key] = self._nc.compile(language, code.encode("utf-8"))
+        comp = self._compiled[key]
+        if comp.status != "ok":
+            return {"status": "timeout" if comp.status == "timeout" else "compile_error", "seconds": round(comp.seconds, 3), "detail": comp.stderr[-200:], "observed": "<%s>" % comp.status}
+        kill = TIME_LIMIT + self._oh()
+        r = self._nc.run_one(language, comp, case["input"], kill, "lcb_" + language)
+        dt = round(r["seconds"], 3)
+        kind, detail = N.classify(r, 4 << 20, int(getattr(self, "capture_limit", None) or N.DEFAULT_CAPTURE_LIMIT))
+        if kind == "timeout":
+            return {"status": "timeout", "seconds": dt, "detail": "killed at %.1fs" % kill}
+        if kind == "crash":
+            err = str(r.get("stderr", "")).strip().splitlines()
+            return {"status": "runtime_error", "seconds": dt, "detail": str(r.get("stderr", ""))[-200:], "observed": "<error: %s>" % (err[-1][:200] if err else detail)}
+        if kind != "ok":
+            return {"status": "invalid_output", "seconds": dt, "detail": detail}
+        out = str(r.get("stdout", ""))
+        return {"status": "pass" if stdio_equal(out, case["output"]) else "wrong_answer", "seconds": dt, "detail": "", "observed": out.strip()[:300]}
+
+    def run_case(self, code: str, case: Dict[str, Any], fn_name: Optional[str], language: str = "python") -> Dict[str, Any]:
         """-> {"status": pass|wrong_answer|runtime_error|timeout, "seconds", "detail"}; expected output is compared HERE, never passed in."""
+        if language != "python":
+            return self._native_case(code, case, language)
         kill = TIME_LIMIT + self._oh()
         t0 = time.time()
         if case["testtype"] == "stdin":
@@ -173,10 +216,10 @@ class LcbRunner:
                 return {"status": "wrong_answer", "seconds": round(dt, 3), "detail": "unparsable result"}
         return {"status": "pass" if ok else "wrong_answer", "seconds": round(dt, 3), "detail": "", "observed": out.strip()[:300] if case["testtype"] == "stdin" else (frames[0][:300] if frames else "")}
 
-    def grade(self, code: str, cases: List[Dict[str, Any]], fn_name: Optional[str], stop_at_first_fail: bool = True) -> Dict[str, Any]:
+    def grade(self, code: str, cases: List[Dict[str, Any]], fn_name: Optional[str], stop_at_first_fail: bool = True, language: str = "python") -> Dict[str, Any]:
         res = []
         for c in cases:
-            res.append(self.run_case(code, c, fn_name))
+            res.append(self.run_case(code, c, fn_name, language))
             if stop_at_first_fail and res[-1]["status"] != "pass":
                 break
         passed = sum(r["status"] == "pass" for r in res)

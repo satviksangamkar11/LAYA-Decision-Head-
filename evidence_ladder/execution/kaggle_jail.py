@@ -47,8 +47,142 @@ def _copy(src: str, root: Path) -> None:
             shutil.copy2(src, dst)
 
 
-def build_rootfs(java_home: str = "") -> dict:
-    """-> receipt of what the rootfs contains. Idempotent per kernel (rebuilt from scratch)."""
+# ------------------------------------------------------------------ [MULTILANG 2026-10-21] optional toolchains for the trusted verifier (trusted_native.py). EXPLICIT list only: build_rootfs(toolchains=("c","cpp","javascript","go","rust")).
+# STATUS: staging logic exercised on a WSL Ubuntu-24.04 root proxy only (results/raw/multilang-sandbox-*); NOT run on Kaggle (no kernel was started). What a Kaggle kernel must provide on the host:
+#   c / cpp      gcc / g++ with cc1 / cc1plus, binutils `as` and `ld`, libc dev files (crt1.o crti.o crtn.o libc.so libc_nonshared.a libm.so ...), /usr/include (+ c++ headers for cpp)
+#   javascript   a `node` executable (any recent; copied with the libraries ldd reports)
+#   go           a GOROOT (bin/go, pkg/tool/<os_arch>/*, src/) found from `go` on PATH (or EL_KJAIL_GOROOT); builds run with CGO_ENABLED=0
+#   rust         a sysroot (`rustc --print sysroot`: bin/rustc, lib/*.so, lib/rustlib/<target>/lib) and a working `cc` (so "c" must be staged too)
+# Anything missing makes build_rootfs RAISE for that language (never a silent partial rootfs). The run-time environment of these tools is written to <rootfs>/.toolchains.json and read by the launcher.
+def _real(name: str):
+    p = shutil.which(name)
+    return os.path.realpath(p) if p else None
+
+
+def _tree(src: str, root: Path, skip=()) -> int:
+    """copy a directory tree (symlinks kept, idempotent: existing entries are left alone) minus the given relative sub-paths; -> bytes copied"""
+    base, total = root / src.lstrip("/"), 0
+    for dp, dns, fns in os.walk(src, followlinks=False):
+        rel = os.path.relpath(dp, src).replace("\\", "/")
+        pre = "" if rel == "." else rel + "/"
+        dns[:] = [d for d in dns if pre + d not in skip]
+        (base / rel).mkdir(parents=True, exist_ok=True)
+        for n in dns + [f for f in fns if pre + f not in skip]:
+            p, q = os.path.join(dp, n), base / rel / n
+            if q.is_symlink() or (q.exists() and not os.path.isdir(p)):
+                continue
+            if os.path.islink(p):
+                os.symlink(os.readlink(p), q)
+            elif os.path.isfile(p):
+                shutil.copy2(p, q)
+                total += q.stat().st_size
+    return total
+
+
+def _alias(root: Path, directory: str, real: str, names) -> None:
+    """copy the real executable and make every name in `names` a relative symlink to it (host alternatives/symlink chains are not reproduced)"""
+    _copy(real, root)
+    d = root / directory.lstrip("/")
+    d.mkdir(parents=True, exist_ok=True)
+    for n in names:
+        link = d / n
+        if link.is_symlink() or link.exists():
+            if link.resolve() == (root / real.lstrip("/")).resolve():
+                continue
+            link.unlink()
+        os.symlink(os.path.relpath(root / real.lstrip("/"), d), link)
+
+
+def _stage_toolchains(names, root: Path, libs: set) -> dict:
+    wanted = list(dict.fromkeys(names))
+    bad = [n for n in wanted if n not in ("c", "cpp", "javascript", "go", "rust")]
+    if bad:
+        raise ValueError("unknown toolchain(s) %r (allowed: c cpp javascript go rust)" % bad)
+    if "rust" in wanted and "c" not in wanted:
+        wanted.insert(0, "c")                                  # rustc links through `cc`
+    path, ld, env, rec = [], [], {"HOME": "/tmp"}, {}
+    for n in wanted:
+        before = sum(f.stat().st_size for f in root.rglob("*") if f.is_file() and not f.is_symlink())
+        if n in ("c", "cpp"):
+            gcc, gpp = _real("gcc"), _real("g++")
+            if not gcc or (n == "cpp" and not gpp):
+                raise RuntimeError("toolchain %s: gcc%s not found on the host" % (n, " / g++" if n == "cpp" else ""))
+            sub = lambda *a: subprocess.run(list(a), capture_output=True, text=True).stdout.strip()
+            multiarch = sub(gcc, "-print-multiarch") or "x86_64-linux-gnu"
+            cc1 = sub(gcc, "-print-prog-name=cc1")
+            if not os.path.isabs(cc1) or not os.path.exists(cc1):
+                raise RuntimeError("toolchain c: cc1 not found (gcc -print-prog-name=cc1 -> %r)" % cc1)
+            gdir = os.path.dirname(cc1)
+            _alias(root, "/usr/bin", gcc, ["gcc", "cc", os.path.basename(gcc)])
+            libs |= _ldd(gcc)
+            for tool in ("as", "ld", "ld.bfd"):
+                real = _real(tool)
+                if real:
+                    _alias(root, "/usr/bin", real, [tool])
+                    libs |= _ldd(real)
+            install = next((l.split(":", 1)[1].strip() for l in sub(gcc, "-print-search-dirs").splitlines() if l.startswith("install:")), gdir)      # headers / crtbegin / libgcc live here, cc1 may be elsewhere (libexec)
+            for d in dict.fromkeys([gdir, os.path.normpath(install)]):
+                _tree(d, root, ("plugin", "lto1", "lto-wrapper", "install-tools"))
+                for f in Path(d).iterdir():
+                    if f.is_file() and not f.is_symlink() and os.access(f, os.X_OK):
+                        libs |= _ldd(str(f))
+            for inc in ("/usr/include",):
+                _tree(inc, root)
+            mdir = "/usr/lib/" + multiarch
+            for pat in ("crt*.o", "Scrt1.o", "gcrt1.o", "libc.so", "libc.a", "libc_nonshared.a", "libm.so", "libm.a", "libm-*.a", "libmvec.a", "libmvec.so", "libmvec_nonshared.a",
+                        "libpthread.a", "libdl.a", "librt.a", "libutil.a", "libgcc_s.so*", "libstdc++.so*"):
+                for f in Path(mdir).glob(pat):
+                    _copy(str(f), root)
+            for so in ("libc.so.6", "libm.so.6", "libmvec.so.1", "libgcc_s.so.1", "libdl.so.2", "libpthread.so.0", "librt.so.1", "libutil.so.1"):
+                p = sub(gcc, "-print-file-name=" + so)
+                if os.path.isabs(p) and os.path.exists(p):
+                    libs.add(os.path.realpath(p)); libs.add(p)
+            if n == "cpp":
+                _alias(root, "/usr/bin", gpp, ["g++", "c++", os.path.basename(gpp)])
+                libs |= _ldd(gpp)
+                p = sub(gcc, "-print-file-name=libstdc++.so.6")
+                if os.path.isabs(p) and os.path.exists(p):
+                    libs.add(os.path.realpath(p)); libs.add(p)
+        elif n == "javascript":
+            node = _real("node")
+            if not node:
+                raise RuntimeError("toolchain javascript: node not found on the host")
+            shutil.copy2(node, root / "usr/bin/node")
+            libs |= _ldd(node)
+        elif n == "go":
+            goroot = os.environ.get("EL_KJAIL_GOROOT") or (os.path.dirname(os.path.dirname(_real("go") or "")) if _real("go") else "")
+            if not goroot or not os.path.isfile(goroot + "/bin/go"):
+                raise RuntimeError("toolchain go: no GOROOT (go not on PATH and EL_KJAIL_GOROOT unset)")
+            _tree(goroot, root, ("test", "doc", "misc", "api", "lib/wasm", "src/cmd/vendor/golang.org/x/tools"))
+            for f in (Path(goroot) / "bin").iterdir():
+                libs |= _ldd(str(f))
+            path.append(goroot + "/bin")
+            env.update(GOROOT=goroot, GOCACHE="/tmp/gocache", GOPATH="/tmp/gopath", GOTOOLCHAIN="local", GOTELEMETRY="off", CGO_ENABLED="0", GOFLAGS="-mod=mod", GOPROXY="off", GOSUMDB="off")
+        elif n == "rust":
+            rustc = _real("rustc")
+            if not rustc:
+                raise RuntimeError("toolchain rust: rustc not found on the host")
+            sysroot = subprocess.run([rustc, "--print", "sysroot"], capture_output=True, text=True).stdout.strip()
+            if sysroot.rstrip("/") in ("", "/usr", "/usr/local"):
+                raise RuntimeError("toolchain rust: the sysroot is the system prefix %r (a distribution rustc); copying it would stage /usr/lib wholesale. Point PATH at a standalone toolchain (rustup / official tarball)" % sysroot)
+            if not sysroot or not os.path.isfile(sysroot + "/bin/rustc"):
+                raise RuntimeError("toolchain rust: sysroot %r has no bin/rustc" % sysroot)
+            (root / sysroot.lstrip("/") / "bin").mkdir(parents=True, exist_ok=True)
+            shutil.copy2(sysroot + "/bin/rustc", root / sysroot.lstrip("/") / "bin/rustc")
+            libs |= _ldd(sysroot + "/bin/rustc")
+            _tree(sysroot + "/lib", root, ("rustlib/src", "rustlib/etc"))
+            for so in Path(sysroot + "/lib").glob("*.so*"):
+                libs |= _ldd(str(so))
+            path.append(sysroot + "/bin")
+            ld.append(sysroot + "/lib")
+        rec[n] = {"bytes_added": sum(f.stat().st_size for f in root.rglob("*") if f.is_file() and not f.is_symlink()) - before}
+    import json
+    (root / ".toolchains.json").write_text(json.dumps({"path": path, "ld": ld, "env": env, "staged": wanted}))
+    return rec
+
+
+def build_rootfs(java_home: str = "", toolchains=()) -> dict:
+    """-> receipt of what the rootfs contains. Idempotent per kernel (rebuilt from scratch). toolchains: explicit list of languages to stage for the trusted verifier ([MULTILANG]); () = unchanged rootfs."""
     if ROOTFS.exists():
         shutil.rmtree(ROOTFS)
     ROOTFS.mkdir(parents=True)
@@ -77,6 +211,7 @@ def build_rootfs(java_home: str = "") -> dict:
         for f in Path(java_home).rglob("*"):
             if f.is_file() and (f.suffix == ".so" or f.parent.name == "bin"):
                 libs |= _ldd(str(f))
+    tc_receipt = _stage_toolchains(toolchains, ROOTFS, libs) if toolchains else None
     # symlinks copied from the host that point outside their copied tree (Debian: $JAVA_HOME/lib/libjli.so -> /usr/lib/x86_64-linux-gnu/jli/libjli.so): copy the real target too
     for _ in range(3):
         for link in [p for p in ROOTFS.rglob("*") if p.is_symlink()]:
@@ -103,7 +238,10 @@ def build_rootfs(java_home: str = "") -> dict:
         os.chmod(ROOTFS / d, 0o755)
     os.chmod(ROOTFS / "runs", 0o711)
     size = sum(f.stat().st_size for f in ROOTFS.rglob("*") if f.is_file() and not f.is_symlink())
-    return {"rootfs": str(ROOTFS), "bytes": size, "python": py, "java_home": java_home or None, "libs": len(libs)}
+    rec = {"rootfs": str(ROOTFS), "bytes": size, "python": py, "java_home": java_home or None, "libs": len(libs)}
+    if tc_receipt is not None:
+        rec["toolchains"] = tc_receipt
+    return rec
 
 
 # ------------------------------------------------------------------ command builders used by engine (same call shapes as the bwrap builders)
@@ -199,10 +337,19 @@ def _launch() -> int:
             for f in workdir.iterdir():
                 if f.is_file() and not f.is_symlink():
                     shutil.copyfile(f, root / "work" / f.name)
+                    if f.stat().st_mode & 0o111:                                     # [MULTILANG] keep the execute bit of host-staged programs (copyfile drops it); files without it are copied exactly as before
+                        os.chmod(root / "work" / f.name, 0o755)
             os.chmod(root / "work", 0o777 if rw else 0o755)
             argv = sys.argv[7:]
             env = {"PATH": "/usr/bin:" + jdk + "/bin", "JAVA_HOME": jdk, "LC_ALL": "C.UTF-8",
                    "LD_LIBRARY_PATH": jdk + "/lib:" + jdk + "/lib/server"}      # no /proc in the chroot, so ld.so cannot resolve $ORIGIN (RUNPATH of java/javac)
+            tcf = root / ".toolchains.json"
+            if tcf.is_file():                                                       # [MULTILANG] toolchains staged by build_rootfs(toolchains=...): extra PATH entries and environment
+                import json
+                tc = json.loads(tcf.read_text())
+                env["PATH"] += "".join(":" + p for p in tc.get("path", []))
+                env["LD_LIBRARY_PATH"] += "".join(":" + p for p in tc.get("ld", []))      # no /proc in the chroot: $ORIGIN RUNPATHs (rustc_driver) cannot resolve
+                env.update(tc.get("env", {}))
     except Exception as e:
         sys.stderr.write("bwrap: kjail setup failed: %r\n" % e); return 125
     pid = os.fork()
@@ -210,6 +357,11 @@ def _launch() -> int:
         step = "chroot"
         try:
             exe = argv[0] if argv[0].startswith("/") else "/usr/bin/" + argv[0]
+            if not argv[0].startswith("/") and not os.path.exists(str(root) + exe):      # [MULTILANG] a tool staged outside /usr/bin (go, rustc): resolve through the jail PATH; names that exist in /usr/bin resolve exactly as before
+                for d in env["PATH"].split(":"):
+                    if os.path.exists(str(root) + d + "/" + argv[0]):
+                        exe = d + "/" + argv[0]
+                        break
             if mode == "py":
                 resource.setrlimit(resource.RLIMIT_CPU, (30, 30))      # CPU-time backstop; the wall-clock group kill by the parent is the primary limit
             os.chroot(root); step = "chdir"; os.chdir("/tmp" if mode == "py" else "/work")

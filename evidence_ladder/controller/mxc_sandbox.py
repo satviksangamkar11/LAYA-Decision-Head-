@@ -283,9 +283,10 @@ class MxcSandbox:
     env_label = ENV_LABEL
 
     def __init__(self, scratch: Path, protected: Sequence[str], *, python: Optional[str] = None, node: Optional[str] = None, persistent: bool = False,
-                 limits: Optional[Limits] = None, allow_unenforced_limits: bool = False, max_output_bytes: int = 1 << 20, check_capabilities: bool = True):
+                 limits: Optional[Limits] = None, allow_unenforced_limits: bool = False, max_output_bytes: int = 1 << 20, check_capabilities: bool = True, tool_dirs: Sequence[str] = ()):
         if os.name != "nt":
             raise SandboxUnavailable("MxcSandbox (processcontainer) is Windows-only")
+        self.tool_dirs = [str(d) for d in tool_dirs]      # [MULTILANG] opt-in extra read-only directories that are also put on the workload PATH (e.g. the node install, so `python3 launch.py node cand.js` can start node); default () = unchanged policy
         self.scratch, self.ro_names = Path(scratch), list(protected)       # not named "protected": the I8 deep context scan flags that word
         for p in self.ro_names:
             if os.path.isabs(p) or ".." in Path(p.replace("\\", "/")).parts or not p:
@@ -357,11 +358,11 @@ class MxcSandbox:
                 os.chmod(ws / p, stat.S_IREAD)
             diag["prepare_ms"] = round((time.perf_counter() - t0) * 1000, 1)
             pyd = str(Path(self.python).parent)
-            env = {"SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"), "PATH": pyd + os.pathsep + os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32"),
+            env = {"SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"), "PATH": os.pathsep.join([pyd, *self.tool_dirs, os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32")]),
                    "LOCALAPPDATA": str(home), "TEMP": str(home), "TMP": str(home), "HOME": str(home), "PYTHONHASHSEED": "0", "PYTHONDONTWRITEBYTECODE": "1", "PYTHONUTF8": "1",
                    "PYTHONIOENCODING": "utf-8", "NO_COLOR": "1", "CI": "1"}
             req = {"op": "run", "id": run.name, "command": command, "cwd": str(ws), "env": env, "readwrite": [str(ws), str(home)],
-                   "readonly": [pyd] + ([str(DIALECT_DIR)] if mode == "posix_lite" else []) + [str(ws / p) for p in prot], "timeoutMs": int(timeout * 1000), "maxOutputBytes": self.max_output_bytes}
+                   "readonly": [pyd] + self.tool_dirs + ([str(DIALECT_DIR)] if mode == "posix_lite" else []) + [str(ws / p) for p in prot], "timeoutMs": int(timeout * 1000), "maxOutputBytes": self.max_output_bytes}
             t1 = time.perf_counter()
             try:
                 ans = self._call(req, timeout + 60)

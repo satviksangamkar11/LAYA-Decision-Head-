@@ -166,6 +166,9 @@ class TrustedVerifier:
         return oh, kill, harness
 
     def run(self, language: str, raw: bytes, inputs: Sequence[Any]) -> engine.RunResult:
+        if language in ("c", "cpp", "javascript", "go", "rust"):      # [MULTILANG 2026-10-21] additive: python and java below are unchanged
+            from . import trusted_native
+            return trusted_native.run(self, language, raw, inputs)
         return self.run_python(raw, inputs) if language == "python" else self.run_java(raw, inputs)
 
     def _obs(self, i: int, r: Dict[str, Any], dt: float, note: str = "") -> None:

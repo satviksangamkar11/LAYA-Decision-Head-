@@ -1,0 +1,423 @@
+{
+ "table": {
+  "c": {
+   "kaggle-jail": "qualified_on_proxy_only",
+   "mxc": "unavailable",
+   "wsl": "qualified",
+   "wslc": "unavailable"
+  },
+  "cpp": {
+   "kaggle-jail": "qualified_on_proxy_only",
+   "mxc": "unavailable",
+   "wsl": "qualified",
+   "wslc": "unavailable"
+  },
+  "javascript": {
+   "kaggle-jail": "qualified_on_proxy_only",
+   "mxc": "unavailable",
+   "wsl": "qualified",
+   "wslc": "unavailable"
+  },
+  "go": {
+   "kaggle-jail": "qualified_on_proxy_only",
+   "mxc": "unavailable",
+   "wsl": "qualified",
+   "wslc": "unavailable"
+  },
+  "rust": {
+   "kaggle-jail": "qualified_on_proxy_only",
+   "mxc": "unavailable",
+   "wsl": "qualified",
+   "wslc": "unavailable"
+  }
+ },
+ "detail": {
+  "c": {
+   "kaggle-jail": {
+    "state": "qualified",
+    "reason": null,
+    "version": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "mxc": {
+    "state": "unavailable",
+    "reason": "probe 'gcc --version' exited 127: /bin/bash: line 1: gcc: command not found",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   },
+   "wsl": {
+    "state": "qualified",
+    "reason": null,
+    "version": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "wslc": {
+    "state": "unavailable",
+    "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   }
+  },
+  "cpp": {
+   "kaggle-jail": {
+    "state": "qualified",
+    "reason": null,
+    "version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "mxc": {
+    "state": "unavailable",
+    "reason": "probe 'g++ --version' exited 127: /bin/bash: line 1: g++: command not found",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   },
+   "wsl": {
+    "state": "qualified",
+    "reason": null,
+    "version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "wslc": {
+    "state": "unavailable",
+    "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   }
+  },
+  "javascript": {
+   "kaggle-jail": {
+    "state": "qualified",
+    "reason": null,
+    "version": "v26.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "mxc": {
+    "state": "unavailable",
+    "reason": "probe 'python3 launch.py -- node --version' exited 1: launcher: child exit 3221225794 (0xC0000142)",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   },
+   "wsl": {
+    "state": "qualified",
+    "reason": null,
+    "version": "v26.3.0",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "wslc": {
+    "state": "unavailable",
+    "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   }
+  },
+  "go": {
+   "kaggle-jail": {
+    "state": "qualified",
+    "reason": null,
+    "version": "go version go1.26.4 linux/amd64",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "mxc": {
+    "state": "unavailable",
+    "reason": "probe 'go version' exited 127: /bin/bash: line 1: go: command not found",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   },
+   "wsl": {
+    "state": "qualified",
+    "reason": null,
+    "version": "go version go1.26.4 linux/amd64",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "wslc": {
+    "state": "unavailable",
+    "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   }
+  },
+  "rust": {
+   "kaggle-jail": {
+    "state": "qualified",
+    "reason": null,
+    "version": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "mxc": {
+    "state": "unavailable",
+    "reason": "probe 'rustc --version' exited 127: /bin/bash: line 1: rustc: command not found",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   },
+   "wsl": {
+    "state": "qualified",
+    "reason": null,
+    "version": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+    "failed_checks": [],
+    "checks": {
+     "honest_pass": true,
+     "wrong_answer_fails": true,
+     "forged_frames_never_pass": true,
+     "claim_then_crash_never_passes": true,
+     "hang_is_killed": true,
+     "compile_error_is_candidate_outcome": true,
+     "fresh_process_per_input": true,
+     "socket_denied": true,
+     "host_paths_unreadable": true,
+     "expected_never_staged": true,
+     "large_output_never_silently_truncated": true,
+     "lcb_stdin_honest_pass": true,
+     "lcb_stdin_wrong_fails": true,
+     "lcb_stdin_whitespace_rules": true
+    }
+   },
+   "wslc": {
+    "state": "unavailable",
+    "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+    "version": null,
+    "failed_checks": [],
+    "checks": {}
+   }
+  }
+ },
+ "negative_control_bare": {
+  "note": "no isolation; socket_denied and host_paths_unreadable MUST fail here (they did), proving the checks can detect a leak",
+  "result": {
+   "c": {
+    "state": "failing",
+    "failed_checks": [
+     "socket_denied",
+     "host_paths_unreadable"
+    ]
+   },
+   "cpp": {
+    "state": "failing",
+    "failed_checks": [
+     "socket_denied",
+     "host_paths_unreadable"
+    ]
+   },
+   "javascript": {
+    "state": "failing",
+    "failed_checks": [
+     "socket_denied",
+     "host_paths_unreadable"
+    ]
+   },
+   "go": {
+    "state": "failing",
+    "failed_checks": [
+     "socket_denied",
+     "host_paths_unreadable"
+    ]
+   },
+   "rust": {
+    "state": "failing",
+    "failed_checks": [
+     "socket_denied",
+     "host_paths_unreadable"
+    ]
+   }
+  }
+ },
+ "backends": {
+  "bare": {
+   "note": "NO ISOLATION (negative control)",
+   "backend_error": null,
+   "capture_limit": 6000,
+   "utc": "2026-10-21T14:19:41Z",
+   "listener_positive_control": true,
+   "sandbox_calls": 193,
+   "spy_expected_hits": []
+  },
+  "kaggle-jail": {
+   "note": "Kaggle chroot+uid+seccomp jail (rootfs /var/lib/kjail-root)",
+   "backend_error": null,
+   "capture_limit": 1048576,
+   "utc": "2026-10-21T14:18:49Z",
+   "listener_positive_control": true,
+   "sandbox_calls": 193,
+   "spy_expected_hits": []
+  },
+  "mxc": {
+   "note": "Windows MXC processcontainer; node from the Windows host",
+   "backend_error": null,
+   "capture_limit": 6000,
+   "utc": "2026-10-21T14:18:33Z",
+   "listener_positive_control": true,
+   "sandbox_calls": 5,
+   "spy_expected_hits": []
+  },
+  "wsl": {
+   "note": "WSL2 Ubuntu-24.04 systemd + bubblewrap (reference engine); toolchains from /opt/toolchains and /usr",
+   "backend_error": null,
+   "capture_limit": 6000,
+   "utc": "2026-10-21T14:16:49Z",
+   "listener_positive_control": true,
+   "sandbox_calls": 193,
+   "spy_expected_hits": []
+  },
+  "wslc": {
+   "note": null,
+   "backend_error": "SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}",
+   "capture_limit": null,
+   "utc": "2026-10-21T14:18:35Z",
+   "listener_positive_control": null,
+   "sandbox_calls": null,
+   "spy_expected_hits": null
+  }
+ }
+}

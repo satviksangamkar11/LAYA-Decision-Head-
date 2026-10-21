@@ -1,0 +1,29 @@
+{
+ "backend": "wslc",
+ "verifier": "trusted_verify_v3 + trusted_native_v1",
+ "launcher_sha256": "afc6801acc7dffce4f6fce7d9456c0d86e4afa03e4eee421bf82064fcf19113a",
+ "utc": "2026-10-21T14:18:35Z",
+ "languages": {
+  "c": {
+   "state": "unavailable",
+   "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+  },
+  "cpp": {
+   "state": "unavailable",
+   "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+  },
+  "javascript": {
+   "state": "unavailable",
+   "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+  },
+  "go": {
+   "state": "unavailable",
+   "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+  },
+  "rust": {
+   "state": "unavailable",
+   "reason": "backend unavailable: SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+  }
+ },
+ "backend_error": "SandboxUnavailable: MXC WSLC unavailable: a real WSLC container run failed: {\"ok\": false, \"id\": \"probe\", \"error\": {\"code\": \"backend_error\", \"message\": \"WslcListSessionImages failed: HRESULT 0x80070057\", \"details\": {\"ffiStatus\": 12}, \"nativeCode\": null}}"
+}

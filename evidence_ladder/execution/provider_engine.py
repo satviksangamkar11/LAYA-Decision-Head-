@@ -29,6 +29,7 @@ from evidence_ladder.common.interfaces import Artifact, CheckOutcome, TaskSpec
 from . import config as K
 from . import engine
 from . import toolchains as TC
+from . import trusted_native
 from .artifacts import ArtifactIntegrityError, ArtifactStore
 from .trusted_verify import TrustedVerifier, TrustedVerifyInfraError, VERSION as TRUSTED_VERSION
 from .backend import EXPERIMENT_CHECK, MAX_PAYLOAD_CHARS, PARSE_CHECK, PUBLIC_CHECK, SUPPORTED_EXPERIMENTS, SandboxExecutionBackend, _js
@@ -150,13 +151,17 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
             tc = TC.get(lang)
             if tc is None:
                 out[lang] = {"runnable": False, "status": "NOT_TESTED_NO_TOOLCHAIN", "reason": "language %r is not in the toolchain registry" % lang}; continue
-            if tc.runner is None:
+            native = tc.trusted_runner is not None and self.trusted_verifier is not None      # [MULTILANG] c / cpp / javascript / go / rust exist ONLY behind the trusted verifier
+            if tc.runner is None and not native:
                 out[lang] = {"runnable": False, "status": "NOT_TESTED_NO_RUNNER", "reason": "registered toolchain without an implemented runner / judge in this engine (see toolchains.py)"}; continue
             wd = self.scratch / "probe" / uuid.uuid4().hex
             wd.mkdir(parents=True)
             try:
                 version, why = None, None
-                for cmd in tc.probe:
+                pfiles, pcmds = (trusted_native.probe_plan(lang) if native else ({}, tc.probe))
+                for n, b in pfiles.items():
+                    (wd / n).write_bytes(b)
+                for cmd in pcmds:
                     try:
                         r = self.sandbox.run(str(wd.resolve()), cmd, persist=False, timeout=60)
                     except (UnsupportedCommand, UnsupportedPolicy) as e:
@@ -165,7 +170,8 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
                         if isinstance(e, KeyboardInterrupt): raise
                         raise ProviderEngineError("toolchain probe for %r failed in backend %r: %s: %s" % (lang, self.backend_name, type(e).__name__, str(e)[:300])) from e
                     if r["killed"] or r["exit_code"] != 0:
-                        why = "probe %r exited %s%s: %s" % (cmd, r["exit_code"], " (killed)" if r["killed"] else "", (str(r.get("stderr") or r.get("stdout") or "")[-200:]).strip()); break
+                        code = r["exit_code"] if r["exit_code"] >= -1 else "%s (0x%08X)" % (r["exit_code"], r["exit_code"] & 0xFFFFFFFF)      # [MULTILANG] Windows NTSTATUS codes are unreadable as negative decimals
+                        why = "probe %r exited %s%s: %s" % (cmd, code, " (killed)" if r["killed"] else "", (str(r.get("stderr") or r.get("stdout") or "")[-200:]).strip()); break
                     if version is None:
                         version = next((l.strip() for l in (str(r.get("stdout", "")) + "\n" + str(r.get("stderr", ""))).splitlines() if l.strip()), "")
                 out[lang] = ({"runnable": False, "status": TC.not_tested_status(lang), "reason": why} if why else {"runnable": True, "status": "RUNNABLE", "reason": "", "version": version})
@@ -193,6 +199,8 @@ class ProviderExecutionBackend(SandboxExecutionBackend):
     def _engine_run(self, language: str, raw: bytes, inputs: List[Any]) -> engine.RunResult:
         tc, cap = TC.get(language), self.toolchains.get(language)
         runnable = tc is not None and tc.runner is not None and ((cap or {}).get("runnable") or (language == "python" and cap is None))      # python needs no probe record; everything else must have passed the probe
+        if not runnable and tc is not None and tc.trusted_runner is not None and self.trusted_verifier is not None and (cap or {}).get("runnable"):
+            runnable = True                      # [MULTILANG] native languages: only through the trusted verifier and only after the probe passed inside this backend
         if not runnable:
             raise JavaNotRunnable("language %r cannot run on backend %r: %s" % (language, self.backend_name, (cap or {}).get("reason") or java_capability(self.backend_name)["reason"]))
         if self.trusted_verifier is not None:

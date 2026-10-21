@@ -1,0 +1,519 @@
+{
+ "backend": "bare",
+ "verifier": "trusted_verify_v3 + trusted_native_v1",
+ "launcher_sha256": "afc6801acc7dffce4f6fce7d9456c0d86e4afa03e4eee421bf82064fcf19113a",
+ "utc": "2026-10-21T14:19:41Z",
+ "languages": {
+  "c": {
+   "state": "failing",
+   "version": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 0.15
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.12
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.13
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.11
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 2.1,
+     "seconds": 2.1
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "compile_error",
+     "seconds": 0.01
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 0.12
+    },
+    "socket_denied": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "listener_connections": 1,
+     "observed": [
+      "\"ALLOWED\\n\""
+     ],
+     "seconds": 0.1
+    },
+    "host_paths_unreadable": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "observed": [
+      "\"READABLE\\n\""
+     ],
+     "seconds": 0.11
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.1
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "invalid_output",
+     "capture_limit": 6000,
+     "seconds": 0.1
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 0.13
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.1
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 0.02
+    }
+   }
+  },
+  "cpp": {
+   "state": "failing",
+   "version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 0.16
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.13
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.13
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.11
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 2.1,
+     "seconds": 2.11
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "compile_error",
+     "seconds": 0.01
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 0.13
+    },
+    "socket_denied": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "listener_connections": 1,
+     "observed": [
+      "\"ALLOWED\\n\""
+     ],
+     "seconds": 0.11
+    },
+    "host_paths_unreadable": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "observed": [
+      "\"READABLE\\n\""
+     ],
+     "seconds": 0.12
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.11
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "invalid_output",
+     "capture_limit": 6000,
+     "seconds": 0.11
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 0.14
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.11
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 0.02
+    }
+   }
+  },
+  "javascript": {
+   "state": "failing",
+   "version": "v26.3.0",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 0.11
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.09
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.08
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.03
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 2.0,
+     "seconds": 2.01
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.03
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 0.08
+    },
+    "socket_denied": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "listener_connections": 1,
+     "observed": [
+      "\"ALLOWED\\n\""
+     ],
+     "seconds": 0.03
+    },
+    "host_paths_unreadable": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "observed": [
+      "\"READABLE\\n\""
+     ],
+     "seconds": 0.03
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.03
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "invalid_output",
+     "capture_limit": 6000,
+     "seconds": 0.03
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 0.07
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.03
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 0.06
+    }
+   }
+  },
+  "go": {
+   "state": "failing",
+   "version": "go version go1.26.4 linux/amd64",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 0.28
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.18
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.18
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.15
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 3.7,
+     "seconds": 3.74
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "compile_error",
+     "seconds": 0.03
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 0.18
+    },
+    "socket_denied": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "listener_connections": 1,
+     "observed": [
+      "\"ALLOWED\\n\""
+     ],
+     "seconds": 0.21
+    },
+    "host_paths_unreadable": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "observed": [
+      "\"READABLE\\n\""
+     ],
+     "seconds": 0.16
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.14
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "invalid_output",
+     "capture_limit": 6000,
+     "seconds": 0.15
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 0.18
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.15
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 0.03
+    }
+   }
+  },
+  "rust": {
+   "state": "failing",
+   "version": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+   "checks": {
+    "honest_pass": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "seconds": 0.32
+    },
+    "wrong_answer_fails": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.25
+    },
+    "forged_frames_never_pass": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "seconds": 0.26
+    },
+    "claim_then_crash_never_passes": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "runtime_error",
+     "seconds": 0.23
+    },
+    "hang_is_killed": {
+     "ok": true,
+     "status": "timeout",
+     "failure_class": "timeout",
+     "wall_s": 2.2,
+     "seconds": 2.22
+    },
+    "compile_error_is_candidate_outcome": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "compile_error",
+     "seconds": 0.01
+    },
+    "fresh_process_per_input": {
+     "ok": true,
+     "status": "pass",
+     "failure_class": "",
+     "observed": [
+      "\"1\\n\"",
+      "\"1\\n\"",
+      "\"1\\n\""
+     ],
+     "seconds": 0.27
+    },
+    "socket_denied": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "listener_connections": 1,
+     "observed": [
+      "\"ALLOWED\\n\""
+     ],
+     "seconds": 0.23
+    },
+    "host_paths_unreadable": {
+     "ok": false,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "observed": [
+      "\"READABLE\\n\""
+     ],
+     "seconds": 0.23
+    },
+    "expected_never_staged": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "wrong_answer",
+     "spy_hits": [],
+     "seconds": 0.22
+    },
+    "large_output_never_silently_truncated": {
+     "ok": true,
+     "status": "fail",
+     "failure_class": "invalid_output",
+     "capture_limit": 6000,
+     "seconds": 0.22
+    },
+    "lcb_stdin_honest_pass": {
+     "ok": true,
+     "passed": 2,
+     "total": 2,
+     "seconds": 0.24
+    },
+    "lcb_stdin_wrong_fails": {
+     "ok": true,
+     "seconds": 0.21
+    },
+    "lcb_stdin_whitespace_rules": {
+     "ok": true,
+     "seconds": 0.02
+    }
+   }
+  }
+ },
+ "note": "NO ISOLATION (negative control)",
+ "capture_limit": 6000,
+ "listener_positive_control": true,
+ "spy_expected_hits": [],
+ "sandbox_calls": 193,
+ "all_runnable_ok": false
+}
