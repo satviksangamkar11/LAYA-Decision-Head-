@@ -1,0 +1,59 @@
+{
+ "protocol": "P5_PROTOCOL_v2",
+ "cohort": "lcb",
+ "tasks": [
+  "3748",
+  "abc391_b",
+  "abc391_a",
+  "abc393_b",
+  "abc398_c",
+  "3794",
+  "3763",
+  "abc394_c",
+  "abc390_c",
+  "abc400_c",
+  "abc400_d",
+  "abc400_a",
+  "abc399_c",
+  "3720",
+  "3768",
+  "arc191_a",
+  "3791"
+ ],
+ "arms": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "G": 6000,
+ "max_new": 4096,
+ "v1_cfg": {
+  "mode": "ladder",
+  "k": 4,
+  "l2": true,
+  "l2_n": 6,
+  "l2_version": 2,
+  "thinking": false,
+  "discriminate": true,
+  "critic": false,
+  "max_new_tokens": 4096,
+  "max_rounds": 2,
+  "mutant_limit": 8
+ },
+ "contracts": {
+  "registry": null,
+  "root": "/kaggle/working/bundle",
+  "parsers": [
+   "decl_v1"
+  ],
+  "n_derived": 6
+ },
+ "strategies": [
+  "lcb_generic_v1"
+ ],
+ "fake": false,
+ "exec": "kaggle",
+ "tool_sha256": "3d13555f401ba0ef65aa53a1c57efb42bbb5eeb07b2f67eeeb647bdeabb0ffe1",
+ "started_utc": "2026-10-20T21:50:08Z"
+}

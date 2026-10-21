@@ -1,0 +1,68 @@
+{"task": "3795", "arm": "A", "grade": "FAIL", "passed": 0, "total": 44, "first_fail": "wrong_answer"}
+{"task": "3795", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "3795", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3795", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "abc390_d", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "wrong_answer"}
+{"task": "abc390_d", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "abc390_d", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "abc390_d", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "abc392_d", "arm": "A", "grade": "FAIL", "passed": 0, "total": 42, "first_fail": "runtime_error"}
+{"task": "abc392_d", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "abc392_d", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "abc392_d", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "abc388_d", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "wrong_answer"}
+{"task": "abc388_d", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "abc388_d", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "abc388_d", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3751", "arm": "A", "grade": "FAIL", "passed": 0, "total": 42, "first_fail": "wrong_answer"}
+{"task": "3751", "arm": "B", "grade": "FAIL", "passed": 2, "total": 42, "first_fail": "wrong_answer"}
+{"task": "3751", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3751", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "abc398_b", "arm": "A", "grade": "FAIL", "passed": 0, "total": 44, "first_fail": "wrong_answer"}
+{"task": "abc398_b", "arm": "B", "grade": "FAIL", "passed": 4, "total": 44, "first_fail": "wrong_answer"}
+{"task": "abc398_b", "arm": "C", "grade": "FAIL", "passed": 4, "total": 44, "first_fail": "wrong_answer"}
+{"task": "abc398_b", "arm": "D", "grade": "FAIL", "passed": 4, "total": 44, "first_fail": "wrong_answer"}
+{"task": "abc394_d", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "wrong_answer"}
+{"task": "abc394_d", "arm": "B", "grade": "PASS", "passed": 43, "total": 43, "first_fail": null}
+{"task": "abc394_d", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "abc394_d", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3785", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "runtime_error"}
+{"task": "3785", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "3785", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3785", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3779", "arm": "A", "grade": "FAIL", "passed": 0, "total": 42, "first_fail": "runtime_error"}
+{"task": "3779", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "3779", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3779", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3759", "arm": "A", "grade": "FAIL", "passed": 0, "total": 42, "first_fail": "wrong_answer"}
+{"task": "3759", "arm": "B", "grade": "NO_ANSWER"}
+{"task": "3759", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3759", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3811", "arm": "A", "grade": "FAIL", "passed": 0, "total": 33, "first_fail": "wrong_answer"}
+{"task": "3811", "arm": "B", "grade": "PASS", "passed": 33, "total": 33, "first_fail": null}
+{"task": "3811", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3811", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3817", "arm": "A", "grade": "FAIL", "passed": 0, "total": 33, "first_fail": "wrong_answer"}
+{"task": "3817", "arm": "B", "grade": "PASS", "passed": 33, "total": 33, "first_fail": null}
+{"task": "3817", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3817", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "abc387_b", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "wrong_answer"}
+{"task": "abc387_b", "arm": "B", "grade": "PASS", "passed": 43, "total": 43, "first_fail": null}
+{"task": "abc387_b", "arm": "C", "grade": "PASS", "passed": 43, "total": 43, "first_fail": null}
+{"task": "abc387_b", "arm": "D", "grade": "PASS", "passed": 43, "total": 43, "first_fail": null}
+{"task": "3776", "arm": "A", "grade": "FAIL", "passed": 0, "total": 42, "first_fail": "wrong_answer"}
+{"task": "3776", "arm": "B", "grade": "FAIL", "passed": 3, "total": 42, "first_fail": "wrong_answer"}
+{"task": "3776", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3776", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3731", "arm": "A", "grade": "FAIL", "passed": 0, "total": 33, "first_fail": "wrong_answer"}
+{"task": "3731", "arm": "B", "grade": "PASS", "passed": 33, "total": 33, "first_fail": null}
+{"task": "3731", "arm": "C", "grade": "PASS", "passed": 33, "total": 33, "first_fail": null}
+{"task": "3731", "arm": "D", "grade": "PASS", "passed": 33, "total": 33, "first_fail": null}
+{"task": "3760", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "runtime_error"}
+{"task": "3760", "arm": "B", "grade": "FAIL", "passed": 5, "total": 43, "first_fail": "timeout"}
+{"task": "3760", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3760", "arm": "D", "grade": "NO_ANSWER"}
+{"task": "3809", "arm": "A", "grade": "FAIL", "passed": 0, "total": 43, "first_fail": "wrong_answer"}
+{"task": "3809", "arm": "B", "grade": "PASS", "passed": 43, "total": 43, "first_fail": null}
+{"task": "3809", "arm": "C", "grade": "NO_ANSWER"}
+{"task": "3809", "arm": "D", "grade": "NO_ANSWER"}
