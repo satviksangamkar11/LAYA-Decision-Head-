@@ -1,0 +1,179 @@
+{
+ "note": "bounded post-hoc audit of B's saved P5 candidates on tasks B did not solve; hidden grades describe saved candidates only; not a benchmark",
+ "contract": {
+  "B_grades": {
+   "FAIL": 2,
+   "NO_ANSWER": 2,
+   "PASS": 16
+  },
+  "not_solved_by_class": {
+   "FAIL/generation_failure": [
+    "C13"
+   ],
+   "FAIL/selection_headroom": [
+    "C05"
+   ],
+   "NO_ANSWER/generation_failure": [
+    "C19",
+    "C20"
+   ]
+  },
+  "unsaved_generated_total": 15,
+  "unsaved_extract_ok_total": 13,
+  "unsaved_on_tasks_B_answered_wrong": 0,
+  "per_task": [
+   {
+    "task": "C01",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C02",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C03",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C04",
+    "B_grade": "PASS",
+    "saved": 5,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C05",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 2,
+    "hidden_correct_public_pass": 2,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C06",
+    "B_grade": "PASS",
+    "saved": 8,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C07",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C08",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C09",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C10",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C11",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C12",
+    "B_grade": "PASS",
+    "saved": 8,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C13",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "C14",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C15",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C16",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C17",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C18",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "C19",
+    "B_grade": "NO_ANSWER",
+    "saved": 14,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "C20",
+    "B_grade": "NO_ANSWER",
+    "saved": 27,
+    "unsaved_generated": 14,
+    "unsaved_extract_ok": 13,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   }
+  ]
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "lcb": {
+  "B_grades": {
+   "FAIL": 20,
+   "NO_ANSWER": 38,
+   "PASS": 27
+  },
+  "not_solved_by_class": {
+   "FAIL/generation_failure": [
+    "3751",
+    "abc398_b",
+    "3776",
+    "3760",
+    "3677",
+    "3743",
+    "3773",
+    "abc389_d",
+    "arc192_a",
+    "abc393_a",
+    "abc392_a",
+    "arc195_a",
+    "3771",
+    "abc390_c",
+    "abc400_a",
+    "abc388_c",
+    "3709",
+    "abc395_c",
+    "3788"
+   ],
+   "FAIL/selection_headroom": [
+    "abc391_a"
+   ],
+   "NO_ANSWER/generation_failure": [
+    "3795",
+    "abc390_d",
+    "abc392_d",
+    "abc388_d",
+    "3785",
+    "3779",
+    "3759",
+    "abc397_c",
+    "abc396_c",
+    "abc387_c",
+    "abc397_b",
+    "3705",
+    "abc398_a",
+    "abc399_d",
+    "abc395_b",
+    "3832",
+    "3805",
+    "3708",
+    "abc391_d",
+    "3714",
+    "3748",
+    "abc398_c",
+    "3794",
+    "3763",
+    "abc400_c",
+    "abc400_d",
+    "abc399_c",
+    "3720",
+    "arc191_a",
+    "3791",
+    "3737",
+    "abc392_c",
+    "3799",
+    "3786",
+    "3764",
+    "3736",
+    "3721",
+    "arc194_a"
+   ]
+  },
+  "unsaved_generated_total": 89,
+  "unsaved_extract_ok_total": 49,
+  "unsaved_on_tasks_B_answered_wrong": 0
+ },
+ "contract": {
+  "B_grades": {
+   "None": 0
+  },
+  "not_solved_by_class": {
+   "None/generation_failure": [
+    "C13",
+    "C19",
+    "C20"
+   ],
+   "None/selection_headroom": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18"
+   ]
+  },
+  "unsaved_generated_total": 15,
+  "unsaved_extract_ok_total": 13,
+  "unsaved_on_tasks_B_answered_wrong": 0
+ }
+}

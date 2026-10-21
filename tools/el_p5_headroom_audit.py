@@ -5,7 +5,9 @@ EVERY saved B candidate (P2CANDIDATES, public-passing or not) and classify the t
   generation_failure   no saved candidate passes hidden grading
 Also counts generated samples that were never saved as candidates (early stop; their source was not logged, so they cannot be graded).
 Hidden grades only describe saved candidates; nothing feeds back into any runtime. Reuses the P5 grading set-up of tools/el_p5_diagnostics.py.
-Writes <out>/AUDIT.json (create-only; task ids and counts only, no hidden cases). Usage: PYTHONPATH=. python tools/el_p5_headroom_audit.py <new out dir>"""
+Writes <out>/AUDIT.json (create-only; task ids and counts only, no hidden cases).
+Usage: PYTHONPATH=. python tools/el_p5_headroom_audit.py <new out dir> [lcb,contract]
+(v1 run: its contract half read no grade file and is INVALID; contract re-run = results/raw/p5-headroom-audit-v2-contract)"""
 import hashlib
 import json
 import sys
@@ -56,7 +58,7 @@ def audit(cohort, shards, ids):
     grade, cand, gen_seeds = {}, defaultdict(list), defaultdict(dict)
     for s in shards:
         d = FIN / ("p5_" + s)
-        for r in rows(d / "GRADED.jsonl"):
+        for r in rows(d / "GRADED.jsonl") or rows(d / "GRADED_primary.jsonl"):     # contract cohort: primary = blind v3 set
             if r["arm"] == "B":
                 grade[r["task"]] = r["grade"]
         for r in rows(d / "P2CANDIDATES.jsonl"):
@@ -87,8 +89,11 @@ def audit(cohort, shards, ids):
             "per_task": per}
 
 
-rep = {"note": "bounded post-hoc audit of B's saved P5 candidates on tasks B did not solve; hidden grades describe saved candidates only; not a benchmark",
-       "lcb": audit("lcb", ["final_lcb_%d" % k for k in range(1, 6)], LOCK["lcb_ids"]),
-       "contract": audit("contract", ["final_contract"], LOCK["contract_ids"])}
+WHICH = sys.argv[2].split(",") if len(sys.argv) > 2 else ["lcb", "contract"]
+rep = {"note": "bounded post-hoc audit of B's saved P5 candidates on tasks B did not solve; hidden grades describe saved candidates only; not a benchmark"}
+if "lcb" in WHICH:
+    rep["lcb"] = audit("lcb", ["final_lcb_%d" % k for k in range(1, 6)], LOCK["lcb_ids"])
+if "contract" in WHICH:
+    rep["contract"] = audit("contract", ["final_contract"], LOCK["contract_ids"])
 (OUT / "AUDIT.json").write_text(json.dumps(rep, indent=1), encoding="utf-8")
 print(json.dumps({k: {kk: vv for kk, vv in v.items() if kk != "per_task"} for k, v in rep.items() if k != "note"}, indent=1))

@@ -1,0 +1,1086 @@
+{
+ "note": "bounded post-hoc audit of B's saved P5 candidates on tasks B did not solve; hidden grades describe saved candidates only; not a benchmark",
+ "lcb": {
+  "B_grades": {
+   "FAIL": 20,
+   "NO_ANSWER": 38,
+   "PASS": 27
+  },
+  "not_solved_by_class": {
+   "FAIL/generation_failure": [
+    "3751",
+    "abc398_b",
+    "3776",
+    "3760",
+    "3677",
+    "3743",
+    "3773",
+    "abc389_d",
+    "arc192_a",
+    "abc393_a",
+    "abc392_a",
+    "arc195_a",
+    "3771",
+    "abc390_c",
+    "abc400_a",
+    "abc388_c",
+    "3709",
+    "abc395_c",
+    "3788"
+   ],
+   "FAIL/selection_headroom": [
+    "abc391_a"
+   ],
+   "NO_ANSWER/generation_failure": [
+    "3795",
+    "abc390_d",
+    "abc392_d",
+    "abc388_d",
+    "3785",
+    "3779",
+    "3759",
+    "abc397_c",
+    "abc396_c",
+    "abc387_c",
+    "abc397_b",
+    "3705",
+    "abc398_a",
+    "abc399_d",
+    "abc395_b",
+    "3832",
+    "3805",
+    "3708",
+    "abc391_d",
+    "3714",
+    "3748",
+    "abc398_c",
+    "3794",
+    "3763",
+    "abc400_c",
+    "abc400_d",
+    "abc399_c",
+    "3720",
+    "arc191_a",
+    "3791",
+    "3737",
+    "abc392_c",
+    "3799",
+    "3786",
+    "3764",
+    "3736",
+    "3721",
+    "arc194_a"
+   ]
+  },
+  "unsaved_generated_total": 89,
+  "unsaved_extract_ok_total": 49,
+  "unsaved_on_tasks_B_answered_wrong": 0,
+  "per_task": [
+   {
+    "task": "3795",
+    "B_grade": "NO_ANSWER",
+    "saved": 44,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc390_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 50,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc392_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 32,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc388_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 45,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3751",
+    "B_grade": "FAIL",
+    "saved": 25,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc398_b",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc394_d",
+    "B_grade": "PASS",
+    "saved": 5,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3785",
+    "B_grade": "NO_ANSWER",
+    "saved": 12,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3779",
+    "B_grade": "NO_ANSWER",
+    "saved": 30,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3759",
+    "B_grade": "NO_ANSWER",
+    "saved": 29,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3811",
+    "B_grade": "PASS",
+    "saved": 9,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 1
+   },
+   {
+    "task": "3817",
+    "B_grade": "PASS",
+    "saved": 45,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc387_b",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3776",
+    "B_grade": "FAIL",
+    "saved": 13,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3731",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3760",
+    "B_grade": "FAIL",
+    "saved": 10,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3809",
+    "B_grade": "PASS",
+    "saved": 12,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc397_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 38,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3677",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3778",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3743",
+    "B_grade": "FAIL",
+    "saved": 9,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc396_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 35,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3773",
+    "B_grade": "FAIL",
+    "saved": 26,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc396_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc387_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 49,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc397_b",
+    "B_grade": "NO_ANSWER",
+    "saved": 45,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3704",
+    "B_grade": "PASS",
+    "saved": 34,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3705",
+    "B_grade": "NO_ANSWER",
+    "saved": 42,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc400_b",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc398_a",
+    "B_grade": "NO_ANSWER",
+    "saved": 48,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc399_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 25,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc399_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc395_b",
+    "B_grade": "NO_ANSWER",
+    "saved": 58,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 1,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc389_d",
+    "B_grade": "FAIL",
+    "saved": 24,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3832",
+    "B_grade": "NO_ANSWER",
+    "saved": 47,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 1,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "arc192_a",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc393_a",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc392_a",
+    "B_grade": "FAIL",
+    "saved": 6,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3805",
+    "B_grade": "NO_ANSWER",
+    "saved": 43,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3708",
+    "B_grade": "NO_ANSWER",
+    "saved": 38,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc399_b",
+    "B_grade": "PASS",
+    "saved": 18,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 1
+   },
+   {
+    "task": "abc387_a",
+    "B_grade": "PASS",
+    "saved": 10,
+    "unsaved_generated": 3,
+    "unsaved_extract_ok": 3
+   },
+   {
+    "task": "arc195_a",
+    "B_grade": "FAIL",
+    "saved": 11,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc391_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 24,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3771",
+    "B_grade": "FAIL",
+    "saved": 22,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3714",
+    "B_grade": "NO_ANSWER",
+    "saved": 49,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc390_b",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc390_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc397_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc389_b",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc392_b",
+    "B_grade": "PASS",
+    "saved": 7,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3748",
+    "B_grade": "NO_ANSWER",
+    "saved": 35,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc391_b",
+    "B_grade": "PASS",
+    "saved": 21,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc391_a",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 2,
+    "hidden_correct_public_pass": 2,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "abc393_b",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc398_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 48,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3794",
+    "B_grade": "NO_ANSWER",
+    "saved": 48,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 1,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3763",
+    "B_grade": "NO_ANSWER",
+    "saved": 27,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc394_c",
+    "B_grade": "PASS",
+    "saved": 5,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "abc390_c",
+    "B_grade": "FAIL",
+    "saved": 17,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc400_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 55,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc400_d",
+    "B_grade": "NO_ANSWER",
+    "saved": 18,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc400_a",
+    "B_grade": "FAIL",
+    "saved": 6,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc399_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 27,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3720",
+    "B_grade": "NO_ANSWER",
+    "saved": 20,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3768",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "arc191_a",
+    "B_grade": "NO_ANSWER",
+    "saved": 38,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3791",
+    "B_grade": "NO_ANSWER",
+    "saved": 28,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3737",
+    "B_grade": "NO_ANSWER",
+    "saved": 35,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc392_c",
+    "B_grade": "NO_ANSWER",
+    "saved": 45,
+    "unsaved_generated": 2,
+    "unsaved_extract_ok": 1,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3799",
+    "B_grade": "NO_ANSWER",
+    "saved": 44,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3723",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3786",
+    "B_grade": "NO_ANSWER",
+    "saved": 30,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc396_b",
+    "B_grade": "PASS",
+    "saved": 15,
+    "unsaved_generated": 3,
+    "unsaved_extract_ok": 3
+   },
+   {
+    "task": "abc388_c",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3709",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3764",
+    "B_grade": "NO_ANSWER",
+    "saved": 27,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3736",
+    "B_grade": "NO_ANSWER",
+    "saved": 39,
+    "unsaved_generated": 38,
+    "unsaved_extract_ok": 37,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc395_c",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "3721",
+    "B_grade": "NO_ANSWER",
+    "saved": 29,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc395_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "3788",
+    "B_grade": "FAIL",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc388_b",
+    "B_grade": "PASS",
+    "saved": 11,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   },
+   {
+    "task": "arc194_a",
+    "B_grade": "NO_ANSWER",
+    "saved": 45,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "abc394_a",
+    "B_grade": "PASS",
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0
+   }
+  ]
+ },
+ "contract": {
+  "B_grades": {
+   "None": 0
+  },
+  "not_solved_by_class": {
+   "None/generation_failure": [
+    "C13",
+    "C19",
+    "C20"
+   ],
+   "None/selection_headroom": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18"
+   ]
+  },
+  "unsaved_generated_total": 15,
+  "unsaved_extract_ok_total": 13,
+  "unsaved_on_tasks_B_answered_wrong": 0,
+  "per_task": [
+   {
+    "task": "C01",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C02",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C03",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 3,
+    "hidden_correct_public_pass": 3,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C04",
+    "B_grade": null,
+    "saved": 5,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C05",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 2,
+    "hidden_correct_public_pass": 2,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C06",
+    "B_grade": null,
+    "saved": 8,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C07",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 4,
+    "hidden_correct_public_pass": 4,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C08",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 2,
+    "hidden_correct_public_pass": 2,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C09",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 4,
+    "hidden_correct_public_pass": 4,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C10",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 2,
+    "hidden_correct_public_pass": 2,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C11",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C12",
+    "B_grade": null,
+    "saved": 8,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C13",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "C14",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 3,
+    "hidden_correct_public_pass": 3,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C15",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C16",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 4,
+    "hidden_correct_public_pass": 4,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C17",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 1,
+    "hidden_correct_public_pass": 1,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C18",
+    "B_grade": null,
+    "saved": 4,
+    "unsaved_generated": 0,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 3,
+    "hidden_correct_public_pass": 3,
+    "class": "selection_headroom"
+   },
+   {
+    "task": "C19",
+    "B_grade": null,
+    "saved": 14,
+    "unsaved_generated": 1,
+    "unsaved_extract_ok": 0,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   },
+   {
+    "task": "C20",
+    "B_grade": null,
+    "saved": 27,
+    "unsaved_generated": 14,
+    "unsaved_extract_ok": 13,
+    "hidden_correct_saved": 0,
+    "hidden_correct_public_pass": 0,
+    "class": "generation_failure"
+   }
+  ]
+ }
+}
