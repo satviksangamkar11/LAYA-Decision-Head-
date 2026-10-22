@@ -80,7 +80,7 @@ def main():
                 if a["task"] not in cache:
                     with gzip.open(v1 / ("tests_%s.json.gz" % a["task"].replace("/", "_")), "rt", encoding="utf-8") as g:
                         cache[a["task"]] = json.load(g)
-                tests, passed, ff, to = cache[a["task"]], 0, None, 0
+                tests, passed, ff, to, ie = cache[a["task"]], 0, None, 0, 0
                 if plan.get("time_limit_s") and time.time() - T0 > plan["time_limit_s"]:      # P7 option; P6 plans have none
                     shutil.rmtree(work, ignore_errors=True); finish("TIME_LIMIT", graded_rows=sum(1 for _ in open(out)))
                 for t in tests:         # ALL tests (P6); P7 candidate plans may set stop_at_first_fail (pass/fail only, 'passed' is then a lower bound)
@@ -88,16 +88,17 @@ def main():
                         break
                     try:
                         o = runner.run_case(a["source"], {"input": t["input"], "output": t["output"], "testtype": "stdin"}, None)["status"]
-                    except Exception:       # noqa: BLE001
-                        o = "runtime_error"
-                    passed += o == "pass"; to += o == "timeout"
+                    except Exception as e:       # noqa: BLE001   hardening 2026-10-22: a grader/sandbox exception is an INFRASTRUCTURE error, never a candidate runtime_error
+                        o = "infra_error"
+                        RS.setdefault("infra_errors", []).append({"task": a["task"], "arm": a["arm"], "error": repr(e)[:200]})
+                    passed += o == "pass"; to += o == "timeout"; ie += o == "infra_error"
                     if o != "pass" and ff is None:
                         ff = o
-                row.update(grade="PASS" if tests and passed == len(tests) else "FAIL", passed=passed, total=len(tests), first_fail=ff, timeouts=to)
+                row.update(grade="INFRA_ERROR" if ie else "PASS" if tests and passed == len(tests) else "FAIL", passed=passed, total=len(tests), first_fail=ff, timeouts=to, infra_errors=ie)
             f.write(json.dumps(row) + "\n"); f.flush()
             log(row["task"], row["arm"], row["grade"], row["passed"], "/", row["total"])
     shutil.rmtree(work, ignore_errors=True)
-    finish("OK", graded=len(answers))
+    finish("INFRA_ERRORS" if RS.get("infra_errors") else "OK", graded=len(answers))
 
 
 if __name__ == "__main__":

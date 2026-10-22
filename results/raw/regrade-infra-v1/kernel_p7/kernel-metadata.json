@@ -1,0 +1,20 @@
+{
+ "id": "sangeetasangamkar/el-regrade-p7-v1",
+ "title": "el-regrade-p7-v1",
+ "code_file": "el_p6_cf_grade_v1.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": false,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "dataset_sources": [
+  "sangeetasangamkar/el-ml-bundle-v1",
+  "sangeetasangamkar/el-regrade-p7-v1"
+ ],
+ "kernel_sources": [
+  "sangeetasangamkar/el-p6-cf-tests-v1"
+ ],
+ "competition_sources": [],
+ "model_sources": []
+}
