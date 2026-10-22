@@ -81,7 +81,11 @@ def main():
                     with gzip.open(v1 / ("tests_%s.json.gz" % a["task"].replace("/", "_")), "rt", encoding="utf-8") as g:
                         cache[a["task"]] = json.load(g)
                 tests, passed, ff, to = cache[a["task"]], 0, None, 0
-                for t in tests:         # ALL tests, no early stop
+                if plan.get("time_limit_s") and time.time() - T0 > plan["time_limit_s"]:      # P7 option; P6 plans have none
+                    shutil.rmtree(work, ignore_errors=True); finish("TIME_LIMIT", graded_rows=sum(1 for _ in open(out)))
+                for t in tests:         # ALL tests (P6); P7 candidate plans may set stop_at_first_fail (pass/fail only, 'passed' is then a lower bound)
+                    if ff is not None and plan.get("stop_at_first_fail"):
+                        break
                     try:
                         o = runner.run_case(a["source"], {"input": t["input"], "output": t["output"], "testtype": "stdin"}, None)["status"]
                     except Exception:       # noqa: BLE001
