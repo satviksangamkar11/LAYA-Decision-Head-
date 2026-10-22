@@ -1,0 +1,24 @@
+# [P7] Headroom and power rules, written 2026-10-22 BEFORE any P7 generation run. Never edited after results; a change is a new versioned file with a reason.
+# Source of the power table: tools/el_p7_stage1.py -> results/raw/p7-stage1-v1/STAGE1.json (normal approximation, paired task-level, alpha 0.05 two-sided, power 0.80).
+
+[band]
+# A (model, task band, budget) is usable for an intervention experiment only if ALL hold on its development pilot:
+baseline_solve_rate_min = 0.20        # B arm (multi-sample, first public pass), strict correctness
+baseline_solve_rate_max = 0.70
+replicates = 2                        # two independent B runs (different seed bases) on every pilot task = A/A test
+min_unstable_or_near_tasks_frac = 0.15  # tasks solved in exactly one replicate, or unsolved with a public-passing sample, / pilot tasks
+
+[power]
+target_delta = 0.15                   # smallest paired gain (solved-task fraction) the confirmation must be able to detect
+# loss_rate for sizing = half the A/A discordance (tasks solved in exactly one of the two baseline replicates / pilot tasks); 0.03 floor
+loss_rate_floor = 0.03
+# required sealed tasks = ceil((1.96 + 0.8416)^2 * (2*l + delta - delta^2) / delta^2)  with g = delta + l
+# if required sealed tasks > available sealed tasks: STOP and ask (no underpowered confirmation run)
+
+[grading]
+codeforces_strict = "generated tests PASS AND statement examples PASS"
+confirmation_requires = "official or human-solution-validated tests; statement examples mandatory"
+
+[stop]
+no_band = "if no (model, band) passes [band] after the 1.5B and 7B pilots: stop P7 and report"
+no_dev_gain = "if the intervention shows no point gain over fresh resampling at equal tokens on development: do not run confirmation"

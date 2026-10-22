@@ -1,0 +1,276 @@
+{
+ "cf": {
+  "duplicate_rate": 0.0,
+  "extract_fail_rate": 0.0,
+  "first_fail_all_samples": {
+   "runtime_error": 647,
+   "timeout": 226,
+   "wrong_answer": 997
+  },
+  "first_strict_sample_pos": [
+   1,
+   2,
+   4,
+   4,
+   5,
+   6,
+   8,
+   39
+  ],
+  "first_strict_tokens": [
+   50,
+   422,
+   514,
+   541,
+   893,
+   952,
+   1622,
+   6329
+  ],
+  "marginal_value_of_more_samples": {
+   "extra_solves_if_budget_doubled_upper95": 2.9166757130170304,
+   "per_sample_rate_upper95": 0.001621507484010798,
+   "samples_on_unsolved": 1846,
+   "unsolved_tasks": 64
+  },
+  "missing": {},
+  "near_miss_unsolved": [
+   [
+    7,
+    "2050/B"
+   ],
+   [
+    4,
+    "2062/B"
+   ],
+   [
+    4,
+    "2033/B"
+   ],
+   [
+    4,
+    "2030/C"
+   ],
+   [
+    4,
+    "2029/B"
+   ],
+   [
+    2,
+    "2031/B"
+   ],
+   [
+    1,
+    "2042/B"
+   ],
+   [
+    1,
+    "2027/B"
+   ],
+   [
+    1,
+    "2021/B"
+   ],
+   [
+    0,
+    "2067/B"
+   ]
+  ],
+  "runtime_error_distinct_programs": 647,
+  "runtime_error_static_flags": {
+   "crash_on_first_test": 645,
+   "public_pass_then_crash": 0,
+   "reads_sys_stdin": 510,
+   "recursive": 31,
+   "syntax_error": 4,
+   "top_level_call": 174,
+   "uses_input": 579
+  },
+  "samples": 1915,
+  "solved_strict": 8,
+  "tasks": 72,
+  "tasks_with_public_pass": 15,
+  "tokens": 396546
+ },
+ "contract": {
+  "duplicate_rate": 0.0,
+  "extract_fail_rate": 0.0,
+  "first_fail_all_samples": {
+   "compile_error": 1,
+   "runtime_error": 24,
+   "wrong_answer": 45
+  },
+  "first_strict_sample_pos": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   4,
+   4,
+   6,
+   7,
+   14
+  ],
+  "first_strict_tokens": [
+   62,
+   88,
+   110,
+   113,
+   142,
+   147,
+   155,
+   224,
+   281,
+   319,
+   520,
+   656,
+   1029,
+   1259,
+   1298,
+   4840
+  ],
+  "marginal_value_of_more_samples": {
+   "extra_solves_if_budget_doubled_upper95": 1.5704365123383819,
+   "per_sample_rate_upper95": 0.07580765168296455,
+   "samples_on_unsolved": 38,
+   "unsolved_tasks": 4
+  },
+  "missing": {},
+  "near_miss_unsolved": [
+   [
+    49,
+    "D15"
+   ],
+   [
+    41,
+    "D08"
+   ],
+   [
+    24,
+    "D18"
+   ],
+   [
+    23,
+    "D10"
+   ]
+  ],
+  "runtime_error_distinct_programs": 24,
+  "runtime_error_static_flags": {
+   "crash_on_first_test": 20,
+   "public_pass_then_crash": 1,
+   "recursive": 3,
+   "top_level_call": 12
+  },
+  "samples": 86,
+  "solved_strict": 16,
+  "tasks": 20,
+  "tasks_with_public_pass": 19,
+  "tokens": 20685
+ },
+ "note": "development diagnostic over saved P6 logs; CPU only; nothing generated or executed",
+ "power_table": [
+  {
+   "delta": 0.05,
+   "gain_rate": 0.05,
+   "loss_rate": 0.0,
+   "tasks_needed": 150
+  },
+  {
+   "delta": 0.05,
+   "gain_rate": 0.08,
+   "loss_rate": 0.03,
+   "tasks_needed": 338
+  },
+  {
+   "delta": 0.05,
+   "gain_rate": 0.1,
+   "loss_rate": 0.05,
+   "tasks_needed": 464
+  },
+  {
+   "delta": 0.05,
+   "gain_rate": 0.15,
+   "loss_rate": 0.1,
+   "tasks_needed": 778
+  },
+  {
+   "delta": 0.1,
+   "gain_rate": 0.1,
+   "loss_rate": 0.0,
+   "tasks_needed": 71
+  },
+  {
+   "delta": 0.1,
+   "gain_rate": 0.13,
+   "loss_rate": 0.03,
+   "tasks_needed": 118
+  },
+  {
+   "delta": 0.1,
+   "gain_rate": 0.15,
+   "loss_rate": 0.05,
+   "tasks_needed": 150
+  },
+  {
+   "delta": 0.1,
+   "gain_rate": 0.2,
+   "loss_rate": 0.1,
+   "tasks_needed": 228
+  },
+  {
+   "delta": 0.15,
+   "gain_rate": 0.15,
+   "loss_rate": 0.0,
+   "tasks_needed": 45
+  },
+  {
+   "delta": 0.15,
+   "gain_rate": 0.18,
+   "loss_rate": 0.03,
+   "tasks_needed": 66
+  },
+  {
+   "delta": 0.15,
+   "gain_rate": 0.2,
+   "loss_rate": 0.05,
+   "tasks_needed": 80
+  },
+  {
+   "delta": 0.15,
+   "gain_rate": 0.25,
+   "loss_rate": 0.1,
+   "tasks_needed": 115
+  },
+  {
+   "delta": 0.2,
+   "gain_rate": 0.2,
+   "loss_rate": 0.0,
+   "tasks_needed": 32
+  },
+  {
+   "delta": 0.2,
+   "gain_rate": 0.23,
+   "loss_rate": 0.03,
+   "tasks_needed": 44
+  },
+  {
+   "delta": 0.2,
+   "gain_rate": 0.25,
+   "loss_rate": 0.05,
+   "tasks_needed": 52
+  },
+  {
+   "delta": 0.2,
+   "gain_rate": 0.3,
+   "loss_rate": 0.1,
+   "tasks_needed": 71
+  }
+ ]
+}
